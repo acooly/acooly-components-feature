@@ -109,12 +109,39 @@ acooly.olog.collector.actionNameMapping.customerUpdate=修改客户
 # 是否记录请求参数
 acooly.olog.collector.saveParameter=true
 
-# 是否启动本地存储归档功能
-acooly.olog.storage.enable=true
+# 归档到指定目录，默认在WEB-INF/logs/archive/Olog_yyyyMMdd.log
+# 支持归档后自动压缩归档文件
+# 支持归档后清除已归档的数据
+# 支持设置归档的数据范围，使用设定N天前的数据可以归档
+# 支持数据每次抓取的大小（服务器内存占用更下，可控）
+# 支持指定归档文件的前缀和文件的编码
 
-#
+# 是否启动本地存储归档功能
 acooly.olog.storage.archive.enable=true
-acooly.olog.storage.archive.
+
+# 归档调度corn表达式
+acooly.olog.storage.archive.cron=0 1 0 1 * ?
+
+#存储根目录,可选使用JVM系统变量和物理路径. 默认存在在webapp下的/WEB-INF/logs/archive目录
+acooly.olog.storage.archive.path=/media/data/olog/
+
+#按天设定每次归档的数据量（多少天前的数据需要归档）
+acooly.olog.storage.archive.beforeDays=0
+
+#抓取数据批量大小：为防止OR-MAPPING一次抓取过的数据到服务器内存，采用分页多次抓取，该参数为每次抓取的行数
+acooly.olog.storage.archive.batchSize=1000
+
+#归档完成后是否清除已归档的数据
+acooly.olog.storage.archive.cleanup=true
+
+#归档文件前缀,组件会在后面自动加上："_yyyyMMdd.log"
+acooly.olog.storage.archive.fileNamePrefix=olog_archive
+
+#归档文件的编码
+acooly.olog.storage.archive.fileEncoding=UTF-8
+
+#归档文件是否需要压缩（如果压缩后，则替换原来的文本文件）
+acooly.olog.storage.archive.fileCompress=true
 
 ```
 
