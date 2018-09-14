@@ -14,18 +14,14 @@
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-web</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-security</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-dubbo</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>eu.bitwalker</groupId>

@@ -13,18 +13,6 @@
     <packaging>pom</packaging>
 
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.acooly</groupId>
-                <artifactId>acooly-component-olog</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-
-    </dependencyManagement>
-
-
     <dependencies>
         <dependency>
             <groupId>com.acooly</groupId>

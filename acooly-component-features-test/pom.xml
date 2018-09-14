@@ -19,6 +19,7 @@
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-olog</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
