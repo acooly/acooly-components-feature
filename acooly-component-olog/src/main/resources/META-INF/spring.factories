@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.acooly.module.olog.config.OLogAutoConfig
+com.acooly.core.common.boot.component.ComponentInitializer=\
+com.acooly.module.olog.config.OLogComponentInitializer
