@@ -49,6 +49,7 @@
     <modules>
         <module>acooly-component-features-test</module>
         <module>acooly-component-olog</module>
+		<module>acooly-component-chat</module>
 
     </modules>
 </project>

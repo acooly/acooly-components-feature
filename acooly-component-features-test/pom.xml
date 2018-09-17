@@ -16,9 +16,15 @@
 
     <dependencies>
 
-        <dependency>
+<!--         <dependency> -->
+<!--             <groupId>com.acooly</groupId> -->
+<!--             <artifactId>acooly-component-olog</artifactId> -->
+<!--             <version>${project.version}</version> -->
+<!--         </dependency> -->
+        
+         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-olog</artifactId>
+            <artifactId>acooly-component-chat</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -32,6 +38,21 @@
             <artifactId>acooly-coder</artifactId>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+    
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
 
+	<build>
+		<finalName>acooly-component</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.acooly</groupId>
+		<artifactId>acooly-component-features</artifactId>
+		<version>4.2.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>acooly-component-chat</artifactId>
+	<name>acooly-component-chat</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+
+		<!-- 基础组件依赖 -->
+		<dependency>
+			<groupId>com.acooly</groupId>
+			<artifactId>acooly-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.acooly</groupId>
+			<artifactId>acooly-component-ds</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.acooly</groupId>
+			<artifactId>acooly-component-mybatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.acooly</groupId>
+			<artifactId>acooly-component-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.acooly</groupId>
+			<artifactId>acooly-component-security</artifactId>
+		</dependency>
+
+	</dependencies>
+</project>

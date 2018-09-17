@@ -7,4 +7,6 @@ Acooly应用组件库
 
 ## 组件列表
 
-* acooly-component-olog
+* acooly-component-olog [日志组件]
+* acooly-component-chat [聊天组件]-[IM组件]
+
