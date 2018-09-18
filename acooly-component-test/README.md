@@ -11,6 +11,16 @@
 
 ## 2. 使用说明
 
+maven坐标：
+
+     <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-test</artifactId>
+        <version>${acooly-latest-version}</version>
+      </dependency>
+
+`${acooly-latest-version}`为框架最新版本或者购买的版本。
+
 ### 2.1 单元测试
 
 单元测试继承`AppTestBase`或者`AppWebTestBase`,`archtype`生成的测试module中有`TestBase`对象，应用开发者集成即可。

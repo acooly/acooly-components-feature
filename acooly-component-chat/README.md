@@ -1,7 +1,7 @@
-acooly-component-chat(IM聊天组件)
-====
-
-## 简介
+<!-- title: im组件  -->
+<!-- type: app -->
+<!-- author: cuifuqiang -->
+## 1. 组件介绍
 
 acooly-component-chat以acooly框架为基础,封装极光IM聊天组件；
 
@@ -14,7 +14,18 @@ acooly-component-chat以acooly框架为基础,封装极光IM聊天组件；
 	 * <li>发送方式: 单聊、群聊
 
 
-##配置说明
+## 2. 使用说明
+
+maven坐标：
+
+     <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-chat</artifactId>
+        <version>${acooly-latest-version}</version>
+      </dependency>
+
+`${acooly-latest-version}`为框架最新版本或者购买的版本。
+
 组件开关<br/>
 acooly.im.chat.enable=true
 

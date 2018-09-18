@@ -9,6 +9,16 @@
 
 ## 2. 使用说明
 
+maven坐标：
+
+     <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-certification</artifactId>
+        <version>${acooly-latest-version}</version>
+      </dependency>
+
+`${acooly-latest-version}`为框架最新版本或者购买的版本。
+
 ### 2.1 服务类
 
 `com.acooly.module.certification.CertificationService`

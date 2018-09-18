@@ -8,6 +8,16 @@
 
 ## 2. 使用说明
 
+maven坐标：
+
+     <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-captcha</artifactId>
+        <version>${acooly-latest-version}</version>
+      </dependency>
+
+`${acooly-latest-version}`为框架最新版本或者购买的版本。
+
 ### 2.1 配置
 
 此组件依赖cache,相关redis配置

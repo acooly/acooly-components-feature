@@ -10,6 +10,16 @@
 
 ## 2. 使用
 
+maven坐标：
+
+     <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-config</artifactId>
+        <version>${acooly-latest-version}</version>
+      </dependency>
+
+`${acooly-latest-version}`为框架最新版本或者购买的版本。
+
 ### 2.1 读取配置
 
     com.acooly.module.config.Configs#getXXX  

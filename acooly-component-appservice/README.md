@@ -82,24 +82,17 @@
 	ConstraintViolationExceptionHandler
 	ThrowableExceptionHandler
 
-## 2. 配置
+## 2. 使用说明
 
-1) 增加组件依赖
+maven坐标：
 
-    <dependency>
+     <dependency>
         <groupId>com.acooly</groupId>
         <artifactId>acooly-component-appservice</artifactId>
-    </dependency>
+        <version>${acooly-latest-version}</version>
+      </dependency>
 
-2) 配置组件参数    
-
-必配参数: 
-
-|参数名|参数描述|是否通用配置|
-|:---:|:------|:-----|
-|acooly.appservice.appServiceScanPackage| @AppService注解所在的包|否|
-
-如果需要在多个包使用可以使用`,`分隔
+`${acooly-latest-version}`为框架最新版本或者购买的版本。
 
 ## 3. FAQ
 

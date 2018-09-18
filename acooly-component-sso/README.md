@@ -9,6 +9,16 @@
 
 ## 2. 使用说明
 
+maven坐标：
+
+     <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-sso</artifactId>
+        <version>${acooly-latest-version}</version>
+      </dependency>
+
+`${acooly-latest-version}`为框架最新版本或者购买的版本。
+
 配置组件参数,如下：
 
    * `acooly.sso.ssoServerUrl=http://boss.acooly.com:8070/manage/login.html` 必填，登录服务端地址，url为全路径，ssoServer为主boss系统，统一管理认证权限，可只添加security组件单独启动

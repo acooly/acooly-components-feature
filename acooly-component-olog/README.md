@@ -1,7 +1,8 @@
-acooly审计日志组件
-====
+<!-- title: 审计日志组件  -->
+<!-- type: app -->
+<!-- author: kule,qiubo -->
 
-## 组件介绍
+## 1. 组件介绍
 
 此组件提供后台管理系统审计日志收集，展示功能.
 
@@ -14,22 +15,20 @@ acooly审计日志组件
 2. storage
 
     负责日志存储、展示、归档等能力。
-    
-## 坐标
 
+## 2. 使用说明
 
-```xml
-	<dependency>
-		<groupId>com.acooly</groupId>
-		<artifactId>acooly-component-olog</artifactId>
-		<version>${acooly.version}</version>
-	</dependency>
-```
+maven坐标：
 
->acooly.version最新和推荐版本为：4.2.0-SNAPSHOT       
+     <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-olog</artifactId>
+        <version>${acooly-latest-version}</version>
+      </dependency>
+
+`${acooly-latest-version}`为框架最新版本或者购买的版本。
     
-    
-## 组件设计
+### 2.1 组件设计
 
 olog组件主要定位为后端BOSS操作的审计日志特性，分为收集和归档两部分功能。
 
@@ -41,9 +40,9 @@ olog组件主要定位为后端BOSS操作的审计日志特性，分为收集和
 * 设计归档根据配置时间段，数据量归档到制定目录并压缩打包，清理已归档的数据。
 
     
-## 特性介绍
+### 2.2 特性介绍
 
-### 日志收集（collector）
+#### 2.2.1 日志收集（collector）
 
    * 实现记录的日志数据项：模块及功能，功能操作，时间，操作员，参数，执行时间，客户端信息(IP,操作系统，浏览器),结果，备注等。
    * 通过配置拦截切面自动拦截类及方法执行（默认配置为拦截Controller），实现收集操作日志。
@@ -52,7 +51,7 @@ olog组件主要定位为后端BOSS操作的审计日志特性，分为收集和
    * 操作名称映射：默认使用MAP静态配置文件配置映射(如：list访问映射为分页查询，save方法因素为新增，update方法因素为更新)，可以解决80%的操作名称映射。同时提供@OlogAction和@OlogModule两个Annotation用于直接指定模块操作名称。
    * 支持两种方式收集和整合日志模块。分别为AOP拦截模式和springMVC拦截器模式
    
-### 日志归档（storage）
+#### 2.2.2 日志归档（storage）
    
    * 归档到指定目录，默认在WEB-INF/logs/archive/Olog_yyyyMMdd.log
    * 支持归档后自动压缩归档文件
@@ -61,13 +60,13 @@ olog组件主要定位为后端BOSS操作的审计日志特性，分为收集和
    * 支持数据每次抓取的大小（服务器内存占用更下，可控）
    * 支持指定归档文件的前缀和文件的编码    
 
-## 集成使用
+### 2.3 集成使用
 
-### 单机集成部署
+#### 2.3.1 单机集成部署
 
 如果你的单服务应用，请直接依赖坐标到你的POM文件即可，会根据默认配置，收集所有后端的操作日志和数据。
 
-### sso应用部署
+#### 2.3.2 sso应用部署
 
 当启用sso boss应用场景时，需要把各个子系统的审计日志发送到boss系统。
 
@@ -77,18 +76,18 @@ olog组件主要定位为后端BOSS操作的审计日志特性，分为收集和
 
 如果启用了`acooly.security.enableSSOAuthzService=true`，可以不配置此值。
 
-### 日志元数据配置
+#### 2.3.3 日志元数据配置
 
 1. 通过在Controller类上标注`@OlogModule`配置模块名称,也可通过`acooly.olog.collector.moduleNameMapping`
 2. 通过在Controller类或者方法上标注`@Olog.Ignore`忽略日志收集
 3. 通过在Controller方法上标注`@OlogAction`配置操作名称，也可以通过配置`acooly.olog.collector.actionNameMapping`
 
-### 管理入口
+#### 2.3.4 管理入口
 
 组件集成后，首次启动会初始化数据结构和权限（系统管路员），你可以在"系统管理" -> "操作日志"找到功能并直接访问。
 功能地址：/manage/component/olog/olog/index.html
 
-## 组件配置
+### 2.4 组件配置
 
 
 ```ini

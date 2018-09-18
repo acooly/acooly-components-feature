@@ -15,13 +15,24 @@
 2. 锁是阻塞锁，同一时间只有一台机器的一个线程可以拿到锁
 3. 保证在一个线程拿到锁后，突然宕机情况不会出现死锁现象
 
+## 2. 使用说明
 
-## 2. 什么情况下需要分布式锁
+maven坐标：
+
+     <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-distributedlock</artifactId>
+        <version>${acooly-latest-version}</version>
+      </dependency>
+
+`${acooly-latest-version}`为框架最新版本或者购买的版本。
+
+### 2.1 什么情况下需要分布式锁
 
 1. 举个栗子，手机用户可以在手机App端、网上营业厅、wap手厅进行流量业务的操作，如果发现该用户没有流量账户的时候，会首先给该用户创建一个专门的流量账户，如果用户在app端、网上营业厅端同时操作的时候，可能会给该用户创建2个账户;
 2. 再举一个栗子，一个公共集团账户，下面包含很多账户，给下面账户充值的时候，会对该集团账本进行资金扣减，高并发多请求的时候会到导致并发失败，这时候为了减少失败率，我们目前的业务场景常用的是数据库排它锁(行锁select..for update)，分布式锁在此类场景同样适用.
 
-## 3. 配置说明
+### 2.2 配置说明
 
 redis
 
@@ -36,7 +47,7 @@ zookeeper
 * `acooly.distributedlock.zookeeper.connectionTimeoutMs=10000` 可选参数，zk connection timeout ，单位ms，默认10000ms
 * `acooly.distributedlock.zookeeper.sleepMsBetweenRetries=1000` 可选参数，zk连接异常时，重试时间间隔,单位ms，默认1000ms
 
-## 4. 使用方法
+### 2.3 使用方法
 
 ```
     @Autowired
@@ -97,6 +108,6 @@ zookeeper
 
 ```
 
-### 5. 测试用例
+### 2.4 测试用例
  
  `com.acooly.core.test.distributedlock.RedisdtLockTest`

@@ -14,3 +14,14 @@
 * appMessageList 推送消息列表
 * appLatestVersion 最新版本
 * appCrashReport 崩溃上报
+
+## 2. 使用说明
+maven坐标：
+
+     <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-app</artifactId>
+        <version>${acooly-latest-version}</version>
+      </dependency>
+
+`${acooly-latest-version}`为框架最新版本或者购买的版本。
