@@ -57,6 +57,7 @@
         <module>acooly-component-rocketmq</module>
         <module>acooly-component-safety</module>
         <module>acooly-component-seq</module>
+        <module>acooly-component-sso</module>
 
     </modules>
 </project>
