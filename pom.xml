@@ -49,6 +49,7 @@
         <module>acooly-component-sms</module>
         <module>acooly-component-mail</module>
         <module>acooly-component-captcha</module>
+        <module>acooly-component-config</module>
 
     </modules>
 </project>
