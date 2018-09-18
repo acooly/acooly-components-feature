@@ -59,6 +59,7 @@
         <module>acooly-component-seq</module>
         <module>acooly-component-sso</module>
         <module>acooly-component-test</module>
+        <module>acooly-component-cms</module>
 
     </modules>
 </project>
