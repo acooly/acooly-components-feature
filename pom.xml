@@ -52,6 +52,7 @@
         <module>acooly-component-config</module>
         <module>acooly-component-distributedlock</module>
         <module>acooly-component-certification</module>
+        <module>acooly-component-eav</module>
 
     </modules>
 </project>
