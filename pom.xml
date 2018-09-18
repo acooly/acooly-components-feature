@@ -60,6 +60,7 @@
         <module>acooly-component-sso</module>
         <module>acooly-component-test</module>
         <module>acooly-component-cms</module>
+        <module>acooly-component-app</module>
 
     </modules>
 </project>
