@@ -47,6 +47,7 @@
         <module>acooly-component-scheduler</module>
         <module>acooly-component-appservice</module>
         <module>acooly-component-sms</module>
+        <module>acooly-component-mail</module>
 
     </modules>
 </project>

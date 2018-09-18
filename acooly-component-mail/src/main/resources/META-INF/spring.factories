@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.acooly.module.mail.MailAutoConfig
+com.acooly.core.common.boot.component.ComponentInitializer=\
+com.acooly.module.mail.MailComponentInitializer
