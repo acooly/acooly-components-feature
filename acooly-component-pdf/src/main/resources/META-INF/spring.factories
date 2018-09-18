@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.acooly.module.pdf.PdfAutoConfig
+com.acooly.core.common.boot.component.ComponentInitializer=\
+com.acooly.module.pdf.PdfComponentInitializer
