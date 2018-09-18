@@ -7,9 +7,8 @@
         <artifactId>acooly-app-parent</artifactId>
         <version>4.2.0-SNAPSHOT</version>
     </parent>
-    <artifactId>acooly-component-features</artifactId>
-
-    <name>acooly-component-features libs Projects</name>
+    <artifactId>acooly-components-feature-parent</artifactId>
+    <name>acooly-components-feature-parent libs Projects</name>
     <packaging>pom</packaging>
 
 
@@ -24,11 +23,6 @@
             <artifactId>acooly-configuration-processor</artifactId>
             <version>${project.version}</version>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-core-docs</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>
