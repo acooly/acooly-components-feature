@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.acooly.module.test.TestAutoConfig
+com.acooly.module.test.meta.AutoConfigureDubbo=\
+com.acooly.module.dubbo.DubboAutoConfig

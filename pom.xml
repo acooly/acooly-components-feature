@@ -58,6 +58,7 @@
         <module>acooly-component-safety</module>
         <module>acooly-component-seq</module>
         <module>acooly-component-sso</module>
+        <module>acooly-component-test</module>
 
     </modules>
 </project>
