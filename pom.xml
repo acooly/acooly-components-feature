@@ -56,6 +56,7 @@
         <module>acooly-component-pdf</module>
         <module>acooly-component-rocketmq</module>
         <module>acooly-component-safety</module>
+        <module>acooly-component-seq</module>
 
     </modules>
 </project>
