@@ -51,6 +51,7 @@
         <module>acooly-component-captcha</module>
         <module>acooly-component-config</module>
         <module>acooly-component-distributedlock</module>
+        <module>acooly-component-certification</module>
 
     </modules>
 </project>
