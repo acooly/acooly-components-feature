@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.acooly.module.safety.SafetyAutoConfig
+com.acooly.core.common.boot.component.ComponentInitializer=\
+com.acooly.module.safety.SafetyComponentInitializer
