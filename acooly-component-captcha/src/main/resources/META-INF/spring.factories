@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.acooly.module.captcha.CaptchaAutoConfig
+com.acooly.core.common.boot.component.ComponentInitializer=\
+com.acooly.module.captcha.CaptchaComponentInitializer

@@ -48,6 +48,7 @@
         <module>acooly-component-appservice</module>
         <module>acooly-component-sms</module>
         <module>acooly-component-mail</module>
+        <module>acooly-component-captcha</module>
 
     </modules>
 </project>
