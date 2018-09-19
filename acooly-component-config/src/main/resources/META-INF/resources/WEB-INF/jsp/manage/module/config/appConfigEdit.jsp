@@ -7,7 +7,7 @@
         <table class="tableForm" width="100%">
 			<tr>
 				<th>配置项名称：</th>
-				<td><textarea rows="3" cols="40" placeholder="请输入配置项名称..." style="width:300px;" name="configName" class="easyui-validatebox" data-options="validType:['length[1,255]'],required:true"></textarea></td>
+				<td><textarea rows="3" cols="40" placeholder="请输入配置项名称..." style="width:300px;" name="configName" class="easyui-validatebox" data-options="validType:['length[1,128]'],required:true"></textarea></td>
 			</tr>					
 			<tr>
 				<th>配置值：</th>

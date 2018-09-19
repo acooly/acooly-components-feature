@@ -36,7 +36,7 @@ public class AppConfig extends AbstractEntity {
      * 配置项名称
      */
     @NotEmpty
-    @Size(max = 255)
+    @Size(max = 128)
     private String configName;
 
     /**
