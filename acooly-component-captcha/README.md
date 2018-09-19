@@ -36,15 +36,15 @@ maven坐标：
 
 ### 2.2 接口使用
 
-```
- @Autowired private CaptchaService captchaService;
 
-  public void getCaptcha() {
-    Captcha captcha = captchaService.getCaptcha();
-    captchaService.validateCaptcha(captcha.getId(), (String) captcha.getValue());
-  }
+     @Autowired private CaptchaService captchaService;
+    
+      public void getCaptcha() {
+        Captcha captcha = captchaService.getCaptcha();
+        captchaService.validateCaptcha(captcha.getId(), (String) captcha.getValue());
+      }
 
-```
+
 详见 `com.acooly.module.captcha.CaptchaService`
 
 ### 2.3 测试用例

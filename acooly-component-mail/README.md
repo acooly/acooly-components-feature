@@ -25,7 +25,7 @@ maven坐标：
 
 ### 2.2 如何使用邮件模板
 
-1. 新增邮件模板
+#### 2.2.1. 新增邮件模板
 
     邮件模板为`freemarker`模板
 
@@ -45,7 +45,7 @@ maven坐标：
             </html>
 
 
-2. 使用邮件模板
+#### 2.2.2. 使用邮件模板
 
     	MailDto dto = new MailDto();
     	dto.to("qiuboboy@qq.com").subject("恭喜您注册成功").param("name", "x").param("message", "how are you!")

@@ -16,6 +16,7 @@
 * appCrashReport 崩溃上报
 
 ## 2. 使用说明
+
 maven坐标：
 
      <dependency>

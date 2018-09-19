@@ -21,7 +21,7 @@ maven坐标：
 
 ### 2.1 服务类
 
-`com.acooly.module.certification.CertificationService`
+    com.acooly.module.certification.CertificationService
     
 
 ### 2.2 配置
@@ -46,16 +46,14 @@ maven坐标：
 
 
 ### 2.3 接口使用
-```
-             @Autowired private CertificationService certificationService;
-            
-             public void four(String realName, String cardNo, String certId, String phoneNum) {
-                BankCardResult result =
-                    certificationService.bankCardCertFour(realName, cardNo, certId, phoneNum);
-                log.info("银行卡四要素验证结果:{}", result.toString());
-              }
 
-```
+    @Autowired private CertificationService certificationService;
+            
+    public void four(String realName, String cardNo, String certId, String phoneNum) {
+        BankCardResult result =certificationService.bankCardCertFour(realName, cardNo, certId, phoneNum);
+        log.info("银行卡四要素验证结果:{}", result.toString());
+    }
+
 
             
               

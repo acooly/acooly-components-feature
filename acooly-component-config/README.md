@@ -26,8 +26,8 @@ maven坐标：
        
 ### 2.2 运行时增加配置
 
-        @Autowired
-       private AppConfigManager configManager;
+    @Autowired
+    private AppConfigManager configManager;
        
-       AppConfig config=new AppConfig();
-       configManager.create(config);
+    AppConfig config=new AppConfig();
+    configManager.create(config);
