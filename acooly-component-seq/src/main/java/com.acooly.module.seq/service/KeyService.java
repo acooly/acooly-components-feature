@@ -32,7 +32,7 @@ public class KeyService {
         this.keyName = keyName;
         maxId = new AtomicLong(0);
         nextId = new AtomicLong(0);
-        Assert.isTrue(incrementBy > 1);
+        Assert.isTrue(incrementBy > 0);
     }
 
     /**
