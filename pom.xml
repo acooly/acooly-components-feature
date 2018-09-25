@@ -62,6 +62,8 @@
         <module>acooly-component-cms</module>
         <module>acooly-component-app</module>
         <module>acooly-component-portlet</module>
+        <module>acooly-core-test</module>
+
 
     </modules>
 </project>
