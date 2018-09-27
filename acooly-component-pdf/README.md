@@ -3,11 +3,15 @@
 <!-- author: shuijing -->
 ## 1. 组件介绍
 
-此组件提供html转换pdf能力
+此组件提供html or docx转换pdf能力 原有PDFService  扩展为-》 PdfGeneratorService
 
-转换流程为：
+html转换流程为：
 
-* dataVO + freemarker模板 -> iTextRender -> 输出pdf
+* dataVO + freemarker模板 -> iTextRender -> 输出pdf （特点：需按指定html格式开发ftl模版，所有样式表必须在html当页）
+
+docx转换流程为:
+
+* dataVO + word模板->freemaker引擎 + xdocreport ->输出pdf （特点：需按指定语法对word模版进行开发）
 
 ## 2. 使用说明
 
@@ -39,10 +43,14 @@ maven坐标：
 
            font-family: Source Han Serif SC;
            
+* `acooly.pdf.templateType=docx` 
+    扩展升级了templateType属性，如使用PdfGeneratorService默认使用docx模版，同时也支持html模版，原有PDFService依然可用，为兼容性升级，推荐使用PdfGeneratorService
+       
 **以上资源需要放在项目assemble -> resources下,请勿放在其他包下面，否则会导致在linux环境下资源找不到情况**
 
 ### 2.2 接口使用
 
+* html
 
              @Autowired
              private PDFService pdfService;
@@ -90,3 +98,15 @@ maven坐标：
 
 接口见：`PDFService`
 详细demo请参考`PdfGeneratorTest`、`PdfServletTest`
+
+* docx
+    
+                 @Autowired
+                 private PdfGeneratorService pdfGeneratorService;
+                     
+                 pdfGeneratorService.generate("test.docx", map, os);
+
+    word模版上需插入指定邮件合并域，可参考pdf/templates/test.docx， 参考链接：https://www.jianshu.com/p/4fe00aa02ea2  
+    特别注意生成表格时注意的地方是在表格第一列前后各有一个标记，他们分别是  
+    @before-row[#list agreement.holders as h]  
+    @after-row[/#list]

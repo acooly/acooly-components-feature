@@ -1,28 +1,14 @@
-package com.acooly.module.pdf;
+package com.acooly.module.pdf.support;
 
-import com.acooly.core.common.boot.Apps;
-import com.acooly.core.common.exception.AppConfigException;
-import com.acooly.core.utils.FreeMarkers;
 import com.acooly.module.pdf.exception.DocumentGeneratingException;
 import com.acooly.module.pdf.factory.ITextRendererObjectFactory;
-import com.acooly.module.pdf.vo.DocumentVo;
-import com.google.common.base.Charsets;
-import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
-import com.google.common.io.Resources;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.pdf.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.pool2.impl.GenericObjectPool;
-import org.springframework.core.io.Resource;
 import org.springframework.util.StringUtils;
-import org.w3c.dom.Document;
-import org.xhtmlrenderer.pdf.ITextRenderer;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.io.*;
 import java.util.HashMap;
@@ -30,211 +16,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * pdf 生成器
- *
- * 根据Freemarker模版直接生成pdf并填充数据，推荐使用PdfGeneratorService为入口
- *
- * @author shuijing
+ * @author xiyang@acooly.cn
+ * @date 2018-09-26 17:55
  */
 @Slf4j
-public class PDFService {
-
-    private PdfProperties pdfProperties;
+public class WatermarkUtil {
 
     //缓存 baseFont
-    private Map baseFontMap = new HashMap(4);
-    private Map<String, String> pdfTemplates = Maps.newConcurrentMap();
-
-    public PDFService(PdfProperties pdfProperties) {
-        this.pdfProperties = pdfProperties;
-    }
-
-    /**
-     * 生成pdf
-     *
-     * @param templateName   模板名(带后缀)
-     * @param documentVo     数据对象
-     * @param outputFilePath 文件
-     * @throws DocumentGeneratingException
-     * @throws FileNotFoundException
-     */
-    public void generate(String templateName, DocumentVo documentVo, String outputFilePath)
-            throws DocumentGeneratingException, FileNotFoundException {
-        File outputFile = new File(outputFilePath);
-        this.generate(templateName, documentVo, outputFile);
-    }
-
-    /**
-     * 生成pdf
-     *
-     * @param templateName 模板名(带后缀)
-     * @param documentVo   数据对象
-     * @param outputFile   输出流
-     * @throws DocumentGeneratingException
-     * @throws FileNotFoundException
-     */
-    public void generate(String templateName, DocumentVo documentVo, File outputFile)
-            throws DocumentGeneratingException, FileNotFoundException {
-        generate(templateName, documentVo, new FileOutputStream(outputFile));
-    }
-
-    /**
-     * 生成pdf
-     *
-     * @param templateName           模板名(带后缀)
-     * @param documentVo             数据对象
-     * @param outputFileOutputStream 输出流
-     * @throws DocumentGeneratingException
-     */
-    public void generate(
-            String templateName, DocumentVo documentVo, FileOutputStream outputFileOutputStream)
-            throws DocumentGeneratingException {
-        try {
-            Map<String, Object> dataMap = documentVo.getDataMap();
-            String htmlContent = this.parseTemplate(templateName, dataMap);
-            this.generate(htmlContent, outputFileOutputStream);
-        } catch (Exception e) {
-            String error = "pdf文档生成失败!";
-            log.error(error);
-            throw new DocumentGeneratingException(error, e);
-        } finally {
-            if (outputFileOutputStream != null) {
-                try {
-                    outputFileOutputStream.close();
-                } catch (IOException e) {
-                    //ig
-                }
-            }
-        }
-    }
-
-    /**
-     * 生成pdf
-     *
-     * @param templateName 模板名(带后缀)
-     * @param params       模板参数
-     * @param outputFile   输出文件
-     * @throws DocumentGeneratingException
-     */
-    public void generate(String templateName, Map<String, Object> params, File outputFile)
-            throws DocumentGeneratingException {
-        OutputStream os = null;
-        try {
-            os = new FileOutputStream(outputFile);
-            String htmlContent = this.parseTemplate(templateName, params);
-            this.generate(htmlContent, os);
-        } catch (Exception e) {
-            String error = "pdf文档生成失败!";
-            log.error(error);
-            throw new DocumentGeneratingException(error, e);
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    //ig
-                }
-            }
-        }
-    }
-
-    /**
-     * 生成pdf
-     *
-     * @param templateName 模板名(带后缀)
-     * @param params       模板参数
-     * @param outputStream 输出流
-     * @throws DocumentGeneratingException
-     */
-    public void generate(String templateName, Map<String, Object> params, OutputStream outputStream)
-            throws DocumentGeneratingException {
-        try {
-            String htmlContent = this.parseTemplate(templateName, params);
-            this.generate(htmlContent, outputStream);
-        } catch (Exception e) {
-            String error = "pdf文档生成失败!";
-            log.error(error);
-            throw new DocumentGeneratingException(error, e);
-        } finally {
-            if (outputStream != null) {
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    //ig
-                }
-            }
-        }
-    }
-
-    /**
-     * 生成pdf
-     *
-     * @param htmlContent html文本
-     * @param outputFile  输出文件
-     * @throws DocumentGeneratingException
-     * @throws FileNotFoundException
-     */
-    public void generate(String htmlContent, File outputFile)
-            throws DocumentGeneratingException, FileNotFoundException {
-        OutputStream os = null;
-        try {
-            if (outputFile != null && !outputFile.getParentFile().exists()) {
-                outputFile.getParentFile().mkdir();
-            }
-            os = new FileOutputStream(outputFile);
-            this.generate(htmlContent, os);
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    //ig
-                }
-            }
-        }
-    }
-
-    /**
-     * 生成pdf
-     *
-     * @param htmlContent  html文本
-     * @param outputStream 输出流
-     * @throws DocumentGeneratingException
-     */
-    public void generate(String htmlContent, OutputStream outputStream)
-            throws DocumentGeneratingException {
-        OutputStream out = outputStream;
-        ITextRenderer iTextRenderer = null;
-        GenericObjectPool<ITextRenderer> objectPool =
-                ITextRendererObjectFactory.getObjectPool(pdfProperties);
-        try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document doc = builder.parse(new ByteArrayInputStream(htmlContent.getBytes("UTF-8")));
-            //获取对象池中对象
-            iTextRenderer = objectPool.borrowObject();
-            try {
-                iTextRenderer.setDocument(doc, iTextRenderer.getSharedContext().getBaseURL());
-                iTextRenderer.layout();
-                iTextRenderer.createPDF(out);
-            } catch (Exception e) {
-                objectPool.invalidateObject(iTextRenderer);
-                iTextRenderer = null;
-                throw new DocumentGeneratingException(e);
-            }
-            out.flush();
-            log.info("pdf文档生成成功!");
-        } catch (Exception e) {
-            log.error("pdf文档生成失败!", e);
-        } finally {
-            if (iTextRenderer != null) {
-                try {
-                    objectPool.returnObject(iTextRenderer);
-                } catch (Exception ex) {
-                    log.error("ITextRenderer对象池回收对象失败.", ex);
-                }
-            }
-        }
-    }
+    private static Map baseFontMap = new HashMap(4);
 
     /**
      * pdf加水印
@@ -244,8 +33,8 @@ public class PDFService {
      * @throws IOException
      * @throws DocumentException
      */
-    public void addWatermark(String src, String markStr) throws IOException, DocumentException {
-        this.addWatermark(new File(src), null, null, null, null, null, null, null, null, markStr);
+    public static void addWatermark(String src, String markStr) throws IOException, DocumentException {
+        addWatermark(new File(src), null, null, null, null, null, null, null, null, markStr);
     }
 
     /**
@@ -256,9 +45,9 @@ public class PDFService {
      * @throws IOException
      * @throws DocumentException
      */
-    public void addWatermark(File src, String watermarkImagePath)
+    public static void addWatermark(File src, String watermarkImagePath)
             throws IOException, DocumentException {
-        this.addWatermark(src, null, null, null, null, null, null, null, watermarkImagePath, null);
+        addWatermark(src, null, null, null, null, null, null, null, watermarkImagePath, null);
     }
 
     /**
@@ -269,9 +58,9 @@ public class PDFService {
      * @throws IOException
      * @throws DocumentException
      */
-    public void addWatermark(File src, File desc, String watermarkImagePath)
+    public static void addWatermark(File src, File desc, String watermarkImagePath)
             throws IOException, DocumentException {
-        this.addWatermark(
+        addWatermark(
                 src, desc, null, null, null, null, null, null, null, watermarkImagePath, null);
     }
 
@@ -284,9 +73,9 @@ public class PDFService {
      * @throws IOException
      * @throws DocumentException
      */
-    public void addWatermark(File src, File desc, String watermarkImagePath, List<Integer> pages)
+    public static void addWatermark(File src, File desc, String watermarkImagePath, List<Integer> pages)
             throws IOException, DocumentException {
-        this.addWatermark(
+        addWatermark(
                 src, desc, pages, null, null, null, null, null, null, watermarkImagePath, null);
     }
 
@@ -306,7 +95,7 @@ public class PDFService {
      * @throws IOException
      * @throws DocumentException
      */
-    public void addWatermark(
+    public static void addWatermark(
             File src,
             List<Integer> pages,
             Float x,
@@ -324,7 +113,7 @@ public class PDFService {
             File tmpFile = File.createTempFile("pdfWatermarkTmp", ".pdf");
             is = new FileInputStream(src);
             os = new FileOutputStream(tmpFile);
-            this.addWatermark(
+            addWatermark(
                     is,
                     os,
                     pages,
@@ -365,7 +154,7 @@ public class PDFService {
      * @throws IOException
      * @throws DocumentException
      */
-    public void addWatermark(
+    public static void addWatermark(
             File src,
             File dest,
             List<Integer> pages,
@@ -383,7 +172,7 @@ public class PDFService {
         try {
             os = new FileOutputStream(dest);
             is = new FileInputStream(src);
-            this.addWatermark(
+            addWatermark(
                     is,
                     os,
                     pages,
@@ -422,7 +211,7 @@ public class PDFService {
      * @throws IOException
      * @throws DocumentException
      */
-    public void addWatermark(
+    public static void addWatermark(
             InputStream inputStream,
             OutputStream outputStream,
             List<Integer> pages,
@@ -517,7 +306,7 @@ public class PDFService {
         }
     }
 
-    private BaseFont getBaseFontByCache(String fontName) throws IOException, DocumentException {
+    private static BaseFont getBaseFontByCache(String fontName) throws IOException, DocumentException {
         BaseFont baseFont = null;
         if (baseFontMap.containsKey(fontName)) {
             baseFont = (BaseFont) baseFontMap.get(fontName);
@@ -527,41 +316,5 @@ public class PDFService {
             baseFontMap.put(fontName, baseFont);
         }
         return baseFont;
-    }
-
-    /**
-     * 解析freeMarker模板
-     */
-    protected String parseTemplate(String tempateName, Map<String, Object> data) {
-        String template = getTemplatesString(tempateName);
-        return FreeMarkers.rendereString(template, data);
-    }
-
-    /**
-     * 缓存模板
-     *
-     * @param key 模板名
-     * @return 模板内容
-     */
-    private String getTemplatesString(String key) {
-        if (Apps.isDevMode()) {
-            pdfTemplates.clear();
-        }
-        String t = pdfTemplates.get(key);
-        if (Strings.isNullOrEmpty(t)) {
-            String ptp = pdfProperties.getTemplatePath() + key;
-            Resource resource = pdfProperties.getResourceLoader().getResource(ptp);
-            if (resource.exists()) {
-                try {
-                    t = Resources.toString(resource.getURL(), Charsets.UTF_8);
-                    pdfTemplates.put(key, t);
-                } catch (IOException e) {
-                    throw new AppConfigException("pdf模板不存在:" + ptp, e);
-                }
-            } else {
-                throw new AppConfigException("pdf模板不存在:" + ptp);
-            }
-        }
-        return t;
     }
 }
