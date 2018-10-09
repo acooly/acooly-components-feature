@@ -1,69 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.acooly</groupId>
-        <artifactId>acooly-app-parent</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>acooly-components-feature-parent</artifactId>
-    <name>acooly-components-feature-parent libs Projects</name>
-    <packaging>pom</packaging>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.acooly</groupId>
+		<artifactId>acooly-app-parent</artifactId>
+		<version>4.2.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>acooly-components-feature-parent</artifactId>
+	<name>acooly-components-feature-parent libs Projects</name>
+	<packaging>pom</packaging>
 
 
-    <dependencies>
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-configuration-processor</artifactId>
-            <version>${project.version}</version>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
-    <build>
-        <resources>
-            <resource>
-                <directory>.</directory>
-                <includes>
-                    <include>*.md</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-    </build>
+	<dependencies>
+		<dependency>
+			<groupId>com.acooly</groupId>
+			<artifactId>acooly-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.acooly</groupId>
+			<artifactId>acooly-configuration-processor</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+	<build>
+		<resources>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>*.md</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+	</build>
 
 
-    <modules>
-        <module>acooly-component-features-test</module>
-        <module>acooly-component-olog</module>
+	<modules>
+		<module>acooly-component-features-test</module>
+		<module>acooly-component-olog</module>
 		<module>acooly-component-chat</module>
-        <module>acooly-component-scheduler</module>
-        <module>acooly-component-appservice</module>
-        <module>acooly-component-sms</module>
-        <module>acooly-component-mail</module>
-        <module>acooly-component-captcha</module>
-        <module>acooly-component-config</module>
-        <module>acooly-component-distributedlock</module>
-        <module>acooly-component-certification</module>
-        <module>acooly-component-eav</module>
-        <module>acooly-component-pdf</module>
-        <module>acooly-component-rocketmq</module>
-        <module>acooly-component-safety</module>
-        <module>acooly-component-seq</module>
-        <module>acooly-component-sso</module>
-        <module>acooly-component-test</module>
-        <module>acooly-component-cms</module>
-        <module>acooly-component-app</module>
-        <module>acooly-component-portlet</module>
-        <module>acooly-core-test</module>
+		<module>acooly-component-chart</module>
+		<module>acooly-component-scheduler</module>
+		<module>acooly-component-appservice</module>
+		<module>acooly-component-sms</module>
+		<module>acooly-component-mail</module>
+		<module>acooly-component-captcha</module>
+		<module>acooly-component-config</module>
+		<module>acooly-component-distributedlock</module>
+		<module>acooly-component-certification</module>
+		<module>acooly-component-eav</module>
+		<module>acooly-component-pdf</module>
+		<module>acooly-component-rocketmq</module>
+		<module>acooly-component-safety</module>
+		<module>acooly-component-seq</module>
+		<module>acooly-component-sso</module>
+		<module>acooly-component-test</module>
+		<module>acooly-component-cms</module>
+		<module>acooly-component-app</module>
+		<module>acooly-component-portlet</module>
+		<module>acooly-core-test</module>
 
 
-    </modules>
+	</modules>
 </project>
