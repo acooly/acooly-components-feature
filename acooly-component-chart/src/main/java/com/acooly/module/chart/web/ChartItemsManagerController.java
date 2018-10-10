@@ -6,12 +6,21 @@
 */
 package com.acooly.module.chart.web;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.acooly.core.common.dao.support.PageInfo;
+import com.acooly.core.common.web.MappingMethod;
+import com.acooly.core.common.web.support.JsonResult;
+import com.acooly.core.utils.Dates;
+import com.acooly.core.utils.Servlets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.acooly.core.common.web.AbstractJQueryEntityController;
@@ -21,6 +30,7 @@ import com.acooly.module.chart.enums.TypeEnum;
 import com.acooly.module.chart.enums.StatusEnum;
 
 import com.google.common.collect.Maps;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 图表-图表选项 管理控制器
@@ -47,5 +57,80 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 		model.put("allTypes", TypeEnum.mapping());
 		model.put("allStatuss", StatusEnum.mapping());
 	}
+
+	@Override
+	@RequestMapping(value = "/create")
+	public String create(HttpServletRequest request, HttpServletResponse response, Model model) {
+		allow(request, response, MappingMethod.create);
+		try {
+			String chartId = Servlets.getParameter(request,"chartId");
+			model.addAllAttributes(referenceData(request));
+			onCreate(request, response, model);
+			model.addAttribute("action", ACTION_CREATE);
+			model.addAttribute("chartId", chartId);
+		} catch (Exception e) {
+			handleException("新建", e, request);
+		}
+		return getEditView();
+	}
+
+	@Override
+	protected ChartItems onSave(HttpServletRequest request, HttpServletResponse response, Model model, ChartItems entity, boolean isCreate)  {
+		if (isCreate){
+			entity.setOrderTime(new Date());
+		}
+		return entity;
+	}
+
+	@Override
+	protected PageInfo<ChartItems> doList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		Map<String, Boolean> sortMap = Maps.newLinkedHashMap();
+		sortMap.put("orderTime", Boolean.valueOf(false));
+		return this.getEntityService().query(this.getPageInfo(request), this.getSearchParams(request), sortMap);
+	}
+
+	@RequestMapping("moveUp")
+	@ResponseBody
+	public JsonResult moveUp(HttpServletRequest request, HttpServletResponse response) {
+		JsonResult result = new JsonResult();
+		try {
+			String id = Servlets.getParameter(request,"id");
+			ChartItems chartItems =  chartItemsService.get(Long.parseLong(id));
+			Long sortTime = chartItems.getOrderTime().getTime();
+			ChartItems flag = null;
+			Map<String, Boolean> sortMap = Maps.newLinkedHashMap();
+			sortMap.put("orderTime", Boolean.valueOf(false));
+			Map<String, Object> searchMap = Maps.newHashMap();
+			searchMap.put("GT_orderTime", new Date(sortTime));
+			searchMap.put("EQ_chartId",chartItems.getChartId());
+			List<ChartItems> list =  chartItemsService.query(searchMap,sortMap);
+			if (list!=null&&list.size()>0){
+				flag = list.get(list.size()-1);
+			}
+			if (flag!=null){
+				chartItems.setOrderTime(flag.getOrderTime());
+				flag.setOrderTime(new Date(sortTime));
+				chartItemsService.update(flag);
+			}else {
+				chartItems.setOrderTime(new Date());
+			}
+			chartItemsService.update(chartItems);
+			result.appendData("chartId",chartItems.getChartId());
+			result.setMessage("上移成功");
+
+		}catch (Exception e){
+			this.handleException(result, "上移", e);
+		}
+		return result;
+	}
+	@Override
+	protected List<ChartItems> doQuery(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		Map<String,Object> map = Maps.newHashMap();
+		map.put("EQ_chartId",request.getParameter("search_EQ_chartId"));
+		Map<String, Boolean> sortMap = Maps.newLinkedHashMap();
+		sortMap.put("orderTime", Boolean.valueOf(false));
+		return this.getEntityService().query(map, sortMap);
+	}
+
 
 }

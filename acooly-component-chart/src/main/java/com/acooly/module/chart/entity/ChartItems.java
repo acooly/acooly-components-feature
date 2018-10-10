@@ -54,7 +54,7 @@ public class ChartItems extends AbstractEntity {
 
 	/** 循环时间 */
 	@NotNull
-    private Long loopTime = 0l;
+    private Long loopTime = 0L;
 
 	/** x轴 */
 	@NotEmpty
@@ -67,11 +67,25 @@ public class ChartItems extends AbstractEntity {
     private String yShaft;
 
 	/** 排序 */
-	@NotNull
     private Date orderTime;
 
 	/** 备注 */
 	@Size(max=255)
     private String comments;
 
+	public String getxShaft() {
+		return xShaft;
+	}
+
+	public void setxShaft(String xShaft) {
+		this.xShaft = xShaft;
+	}
+
+	public String getyShaft() {
+		return yShaft;
+	}
+
+	public void setyShaft(String yShaft) {
+		this.yShaft = yShaft;
+	}
 }
