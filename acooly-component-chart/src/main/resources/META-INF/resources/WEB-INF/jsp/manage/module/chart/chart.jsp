@@ -15,7 +15,7 @@ function manage_chart_datagrid_onClickRow() {
 }
 
 function manage_chartInfo_selectTab(index) {
-    debugger
+    
     var row = $.acooly.framework.getSelectedRow("manage_chart_datagrid");
     if(!row) return;
     if (index == 0) {
@@ -54,14 +54,13 @@ function  moveUp(id) {
         url:'/manage/module/chart/chartItems/moveUp.html',
         data : {'id':id},
         success : function(result) {
-            debugger;
             if(!result.success)return;
             var  chartId = result.data.chartId;
             $.ajax({
                 url:'/manage/module/chart/chartItems/queryJson.html',
                 data : {'search_EQ_chartId':chartId},
                 success : function(result) {
-                    debugger;
+                    ;
                     if(!result.success)return;
                     $('#manage_chartItems_datagrid').datagrid('loadData',result);
                 }
@@ -69,6 +68,39 @@ function  moveUp(id) {
         }
     });
 }
+
+function manage_chartData_create(itemsId) {
+    $.acooly.framework.fireSelectRow('manage_chart_datagrid', function (row) {
+        $.ajax({
+            type: "POST",
+            url: "/manage/module/chart/chartData/checkSaveOrEdit.html",
+            data: {"itemsId":itemsId},
+            success: function(result){
+                if (result.success){
+                    if (result.data.isSave){
+                        $.acooly.framework.create({
+                            url: '/manage/module/chart/chartData/create.html',
+                            entity: 'chartData',
+                            width: 1000, height: 700,
+                            ajaxData: {'chartId': row.id,"itemsId":itemsId}
+                        });
+                    }else {
+                        $.acooly.framework.create({
+                            url: '/manage/module/chart/chartData/edit.html',
+                            entity: 'chartData',
+                            width: 1000, height: 700,
+                            ajaxData: {'chartId': row.id,"itemsId":itemsId},
+                            title:"编辑",
+                            addButton:"修改"
+                        });
+                    }
+                }
+            }
+        });
+    }, '请先选择操作客户数据行');
+}
+
+
 
 </script>
 <div class="easyui-layout" data-options="fit : true,border : false">
@@ -158,6 +190,7 @@ function  moveUp(id) {
 
                 <!-- 每行的Action动作模板 -->
                 <div id="manage_chartItems_action" style="display: none;">
+                    <a href="#" class="easyui-linkbutton" plain="true" onclick="manage_chartData_create('{0}')" title="添加/修改sql"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i></a>
                     <a onclick="$.acooly.framework.edit({url:'/manage/module/chart/chartItems/edit.html',id:'{0}',entity:'chartItems',width:500,height:400});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
                     <a onclick="$.acooly.framework.show('/manage/module/chart/chartItems/show.html?id={0}',500,400);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
                     <a onclick="$.acooly.framework.remove('/manage/module/chart/chartItems/deleteJson.html','{0}','manage_chartItems_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>

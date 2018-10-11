@@ -23,5 +23,6 @@ import com.acooly.module.chart.entity.ChartData;
  */
 @Service("chartDataService")
 public class ChartDataServiceImpl extends EntityServiceImpl<ChartData, ChartDataDao> implements ChartDataService {
-
+    @Override
+    public ChartData findChartDataByItemsId (Long itemsId){return this.getEntityDao().findChartDataByItemsId(itemsId);}
 }

@@ -94,8 +94,8 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 	public JsonResult moveUp(HttpServletRequest request, HttpServletResponse response) {
 		JsonResult result = new JsonResult();
 		try {
-			String id = Servlets.getParameter(request,"id");
-			ChartItems chartItems =  chartItemsService.get(Long.parseLong(id));
+			Long id = Servlets.getParameter(request,"id",Long.class);
+			ChartItems chartItems =  chartItemsService.get(id);
 			Long sortTime = chartItems.getOrderTime().getTime();
 			ChartItems flag = null;
 			Map<String, Boolean> sortMap = Maps.newLinkedHashMap();
