@@ -19,4 +19,6 @@ import com.acooly.module.chart.entity.ChartData;
  */
 public interface ChartDataService extends EntityService<ChartData> {
 
+    ChartData findChartDataByItemsId (Long itemsId);
+
 }

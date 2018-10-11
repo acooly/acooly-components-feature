@@ -8,6 +8,8 @@
 
 import com.acooly.module.mybatis.EntityMybatisDao;
 import com.acooly.module.chart.entity.ChartData;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 图表-数据项 Mybatis Dao
@@ -17,4 +19,6 @@ import com.acooly.module.chart.entity.ChartData;
  */
 public interface ChartDataDao extends EntityMybatisDao<ChartData> {
 
+ @Select("SELECT * FROM c_chart_data as cd WHERE cd.items_id = #{id}")
+ ChartData findChartDataByItemsId (@Param("id") Long itemsId);
 }
