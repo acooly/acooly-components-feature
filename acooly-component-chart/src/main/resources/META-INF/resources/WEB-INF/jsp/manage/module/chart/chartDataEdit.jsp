@@ -9,11 +9,11 @@
         <table class="tableForm" width="100%">
 			<tr>
 				<th>sql表达式：</th>
-				<td><textarea rows="3" cols="40" placeholder="请输入sql表达式..." style="width:300px;" name="sqlData" class="easyui-validatebox" data-options="validType:['length[1,2048]'],required:true"></textarea></td>
+				<td><textarea rows="10" cols="100" placeholder="请输入sql表达式..."  style="width:850px;" name="sqlData" class="easyui-validatebox" data-options="validType:['length[1,2048]'],required:true"></textarea></td>
 			</tr>					
 			<tr>
 				<th>数据字段：</th>
-				<td><textarea rows="3" cols="40" placeholder="请输入数据字段..." style="width:300px;" name="fieldMapped" class="easyui-validatebox" data-options="validType:['length[1,512]'],required:true"></textarea></td>
+				<td><textarea rows="3" cols="40" placeholder="请输入数据字段..." style="width:850px;" name="fieldMapped" class="easyui-validatebox" data-options="validType:['length[1,512]'],required:true"></textarea></td>
 			</tr>					
 			<tr>
 				<th>备注：</th>

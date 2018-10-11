@@ -4,7 +4,15 @@
     <form id="manage_chartItems_editform" action="${pageContext.request.contextPath}/manage/module/chart/chartItems/${action=='create'?'saveJson':'updateJson'}.html" method="post">
       <jodd:form bean="chartItems" scope="request">
         <input name="id" type="hidden" />
-		  <input  name="chartId" type="hidden" value="${chartId}"/>
+		  <c:choose>
+			  <c:when test="${action=='create'}">
+				  <input  name="chartId" type="hidden" value="${chartId}"/>
+			  </c:when>
+			  <c:otherwise>
+				  <input  name="chartId" type="hidden"/>
+			  </c:otherwise>
+		  </c:choose>
+
         <table class="tableForm" width="100%">
 			<tr>
 				<th>标题：</th>
