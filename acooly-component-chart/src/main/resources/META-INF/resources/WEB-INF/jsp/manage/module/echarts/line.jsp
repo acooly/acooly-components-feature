@@ -1,0 +1,75 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<html style="height: 95% ;width: 95%" >
+<body style="height: 100%; margin: 0">
+	<div id="container" style="height: 100%"></div>
+	
+	
+	<script type="text/javascript" src="/plugin/echarts/echarts.min.js"></script>
+	
+	<script type="text/javascript">
+		var dom = document.getElementById("container");
+		var myChart = echarts.init(dom);
+		var app = {};
+		option = null;
+		option = {
+			title : {
+				text : '折线图堆叠'
+			},
+			tooltip : {
+				trigger : 'axis'
+			},
+			legend : {
+				data : [ '邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎' ]
+			},
+			grid : {
+				left : '3%',
+				right : '4%',
+				bottom : '3%',
+				containLabel : true
+			},
+			toolbox : {
+				feature : {
+			        dataView : {show: true, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+			        restore : {show: true},
+		            saveAsImage : {show: true}
+				}
+			},
+			xAxis : {
+				type : 'category',
+				boundaryGap : false,
+				data : [ '周一', '周二', '周三', '周四', '周五', '周六', '周日' ]
+			},
+			yAxis : {
+				type : 'value'
+			},
+			series : [ {
+				name : '邮件营销',
+				type : 'line',
+				data : [ 120, 132, 101, 134, 90, 230, 210 ]
+			}, {
+				name : '联盟广告',
+				type : 'line',
+				data : [ 220, 182, 191, 234, 290, 330, 310 ]
+			}, {
+				name : '视频广告',
+				type : 'line',
+				data : [ 150, 232, 201, 154, 190, 330, 410 ]
+			}, {
+				name : '直接访问',
+				type : 'line',
+				data : [ 320, 332, 301, 334, 390, 330, 320 ]
+			}, {
+				name : '搜索引擎',
+				type : 'line',
+				data : [ 820, 932, 901, 934, 1290, 1330, 1320 ]
+			} ]
+		};
+		;
+		if (option && typeof option === "object") {
+			myChart.setOption(option, true);
+		}
+	</script>
+</body>
+</html>
+
