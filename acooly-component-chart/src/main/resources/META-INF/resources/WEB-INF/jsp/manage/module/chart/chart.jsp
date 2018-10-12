@@ -191,7 +191,7 @@ function manage_chartData_create(itemsId) {
                 <!-- 每行的Action动作模板 -->
                 <div id="manage_chartItems_action" style="display: none;">
                     <a href="#" class="easyui-linkbutton" plain="true" onclick="manage_chartData_create('{0}')" title="添加/修改sql"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i></a>
-                    <a onclick="$.acooly.framework.edit({url:'/manage/module/chart/chartItems/edit.html',id:'{0}',entity:'chartItems',width:500,height:400});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
+                    <a onclick="$.acooly.framework.edit({url:'/manage/module/chart/chartItems/edit.html',id:'{0}',entity:'chartItems',width:1000,height:700});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
                     <a onclick="$.acooly.framework.show('/manage/module/chart/chartItems/show.html?id={0}',500,400);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
                     <a onclick="$.acooly.framework.remove('/manage/module/chart/chartItems/deleteJson.html','{0}','manage_chartItems_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
                     <a onclick="moveUp('{0}')" href="#" title="上移"><i class="<%--line-action icon-movetop--%>line-action icon-moveup"></i></a>

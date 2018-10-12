@@ -14,10 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.acooly.core.common.dao.support.PageInfo;
+import com.acooly.core.common.domain.Entityable;
 import com.acooly.core.common.web.MappingMethod;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.Servlets;
+import com.acooly.module.chart.entity.ChartData;
+import com.acooly.module.chart.service.ChartDataService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +55,9 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 	@Autowired
 	private ChartItemsService chartItemsService;
 
+	@Autowired
+	private ChartDataService chartDataService;
+
 	
 	@Override
 	protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
@@ -73,15 +80,6 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 		}
 		return getEditView();
 	}
-
-	@Override
-	protected ChartItems onSave(HttpServletRequest request, HttpServletResponse response, Model model, ChartItems entity, boolean isCreate)  {
-		if (isCreate){
-			entity.setOrderTime(new Date());
-		}
-		return entity;
-	}
-
 	@Override
 	protected PageInfo<ChartItems> doList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		Map<String, Boolean> sortMap = Maps.newLinkedHashMap();
@@ -130,6 +128,34 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 		Map<String, Boolean> sortMap = Maps.newLinkedHashMap();
 		sortMap.put("orderTime", Boolean.valueOf(false));
 		return this.getEntityService().query(map, sortMap);
+	}
+
+	@Override
+	protected ChartItems doSave(HttpServletRequest request, HttpServletResponse response, Model model, boolean isCreate) throws Exception {
+		ChartItems entity = this.loadEntity(request);
+		if(entity == null) {
+			this.allow(request, response, MappingMethod.create);
+			entity = (ChartItems)this.getEntityClass().newInstance();
+		} else {
+			this.allow(request, response, MappingMethod.update);
+		}
+
+		this.doDataBinding(request, entity);
+		this.onSave(request, response, model, entity, isCreate);
+		if(isCreate) {
+			chartItemsService.saveOrUpdateChartItemsAndChartData(entity,true);
+		} else {
+			chartItemsService.saveOrUpdateChartItemsAndChartData(entity,false);
+		}
+
+		return entity;
+	}
+
+	@Override
+	protected void onEdit(HttpServletRequest request, HttpServletResponse response, Model model, ChartItems entity) {
+		ChartData chartData = chartDataService.findChartDataByItemsId(entity.getId());
+		BeanUtils.copyProperties(chartData,entity);
+		model.addAttribute("chartItems", entity);
 	}
 
 

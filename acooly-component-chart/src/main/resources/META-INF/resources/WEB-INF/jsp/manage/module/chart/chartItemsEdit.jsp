@@ -37,15 +37,29 @@
 			<tr>
 				<th>循环时间：</th>
 				<td><input type="text" name="loopTime" size="48" placeholder="请输入循环拉取数据时间(单位秒),为0时手动拉取数据" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]'],required:true"/></td>
-			</tr>					
+			</tr>
+
+			<tr>
+				<th>sql表达式：</th>
+				<td>
+					<%--<input  type="text" />--%>
+					<textarea rows="10" cols="100" placeholder="请输入sql表达式..."  style="width:850px;" name="sqlData" class="easyui-validatebox" data-options="validType:['length[1,2048]'],required:true"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>数据字段：</th>
+				<td><textarea rows="3" cols="40" placeholder="请输入数据字段..." style="width:850px;" name="fieldMapped" class="easyui-validatebox" data-options="validType:['length[1,512]'],required:true"></textarea></td>
+			</tr>
+
 			<tr>
 				<th>x轴：</th>
-				<td><input type="text" name="xShaft" size="48" placeholder="请输入x轴..." class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true"/></td>
-			</tr>					
+				<td><input type="text" id="xShaft" name="xShaft" size="48" placeholder="举个栗子{account_period:日期} json格式..." class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true" /></td>
+			</tr>
 			<tr>
 				<th>y轴：</th>
-				<td><input type="text" name="yShaft" size="48" placeholder="请输入y轴..." class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true"/></td>
+				<td><input type="text" id="yShaft" name="yShaft" size="48" placeholder="举个栗子{withdraw_account:提现金额} json格式..." class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true"/></td>
 			</tr>
+
 			<tr>
 				<th>备注：</th>
 				<td><textarea rows="3" cols="40" placeholder="请输入备注..." style="width:300px;" name="comments" class="easyui-validatebox" data-options="validType:['length[1,255]']"></textarea></td>
@@ -54,3 +68,38 @@
       </jodd:form>
     </form>
 </div>
+<script>
+
+    function manage_chartItems_editform_onSubmit() {
+        var xShaft=$("#xShaft").val();
+        var yShaft=$("#yShaft").val();
+        if (!isJSON(xShaft)){
+            $.messager.alert("提示","x轴数据需要填写json格式哟！");
+            return false;
+		}
+		if(!isJSON(yShaft)){
+            $.messager.alert("提示","y轴数据需要填写json格式哟！");
+            return false;
+		}
+        return true;
+    }
+    function isJSON(str) {
+        debugger
+        if (typeof str == 'string') {
+            try {
+                var obj=JSON.parse(str);
+                if(typeof obj == 'object' && obj ){
+                    return true;
+                }else{
+                    return false;
+                }
+
+            } catch(e) {
+                console.log('error：'+str+'!!!'+e);
+                return false;
+            }
+        }
+        console.log('It is not a string!')
+    }
+
+</script>

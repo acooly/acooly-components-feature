@@ -19,4 +19,6 @@ import com.acooly.module.chart.entity.ChartItems;
  */
 public interface ChartItemsService extends EntityService<ChartItems> {
 
+    void saveOrUpdateChartItemsAndChartData(ChartItems chartItems,Boolean isSave);
+
 }

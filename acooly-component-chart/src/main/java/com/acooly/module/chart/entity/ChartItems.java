@@ -7,10 +7,7 @@
 package com.acooly.module.chart.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
@@ -72,6 +69,12 @@ public class ChartItems extends AbstractEntity {
 	/** 备注 */
 	@Size(max=255)
     private String comments;
+
+	@Transient
+	private String sqlData;
+
+	@Transient
+	private String fieldMapped;
 
 	public String getxShaft() {
 		return xShaft;
