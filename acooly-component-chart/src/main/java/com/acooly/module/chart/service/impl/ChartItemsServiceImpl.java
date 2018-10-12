@@ -10,6 +10,8 @@ import com.acooly.module.chart.entity.ChartData;
 import com.acooly.module.chart.service.ChartDataService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.acooly.core.common.service.EntityServiceImpl;
@@ -19,6 +21,7 @@ import com.acooly.module.chart.entity.ChartItems;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import com.acooly.module.chart.enums.StatusEnum;
 
 /**
  * 图表-图表选项 Service实现
@@ -54,5 +57,15 @@ public class ChartItemsServiceImpl extends EntityServiceImpl<ChartItems, ChartIt
 
     }
 
+
+	@Override
+	public List<ChartItems> findByChartId(Long chartId) {
+		return getEntityDao().findByChartId(chartId);
+	}
+
+	@Override
+	public List<ChartItems> findByChartIdAndStatus(Long chartId, StatusEnum status) {
+		return getEntityDao().findByChartIdAndStatus(chartId, status.code());
+	}
 
 }
