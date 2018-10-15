@@ -1,66 +1,118 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<html style="height: 95% ;width: 95%" >
+<html style="height: 95%; width: 95%">
 <body style="height: 100%; margin: 0">
-	<div id="container" style="height: 100%"></div>
-	
-	
+	<div id="container_${chartItemId}" style="height: 100%"></div>
+
+	<script type="text/javascript"
+		src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/echarts.min.js"></script>
-	
+
 	<script type="text/javascript">
-		var dom = document.getElementById("container");
+	//数据初始化
+	ajaxRequest();
+	
+	//定时器
+	if(${loopTime}>=10000){
+		setInterval("ajaxRequest()",${loopTime});
+	}
+	
+	//ajax 数据请求
+	function ajaxRequest(){
+		var title;
+		var legendData = new Array();
+		var xShaft = new Array();
+		var yShafts = new Array();	
+		
+		jQuery.ajax({
+			url : "/manage/module/echarts/chart_bar_${chartItemId}.html",
+			data : {dateTime:(new Date()).getTime()},
+			cache : false,
+			success : function(data) {
+				console.log(data);
+				if (data.success) {
+
+					title=data.data.shaftData.title;
+					var xShaftJson = data.data.shaftData.xShaft;
+					var yShaftJsons = data.data.shaftData.yShafts;
+
+					//x轴
+					for ( var x in xShaftJson) {
+						xShaft = xShaftJson[x].split(",");
+					}
+//						console.log(xShaft);
+
+					//y轴
+					var yShaftJsonList = yShaftJsons[0];
+					for ( var y in yShaftJsonList) {
+						legendData.push(y);
+						var yShaft = new Array();
+						yShaft = yShaftJsonList[y].split(",");
+
+						var yShaftJson={
+								name:y,
+								type : 'bar',
+								data:yShaft
+						};
+						yShafts.push(yShaftJson);
+					}
+//						console.log(yShafts);
+					
+					barChartDraw(title,legendData,xShaft,yShafts);
+				}
+			}
+		});
+	}
+	
+	//动态数据解决
+	function barChartDraw(title,legendData,xShaft,yShafts) {
+		var dom = document.getElementById("container_"+${chartItemId});
 		var myChart = echarts.init(dom);
 		var app = {};
 		option = null;
 		option = {
-			    title : {
-			        text: '某地区蒸发量和降水量',
-			        subtext: '纯属虚构'
-			    },
-			    tooltip : {
-			        trigger: 'axis'
-			    },
-			    legend: {
-			        data:['蒸发量','降水量']
-			    },
-			    toolbox: {
-			        show : true,
-			        feature : {
-			            dataView : {show: true, readOnly: false},
-			            magicType : {show: true, type: ['line', 'bar']},
-			            restore : {show: true},
-			            saveAsImage : {show: true}
-			        }
-			    },
-			    calculable : true,
-			    xAxis : [
-			        {
-			            type : 'category',
-			            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-			        }
-			    ],
-			    yAxis : [
-			        {
-			            type : 'value'
-			        }
-			    ],
-			    series : [
-			        {
-			            name:'蒸发量',
-			            type:'bar',
-			            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-			        },
-			        {
-			            name:'降水量',
-			            type:'bar',
-			            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-			        }
-			    ]
-			};
+			title : {
+				text : title
+			},
+			tooltip : {
+				trigger : 'axis'
+			},
+			legend : {
+				data : legendData
+			},
+			toolbox : {
+				show : true,
+				feature : {
+// 					dataView : {
+// 						show : true,
+// 						readOnly : false
+// 					},
+					magicType : {
+						show : true,
+						type : [ 'line', 'bar' ]
+					},
+// 					restore : {
+// 						show : true
+// 					},
+					saveAsImage : {
+						show : true
+					}
+				}
+			},
+			calculable : true,
+			xAxis : [ {
+				type : 'category',
+				data : xShaft
+			} ],
+			yAxis : [ {
+				type : 'value'
+			} ],
+			series :yShafts
+		};
 
 		;
 		if (option && typeof option === "object") {
 			myChart.setOption(option, true);
-		}
+		}}
 	</script>
 </body>
 </html>

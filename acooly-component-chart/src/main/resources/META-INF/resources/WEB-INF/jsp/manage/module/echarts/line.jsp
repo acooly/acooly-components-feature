@@ -1,73 +1,125 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<html style="height: 95% ;width: 95%" >
+<html style="height: 95%; width: 95%">
 <body style="height: 100%; margin: 0">
-	<div id="container" style="height: 100%"></div>
-	
-	
+
+	<div id="container_${chartItemId}" style="height: 100%"></div>
+
+	<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/echarts.min.js"></script>
-	
+
+
 	<script type="text/javascript">
-		var dom = document.getElementById("container");
-		var myChart = echarts.init(dom);
-		var app = {};
-		option = null;
-		option = {
-			title : {
-				text : '折线图堆叠'
-			},
-			tooltip : {
-				trigger : 'axis'
-			},
-			legend : {
-				data : [ '邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎' ]
-			},
-			grid : {
-				left : '3%',
-				right : '4%',
-				bottom : '3%',
-				containLabel : true
-			},
-			toolbox : {
-				feature : {
-			        dataView : {show: true, readOnly: false},
-		            magicType : {show: true, type: ['line', 'bar']},
-			        restore : {show: true},
-		            saveAsImage : {show: true}
+		//数据初始化
+		ajaxRequest();
+		
+		
+		//定时器
+		if(${loopTime}>=10000){
+			setInterval("ajaxRequest()",${loopTime});
+		}
+		
+		//ajax 数据请求
+		function ajaxRequest(){
+			var title;
+			var legendData = new Array();
+			var xShaft = new Array();
+			var yShafts = new Array();	
+			
+			jQuery.ajax({
+				url : "/manage/module/echarts/chart_line_${chartItemId}.html",
+				data : {dateTime:(new Date()).getTime()},
+				cache : false,
+				success : function(data) {
+					console.log(data);
+					if (data.success) {
+	
+						title=data.data.shaftData.title;
+						var xShaftJson = data.data.shaftData.xShaft;
+						var yShaftJsons = data.data.shaftData.yShafts;
+	
+						//x轴
+						for ( var x in xShaftJson) {
+							xShaft = xShaftJson[x].split(",");
+						}
+// 						console.log(xShaft);
+	
+						//y轴
+						var yShaftJsonList = yShaftJsons[0];
+						for ( var y in yShaftJsonList) {
+							legendData.push(y);
+							var yShaft = new Array();
+							yShaft = yShaftJsonList[y].split(",");
+	
+							var yShaftJson={
+									name:y,
+									type : 'line',
+									data:yShaft
+							};
+							yShafts.push(yShaftJson);
+						}
+// 						console.log(yShafts);
+						
+						lineChartDraw(title,legendData,xShaft,yShafts);
+					}
 				}
-			},
-			xAxis : {
-				type : 'category',
-				boundaryGap : false,
-				data : [ '周一', '周二', '周三', '周四', '周五', '周六', '周日' ]
-			},
-			yAxis : {
-				type : 'value'
-			},
-			series : [ {
-				name : '邮件营销',
-				type : 'line',
-				data : [ 120, 132, 101, 134, 90, 230, 210 ]
-			}, {
-				name : '联盟广告',
-				type : 'line',
-				data : [ 220, 182, 191, 234, 290, 330, 310 ]
-			}, {
-				name : '视频广告',
-				type : 'line',
-				data : [ 150, 232, 201, 154, 190, 330, 410 ]
-			}, {
-				name : '直接访问',
-				type : 'line',
-				data : [ 320, 332, 301, 334, 390, 330, 320 ]
-			}, {
-				name : '搜索引擎',
-				type : 'line',
-				data : [ 820, 932, 901, 934, 1290, 1330, 1320 ]
-			} ]
-		};
-		;
-		if (option && typeof option === "object") {
-			myChart.setOption(option, true);
+			});
+		}
+
+		//动态数据解决
+		function lineChartDraw(title,legendData,xShaft,yShafts) {
+			var dom = document.getElementById("container_"+${chartItemId});
+			var myChart = echarts.init(dom);
+			var app = {};
+			option = null;
+			option = {
+				title : {
+					text : title
+				},
+				tooltip : {
+					trigger : 'axis'
+				},
+				legend : {
+					data : legendData
+				},
+				grid : {
+					left : '3%',
+					right : '4%',
+					bottom : '3%',
+					containLabel : true
+				},
+				toolbox : {
+					feature : {
+// 						dataView : {
+// 							show : true,
+// 							readOnly : false
+// 						},
+						magicType : {
+							show : true,
+							type : [ 'line', 'bar' ]
+						},
+// 						restore : {
+// 							show : true
+// 						},
+						saveAsImage : {
+							show : true
+						}
+					}
+				},
+				xAxis : {
+					type : 'category',
+					boundaryGap : false,
+					data :xShaft
+				},
+				yAxis : {
+					type : 'value'
+				},
+				series : yShafts
+			};
+
+			if (option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+
 		}
 	</script>
 </body>
