@@ -24,7 +24,7 @@
 		var yShafts = new Array();	
 		
 		jQuery.ajax({
-			url : "/manage/module/echarts/chart_bar_${chartItemId}.html",
+			url : "/manage/module/echarts/charData_bar_${chartItemId}.html",
 			data : {dateTime:(new Date()).getTime()},
 			cache : false,
 			success : function(data) {

@@ -66,7 +66,7 @@ CREATE TABLE `c_chart_items` (
   `loop_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '循环时间',
   `height` bigint(20) NOT NULL DEFAULT '50' COMMENT '高',
   `width` bigint(20) NOT NULL DEFAULT '50' COMMENT '宽',
-  `x_shaft` varchar(128) NOT NULL COMMENT 'x轴',
+  `x_shaft` varchar(128) DEFAULT NULL COMMENT 'x轴',
   `y_shaft` varchar(128) NOT NULL COMMENT 'y轴',
   `order_time` datetime NOT NULL COMMENT '排序',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',

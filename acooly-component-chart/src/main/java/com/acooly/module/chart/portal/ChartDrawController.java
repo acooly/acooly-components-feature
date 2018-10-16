@@ -113,9 +113,9 @@ public class ChartDrawController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = { "chart_line_{chartItemId}", "chart_bar_{chartItemId}", "chart_pie_{chartItemId}" })
+	@RequestMapping(value = { "charData_line_{chartItemId}", "charData_bar_{chartItemId}", "charData_pie_{chartItemId}" })
 	@ResponseBody
-	public JsonResult chart(@PathVariable("chartItemId") String chartItemId, HttpServletRequest request,
+	public JsonResult charData(@PathVariable("chartItemId") String chartItemId, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 		JsonResult result = new JsonResult();
 		if (StringUtils.isBlank(chartItemId)) {

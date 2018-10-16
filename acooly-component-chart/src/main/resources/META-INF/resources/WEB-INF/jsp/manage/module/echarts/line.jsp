@@ -26,7 +26,7 @@
 			var yShafts = new Array();	
 			
 			jQuery.ajax({
-				url : "/manage/module/echarts/chart_line_${chartItemId}.html",
+				url : "/manage/module/echarts/charData_line_${chartItemId}.html",
 				data : {dateTime:(new Date()).getTime()},
 				cache : false,
 				success : function(data) {
