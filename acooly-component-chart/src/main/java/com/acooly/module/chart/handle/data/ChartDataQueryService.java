@@ -13,16 +13,15 @@ import com.acooly.module.ds.AbstractJdbcTemplateDao;
  * @author cuifuq
  *
  */
-@Service("dataQueryService")
-public class DataQueryService extends AbstractJdbcTemplateDao {
+@Service("chartDataQueryService")
+public class ChartDataQueryService extends AbstractJdbcTemplateDao {
 
-	public Map<String, Object> querySql(String sql) {
-
+	public List<Map<String, Object>> querySql(String sql) {
 		List<Map<String, Object>> lists = jdbcTemplate.queryForList(sql);
 		for (Map<String, Object> map : lists) {
 			System.out.println(map);
 		}
-		return null;
+		return lists;
 	}
 
 }
