@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<html style="height: 100%; width: 100%">
+<html style="height: 95%; width: 95%">
 <body style="height: 100%; margin: 0">
 
 	<div id="container_${chartItemId}" style="height: 100%"></div>
@@ -53,7 +53,8 @@
 							var yShaftJson={
 									name:y,
 									type : 'line',
-									data:yShaft
+									data:yShaft,
+									smooth: true
 							};
 							yShafts.push(yShaftJson);
 						}
