@@ -64,6 +64,8 @@ CREATE TABLE `c_chart_items` (
   `type` varchar(64) NOT NULL COMMENT '图表类型{line:折线图,bar:柱状图,pie:饼图}',
   `status` varchar(32) NOT NULL COMMENT '状态{enable:正常,disable:禁用}',
   `loop_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '循环时间',
+  `height` bigint(20) NOT NULL DEFAULT '50' COMMENT '高',
+  `width` bigint(20) NOT NULL DEFAULT '50' COMMENT '宽',
   `x_shaft` varchar(128) NOT NULL COMMENT 'x轴',
   `y_shaft` varchar(128) NOT NULL COMMENT 'y轴',
   `order_time` datetime NOT NULL COMMENT '排序',
@@ -71,7 +73,9 @@ CREATE TABLE `c_chart_items` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图表-图表选项';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='图表-图表选项';
+
+
 
 -- ----------------------------
 -- Records of c_chart_items

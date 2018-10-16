@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<html style="height: 95%; width: 95%">
+<html style="height: 100%; width: 100%">
 <body style="height: 100%; margin: 0">
 	<div id="container_${chartItemId}" style="height: 100%"></div>
 
