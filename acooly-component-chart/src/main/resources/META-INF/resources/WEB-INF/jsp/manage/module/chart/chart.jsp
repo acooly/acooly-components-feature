@@ -154,6 +154,7 @@ function manage_chartData_create(itemsId) {
       <a onclick="$.acooly.framework.edit({url:'/manage/module/chart/chart/edit.html',id:'{0}',entity:'chart',width:500,height:400});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
       <a onclick="$.acooly.framework.show('/manage/module/chart/chart/show.html?id={0}',500,400);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
       <a onclick="$.acooly.framework.remove('/manage/module/chart/chart/deleteJson.html','{0}','manage_chart_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
+      <a href="/manage/module/echarts/index_{0}.html" target="view_window" title="生成图表"><i class="fa fa-adjust fa-lg fa-fw fa-col"></i></a>
     </div>
 
     <!-- 表格的工具栏 -->
