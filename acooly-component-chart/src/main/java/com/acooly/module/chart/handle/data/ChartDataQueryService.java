@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.acooly.module.ds.AbstractJdbcTemplateDao;
+import com.google.common.collect.Lists;
 
 /**
  * 数据查询服务器
@@ -17,9 +18,11 @@ import com.acooly.module.ds.AbstractJdbcTemplateDao;
 public class ChartDataQueryService extends AbstractJdbcTemplateDao {
 
 	public List<Map<String, Object>> querySql(String sql) {
-		List<Map<String, Object>> lists = jdbcTemplate.queryForList(sql);
-		for (Map<String, Object> map : lists) {
-			System.out.println(map);
+		List<Map<String, Object>> lists = Lists.newArrayList();
+		try {
+			lists = jdbcTemplate.queryForList(sql);
+		} catch (Exception e) {
+			throw new RuntimeException("数据查询错误,请检查sql语句是否可以执行" + e);
 		}
 		return lists;
 	}

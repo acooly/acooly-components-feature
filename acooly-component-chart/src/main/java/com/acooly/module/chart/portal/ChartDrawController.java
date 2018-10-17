@@ -105,7 +105,7 @@ public class ChartDrawController {
 	}
 
 	/**
-	 * 线形图表,柱形图表
+	 * 线形图表,柱形图表,饼图
 	 * 
 	 * @param chartItemId
 	 * @param request
@@ -113,9 +113,9 @@ public class ChartDrawController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = {"chart_line_{chartItemId}","chart_bar_{chartItemId}"})
+	@RequestMapping(value = { "charData_line_{chartItemId}", "charData_bar_{chartItemId}", "charData_pie_{chartItemId}" })
 	@ResponseBody
-	public JsonResult chart(@PathVariable("chartItemId") String chartItemId, HttpServletRequest request,
+	public JsonResult charData(@PathVariable("chartItemId") String chartItemId, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 		JsonResult result = new JsonResult();
 		if (StringUtils.isBlank(chartItemId)) {
@@ -130,20 +130,8 @@ public class ChartDrawController {
 		List<Map<String, Object>> dbData = chartDataQueryService.querySql(sql);
 		ShaftDataDto shaftDataDto = chartDataAnalyseService.shaftDataAnalyse(chartItems.getTitle(),
 				chartItems.getxShaft(), chartItems.getyShaft(), dbData);
-
 		result.appendData("shaftData", JSON.toJSON(shaftDataDto));
-		System.out.println(JSON.toJSON(shaftDataDto));
-
 		return result;
 	}
 
-	@RequestMapping(value = "bar")
-	public String bar(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "/manage/module/echarts/bar";
-	}
-
-	@RequestMapping(value = "pie")
-	public String pie(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "/manage/module/echarts/pie";
-	}
 }

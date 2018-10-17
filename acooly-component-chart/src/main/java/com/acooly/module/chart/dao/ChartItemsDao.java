@@ -28,6 +28,6 @@ public interface ChartItemsDao extends EntityMybatisDao<ChartItems> {
 	@Select("SELECT * FROM c_chart_items as cd WHERE cd.chart_id = #{chartId}")
 	List<ChartItems> findByChartId(@Param("chartId")Long chartId);
 
-	@Select("SELECT * FROM c_chart_items cd WHERE cd.chart_id = #{chartId} and cd.status=#{status}")
+	@Select("SELECT * FROM c_chart_items cd WHERE cd.chart_id = #{chartId} and cd.status=#{status} order by order_time")
 	List<ChartItems> findByChartIdAndStatus(@Param("chartId")Long chartId, @Param("status")String status);
 }
