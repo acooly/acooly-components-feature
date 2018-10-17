@@ -86,7 +86,7 @@
 			series : [ {
 				name : '访问来源',
 				type : 'pie',
-				radius : '75%',
+				radius : '70%',
 				center : [ '50%', '60%' ],
 				data : yShafts,
 				itemStyle : {

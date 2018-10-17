@@ -74,6 +74,7 @@ public class ChartDrawController {
 		}
 
 		List<ChartItems> chartItemsList = chartItemsService.findByChartIdAndStatus(chart.getId(), StatusEnum.enable);
+		model.addAttribute("chart", chart);
 		model.addAttribute("chartItemsList", chartItemsList);
 
 		return "/manage/module/echarts/home/index";
