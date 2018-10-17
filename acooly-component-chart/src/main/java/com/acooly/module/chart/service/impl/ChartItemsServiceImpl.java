@@ -8,7 +8,6 @@ package com.acooly.module.chart.service.impl;
 
 import com.acooly.module.chart.entity.ChartData;
 import com.acooly.module.chart.service.ChartDataService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
@@ -44,7 +43,10 @@ public class ChartItemsServiceImpl extends EntityServiceImpl<ChartItems, ChartIt
             entity.setOrderTime(new Date());
             this.getEntityDao().create(entity);
             ChartData chartData = new ChartData();
-            BeanUtils.copyProperties(entity,chartData);
+            chartData.setSqlData(entity.getSqlData());
+            chartData.setFieldMapped(entity.getFieldMapped());
+            chartData.setItemsId(entity.getId());
+            chartData.setChartId(entity.getChartId());
             chartData.setItemsId(entity.getId());
             chartDataService.save(chartData);
         }else {

@@ -23,7 +23,6 @@ import com.acooly.core.utils.Strings;
 import com.acooly.module.chart.entity.ChartData;
 import com.acooly.module.chart.service.ChartDataService;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

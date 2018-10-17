@@ -43,6 +43,34 @@
 				<th>循环时间：</th>
 				<td><input type="text" name="loopTime" size="48" placeholder="请输入循环拉取数据时间(单位秒),为0时手动拉取数据" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]'],required:true"/></td>
 			</tr>
+			<tr>
+				<th>高：</th>
+				<td>
+					<c:choose>
+						<c:when test="${action=='create'}">
+							<input value="50" type="number" name="height" size="20" placeholder="图表高度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>
+						</c:when>
+						<c:otherwise>
+							<input type="number" value="${chartItems.height}" name="height" size="20" placeholder="图表高度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>
+						</c:otherwise>
+					</c:choose>
+
+				</td>
+			</tr>
+			<tr>
+				<th>宽：</th>
+				<td>
+
+					<c:choose>
+						<c:when test="${action=='create'}">
+							<input type="number" value="50" name="width" size="20" placeholder="图表宽度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>
+						</c:when>
+						<c:otherwise>
+							<input type="number" value="${chartItems.width}" name="width" size="20" placeholder="图表宽度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>
+						</c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
 
 			<tr>
 				<th>sql表达式：</th>

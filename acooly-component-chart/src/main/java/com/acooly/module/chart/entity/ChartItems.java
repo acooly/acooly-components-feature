@@ -17,21 +17,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.alibaba.fastjson.JSONObject;
-import org.hibernate.validator.constraints.*;
-import javax.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.module.chart.enums.StatusEnum;
-import java.util.Date;
 import java.util.Map;
 
 import com.acooly.module.chart.enums.TypeEnum;
 
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 图表-图表选项 Entity
