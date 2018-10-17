@@ -44,7 +44,17 @@ function manage_chartItems_create() {
             url: '/manage/module/chart/chartItems/create.html',
             entity: 'chartItems',
             width: 1000, height: 700,
-            ajaxData: {'chartId': row.id}
+            ajaxData: {'chartId': row.id},
+            hideSaveBtn:true,
+            buttons:[{
+                id:'manage_chartItems_btn_create',
+                text:'<i class=\'fa fa-plus-circle fa-lg fa-fw fa-col\'></i>增加',
+                handler:function(){
+                    chartItems_editform_onSubmit();
+
+                    $.acooly.framework.ajaxSubmitHandler('create', $(this), 'manage_chartItems_editform', 'manage_chartItems_datagrid');
+                }
+            }]
         });
     }, '请先选择操作客户数据行');
 }
@@ -191,7 +201,16 @@ function manage_chartData_create(itemsId) {
                 <!-- 每行的Action动作模板 -->
                 <div id="manage_chartItems_action" style="display: none;">
                     <a href="#" class="easyui-linkbutton" plain="true" onclick="manage_chartData_create('{0}')" title="添加/修改sql"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i></a>
-                    <a onclick="$.acooly.framework.edit({url:'/manage/module/chart/chartItems/edit.html',id:'{0}',entity:'chartItems',width:1000,height:700});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
+                    <a onclick="$.acooly.framework.edit({url:'/manage/module/chart/chartItems/edit.html',id:'{0}',entity:'chartItems',width:1000,height:700,hideSaveBtn:true,
+             buttons:[{
+             id:'manage_chartItems_btn_create',
+                    text:'<i class=\'fa fa-plus-circle fa-lg fa-fw fa-col\'></i>修改',
+                    handler:function(){
+                      chartItems_editform_onSubmit();
+
+                     $.acooly.framework.ajaxSubmitHandler('edit', $(this), 'manage_chartItems_editform', 'manage_chartItems_datagrid');
+                    }
+                    }]});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
                     <a onclick="$.acooly.framework.show('/manage/module/chart/chartItems/show.html?id={0}',500,400);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
                     <a onclick="$.acooly.framework.remove('/manage/module/chart/chartItems/deleteJson.html','{0}','manage_chartItems_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
                     <a onclick="moveUp('{0}')" href="#" title="上移"><i class="<%--line-action icon-movetop--%>line-action icon-moveup"></i></a>

@@ -19,8 +19,10 @@ import com.acooly.core.common.web.MappingMethod;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.Servlets;
+import com.acooly.core.utils.Strings;
 import com.acooly.module.chart.entity.ChartData;
 import com.acooly.module.chart.service.ChartDataService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -154,7 +156,17 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 	@Override
 	protected void onEdit(HttpServletRequest request, HttpServletResponse response, Model model, ChartItems entity) {
 		ChartData chartData = chartDataService.findChartDataByItemsId(entity.getId());
-		BeanUtils.copyProperties(chartData,entity);
+		entity.setSqlData(chartData.getSqlData());
+		entity.setFieldMapped(chartData.getFieldMapped());
+		String fielMapped =  chartData.getFieldMapped();
+		if (Strings.isNotBlank(fielMapped)){
+			JSONObject fielMappedJson = JSONObject.parseObject(fielMapped);
+			Map<String, Object> map = (Map<String, Object>)fielMappedJson;
+			entity.setFieldMappedMap(map);
+			entity.setFieldMappedJson(fielMappedJson);
+		}
+
+
 		model.addAttribute("chartItems", entity);
 	}
 

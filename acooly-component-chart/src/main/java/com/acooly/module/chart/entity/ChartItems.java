@@ -9,6 +9,7 @@ package com.acooly.module.chart.entity;
 
 import javax.persistence.*;
 
+import com.alibaba.fastjson.JSONObject;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 import lombok.Getter;
@@ -16,6 +17,8 @@ import lombok.Setter;
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.module.chart.enums.StatusEnum;
 import java.util.Date;
+import java.util.Map;
+
 import com.acooly.module.chart.enums.TypeEnum;
 
 /**
@@ -76,6 +79,12 @@ public class ChartItems extends AbstractEntity {
 	@Transient
 	private String fieldMapped;
 
+	@Transient
+	private JSONObject fieldMappedJson;
+
+	@Transient
+	private Map<String,Object> fieldMappedMap;
+
 	public String getxShaft() {
 		return xShaft;
 	}
@@ -91,4 +100,6 @@ public class ChartItems extends AbstractEntity {
 	public void setyShaft(String yShaft) {
 		this.yShaft = yShaft;
 	}
+
+
 }

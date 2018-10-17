@@ -50,7 +50,8 @@ public class ChartItemsServiceImpl extends EntityServiceImpl<ChartItems, ChartIt
         }else {
             this.getEntityDao().update(entity);
            ChartData chartData = chartDataService.findChartDataByItemsId(entity.getId());
-           BeanUtils.copyProperties(entity,chartData);
+            chartData.setSqlData(entity.getSqlData());
+            chartData.setFieldMapped(entity.getFieldMapped());
             chartDataService.update(chartData);
         }
 
