@@ -71,4 +71,19 @@ public class ChartItemsServiceImpl extends EntityServiceImpl<ChartItems, ChartIt
 		return getEntityDao().findByChartIdAndStatus(chartId, status.code());
 	}
 
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+	public void removeChartItemsAndChartDataById(Long chartItemsId){
+        ChartItems chartItems = this.getEntityDao().get(chartItemsId);
+        if (chartItems!=null){
+            ChartData chartData  =  chartDataService.findChartDataByItemsId(chartItemsId);
+            if (chartData!=null){
+                chartDataService.removeById(chartData.getId());
+            }
+
+            this.getEntityDao().removeById(chartItems.getId());
+        }
+
+    }
+
 }

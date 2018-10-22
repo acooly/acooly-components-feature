@@ -29,4 +29,6 @@ public interface ChartItemsService extends EntityService<ChartItems> {
 
 	List<ChartItems> findByChartIdAndStatus(Long chartId, StatusEnum status);
 
+	void removeChartItemsAndChartDataById(Long chartItemsId);
+
 }

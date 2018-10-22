@@ -19,4 +19,6 @@ import com.acooly.module.chart.entity.Chart;
  */
 public interface ChartService extends EntityService<Chart> {
 
+    void removeChartAndItemsAndData(Long chartId);
+
 }

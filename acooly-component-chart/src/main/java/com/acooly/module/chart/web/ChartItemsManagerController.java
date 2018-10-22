@@ -6,6 +6,7 @@
 */
 package com.acooly.module.chart.web;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -167,6 +168,23 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 
 
 		model.addAttribute("chartItems", entity);
+	}
+
+
+	@Override
+	protected void doRemove(HttpServletRequest request, HttpServletResponse response, Model model, Serializable... ids) throws Exception {
+		if(ids != null && ids.length != 0) {
+			if(ids.length == 1) {
+				chartItemsService.removeChartItemsAndChartDataById((Long)ids[0]);
+			} else {
+				for (int i=0;i<ids.length;i++){
+					chartItemsService.removeChartItemsAndChartDataById((Long)ids[i]);
+				}
+			}
+
+		} else {
+			throw new IllegalArgumentException("请求参数中没有指定需要删除的实体Id");
+		}
 	}
 
 
