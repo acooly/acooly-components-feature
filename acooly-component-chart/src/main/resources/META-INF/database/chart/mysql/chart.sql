@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-10-10 11:06:35
+Date: 2018-10-22 16:39:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,11 +27,12 @@ CREATE TABLE `c_chart` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图表-主题';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='图表-主题';
 
 -- ----------------------------
 -- Records of c_chart
 -- ----------------------------
+INSERT INTO `c_chart` VALUES ('1', '图表demo', 'enable', '2018-10-18 14:03:22', '2018-10-18 14:03:22', '');
 
 -- ----------------------------
 -- Table structure for `c_chart_data`
@@ -47,11 +48,14 @@ CREATE TABLE `c_chart_data` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图表-数据项';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='图表-数据项';
 
 -- ----------------------------
 -- Records of c_chart_data
 -- ----------------------------
+INSERT INTO `c_chart_data` VALUES ('1', '1', '1', 'select create_time, loop_time/1000 as loop_time,height,width from c_chart_items where chart_id=1 ORDER BY type ', '{\"create_time\":\"创建时间\",\"width\":\"宽度\",\"loop_time\":\"循环时间\",\"height\":\"高度\"}', '2018-10-22 16:04:34', '2018-10-22 16:23:36', null);
+INSERT INTO `c_chart_data` VALUES ('2', '1', '2', 'select create_time, loop_time/1000 as loop_time,height,width from c_chart_items where chart_id=1 ORDER BY type ', '{\"create_time\":\"创建时间\",\"height\":\"高度\",\"loop_time\":\"循环时间\",\"width\":\"宽度\"}', '2018-10-22 16:04:34', '2018-10-22 16:10:31', null);
+INSERT INTO `c_chart_data` VALUES ('3', '1', '3', 'select create_time, loop_time/1000 as loop_time,height,width from c_chart_items where chart_id=1 ORDER BY type ', '{\"create_time\":\"创建时间\",\"height\":\"高度\",\"loop_time\":\"循环时间\",\"width\":\"宽度\"}', '2018-10-22 16:04:34', '2018-10-22 16:18:57', null);
 
 -- ----------------------------
 -- Table structure for `c_chart_items`
@@ -73,10 +77,11 @@ CREATE TABLE `c_chart_items` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='图表-图表选项';
-
-
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='图表-图表选项';
 
 -- ----------------------------
 -- Records of c_chart_items
 -- ----------------------------
+INSERT INTO `c_chart_items` VALUES ('1', '1', '折线图demo', 'line', 'enable', '16000', '55', '65', '{\"create_time\":\"创建时间\"}', '{\"width\":\"宽度\",\"loop_time\":\"循环时间\",\"height\":\"高度\"}', '2018-10-22 16:04:34', '2018-10-22 16:04:34', '2018-10-22 16:23:36', '');
+INSERT INTO `c_chart_items` VALUES ('2', '1', '柱状图demo', 'bar', 'enable', '26000', '50', '60', '{\"create_time\":\"创建时间\"}', '{\"height\":\"高度\",\"loop_time\":\"循环时间\",\"width\":\"宽度\"}', '2018-10-22 16:04:34', '2018-10-22 16:04:34', '2018-10-22 16:10:31', '');
+INSERT INTO `c_chart_items` VALUES ('3', '1', '饼图demo', 'pie', 'enable', '36000', '40', '40', '{}', '{\"height\":\"高度\",\"loop_time\":\"循环时间\",\"width\":\"宽度\"}', '2018-10-22 16:04:34', '2018-10-22 16:04:34', '2018-10-22 16:18:57', '');
