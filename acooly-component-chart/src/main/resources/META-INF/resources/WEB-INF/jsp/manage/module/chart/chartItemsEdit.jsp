@@ -88,7 +88,7 @@
 							<c:forEach items="${chartItems.fieldMappedMap}" var="item" varStatus="status">
 								<div id="standards_${status.index+1}">
 										sql字段:<input type='text' value="${item.key}"  id='sqlField_${status.index+1}' class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='sql字段名' data-options='required:true'/>
-										sql中文:<input type='text' value="${item.value}"  id='chinese_${status.index+1}' class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='字段中文名' data-options='required:true'/>
+									&emsp;sql中文:<input type='text' value="${item.value}"  id='chinese_${status.index+1}' class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='字段中文名' data-options='required:true'/>
 									<button type="button" onclick="deleteFieldMapping(${status.index+1})">删除</button>
 
 								</div>
@@ -254,9 +254,9 @@
 	function  addFieldMapping() {
         
 		var FieldMappingHtml = "<div id='standards_"+operationIndex+"'>" +
-			"sql字段:" +"<input type='text'  id='sqlField_"+operationIndex+"'"+" class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='sql字段名' data-options='required:true'/>" +
-			"sql中文:"+"<input type='text'  id='chinese_"+operationIndex+"'"+" class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='字段中文名' data-options='required:true'/>" +
-			"<button type=\"button\" onclick=\"deleteFieldMapping("+operationIndex+")\">删除</button></div>"
+			"  sql字段:" +"<input type='text'  id='sqlField_"+operationIndex+"'"+" class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='sql字段名' data-options='required:true'/>" +
+			"  &emsp;sql中文:"+"<input type='text'  id='chinese_"+operationIndex+"'"+" class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='字段中文名' data-options='required:true'/>" +
+			"  <button type=\"button\" onclick=\"deleteFieldMapping("+operationIndex+")\"> 删除</button></div>"
 			" </div>";
 		$("#standard").append(FieldMappingHtml);
         operationIndex++;
@@ -340,23 +340,23 @@
                        if (!xExcept) {
                            if (!jQuery.isEmptyObject(xShaft)){
                                if ((fieldMapping[key])[objectKey] == xShaft[objectKey] ){
-                                   $("#xShaftTd").append("<input name='xShaftData' type='checkbox' value=" + key + " checked />"+objectKey  )
+                                   $("#xShaftTd").append("<input name='xShaftData' type='checkbox' value=" + key + " checked />"+objectKey+"&emsp;"  )
 							   }else {
-                                   $("#xShaftTd").append("<input name='xShaftData' type='checkbox' value=" + key + " />"+objectKey  )
+                                   $("#xShaftTd").append("<input name='xShaftData' type='checkbox' value=" + key + " />"+objectKey +"&emsp;" )
 							   }
 						   }else {
-                               $("#xShaftTd").append("<input name='xShaftData' type='checkbox' value=" + key + " />"+objectKey  )
+                               $("#xShaftTd").append("<input name='xShaftData' type='checkbox' value=" + key + " />"+objectKey +"&emsp;" )
 						   }
                        }
 
                        if (!jQuery.isEmptyObject(yShaft)){
                            if ((fieldMapping[key])[objectKey] == yShaft[objectKey] ){
-                               $("#yShaftTd").append("<input name='yShaftData' type='checkbox' value=" + key +  " checked />"+objectKey )
+                               $("#yShaftTd").append("<input name='yShaftData' type='checkbox' value=" + key +  " checked />"+objectKey +"&emsp;")
                            }else {
-                               $("#yShaftTd").append("<input name='yShaftData' type='checkbox' value=" + key + " />"+objectKey )
+                               $("#yShaftTd").append("<input name='yShaftData' type='checkbox' value=" + key + " />"+objectKey+"&emsp;" )
                            }
                        }else {
-                           $("#yShaftTd").append("<input name='yShaftData' type='checkbox' value=" + key + " />"+objectKey )
+                           $("#yShaftTd").append("<input name='yShaftData' type='checkbox' value=" + key + " />"+objectKey +"&emsp;" )
                        }
 
                    }
