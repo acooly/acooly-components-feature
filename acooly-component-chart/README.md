@@ -32,6 +32,7 @@ maven坐标：
 `${acooly-latest-version}`为框架最新版本或者购买的版本。
 
 ## 2.1 访问连接说明
+
 **支持使用iframe **
 
 * 主题访问：/manage/module/echarts/index___{id}.html
@@ -48,6 +49,7 @@ maven坐标：
 
 
 ## 3.版本说明
+
 #### 2018-10-10
 
 * 1.支持日常图形格式：折线图，柱状图，饼图
@@ -58,10 +60,12 @@ maven坐标：
 
 
 ## 4.知识点
+
 * x轴y轴坐标图 知识图
 ![x轴y轴坐标图](https://graph.baidu.com/resource/191ef90f5a3819c9eec1201539674644.jpg "xy轴")
 
 ### 4.1 设置说明
+
  * 折线图，柱状图：x轴，仅支持当个字段对应；y轴支持n个字段（根据业务复杂度执行设置）
  * 饼图 仅支持y轴支持n个字段（根据业务复杂度执行设置数量）请使用 limit n
  * 建议 折线图，柱状图设置sql语句查询结果集条数，饼图限制查询结果集为一条，请使用 limit 1
@@ -69,6 +73,7 @@ maven坐标：
  
 
 ### 4.2 mysql时间语法（GROUP BY） 
+
 * 年：GROUP BY YEAR(时间字段)
 * 月：GROUP BY DATE_FORMAT(时间字段,'%Y-%m')
 * 日：GROUP BY DATE_FORMAT(时间字段,'%Y-%c-%d')
