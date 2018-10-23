@@ -27,9 +27,9 @@ import com.google.common.collect.Lists;
 public class ChartAutoConfig {
 
 	@Bean
-	public StandardDatabaseScriptIniter appScriptIniter() {
+	public StandardDatabaseScriptIniter chartScriptIniter() {
 		return new StandardDatabaseScriptIniter() {
-		
+
 			@Override
 			public String getEvaluateTable() {
 				return "c_chart";
