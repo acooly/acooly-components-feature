@@ -46,7 +46,7 @@ public class DocxPdfGenerator implements PdfGeneratorService {
         ITextRenderer iTextRenderer = null;
         GenericObjectPool<ITextRenderer> objectPool =
                 ITextRendererObjectFactory.getObjectPool(pdfProperties);
-        Resource resource = pdfProperties.getResourceLoader().getResource(pdfProperties.getTemplatePath() + templateName);
+        Resource resource = pdfProperties.getResourceLoader().getResource(pdfProperties.getTemplatePath()  + templateName);
         InputStream in = resource.getInputStream();
         try {
             iTextRenderer = objectPool.borrowObject();
