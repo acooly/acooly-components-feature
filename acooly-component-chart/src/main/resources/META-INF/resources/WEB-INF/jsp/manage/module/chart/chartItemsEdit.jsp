@@ -155,18 +155,28 @@
             yShaft[a] = ydata[a]
         }
     }
-
-    operationIndex = 1;
-    if (count != 0){
-        operationIndex = count+1
-	}
-
-
     listNum = 0;
     if (count != 0){
         listNum = count
     }
-    showYAndeX()
+    $("#listNum").val(listNum);
+
+    operationIndex = 1;
+    if (count != 0){
+        for(var i=1;i<=count;i++){
+            operationIndex = i+1
+            addIncident();
+		}
+
+	}
+
+    $('.easyui-validatebox').trigger("blur");
+
+    /*for (var b=1;b<=operationIndex;b++){
+
+
+	}
+    showYAndeX()*/
 
     function chartItems_editform_onSubmit() {
         

@@ -207,9 +207,13 @@ function manage_chartData_create(itemsId) {
 		             id:'manage_chartItems_btn_create',
 		                    text:'<i class=\'fa fa-plus-circle fa-lg fa-fw fa-col\'></i>修改',
 		                    handler:function(){
-		                      chartItems_editform_onSubmit();
-		
-		                     $.acooly.framework.ajaxSubmitHandler('edit', $(this), 'manage_chartItems_editform', 'manage_chartItems_datagrid');
+
+		                    var result =   chartItems_editform_onSubmit();
+		                     if (result ==true){
+		                          $.acooly.framework.ajaxSubmitHandler('edit', $(this), 'manage_chartItems_editform', 'manage_chartItems_datagrid');
+		                     }
+
+
 		                    }
 		                    }]});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
                     <a onclick="$.acooly.framework.show('/manage/module/chart/chartItems/show.html?id={0}',900,600);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
