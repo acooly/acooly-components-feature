@@ -28,8 +28,6 @@ public class ChartAutoConfig {
 
 	@Bean
 	public StandardDatabaseScriptIniter appScriptIniter() {
-		System.out.println("---------------");
-		
 		return new StandardDatabaseScriptIniter() {
 		
 			@Override
