@@ -58,7 +58,7 @@
 				<td>
 					<c:choose>
 						<c:when test="${action=='create'}">
-							<input value="50" type="number" name="height" size="20" placeholder="图表高度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>
+							<input value="50" type="number" name="height" size="20" placeholder="图表高度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>   单位“%”
 						</c:when>
 						<c:otherwise>
 							<input type="number" value="${chartItems.height}" name="height" size="20" placeholder="图表高度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>
@@ -73,7 +73,7 @@
 
 					<c:choose>
 						<c:when test="${action=='create'}">
-							<input type="number" value="50" name="width" size="20" placeholder="图表宽度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>
+							<input type="number" value="50" name="width" size="20" placeholder="图表宽度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>   单位“%”
 						</c:when>
 						<c:otherwise>
 							<input type="number" value="${chartItems.width}" name="width" size="20" placeholder="图表宽度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>

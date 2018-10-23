@@ -50,9 +50,12 @@ function manage_chartItems_create() {
                 id:'manage_chartItems_btn_create',
                 text:'<i class=\'fa fa-plus-circle fa-lg fa-fw fa-col\'></i>增加',
                 handler:function(){
-                    chartItems_editform_onSubmit();
 
-                    $.acooly.framework.ajaxSubmitHandler('create', $(this), 'manage_chartItems_editform', 'manage_chartItems_datagrid');
+                    var result =   chartItems_editform_onSubmit();
+                    if (result ==true){
+                        $.acooly.framework.ajaxSubmitHandler('create', $(this), 'manage_chartItems_editform', 'manage_chartItems_datagrid');
+                    }
+
                 }
             }]
         });
