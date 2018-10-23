@@ -166,11 +166,14 @@
         for(var i=1;i<=count;i++){
             operationIndex = i+1
             addIncident();
+            if (i==1){
+                $('#sqlField_1').trigger("blur");
+			}
 		}
 
 	}
 
-    $('.easyui-validatebox').trigger("blur");
+
 
     /*for (var b=1;b<=operationIndex;b++){
 
@@ -299,6 +302,8 @@
        if (!sqlField || !chinese){
            return ;
 	   }
+       sqlField = $.trim(sqlField);
+       chinese = $.trim(chinese);
        field[sqlField] = chinese;
        fieldMapping[index] = field;
        showYAndeX()
