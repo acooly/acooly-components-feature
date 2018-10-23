@@ -24,7 +24,7 @@
 	</tr>					
 	<tr>
 		<th>循环时间:</th>
-		<td>${chartItems.loopTime}</td>
+		<td>${chartItems.loopTime /1000}</td>
 	</tr>					
 	<tr>
 		<th>x轴:</th>

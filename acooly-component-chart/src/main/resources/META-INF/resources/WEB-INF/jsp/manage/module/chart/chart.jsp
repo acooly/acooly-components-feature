@@ -187,7 +187,7 @@ function manage_chartData_create(itemsId) {
                         <th field="title">标题</th>
                         <th field="type" formatter="mappingFormatter">图表类型</th>
                         <th field="status" formatter="mappingFormatter">状态</th>
-                        <th field="loopTime" sum="true">循环时间</th>
+                        <th field="loopTime" sum="true" data-options="formatter:function(value,row){ return value/1000}">循环时间</th>
                         <th field="xShaft">x轴</th>
                         <th field="yShaft">y轴</th>
                         <th field="orderTime" formatter="dateTimeFormatter">排序</th>

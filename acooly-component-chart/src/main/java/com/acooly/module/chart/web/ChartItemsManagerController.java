@@ -144,6 +144,9 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 
 		this.doDataBinding(request, entity);
 		this.onSave(request, response, model, entity, isCreate);
+		if (entity.getLoopTime()!=null){
+			entity.setLoopTime(entity.getLoopTime()*1000L);
+		}
 		if(isCreate) {
 			chartItemsService.saveOrUpdateChartItemsAndChartData(entity,true);
 		} else {
