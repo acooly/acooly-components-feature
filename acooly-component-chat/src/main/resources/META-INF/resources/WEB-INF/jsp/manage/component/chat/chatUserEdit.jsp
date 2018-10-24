@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/WEB-INF/jsp/manage/common/taglibs.jsp"%>
+<!-- <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/jquery.easyui.extend.js" charset="utf-8"></script> -->
+
+
+
+
 <div>
     <form id="manage_chatUser_editform" action="${pageContext.request.contextPath}/manage/component/chat/chatUser/${action=='create'?'saveJson':'updateJson'}.html" method="post">
       <jodd:form bean="chatUser" scope="request">
@@ -10,7 +15,7 @@
 				<td>
 				
 				<c:if test="${chatUser.id==null}">
-					<input type="text" name="userName" size="48" placeholder="请输入用户名..." class="easyui-validatebox text" data-options="validType:['length[1,64]'],required:true"/>
+					<input type="text" name="userName" size="48" placeholder="用户名：6-16位字母或者数字组成" class="easyui-validatebox text" required="true" validType="commonRegExp['[\\w]{6,16}','6-16位字母或者数字组成']"  invalidMessage="请输入6-16位字母或者数字组成"/>
 				</c:if>
 				
 				<c:if test="${chatUser.id!=null}">
@@ -25,8 +30,7 @@
 				<th>密码：</th>
 				<td><input type="text" name="password" size="48" placeholder="请输入密码..." class="easyui-validatebox text" data-options="validType:['length[1,64]'],required:true"/></td>
 			</tr>	
-			</c:if>				
-			
+			</c:if>		
 			<tr>
 				<th>昵称：</th>
 				<td><input type="text" name="nickName" size="48" placeholder="请输入昵称..." class="easyui-validatebox text" data-options="validType:['length[1,64]'],required:true"/></td>
