@@ -33,7 +33,7 @@ public class ChatAutoConfig {
     private ChatProperties appProperties;
 
     @Bean
-    public StandardDatabaseScriptIniter appScriptIniter() {
+    public StandardDatabaseScriptIniter chatScriptIniter() {
         return new StandardDatabaseScriptIniter() {
             @Override
             public String getEvaluateTable() {

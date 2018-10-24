@@ -19,7 +19,7 @@ import com.google.common.collect.Lists;
  * @author cuifuqiang
  */
 @Configuration
-@EnableConfigurationProperties({ ChartProperties.class })
+@EnableConfigurationProperties({ChartProperties.class})
 @ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
 @ComponentScan(basePackages = "com.acooly.module.chart")
 @AutoConfigureAfter(SecurityAutoConfig.class)
@@ -27,7 +27,7 @@ import com.google.common.collect.Lists;
 public class ChartAutoConfig {
 
 	@Bean
-	public StandardDatabaseScriptIniter appScriptIniter() {
+	public StandardDatabaseScriptIniter chartScriptIniter() {
 		return new StandardDatabaseScriptIniter() {
 		
 			@Override
