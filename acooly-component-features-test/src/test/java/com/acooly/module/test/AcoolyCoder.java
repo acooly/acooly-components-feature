@@ -12,14 +12,14 @@ public class AcoolyCoder {
         DefaultCodeGenerateService service = (DefaultCodeGenerateService) Generator.getGenerator();
         //set workspace if possible
         if (StringUtils.isBlank(service.getGenerateConfiguration().getWorkspace())) {
-            String workspace = getProjectPath() + "acooly-component-features-core";
+            String workspace = getProjectPath() + "acooly-component-chart";
             service.getGenerateConfiguration().setWorkspace(workspace);
         }
         //set root pacakge if possible
         if (StringUtils.isBlank(service.getGenerateConfiguration().getRootPackage())) {
             service.getGenerateConfiguration().setRootPackage(getRootPackage());
         }
-        service.generateTable("dm_customer");
+        service.generateTable("c_chart","c_chart_data","c_chart_items");
     }
 
     public static String getProjectPath() {
@@ -30,6 +30,6 @@ public class AcoolyCoder {
     }
 
     private static String getRootPackage() {
-        return "com.acooly.module";
+        return "com.acooly.module.chart";
     }
 }
