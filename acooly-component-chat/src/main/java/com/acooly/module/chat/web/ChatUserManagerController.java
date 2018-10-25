@@ -65,7 +65,9 @@ public class ChatUserManagerController extends AbstractJQueryEntityController<Ch
 			order.setPassword(entity.getPassword());
 			order.setNickName(entity.getNickName());
 			order.setSignature(entity.getSignature());
-			order.setBirthday(Dates.format(entity.getBirthday(), Dates.CHINESE_DATE_FORMAT_LINE));
+			if (entity.getBirthday() != null) {
+				order.setBirthday(Dates.format(entity.getBirthday(), Dates.CHINESE_DATE_FORMAT_LINE));
+			}
 			order.setGender("" + entity.getGender());
 
 			JChatBaseResult result = jChatService.adminRegister(order);
@@ -192,7 +194,7 @@ public class ChatUserManagerController extends AbstractJQueryEntityController<Ch
 			MessageBodyTextDto msgBody = new MessageBodyTextDto();
 			msgBody.setText(messages);
 			smo.setMsgBody(msgBody);
-			
+
 			JChatBaseResult imResult = jChatService.sendMessages(smo);
 			if (!imResult.isSuccess()) {
 				throw new RuntimeException("发送信息失败，错误：" + imResult.getMessage());
