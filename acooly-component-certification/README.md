@@ -4,8 +4,8 @@
 ## 1. 组件介绍
 
 此组件提供实名认证、银行卡二三四要素认证能力。
-
-服务地址：https://market.aliyun.com/products/56928004/cmapi013074.html?spm=5176.730005.0.0.1wZOy0#sku=yuncode707400003
+实名认证服务地址：https://market.aliyun.com/products/56928004/cmapi014760.html?spm=5176.730005.productlist.d_cmapi014760.9QqrCb#sku=yuncode876000009
+银行卡二三四要素认证服务地址：https://market.aliyun.com/products/56928004/cmapi013074.html?spm=5176.730005.0.0.1wZOy0#sku=yuncode707400003
 
 ## 2. 使用说明
 
