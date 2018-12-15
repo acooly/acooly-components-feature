@@ -7,8 +7,8 @@
         <artifactId>acooly-app-parent</artifactId>
         <version>4.2.0-SNAPSHOT</version>
     </parent>
-    <artifactId>acooly-components-feature-parent</artifactId>
-    <name>acooly-components-feature-parent libs Projects</name>
+    <artifactId>acooly-components-feature</artifactId>
+    <name>acooly-components-feature</name>
     <packaging>pom</packaging>
 
 
@@ -41,7 +41,7 @@
 
 
     <modules>
-        <module>acooly-component-features-test</module>
+        <module>acooly-components-feature-test</module>
         <module>acooly-component-olog</module>
 		<module>acooly-component-chat</module>
         <module>acooly-component-scheduler</module>
