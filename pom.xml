@@ -44,6 +44,7 @@
         <module>acooly-components-feature-test</module>
         <module>acooly-component-olog</module>
 		<module>acooly-component-chat</module>
+        <module>acooly-component-chart</module>
         <module>acooly-component-scheduler</module>
         <module>acooly-component-appservice</module>
         <module>acooly-component-sms</module>
