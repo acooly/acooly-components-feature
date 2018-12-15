@@ -38,6 +38,22 @@
             var date = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + sec;
             return date;
         };
+
+        function manage_content${RequestParameters.code}_editform_onSubmit(){
+            var isPush = $("#isEventNotify").prop("checked");
+            if(!isPush){
+                return true;
+            }
+            if(!$('#title').val()){
+                $.messager.alert('提示','事件通知时,标题不能为空');
+                return false;
+            }
+            if(!$('#subject').val()){
+                $.messager.alert('提示','事件通知时,简介(SEO)不能为空');
+                return false;
+            }
+            return true;
+        }
     </script>
 </head>
 <div>
@@ -57,7 +73,7 @@
                 <td>
                     <input type="text" style="width: 300px;" class="text" name="title" size="128"
                            class="easyui-validatebox"
-                           data-options="required:true" class="text" validType="byteLength[1,128]"/>
+                           data-options="required:true" id="title" validType="byteLength[1,128]"/>
                     <#if RequestParameters.cmsType != 'banner'>
                     <span style="margin-left: 10px;">编码: <select name="keycode" editable="false" style="width: 80px;"
                                                                  panelHeight="auto"
@@ -81,7 +97,7 @@
             </tr>
             <tr>
                 <th>简介(SEO)：</th>
-                <td><textarea name="subject" cols="80" rows="2" style="width:700px;"></textarea></td>
+                <td><textarea class="easyui-validatebox" id="subject" name="subject" cols="80" rows="2" style="width:700px;"></textarea></td>
             </tr>
             </#if>
             <tr>
@@ -126,7 +142,7 @@
                 </tr>
                 <tr>
                     <th>是否推送事件通知：</th>
-                    <td><input type="checkbox" name="isEventNotify" value="isEventNotify"/></td>
+                    <td><input type="checkbox" id="isEventNotify" name="isEventNotify" value="isEventNotify"/></td>
                 </tr>
                 <tr>
                     <th>发布日期：</th>

@@ -32,6 +32,8 @@ import java.util.Map;
 /**
  * pdf 生成器
  *
+ * 根据Freemarker模版直接生成pdf并填充数据，推荐使用PdfGeneratorService为入口
+ *
  * @author shuijing
  */
 @Slf4j
