@@ -16,15 +16,39 @@
 
     <dependencies>
 
-<!--         <dependency> -->
-<!--             <groupId>com.acooly</groupId> -->
-<!--             <artifactId>acooly-component-olog</artifactId> -->
-<!--             <version>${project.version}</version> -->
-<!--         </dependency> -->
-        
-         <dependency>
+        <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-chat</artifactId>
+            <artifactId>acooly-component-olog</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-cms</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>com.acooly</groupId>-->
+            <!--<artifactId>acooly-component-chat</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- openapi 用于其他组件内的api接口 -->
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>openapi-framework-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>openapi-framework-service-impl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>openapi-framework-apidoc</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -38,21 +62,22 @@
             <artifactId>acooly-coder</artifactId>
             <scope>test</scope>
         </dependency>
-    
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency>
-	</dependencies>
 
-	<build>
-		<finalName>acooly-component</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>acooly-component</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

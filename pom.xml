@@ -63,6 +63,7 @@
         <module>acooly-component-cms</module>
         <module>acooly-component-app</module>
         <module>acooly-component-portlet</module>
+        <module>acooly-component-cms-facade</module>
 
     </modules>
 </project>

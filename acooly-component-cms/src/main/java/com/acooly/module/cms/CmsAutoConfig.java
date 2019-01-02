@@ -14,6 +14,7 @@ import com.acooly.module.security.config.SecurityAutoConfig;
 import com.google.common.collect.Lists;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +22,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import java.util.List;
 
+import static com.acooly.module.cms.CmsProperties.PREFIX;
+
 /**
  * @author acooly
  */
 @Configuration
-@ConditionalOnProperty(value = "acooly.cms.enable", matchIfMissing = true)
+@EnableConfigurationProperties({CmsProperties.class})
+@ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
 @ComponentScan(basePackages = "com.acooly.module.cms")
 @AutoConfigureAfter(SecurityAutoConfig.class)
 public class CmsAutoConfig extends WebMvcConfigurerAdapter {
