@@ -112,7 +112,7 @@ public class RedisDistributedLock implements Lock {
             //取消内部循环
             cancelExpirationRenewal();
             //完全表示重入几次都释放完成
-            log.warn("分布式锁完全释放成功:{}", name);
+            log.debug("分布式锁完全释放成功:{}", name);
         }
     }
 
