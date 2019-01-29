@@ -64,15 +64,15 @@ public class RedisDistributedLock implements Lock {
 
     @Override
     public void lock() {
-        log.info("开始获取分布式锁:{} ...", name);
+        log.debug("开始获取分布式锁:{} ...", name);
         try {
             lockInterruptibly();
         } catch (InterruptedException e) {
             //Thread.currentThread().interrupt();
-            log.info("获取分布式锁失败:{}", name, e.getMessage());
+            log.warn("获取分布式锁失败:{}", name, e.getMessage());
             throw new DistributedException("获取锁失败", e);
         }
-        log.info("获取分布式锁成功:{}", name);
+        log.debug("获取分布式锁成功:{}", name);
     }
 
     @Override
@@ -82,22 +82,22 @@ public class RedisDistributedLock implements Lock {
 
     @Override
     public boolean tryLock() {
-        log.info("尝试获取分布式锁:{} ...", name);
+        log.debug("尝试获取分布式锁:{} ...", name);
 
         Long aLong = tryAcquireSync(-1, null, Thread.currentThread().getId());
         boolean locked = aLong == null;
 
-        log.info("获取分布式锁结果:{}", locked);
+        log.debug("获取分布式锁结果:{}", locked);
         return locked;
     }
 
     @Override
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-        log.info("尝试获取分布式锁:{} ...,最大等待时间:{} ms", name, unit.toMillis(time));
+        log.debug("尝试获取分布式锁:{} ...,最大等待时间:{} ms", name, unit.toMillis(time));
 
         boolean locked = tryLock(time, -1, unit);
 
-        log.info("获取分布式锁结果:{}", locked);
+        log.debug("获取分布式锁结果:{}", locked);
         return locked;
     }
 
@@ -112,7 +112,7 @@ public class RedisDistributedLock implements Lock {
             //取消内部循环
             cancelExpirationRenewal();
             //完全表示重入几次都释放完成
-            log.info("分布式锁完全释放成功:{}", name);
+            log.warn("分布式锁完全释放成功:{}", name);
         }
     }
 
