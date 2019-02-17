@@ -65,6 +65,7 @@
         <module>acooly-component-portlet</module>
         <module>acooly-component-cms-facade</module>
         <module>acooly-component-cms-openapi</module>
+        <module>acooly-component-security</module>
 
     </modules>
 </project>
