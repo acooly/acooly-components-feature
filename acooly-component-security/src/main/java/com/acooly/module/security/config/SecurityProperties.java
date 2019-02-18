@@ -24,8 +24,8 @@ import java.util.Map;
 /**
  * @author qiubo
  */
-// todo: 1.后台管理的资源管理功能待完善
-// todo: 2.新老版本切换的cookies保存功能
+// OK: 1.后台管理的资源管理功能待完善
+// OK: 2.新老版本切换的cookies保存功能
 // todo: 3.新版登录后的首个菜单自动展开
 // todo: 4.开发新版的登录界面
 // todo: 5.后台的notication功能（集成notice组件并扩展支持web后台）

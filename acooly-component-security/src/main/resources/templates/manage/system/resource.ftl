@@ -105,7 +105,7 @@
                                     <#if e?starts_with("icons") == false>
                                         <span class="iconSpan">
                                             <input type="radio" name="icon" value="${e}"/>
-                                            <i style="vertical-align:middle;display:inline-block;font-size: 14px;" class="fa ${e}"></i>
+                                            <i style="vertical-align:middle;display:inline-block;font-size: 16px;" class="fa ${e}"></i>
                                         </span>
                                     </#if>
                                     </#list>
@@ -119,7 +119,15 @@
         </form>
     </div>
     <style>
-        .iconSpan{    display: inline-block;margin: 3px;width: 35px;height: 20px;}
+        .iconSpan{
+            display: inline-block;
+            margin: 5px;
+            padding: 5px;
+            width: 64px;
+            border: 1px dashed #eeeeee;
+            border-radius: 3px;
+            text-align: center;}
+
         .resource_icons .header {
             height: 35px; line-height: 35px; vertical-align: middle; padding: 2px 10px; margin: 0 10px 5px 0;
             display: block;background-color: #eeeeee;border-bottom: 1px solid #dddddd;
