@@ -5,6 +5,7 @@ import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Dates;
+import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.Strings;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
@@ -44,7 +45,7 @@ import java.util.Set;
 public class ResourceController extends AbstractJQueryEntityController<Resource, ResourceService> {
 
     private static final Logger logger = LoggerFactory.getLogger(ResourceController.class);
-    private static Set<String> icons = null;
+    private Set<String> icons = null;
     @Autowired
     protected ResourceService resourceService;
 
@@ -219,6 +220,11 @@ public class ResourceController extends AbstractJQueryEntityController<Resource,
         String parentId = request.getParameter("parentId");
         if (StringUtils.isNotBlank(parentId)) {
             entity.setParent(resourceService.get(Long.valueOf(parentId)));
+        }
+
+        String customIcon = Servlets.getParameter(request,"customIcon");
+        if(Strings.isNotBlank(customIcon)){
+            entity.setIcon(customIcon);
         }
         return entity;
     }

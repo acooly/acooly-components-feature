@@ -3,10 +3,23 @@
  */
 (function ($) {
     var adminClass = {
+
+        /**
+         * 初始化
+         */
+        init: function () {
+            this.initMenus();
+            this.initTab();
+
+            // 新旧版本的风格(访问到旧版页面，则设置版本cookies)
+            $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "adminlte")
+        },
+
+
         /**
          * 初始化左侧功能菜单
          */
-        loadMenus: function () {
+        initMenus: function () {
             $.ajax({
                 url: '/manage/system/authorisedMenus.html',
                 success: function (result) {
@@ -15,17 +28,17 @@
                     // fix bug: Dynamic rendering menu cannot be expanded.
 
                     var ua = navigator.userAgent.toLocaleLowerCase();
-                    if (ua.match(/chrome/) != null && ua.match(/edge/) == null){
+                    if (ua.match(/chrome/) != null && ua.match(/edge/) == null) {
                         return;
                     }
 
-                    $(document).on("click",".sidebar-menu li a",function (e) {
-                        var firstParent=$(this).parent("li");
-                        var firstChildUl=$(this).next("ul");
-                        if(firstParent.hasClass("menu-open")){
+                    $(document).on("click", ".sidebar-menu li a", function (e) {
+                        var firstParent = $(this).parent("li");
+                        var firstChildUl = $(this).next("ul");
+                        if (firstParent.hasClass("menu-open")) {
                             firstParent.removeClass("menu-open");
                             firstChildUl.hide();
-                        }else{
+                        } else {
                             firstParent.addClass("menu-open");
                             firstChildUl.show();
                         }
@@ -132,31 +145,46 @@
                 }).tabs('resize');
             });
         },
-
-        theme: {
-            getTheme: function () {
-                return $.cookie('acoolyTheme')
-            },
-
-            /**
-             * 保持主题
-             *
-             * 可选：easyui,adminlte
-             * @param theme
-             */
-            saveTheme: function (theme) {
-                $.cookie('acoolyTheme', themeName, {
-                    expires: 7
-                });
-            }
-        }
     };
+
+    var themeClass = {
+
+        defaultExpires: 7,
+        acoolyThemeKey: "acoolyTheme",
+
+        getTheme: function (key) {
+            if (!key) {
+                key = this.acoolyThemeKey;
+            }
+            return $.cookie(key)
+        },
+
+        /**
+         * 保持主题
+         *
+         * 可选：easyui,adminlte
+         * @param theme
+         */
+        saveTheme: function (key, value) {
+            if (!key) {
+                key = this.acoolyThemeKey;
+            }
+            $.cookie(key, value, {
+                expires: this.defaultExpires
+            });
+        }
+    }
 
 
     if (!$.acooly) {
-        $.extend($.acooly,{});
+        $.acooly = {};
     }
+
     $.extend($.acooly, {
         admin: adminClass
+    });
+
+    $.extend($.acooly.admin, {
+        theme: themeClass
     })
 })(jQuery);

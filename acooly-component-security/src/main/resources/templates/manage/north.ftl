@@ -13,9 +13,13 @@
                 </div>
                 <div style="float: right;padding-right: 10px;">
                     <button class="layui-btn layui-btn-primary layui-btn-xs" onclick="$.acooly.framework.changePassword();"><i class="fa fa-key fa-fw
-                    fa-lg" aria-hidden="true"></i>修改密码</button>
-                    <button class="layui-btn layui-btn-primary layui-btn-xs" onclick="$.acooly.framework.logout();"><i class="fa fa-sign-out fa-fwfa-lg" aria-hidden="true"></i>注销</button>
-                    <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="location.href='/manage/index.html?acoolyTheme=adminlte'">
+                    fa-lg" aria-hidden="true"></i>修改密码
+                    </button>
+                    <button class="layui-btn layui-btn-primary layui-btn-xs" onclick="$.acooly.framework.logout();"><i
+                            class="fa fa-sign-out fa-fwfa-lg" aria-hidden="true"></i>注销
+                    </button>
+                    <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="location.href='/manage/index' +
+                     '.html?acoolyTheme=adminlte'">
                         <i class="fa fa-sign-out fa-fwfa-lg" aria-hidden="true"></i> 新版
                     </button>
                 </div>
@@ -37,8 +41,8 @@
 <script type="text/javascript">
     $(function () {
         $.acooly.layout.loadMenu();
+        // 旧版风格内的切换
         loadTheme();
-        //console.info("logo",$.acooly.system.config.logo)
         if ($.acooly.system.config.logo) {
             $('#acooly_logo img').attr('src', $.acooly.system.config.logo)
             $('#acooly_title').hide();

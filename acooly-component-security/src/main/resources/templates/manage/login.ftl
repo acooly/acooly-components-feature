@@ -158,13 +158,14 @@
         </#if>
 
         var targetUrl = getParameterByName('targetUrl');
+        var cookiesAcoolyTheme = $.acooly.admin.theme.getTheme();
         var jsonData = {
             username: $('#form-username').val(),
             password: $('#form-password').val(),
             captcha: captcha,
             _csrf: $('#_csrf').val(),
             targetUrl: targetUrl
-            // ,acoolyTheme: $.acooly.admin.theme.getTheme()
+            ,acoolyTheme:cookiesAcoolyTheme
         };
 
         loading();

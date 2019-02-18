@@ -451,6 +451,7 @@ ${extendScripts}
 
     $(function () {
         $.acooly.system.init();
+        // 初始化LOGO
         if ($.acooly.system.config.logo) {
             $('.logo-lg').html("<img src='" + $.acooly.system.config.logo + "' width='200'>")
         } else {
@@ -458,8 +459,7 @@ ${extendScripts}
                 $('.logo-lg').text($.acooly.system.config.title);
             }
         }
-        $.acooly.admin.loadMenus();
-        $.acooly.admin.initTab();
+        $.acooly.admin.init();
     });
 
 </script>

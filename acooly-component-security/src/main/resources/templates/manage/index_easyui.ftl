@@ -34,6 +34,7 @@
     <script type="text/javascript" src="/manage/assert/plugin/layui/layui.all.js"></script>
 
     <!-- 自己定义的样式和JS扩展 -->
+    <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
@@ -75,6 +76,8 @@ ${extendScripts}
     <script type="text/javascript">
         $(function () {
             $.acooly.system.init();
+            // 新旧版本的风格(访问到旧版页面，则设置版本cookies)
+            $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "easyui");
         });
     </script>
 </head>
