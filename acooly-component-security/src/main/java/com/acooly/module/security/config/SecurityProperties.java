@@ -26,7 +26,7 @@ import java.util.Map;
  */
 // OK: 1.后台管理的资源管理功能待完善
 // OK: 2.新老版本切换的cookies保存功能
-// todo: 3.新版登录后的首个菜单自动展开
+// OK: 3.新版登录后的首个菜单自动展开;菜单的点击选中效果
 // todo: 4.开发新版的登录界面
 // todo: 5.后台的notication功能（集成notice组件并扩展支持web后台）
 // todo: 6.新版：左边菜单缩放后，界面resize自适应

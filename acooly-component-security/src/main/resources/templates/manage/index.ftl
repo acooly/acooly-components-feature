@@ -182,6 +182,9 @@ ${extendStyles}
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                     </li>
+                    <li>
+                        <a href="javascript:;" onclick="pushMenuTest()" ><i class="fa fa-user"></i></a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -328,7 +331,7 @@ ${extendStyles}
 <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
 <#--<script src="/manage/assert/plugin/fastclick/lib/fastclick.js"></script>-->
 <!-- AdminLTE App -->
-<script src="/manage/assert/plugin/adminlte/js/adminlte.min.js"></script>
+<script src="/manage/assert/plugin/adminlte/js/adminlte.js"></script>
 <!-- 模板引擎：baidu -->
 <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
 
@@ -403,15 +406,11 @@ ${extendScripts}
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">功能菜单</li>
-
-
             <%
-            for(var i=0;i
-            <resources.length
-                    ;i++) {
-                    var m=resources[i];
-                    %>
-                <li class="treeview">
+            for(var i=0;i<resources.length;i++) {
+                var m=resources[i];
+            %>
+                <li class="treeview <%if(i==0){%>menu-open active<%}%>">
                     <a href="javascript:;">
                         <%if(m.iconSkin != null){%>
                         <i class="fa <%=m.iconSkin%>"></i>
@@ -459,8 +458,42 @@ ${extendScripts}
                 $('.logo-lg').text($.acooly.system.config.title);
             }
         }
+
         $.acooly.admin.init();
+
+        // $(".sidebar-menu").tree().expand($(".treeview").first());
+
+
+        //
+        // var a;
+        // $(".sidebar-menu a").on("click",function(i){
+        //     console.info($(this).children()[1].html())
+        // });
+
+
     });
+
+    function pushMenuTest(){
+        // 注册点击主菜单（.treeview）的选中效果(.active)
+        $(document).on("click",'.treeview',function (e) {
+            $(".sidebar-menu .treeview").removeClass("active");
+            $(this).addClass("active");
+        });
+
+        // $('[data-toggle="push-menu"]').pushMenu('toggle');
+        // $(document).on("click",".sidebar-menu li",function (e) {
+        //     $(".sidebar-menu li").removeClass("active");
+        //     $(this).addClass("active");
+            // var firstChildUl = $(this).next("ul");
+            // if (firstParent.hasClass("menu-open")) {
+            //     firstParent.removeClass("menu-open");
+            //     firstChildUl.hide();
+            // } else {
+            //     firstParent.addClass("menu-open");
+            //     firstChildUl.show();
+            // }
+        // })
+    }
 
 </script>
 </body>

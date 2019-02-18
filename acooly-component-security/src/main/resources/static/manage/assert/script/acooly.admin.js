@@ -25,8 +25,22 @@
                 success: function (result) {
                     var data = {resources: result};
                     $.acooly.template.render("acooly_admin_menu_container", "acooly_admin_menu_template", data);
-                    // fix bug: Dynamic rendering menu cannot be expanded.
 
+
+                    // 注册点击主菜单（.treeview）的选中效果(.active)
+                    $(document).on("click",'.treeview',function (e) {
+                        $(".sidebar-menu .treeview").removeClass("active");
+                        $(this).addClass("active");
+                    });
+                    $(document).on("click",'.sidebar-menu ul li',function (e) {
+                        $(".sidebar-menu li").removeClass("active");
+                        $(this).addClass("active");
+                        if($(this).parent() && $(this).parent().parent()){
+                            $(this).parent().parent().addClass("active");
+                        }
+                    });
+
+                    // fix bug: Dynamic rendering menu cannot be expanded.
                     var ua = navigator.userAgent.toLocaleLowerCase();
                     if (ua.match(/chrome/) != null && ua.match(/edge/) == null) {
                         return;
