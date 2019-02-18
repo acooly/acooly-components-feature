@@ -29,7 +29,7 @@ import java.util.Map;
 // OK: 3.新版登录后的首个菜单自动展开;菜单的点击选中效果
 // todo: 4.开发新版的登录界面
 // todo: 5.后台的notication功能（集成notice组件并扩展支持web后台）
-// todo: 6.新版：左边菜单缩放后，界面resize自适应
+// OK: 6.新版：左边菜单缩放后，界面resize自适应
 @ConfigurationProperties(SecurityProperties.PREFIX)
 @Data
 public class SecurityProperties {

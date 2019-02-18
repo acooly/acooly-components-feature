@@ -339,6 +339,7 @@ ${extendStyles}
 <#--<script src="/manage/assert/plugin/adminlte/js/pages/dashboard.js"></script>-->
 <!-- AdminLTE for demo purposes -->
 <script src="/manage/assert/plugin/adminlte/js/demo.js"></script>
+<script src="https://cdn.bootcss.com/javascript-detect-element-resize/0.5.3/jquery.resize.min.js"></script>
 
 
 <#--<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>-->

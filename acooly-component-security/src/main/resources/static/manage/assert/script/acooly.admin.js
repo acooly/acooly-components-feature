@@ -28,14 +28,14 @@
 
 
                     // 注册点击主菜单（.treeview）的选中效果(.active)
-                    $(document).on("click",'.treeview',function (e) {
+                    $(document).on("click", '.treeview', function (e) {
                         $(".sidebar-menu .treeview").removeClass("active");
                         $(this).addClass("active");
                     });
-                    $(document).on("click",'.sidebar-menu ul li',function (e) {
+                    $(document).on("click", '.sidebar-menu ul li', function (e) {
                         $(".sidebar-menu li").removeClass("active");
                         $(this).addClass("active");
-                        if($(this).parent() && $(this).parent().parent()){
+                        if ($(this).parent() && $(this).parent().parent()) {
                             $(this).parent().parent().addClass("active");
                         }
                     });
@@ -151,8 +151,9 @@
                     }
                 }]
             });
-            $(window).resize(function () {
-                //"_tabs" 为easyui-tabs的id
+
+            // 通过jquery-resize插件实现：父节点大小改变后，resize tabs
+            $('.content-wrapper').resize(function () {
                 $('#layout_center_tabs').tabs({
                     width: $("#_tabs").parent().width(),
                     height: "auto"
