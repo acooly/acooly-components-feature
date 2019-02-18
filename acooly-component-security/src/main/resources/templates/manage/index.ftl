@@ -13,6 +13,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
 
+    <!-- layui -->
+    <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <!-- Theme style -->
     <link rel="stylesheet" href="/manage/assert/plugin/adminlte/css/AdminLTE.css">
@@ -41,10 +43,6 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-
-
-    <!-- layui -->
-    <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
     <!-- easyui及自定义 -->
     <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly4/easyui.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="/manage/assert/style/icon.css">
@@ -86,47 +84,47 @@ ${extendStyles}
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Notifications: style can be found in dropdown.less -->
-                    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">你有10个消息未读</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="top-menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                                            page and may cause design problems
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-red"></i> 5 new members joined
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-user text-red"></i> You changed your username
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
-                    </li>
+                    <#--<li class="dropdown notifications-menu">-->
+                        <#--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                            <#--<i class="fa fa-bell-o"></i>-->
+                            <#--<span class="label label-warning">10</span>-->
+                        <#--</a>-->
+                        <#--<ul class="dropdown-menu">-->
+                            <#--<li class="header">你有10个消息未读</li>-->
+                            <#--<li>-->
+                                <#--<!-- inner menu: contains the actual data &ndash;&gt;-->
+                                <#--<ul class="top-menu">-->
+                                    <#--<li>-->
+                                        <#--<a href="#">-->
+                                            <#--<i class="fa fa-users text-aqua"></i> 5 new members joined today-->
+                                        <#--</a>-->
+                                    <#--</li>-->
+                                    <#--<li>-->
+                                        <#--<a href="#">-->
+                                            <#--<i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the-->
+                                            <#--page and may cause design problems-->
+                                        <#--</a>-->
+                                    <#--</li>-->
+                                    <#--<li>-->
+                                        <#--<a href="#">-->
+                                            <#--<i class="fa fa-users text-red"></i> 5 new members joined-->
+                                        <#--</a>-->
+                                    <#--</li>-->
+                                    <#--<li>-->
+                                        <#--<a href="#">-->
+                                            <#--<i class="fa fa-shopping-cart text-green"></i> 25 sales made-->
+                                        <#--</a>-->
+                                    <#--</li>-->
+                                    <#--<li>-->
+                                        <#--<a href="#">-->
+                                            <#--<i class="fa fa-user text-red"></i> You changed your username-->
+                                        <#--</a>-->
+                                    <#--</li>-->
+                                <#--</ul>-->
+                            <#--</li>-->
+                            <#--<li class="footer"><a href="#">View all</a></li>-->
+                        <#--</ul>-->
+                    <#--</li>-->
 
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
@@ -181,9 +179,6 @@ ${extendStyles}
                     <!-- Control Sidebar Toggle Button -->
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" onclick="pushMenuTest()" ><i class="fa fa-user"></i></a>
                     </li>
                 </ul>
             </div>

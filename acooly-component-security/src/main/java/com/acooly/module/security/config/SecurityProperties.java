@@ -23,6 +23,7 @@ import java.util.Map;
 
 /**
  * @author qiubo
+ * @author zhangpu
  */
 // OK: 1.后台管理的资源管理功能待完善
 // OK: 2.新老版本切换的cookies保存功能
