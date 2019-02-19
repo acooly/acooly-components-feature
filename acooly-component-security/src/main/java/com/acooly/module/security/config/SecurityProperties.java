@@ -31,6 +31,7 @@ import java.util.Map;
 // todo: 4.开发新版的登录界面
 // todo: 5.后台的notication功能（集成notice组件并扩展支持web后台）
 // OK: 6.新版：左边菜单缩放后，界面resize自适应
+// todo: 7.优化表单验证的错误提示样式，输入框应该有颜色提示。
 @ConfigurationProperties(SecurityProperties.PREFIX)
 @Data
 public class SecurityProperties {

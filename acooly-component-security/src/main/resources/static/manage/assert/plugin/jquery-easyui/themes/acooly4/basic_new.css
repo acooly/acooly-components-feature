@@ -9,7 +9,7 @@ select {
     border: 1px solid #e6e6e6;
     background-color: #fff;
     font-size: 14px;
-    border-radius: 2px;
+    /*border-radius: 2px;*/
 }
 
 
@@ -21,7 +21,7 @@ input[type='text'],input[type='password'] {
     border: 1px solid #e6e6e6;
     background-color: #fff;
     font-size: 14px;
-    border-radius: 2px;
+    /*border-radius: 2px;*/
     margin: 5px 0;
 }
 
@@ -32,16 +32,25 @@ textarea {
     border: 1px solid #e6e6e6;
     background-color: #fff;
     font-size: 14px;
-    border-radius: 2px;
+    /*border-radius: 2px;*/
     margin: 5px 0;
 }
 
+.tableForm .validatebox-invalid  {
+    border-color: #dd4b39;
+    box-shadow: none;
+}
+
+
 input:hover, textarea:hover {
-    border-color: #D2D2D2 !important;
+    /*border-color: #3c8dbc;*/
+    /*box-shadow: none;*/
+    /*border-color: #D2D2D2 !important;*/
 }
 
 input:focus, textarea:focus {
-    border-color: #C9C9C9!important;
+    border-color: #3c8dbc;
+    box-shadow: none;
     outline-offset: 0;
     outline: none;
 }
