@@ -36,7 +36,7 @@ textarea {
     margin: 5px 0;
 }
 
-.tableForm .validatebox-invalid  {
+.tableForm .tooltip-f  {
     border-color: #dd4b39;
     box-shadow: none;
 }
@@ -49,7 +49,7 @@ input:hover, textarea:hover {
 }
 
 input:focus, textarea:focus {
-    border-color: #3c8dbc;
+    border-color: #3c8dbc !important;
     box-shadow: none;
     outline-offset: 0;
     outline: none;
