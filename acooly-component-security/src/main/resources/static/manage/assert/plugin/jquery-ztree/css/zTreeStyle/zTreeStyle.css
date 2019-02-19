@@ -112,6 +112,7 @@ website:	http://code.google.com/p/jquerytree/
     display: inline-block;
     vertical-align: middle;
     border: 0 none;
+    box-sizing: initial;
     cursor: pointer;
     outline: none;
     background-color: transparent;
