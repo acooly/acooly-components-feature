@@ -18,12 +18,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>openapi-framework-core</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
 
         <dependency>
             <groupId>com.acooly</groupId>

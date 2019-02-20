@@ -42,7 +42,7 @@ public class EavAttribute extends AbstractEntity {
     private Long schemaId;
 
     /**
-     * 名称
+     * 字段名称
      */
     @NotEmpty
     @Size(max = 128)
@@ -55,11 +55,6 @@ public class EavAttribute extends AbstractEntity {
     @Size(max = 128)
     private String displayName;
 
-    /**
-     * 备注
-     */
-    @Size(max = 128)
-    private String memo;
 
     /**
      * 是否可以为空
@@ -97,6 +92,18 @@ public class EavAttribute extends AbstractEntity {
      */
     @Size(max = 128)
     private String enumValue;
+
+
+    /**
+     * 备注
+     */
+    @Size(max = 128)
+    private String memo;
+
+    /**
+     * 是否逻辑唯一键
+     */
+    private boolean key = false;
 
     /**
      * 属性类型
@@ -205,5 +212,13 @@ public class EavAttribute extends AbstractEntity {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public boolean isKey() {
+        return key;
+    }
+
+    public void setKey(boolean key) {
+        this.key = key;
     }
 }
