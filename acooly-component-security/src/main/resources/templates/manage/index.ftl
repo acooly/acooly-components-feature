@@ -418,24 +418,51 @@ ${extendScripts}
                     </a>
                     <ul class="treeview-menu">
                         <%
-                        for(var j=0;j
-                        <m.children.length
-                                ;j++) {
-                                var e=m.children[j];
-                                %>
-                            <li><a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'<%=e.name%>',value:'<%=e.value%>',
-                    showMode:'<%=e.showMode%>',icon:'<%=e.icon%>'})">
+                        for(var j=0; j<m.children.length; j++) {
+                           var e=m.children[j];
+                           if(e.children.length > 0) {
+                        %>
+                            <li class="treeview">
+                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'<%=e.name%>',value:'<%=e.value%>',showMode:'<%=e.showMode%>',icon:'<%=e.icon%>'})">
                                 <%if(e.iconSkin != null){%>
                                 <i class="fa <%=e.iconSkin%>"></i>
                                 <%}else{%>
                                 <span class="line-action <%=e.icon%>"></span>
                                 <%}%>
-                                <%=e .name%>
-                            </a></li>
-                            <% } %>
+                                <%=e.name%>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <%
+                                 for(var k=0;k<e.children.length; k++) {
+                                 v = e.children[j];
+                                %>
+                                <li><a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'<%=v.name%>',value:'<%=v.value%>',showMode:'<%=v.showMode%>',icon:'<%=v.icon%>'})">
+                                    <%if(e.iconSkin != null){%>
+                                    <i class="fa <%=v.iconSkin%>"></i>
+                                    <%}else{%>
+                                    <span class="line-action <%=v.icon%>"></span>
+                                    <%}%>
+                                    <%=v.name%>
+                                </a>
+                                </li>
+                                <%}%>
+                            </ul>
+                         </li>
+                        <%}else{%>
+                        <li><a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'<%=e.name%>',value:'<%=e.value%>',showMode:'<%=e.showMode%>',icon:'<%=e.icon%>'})">
+                                <%if(e.iconSkin != null){%>
+                                <i class="fa <%=e.iconSkin%>"></i>
+                                <%}else{%>
+                                <span class="line-action <%=e.icon%>"></span>
+                                <%}%>
+                                <%=e.name%>
+                            </a>
+                        </li>
+                        <%}%>
+                        <%}%>
                     </ul>
                 </li>
-
                 <% } %>
         </ul>
     </section>
@@ -454,19 +481,7 @@ ${extendScripts}
                 $('.logo-lg').text($.acooly.system.config.title);
             }
         }
-
         $.acooly.admin.init();
-
-        // $(".sidebar-menu").tree().expand($(".treeview").first());
-
-
-        //
-        // var a;
-        // $(".sidebar-menu a").on("click",function(i){
-        //     console.info($(this).children()[1].html())
-        // });
-
-
     });
 
     function pushMenuTest(){
@@ -475,20 +490,6 @@ ${extendScripts}
             $(".sidebar-menu .treeview").removeClass("active");
             $(this).addClass("active");
         });
-
-        // $('[data-toggle="push-menu"]').pushMenu('toggle');
-        // $(document).on("click",".sidebar-menu li",function (e) {
-        //     $(".sidebar-menu li").removeClass("active");
-        //     $(this).addClass("active");
-            // var firstChildUl = $(this).next("ul");
-            // if (firstParent.hasClass("menu-open")) {
-            //     firstParent.removeClass("menu-open");
-            //     firstChildUl.hide();
-            // } else {
-            //     firstParent.addClass("menu-open");
-            //     firstChildUl.show();
-            // }
-        // })
     }
 
 </script>
