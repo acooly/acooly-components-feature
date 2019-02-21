@@ -64,7 +64,7 @@
                         <th>资源串(值)：</th>
                         <td colspan="5">
                             <input name="value" id="manage_resource_form_value" type="text" class="easyui-validatebox" size="50"/>
-                            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="manage_resource_form_submit()">保存</a>
+                            <a href="#" class="easyui-linkbutton" onclick="manage_resource_form_submit()"><i class="fa fa-floppy-o"></i> 保存</a>
                         </td>
                     </tr>
                     <tr>

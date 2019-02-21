@@ -289,6 +289,16 @@ function manage_resource_form_submit() {
                     // 新增
                     var pNode = manage_resource_tree_getSelectedNode();
                     var nNode = result.entity;
+                    if (nNode.icon){
+                        if(nNode.icon.startsWith("icon")){
+                            nNode = nNode.icon;
+                            nNode.iconSkin = null;
+                        }else{
+                            nNode.iconSkin = nNode.icon;
+                            nNode.icon = null;
+
+                        }
+                    }
                     zTree.addNodes(pNode, nNode);
 //					 if(pNode.children && pNode.children.length > 1){
 //						 zTree.moveNode(pNode.children[0],nNode,'prev');

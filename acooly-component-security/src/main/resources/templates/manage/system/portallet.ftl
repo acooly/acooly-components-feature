@@ -17,11 +17,6 @@
         <form id="manage_portallet_searchform" onsubmit="return false">
             <table class="tableForm" width="100%">
                 <tr>
-                    <td align="left" style="color: orange">
-                        <input type="button" style="color: orange;font-size: 14px" onclick="window.open('/manage/tableSchema/exportExcel')" name="exportSchema" value="导出数据库表结构"/>
-                    </td>
-                </tr>
-                <tr>
                     <td align="left">
                         所属用户:<input type="text" name="search_LIKE_userName"/>
                         标题:<input type="text" name="search_LIKE_title"/>
@@ -61,7 +56,7 @@
         <!-- 每行的Action动作模板 -->
         <div id="manage_portallet_action" style="display: none;">
             <a class="line-action icon-edit"
-               onclick="$.acooly.framework.edit({url:'/manage/system/portallet/edit.html',id:'{0}',entity:'portallet',height:350,width:600});"
+               onclick="$.acooly.framework.edit({url:'/manage/system/portallet/edit.html',id:'{0}',entity:'portallet',height:450,width:600});"
                href="#" title="编辑"></a>
             <a class="line-action icon-delete"
                onclick="$.acooly.framework.remove('/manage/system/portallet/deleteJson.html','{0}','manage_portallet_datagrid',null,null,cleanPortalletCookie);"
@@ -71,7 +66,7 @@
         <!-- 表格的工具栏 -->
         <div id="manage_portallet_toolbar">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"
-               onclick="$.acooly.framework.create({url:'/manage/system/portallet/create.html',entity:'portallet',height:350,width:600,onSuccess:cleanPortalletCookie})">添加</a>
+               onclick="$.acooly.framework.create({url:'/manage/system/portallet/create.html',entity:'portallet',height:450,width:600,onSuccess:cleanPortalletCookie})">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"
                onclick="$.acooly.framework.removes('/manage/system/portallet/deleteJson.html','manage_portallet_datagrid',null,null,cleanPortalletCookie)">批量删除</a>
         </div>

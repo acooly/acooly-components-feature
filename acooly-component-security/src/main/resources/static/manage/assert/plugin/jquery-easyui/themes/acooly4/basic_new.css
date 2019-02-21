@@ -238,14 +238,14 @@ a.button span img {
     padding-left: 10px;
     line-height: 1.3em;
     font-size: 14px;
-    border-right: 0;
+    /*border-right: 0;*/
 }
 
 .combo-arrow {
     width: 25px;
-    height: 30px;
-    margin-top: -2px;
-    margin-left: -2px;
+    height: 28px;
+    margin-top: -3px;
+    margin-right: 2px;
     vertical-align: middle;
     border: 1px solid #e6e6e6;
     border-radius: 2px;
