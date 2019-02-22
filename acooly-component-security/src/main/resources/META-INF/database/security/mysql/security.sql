@@ -158,10 +158,10 @@ values (4, 1, '资源菜单', 'URL', '/manage/system/resource/index.html', 0, 1,
 INSERT INTO `sys_resource` VALUES ('2016093009', '1', '机构管理', 'URL', '0', '2014-01-09 02:39:40', '/manage/module/security/org/index.html', '1', 'fa-sitemap', null, '2017-05-26 17:51:13', '2017-05-27 13:39:38');
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
 values (7, 1, '桌面管理', 'URL', '/manage/system/portallet/index.html', 0, 1, '2014-01-08 02:39:40', 'fa-dashboard', null);
-
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
 values (8, 1, '连接池监控', 'URL', '/manage/druid/index.html', 0, 2, '2014-01-08 02:39:40', 'fa-eye', null);
-
+INSERT INTO `acooly`.`sys_resource`(`ID`, `PARENTID`, `NAME`, `TYPE`, `SHOW_STATE`, `ORDER_TIME`, `VALUE`, `SHOW_MODE`, `ICON`, `DESCN`, `create_time`, `update_time`)
+VALUES (2019022201, NULL, '通用功能', 'MENU', 0, '2015-10-23 18:32:04', '', 1, 'fa-th', NULL, '2019-02-22 16:39:49', '2019-02-22 16:40:00');
 
 insert into SYS_ROLE (ID, NAME, DESCN) values (1, 'ROLE_SYSTEM', '系统管理角色');
 
@@ -172,12 +172,14 @@ insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 4);
 insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 7);
 insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 8);
 insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 2016093009);
-
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 2016093009);
 
 INSERT INTO `acooly`.`sys_user`(`ID`, `USERNAME`, `REAL_NAME`, `PASSWORD`, `SALT`, `USER_TYPE`, `EMAIL`, `MOBILE_NO`, `ORG_ID`, `ORG_NAME`, `LAST_MODIFY_TIME`, `EXPIRATION_TIME`, `UNLOCK_TIME`, `LOGIN_STATUS`, `LOGIN_FAIL_TIMES`, `LOGIN_TIME`, `STATUS`, `DESCN`, `create_time`, `update_time`)
 VALUES (1, 'admin', '超级管理员', 'ab7cc1898fe24ef738595e56759b17893f2dbcc6', 'f10a5bda42097431', 1, 'zp820705@163.com', '13896177630', 1, 'acooly', '2019-02-21 18:10:23', NULL, NULL, 1, 0, NULL, 1, '', '2014-01-07 00:00:00', '2019-02-21 18:10:23');
 
 insert into SYS_USER_ROLE (ROLE_ID, USER_ID) values (1, 1);
+
+
 
 
 

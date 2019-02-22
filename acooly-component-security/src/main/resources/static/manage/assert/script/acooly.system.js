@@ -217,7 +217,7 @@ function manage_resource_form_bind(resource) {
     }
     $("#manage_resource_form_showState option[id='" + resource.showState + "']").attr("selected", true);
     $("input", $('#iconContainer')).each(function () {
-        if (this.value == resource.icon) {
+        if (this.value == resource.icon || this.value == resource.iconSkin) {
             $(this).attr('checked', 'true');
             return;
         }
