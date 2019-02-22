@@ -236,7 +236,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             ServletRequest request,
             ServletResponse response) {
         try {
-            log.error("登录失败", e);
+            log.error("登录失败：{}", e.getMessage());
             String username = (String) token.getPrincipal();
             User user = null;
             if (!UnknownAccountException.class.isAssignableFrom(e.getClass())
