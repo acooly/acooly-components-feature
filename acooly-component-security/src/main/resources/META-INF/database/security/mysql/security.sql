@@ -1,10 +1,4 @@
 /*==============================================================*/
-/* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/1/10 0:25:53                            */
-/*==============================================================*/
-
-
-/*==============================================================*/
 /* Table: SYS_PORTALLET                                         */
 /*==============================================================*/
 CREATE TABLE SYS_PORTALLET
@@ -162,6 +156,9 @@ CREATE TABLE `SYS_ORG` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='组织机构';
 
 
+INSERT INTO `acooly`.`sys_org`(`id`, `parent_id`, `name`, `status`, `province`, `city`, `county`, `mobile_no`, `address`, `contacts`, `telephone`, `email`, `create_time`, `update_time`, `memo`)
+VALUES (1, 0, 'acooly', 'valid', '重庆市', '重庆市', '渝北区', '13896177630', '重庆渝北', '张浦', '', 'zhangpu@acooly.cn', '2019-02-21 18:05:36', '2019-02-21 18:05:36', 'dev');
+
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
 values (1, null, '系统管理', 'MENU', null, 0, 1, '2014-01-07', 'fa-cogs', null);
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
@@ -170,8 +167,6 @@ insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE
 values (3, 1, '角色管理', 'URL', '/manage/system/role/index.html', 0, 1, '2014-01-10 00:00:01', 'fa-user-circle-o', null);
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
 values (4, 1, '资源菜单', 'URL', '/manage/system/resource/index.html', 0, 1, '2014-01-10', 'fa-list', null);
--- insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
--- values (5, 1, '操作日志', 'URL', '/manage/module/olog/olog/index.html', 0, 1, '2014-01-08 02:36:49', 'icons-resource-shouzhimingxi', null);
 INSERT INTO `sys_resource` VALUES ('2016093009', '1', '机构管理', 'URL', '0', '2014-01-09 02:39:40', '/manage/module/security/org/index.html', '1', 'fa-sitemap', null, '2017-05-26 17:51:13', '2017-05-27 13:39:38');
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
 values (7, 1, '桌面管理', 'URL', '/manage/system/portallet/index.html', 0, 1, '2014-01-08 02:39:40', 'fa-dashboard', null);
@@ -182,26 +177,17 @@ values (8, 1, '连接池监控', 'URL', '/manage/druid/index.html', 0, 2, '2014-
 
 insert into SYS_ROLE (ID, NAME, DESCN) values (1, 'ROLE_SYSTEM', '系统管理角色');
 
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 1);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 2);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 3);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 4);
--- insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
--- values (1, 5);
--- insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
--- values (1, 6);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 2016093009);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 7);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 8);
-insert into SYS_USER (ID, USERNAME, REAL_NAME, PASSWORD, SALT, USER_TYPE, EMAIL, MOBILE_NO, CREATE_TIME, LAST_MODIFY_TIME, EXPIRATION_TIME, UNLOCK_TIME, LOGIN_STATUS,LOGIN_FAIL_TIMES,LOGIN_TIME,STATUS, DESCN)
-values (1, 'admin', '超级管理员', 'ab7cc1898fe24ef738595e56759b17893f2dbcc6', 'f10a5bda42097431', 1, 'zp820705@163.com', '13896177630', '2014-01-07', '2014-01-07', null, null, 1,0,null,1, null);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 1);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 2);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 3);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 4);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 7);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 8);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 2016093009);
+
+
+INSERT INTO `acooly`.`sys_user`(`ID`, `USERNAME`, `REAL_NAME`, `PASSWORD`, `SALT`, `USER_TYPE`, `EMAIL`, `MOBILE_NO`, `ORG_ID`, `ORG_NAME`, `LAST_MODIFY_TIME`, `EXPIRATION_TIME`, `UNLOCK_TIME`, `LOGIN_STATUS`, `LOGIN_FAIL_TIMES`, `LOGIN_TIME`, `STATUS`, `DESCN`, `create_time`, `update_time`)
+VALUES (1, 'admin', '超级管理员', 'ab7cc1898fe24ef738595e56759b17893f2dbcc6', 'f10a5bda42097431', 1, 'zp820705@163.com', '13896177630', 1, 'acooly', '2019-02-21 18:10:23', NULL, NULL, 1, 0, NULL, 1, '', '2014-01-07 00:00:00', '2019-02-21 18:10:23');
 
 insert into SYS_USER_ROLE (ROLE_ID, USER_ID) values (1, 1);
 
