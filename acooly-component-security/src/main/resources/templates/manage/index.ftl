@@ -435,7 +435,7 @@ ${extendScripts}
                             <ul class="treeview-menu">
                                 <%
                                  for(var k=0;k<e.children.length; k++) {
-                                 v = e.children[j];
+                                 v = e.children[k];
                                 %>
                                 <li><a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'<%=v.name%>',value:'<%=v.value%>',showMode:'<%=v.showMode%>',icon:'<%=v.icon%>'})">
                                     <%if(e.iconSkin != null){%>

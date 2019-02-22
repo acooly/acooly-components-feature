@@ -67,7 +67,7 @@ public class OrgManagerController extends AbstractJQueryEntityController<Org, Or
             if (getSessionUser().getUserType() != 1) {
                 orgId = ShiroUtils.getCurrentUser().getOrgId();
             }
-            log.info("用户组织机构id为{}", orgId);
+//            log.info("用户组织机构id为{}", orgId);
             List<Org> organizes = orgService.getTreeList(orgId);
             result.setTotal(Long.valueOf(organizes.size()));
             result.setRows(organizes);

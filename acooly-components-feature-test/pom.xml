@@ -22,11 +22,11 @@
             <!--<version>${project.version}</version>-->
         <!--</dependency>-->
 
-        <!--<dependency>-->
-            <!--<groupId>com.acooly</groupId>-->
-            <!--<artifactId>acooly-component-cms</artifactId>-->
-            <!--<version>${project.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-cms</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.acooly</groupId>
