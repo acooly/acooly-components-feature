@@ -358,7 +358,7 @@ img {
 
 #layout_center_tabs .tabs-selected {border-top: 2px solid #3c8dbc;}
 
-.datagrid-header, .datagrid-td-rownumber {    background-color: #ffffff;}
+/*.datagrid-header, .datagrid-td-rownumber {    background-color: #ffffff;}*/
 
 .control-sidebar-menu .sidebar-menu-icon {
     float: left;
