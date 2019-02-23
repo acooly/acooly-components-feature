@@ -144,7 +144,7 @@ CREATE TABLE `SYS_ORG` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='组织机构';
 
 
-INSERT INTO `acooly`.`sys_org`(`id`, `parent_id`, `name`, `status`, `province`, `city`, `county`, `mobile_no`, `address`, `contacts`, `telephone`, `email`, `create_time`, `update_time`, `memo`)
+INSERT INTO `sys_org`(`id`, `parent_id`, `name`, `status`, `province`, `city`, `county`, `mobile_no`, `address`, `contacts`, `telephone`, `email`, `create_time`, `update_time`, `memo`)
 VALUES (1, 0, 'acooly', 'valid', '重庆市', '重庆市', '渝北区', '13896177630', '重庆渝北', '张浦', '', 'zhangpu@acooly.cn', '2019-02-21 18:05:36', '2019-02-21 18:05:36', 'dev');
 
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
@@ -174,7 +174,7 @@ insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 8);
 insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 2016093009);
 insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 2019022201);
 
-INSERT INTO `acooly`.`sys_user`(`ID`, `USERNAME`, `REAL_NAME`, `PASSWORD`, `SALT`, `USER_TYPE`, `EMAIL`, `MOBILE_NO`, `ORG_ID`, `ORG_NAME`, `LAST_MODIFY_TIME`, `EXPIRATION_TIME`, `UNLOCK_TIME`, `LOGIN_STATUS`, `LOGIN_FAIL_TIMES`, `LOGIN_TIME`, `STATUS`, `DESCN`, `create_time`, `update_time`)
+INSERT INTO `sys_user`(`ID`, `USERNAME`, `REAL_NAME`, `PASSWORD`, `SALT`, `USER_TYPE`, `EMAIL`, `MOBILE_NO`, `ORG_ID`, `ORG_NAME`, `LAST_MODIFY_TIME`, `EXPIRATION_TIME`, `UNLOCK_TIME`, `LOGIN_STATUS`, `LOGIN_FAIL_TIMES`, `LOGIN_TIME`, `STATUS`, `DESCN`, `create_time`, `update_time`)
 VALUES (1, 'admin', '超级管理员', 'ab7cc1898fe24ef738595e56759b17893f2dbcc6', 'f10a5bda42097431', 1, 'zp820705@163.com', '13896177630', 1, 'acooly', '2019-02-21 18:10:23', NULL, NULL, 1, 0, NULL, 1, '', '2014-01-07 00:00:00', '2019-02-21 18:10:23');
 
 insert into SYS_USER_ROLE (ROLE_ID, USER_ID) values (1, 1);
