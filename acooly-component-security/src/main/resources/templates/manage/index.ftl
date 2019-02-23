@@ -66,7 +66,7 @@ ${extendStyles}
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="/" class="logo">
+        <a href="javascript:;" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>B</b>oss</span>
             <!-- logo for regular state and mobile devices -->
@@ -389,19 +389,28 @@ ${extendScripts}
 <script id="acooly_admin_menu_template" type="text/html">
     <section class="sidebar">
         <!-- Sidebar user panel -->
-    <#--<div class="user-panel">-->
-    <#--<div class="pull-left image">-->
-    <#--<img src="/manage/assert/plugin/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
-    <#--</div>-->
-    <#--<div class="pull-left info">-->
-    <#--<p><@shiroPrincipal/></p>-->
-    <#--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
-    <#--</div>-->
-    <#--</div>-->
+        <div class="user-panel" style="display: none;">
+            <div class="pull-left image">
+            <img src="/manage/assert/plugin/adminlte/img/avatar_def.jpg" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+            <p><@shiroPrincipal/></p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">功能菜单</li>
+            <li class="header">
+                功能菜单
+                <span class="pull-right-container">
+                    <#--<a title="刷新菜单(重新授权后)" href="javascript:;"><i style="margin-top: 0.3em;" class="fa fa-refresh pull-right"></i></a>-->
+                    <a onclick="$.acooly.admin.headerToggle();" title="最大/小化菜单" href="javascript:;">
+                        <i id="menu-toggle-icon" style="margin-top: 0.3em;" class="fa fa-expand pull-right"></i>
+                    </a>
+                </span>
+            </li>
+
             <%
             for(var i=0;i<resources.length;i++) {
                 var m=resources[i];

@@ -160,6 +160,27 @@
                 }).tabs('resize');
             });
         },
+        
+        
+        headerToggle: function () {
+
+            var header = $('.main-header');
+            if(header.is(':hidden')){
+                header.show();
+                $(".main-sidebar").css("padding-top","50px");
+                $('.user-panel').hide();
+                $('#menu-toggle-icon').removeClass("fa-compress")
+                $('#menu-toggle-icon').addClass("fa-expand");
+            }else{
+                header.hide();
+                $(".main-sidebar").css("padding-top","0");
+                $('.user-panel').show();
+                $('#menu-toggle-icon').removeClass("fa-expand")
+                $('#menu-toggle-icon').addClass("fa-compress");
+            }
+
+
+        }
     };
 
     var themeClass = {
