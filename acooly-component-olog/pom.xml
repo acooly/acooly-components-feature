@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.acooly</groupId>
-        <artifactId>acooly-components-feature-parent</artifactId>
+        <artifactId>acooly-components-feature</artifactId>
         <version>4.2.0-SNAPSHOT</version>
     </parent>
     <artifactId>acooly-component-olog</artifactId>

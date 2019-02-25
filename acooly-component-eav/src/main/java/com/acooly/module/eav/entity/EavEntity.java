@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * eav_entity Entity
@@ -34,6 +35,20 @@ public class EavEntity extends AbstractEntity {
      */
     @NotNull
     private Long schemaId;
+
+    /**
+     * 名称
+     */
+    @NotEmpty
+    @Size(max = 128)
+    private String name;
+
+    /**
+     * 备注
+     */
+    @Size(max = 128)
+    private String comments;
+
 
     /**
      * 内容
