@@ -62,7 +62,7 @@
 </script>
 <div class="easyui-layout" data-options="fit : true,border : false">
     <!-- 查询条件 -->
-    <div data-options="region:'north',border:false" style="height: 40px; overflow: hidden;" align="left">
+    <div data-options="region:'north',border:false" style="overflow: hidden;" align="left">
         <form id="manage_user_searchform">
             <table class="tableForm" width="100%">
                 <tr>
@@ -77,10 +77,8 @@
                         角色:<select id="search_EQ_role" name="search_EQ_role" panelHeight="auto" editable="false" class="easyui-combobox">
                         <option value="">所有</option>
                         <#list allRoles as e><option value="${e.id}">${e.name}</option></#list>
-                    </select>
-
+                        </select>
                         组织机构: <input type="text" id="orgId" class="easyui-combobox" name="search_EQ_orgId"/>
-
                         <a href="javascript:void(0);" style="width:70px;" class="easyui-linkbutton" data-options="plain:false"
                            onclick="$.acooly.framework.search('manage_user_searchform','manage_user_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</a>
                     </td>
