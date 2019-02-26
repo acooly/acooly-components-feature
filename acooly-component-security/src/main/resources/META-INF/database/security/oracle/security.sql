@@ -295,8 +295,6 @@ values (3, 1, '角色管理', 'URL', '/manage/system/role/index.html', 0, 1, to_
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
 values (4, 1, '资源菜单', 'URL', '/manage/system/resource/index.html', 0, 1, to_date('10-01-2014', 'dd-mm-yyyy'), 'icons-resource-platform', null);
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
-values (5, 1, '操作日志', 'URL', '/manage/system/olog/index.html', 0, 1, to_date('08-01-2014 02:36:49', 'dd-mm-yyyy hh24:mi:ss'), 'icons-resource-repo', null);
-insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
 values (6, 1, '系统监控', 'URL', '/druid/index.html', 0, 2, to_date('08-01-2014 02:37:26', 'dd-mm-yyyy hh24:mi:ss'), 'icons-resource-config', null);
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
 values (7, 1, '桌面管理', 'URL', '/manage/system/portallet/index.html', 0, 1, to_date('08-01-2014 02:39:40', 'dd-mm-yyyy hh24:mi:ss'), 'icons-resource-menu', null);
@@ -314,8 +312,6 @@ insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
 values (1, 3);
 insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
 values (1, 4);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 5);
 insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
 values (1, 6);
 insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)

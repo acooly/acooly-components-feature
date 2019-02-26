@@ -9,6 +9,7 @@
          * @Return 根据大小自动判断单位的人类试图大小。
          */
         fileSize: function (value) {
+            if (!value || value == '') return '';
             if (value < 1024) {
                 return value + 'byte';
             } else if (value >= 1024 && value < 1024 * 1024) {
@@ -26,15 +27,16 @@
          * @Param num
          *            [必填]金额
          * @Param yuan
-         *            [可选]是否元:true(默认),false
+         *            [可选]是否元:true,false(默认)
          * @Param symbol
          *            [可选]货币符号，默认无，可选:￥,$等
          * @Return 货币金额格式化显示，保留2位小数
          */
         money: function (num, yuan, symbol) {
+            if (!num || num == '') return '0.00';
+            num = num.toString().replace(/\$|\,/g, '');
             if (isNaN(num))
                 num = "0";
-            num = num.toString().replace(/\$|\,/g, '');
             if (!yuan)
                 num = num / 100;
             if (!symbol)
@@ -52,11 +54,6 @@
             return symbol + currency;
         },
 
-        fenToWan: function (fen, symbol) {
-            var num = fen / 10000;
-            return this.money(num, false, symbol);
-        },
-
         /**
          * 格式化日期时间
          *
@@ -67,6 +64,7 @@
          * @Return 根据format指定格式的字符串
          */
         date: function (d, format) {
+            if (!d || d == '') return '';
             if (!format) {
                 format = 'yyyy-MM-dd HH:mm:ss'
             }
@@ -106,50 +104,6 @@
         },
 
         /**
-         * 显示过去了多长时间
-         * 默认：1分钟前，10分钟前，1小时前 2小时前 6小时前 1天前 2天前 5天前 10天前 1个月前 2个月前 6个月前 1年前
-         * @param datetime
-         */
-        timePast: function (datetime, mapping) {
-            if(!datetime){
-                return "";
-            }
-            if (!mapping) {
-                mapping = [
-                    {seconds: 60, label: "1分钟前"},
-                    {seconds: 60 * 10, label: "10分钟前"},
-                    {seconds: 60 * 60, label: "1小时前"},
-                    {seconds: 60 * 60 * 2, label: "2小时前"},
-                    {seconds: 60 * 60 * 6, label: "6小时前"},
-                    {seconds: 60 * 60 * 24, label: "1天前"},
-                    {seconds: 60 * 60 * 24 * 2, label: "2天前"},
-                    {seconds: 60 * 60 * 24 * 3, label: "5天前"},
-                    {seconds: 60 * 60 * 24 * 10, label: "10天前"},
-                    {seconds: 60 * 60 * 24 * 30, label: "1个月前"},
-                    {seconds: 60 * 60 * 24 * 30 * 2, label: "两个前"},
-                    {seconds: 60 * 60 * 24 * 30 * 6, label: "半年前"},
-                    {seconds: 60 * 60 * 24 * 30 * 12, label: "1年前"},
-                    {seconds: 60 * 60 * 24 * 30 * 120000, label: "1年以上"}
-                ]
-            }
-            datetime = datetime.replace(/-/g, "/")
-            var startTime = Date.parse(datetime);
-            var now = new Date();
-            var past = (now.getTime() - startTime) / 1000;
-
-            var label = null;
-            var isOk = false;
-            $(mapping).each(function (index,item) {
-                if (!isOk && past < parseInt(item.seconds)) {
-                    isOk = true;
-                    label = item.label;
-                }
-            });
-            return label;
-
-        },
-
-        /**
          * 格式化html文本数据
          *
          * 格式化为只显示一部分，点击后面的更多弹出层显示剩余信息
@@ -162,10 +116,11 @@
                 maxSize = 20;
             if (html.length > maxSize) {
                 temp = html.substring(0, maxSize);
-                html = '<a href="javascript:;" title="' + html
-                    + '" onclick="$(this).children().toggle()">' + temp
-                    + '<span>...</span><span style="display:none;">' + html
-                    + '</span></a>';
+                html = '<div style="cursor: pointer;" title="' + html + '" >'
+                    + '<label style="white-space: normal;">' + temp + '...&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"' +
+                    ' onclick="$(this).parent().parent().children().toggle()"></i></label>'
+                    + '<label style="white-space: normal;display:none;">' + html
+                    + '&nbsp;<i class="fa fa-angle-double-up" aria-hidden="true" onclick="$(this).parent().parent().children().toggle()"></i></label></div>';
             }
             return html;
         },
@@ -196,12 +151,15 @@
         },
 
         json: function (json, options) {
+
+            if (!json || json == '') return '';
+
             var reg = null,
                 keyStyle = 'color:#92278f;',
                 valStyle = 'color:#3ab54a;',
                 formatted = '',
                 pad = 0,
-                PADDING = '    '; // one can also use '\t' or a different number of spaces
+                PADDING = '    '; // one can also use 4 space or a different number of spaces
 
 
             // optional settings
@@ -212,14 +170,30 @@
             options.spaceAfterColon = (options.spaceAfterColon === false) ? false : true;
 
             // begin formatting...
-            if (typeof json !== 'string') {
-                // make sure we start with the JSON as a string
-                json = JSON.stringify(json);
-            } else {
-                // is already a string, so parse and re-stringify in order to remove extra whitespace
-                json = JSON.parse(json);
-                json = JSON.stringify(json);
+            try {
+                if (typeof json !== 'string') {
+                    // make sure we start with the JSON as a string
+                    json = JSON.stringify(json);
+                } else {
+                    // replace ,: 为 ,"":
+                    reg = /:\,/g;
+                    json = json.replace(reg, ':"",');
+                    reg = /:(\s)\}/g;
+                    json = json.replace(reg, ':""}');
+                    reg = /:(\s)\]/g;
+                    json = json.replace(reg, ':""]');
+                    // is already a string, so parse and re-stringify in order to remove extra whitespace
+                    json = JSON.parse(json);
+                    json = JSON.stringify(json);
+                }
+            } catch (e) {
+                return json;
             }
+
+
+            // remove newlines before commas
+            reg = /\r\n\,/g;
+            json = json.replace(reg, ',');
 
             // add newline before and after curly braces
             reg = /([\{\}])/g;
@@ -230,16 +204,8 @@
             json = json.replace(reg, '\r\n$1\r\n');
 
             // add newline after comma
-            reg = /(\,)/g;
+            reg = /(\"\,)/g;
             json = json.replace(reg, '$1\r\n');
-
-            // remove multiple newlines
-            reg = /(\r\n\r\n)/g;
-            json = json.replace(reg, '\r\n');
-
-            // remove newlines before commas
-            reg = /\r\n\,/g;
-            json = json.replace(reg, ',');
 
             // optional formatting...
             if (!options.newlineAfterColonIfBeforeBraceOrBracket) {
@@ -267,7 +233,12 @@
                 } else {
                     if (node && node != '') {
                         var pair = node.split(':')
-                        node = '<span style="' + keyStyle + '">' + pair[0] + '</span>:<span style="' + valStyle + '">' + pair[1] + '</span>';
+                        if (pair[1]) {
+                            node = '<span style="' + keyStyle + '">' + pair[0] + '</span>:<span style="' + valStyle + '">' + pair[1] + '</span>';
+                        } else {
+                            node = '<span style="' + valStyle + '">' + pair[0] + '</span>';
+                        }
+
                     }
                     indent = 0;
                 }

@@ -1,10 +1,4 @@
 /*==============================================================*/
-/* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/1/10 0:25:53                            */
-/*==============================================================*/
-
-
-/*==============================================================*/
 /* Table: SYS_PORTALLET                                         */
 /*==============================================================*/
 CREATE TABLE SYS_PORTALLET
@@ -112,18 +106,6 @@ CREATE TABLE SYS_USER_ROLE
    USER_ID              BIGINT NOT NULL,
    PRIMARY KEY (ROLE_ID, USER_ID)
 );
-
-ALTER TABLE SYS_ROLE_RESC ADD CONSTRAINT FK_SYS_ROLE_RESC_SYS_RESOURCE FOREIGN KEY (RESC_ID)
-      REFERENCES SYS_RESOURCE (ID) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE SYS_ROLE_RESC ADD CONSTRAINT FK_SYS_ROLE_RESC_SYS_ROLE FOREIGN KEY (ROLE_ID)
-      REFERENCES SYS_ROLE (ID) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE SYS_USER_ROLE ADD CONSTRAINT FK_SYS_USER_ROLE_SYS_ROLE FOREIGN KEY (ROLE_ID)
-      REFERENCES SYS_ROLE (ID) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE SYS_USER_ROLE ADD CONSTRAINT FK_SYS_USER_ROLE_SYS_USER FOREIGN KEY (USER_ID)
-      REFERENCES SYS_USER (ID) ON DELETE RESTRICT ON UPDATE RESTRICT;
       
 /*==============================================================*/
 /* Table: SYS_CONFIG                                            */
@@ -162,50 +144,42 @@ CREATE TABLE `SYS_ORG` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='组织机构';
 
 
-insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
-values (1, null, '系统管理', 'MENU', null, 0, 1, '2014-01-07', 'icons-resource-shezhi', null);
-insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
-values (2, 1, '账户管理', 'URL', '/manage/system/user/index.html', 0, 1, '2015-01-10 00:00:01', 'icons-resource-kehuguanli', null);
-insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
-values (3, 1, '角色管理', 'URL', '/manage/system/role/index.html', 0, 1, '2014-01-10 00:00:01', 'icons-resource-bianmin', null);
-insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
-values (4, 1, '资源菜单', 'URL', '/manage/system/resource/index.html', 0, 1, '2014-01-10', 'icons-resource-jiekuanbiaoxinxi', null);
--- insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
--- values (5, 1, '操作日志', 'URL', '/manage/module/olog/olog/index.html', 0, 1, '2014-01-08 02:36:49', 'icons-resource-shouzhimingxi', null);
--- insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
--- values (6, 1, '系统监控', 'URL', '/manage/druid/index.html', 0, 2, '2014-01-08 02:37:26', 'icons-resource-mac', null);
-INSERT INTO `sys_resource` VALUES ('2016093009', '1', '机构管理', 'URL', '0', '2014-01-09 02:39:40', '/manage/module/security/org/index.html', '1', 'icons-resource-bricks', null, '2017-05-26 17:51:13', '2017-05-27 13:39:38');
-insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
-values (7, 1, '桌面管理', 'URL', '/manage/system/portallet/index.html', 0, 1, '2014-01-08 02:39:40', 'icons-resource-wangzhan1', null);
+INSERT INTO `sys_org`(`id`, `parent_id`, `name`, `status`, `province`, `city`, `county`, `mobile_no`, `address`, `contacts`, `telephone`, `email`, `create_time`, `update_time`, `memo`)
+VALUES (1, 0, 'acooly', 'valid', '重庆市', '重庆市', '渝北区', '13896177630', '重庆渝北', '张浦', '', 'zhangpu@acooly.cn', '2019-02-21 18:05:36', '2019-02-21 18:05:36', 'dev');
 
 insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
-values (8, 1, '连接池监控', 'URL', '/manage/druid/index.html', 0, 2, '2014-01-08 02:39:40', 'icons-resource-eye', null);
-
+values (1, null, '系统管理', 'MENU', null, 0, 1, '2014-01-07', 'fa-cogs', null);
+insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
+values (2, 1, '账户管理', 'URL', '/manage/system/user/index.html', 0, 1, '2015-01-10 00:00:01', 'fa-user', null);
+insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
+values (3, 1, '角色管理', 'URL', '/manage/system/role/index.html', 0, 1, '2014-01-10 00:00:01', 'fa-user-circle-o', null);
+insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
+values (4, 1, '资源菜单', 'URL', '/manage/system/resource/index.html', 0, 1, '2014-01-10', 'fa-list', null);
+INSERT INTO `sys_resource` VALUES ('2016093009', '1', '机构管理', 'URL', '0', '2014-01-09 02:39:40', '/manage/module/security/org/index.html', '1', 'fa-sitemap', null, '2017-05-26 17:51:13', '2017-05-27 13:39:38');
+insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
+values (7, 1, '桌面管理', 'URL', '/manage/system/portallet/index.html', 0, 1, '2014-01-08 02:39:40', 'fa-dashboard', null);
+insert into SYS_RESOURCE (ID, PARENTID, NAME, TYPE, VALUE, SHOW_STATE, SHOW_MODE, ORDER_TIME, ICON, DESCN)
+values (8, 1, '连接池监控', 'URL', '/manage/druid/index.html', 0, 2, '2014-01-08 02:39:40', 'fa-eye', null);
+INSERT INTO `sys_resource`(`ID`, `PARENTID`, `NAME`, `TYPE`, `SHOW_STATE`, `ORDER_TIME`, `VALUE`, `SHOW_MODE`, `ICON`, `DESCN`, `create_time`, `update_time`)
+VALUES (2019022201, NULL, '通用功能', 'MENU', 0, '2015-10-23 18:32:04', '', 1, 'fa-th', NULL, '2019-02-22 16:39:49', '2019-02-22 16:40:00');
 
 insert into SYS_ROLE (ID, NAME, DESCN) values (1, 'ROLE_SYSTEM', '系统管理角色');
 
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 1);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 2);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 3);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 4);
--- insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
--- values (1, 5);
--- insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
--- values (1, 6);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 2016093009);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 7);
-insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID)
-values (1, 8);
-insert into SYS_USER (ID, USERNAME, REAL_NAME, PASSWORD, SALT, USER_TYPE, EMAIL, MOBILE_NO, CREATE_TIME, LAST_MODIFY_TIME, EXPIRATION_TIME, UNLOCK_TIME, LOGIN_STATUS,LOGIN_FAIL_TIMES,LOGIN_TIME,STATUS, DESCN)
-values (1, 'admin', '超级管理员', 'ab7cc1898fe24ef738595e56759b17893f2dbcc6', 'f10a5bda42097431', 1, 'zp820705@163.com', '13896177630', '2014-01-07', '2014-01-07', null, null, 1,0,null,1, null);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 1);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 2);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 3);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 4);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 7);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 8);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 2016093009);
+insert into SYS_ROLE_RESC (ROLE_ID, RESC_ID) values (1, 2019022201);
+
+INSERT INTO `sys_user`(`ID`, `USERNAME`, `REAL_NAME`, `PASSWORD`, `SALT`, `USER_TYPE`, `EMAIL`, `MOBILE_NO`, `ORG_ID`, `ORG_NAME`, `LAST_MODIFY_TIME`, `EXPIRATION_TIME`, `UNLOCK_TIME`, `LOGIN_STATUS`, `LOGIN_FAIL_TIMES`, `LOGIN_TIME`, `STATUS`, `DESCN`, `create_time`, `update_time`)
+VALUES (1, 'admin', '超级管理员', 'ab7cc1898fe24ef738595e56759b17893f2dbcc6', 'f10a5bda42097431', 1, 'zp820705@163.com', '13896177630', 1, 'acooly', '2019-02-21 18:10:23', NULL, NULL, 1, 0, NULL, 1, '', '2014-01-07 00:00:00', '2019-02-21 18:10:23');
 
 insert into SYS_USER_ROLE (ROLE_ID, USER_ID) values (1, 1);
+
+
 
 
 

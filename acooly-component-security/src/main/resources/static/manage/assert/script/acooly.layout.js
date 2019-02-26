@@ -23,7 +23,7 @@
 
                                     if(domEle.iconSkin != null){
                                         a += "<a id='mainMenu_" + domEle.id + "' href=\"javascript:$.acooly.layout.loadTree('" + domEle.id + "','" + domEle.name + "');\" class=\"" + (i == 1 ? 'buttonaft' : 'button') + "\">" +
-                                            "<span><i class='fa "+domEle.iconSkin+"'></i>" + domEle.name + "</span></a>";
+                                            "<span><i class='fa "+domEle.iconSkin+"'></i>  " + domEle.name + "</span></a>";
                                     }else{
                                         a += "<a id='mainMenu_" + domEle.id + "' href=\"javascript:$.acooly.layout.loadTree('" + domEle.id + "','" + domEle.name + "');\" class=\"" + (i == 1 ? 'buttonaft' : 'button') + "\">" +
                                             "<span><img src='" + $.acooly.layout.getIconPath(domEle.icon) + "'/>" + domEle.name + "</span></a>";

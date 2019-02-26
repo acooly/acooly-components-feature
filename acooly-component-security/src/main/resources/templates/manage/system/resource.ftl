@@ -64,7 +64,7 @@
                         <th>资源串(值)：</th>
                         <td colspan="5">
                             <input name="value" id="manage_resource_form_value" type="text" class="easyui-validatebox" size="50"/>
-                            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="manage_resource_form_submit()">保存</a>
+                            <a href="#" class="easyui-linkbutton" onclick="manage_resource_form_submit()"><i class="fa fa-floppy-o"></i> 保存</a>
                         </td>
                     </tr>
                     <tr>
@@ -82,7 +82,7 @@
                                     <div id="resource_icons_old" style="display: none;">
                                         <#list allIcons as e>
                                         <#if e?starts_with("icons")>
-                                            <span class="iconSpan">
+                                            <span style="width: 50px;">
                                                 <input type="radio" name="icon" value="${e}"/>
                                                 <i style='vertical-align:middle;display:inline-block; width:16px; height:16px;' class="${e}"></i>
                                             </span>
@@ -101,11 +101,17 @@
                                     </a>
 
                                     <div id="resource_icons_font">
+                                         <span class="iconSpan">
+                                            <input class="icon-elm" type="radio" name="icon" value="fa-circle-o">
+                                            <i style="vertical-align:middle;display:inline-block;font-size: 16px;" class="fa fa-circle-o"></i>
+                                            <span class="icon-elm">fa-circle-o</span>
+                                        </span>
                                     <#list allIcons as e>
-                                    <#if e?starts_with("icons") == false>
+                                    <#if e?starts_with("icons") == false  && e != 'fa-circle-o'>
                                         <span class="iconSpan">
-                                            <input type="radio" name="icon" value="${e}"/>
+                                            <input class="icon-elm" type="radio" name="icon" value="${e}"/>
                                             <i style="vertical-align:middle;display:inline-block;font-size: 16px;" class="fa ${e}"></i>
+                                            <span class="icon-elm">${e}</span>
                                         </span>
                                     </#if>
                                     </#list>
@@ -123,11 +129,11 @@
             display: inline-block;
             margin: 5px;
             padding: 5px;
-            width: 64px;
-            border: 1px dashed #eeeeee;
+            width:150px;
+            border: 1px dashed #ddd;
             border-radius: 3px;
-            text-align: center;}
-
+        }
+        .iconSpan .icon-elm {vertical-align:middle;display:inline-block;font-size: 12px;}
         .resource_icons .header {
             height: 35px; line-height: 35px; vertical-align: middle; padding: 2px 10px; margin: 0 10px 5px 0;
             display: block;background-color: #eeeeee;border-bottom: 1px solid #dddddd;

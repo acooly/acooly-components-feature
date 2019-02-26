@@ -1863,7 +1863,7 @@ body {
 .datagrid-toolbar,
 .datagrid-pager,
 .datagrid-footer-inner {
-    border-color: #eeeeee;
+    border-color: #ddd;
 }
 .datagrid-header td,
 .datagrid-body td,
