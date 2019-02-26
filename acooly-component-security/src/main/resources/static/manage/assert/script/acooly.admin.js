@@ -36,10 +36,6 @@
         initMenus: function () {
 
             // 注册点击主菜单（.treeview）的选中效果(.active)
-            $(document).on("click", '.treeview', function (e) {
-                $(".sidebar-menu .treeview").removeClass("active");
-                $(this).addClass("active");
-            });
             $(document).on("click", '.sidebar-menu ul li', function (e) {
                 $(".sidebar-menu li").removeClass("active");
                 $(this).addClass("active");
