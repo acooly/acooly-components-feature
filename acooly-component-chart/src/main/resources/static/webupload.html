@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>webUpload</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!--引入CSS-->
+<link rel="stylesheet" type="text/css" href="/plugin/webupload/webuploader.css">
+
+<!--引入JS-->
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/plugin/webupload/webuploader.js"></script>
+
+<!--在 js中引用 swf
+<script type="text/javascript" src="/plugin/webupload/Uploader.swf"></script>
+-->
+
+</head>
+<body>
+
+<div id="uploader" class="wu-example">
+    <div id="uploader-demo">
+    <!--用来存放item-->
+    <div id="fileList" class="uploader-list"></div>
+    <div id="filePicker">选择图片</div>
+</div>
+    
+    
+</div>
+
+<script>
+var uploader = WebUploader.create({
+    // 选完文件后，是否自动上传。
+    auto: true,
+    
+    // swf文件路径
+	swf: '/plugin/webupload/Uploader.swf',
+    
+	// 文件接收服务端。
+    server: '/ofile/upload.html',
+
+    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+    pick: {
+    	id: '#filePicker',
+    	multiple: true
+    	},
+
+    // 只允许选择图片文件。
+    accept: {
+        title: 'Images',
+        extensions: 'gif,jpg,jpeg,bmp,png',
+        mimeTypes: 'image/*'
+    }
+});
+</script>
+
+</body>
+</html>

@@ -12,14 +12,14 @@ public class AcoolyCoder {
         DefaultCodeGenerateService service = (DefaultCodeGenerateService) Generator.getGenerator();
         //set workspace if possible
         if (StringUtils.isBlank(service.getGenerateConfiguration().getWorkspace())) {
-            String workspace = getProjectPath() + "acooly-component-chart";
+            String workspace = getProjectPath() + "acooly-component-wechat";
             service.getGenerateConfiguration().setWorkspace(workspace);
         }
         //set root pacakge if possible
         if (StringUtils.isBlank(service.getGenerateConfiguration().getRootPackage())) {
             service.getGenerateConfiguration().setRootPackage(getRootPackage());
         }
-        service.generateTable("c_chart","c_chart_data","c_chart_items");
+        service.generateTable("wechat_user_info");
     }
 
     public static String getProjectPath() {
@@ -30,6 +30,6 @@ public class AcoolyCoder {
     }
 
     private static String getRootPackage() {
-        return "com.acooly.module.chart";
+        return "com.acooly.module.wechat";
     }
 }
