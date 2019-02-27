@@ -8,55 +8,57 @@
          * 初始化
          */
         init: function () {
+            this.initLogo();
             this.initMenus();
             this.initTab();
-
             // 新旧版本的风格(访问到旧版页面，则设置版本cookies)
             $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "adminlte")
         },
 
+        /**
+         * 初始化LOGO
+         */
+        initLogo: function(){
+            if ($.acooly.system.config.logo) {
+                $('.logo-lg').html("<img src='" + $.acooly.system.config.logo + "' width='200'>")
+            } else {
+                if ($.acooly.system.config.title) {
+                    $('.logo-lg').text($.acooly.system.config.title);
+                }else{
+                    $('.logo-lg').text("<b>Accoly</b> Sys V4.x");
+                }
+            }
+        },
 
         /**
          * 初始化左侧功能菜单
          */
         initMenus: function () {
-            $.ajax({
-                url: '/manage/system/authorisedMenus.html',
-                success: function (result) {
-                    var data = {resources: result};
-                    $.acooly.template.render("acooly_admin_menu_container", "acooly_admin_menu_template", data);
 
+            // 注册点击主菜单（.treeview）的选中效果(.active)
+            $(document).on("click", '.sidebar-menu ul li', function (e) {
+                $(".sidebar-menu li").removeClass("active");
+                $(this).addClass("active");
+                if ($(this).parent() && $(this).parent().parent()) {
+                    $(this).parent().parent().addClass("active");
+                }
+            });
 
-                    // 注册点击主菜单（.treeview）的选中效果(.active)
-                    $(document).on("click", '.treeview', function (e) {
-                        $(".sidebar-menu .treeview").removeClass("active");
-                        $(this).addClass("active");
-                    });
-                    $(document).on("click", '.sidebar-menu ul li', function (e) {
-                        $(".sidebar-menu li").removeClass("active");
-                        $(this).addClass("active");
-                        if ($(this).parent() && $(this).parent().parent()) {
-                            $(this).parent().parent().addClass("active");
-                        }
-                    });
+            // fix bug: Dynamic rendering menu cannot be expanded.
+            var ua = navigator.userAgent.toLocaleLowerCase();
+            if (ua.match(/chrome/) != null && ua.match(/edge/) == null) {
+                return;
+            }
 
-                    // fix bug: Dynamic rendering menu cannot be expanded.
-                    var ua = navigator.userAgent.toLocaleLowerCase();
-                    if (ua.match(/chrome/) != null && ua.match(/edge/) == null) {
-                        return;
-                    }
-
-                    $(document).on("click", ".sidebar-menu li a", function (e) {
-                        var firstParent = $(this).parent("li");
-                        var firstChildUl = $(this).next("ul");
-                        if (firstParent.hasClass("menu-open")) {
-                            firstParent.removeClass("menu-open");
-                            firstChildUl.hide();
-                        } else {
-                            firstParent.addClass("menu-open");
-                            firstChildUl.show();
-                        }
-                    });
+            $(document).on("click", ".sidebar-menu li a", function (e) {
+                var firstParent = $(this).parent("li");
+                var firstChildUl = $(this).next("ul");
+                if (firstParent.hasClass("menu-open")) {
+                    firstParent.removeClass("menu-open");
+                    firstChildUl.hide();
+                } else {
+                    firstParent.addClass("menu-open");
+                    firstChildUl.show();
                 }
             });
         },
@@ -160,8 +162,10 @@
                 }).tabs('resize');
             });
         },
-        
-        
+
+        /**
+         * 顶部隐藏和显示切换
+         */
         headerToggle: function () {
 
             var header = $('.main-header');

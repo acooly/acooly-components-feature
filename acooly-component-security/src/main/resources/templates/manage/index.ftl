@@ -70,7 +70,7 @@ ${extendStyles}
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>B</b>oss</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Accoly</b> Sys V4.x</span>
+            <span class="logo-lg"></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -172,8 +172,8 @@ ${extendStyles}
 
 
                     <li><a href="/manage/index.html?acoolyTheme=easyui" role="button">
-                        <i class="fa fa-car"></i>
-                        <span>经典版</span>
+                        <i class="fa fa-share"></i>
+                        <span>旧版</span>
                     </a></li>
 
                     <!-- Control Sidebar Toggle Button -->
@@ -185,7 +185,73 @@ ${extendStyles}
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar" id="acooly_admin_menu_container"></aside>
+    <aside class="main-sidebar" id="acooly_admin_menu_container">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel" style="display: none;">
+                <div class="pull-left image">
+                    <img src="/manage/assert/plugin/adminlte/img/avatar_def.jpg" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p><@shiroPrincipal/></p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <!-- sidebar menu -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">
+                    功能菜单
+                    <span class="pull-right-container">
+            <#--<a title="刷新菜单(重新授权后)" href="javascript:;"><i style="margin-top: 0.3em;" class="fa fa-refresh pull-right"></i></a>-->
+            <a onclick="$.acooly.admin.headerToggle();" title="最大/小化菜单" href="javascript:;">
+                <i id="menu-toggle-icon" style="margin-top: 0.3em;" class="fa fa-expand pull-right"></i>
+            </a>
+        </span>
+                </li>
+
+    <#list menu as e1>
+    <#--第一层-->
+         <li class="treeview<#if e1?index==0> menu-open active</#if>">
+             <a href="javascript:;">
+                 <#if e1.iconSkin??><i class="fa ${e1.iconSkin}"></i><#else><span class="line-action ${e1.icon}"></span></#if>
+                 <span>${e1.name}</span>
+                 <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+             </a>
+             <ul class="treeview-menu">
+                 <#if e1.children??>
+                 <#list e1.children as e2>
+                     <#if e2.children??>
+                        <li class="treeview">
+                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}'})">
+                                <#if e2.iconSkin??><i class="fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>
+                                ${e2.name}
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <#list e2.children as e3>
+                                    <li>
+                                        <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}'})">
+                                     <#if e3.iconSkin??><i class="fa ${e3.iconSkin}"></i><#else><span class="line-action ${e3.icon}"></span></#if>${e3.name}</a>
+                                    </li>
+                                </#list>
+                            </ul>
+                        </li>
+                     <#else>
+                        <li><a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}'})">
+                            <#if e2.iconSkin??><i class="fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>${e2.name}
+                        </a></li>
+                     </#if>
+                 </#list>
+                 </#if>
+             </ul>
+         </li>
+    </#list>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -201,13 +267,6 @@ ${extendStyles}
         </div>
     </div>
     <!-- /.content-wrapper -->
-<#--<footer class="main-footer">-->
-<#--<div class="pull-right hidden-xs">-->
-<#--<b>Version</b> 2.4.0-->
-<#--</div>-->
-<#--<strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights-->
-<#--reserved.-->
-<#--</footer>-->
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
@@ -380,126 +439,13 @@ ${extendStyles}
 <script src="/manage/assert/script/acooly.ui.layer.js" charset="utf-8"></script>
 <!-- 扩展script -->
 ${extendScripts}
-
 <script type="text/javascript">
     var contextPath = '';
-</script>
-
-<!-- template for menu -->
-<script id="acooly_admin_menu_template" type="text/html">
-    <section class="sidebar">
-        <!-- Sidebar user panel -->
-        <div class="user-panel" style="display: none;">
-            <div class="pull-left image">
-            <img src="/manage/assert/plugin/adminlte/img/avatar_def.jpg" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-            <p><@shiroPrincipal/></p>
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-        </div>
-
-        <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">
-                功能菜单
-                <span class="pull-right-container">
-                    <#--<a title="刷新菜单(重新授权后)" href="javascript:;"><i style="margin-top: 0.3em;" class="fa fa-refresh pull-right"></i></a>-->
-                    <a onclick="$.acooly.admin.headerToggle();" title="最大/小化菜单" href="javascript:;">
-                        <i id="menu-toggle-icon" style="margin-top: 0.3em;" class="fa fa-expand pull-right"></i>
-                    </a>
-                </span>
-            </li>
-
-            <%
-            for(var i=0;i<resources.length;i++) {
-                var m=resources[i];
-            %>
-                <li class="treeview <%if(i==0){%>menu-open active<%}%>">
-                    <a href="javascript:;">
-                        <%if(m.iconSkin != null){%>
-                        <i class="fa <%=m.iconSkin%>"></i>
-                        <%}else{%>
-                        <span class="line-action <%=m.icon%>"></span>
-                        <%}%>
-                        <span><%=m.name%></span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <%
-                        for(var j=0; j<m.children.length; j++) {
-                           var e=m.children[j];
-                           if(e.children.length > 0) {
-                        %>
-                            <li class="treeview">
-                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'<%=e.name%>',value:'<%=e.value%>',showMode:'<%=e.showMode%>',icon:'<%=e.icon%>'})">
-                                <%if(e.iconSkin != null){%>
-                                <i class="fa <%=e.iconSkin%>"></i>
-                                <%}else{%>
-                                <span class="line-action <%=e.icon%>"></span>
-                                <%}%>
-                                <%=e.name%>
-                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <%
-                                 for(var k=0;k<e.children.length; k++) {
-                                 v = e.children[k];
-                                %>
-                                <li><a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'<%=v.name%>',value:'<%=v.value%>',showMode:'<%=v.showMode%>',icon:'<%=v.icon%>'})">
-                                    <%if(e.iconSkin != null){%>
-                                    <i class="fa <%=v.iconSkin%>"></i>
-                                    <%}else{%>
-                                    <span class="line-action <%=v.icon%>"></span>
-                                    <%}%>
-                                    <%=v.name%>
-                                </a>
-                                </li>
-                                <%}%>
-                            </ul>
-                         </li>
-                        <%}else{%>
-                        <li><a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'<%=e.name%>',value:'<%=e.value%>',showMode:'<%=e.showMode%>',icon:'<%=e.icon%>'})">
-                                <%if(e.iconSkin != null){%>
-                                <i class="fa <%=e.iconSkin%>"></i>
-                                <%}else{%>
-                                <span class="line-action <%=e.icon%>"></span>
-                                <%}%>
-                                <%=e.name%>
-                            </a>
-                        </li>
-                        <%}%>
-                        <%}%>
-                    </ul>
-                </li>
-                <% } %>
-        </ul>
-    </section>
-</script>
-
-
-<script type="text/javascript">
-
     $(function () {
         $.acooly.system.init();
-        // 初始化LOGO
-        if ($.acooly.system.config.logo) {
-            $('.logo-lg').html("<img src='" + $.acooly.system.config.logo + "' width='200'>")
-        } else {
-            if ($.acooly.system.config.title) {
-                $('.logo-lg').text($.acooly.system.config.title);
-            }
-        }
         $.acooly.admin.init();
     });
 
-    function pushMenuTest(){
-        // 注册点击主菜单（.treeview）的选中效果(.active)
-        $(document).on("click",'.treeview',function (e) {
-            $(".sidebar-menu .treeview").removeClass("active");
-            $(this).addClass("active");
-        });
-    }
 
 </script>
 </body>
