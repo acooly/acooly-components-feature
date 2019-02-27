@@ -169,13 +169,14 @@ ${extendStyles}
                             </li>
                         </ul>
                     </li>
-
-
+                    <#if isOnline == false>
+                    <li><a href="javascript:;" onclick="$.acooly.admin.tab.addIframe('帮助文档','fa fa-question-circle fa-lg','https://acooly.cn/docs/core.html')"
+                           title="帮助" role="button"><i class="fa fa-question-circle fa-lg"></i></a></li>
+                    </#if>
                     <li><a href="/manage/index.html?acoolyTheme=easyui" role="button">
                         <i class="fa fa-share"></i>
                         <span>旧版</span>
                     </a></li>
-
                     <!-- Control Sidebar Toggle Button -->
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -255,7 +256,7 @@ ${extendStyles}
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <div id="layout_center_tabs" style="overflow: hidden;background-color: #ecf0f5;" data-options="tabHeight:31">
+        <div id="layout_center_tabs" style="overflow: hidden;background-color: #ecf0f5;" data-options="tabHeight:32">
             <div title="首页" data-options="href:'/manage/layout/portal.html'"></div>
         </div>
         <div id="layout_center_tabsMenu" style="width: 120px;display:none;">

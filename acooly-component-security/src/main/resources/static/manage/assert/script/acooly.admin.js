@@ -18,13 +18,13 @@
         /**
          * 初始化LOGO
          */
-        initLogo: function(){
+        initLogo: function () {
             if ($.acooly.system.config.logo) {
                 $('.logo-lg').html("<img src='" + $.acooly.system.config.logo + "' width='200'>")
             } else {
                 if ($.acooly.system.config.title) {
                     $('.logo-lg').text($.acooly.system.config.title);
-                }else{
+                } else {
                     $('.logo-lg').text("<b>Accoly</b> Sys V4.x");
                 }
             }
@@ -111,7 +111,8 @@
                         top: e.pageY
                     }).data('tabTitle', title);
                 },
-                tools: [{
+                tools: [
+                    {
                     text: '<i class="fa fa-refresh"></i>',
                     handler: function () {
                         var href = $('#layout_center_tabs').tabs('getSelected').panel('options').href;
@@ -137,7 +138,8 @@
                             }
                         }
                     }
-                }, {
+                },
+                    {
                     text: '<i class="fa fa-close"></i>',
                     handler: function () {
                         var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
@@ -169,24 +171,121 @@
         headerToggle: function () {
 
             var header = $('.main-header');
-            if(header.is(':hidden')){
+            if (header.is(':hidden')) {
                 header.show();
-                $(".main-sidebar").css("padding-top","50px");
+                $(".main-sidebar").css("padding-top", "50px");
                 $('.user-panel').hide();
                 $('#menu-toggle-icon').removeClass("fa-compress")
                 $('#menu-toggle-icon').addClass("fa-expand");
-            }else{
+            } else {
                 header.hide();
-                $(".main-sidebar").css("padding-top","0");
+                $(".main-sidebar").css("padding-top", "0");
                 $('.user-panel').show();
                 $('#menu-toggle-icon').removeClass("fa-expand")
                 $('#menu-toggle-icon').addClass("fa-compress");
             }
-
-
         }
     };
 
+
+    var tabClass = {
+        MAIN_TABS_ID: "layout_center_tabs",
+
+        getTabs: function () {
+            return $('#' + this.MAIN_TABS_ID);
+        },
+
+        /**
+         * 添加
+         * @param opts {*title,closable,iconCls,loadMode[1:ajax,2:iframe],*url}
+         */
+        add: function (opts) {
+            var options = $.extend({closable: true, iconCls: 'fa fa-circle-o', loadMode: 1}, opts);
+            var t = this.getTabs();
+            if (t.tabs('exists', options.title)) {
+                t.tabs('select', options.title);
+            } else {
+                if (options.loadMode == 1) {
+                    options.href = contextPath + options.url;
+                } else {
+                    options.content = '<iframe src="' + options.url + '" frameborder="0" style="border:0;width:100%;height:99%;"></iframe>'
+                }
+                var That = this;
+                $.extend(options, {
+                    onLoadError: function (e, x, y) {
+                        That.close();
+                        $.acooly.alert('错误', "请求的功能不存在");
+                    }
+                })
+                t.tabs('add', options);
+            }
+        },
+
+        /**
+         * 添加ajax-load内容
+         * @param title
+         * @param iconCls
+         * @param url
+         */
+        addPage: function (title, iconCls, url) {
+            this.add({title: title, iconCls: iconCls, loadMode: 1, url: url});
+        },
+
+        /**
+         * 添加iframe内容
+         * @param title
+         * @param iconCls
+         * @param url
+         */
+        addIframe: function (title, iconCls, url) {
+            this.add({title: title, iconCls: iconCls, loadMode: 2, url: url});
+        },
+
+        /**
+         * 选中
+         * @param title
+         */
+        select: function (title) {
+            this.getTabs().tabs('select', title);
+        },
+
+        /**
+         * 获得当前选中的tab
+         * @returns {*}
+         */
+        getSelect: function () {
+            return this.getTabs().tabs('getSelected').panel('options');
+        },
+
+        refresh: function (title) {
+            this.getTabs().tabs('getTab', title).panel('refresh');
+        },
+
+        /**
+         * 关闭当前tab
+         */
+        close: function () {
+            var t = this.getTabs();
+            var index = t.tabs('getTabIndex', t.tabs('getSelected'));
+            if (index <= 0) {
+                return;
+            }
+            var tab = t.tabs('getTab', index);
+            if (tab.panel('options').closable) {
+                t.tabs('close', index);
+            } else {
+                $.messager.alert('提示', '[' + tab.panel('options').title + ']不可以被关闭', 'error');
+            }
+        }
+
+
+    }
+
+
+    /**
+     * 主题
+     * @type {{defaultExpires: number, acoolyThemeKey: string, getTheme: (function(*=): (*|String)), saveTheme: saveTheme}}
+     */
     var themeClass = {
 
         defaultExpires: 7,
@@ -226,5 +325,7 @@
 
     $.extend($.acooly.admin, {
         theme: themeClass
-    })
+    });
+
+    $.extend($.acooly.admin, {tab: tabClass});
 })(jQuery);
