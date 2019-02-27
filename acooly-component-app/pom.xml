@@ -38,8 +38,9 @@
         </dependency>
         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-openapi</artifactId>
+            <artifactId>openapi-framework-core</artifactId>
             <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

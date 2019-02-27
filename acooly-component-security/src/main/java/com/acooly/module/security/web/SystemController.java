@@ -64,6 +64,13 @@ public class SystemController extends AbstractJQueryEntityController<User, UserS
         return resourceNodes;
     }
 
+    @RequestMapping(value = "menu")
+    public String menu(Model model, HttpServletRequest request, HttpServletResponse response) {
+        model.addAttribute("menu", authorisedMenus(request, response));
+        return "/manage/system/menu";
+    }
+
+
     @RequestMapping(value = "portallets")
     @ResponseBody
     @Olog.Ignore
