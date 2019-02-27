@@ -1,6 +1,6 @@
-package com.acooly.module.chart;
+package com.acooly.module.wechat;
 
-import static com.acooly.module.chart.ChartProperties.PREFIX;
+import static com.acooly.module.wechat.WechatProperties.PREFIX;
 
 import java.util.List;
 
@@ -19,12 +19,12 @@ import com.google.common.collect.Lists;
  * @author cuifuqiang
  */
 @Configuration
-@EnableConfigurationProperties({ChartProperties.class})
+@EnableConfigurationProperties({WechatProperties.class})
 @ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
-@ComponentScan(basePackages = "com.acooly.module.chart")
+@ComponentScan(basePackages = "com.acooly.module.wechat")
 @AutoConfigureAfter(SecurityAutoConfig.class)
 
-public class ChartAutoConfig {
+public class WechatAutoConfig {
 
 	@Bean
 	public StandardDatabaseScriptIniter chartScriptIniter() {
@@ -32,17 +32,17 @@ public class ChartAutoConfig {
 
 			@Override
 			public String getEvaluateTable() {
-				return "c_chart";
+				return "wechat";
 			}
 
 			@Override
 			public String getComponentName() {
-				return "chart";
+				return "wechat";
 			}
 
 			@Override
 			public List<String> getInitSqlFile() {
-				return Lists.newArrayList("chart", "chart_urls");
+				return Lists.newArrayList();
 			}
 		};
 	}
