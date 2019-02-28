@@ -1,5 +1,7 @@
 package com.acooly.module.security.web;
 
+import com.acooly.core.common.boot.Apps;
+import com.acooly.core.common.boot.Env;
 import com.acooly.core.common.olog.annotation.Olog;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.support.JsonResult;
@@ -12,10 +14,10 @@ import com.acooly.module.security.config.FrameworkProperties;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
-import com.acooly.module.security.dto.ResourceNode;
 import com.acooly.module.security.service.ResourceService;
 import com.acooly.module.security.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
@@ -88,10 +90,13 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
                 acoolyTheme = refreshTheme;
                 request.getSession().setAttribute("acoolyTheme", acoolyTheme);
             }
-            if (Strings.equals(acoolyTheme, "adminlte")) {
 
+            boolean isOnline = (Lists.newArrayList(Apps.getEnvironment().getActiveProfiles()).contains(Env.online.name()));
+            model.addAttribute("isOnline", isOnline);
+
+            if (Strings.equals(acoolyTheme, "adminlte")) {
                 // 新版直接返回菜单数据
-                model.addAttribute("menu",resourceService.getAuthorizedResourceNode(user.getId()));
+                model.addAttribute("menu", resourceService.getAuthorizedResourceNode(user.getId()));
                 return "/manage/index";
             } else {
                 return "/manage/index_easyui";
