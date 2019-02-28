@@ -8,55 +8,57 @@
          * 初始化
          */
         init: function () {
+            this.initLogo();
             this.initMenus();
             this.initTab();
-
             // 新旧版本的风格(访问到旧版页面，则设置版本cookies)
             $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "adminlte")
         },
 
+        /**
+         * 初始化LOGO
+         */
+        initLogo: function () {
+            if ($.acooly.system.config.logo) {
+                $('.logo-lg').html("<img src='" + $.acooly.system.config.logo + "' width='200'>")
+            } else {
+                if ($.acooly.system.config.title) {
+                    $('.logo-lg').text($.acooly.system.config.title);
+                } else {
+                    $('.logo-lg').text("<b>Accoly</b> Sys V4.x");
+                }
+            }
+        },
 
         /**
          * 初始化左侧功能菜单
          */
         initMenus: function () {
-            $.ajax({
-                url: '/manage/system/authorisedMenus.html',
-                success: function (result) {
-                    var data = {resources: result};
-                    $.acooly.template.render("acooly_admin_menu_container", "acooly_admin_menu_template", data);
 
+            // 注册点击主菜单（.treeview）的选中效果(.active)
+            $(document).on("click", '.sidebar-menu ul li', function (e) {
+                $(".sidebar-menu li").removeClass("active");
+                $(this).addClass("active");
+                if ($(this).parent() && $(this).parent().parent()) {
+                    $(this).parent().parent().addClass("active");
+                }
+            });
 
-                    // 注册点击主菜单（.treeview）的选中效果(.active)
-                    $(document).on("click", '.treeview', function (e) {
-                        $(".sidebar-menu .treeview").removeClass("active");
-                        $(this).addClass("active");
-                    });
-                    $(document).on("click", '.sidebar-menu ul li', function (e) {
-                        $(".sidebar-menu li").removeClass("active");
-                        $(this).addClass("active");
-                        if ($(this).parent() && $(this).parent().parent()) {
-                            $(this).parent().parent().addClass("active");
-                        }
-                    });
+            // fix bug: Dynamic rendering menu cannot be expanded.
+            var ua = navigator.userAgent.toLocaleLowerCase();
+            if (ua.match(/chrome/) != null && ua.match(/edge/) == null) {
+                return;
+            }
 
-                    // fix bug: Dynamic rendering menu cannot be expanded.
-                    var ua = navigator.userAgent.toLocaleLowerCase();
-                    if (ua.match(/chrome/) != null && ua.match(/edge/) == null) {
-                        return;
-                    }
-
-                    $(document).on("click", ".sidebar-menu li a", function (e) {
-                        var firstParent = $(this).parent("li");
-                        var firstChildUl = $(this).next("ul");
-                        if (firstParent.hasClass("menu-open")) {
-                            firstParent.removeClass("menu-open");
-                            firstChildUl.hide();
-                        } else {
-                            firstParent.addClass("menu-open");
-                            firstChildUl.show();
-                        }
-                    });
+            $(document).on("click", ".sidebar-menu li a", function (e) {
+                var firstParent = $(this).parent("li");
+                var firstChildUl = $(this).next("ul");
+                if (firstParent.hasClass("menu-open")) {
+                    firstParent.removeClass("menu-open");
+                    firstChildUl.hide();
+                } else {
+                    firstParent.addClass("menu-open");
+                    firstChildUl.show();
                 }
             });
         },
@@ -109,7 +111,8 @@
                         top: e.pageY
                     }).data('tabTitle', title);
                 },
-                tools: [{
+                tools: [
+                    {
                     text: '<i class="fa fa-refresh"></i>',
                     handler: function () {
                         var href = $('#layout_center_tabs').tabs('getSelected').panel('options').href;
@@ -135,7 +138,8 @@
                             }
                         }
                     }
-                }, {
+                },
+                    {
                     text: '<i class="fa fa-close"></i>',
                     handler: function () {
                         var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
@@ -160,29 +164,128 @@
                 }).tabs('resize');
             });
         },
-        
-        
+
+        /**
+         * 顶部隐藏和显示切换
+         */
         headerToggle: function () {
 
             var header = $('.main-header');
-            if(header.is(':hidden')){
+            if (header.is(':hidden')) {
                 header.show();
-                $(".main-sidebar").css("padding-top","50px");
+                $(".main-sidebar").css("padding-top", "50px");
                 $('.user-panel').hide();
                 $('#menu-toggle-icon').removeClass("fa-compress")
                 $('#menu-toggle-icon').addClass("fa-expand");
-            }else{
+            } else {
                 header.hide();
-                $(".main-sidebar").css("padding-top","0");
+                $(".main-sidebar").css("padding-top", "0");
                 $('.user-panel').show();
                 $('#menu-toggle-icon').removeClass("fa-expand")
                 $('#menu-toggle-icon').addClass("fa-compress");
             }
-
-
         }
     };
 
+
+    var tabClass = {
+        MAIN_TABS_ID: "layout_center_tabs",
+
+        getTabs: function () {
+            return $('#' + this.MAIN_TABS_ID);
+        },
+
+        /**
+         * 添加
+         * @param opts {*title,closable,iconCls,loadMode[1:ajax,2:iframe],*url}
+         */
+        add: function (opts) {
+            var options = $.extend({closable: true, iconCls: 'fa fa-circle-o', loadMode: 1}, opts);
+            var t = this.getTabs();
+            if (t.tabs('exists', options.title)) {
+                t.tabs('select', options.title);
+            } else {
+                if (options.loadMode == 1) {
+                    options.href = contextPath + options.url;
+                } else {
+                    options.content = '<iframe src="' + options.url + '" frameborder="0" style="border:0;width:100%;height:99%;"></iframe>'
+                }
+                var That = this;
+                $.extend(options, {
+                    onLoadError: function (e, x, y) {
+                        That.close();
+                        $.acooly.alert('错误', "请求的功能不存在");
+                    }
+                })
+                t.tabs('add', options);
+            }
+        },
+
+        /**
+         * 添加ajax-load内容
+         * @param title
+         * @param iconCls
+         * @param url
+         */
+        addPage: function (title, iconCls, url) {
+            this.add({title: title, iconCls: iconCls, loadMode: 1, url: url});
+        },
+
+        /**
+         * 添加iframe内容
+         * @param title
+         * @param iconCls
+         * @param url
+         */
+        addIframe: function (title, iconCls, url) {
+            this.add({title: title, iconCls: iconCls, loadMode: 2, url: url});
+        },
+
+        /**
+         * 选中
+         * @param title
+         */
+        select: function (title) {
+            this.getTabs().tabs('select', title);
+        },
+
+        /**
+         * 获得当前选中的tab
+         * @returns {*}
+         */
+        getSelect: function () {
+            return this.getTabs().tabs('getSelected').panel('options');
+        },
+
+        refresh: function (title) {
+            this.getTabs().tabs('getTab', title).panel('refresh');
+        },
+
+        /**
+         * 关闭当前tab
+         */
+        close: function () {
+            var t = this.getTabs();
+            var index = t.tabs('getTabIndex', t.tabs('getSelected'));
+            if (index <= 0) {
+                return;
+            }
+            var tab = t.tabs('getTab', index);
+            if (tab.panel('options').closable) {
+                t.tabs('close', index);
+            } else {
+                $.messager.alert('提示', '[' + tab.panel('options').title + ']不可以被关闭', 'error');
+            }
+        }
+
+
+    }
+
+
+    /**
+     * 主题
+     * @type {{defaultExpires: number, acoolyThemeKey: string, getTheme: (function(*=): (*|String)), saveTheme: saveTheme}}
+     */
     var themeClass = {
 
         defaultExpires: 7,
@@ -222,5 +325,7 @@
 
     $.extend($.acooly.admin, {
         theme: themeClass
-    })
+    });
+
+    $.extend($.acooly.admin, {tab: tabClass});
 })(jQuery);

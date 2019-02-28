@@ -66,6 +66,6 @@
         <module>acooly-component-cms-facade</module>
         <module>acooly-component-cms-openapi</module>
         <module>acooly-component-security</module>
-
+        <module>acooly-component-wechat</module>
     </modules>
 </project>
