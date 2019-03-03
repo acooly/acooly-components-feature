@@ -7,7 +7,7 @@ import com.acooly.core.utils.Servlets;
 import com.acooly.module.eav.dto.EavPageInfo;
 import com.acooly.module.eav.entity.EavEntity;
 import com.acooly.module.eav.service.EavEntityEntityService;
-import com.acooly.module.eav.service.EavSchemaEntityService;
+import com.acooly.module.eav.service.EavSchemeEntityService;
 import com.acooly.module.eav.service.impl.EavEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +29,7 @@ public class EavController {
     @Autowired
     private EavEntityService eavEntityService;
     @Autowired
-    private EavSchemaEntityService eavSchemaEntityService;
+    private EavSchemeEntityService eavSchemeEntityService;
 
 
     /**
@@ -89,7 +89,7 @@ public class EavController {
 
     @RequestMapping("/getEavSchemas")
     public ViewResult getEavSchemas() {
-        return ViewResult.success(eavSchemaEntityService.getAll());
+        return ViewResult.success(eavSchemeEntityService.getAll());
     }
 
     /**

@@ -24,6 +24,8 @@ import java.util.List;
  * @author qiuboboy@qq.com
  * @date 2018-06-26 20:48
  */
+// todo: 待扩展客户端事件，包括：字段的事件（onChange等）和表单事件
+// todo: 待扩展服务器端事件
 @Configuration
 @ComponentScan(basePackages = "com.acooly.module.eav")
 @Slf4j

@@ -14,9 +14,10 @@ import java.util.Map;
  */
 @Getter
 @Setter
-public class EavSchemaDto extends InfoBase {
+public class EavSchemeDto extends InfoBase {
     private Long id;
     private String name;
+    private String title;
     private String memo;
     private Map<String,EavAttribute> attributes;
     private Date createTime;

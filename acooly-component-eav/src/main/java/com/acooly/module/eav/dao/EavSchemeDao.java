@@ -7,7 +7,7 @@
  package com.acooly.module.eav.dao;
 
 import com.acooly.module.mybatis.EntityMybatisDao;
-import com.acooly.module.eav.entity.EavSchema;
+import com.acooly.module.eav.entity.EavScheme;
 
 /**
  * eav_schema Mybatis Dao
@@ -15,6 +15,6 @@ import com.acooly.module.eav.entity.EavSchema;
  * Date: 2018-06-26 21:51:37
  * @author qiubo
  */
-public interface EavSchemaDao extends EntityMybatisDao<EavSchema> {
+public interface EavSchemeDao extends EntityMybatisDao<EavScheme> {
 
 }

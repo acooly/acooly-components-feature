@@ -29,7 +29,7 @@ CREATE TABLE `eav_attribute` (
   `max_length` int(5)  COMMENT '最大长度',
   `regex` varchar(30)  COMMENT '正则表达式',
   `enum_value` varchar(128)  COMMENT '枚举值',
-  `attribute_type` varchar(20)  COMMENT '属性类型 {LONG:整形,DOUBLE:浮点数,ENUM:枚举,STRING:字符串,BOOLEAN:布尔,DATE:时间}',
+  `attribute_type` varchar(20)  COMMENT '属性类型 {NUMBER_INTEGER:整形,NUMBER_DECIMAL:浮点数,ENUM:枚举,STRING:字符串,BOOLEAN:布尔,DATE:时间}',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
    PRIMARY KEY (`id`),
