@@ -43,24 +43,6 @@
                     $(this).parent().parent().addClass("active");
                 }
             });
-
-            // fix bug: Dynamic rendering menu cannot be expanded.
-            var ua = navigator.userAgent.toLocaleLowerCase();
-            if (ua.match(/chrome/) != null && ua.match(/edge/) == null) {
-                return;
-            }
-
-            $(document).on("click", ".sidebar-menu li a", function (e) {
-                var firstParent = $(this).parent("li");
-                var firstChildUl = $(this).next("ul");
-                if (firstParent.hasClass("menu-open")) {
-                    firstParent.removeClass("menu-open");
-                    firstChildUl.hide();
-                } else {
-                    firstParent.addClass("menu-open");
-                    firstChildUl.show();
-                }
-            });
         },
         /**
          * 初始化中间内容区（基于easyui，保持兼容）
