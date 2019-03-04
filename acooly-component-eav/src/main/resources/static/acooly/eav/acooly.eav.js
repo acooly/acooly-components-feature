@@ -6,8 +6,12 @@
  */
 var acoolyEavClass = {
 
-    template_search_input: "<input type='text' name='search_'>",
-    template_search_select: "",
+
+    template: {
+        search_input: '<%=displayName%>: <input type="text" name="search_<%=symbol%>_<%=name%>" class="<%=cssClass%>" style="<%=cssStyle%>">',
+        search_select: '<%=displayName%>: <select name="search_<%=symbol%>_<%=name%>" editable="false" panelHeight="auto" class="<%=cssClass%>" style="<%=cssStyle%>"></select>'
+    },
+
 
     loadAllSchemes: function () {
         $.ajax({
@@ -72,7 +76,7 @@ var acoolyEavClass = {
      * 渲染查询条件
      * @param scheme
      */
-    renderSearch: function (opts) {
+    render: function (opts) {
 
         var options = $.extends({
             scheme: null,
@@ -84,15 +88,13 @@ var acoolyEavClass = {
             return;
         }
         var attrs = options.scheme.attributes;
+        var html="";
         for (var key in attrs) {
             var attr = attrs[key];
-            attr.nullable = true;
-            attr.forQueryCondition = true;
-            html += appendTable(template, attr) + "&nbsp;&nbsp;&nbsp;&nbsp;";
-            if (idx % 7 == 0) {
-                html += "<br/>"
-            }
-            idx++;
+
+
+
+
         }
 
 
