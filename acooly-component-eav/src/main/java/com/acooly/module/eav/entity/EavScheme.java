@@ -8,17 +8,15 @@ package com.acooly.module.eav.entity;
 
 
 import com.acooly.core.common.domain.AbstractEntity;
-import com.acooly.core.common.type.DBMap;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * eav_entity Entity
+ * EAV实体方案
  *
  * @author qiubo
  * @author zhangpu
@@ -26,33 +24,26 @@ import javax.validation.constraints.Size;
  */
 @Data
 @Entity
-@Table(name = "eav_entity")
-public class EavEntity extends AbstractEntity {
+@Table(name = "eav_scheme")
+public class EavScheme extends AbstractEntity {
     /**
      * serialVersionUID
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * 方案id
-     */
-    @NotNull
-    private Long schemaId;
-
-    /**
-     * 方案标题
-     * （表中文名，label）
+     * 名称（表名）
      */
     @NotEmpty
     @Size(max = 128)
-    private String schemeTitle;
+    private String name;
 
     /**
-     * 方案名称（表名）
+     * 方案标题（中文名）
      */
     @NotEmpty
     @Size(max = 128)
-    private String schemeName;
+    private String title;
 
 
     /**
@@ -60,13 +51,5 @@ public class EavEntity extends AbstractEntity {
      */
     @Size(max = 128)
     private String memo;
-
-
-    /**
-     * 内容
-     */
-    @NotEmpty
-    private DBMap value;
-
 
 }

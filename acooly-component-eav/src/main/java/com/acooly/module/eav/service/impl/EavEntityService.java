@@ -6,12 +6,12 @@ import com.acooly.core.common.type.DBMap;
 import com.acooly.core.utils.Assert;
 import com.acooly.module.eav.dao.EavAttributeDao;
 import com.acooly.module.eav.dao.EavEntityDao;
-import com.acooly.module.eav.dao.EavSchemaDao;
+import com.acooly.module.eav.dao.EavSchemeDao;
 import com.acooly.module.eav.dto.EavPageInfo;
-import com.acooly.module.eav.dto.EavSchemaDto;
+import com.acooly.module.eav.dto.EavSchemeDto;
 import com.acooly.module.eav.entity.EavAttribute;
 import com.acooly.module.eav.entity.EavEntity;
-import com.acooly.module.eav.entity.EavSchema;
+import com.acooly.module.eav.entity.EavScheme;
 import com.acooly.module.eav.validator.ValueValidatorService;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -47,7 +47,7 @@ public class EavEntityService {
     @Autowired
     private EavAttributeDao eavAttributeDao;
     @Autowired
-    private EavSchemaDao eavSchemaDao;
+    private EavSchemeDao eavSchemaDao;
     @Autowired
     private ValueValidatorService valueValidatorService;
     @Autowired
@@ -57,14 +57,14 @@ public class EavEntityService {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    private LoadingCache<Long, EavSchemaDto> schemaDtoCache = CacheBuilder.newBuilder().build(new CacheLoader<Long, EavSchemaDto>() {
+    private LoadingCache<Long, EavSchemeDto> schemaDtoCache = CacheBuilder.newBuilder().build(new CacheLoader<Long, EavSchemeDto>() {
         @Override
-        public EavSchemaDto load(Long key) {
+        public EavSchemeDto load(Long key) {
             return doFindEavSchemaDto(key);
         }
     });
 
-    public EavSchemaDto findEavSchemaDto(Long id) {
+    public EavSchemeDto findEavSchemaDto(Long id) {
         try {
             return schemaDtoCache.get(id);
         } catch (ExecutionException e) {
@@ -72,10 +72,10 @@ public class EavEntityService {
         }
     }
 
-    private EavSchemaDto doFindEavSchemaDto(Long id) {
-        EavSchema eavSchema = eavSchemaDao.get(id);
+    private EavSchemeDto doFindEavSchemaDto(Long id) {
+        EavScheme eavSchema = eavSchemaDao.get(id);
         if (eavSchema != null) {
-            EavSchemaDto eavSchemaDto = eavSchema.to(EavSchemaDto.class);
+            EavSchemeDto eavSchemaDto = eavSchema.to(EavSchemeDto.class);
             List<EavAttribute> attributes = eavAttributeDao.findAttributesBySchemaId(id);
             Map<String, EavAttribute> attributeMap = Maps.newHashMapWithExpectedSize(attributes.size());
             attributes.forEach(eavAttribute -> attributeMap.put(eavAttribute.getName(), eavAttribute));
@@ -111,7 +111,7 @@ public class EavEntityService {
         Assert.notNull(eavEntity);
         Assert.notNull(eavEntity.getSchemaId());
         Assert.notNull(eavEntity.getValue());
-        EavSchemaDto eavSchemaDto = findEavSchemaDto(eavEntity.getSchemaId());
+        EavSchemeDto eavSchemaDto = findEavSchemaDto(eavEntity.getSchemaId());
         for (EavAttribute attribute : eavSchemaDto.getAttributes().values()) {
             String attrName = attribute.getName();
             Object atrrValue = eavEntity.getValue().get(attrName);
@@ -199,7 +199,7 @@ public class EavEntityService {
     }
 
     private void parametersConvertAndCheck(Long schemaId, Map<String, Object> parameters) {
-        EavSchemaDto eavSchemaDto = findEavSchemaDto(schemaId);
+        EavSchemeDto eavSchemaDto = findEavSchemaDto(schemaId);
         Assert.notNull(eavSchemaDto);
         parameters.forEach((s, o) -> {
             EavAttribute eavAttribute = eavSchemaDto.getAttributes().get(s);

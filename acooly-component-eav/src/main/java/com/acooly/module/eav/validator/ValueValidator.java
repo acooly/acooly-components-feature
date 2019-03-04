@@ -1,6 +1,7 @@
 package com.acooly.module.eav.validator;
 
 import com.acooly.core.common.exception.OrderCheckException;
+import com.acooly.core.utils.enums.WhetherStatus;
 import com.acooly.module.eav.entity.EavAttribute;
 import lombok.Getter;
 
@@ -22,7 +23,7 @@ public abstract class ValueValidator implements Function<Object, Object> {
     @Override
     public Object apply(Object value) {
         if (value == null) {
-            if (eavAttribute.getNullable() == null || eavAttribute.getNullable()) {
+            if (eavAttribute.getNullable() == null || eavAttribute.getNullable() == WhetherStatus.no) {
                 return null;
             } else {
                 throw new OrderCheckException(eavAttribute.getName(), "不能为空");

@@ -1,11 +1,18 @@
-/*
- * acooly.cn Inc.
- * Copyright (c) 2018 All Rights Reserved.
- * create by qiubo
- * date:2018-06-26
+/**
+ * acooly-components-feature
+ * <p>
+ * Copyright 2014 Acooly.cn, Inc. All rights reserved.
  *
+ * @author zhangpu
+ * @date 2019-03-03 21:00
  */
 package com.acooly.module.eav.enums;
+/**
+ * 属性显示格式
+ *
+ * @author zhangpu
+ * @date 2019-03-03 21:00
+ */
 
 import com.acooly.core.utils.enums.Messageable;
 
@@ -14,30 +21,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * eav_attribute AttributeTypeEnum 枚举定义
- *
- * @author qiubo
- * Date: 2018-06-26 21:51:37
- */
-public enum AttributeTypeEnum implements Messageable {
+public enum AttributeFormatEnum implements Messageable {
 
-    NUMBER_INTEGER("NUMBER_INTEGER", "整数"),
-
-    NUMBER_DECIMAL("NUMBER_DECIMAL", "小数"),
-
-    NUMBER_MONEY("NUMBER_MONEY", "金额"),
-
-    ENUM("ENUM", "枚举"),
-
-    STRING("STRING", "字符串"),
-
-    DATE("DATE", "日期时间");
+    NORMAL("NORMAL", "原始格式"),
+    FORMAT_DATA_TIME("FORMAT_DATA_TIME", "日期时间"),
+    FORMAT_DATA("FORMAT_DATA", "日期"),
+    FORMAT_TIME("FORMAT_TIME", "时间");
 
     private final String code;
     private final String message;
 
-    private AttributeTypeEnum(String code, String message) {
+    AttributeFormatEnum(String code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -50,17 +44,19 @@ public enum AttributeTypeEnum implements Messageable {
         return message;
     }
 
+    @Override
     public String code() {
         return code;
     }
 
+    @Override
     public String message() {
         return message;
     }
 
     public static Map<String, String> mapping() {
         Map<String, String> map = new LinkedHashMap<String, String>();
-        for (AttributeTypeEnum type : values()) {
+        for (AttributeFormatEnum type : values()) {
             map.put(type.getCode(), type.getMessage());
         }
         return map;
@@ -73,8 +69,8 @@ public enum AttributeTypeEnum implements Messageable {
      * @return 枚举值码对应的枚举值。
      * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
      */
-    public static AttributeTypeEnum find(String code) {
-        for (AttributeTypeEnum status : values()) {
+    public static AttributeFormatEnum find(String code) {
+        for (AttributeFormatEnum status : values()) {
             if (status.getCode().equals(code)) {
                 return status;
             }
@@ -87,9 +83,9 @@ public enum AttributeTypeEnum implements Messageable {
      *
      * @return 全部枚举值。
      */
-    public static List<AttributeTypeEnum> getAll() {
-        List<AttributeTypeEnum> list = new ArrayList<AttributeTypeEnum>();
-        for (AttributeTypeEnum status : values()) {
+    public static List<AttributeFormatEnum> getAll() {
+        List<AttributeFormatEnum> list = new ArrayList<AttributeFormatEnum>();
+        for (AttributeFormatEnum status : values()) {
             list.add(status);
         }
         return list;
@@ -102,7 +98,7 @@ public enum AttributeTypeEnum implements Messageable {
      */
     public static List<String> getAllCode() {
         List<String> list = new ArrayList<String>();
-        for (AttributeTypeEnum status : values()) {
+        for (AttributeFormatEnum status : values()) {
             list.add(status.code());
         }
         return list;

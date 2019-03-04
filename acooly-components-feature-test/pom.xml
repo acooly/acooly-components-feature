@@ -16,11 +16,11 @@
 
     <dependencies>
 
-        <!--<dependency>-->
-            <!--<groupId>com.acooly</groupId>-->
-            <!--<artifactId>acooly-component-eav</artifactId>-->
-            <!--<version>${project.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-eav</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.acooly</groupId>

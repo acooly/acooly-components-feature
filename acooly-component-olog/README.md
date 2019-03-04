@@ -1,6 +1,6 @@
 <!-- title: 审计日志组件  -->
 <!-- type: app -->
-<!-- author: kule,qiubo -->
+<!-- author: zhangpu,qiubo -->
 
 ## 1. 组件介绍
 

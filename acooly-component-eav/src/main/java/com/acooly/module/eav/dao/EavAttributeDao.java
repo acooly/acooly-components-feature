@@ -22,6 +22,6 @@ import java.util.List;
  */
 public interface EavAttributeDao extends EntityMybatisDao<EavAttribute> {
 
-    @Select("select * from eav_attribute  where  schema_id=#{schemaId}")
-    List<EavAttribute> findAttributesBySchemaId(@Param("schemaId") Long schemaId);
+    @Select("select * from eav_attribute  where  scheme_id=#{schemeId}")
+    List<EavAttribute> findAttributesBySchemaId(@Param("schemeId") Long schemeId);
 }

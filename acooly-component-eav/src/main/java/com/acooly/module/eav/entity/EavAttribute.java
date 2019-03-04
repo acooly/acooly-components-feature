@@ -9,8 +9,12 @@ package com.acooly.module.eav.entity;
 
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.core.common.exception.OrderCheckException;
+import com.acooly.core.utils.enums.WhetherStatus;
+import com.acooly.module.eav.enums.AttributeFormatEnum;
+import com.acooly.module.eav.enums.AttributeShowTypeEnum;
 import com.acooly.module.eav.enums.AttributeTypeEnum;
 import com.google.common.base.Strings;
+import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
@@ -26,6 +30,7 @@ import javax.validation.constraints.Size;
  * @author qiubo
  * Date: 2018-06-27 14:36:41
  */
+@Data
 @Entity
 @Table(name = "eav_attribute")
 public class EavAttribute extends AbstractEntity {
@@ -39,7 +44,14 @@ public class EavAttribute extends AbstractEntity {
      * 方案id
      */
     @NotNull
-    private Long schemaId;
+    private Long schemeId;
+
+    /**
+     * 方案名称
+     */
+    @NotEmpty
+    @Size(max = 128)
+    private String schemeName;
 
     /**
      * 字段名称
@@ -55,11 +67,18 @@ public class EavAttribute extends AbstractEntity {
     @Size(max = 128)
     private String displayName;
 
+    /**
+     * 是否为逻辑键
+     */
+    @Enumerated(EnumType.STRING)
+    private WhetherStatus keyable = WhetherStatus.no;
+
 
     /**
      * 是否可以为空
      */
-    private Boolean nullable;
+    @Enumerated(EnumType.STRING)
+    private WhetherStatus nullable = WhetherStatus.yes;
 
     /**
      * 最小值
@@ -88,11 +107,33 @@ public class EavAttribute extends AbstractEntity {
     private String regex;
 
     /**
+     * 正则验证消息
+     */
+    private String regexMessage;
+
+
+    /**
      * 枚举值
      */
     @Size(max = 128)
     private String enumValue;
 
+    /**
+     * 显示类型
+     * 1：列表，2：创建, 3:编辑,4:详情
+     */
+    private int showType = AttributeShowTypeEnum.getAllValue();
+
+    /**
+     * 显示格式
+     */
+    @Enumerated(EnumType.STRING)
+    private AttributeFormatEnum showFormat = AttributeFormatEnum.NORMAL;
+
+    /**
+     * 默认值
+     */
+    private String defaultValue;
 
     /**
      * 备注
@@ -100,10 +141,6 @@ public class EavAttribute extends AbstractEntity {
     @Size(max = 128)
     private String memo;
 
-    /**
-     * 是否逻辑唯一键
-     */
-    private boolean key = false;
 
     /**
      * 属性类型
@@ -114,111 +151,7 @@ public class EavAttribute extends AbstractEntity {
     public void createCheck() {
         OrderCheckException.throwIf(!Strings.isNullOrEmpty(name), "name", "名称不能为空");
         OrderCheckException.throwIf(!Strings.isNullOrEmpty(displayName), "displayName", "展示名称不能为空");
-        OrderCheckException.throwIf(schemaId != null, "schemaId", "schemaId不能为空");
+        OrderCheckException.throwIf(schemeId != null, "schemaId", "schemaId不能为空");
     }
 
-
-    public Long getSchemaId() {
-        return this.schemaId;
-    }
-
-    public void setSchemaId(Long schemaId) {
-        this.schemaId = schemaId;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMemo() {
-        return this.memo;
-    }
-
-    public void setMemo(String memo) {
-        this.memo = memo;
-    }
-
-    public Boolean getNullable() {
-        return this.nullable;
-    }
-
-    public void setNullable(Boolean nullable) {
-        this.nullable = nullable;
-    }
-
-    public Long getMinimum() {
-        return this.minimum;
-    }
-
-    public void setMinimum(Long minimum) {
-        this.minimum = minimum;
-    }
-
-    public Long getMaximum() {
-        return this.maximum;
-    }
-
-    public void setMaximum(Long maximum) {
-        this.maximum = maximum;
-    }
-
-    public Integer getMinLength() {
-        return this.minLength;
-    }
-
-    public void setMinLength(Integer minLength) {
-        this.minLength = minLength;
-    }
-
-    public Integer getMaxLength() {
-        return this.maxLength;
-    }
-
-    public void setMaxLength(Integer maxLength) {
-        this.maxLength = maxLength;
-    }
-
-    public String getRegex() {
-        return this.regex;
-    }
-
-    public void setRegex(String regex) {
-        this.regex = regex;
-    }
-
-    public String getEnumValue() {
-        return this.enumValue;
-    }
-
-    public void setEnumValue(String enumValue) {
-        this.enumValue = enumValue;
-    }
-
-    public AttributeTypeEnum getAttributeType() {
-        return this.attributeType;
-    }
-
-    public void setAttributeType(AttributeTypeEnum attributeType) {
-        this.attributeType = attributeType;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public boolean isKey() {
-        return key;
-    }
-
-    public void setKey(boolean key) {
-        this.key = key;
-    }
 }

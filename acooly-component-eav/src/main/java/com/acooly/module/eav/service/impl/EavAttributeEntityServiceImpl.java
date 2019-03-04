@@ -56,8 +56,8 @@ public class EavAttributeEntityServiceImpl extends EntityServiceImpl<EavAttribut
         if (!o.isNew()) {
             eavEntityService.sendEavAttributeChangeMessage(o.getId());
         }
-        if (o.getSchemaId() != null) {
-            eavEntityService.sendEavSchemaChangeMessage(o.getSchemaId());
+        if (o.getSchemeId() != null) {
+            eavEntityService.sendEavSchemaChangeMessage(o.getSchemeId());
         }
     }
 
@@ -68,8 +68,8 @@ public class EavAttributeEntityServiceImpl extends EntityServiceImpl<EavAttribut
             if (!eavAttribute.isNew()) {
                 eavEntityService.sendEavAttributeChangeMessage(eavAttribute.getId());
             }
-            if (eavAttribute.getSchemaId() != null) {
-                eavEntityService.sendEavSchemaChangeMessage(eavAttribute.getSchemaId());
+            if (eavAttribute.getSchemeId() != null) {
+                eavEntityService.sendEavSchemaChangeMessage(eavAttribute.getSchemeId());
             }
         }
     }
@@ -80,8 +80,8 @@ public class EavAttributeEntityServiceImpl extends EntityServiceImpl<EavAttribut
         if (!o.isNew()) {
             eavEntityService.sendEavAttributeChangeMessage(o.getId());
         }
-        if (o.getSchemaId() != null) {
-            eavEntityService.sendEavSchemaChangeMessage(o.getSchemaId());
+        if (o.getSchemeId() != null) {
+            eavEntityService.sendEavSchemaChangeMessage(o.getSchemeId());
         }
     }
 
@@ -91,8 +91,8 @@ public class EavAttributeEntityServiceImpl extends EntityServiceImpl<EavAttribut
         if (!eavAttribute.isNew()) {
             eavEntityService.sendEavAttributeChangeMessage(eavAttribute.getId());
         }
-        if (eavAttribute.getSchemaId() != null) {
-            eavEntityService.sendEavSchemaChangeMessage(eavAttribute.getSchemaId());
+        if (eavAttribute.getSchemeId() != null) {
+            eavEntityService.sendEavSchemaChangeMessage(eavAttribute.getSchemeId());
         }
     }
 }
