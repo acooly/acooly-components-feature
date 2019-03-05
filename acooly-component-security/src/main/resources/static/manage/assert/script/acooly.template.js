@@ -26,15 +26,13 @@ var acooly_template = {
     },
 
     /**
-     * 百度模板引擎实现
-     * @param container  渲染后的装载容器（id）
-     * @param template   模板（id）
-     * @param data       数据（json）
-     * @param options    其他参数
-     * @param engineOpts 具体模板引擎的参数设置
+     * 渲染
+     * @param template
+     * @param data
+     * @param opts
+     * @param engineOpts
      */
-    render: function (container, template, data, opts, engineOpts) {
-
+    render: function (template, data, opts, engineOpts) {
         var defOpts = {
             engine: null,
             append: false,
@@ -43,10 +41,6 @@ var acooly_template = {
         }
         var options = $.extend(defOpts, opts);
 
-        baidu.template.ESCAPE = false;
-        baidu.template.LEFT_DELIMITER = '<%';
-        baidu.template.RIGHT_DELIMITER = '%>';
-
         if (options.beforeRender) {
             options.beforeRender.call(this, data);
         }
@@ -54,13 +48,28 @@ var acooly_template = {
             this.engine = options.engine;
         }
         var result = this._doRender(template, data, engineOpts);
+
+        if (options.afterRender) {
+            options.afterRender.call(this, data, result);
+        }
+        return result;
+    },
+
+    /**
+     * 渲染到
+     * @param container  渲染后的装载容器（id）
+     * @param template   模板（id）
+     * @param data       数据（json）
+     * @param options    其他参数
+     * @param engineOpts 具体模板引擎的参数设置
+     */
+    renderTo: function (container, template, data, opts, engineOpts) {
+        var options = $.extend(defOpts, opts);
+        var result = this.render(template, data, opts, engineOpts)
         if (options.append) {
             $('#' + container).append(result);
         } else {
             $('#' + container).html(result);
-        }
-        if (options.afterRender) {
-            options.afterRender.call(this, data, result);
         }
     }
 

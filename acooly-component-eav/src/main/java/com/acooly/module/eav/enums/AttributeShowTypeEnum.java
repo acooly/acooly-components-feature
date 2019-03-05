@@ -21,11 +21,11 @@ import java.util.Map;
 
 public enum AttributeShowTypeEnum {
 
-
-    LIST(1, "列表"),
-    CREATE(2, "新增"),
-    UPDATE(4, "编辑"),
-    SHOW(8, "查看");
+    SEARCH(1, "查询"),
+    LIST(2, "列表"),
+    CREATE(4, "新增"),
+    UPDATE(8, "编辑"),
+    SHOW(16, "查看");
 
 
     private final int code;
@@ -57,7 +57,7 @@ public enum AttributeShowTypeEnum {
         }
         return all;
     }
-    
+
     public static Map<Integer, String> mapping() {
         Map<Integer, String> map = new LinkedHashMap<Integer, String>();
         for (AttributeShowTypeEnum type : values()) {

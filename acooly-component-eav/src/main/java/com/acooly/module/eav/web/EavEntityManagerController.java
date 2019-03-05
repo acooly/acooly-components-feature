@@ -53,6 +53,12 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
     private EavEntityService eavEntityService;
 
     @Override
+    public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
+        model.addAttribute("schemeId", Servlets.getParameter(request,"schemeId"));
+        return super.index(request, response, model);
+    }
+
+    @Override
     public void initBinder(WebDataBinder binder) {
         super.initBinder(binder);
         binder.registerCustomEditor(DBMap.class, new PropertyEditorSupport() {

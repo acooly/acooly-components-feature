@@ -6,31 +6,54 @@
  */
 var acoolyEavClass = {
 
+    schemeId: '',
 
     template: {
-        search_input: '<%=displayName%>: <input type="text" name="search_<%=symbol%>_<%=name%>" class="<%=cssClass%>" style="<%=cssStyle%>">',
-        search_select: '<%=displayName%>: <select name="search_<%=symbol%>_<%=name%>" editable="false" panelHeight="auto" class="<%=cssClass%>" style="<%=cssStyle%>"></select>'
+        search_number: '<%=displayName%>: <input type="text" name="search_EQ_<%=name%>" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>">',
+        search_input: '<%=displayName%>: <input type="text" name="search_LIKE_<%=name%>" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>">',
+        search_date: '<%=displayName%>: <input type="text" name="search_GTE_<%=name%>" onFocus="WdatePicker({readOnly:true,dateFmt:\'yyyy-MM-dd\'})" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>"> ' +
+            '至 <input type="text" name="search_LTE_<%=name%>" onFocus="WdatePicker({readOnly:true,dateFmt:\'yyyy-MM-dd\'})" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>">',
+        search_select: '<%=displayName%>: <select name="search_EQ_<%=name%>" editable="false" panelHeight="auto" class="easyui-combobox <%=cssClass%>" style="<%=cssStyle%>"></select>'
+    },
+
+    showType: {
+        'SEARCH': 1,
+        'LIST': 2,
+        'CREATE': 4,
+        'UPDATE': 8,
+        'SHOW': 16
     },
 
 
     loadAllSchemes: function () {
+        // 如果设置了指定的schemeId,则不拉去所有的scheme
+        if ($.acooly.eav.schemeId && $.acooly.eav.schemeId != '') {
+            this.loadScheme({
+                schemeId: $.acooly.eav.schemeId,
+                container: "extraQueryCondition",
+                showType: this.showType.SEARCH
+            });
+            return;
+        }
+        var That = this;
         $.ajax({
-            url: "/eav/getEavSchemas",
-            async: false,
+            url: "/eav/getEavSchemas.html",
             success: function (result) {
                 var data = [];
                 var first = true;
-                // $("#search_EQ_schemaId").append("<option value='0'>请选择</option>");
                 $.each(result.data, function (i, val) {
                     data.push({"text": val.name, "id": val.id, "selected": first});
                     if (first) {
-                        window.data.eavSchemaId = val.id;
-                        loadExtraQueryCondition(window.data.eavSchemaId);
+                        $.acooly.eav.schemeId = val.id;
+                        That.loadScheme({
+                            schemeId: $.acooly.eav.schemeId,
+                            container: "extraQueryCondition",
+                            showType: That.showType.SEARCH
+                        });
                     }
                     first = false
                     $("#search_EQ_schemaId").append("<option value='" + val.id + "'>" + val.name + "</option>");
                 })
-                window.data.eavSchemas = data;
             }
         });
     },
@@ -39,65 +62,55 @@ var acoolyEavClass = {
     loadScheme: function (opts) {
         var defOpts = {
             schemeId: null,
-            onSuccess: function (result) {
-                console.info("loadScheme:", result)
-            },
-            renderType: 'search',               //list,search,show,create,edit
-            container: null
+            container: null,
+            showType: 1,
+            onSuccess: null
         }
-        var options = $.extends(defOpts, opts);
+        var options = $.extend(defOpts, opts);
+        var That = this;
         $.ajax({
             url: "/eav/getEavSchema?id=" + options.schemeId,
             success: function (result) {
                 if (options.onSuccess != null) {
                     options.onSuccess.call(this, result);
+                } else {
+                    $('#' + options.container).html(That.render(result.data, options.showType));
                 }
-                // var attrs = result.data.attributes;
-                // var idx = 1;
-                // var html = "";
-                // var template = '{{attr.displayName}}:{{{input}}}';
-                //
-                // for (var key in attrs) {
-                //     var attr = attrs[key];
-                //     attr.nullable = true;
-                //     attr.forQueryCondition = true;
-                //     html += appendTable(template, attr) + "&nbsp;&nbsp;&nbsp;&nbsp;";
-                //     if (idx % 7 == 0) {
-                //         html += "<br/>"
-                //     }
-                //     idx++;
-                // }
-                // $('#extraQueryCondition').html(html);
             }
         });
+    },
+
+    hasPermission: function (allPerm, perm) {
+        return ((allPerm & perm) == perm);
     },
 
     /**
      * 渲染查询条件
      * @param scheme
      */
-    render: function (opts) {
+    render: function (scheme, showType) {
 
-        var options = $.extends({
-            scheme: null,
-            container: null
-        }, opts);
-
-        if (!options.scheme) {
-            console.error("scheme不能为空");
-            return;
-        }
-        var attrs = options.scheme.attributes;
-        var html="";
+        var attrs = scheme.attributes;
+        var html = "";
         for (var key in attrs) {
             var attr = attrs[key];
+            if (!this.hasPermission(attr.showType, 1)) {
+                continue;
+            }
 
-
-
-
+            var template = null;
+            if (attr.attributeType.startsWith('NUMBER')) {
+                template = this.template.search_number;
+            } else if (attr.attributeType == 'DATE') {
+                template = this.template.search_date;
+            } else if (attr.attributeType == 'ENUM') {
+                template = this.template.search_select;
+            } else {
+                template = this.template.search_input;
+            }
+            html += $.acooly.template.render(template, attr);
         }
-
-
+        return html;
     }
 
 
@@ -107,5 +120,5 @@ $(function () {
     if ($.acooly == null) {
         $.acooly = {};
     }
-    $.extends($.acooly, {eav: acoolyEavClass});
+    $.extend($.acooly, {eav: acoolyEavClass});
 });
