@@ -47,3 +47,27 @@ CREATE TABLE `eav_entity` (
   `memo` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `eav_option` (
+  `id` bigint(20) NOT NULL,
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '父ID',
+  `path` varchar(255) DEFAULT NULL,
+  `code` varchar(64) NOT NULL COMMENT '编码',
+  `name` varchar(64) NOT NULL COMMENT '名称',
+  `sort_time` bigint(20) DEFAULT NULL COMMENT '排序值',
+  `status` varchar(16) NOT NULL COMMENT '状态',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `memo` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='属性选项';
+
+CREATE TABLE `eav_scheme_tag` (
+  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `schemeId` bigint(20) NOT NULL COMMENT '方案ID',
+  `tag` varchar(64) NOT NULL COMMENT '标签',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `memo` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='方案标签';
