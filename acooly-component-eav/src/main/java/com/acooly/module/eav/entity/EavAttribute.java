@@ -9,7 +9,6 @@ package com.acooly.module.eav.entity;
 
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.core.common.exception.OrderCheckException;
-import com.acooly.core.utils.arithmetic.tree.TreeNode;
 import com.acooly.core.utils.enums.WhetherStatus;
 import com.acooly.module.eav.enums.AttributeFormatEnum;
 import com.acooly.module.eav.enums.AttributeShowTypeEnum;
