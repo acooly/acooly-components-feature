@@ -18,8 +18,10 @@ var acooly_template = {
         baidu.template.LEFT_DELIMITER = '<%';
         baidu.template.RIGHT_DELIMITER = '%>';
         if (engineOpts) {
-            $.each($(engineOpts), function (k, v) {
-                eval("baidu.template." + k + "=" + v);
+            $.each(engineOpts, function (k, v) {
+                var cmd = "baidu.template." + k + "=" + v;
+                console.info("cmd:",cmd);
+                eval(cmd);
             });
         }
         return baidu.template(template, data);

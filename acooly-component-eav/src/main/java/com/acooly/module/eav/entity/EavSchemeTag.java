@@ -21,7 +21,7 @@ import java.util.Date;
  * 方案标签 Entity
  *
  * @author zhangpu
- * Date: 2019-03-05 18:52:41
+ * Date: 2019-03-05 18:02:36
  */
 @Entity
 @Table(name = "eav_scheme_tag")
@@ -31,7 +31,7 @@ public class EavSchemeTag extends AbstractEntity {
 
 	/** 方案ID */
 	@NotNull
-    private Long schemeid;
+    private Long schemeId;
 
 	/** 标签 */
 	@NotEmpty
@@ -42,4 +42,11 @@ public class EavSchemeTag extends AbstractEntity {
 	@Size(max=255)
     private String memo;
 
+    public EavSchemeTag() {
+    }
+
+    public EavSchemeTag(@NotNull Long schemeId, String tag) {
+        this.schemeId = schemeId;
+        this.tag = tag;
+    }
 }

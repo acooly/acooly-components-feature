@@ -4,17 +4,30 @@
  * create by zhangpu
  * date:2019-03-05
  */
- package com.acooly.module.eav.dao;
+package com.acooly.module.eav.dao;
 
-import com.acooly.module.mybatis.EntityMybatisDao;
 import com.acooly.module.eav.entity.EavOption;
+import com.acooly.module.mybatis.EntityMybatisDao;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * 属性选项 Mybatis Dao
+ * <p>
+ * Date: 2019-03-05 18:02:36
  *
- * Date: 2019-03-05 18:52:41
  * @author zhangpu
  */
 public interface EavOptionDao extends EntityMybatisDao<EavOption> {
 
+    @Select("select * from eav_option where parent_id is null order by sort_time desc")
+    List<EavOption> findTops();
+
+    @Select("select * from eav_option where parent_id = #{parentId} order by sort_time desc")
+    List<EavOption> findByParentId(@Param("parentId") Long parentId);
+
+    @Select("select * from eav_option where path like '#{path}%' order by sort_time desc")
+    List<EavOption> findByPath(@Param("parentId") String path);
 }

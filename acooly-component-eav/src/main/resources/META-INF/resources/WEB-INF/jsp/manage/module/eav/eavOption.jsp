@@ -17,15 +17,10 @@ $(function() {
         <tr>
           <td align="left">
           	<div>
-					父ID: <input type="text" class="text" size="15" name="search_EQ_parentId"/>
 					编码: <input type="text" class="text" size="15" name="search_LIKE_code"/>
 					名称: <input type="text" class="text" size="15" name="search_LIKE_name"/>
-					排序值: <input type="text" class="text" size="15" name="search_EQ_sortTime"/>
-					状态: <input type="text" class="text" size="15" name="search_LIKE_status"/>
 					创建时间: <input size="15" class="text" id="search_GTE_createTime" name="search_GTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
 					至<input size="15" class="text" id="search_LTE_createTime" name="search_LTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
-					更新时间: <input size="15" class="text" id="search_GTE_updateTime" name="search_GTE_updateTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
-					至<input size="15" class="text" id="search_LTE_updateTime" name="search_LTE_updateTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
           	<a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:false" onclick="$.acooly.framework.search('manage_eavOption_searchform','manage_eavOption_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i>查询</a>
           	</div>
           </td>
@@ -42,12 +37,8 @@ $(function() {
         <tr>
         	<th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
 			<th field="id" sum="true">id</th>
-			<th field="parentId" sum="true">父ID</th>
-			<th field="path">path</th>
 			<th field="code">编码</th>
 			<th field="name">名称</th>
-			<th field="sortTime" sum="true">排序值</th>
-			<th field="status">状态</th>
 		    <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
 		    <th field="updateTime" formatter="dateTimeFormatter">更新时间</th>
 			<th field="memo">备注</th>
@@ -58,6 +49,7 @@ $(function() {
 
     <!-- 每行的Action动作模板 -->
     <div id="manage_eavOption_action" style="display: none;">
+      <a onclick="$.acooly.framework.edit({url:'/manage/module/eav/eavOption/editBatch.html?parentId={0}',id:'{0}',entity:'eavOption',title:'选项定义',width:600,height:600});" href="#" title="选项管理"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i></a>
       <a onclick="$.acooly.framework.edit({url:'/manage/module/eav/eavOption/edit.html',id:'{0}',entity:'eavOption',width:500,height:400});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
       <a onclick="$.acooly.framework.show('/manage/module/eav/eavOption/show.html?id={0}',500,400);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
       <a onclick="$.acooly.framework.remove('/manage/module/eav/eavOption/deleteJson.html','{0}','manage_eavOption_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
