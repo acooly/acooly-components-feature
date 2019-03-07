@@ -14,6 +14,9 @@ package com.acooly.module.eav.enums;
  * @date 2019-03-03 20:34
  */
 
+import com.acooly.core.utils.arithmetic.perm.BitPermissions;
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -44,6 +47,15 @@ public enum AttributeShowTypeEnum {
         return message;
     }
 
+    public static List<String> parse(int perm){
+        List<String> permNames = Lists.newArrayList();
+        for (AttributeShowTypeEnum status : values()) {
+            if(BitPermissions.hasPerm(perm,status.code)){
+                permNames.add(status.getMessage());
+            }
+        }
+        return permNames;
+    }
 
     /**
      * 所有权限

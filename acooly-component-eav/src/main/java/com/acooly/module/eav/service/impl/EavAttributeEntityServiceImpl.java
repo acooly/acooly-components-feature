@@ -8,9 +8,11 @@ package com.acooly.module.eav.service.impl;
 
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
+import com.acooly.core.utils.Strings;
 import com.acooly.module.eav.dao.EavAttributeDao;
 import com.acooly.module.eav.entity.EavAttribute;
 import com.acooly.module.eav.service.EavAttributeEntityService;
+import com.acooly.module.eav.service.EavOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ import java.util.List;
 public class EavAttributeEntityServiceImpl extends EntityServiceImpl<EavAttribute, EavAttributeDao> implements EavAttributeEntityService {
     @Autowired
     private EavEntityService eavEntityService;
+    @Autowired
+    private EavOptionService eavOptionService;
 
     @Override
     public void remove(EavAttribute o) throws BusinessException {
@@ -94,5 +98,17 @@ public class EavAttributeEntityServiceImpl extends EntityServiceImpl<EavAttribut
         if (eavAttribute.getSchemeId() != null) {
             eavEntityService.sendEavSchemaChangeMessage(eavAttribute.getSchemeId());
         }
+    }
+
+
+    @Override
+    public List<EavAttribute> loadEavAttribute(Long schemeId) {
+        List<EavAttribute> eavAttributes = getEntityDao().findAttributesBySchemaId(schemeId);
+        eavAttributes.forEach((e) -> {
+            if (Strings.isNotBlank(e.getEnumValue())) {
+                e.setOptions(eavOptionService.listChildrenByCode(e.getEnumValue()));
+            }
+        });
+        return eavAttributes;
     }
 }

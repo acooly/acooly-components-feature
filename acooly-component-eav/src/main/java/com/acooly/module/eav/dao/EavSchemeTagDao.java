@@ -28,7 +28,7 @@ public interface EavSchemeTagDao extends EntityMybatisDao<EavSchemeTag> {
      * @param schemeId
      * @return
      */
-    @Select("select * from eav_scheme_tag where schemeId = #{schemeId}")
+    @Select("select * from eav_scheme_tag where scheme_id = #{schemeId}")
     List<EavSchemeTag> findBySchemeId(@Param("schemeId") Long schemeId);
 
 }

@@ -22,12 +22,16 @@ import java.util.List;
  */
 public interface EavOptionDao extends EntityMybatisDao<EavOption> {
 
-    @Select("select * from eav_option where parent_id is null order by sort_time desc")
+    @Select("select * from eav_option where parent_id is null order by sort_time")
     List<EavOption> findTops();
 
-    @Select("select * from eav_option where parent_id = #{parentId} order by sort_time desc")
+    @Select("select * from eav_option where parent_id = #{parentId} order by sort_time")
     List<EavOption> findByParentId(@Param("parentId") Long parentId);
 
-    @Select("select * from eav_option where path like '#{path}%' order by sort_time desc")
-    List<EavOption> findByPath(@Param("parentId") String path);
+    @Select("select * from eav_option where path like #{path}\"%\" order by sort_time")
+    List<EavOption> findByPath(@Param("path") String path);
+
+
+    @Select("select * from eav_option where code = #{code} order by sort_time")
+    List<EavOption> findByCode(@Param("code") String code);
 }

@@ -12,6 +12,7 @@ import com.acooly.module.eav.dto.EavSchemeDto;
 import com.acooly.module.eav.entity.EavAttribute;
 import com.acooly.module.eav.entity.EavEntity;
 import com.acooly.module.eav.entity.EavScheme;
+import com.acooly.module.eav.service.EavAttributeEntityService;
 import com.acooly.module.eav.validator.ValueValidatorService;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -47,6 +48,8 @@ public class EavEntityService {
     @Autowired
     private EavAttributeDao eavAttributeDao;
     @Autowired
+    private EavAttributeEntityService eavAttributeEntityService;
+    @Autowired
     private EavSchemeDao eavSchemaDao;
     @Autowired
     private ValueValidatorService valueValidatorService;
@@ -76,7 +79,7 @@ public class EavEntityService {
         EavScheme eavSchema = eavSchemaDao.get(id);
         if (eavSchema != null) {
             EavSchemeDto eavSchemaDto = eavSchema.to(EavSchemeDto.class);
-            List<EavAttribute> attributes = eavAttributeDao.findAttributesBySchemaId(id);
+            List<EavAttribute> attributes = eavAttributeEntityService.loadEavAttribute(id);
             Map<String, EavAttribute> attributeMap = Maps.newHashMapWithExpectedSize(attributes.size());
             attributes.forEach(eavAttribute -> attributeMap.put(eavAttribute.getName(), eavAttribute));
             eavSchemaDto.setAttributes(attributeMap);

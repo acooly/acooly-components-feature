@@ -20,7 +20,6 @@ var acooly_template = {
         if (engineOpts) {
             $.each(engineOpts, function (k, v) {
                 var cmd = "baidu.template." + k + "=" + v;
-                console.info("cmd:",cmd);
                 eval(cmd);
             });
         }

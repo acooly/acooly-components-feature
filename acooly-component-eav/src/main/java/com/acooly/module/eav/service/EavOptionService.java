@@ -26,6 +26,8 @@ public interface EavOptionService extends EntityService<EavOption> {
 
     List<EavOption> listByPath(String path);
 
+    List<EavOption> listChildrenByCode(String code);
+
     List<EavOption> listByParentId(Long parentId);
 
     void moveTop(Long id);

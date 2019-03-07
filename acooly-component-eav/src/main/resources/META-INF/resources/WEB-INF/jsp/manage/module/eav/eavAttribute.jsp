@@ -29,13 +29,13 @@ $(function() {
         	<th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
 			<th field="id" sortable="true">id</th>
             <th field="schemeName">方案名称</th>
+            <th field="tag">分组标签</th>
 			<th field="name">属性名称</th>
 			<th field="displayName">展示名称</th>
             <th field="attributeType" formatter="mappingFormatter">属性类型</th>
 			<th field="nullable">是否为空</th>
-            <th field="nullable">业务键</th>
-            <th field="showType">显示类型</th>
-            <th field="showFormat">显示格式</th>
+            <th field="showPerms">显示类型</th>
+            <th field="showFormat" formatter="mappingFormatter">显示格式</th>
 			<th field="minimum" data-options="formatter:function(v,r,i){ var str=''; if(!v){v=0;} str+=v; if(r.maximum){str+='-'+r.maximum;} return str; }">数字范围</th>
 			<th field="minLength" data-options="formatter:function(v,r,i){ var str=''; if(!v){v=0} str+=v; if(r.maxLength){str+='-'+r.maxLength;}  return str; }">属性长度</th>
 			<th field="regex">验证正则</th>

@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/jsp/manage/common/taglibs.jsp" %>
+<style>
+    .tableForm .checkInput { padding: 0; width: 27px; height: 18px; font-size: 1px; text-align: center; overflow: hidden;}
+</style>
 <div>
     <form id="manage_eavAttribute_editform"
           action="${pageContext.request.contextPath}/manage/module/eav/eavAttribute/${action=='create'?'saveJson':'updateJson'}.html" method="post">
@@ -7,7 +10,7 @@
             <input name="id" type="hidden"/>
             <table class="tableForm" width="100%">
                 <tr>
-                    <th width="20%">方案：</th>
+                    <th width="15%">方案：</th>
                     <td colspan="3">
                         <c:if test="${eavScheme!=null}">
                             <input type="hidden" name="schemeId" value="${eavScheme.id}">
@@ -27,18 +30,24 @@
                 </tr>
                 <tr>
                     <th>属性类型：</th>
-                    <td colspan="3"><select id="manage_eavAttribute_editform_attributeType" name="attributeType" editable="false" panelHeight="auto"
-                                            class="easyui-combobox">
+                    <td><select id="manage_eavAttribute_editform_attributeType" style="width:200px;" name="attributeType" editable="false" panelHeight="auto" class="easyui-combobox">
                         <c:forEach items="${allAttributeTypes}" var="e">
                             <option value="${e.key}">${e.value}</option>
                         </c:forEach>
                     </select></td>
+                    <th>分组标签：</th>
+                    <td><select name="tag" id="manage_eavAttribute_editform_tag" editable="true" style="width:200px;" panelHeight="auto" class="easyui-combobox">
+                        <option value=""></option>
+                        <c:forEach items="${tags}" var="e">
+                            <option value="${e.tag}">${e.tag}</option>
+                        </c:forEach>
+                    </select></td>
                 </tr>
                 <tr>
-                    <th width="20%">属性名称：</th>
+                    <th width="15%">属性名称：</th>
                     <td><input type="text" name="name" size="20" placeholder="请输入属性名称..." style="width: 200px;"
                                class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true"/></td>
-                    <th width="20%">展示名称：</th>
+                    <th width="15%">展示名称：</th>
                     <td><input type="text" name="displayName" size="20" placeholder="请输入展示名称..." style="width: 200px;"
                                class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true"/></td>
                 </tr>
@@ -51,22 +60,20 @@
                         </c:forEach>
                     </select>
                     </td>
-                    <th>是否业务键：</th>
-                    <td><select name="keyable" editable="false" panelHeight="auto" class="easyui-combobox">
-                        <c:forEach items="${allWhetherStatus}" var="e">
-                            <option value="${e.key}">${e.value}</option>
-                        </c:forEach>
+                    <th>默认值：</th>
+                    <td><input type="text" name="defaultValue" size="48" placeholder="请输入属性默认值..." style="width: 200px;"
+                               class="easyui-validatebox text" data-options="validType:['length[1,256]']"/>
                     </td>
                 </tr>
                 <tr>
                     <th>显示类型：</th>
                     <td>
                         <c:forEach items="${allAttributeShowTypes}" var="e">
-                            <input type="checkbox" name="showType" checked value="${e.key}"> ${e.value}
+                            <input class="checkInput" style="width: 27px;height: 18px;" type="checkbox" name="showType" checked value="${e.key}"> ${e.value}
                         </c:forEach>
                     </td>
                     <th>显示格式：</th>
-                    <td><select name="showFormat" editable="false" panelHeight="auto" class="easyui-combobox">
+                    <td><select name="showFormat" style="width:200px;" editable="false" panelHeight="auto" class="easyui-combobox">
                         <c:forEach items="${allAttributeFormats}" var="e">
                             <option value="${e.key}">${e.value}</option>
                         </c:forEach>
@@ -95,8 +102,13 @@
                 </tbody>
                 <tr id="manage_eavAttribute_editform_enum_label" style="display:none;">
                     <th>枚举值：</th>
-                    <td colspan="3"><input type="text" name="enumValue" size="48" placeholder="请输入枚举值..." style="width: 500px;"
-                                           class="easyui-validatebox text" data-options="validType:['length[1,512]']"/></td>
+                    <td colspan="3">
+                        <select name="enumValue" editable="false" style="width:200px;" panelHeight="auto" class="easyui-combobox">
+                            <c:forEach items="${options}" var="e">
+                                <option value="${e.key}">${e.value}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th>正则表达式：</th>
@@ -107,19 +119,27 @@
                                class="easyui-validatebox text" data-options="validType:['length[1,128]']"/></td>
                 </tr>
                 <tr>
-                    <th>默认值：</th>
-                    <td colspan="3"><input type="text" name="defaultValue" size="48" placeholder="请输入属性默认值..." style="width: 500px;"
-                                           class="easyui-validatebox text" data-options="validType:['length[1,256]']"/></td>
-                </tr>
-                <tr>
                     <th>备注：</th>
-                    <td colspan="3"><input type="text" name="memo" size="48" placeholder="请输入备注..." style="width: 500px;"
+                    <td colspan="3"><input type="text" name="memo" size="48" placeholder="请输入备注..." style="width: 600px;"
                                            class="easyui-validatebox text" data-options="validType:['length[1,128]']"/></td>
                 </tr>
             </table>
         </jodd:form>
     </form>
     <script>
+
+
+        function manage_eavAttribute_editform_beforeSubmit(){
+            $.each($("#manage_eavAttribute_editform .combo-text"),function(i,o){
+                if($(o).parent().prev().attr('comboname') == 'tag'){
+                    var val = $(o).val();
+                    $('#manage_eavAttribute_editform_tag').combobox('setValue',val);
+                    // $('#manage_eavAttribute_editform :input[name=tag]').val(val);
+                    console.info("set tag value:",val);
+                }
+            });
+            return true;
+        }
 
 
         // todo: easyui根据表单名选择和值

@@ -13,7 +13,11 @@ var acoolyEavClass = {
         search_input: '<%=displayName%>: <input type="text" name="search_LIKE_<%=name%>" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>">',
         search_date: '<%=displayName%>: <input type="text" name="search_GTE_<%=name%>" onFocus="WdatePicker({readOnly:true,dateFmt:\'yyyy-MM-dd\'})" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>"> ' +
             '至 <input type="text" name="search_LTE_<%=name%>" onFocus="WdatePicker({readOnly:true,dateFmt:\'yyyy-MM-dd\'})" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>">',
-        search_select: '<%=displayName%>: <select name="search_EQ_<%=name%>" editable="false" panelHeight="auto" class="easyui-combobox <%=cssClass%>" style="<%=cssStyle%>"></select>'
+        search_select: '<%=displayName%>: <select name="search_EQ_<%=name%>" editable="false" panelHeight="auto" class="easyui-combobox <%=cssClass%>" style="<%=cssStyle%>">' +
+            '<% for(var i=0;i<options.length;i++){ var e=options[i]; %>' +
+            '<option value="<%=e.code%>"><%=e.name%></option>' +
+            '<% } %>' +
+            '</select>'
     },
 
     showType: {
@@ -74,7 +78,8 @@ var acoolyEavClass = {
                 if (options.onSuccess != null) {
                     options.onSuccess.call(this, result);
                 } else {
-                    $('#' + options.container).html(That.render(result.data, options.showType));
+                    var obj = $('#' + options.container).html(That.render(result.data, options.showType));
+                    $.parser.parse(obj);
                 }
             }
         });
@@ -102,13 +107,14 @@ var acoolyEavClass = {
             if (attr.attributeType.startsWith('NUMBER')) {
                 template = this.template.search_number;
             } else if (attr.attributeType == 'DATE') {
+
                 template = this.template.search_date;
             } else if (attr.attributeType == 'ENUM') {
                 template = this.template.search_select;
             } else {
                 template = this.template.search_input;
             }
-            html += $.acooly.template.render(template, attr);
+            html += " " + $.acooly.template.render(template, attr);
         }
         return html;
     }

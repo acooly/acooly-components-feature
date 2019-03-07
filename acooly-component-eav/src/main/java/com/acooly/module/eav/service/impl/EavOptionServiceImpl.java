@@ -45,6 +45,16 @@ public class EavOptionServiceImpl extends EntityServiceImpl<EavOption, EavOption
         return getEntityDao().findByParentId(parentId);
     }
 
+
+    @Override
+    public List<EavOption> listChildrenByCode(String code) {
+        List<EavOption> options = getEntityDao().findByCode(code);
+        if (Collections3.isEmpty(options)) {
+            return null;
+        }
+        return getEntityDao().findByParentId(Collections3.getFirst(options).getId());
+    }
+
     @Override
     public void save(EavOption o) throws BusinessException {
         // 处理parent

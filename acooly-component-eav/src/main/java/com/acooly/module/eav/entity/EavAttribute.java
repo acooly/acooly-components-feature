@@ -15,14 +15,13 @@ import com.acooly.module.eav.enums.AttributeShowTypeEnum;
 import com.acooly.module.eav.enums.AttributeTypeEnum;
 import com.google.common.base.Strings;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * eav_attribute Entity
@@ -66,6 +65,13 @@ public class EavAttribute extends AbstractEntity {
     @NotEmpty
     @Size(max = 128)
     private String displayName;
+
+    /**
+     * 分组展示标签
+     */
+    @Size(max = 64)
+    private String tag;
+
 
     /**
      * 是否为逻辑键
@@ -124,6 +130,7 @@ public class EavAttribute extends AbstractEntity {
      */
     private int showType = AttributeShowTypeEnum.getAllValue();
 
+
     /**
      * 显示格式
      */
@@ -147,7 +154,15 @@ public class EavAttribute extends AbstractEntity {
      */
     @Enumerated(EnumType.STRING)
     private AttributeTypeEnum attributeType;
-    
+
+
+    @Transient
+    private List<EavOption> options;
+
+    @Transient
+    public String getShowPerms() {
+        return StringUtils.join(AttributeShowTypeEnum.parse(this.showType), ",");
+    }
 
     public void createCheck() {
         OrderCheckException.throwIf(!Strings.isNullOrEmpty(name), "name", "名称不能为空");

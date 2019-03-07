@@ -8,16 +8,21 @@ package com.acooly.module.eav.web;
 
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.enums.WhetherStatus;
 import com.acooly.module.eav.entity.EavAttribute;
+import com.acooly.module.eav.entity.EavOption;
 import com.acooly.module.eav.entity.EavScheme;
+import com.acooly.module.eav.entity.EavSchemeTag;
 import com.acooly.module.eav.enums.AttributeFormatEnum;
 import com.acooly.module.eav.enums.AttributeShowTypeEnum;
 import com.acooly.module.eav.enums.AttributeTypeEnum;
 import com.acooly.module.eav.service.EavAttributeEntityService;
+import com.acooly.module.eav.service.EavOptionService;
 import com.acooly.module.eav.service.EavSchemeEntityService;
+import com.acooly.module.eav.service.EavSchemeTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -26,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,6 +56,12 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
     @Autowired
     private EavSchemeEntityService eavSchemeEntityService;
 
+    @Autowired
+    private EavOptionService eavOptionService;
+
+    @Autowired
+    private EavSchemeTagService eavSchemeTagService;
+
     @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
         model.put("allAttributeTypes", AttributeTypeEnum.mapping());
@@ -57,17 +69,18 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
         model.put("allAttributeFormats", AttributeFormatEnum.mapping());
         model.put("allWhetherStatus", WhetherStatus.mapping());
         model.put("allSchemes", eavSchemeEntityService.getAll());
+        model.put("options", loadOptions());
     }
 
 
     @Override
     protected void onCreate(HttpServletRequest request, HttpServletResponse response, Model model) {
-        String schemeId = Servlets.getParameter("schemeId");
-        if (Strings.isNoneBlank(schemeId)) {
-            EavScheme eavScheme = eavSchemeEntityService.get(Long.valueOf(schemeId));
+        Long schemeId = Servlets.getLongParameter("schemeId");
+        if (schemeId != null) {
+            EavScheme eavScheme = eavSchemeEntityService.get(schemeId);
             model.addAttribute("eavScheme", eavScheme);
+            model.addAttribute("tags", loadSchemeTags(schemeId));
         }
-
         super.onCreate(request, response, model);
     }
 
@@ -75,6 +88,7 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
     protected void onEdit(HttpServletRequest request, HttpServletResponse response, Model model, EavAttribute entity) {
         EavScheme eavScheme = eavSchemeEntityService.get(entity.getSchemeId());
         model.addAttribute("eavScheme", eavScheme);
+        model.addAttribute("tags", loadSchemeTags(entity.getSchemeId()));
         super.onEdit(request, response, model, entity);
     }
 
@@ -99,11 +113,25 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
                 showTypeValue = showTypeValue + Integer.parseInt(showType);
             }
         }
-        if (showTypeValue == 0) {
-            showTypeValue = AttributeShowTypeEnum.getAllValue();
-        }
         entity.setShowType(showTypeValue);
+
+        // 处理tag
+        String tag = Servlets.getParameter("tag");
+        if(Strings.isNotBlank(tag)){
+            eavSchemeTagService.save(entity.getSchemeId(),tag);
+        }
         return entity;
+    }
+
+
+    @Override
+    protected Map<String, Object> getSearchParams(HttpServletRequest request) {
+        Map<String, Object> map =  super.getSearchParams(request);
+        // 如果没有传入schemeId，则设置一个不存在的schemeId
+        if(map.get("EQ_schemeId") == null){
+            map.put("EQ_schemeId",0);
+        }
+        return map;
     }
 
     @Override
@@ -113,5 +141,14 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
             sort.put("id", true);
         }
         return sort;
+    }
+
+    protected Map<String, String> loadOptions() {
+        List<EavOption> eavOptions = eavOptionService.listTop();
+        return Collections3.extractToMap(eavOptions, "code", "name");
+    }
+
+    protected List<EavSchemeTag> loadSchemeTags(Long schemeId) {
+        return eavSchemeTagService.list(schemeId);
     }
 }
