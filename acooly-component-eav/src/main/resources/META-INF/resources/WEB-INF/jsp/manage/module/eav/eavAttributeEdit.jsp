@@ -29,6 +29,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <th width="15%">属性名称：</th>
+                    <td><input type="text" name="name" size="20" placeholder="请输入属性名称..." style="width: 200px;"
+                               class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true"/></td>
+                    <th width="15%">展示名称：</th>
+                    <td><input type="text" name="displayName" size="20" placeholder="请输入展示名称..." style="width: 200px;"
+                               class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true"/></td>
+                </tr>
+                <tr>
                     <th>属性类型：</th>
                     <td><select id="manage_eavAttribute_editform_attributeType" style="width:200px;" name="attributeType" editable="false" panelHeight="auto" class="easyui-combobox">
                         <c:forEach items="${allAttributeTypes}" var="e">
@@ -43,15 +51,6 @@
                         </c:forEach>
                     </select></td>
                 </tr>
-                <tr>
-                    <th width="15%">属性名称：</th>
-                    <td><input type="text" name="name" size="20" placeholder="请输入属性名称..." style="width: 200px;"
-                               class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true"/></td>
-                    <th width="15%">展示名称：</th>
-                    <td><input type="text" name="displayName" size="20" placeholder="请输入展示名称..." style="width: 200px;"
-                               class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true"/></td>
-                </tr>
-
                 <tr>
                     <th>是否为空：</th>
                     <td><select name="nullable" editable="false" panelHeight="auto" class="easyui-combobox">

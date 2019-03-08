@@ -23,7 +23,7 @@ public abstract class ValueValidator implements Function<Object, Object> {
     @Override
     public Object apply(Object value) {
         if (value == null) {
-            if (eavAttribute.getNullable() == null || eavAttribute.getNullable() == WhetherStatus.no) {
+            if (eavAttribute.getNullable() == null || eavAttribute.getNullable() == WhetherStatus.yes) {
                 return null;
             } else {
                 throw new OrderCheckException(eavAttribute.getName(), "不能为空");

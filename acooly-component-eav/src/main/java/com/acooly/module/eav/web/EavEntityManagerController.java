@@ -54,7 +54,7 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
 
     @Override
     public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
-        model.addAttribute("schemeId", Servlets.getParameter(request,"schemeId"));
+        model.addAttribute("schemeId", Servlets.getParameter(request, "schemeId"));
         return super.index(request, response, model);
     }
 
@@ -115,7 +115,7 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
             Map<String, Object> map = Maps.newHashMap();
             map.putAll(eavEntity.getValue());
             map.put("id", eavEntity.getId());
-            map.put("schemaId", eavEntity.getSchemaId());
+            map.put("schemaId", eavEntity.getSchemeId());
             map.put("entityCreateTime", eavEntity.getCreateTime());
             map.put("entityUpdateTime", eavEntity.getUpdateTime());
             list.add(map);
@@ -133,16 +133,11 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
     public JsonEntityResult<EavEntity> saveJson(HttpServletRequest request, HttpServletResponse response) {
         JsonEntityResult<EavEntity> result = new JsonEntityResult<>();
         try {
-            Long schemaId = Long.valueOf(request.getParameter("schemaId"));
-            EavEntity eavEntity = new EavEntity();
-            eavEntity.setSchemaId(schemaId);
+            Long schemaId = Servlets.getLongParameter("schemeId");
             Map<String, String> parameters = Servlets.getParameters(request);
-            parameters.remove("schemaId");
+            parameters.remove("schemeId");
             parameters.remove("eavEntityId");
-            DBMap dbMap = new DBMap();
-            dbMap.putAll(parameters);
-            eavEntity.setValue(dbMap);
-            eavEntityEntityService.save(eavEntity);
+            EavEntity eavEntity = eavEntityService.save(schemaId, parameters);
             result.setEntity(eavEntity);
             result.setMessage("新增成功");
         } catch (Exception e) {
@@ -155,12 +150,10 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
     public JsonEntityResult<EavEntity> updateJson(HttpServletRequest request, HttpServletResponse response) {
         JsonEntityResult<EavEntity> result = new JsonEntityResult<>();
         try {
+            Long schemaId = Servlets.getLongParameter("schemeId");
             Map<String, String> parameters = Servlets.getParameters(request);
-            Long id = Long.parseLong(parameters.get("eavEntityId"));
-            parameters.remove("eavEntityId");
-            parameters.remove("schemaId");
-            eavEntityService.addEavEntityValue(id, (Map) parameters);
-            result.setEntity(eavEntityEntityService.get(id));
+            EavEntity eavEntity = eavEntityService.save(schemaId, parameters);
+            result.setEntity(eavEntity);
             result.setMessage("更新成功");
         } catch (Exception e) {
             handleException(result, "更新", e);
@@ -172,12 +165,12 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
     protected void onEdit(HttpServletRequest request, HttpServletResponse response, Model model, EavEntity entity) {
         model.addAttribute("entityJson", entity.getValue().toJson());
         model.addAttribute("eavEntityId", entity.getId());
-        model.addAttribute("schemeId",Servlets.getParameter("schemeId"));
+        model.addAttribute("schemeId", Servlets.getParameter("schemeId"));
     }
 
     @Override
     protected void onCreate(HttpServletRequest request, HttpServletResponse response, Model model) {
         super.onCreate(request, response, model);
-        model.addAttribute("schemeId",Servlets.getParameter("schemeId"));
+        model.addAttribute("schemeId", Servlets.getParameter("schemeId"));
     }
 }

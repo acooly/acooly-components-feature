@@ -8,6 +8,7 @@ package com.acooly.module.eav.web;
 
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.Strings;
@@ -28,6 +29,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,6 +63,51 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
 
     @Autowired
     private EavSchemeTagService eavSchemeTagService;
+
+    enum MoveType {
+        up, top;
+    }
+
+    @RequestMapping(value = "moveTop")
+    @ResponseBody
+    public JsonResult moveTop(HttpServletRequest request, HttpServletResponse response) {
+
+        JsonResult result = new JsonResult();
+        try {
+            doMove(request, MoveType.top);
+            result.setMessage("置顶成功");
+        } catch (Exception e) {
+            handleException(result, "置顶", e);
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "moveUp")
+    @ResponseBody
+    public JsonResult moveUp(HttpServletRequest request, HttpServletResponse response) {
+
+        JsonResult result = new JsonResult();
+        try {
+            doMove(request, MoveType.up);
+            result.setMessage("上移成功");
+        } catch (Exception e) {
+            handleException(result, "上移", e);
+        }
+        return result;
+    }
+
+    protected void doMove(HttpServletRequest request, MoveType moveType) {
+        Long id = Servlets.getLongParameter(request, getEntityIdName());
+        if (moveType == MoveType.up) {
+            getEntityService().moveUp(id);
+        } else {
+            getEntityService().moveTop(id);
+        }
+
+    }
+
+
+
 
     @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
@@ -120,6 +167,21 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
         if(Strings.isNotBlank(tag)){
             eavSchemeTagService.save(entity.getSchemeId(),tag);
         }
+
+        // 根据attributeType处理
+        AttributeTypeEnum attributeType = entity.getAttributeType();
+        if(attributeType == AttributeTypeEnum.NUMBER_DECIMAL
+            || attributeType == AttributeTypeEnum.NUMBER_INTEGER
+            || attributeType == AttributeTypeEnum.NUMBER_MONEY){
+            entity.setMinLength(null);
+            entity.setMaxLength(null);
+        }else if(attributeType == AttributeTypeEnum.ENUM
+                || attributeType == AttributeTypeEnum.DATE
+                || attributeType == AttributeTypeEnum.STRING){
+            entity.setMaximum(null);
+            entity.setMinimum(null);
+        }
+
         return entity;
     }
 
@@ -137,9 +199,8 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
     @Override
     protected Map<String, Boolean> getSortMap(HttpServletRequest request) {
         Map<String, Boolean> sort = super.getSortMap(request);
-        if (sort.size() == 0) {
-            sort.put("id", true);
-        }
+        sort.clear();
+        sort.put("sortTime",true);
         return sort;
     }
 
@@ -151,4 +212,6 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
     protected List<EavSchemeTag> loadSchemeTags(Long schemeId) {
         return eavSchemeTagService.list(schemeId);
     }
+
+
 }

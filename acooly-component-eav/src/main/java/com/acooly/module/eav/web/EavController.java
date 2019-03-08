@@ -51,7 +51,7 @@ public class EavController extends AbstractJQueryEntityController {
     @RequestMapping("/getEavEntitys")
     public ViewResult getEavEntitys(HttpServletRequest request, Long schemaId) {
         Map parameters = Servlets.getParameters(request);
-        parameters.remove("schemaId");
+        parameters.remove("schemeId");
         return ViewResult.success(eavEntityService.query(schemaId, parameters));
     }
 
@@ -77,7 +77,7 @@ public class EavController extends AbstractJQueryEntityController {
         pageinfo.setCountOfCurrentPage(eavRows);
         pageinfo.setEavOrder(eavOrder);
         pageinfo.setEavSort(eavSort);
-        parameters.remove("schemaId");
+        parameters.remove("schemeId");
         parameters.remove("eavPage");
         parameters.remove("eavRows");
         parameters.remove("eavSort");
@@ -137,9 +137,9 @@ public class EavController extends AbstractJQueryEntityController {
     @RequestMapping("/createEavEntity")
     public ViewResult createEavEntity(Long schemaId, HttpServletRequest request) {
         EavEntity eavEntity = new EavEntity();
-        eavEntity.setSchemaId(schemaId);
+        eavEntity.setSchemeId(schemaId);
         Map<String, String> parameters = Servlets.getParameters(request);
-        parameters.remove("schemaId");
+        parameters.remove("schemeId");
         DBMap dbMap = new DBMap();
         dbMap.putAll(parameters);
         eavEntity.setValue(dbMap);

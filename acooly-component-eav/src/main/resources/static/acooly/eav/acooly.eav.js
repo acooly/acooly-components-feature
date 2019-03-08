@@ -18,39 +18,39 @@ var acoolyEavClass = {
             '<% for(var i=0;i<options.length;i++){ var e=options[i]; %>' +
             '<option value="<%=e.code%>"><%=e.name%></option>' +
             '<% } %></select>',
-        form:'        <table class="tableForm" width="100%">\n' +
-            '            <tr>\n' +
-            '                <th width="25%">方案：</th>\n' +
-            '                <td><span id="schemaName"><%=entity.title%></span></td>\n' +
-            '            </tr>\n' +
-            '            <%\n' +
-            '                for(var i=0;i<entity.attributes.length;i++){\n' +
-            '                    var e = attributes[i];\n' +
-            '            %>\n' +
-            '            <tr>\n' +
-            '                <th width="25%"><%e.displayName%>：</th>\n' +
-            '                <td>\n' +
-            '                    <% if(e.attributeType.startsWith("NUMBER")){ %>\n' +
-            '                    <input type="text" name="<%=e.name%>" size="20"  style="width: 200px;line-height: 30px; height: 30px;<%=e.cssStyle%>"\n' +
-            '                           class="easyui-numberbox <%=e.cssClass%>" <%if(e.nullable=="no"){%>required="true"<%}%> data-options="validType:[\'length[<%=e.minimum%>,<%=e.maximum%>]\']"/>\n' +
-            '                    <%}else if(e.attributeType == "DATE"){%>\n' +
-            '                    <input type="text" <%if(e.nullable=="no"){%>required="true"<%}%> name="<%=e.name%>" onFocus="WdatePicker({readOnly:true,dateFmt:\'yyyy-MM-dd\'})"\n' +
-            '                           class="easyui-validatebox <%=e.cssClass%>" style="<%=e.cssStyle%>">\n' +
-            '                    <%}else if(e.attributeType == "ENUM" && e.options && e.options.length > 0){%>\n' +
-            '                    <select name="<%=name%>" <%if(e.nullable=="no"){%>required="true"<%}%> editable="false" panelHeight="auto" class="easyui-combobox <%=cssClass%>" style="<%=cssStyle%>">\n' +
-            '                        <% for(var j=0;j<e.options.length;j++){ var o=options[j]; %>\n' +
-            '                        <option value="<%=o.code%>"><%=o.name%></option>\n' +
-            '                        <% } %>\n' +
-            '                    </select>\n' +
-            '                    <%}else{%>\n' +
-            '                    <input type="text" name="<%=e.name%>" size="20"  style="width: 200px;line-height: 30px; height: 30px;<%=e.cssStyle%>" class="easyui-validatebox <%=e.cssClass%>"\n' +
-            '                           <%if(e.nullable=="no"){%>required="true"<%}%> data-options="validType:[\'length[<%=e.minimum%>,<%=e.maximum%>]\']"/>\n' +
-            '                    <%}%>\n' +
-            '                </td>\n' +
-            '            </tr>\n' +
-            '            <%\n' +
-            '                }\n' +
-            '            %>\n' +
+        form:'        <table class="tableForm" width="100%">' +
+            '            <tr>' +
+            '                <th width="25%">方案：</th>' +
+            '                <td><span id="schemaName"><%=entity.title%> <%=entity.attributes.length%></span></td>' +
+            '            </tr>' +
+            '            <%' +
+            '                for(var key in entity.attributes){' +
+            '                    var e = entity.attributes[key];' +
+            '            %>' +
+            '            <tr>' +
+            '                <th width="25%"><%e.displayName%>：</th>' +
+            '                <td>' +
+            '                    <% if(e.attributeType.startsWith("NUMBER")){ %>' +
+            '                    <input type="text" name="<%=e.name%>" size="20"  style="width: 200px;line-height: 30px; height: 30px;<%=e.cssStyle%>"' +
+            '                           class="easyui-numberbox <%=e.cssClass%>" <%if(e.nullable=="no"){%>required="true"<%}%> data-options="validType:[\'length[<%=e.minimum%>,<%=e.maximum%>]\']"/>' +
+            '                    <%}else if(e.attributeType == "DATE"){%>' +
+            '                    <input type="text" <%if(e.nullable=="no"){%>required="true"<%}%> name="<%=e.name%>" onFocus="WdatePicker({readOnly:true,dateFmt:\'yyyy-MM-dd\'})"' +
+            '                           class="easyui-validatebox <%=e.cssClass%>" style="<%=e.cssStyle%>">' +
+            '                    <%}else if(e.attributeType == "ENUM" && e.options && e.options.length > 0){%>' +
+            '                    <select name="<%=name%>" <%if(e.nullable=="no"){%>required="true"<%}%> editable="false" panelHeight="auto" class="easyui-combobox <%=cssClass%>" style="<%=cssStyle%>">' +
+            '                        <% for(var j=0;j<e.options.length;j++){ var o=options[j]; %>' +
+            '                        <option value="<%=o.code%>"><%=o.name%></option>' +
+            '                        <% } %>' +
+            '                    </select>' +
+            '                    <%}else{%>' +
+            '                    <input type="text" name="<%=e.name%>" size="20"  style="width: 200px;line-height: 30px; height: 30px;<%=e.cssStyle%>" class="easyui-validatebox <%=e.cssClass%>"' +
+            '                           <%if(e.nullable=="no"){%>required="true"<%}%> data-options="validType:[\'length[<%=e.minimum%>,<%=e.maximum%>]\']"/>' +
+            '                    <%}%>' +
+            '                </td>' +
+            '            </tr>' +
+            '            <%' +
+            '                }' +
+            '            %>' +
             '        </table>'
 
 
@@ -120,8 +120,11 @@ var acoolyEavClass = {
                     if (options.showType == That.showType.SEARCH) {
                         obj = $('#' + options.container).html(That.renderSearch(result.entity));
                     } else if (options.showType == That.showType.CREATE) {
-                        console.info("loadScheme",result);
-                        obj = $('#' + options.container).html(That.renderForm(result, That.template.form));
+                        var template = options.template;
+                        if(!template){
+                            template = That.template.form;
+                        }
+                        obj = $('#' + options.container).html(That.renderForm(result, template));
                     }
                     $.parser.parse(obj);
                 }

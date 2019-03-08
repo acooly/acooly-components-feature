@@ -47,8 +47,9 @@ $(function() {
 
     <!-- 每行的Action动作模板 -->
     <div id="manage_eavAttribute_action" style="display: none;">
-      <a onclick="$.acooly.framework.edit({url:'/manage/module/eav/eavAttribute/edit.html',id:'{0}',entity:'eavAttribute',width:800,height:600});" href="#" title="编辑"><i
-              class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
+      <a onclick="$.acooly.framework.edit({url:'/manage/module/eav/eavAttribute/edit.html',id:'{0}',entity:'eavAttribute',width:800,height:600});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
+      <a onclick="$.acooly.framework.confirmRequest('/manage/module/eav/eavAttribute/moveUp.html?id={0}',null,'manage_eavAttribute_datagrid');" href="#" title="上移"><i class="fa fa-arrow-up fa-lg fa-fw fa-col"></i></a>
+      <a onclick="$.acooly.framework.confirmRequest('/manage/module/eav/eavAttribute/moveTop.html?id={0}',null,'manage_eavAttribute_datagrid');" href="#" title="置顶"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i></a>
       <a onclick="$.acooly.framework.show('/manage/module/eav/eavAttribute/show.html?id={0}',600,600);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
       <a onclick="$.acooly.framework.remove('/manage/module/eav/eavAttribute/deleteJson.html','{0}','manage_eavAttribute_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
     </div>

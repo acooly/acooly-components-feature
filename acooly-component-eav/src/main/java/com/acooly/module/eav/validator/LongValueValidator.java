@@ -22,7 +22,7 @@ public class LongValueValidator extends ValueValidator {
                 state(v >= eavAttribute.getMinimum(), "值[%s]小于最小值:%d", value, eavAttribute.getMinimum());
             }
             if (eavAttribute.getMaximum() != null) {
-                state(v >= eavAttribute.getMinimum(), "值[%s]大于或等于最大值:%d", value, eavAttribute.getMinimum());
+                state(v < eavAttribute.getMaximum(), "值[%s]大于或等于最大值:%d", value, eavAttribute.getMaximum());
             }
             return v;
         }
@@ -40,7 +40,7 @@ public class LongValueValidator extends ValueValidator {
             state(v >= eavAttribute.getMinimum(), "值[%s]小于最小值:%d", value, eavAttribute.getMinimum());
         }
         if (eavAttribute.getMaximum() != null) {
-            state(v >= eavAttribute.getMinimum(), "值[%s]大于或等于最大值:%d", value, eavAttribute.getMinimum());
+            state(v < eavAttribute.getMaximum(), "值[%s]大于或等于最大值:%d", value, eavAttribute.getMaximum());
         }
         return v;
     }

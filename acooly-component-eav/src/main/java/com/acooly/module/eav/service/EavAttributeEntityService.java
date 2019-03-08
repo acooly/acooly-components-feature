@@ -23,4 +23,8 @@ public interface EavAttributeEntityService extends EntityService<EavAttribute> {
 
     List<EavAttribute> loadEavAttribute(Long schemeId);
 
+    void moveTop(Long id);
+
+    void moveUp(Long id);
+
 }

@@ -37,7 +37,7 @@ public class EavEntity extends AbstractEntity {
      * 方案id
      */
     @NotNull
-    private Long schemaId;
+    private Long schemeId;
 
     /**
      * 方案标题

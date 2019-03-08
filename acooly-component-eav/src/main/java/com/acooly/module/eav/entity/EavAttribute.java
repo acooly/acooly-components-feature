@@ -38,7 +38,8 @@ public class EavAttribute extends AbstractEntity {
      */
     private static final long serialVersionUID = 1L;
 
-
+    public static final Long MAXIMUM_DEFAULT = 999999999L;
+    public static final Integer MAX_LENGTH_DEFAULT = 1024 * 10;
     /**
      * 方案id
      */
@@ -89,22 +90,22 @@ public class EavAttribute extends AbstractEntity {
     /**
      * 最小值
      */
-    private Long minimum=0L;
+    private Long minimum = 0L;
 
     /**
      * 最大值
      */
-    private Long maximum=Long.MAX_VALUE;
+    private Long maximum = MAXIMUM_DEFAULT;
 
     /**
      * 最小长度
      */
-    private Integer minLength;
+    private Integer minLength = 0;
 
     /**
      * 最大长度
      */
-    private Integer maxLength;
+    private Integer maxLength = MAX_LENGTH_DEFAULT;
 
     /**
      * 正则表达式
@@ -143,6 +144,11 @@ public class EavAttribute extends AbstractEntity {
     private String defaultValue;
 
     /**
+     * 排序值
+     */
+    private Long sortTime = System.currentTimeMillis();
+
+    /**
      * 备注
      */
     @Size(max = 128)
@@ -167,7 +173,7 @@ public class EavAttribute extends AbstractEntity {
     public void createCheck() {
         OrderCheckException.throwIf(!Strings.isNullOrEmpty(name), "name", "名称不能为空");
         OrderCheckException.throwIf(!Strings.isNullOrEmpty(displayName), "displayName", "展示名称不能为空");
-        OrderCheckException.throwIf(schemeId != null, "schemaId", "schemaId不能为空");
+        OrderCheckException.throwIf(schemeId != null, "schemeId", "schemaId不能为空");
     }
 
 }

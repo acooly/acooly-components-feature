@@ -8,14 +8,17 @@ package com.acooly.module.eav.service.impl;
 
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
 import com.acooly.module.eav.dao.EavAttributeDao;
 import com.acooly.module.eav.entity.EavAttribute;
 import com.acooly.module.eav.service.EavAttributeEntityService;
 import com.acooly.module.eav.service.EavOptionService;
+import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
@@ -32,6 +35,54 @@ public class EavAttributeEntityServiceImpl extends EntityServiceImpl<EavAttribut
     private EavEntityService eavEntityService;
     @Autowired
     private EavOptionService eavOptionService;
+
+
+    @Override
+    public void moveTop(Long id) {
+        try {
+            EavAttribute entity = get(id);
+            Long schemeId = entity.getSchemeId();
+            List<EavAttribute> levels = getEntityDao().findAttributesBySchemaId(schemeId);
+            if (levels.size() == 1) {
+                return;
+            }
+            EavAttribute first = Collections3.getFirst(levels);
+            if (first.getId().equals(entity.getId())) {
+                return;
+            }
+            entity.setSortTime(first.getSortTime() - RandomUtils.nextInt(10, 100));
+            update(entity);
+        } catch (Exception e) {
+            throw new BusinessException("置顶失败", e);
+        }
+    }
+
+    @Transactional
+    @Override
+    public void moveUp(Long id) {
+        try {
+            EavAttribute current = get(id);
+            Long schemeId = current.getSchemeId();
+            List<EavAttribute> levels = getEntityDao().findAttributesBySchemaId(schemeId);
+            if (levels.size() == 1) {
+                return;
+            }
+
+            int index = levels.indexOf(current);
+            // 如果在本层的第一个，则不处理
+            if (index <= 0) {
+                return;
+            }
+            EavAttribute prev = levels.get(index - 1);
+            long pervSortTime = prev.getSortTime();
+            prev.setSortTime(current.getSortTime());
+            current.setSortTime(pervSortTime);
+            update(current);
+            update(prev);
+        } catch (Exception e) {
+            throw new BusinessException("上移失败", e);
+        }
+    }
 
     @Override
     public void remove(EavAttribute o) throws BusinessException {

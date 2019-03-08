@@ -4,6 +4,7 @@ import com.acooly.core.common.exception.AppConfigException;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.type.DBMap;
 import com.acooly.core.utils.Assert;
+import com.acooly.core.utils.Strings;
 import com.acooly.module.eav.dao.EavAttributeDao;
 import com.acooly.module.eav.dao.EavEntityDao;
 import com.acooly.module.eav.dao.EavSchemeDao;
@@ -13,6 +14,8 @@ import com.acooly.module.eav.entity.EavAttribute;
 import com.acooly.module.eav.entity.EavEntity;
 import com.acooly.module.eav.entity.EavScheme;
 import com.acooly.module.eav.service.EavAttributeEntityService;
+import com.acooly.module.eav.service.EavEntityEntityService;
+import com.acooly.module.eav.service.EavSchemeEntityService;
 import com.acooly.module.eav.validator.ValueValidatorService;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -50,23 +53,29 @@ public class EavEntityService {
     @Autowired
     private EavAttributeEntityService eavAttributeEntityService;
     @Autowired
+    private EavSchemeEntityService eavSchemeEntityService;
+    @Autowired
     private EavSchemeDao eavSchemaDao;
     @Autowired
     private ValueValidatorService valueValidatorService;
     @Autowired
     private EavEntityDao eavEntityDao;
     @Autowired
+    private EavEntityEntityService eavEntityEntityService;
+
+    @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    private LoadingCache<Long, EavSchemeDto> schemaDtoCache = CacheBuilder.newBuilder().build(new CacheLoader<Long, EavSchemeDto>() {
-        @Override
-        public EavSchemeDto load(Long key) {
-            return doFindEavSchemaDto(key);
-        }
-    });
 
+    /**
+     * 加载单个Scheme
+     * 包括所有子对象的定义（缓存）
+     *
+     * @param id
+     * @return
+     */
     public EavSchemeDto findEavSchemaDto(Long id) {
         try {
             return schemaDtoCache.get(id);
@@ -75,17 +84,33 @@ public class EavEntityService {
         }
     }
 
-    private EavSchemeDto doFindEavSchemaDto(Long id) {
-        EavScheme eavSchema = eavSchemaDao.get(id);
-        if (eavSchema != null) {
-            EavSchemeDto eavSchemaDto = eavSchema.to(EavSchemeDto.class);
-            List<EavAttribute> attributes = eavAttributeEntityService.loadEavAttribute(id);
-            Map<String, EavAttribute> attributeMap = Maps.newHashMapWithExpectedSize(attributes.size());
-            attributes.forEach(eavAttribute -> attributeMap.put(eavAttribute.getName(), eavAttribute));
-            eavSchemaDto.setAttributes(attributeMap);
-            return eavSchemaDto;
+    /**
+     * 保存实体
+     * @param schemeId
+     * @param parameters
+     * @return
+     */
+    public EavEntity save(Long schemeId, Map parameters) {
+        // todo:参数暂时全部按字符串处理，待完善
+        EavScheme eavScheme = eavSchemeEntityService.get(schemeId);
+        parameters.remove("schemeId");
+        String id = (String) parameters.get("id");
+        EavEntity entity = null;
+        if (!Strings.isNumber(id)) {
+            // 新增
+            entity = new EavEntity();
+            entity.setSchemeId(schemeId);
+            entity.setSchemeName(eavScheme.getName());
+            entity.setSchemeTitle(eavScheme.getTitle());
+            entity.setValue(new DBMap(parameters));
+            eavEntityEntityService.save(entity);
+        } else {
+            // 编辑
+            entity = eavEntityEntityService.get(Long.valueOf(id));
+            entity.setValue(new DBMap(parameters));
+            eavEntityEntityService.update(entity);
         }
-        throw new BusinessException("schemaId=" + id + "不存在", false);
+        return entity;
     }
 
 
@@ -112,9 +137,9 @@ public class EavEntityService {
 
     public void validate(EavEntity eavEntity) {
         Assert.notNull(eavEntity);
-        Assert.notNull(eavEntity.getSchemaId());
+        Assert.notNull(eavEntity.getSchemeId());
         Assert.notNull(eavEntity.getValue());
-        EavSchemeDto eavSchemaDto = findEavSchemaDto(eavEntity.getSchemaId());
+        EavSchemeDto eavSchemaDto = findEavSchemaDto(eavEntity.getSchemeId());
         for (EavAttribute attribute : eavSchemaDto.getAttributes().values()) {
             String attrName = attribute.getName();
             Object atrrValue = eavEntity.getValue().get(attrName);
@@ -127,7 +152,7 @@ public class EavEntityService {
         Assert.notNull(parameters);
         EavEntity eavEntity = eavEntityDao.get(entityId);
         Assert.notNull(eavEntity);
-        parametersConvertAndCheck(eavEntity.getSchemaId(), parameters);
+        parametersConvertAndCheck(eavEntity.getSchemeId(), parameters);
         int valueSize = parameters.size();
 
         String sql = "UPDATE eav_entity SET value = JSON_SET(value," + StringUtils.repeat("?", ",", valueSize * 2) + ") WHERE id = ?";
@@ -193,7 +218,7 @@ public class EavEntityService {
         return jdbcTemplate.query(sql.toString(), args.toArray(), (rs, rowNum) -> {
             EavEntity eavEntity = new EavEntity();
             eavEntity.setId(rs.getLong("id"));
-            eavEntity.setSchemaId(rs.getLong("schema_id"));
+            eavEntity.setSchemeId(rs.getLong("schema_id"));
             eavEntity.setValue(DBMap.fromJson(rs.getString("value")));
             eavEntity.setCreateTime(rs.getDate("create_time"));
             eavEntity.setUpdateTime(rs.getDate("update_time"));
@@ -220,4 +245,26 @@ public class EavEntityService {
     public void sendEavSchemaChangeMessage(Serializable id) {
         redisTemplate.convertAndSend(EAV_REDIS_TOPIC, EAV_SCHEMA_KEY + id);
     }
+
+
+    private EavSchemeDto doFindEavSchemaDto(Long id) {
+        EavScheme eavSchema = eavSchemaDao.get(id);
+        if (eavSchema != null) {
+            EavSchemeDto eavSchemaDto = eavSchema.to(EavSchemeDto.class);
+            List<EavAttribute> attributes = eavAttributeEntityService.loadEavAttribute(id);
+            Map<String, EavAttribute> attributeMap = Maps.newLinkedHashMapWithExpectedSize(attributes.size());
+            attributes.forEach(eavAttribute -> attributeMap.put(eavAttribute.getName(), eavAttribute));
+            eavSchemaDto.setAttributes(attributeMap);
+            return eavSchemaDto;
+        }
+        throw new BusinessException("schemeId=" + id + "不存在", false);
+    }
+
+
+    private LoadingCache<Long, EavSchemeDto> schemaDtoCache = CacheBuilder.newBuilder().build(new CacheLoader<Long, EavSchemeDto>() {
+        @Override
+        public EavSchemeDto load(Long key) {
+            return doFindEavSchemaDto(key);
+        }
+    });
 }
