@@ -69,7 +69,7 @@
                     <th>显示类型：</th>
                     <td>
                         <c:forEach items="${allAttributeShowTypes}" var="e">
-                            <input class="checkInput" style="width: 27px;height: 18px;" type="checkbox" name="showType" checked value="${e.key}"> ${e.value}
+                            <input type="checkbox" name="showType" checked value="${e.key}"> ${e.value}
                         </c:forEach>
                     </td>
                     <th>显示格式：</th>

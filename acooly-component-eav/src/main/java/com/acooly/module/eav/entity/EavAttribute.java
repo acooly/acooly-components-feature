@@ -89,12 +89,12 @@ public class EavAttribute extends AbstractEntity {
     /**
      * 最小值
      */
-    private Long minimum;
+    private Long minimum=0L;
 
     /**
      * 最大值
      */
-    private Long maximum;
+    private Long maximum=Long.MAX_VALUE;
 
     /**
      * 最小长度

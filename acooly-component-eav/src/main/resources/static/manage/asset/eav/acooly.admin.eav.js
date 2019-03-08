@@ -26,7 +26,7 @@ function manage_eavAttribute_preTreeData(rows){
  */
 function manage_eavAttribute_loadTree(defaultNode, clear) {
     $.ajax({
-        url : '/manage/module/eav/eavSchema/queryJson.html',
+        url : '/manage/module/eav/eavScheme/queryJson.html',
         success : function(result) {
             if (!result.success) {
                 return;
@@ -111,7 +111,7 @@ function manage_eavAttribute_tree_removeHoverDom(treeId, treeNode) {
  * @param parentId
  */
 function manage_scheme_tree_add(parentId) {
-    var url = '/manage/module/eav/eavSchema/create.html';
+    var url = '/manage/module/eav/eavScheme/create.html';
     $.acooly.framework.create({
         url : url,
         entity : 'eavScheme',
@@ -141,7 +141,7 @@ function manage_scheme_tree_add(parentId) {
  */
 function manage_eavAttribute_tree_edit(id) {
     $.acooly.framework.edit({
-        url : '/manage/module/eav/eavSchema/edit.html',
+        url : '/manage/module/eav/eavScheme/edit.html',
         id : id,
         entity : 'eavScheme',
         width : 500,
@@ -167,7 +167,7 @@ function manage_eavAttribute_tree_delete(id) {
         if (!r)
             return;
         $.ajax({
-            url : '/manage/module/eav/eavSchema/deleteJson.html?id=' + id,
+            url : '/manage/module/eav/eavScheme/deleteJson.html?id=' + id,
             success : function(data, status) {
                 if (data.success) {
                     var zTree = $.fn.zTree.getZTreeObj("manage_eavScheme_menu");
@@ -189,7 +189,7 @@ function manage_eavAttribute_tree_moveup(sourceNode, targetNode, moveType) {
     if (!moveType || moveType == null)
         return;
     $.ajax({
-        url : '/manage/module/eav/eavSchema/move.html',
+        url : '/manage/module/eav/eavScheme/move.html',
         data : {
             sourceId : sourceNode.id,
             targetId : targetNode.id,

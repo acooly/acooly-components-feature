@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Date: 2018-06-27 14:04:57
  */
 @Controller
-@RequestMapping(value = "/manage/module/eav/eavSchema")
+@RequestMapping(value = "/manage/module/eav/eavScheme")
 public class EavSchemeManagerController extends AbstractJQueryEntityController<EavScheme, EavSchemeEntityService> {
 
 

@@ -130,37 +130,15 @@
 </script>
 <div class="easyui-layout" data-options="fit : true,border : false">
     <!-- 查询条件 -->
-    <div data-options="region:'north',border:false" style="padding:5px; overflow: auto;height: 70px;" align="left">
-        <form id="manage_eavEntity_searchform" onsubmit="return false">
+    <div data-options="region:'north',border:false" style="padding:5px; overflow: hidden;min-height: 50px;" align="left">
+        <form id="manage_eavSchema_searchform" onsubmit="return false">
             <table class="tableForm" width="100%">
                 <tr>
                     <td align="left">
                         <div>
-                            方案:
-                            <%--<input type="text" class="text" size="15" name="search_EQ_schemaId"--%>
-                            <%--id="search_EQ_schemaId"/>--%>
-                            <select name="search_EQ_schemaId" style="width:100px;"
-                                    id="search_EQ_schemaId">
-                            </select>
+                            方案:<select name="search_EQ_schemaId" style="width:100px;" id="search_EQ_schemaId"><select>
                             <span id="extraQueryCondition"></span>
-                            <%--内容: <input type="text" class="text" size="15" name="search_LIKE_value"/>--%>
-
-                            <%--创建时间: <input size="12" class="text easyui-textbox" id="search_GTE_createTime"--%>
-                                         <%--name="search_GTE_createTime"--%>
-                                         <%--onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"--%>
-                                         <%--style="height: 20px"/>--%>
-                            <%--至<input size="12" class="text easyui-textbox" id="search_LTE_createTime"--%>
-                                    <%--name="search_LTE_createTime"--%>
-                                    <%--onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" style="height: 20px"/>--%>
-                            <%--修改时间: <input size="10" class="text" id="search_GTE_updateTime" name="search_GTE_updateTime"--%>
-                                         <%--onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"--%>
-                                         <%--style="height: 20px"/>--%>
-                            <%--至<input size="12" class="text easyui-textbox" id="search_LTE_updateTime"--%>
-                                    <%--name="search_LTE_updateTime"--%>
-                                    <%--onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" style="height: 20px"/>--%>
-                            <a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:false"
-                               onclick="$.acooly.framework.search('manage_eavEntity_searchform','manage_eavEntity_datagrid');"><i
-                                    class="fa fa-search fa-lg fa-fw fa-col"></i>查询</a>
+                            <a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:false" onclick="$.acooly.framework.search('manage_eavEntity_searchform','manage_eavEntity_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i>查询</a>
                         </div>
                     </td>
                 </tr>

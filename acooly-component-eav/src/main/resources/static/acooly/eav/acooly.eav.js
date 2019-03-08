@@ -12,12 +12,12 @@ var acoolyEavClass = {
         search_number: '<%=displayName%>: <input type="text" name="search_EQ_<%=name%>" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>">',
         search_input: '<%=displayName%>: <input type="text" name="search_LIKE_<%=name%>" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>">',
         search_date: '<%=displayName%>: <input type="text" name="search_GTE_<%=name%>" onFocus="WdatePicker({readOnly:true,dateFmt:\'yyyy-MM-dd\'})" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>"> ' +
-            '至 <input type="text" name="search_LTE_<%=name%>" onFocus="WdatePicker({readOnly:true,dateFmt:\'yyyy-MM-dd\'})" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>">',
-        search_select: '<%=displayName%>: <select name="search_EQ_<%=name%>" editable="false" panelHeight="auto" class="easyui-combobox <%=cssClass%>" style="<%=cssStyle%>">' +
-            '<% for(var i=0;i<options.length;i++){ var e=options[i]; %>' +
-            '<option value="<%=e.code%>"><%=e.name%></option>' +
-            '<% } %>' +
-            '</select>'
+        '至 <input type="text" name="search_LTE_<%=name%>" onFocus="WdatePicker({readOnly:true,dateFmt:\'yyyy-MM-dd\'})" class="easyui-validatebox <%=cssClass%>" style="<%=cssStyle%>">',
+        search_select: '<%=displayName%>: <select name="search_EQ_<%=name%>" editable="false" panelHeight="auto" class="easyui-combobox' +
+        ' <%=cssClass%>" style="<%=cssStyle%>"><option value="">所有</option>' +
+        '<% for(var i=0;i<options.length;i++){ var e=options[i]; %>' +
+        '<option value="<%=e.code%>"><%=e.name%></option>' +
+        '<% } %></select>'
     },
 
     showType: {
@@ -67,7 +67,7 @@ var acoolyEavClass = {
         var defOpts = {
             schemeId: null,
             container: null,
-            showType: 1,
+            showType: this.showType.SEARCH,
             onSuccess: null
         }
         var options = $.extend(defOpts, opts);
@@ -78,11 +78,21 @@ var acoolyEavClass = {
                 if (options.onSuccess != null) {
                     options.onSuccess.call(this, result);
                 } else {
-                    var obj = $('#' + options.container).html(That.render(result.data, options.showType));
+                    var obj;
+                    if (options.showType == That.showType.SEARCH) {
+                        obj = $('#' + options.container).html(That.renderSearch(result.data));
+                    }
                     $.parser.parse(obj);
                 }
             }
         });
+    },
+
+    prepScheme: function(scheme){
+
+        scheme.attributes.forEach()
+
+
     },
 
     hasPermission: function (allPerm, perm) {
@@ -93,7 +103,7 @@ var acoolyEavClass = {
      * 渲染查询条件
      * @param scheme
      */
-    render: function (scheme, showType) {
+    renderSearch: function (scheme) {
 
         var attrs = scheme.attributes;
         var html = "";
@@ -117,7 +127,36 @@ var acoolyEavClass = {
             html += " " + $.acooly.template.render(template, attr);
         }
         return html;
-    }
+    },
+
+
+
+
+    renderForm: function (scheme) {
+        var attrs = scheme.attributes;
+        var html = "";
+        for (var key in attrs) {
+            var attr = attrs[key];
+            if (!this.hasPermission(attr.showType, 1)) {
+                continue;
+            }
+
+            var template = null;
+            if (attr.attributeType.startsWith('NUMBER')) {
+                template = this.template.search_number;
+            } else if (attr.attributeType == 'DATE') {
+
+                template = this.template.search_date;
+            } else if (attr.attributeType == 'ENUM') {
+                template = this.template.search_select;
+            } else {
+                template = this.template.search_input;
+            }
+            html += " " + $.acooly.template.render(template, attr);
+        }
+    },
+
+
 
 
 };

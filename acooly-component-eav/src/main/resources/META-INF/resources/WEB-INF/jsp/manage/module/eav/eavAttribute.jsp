@@ -38,7 +38,6 @@ $(function() {
             <th field="showFormat" formatter="mappingFormatter">显示格式</th>
 			<th field="minimum" data-options="formatter:function(v,r,i){ var str=''; if(!v){v=0;} str+=v; if(r.maximum){str+='-'+r.maximum;} return str; }">数字范围</th>
 			<th field="minLength" data-options="formatter:function(v,r,i){ var str=''; if(!v){v=0} str+=v; if(r.maxLength){str+='-'+r.maxLength;}  return str; }">属性长度</th>
-			<th field="regex">验证正则</th>
 			<th field="enumValue">枚举值</th>
             <th field="defaultValue">默认值</th>
           	<th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_eavAttribute_action',value,row)}">动作</th>

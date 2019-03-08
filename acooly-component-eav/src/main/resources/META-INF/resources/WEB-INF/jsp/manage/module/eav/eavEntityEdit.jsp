@@ -41,5 +41,38 @@
                 <td><span id="schemaName"></span></td>
             </tr>
         </table>
+
+        <table class="tableForm" width="100%">
+            <tr>
+                <th width="25%">方案：</th>
+                <td><span id="schemaName"></span></td>
+            </tr>
+
+            <%
+                for(var i=0;i<attributes.length;i++){
+                    var e = attributes[i];
+            %>
+            <tr>
+                <th width="25%"><%e.displayName%>：</th>
+                <td>
+                 <% if(e.attributeType.startsWith("NUMBER")){ %>
+                    <input type="text" name="<%=e.name%>" size="20"  style="width: 200px;line-height: 30px; height: 30px;<%=e.cssStyle%>"
+                           class="easyui-numberbox <%=e.cssClass%>" <%if(e.nullable=="no"){%>required="true"<%}%> data-options="validType:['length[<%=e.minimum%>,<%=e.maximum%>]']"/>
+                 <%}else if(e.attributeType == "DATE"){%>
+                    <input type="text" name="search_GTE_<%=e.name%>" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"
+                           class="easyui-validatebox <%=e.cssClass%>" style="<%=e.cssStyle%>">
+                 <%}else if(e.attributeType == "ENUM"){%>
+
+                 <%}else{%>
+
+                 <%}%>
+                </td>
+            </tr>
+            <%
+                }
+            %>
+
+        </table>
+
     </form>
 </div>
