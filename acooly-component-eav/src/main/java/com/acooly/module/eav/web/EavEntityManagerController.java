@@ -172,5 +172,12 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
     protected void onEdit(HttpServletRequest request, HttpServletResponse response, Model model, EavEntity entity) {
         model.addAttribute("entityJson", entity.getValue().toJson());
         model.addAttribute("eavEntityId", entity.getId());
+        model.addAttribute("schemeId",Servlets.getParameter("schemeId"));
+    }
+
+    @Override
+    protected void onCreate(HttpServletRequest request, HttpServletResponse response, Model model) {
+        super.onCreate(request, response, model);
+        model.addAttribute("schemeId",Servlets.getParameter("schemeId"));
     }
 }

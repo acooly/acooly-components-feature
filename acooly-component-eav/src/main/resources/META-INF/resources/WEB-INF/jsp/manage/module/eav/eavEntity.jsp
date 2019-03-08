@@ -6,7 +6,6 @@
 <script src="//cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
 <script src="asset/eav/unserialize.jquery.1.0.3.js"></script>
 <script src="asset/eav/eav.js"></script>
-<script src="/acooly/eav/acooly.eav.js"></script>
 <script type="text/javascript">
 
     if (!window.data) {
@@ -168,7 +167,7 @@
         <!-- 表格的工具栏 -->
         <div id="manage_eavEntity_toolbar">
             <a href="#" class="easyui-linkbutton" plain="true"
-               onclick="$.acooly.framework.create({url:'/manage/module/eav/eavEntity/create.html',entity:'eavEntity',width:500,height:400})"><i
+               onclick="$.acooly.framework.create({url:'/manage/module/eav/eavEntity/create.html?schemeId='+$.acooly.eav.schemeId,entity:'eavEntity',width:500,height:400})"><i
                     class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
             <a href="#" class="easyui-linkbutton" plain="true"
                onclick="$.acooly.framework.removes('/manage/module/eav/eavEntity/deleteJson.html','manage_eavEntity_datagrid')"><i

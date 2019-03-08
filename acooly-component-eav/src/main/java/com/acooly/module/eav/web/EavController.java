@@ -2,10 +2,15 @@ package com.acooly.module.eav.web;
 
 import com.acooly.core.common.type.DBMap;
 import com.acooly.core.common.view.ViewResult;
+import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.utils.Assert;
 import com.acooly.core.utils.Servlets;
 import com.acooly.module.eav.dto.EavPageInfo;
 import com.acooly.module.eav.entity.EavEntity;
+import com.acooly.module.eav.enums.AttributeFormatEnum;
+import com.acooly.module.eav.enums.AttributeShowTypeEnum;
+import com.acooly.module.eav.enums.AttributeTypeEnum;
 import com.acooly.module.eav.service.EavEntityEntityService;
 import com.acooly.module.eav.service.EavSchemeEntityService;
 import com.acooly.module.eav.service.impl.EavEntityService;
@@ -22,7 +27,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "/eav")
-public class EavController {
+public class EavController extends AbstractJQueryEntityController {
 
     @Autowired
     private EavEntityEntityService eavEntityEntityService;
@@ -31,6 +36,9 @@ public class EavController {
     @Autowired
     private EavSchemeEntityService eavSchemeEntityService;
 
+    {
+        allowMapping = "";
+    }
 
     /**
      * 查询实体
@@ -48,9 +56,8 @@ public class EavController {
     }
 
     /**
-     *
      * http://127.0.0.1:8081/eav/getEavEntitysByPage.json?schemaId=2&cpuCore=2&touchbar=0&eavPage=1&eavRows=2&eavOrder=id&eavSort=asc
-     *
+     * <p>
      * 查询条件： cpuCore=2 & touchbar=0
      * 排序条件：eavOrder=id & eavSort=desc
      *
@@ -80,11 +87,18 @@ public class EavController {
     }
 
     /**
-     * 查询Schema
+     * load Schema
      */
-    @RequestMapping("/getEavSchema")
-    public ViewResult getEavSchema(Long id) {
-        return ViewResult.success(eavEntityService.findEavSchemaDto(id));
+    @RequestMapping("/getEavScheme")
+    public JsonEntityResult getEavSchema(Long id, HttpServletRequest request) {
+        JsonEntityResult result = new JsonEntityResult();
+        try {
+            result.setEntity(eavEntityService.findEavSchemaDto(id));
+            result.appendData(referenceData(request));
+        } catch (Exception e) {
+            handleException(result, "加载方案", e);
+        }
+        return result;
     }
 
     @RequestMapping("/getEavSchemas")
@@ -146,4 +160,10 @@ public class EavController {
         return ViewResult.success(null);
     }
 
+    @Override
+    protected void referenceData(HttpServletRequest request, Map model) {
+        model.put("formatTypes", AttributeFormatEnum.mapping());
+        model.put("showTypes", AttributeShowTypeEnum.mapping());
+        model.put("attributeTypes", AttributeTypeEnum.mapping());
+    }
 }
