@@ -9,7 +9,7 @@ import com.acooly.core.utils.Servlets;
 import com.acooly.module.eav.dto.EavPageInfo;
 import com.acooly.module.eav.entity.EavEntity;
 import com.acooly.module.eav.enums.AttributeFormatEnum;
-import com.acooly.module.eav.enums.AttributeShowTypeEnum;
+import com.acooly.module.eav.enums.AttributePermissionEnum;
 import com.acooly.module.eav.enums.AttributeTypeEnum;
 import com.acooly.module.eav.service.EavEntityEntityService;
 import com.acooly.module.eav.service.EavSchemeEntityService;
@@ -163,7 +163,7 @@ public class EavController extends AbstractJQueryEntityController {
     @Override
     protected void referenceData(HttpServletRequest request, Map model) {
         model.put("formatTypes", AttributeFormatEnum.mapping());
-        model.put("showTypes", AttributeShowTypeEnum.mapping());
+        model.put("showTypes", AttributePermissionEnum.mapping());
         model.put("attributeTypes", AttributeTypeEnum.mapping());
     }
 }

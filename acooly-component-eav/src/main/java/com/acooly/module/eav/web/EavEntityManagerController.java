@@ -6,18 +6,26 @@
  */
 package com.acooly.module.eav.web;
 
+import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.type.DBMap;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Servlets;
 import com.acooly.module.eav.dto.EavPageInfo;
+import com.acooly.module.eav.entity.EavAttribute;
 import com.acooly.module.eav.entity.EavEntity;
+import com.acooly.module.eav.entity.EavScheme;
+import com.acooly.module.eav.enums.AttributeTypeEnum;
+import com.acooly.module.eav.service.EavAttributeEntityService;
 import com.acooly.module.eav.service.EavEntityEntityService;
+import com.acooly.module.eav.service.EavSchemeEntityService;
 import com.acooly.module.eav.service.impl.EavEntityService;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +42,7 @@ import java.util.Map;
 /**
  * eav_entity 管理控制器
  *
- * @author qiubo
+ * @author zhangpu
  * Date: 2018-06-27 14:04:57
  */
 @Controller
@@ -51,10 +59,26 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
     private EavEntityEntityService eavEntityEntityService;
     @Autowired
     private EavEntityService eavEntityService;
+    @Autowired
+    private EavAttributeEntityService eavAttributeEntityService;
+    @Autowired
+    private EavSchemeEntityService eavSchemeEntityService;
 
     @Override
     public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
-        model.addAttribute("schemeId", Servlets.getParameter(request, "schemeId"));
+        Long schemeId = Servlets.getLongParameter(request, "schemeId");
+
+        EavScheme eavScheme = null;
+        if (schemeId != null) {
+            eavScheme = eavSchemeEntityService.get(schemeId);
+        } else {
+            String schemeName = Servlets.getParameter(request, "schemeName");
+            eavScheme = eavSchemeEntityService.getScheme(schemeName);
+        }
+        if (eavScheme != null) {
+            model.addAttribute("schemeId", eavScheme.getId());
+            model.addAttribute("eavScheme", eavScheme);
+        }
         return super.index(request, response, model);
     }
 
@@ -75,28 +99,26 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
 
     }
 
+    /**
+     * 分页查询
+     */
     @Override
     public JsonListResult listJson(HttpServletRequest request, HttpServletResponse response) {
-        Map searchParam = Servlets.getParameters(request);
-        if (searchParam.get("search_EQ_schemaId") == null) {
+
+        Long schemeId = Servlets.getLongParameter(request, "search_EQ_schemeId");
+        if (schemeId == null) {
             return new JsonListResult();
         }
 
-        Long sechemaId = Long.valueOf((String) searchParam.get("search_EQ_schemaId"));
-        searchParam.remove("search_EQ_schemaId");
-
+        Map searchParam = getSearchParams(request);
+        searchParam.remove("search_EQ_schemeId");
+        PageInfo orginal = getPageInfo(request);
         EavPageInfo pageinfo = new EavPageInfo();
-        pageinfo.setCurrentPage(Integer.parseInt((String) searchParam.get("page")));
-        searchParam.remove("page");
+        pageinfo.setCountOfCurrentPage(orginal.getCountOfCurrentPage());
+        pageinfo.setCurrentPage(orginal.getCurrentPage());
+        pageinfo.setEavSort(Servlets.getParameter(request, "sort"));
+        pageinfo.setEavOrder(Servlets.getParameter(request, "order"));
 
-        pageinfo.setCountOfCurrentPage(Integer.parseInt((String) searchParam.get("rows")));
-        searchParam.remove("rows");
-
-        pageinfo.setEavSort((String) searchParam.get("sort"));
-        searchParam.remove("sort");
-
-        pageinfo.setEavOrder((String) searchParam.get("order"));
-        searchParam.remove("order");
         Iterator it = searchParam.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry next = (Map.Entry) it.next();
@@ -104,41 +126,59 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
                 it.remove();
             }
         }
-        eavEntityService.queryByPage(sechemaId, searchParam, pageinfo);
+        eavEntityService.queryByPage(schemeId, searchParam, pageinfo);
 
         JsonListResult eavEntityJsonListResult = new JsonListResult();
         eavEntityJsonListResult.setTotal(pageinfo.getTotalCount());
         eavEntityJsonListResult.setRows(pageinfo.getPageResults());
         List<Map<String, Object>> list = Lists.newArrayList();
         eavEntityJsonListResult.getRows().forEach(value -> {
-            EavEntity eavEntity = (EavEntity) value;
-            Map<String, Object> map = Maps.newHashMap();
-            map.putAll(eavEntity.getValue());
-            map.put("id", eavEntity.getId());
-            map.put("schemaId", eavEntity.getSchemeId());
-            map.put("entityCreateTime", eavEntity.getCreateTime());
-            map.put("entityUpdateTime", eavEntity.getUpdateTime());
-            list.add(map);
+            list.add(convertEavEntity((EavEntity) value));
         });
         eavEntityJsonListResult.setRows(list);
+
+        // referenceData
+        List<EavAttribute> eavAttributes = eavAttributeEntityService.loadEavAttribute(schemeId);
+        Map mapping = Maps.newHashMap();
+        for (EavAttribute attribute : eavAttributes) {
+            if (attribute.getAttributeType() == AttributeTypeEnum.ENUM) {
+                mapping.put("all" + StringUtils.capitalize(attribute.getName()) + "s"
+                        , Collections3.extractToMap(attribute.getOptions(), "code", "name"));
+            }
+        }
+        eavEntityJsonListResult.appendData(mapping);
+
         return eavEntityJsonListResult;
     }
 
     @Override
+    public String show(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return super.show(request, response, model);
+    }
+
+    @Override
     protected void onShow(HttpServletRequest request, HttpServletResponse response, Model model, EavEntity entity) throws Exception {
-        model.addAttribute("entityJson", entity.getValue().toJson());
+        model.addAttribute("eavEntityInfo", eavEntityService.loadEavEntity(entity.getId()));
+    }
+
+
+    @Override
+    protected void onCreate(HttpServletRequest request, HttpServletResponse response, Model model) {
+        super.onCreate(request, response, model);
+        model.addAttribute("single", Servlets.getParameter("single"));
+        model.addAttribute("schemeId", Servlets.getParameter("schemeId"));
     }
 
     @Override
     public JsonEntityResult<EavEntity> saveJson(HttpServletRequest request, HttpServletResponse response) {
-        JsonEntityResult<EavEntity> result = new JsonEntityResult<>();
+        JsonEntityResult result = new JsonEntityResult<>();
         try {
             Long schemaId = Servlets.getLongParameter("schemeId");
             Map<String, String> parameters = Servlets.getParameters(request);
             parameters.remove("schemeId");
             parameters.remove("eavEntityId");
             EavEntity eavEntity = eavEntityService.save(schemaId, parameters);
-            result.setEntity(eavEntity);
+            result.setEntity(convertEavEntity(eavEntity));
             result.setMessage("新增成功");
         } catch (Exception e) {
             handleException(result, "新增", e);
@@ -146,14 +186,23 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
         return result;
     }
 
+
+    @Override
+    protected void onEdit(HttpServletRequest request, HttpServletResponse response, Model model, EavEntity entity) {
+        model.addAttribute("entityJson", entity.getValue().toJson());
+        model.addAttribute("entityId", entity.getId());
+        model.addAttribute("schemeId", entity.getSchemeId());
+        model.addAttribute("single", Servlets.getParameter("single"));
+    }
+
     @Override
     public JsonEntityResult<EavEntity> updateJson(HttpServletRequest request, HttpServletResponse response) {
-        JsonEntityResult<EavEntity> result = new JsonEntityResult<>();
+        JsonEntityResult result = new JsonEntityResult<>();
         try {
             Long schemaId = Servlets.getLongParameter("schemeId");
             Map<String, String> parameters = Servlets.getParameters(request);
             EavEntity eavEntity = eavEntityService.save(schemaId, parameters);
-            result.setEntity(eavEntity);
+            result.setEntity(convertEavEntity(eavEntity));
             result.setMessage("更新成功");
         } catch (Exception e) {
             handleException(result, "更新", e);
@@ -161,16 +210,14 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
         return result;
     }
 
-    @Override
-    protected void onEdit(HttpServletRequest request, HttpServletResponse response, Model model, EavEntity entity) {
-        model.addAttribute("entityJson", entity.getValue().toJson());
-        model.addAttribute("eavEntityId", entity.getId());
-        model.addAttribute("schemeId", Servlets.getParameter("schemeId"));
-    }
 
-    @Override
-    protected void onCreate(HttpServletRequest request, HttpServletResponse response, Model model) {
-        super.onCreate(request, response, model);
-        model.addAttribute("schemeId", Servlets.getParameter("schemeId"));
+    protected Map convertEavEntity(EavEntity eavEntity) {
+        Map<String, Object> map = Maps.newHashMap();
+        map.putAll(eavEntity.getValue());
+        map.put("id", eavEntity.getId());
+        map.put("schemeId", eavEntity.getSchemeId());
+        map.put("createTime", eavEntity.getCreateTime());
+        map.put("updateTime", eavEntity.getUpdateTime());
+        return map;
     }
 }

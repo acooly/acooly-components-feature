@@ -18,4 +18,6 @@ import com.acooly.module.eav.entity.EavScheme;
  *
  */
 public interface EavSchemeEntityService extends EntityService<EavScheme> {
+
+    EavScheme getScheme(String schemeName);
 }

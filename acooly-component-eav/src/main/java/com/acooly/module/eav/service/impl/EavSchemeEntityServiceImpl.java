@@ -30,6 +30,11 @@ public class EavSchemeEntityServiceImpl extends EntityServiceImpl<EavScheme, Eav
     private EavEntityService eavEntityService;
 
     @Override
+    public EavScheme getScheme(String schemeName) {
+        return getEntityDao().findBySchemeName(schemeName);
+    }
+
+    @Override
     public void remove(EavScheme o) throws BusinessException {
         super.remove(o);
         eavEntityService.sendEavSchemaChangeMessage(o.getId());
@@ -81,4 +86,6 @@ public class EavSchemeEntityServiceImpl extends EntityServiceImpl<EavScheme, Eav
             eavEntityService.sendEavSchemaChangeMessage(eavSchema.getId());
         }
     }
+
+
 }

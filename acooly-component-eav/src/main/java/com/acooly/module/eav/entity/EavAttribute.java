@@ -9,11 +9,13 @@ package com.acooly.module.eav.entity;
 
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.core.common.exception.OrderCheckException;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.enums.WhetherStatus;
 import com.acooly.module.eav.enums.AttributeFormatEnum;
-import com.acooly.module.eav.enums.AttributeShowTypeEnum;
+import com.acooly.module.eav.enums.AttributePermissionEnum;
 import com.acooly.module.eav.enums.AttributeTypeEnum;
 import com.google.common.base.Strings;
+import com.google.common.collect.Maps;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -22,6 +24,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Map;
 
 /**
  * eav_attribute Entity
@@ -38,8 +41,6 @@ public class EavAttribute extends AbstractEntity {
      */
     private static final long serialVersionUID = 1L;
 
-    public static final Long MAXIMUM_DEFAULT = 999999999L;
-    public static final Integer MAX_LENGTH_DEFAULT = 1024 * 10;
     /**
      * 方案id
      */
@@ -90,22 +91,22 @@ public class EavAttribute extends AbstractEntity {
     /**
      * 最小值
      */
-    private Long minimum = 0L;
+    private Long minimum;
 
     /**
      * 最大值
      */
-    private Long maximum = MAXIMUM_DEFAULT;
+    private Long maximum;
 
     /**
      * 最小长度
      */
-    private Integer minLength = 0;
+    private Integer minLength;
 
     /**
      * 最大长度
      */
-    private Integer maxLength = MAX_LENGTH_DEFAULT;
+    private Integer maxLength;
 
     /**
      * 正则表达式
@@ -129,7 +130,7 @@ public class EavAttribute extends AbstractEntity {
      * 显示类型
      * 1：列表，2：创建, 3:编辑,4:详情
      */
-    private int showType = AttributeShowTypeEnum.getAllValue();
+    private int showType = AttributePermissionEnum.getAllValue();
 
 
     /**
@@ -166,8 +167,17 @@ public class EavAttribute extends AbstractEntity {
     private List<EavOption> options;
 
     @Transient
+    public Map getOptionMapping() {
+        if (Collections3.isEmpty(this.options)) {
+            return Maps.newHashMap();
+        } else {
+            return Collections3.extractToMap(this.options, "code", "name");
+        }
+    }
+
+    @Transient
     public String getShowPerms() {
-        return StringUtils.join(AttributeShowTypeEnum.parse(this.showType), ",");
+        return StringUtils.join(AttributePermissionEnum.parse(this.showType), ",");
     }
 
     public void createCheck() {

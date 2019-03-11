@@ -65,7 +65,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>显示类型：</th>
+                    <th>显示权限：</th>
                     <td>
                         <c:forEach items="${allAttributeShowTypes}" var="e">
                             <input type="checkbox" name="showType" checked value="${e.key}"> ${e.value}

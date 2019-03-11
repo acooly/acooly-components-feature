@@ -21,6 +21,6 @@ public class MoneyValueValidator extends ValueValidator {
         if (eavAttribute.getMaximum() != null) {
             state(money.getCent() < eavAttribute.getMaximum(), "值[%s]大于或等于最大值:%s", money, Money.cent(eavAttribute.getMaximum()));
         }
-        return money;
+        return money.toString();
     }
 }

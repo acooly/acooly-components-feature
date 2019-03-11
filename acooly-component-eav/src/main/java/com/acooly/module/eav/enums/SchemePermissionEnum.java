@@ -8,7 +8,7 @@
  */
 package com.acooly.module.eav.enums;
 /**
- * 属性显示类型
+ * 方案功能权限
  *
  * @author zhangpu
  * @date 2019-03-03 20:34
@@ -22,19 +22,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public enum AttributeShowTypeEnum {
+public enum SchemePermissionEnum {
 
-    SEARCH(1, "查询"),
-    LIST(2, "列表"),
-    CREATE(4, "新增"),
-    UPDATE(8, "编辑"),
+    LIST(1, "列表"),
+    CREATE(2, "新增"),
+    UPDATE(4, "编辑"),
+    DELETE(8, "删除"),
     SHOW(16, "查看");
 
 
     private final int code;
     private final String message;
 
-    AttributeShowTypeEnum(int code, String message) {
+    SchemePermissionEnum(int code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -47,10 +47,10 @@ public enum AttributeShowTypeEnum {
         return message;
     }
 
-    public static List<String> parse(int perm){
+    public static List<String> parse(int perm) {
         List<String> permNames = Lists.newArrayList();
-        for (AttributeShowTypeEnum status : values()) {
-            if(BitPermissions.hasPerm(perm,status.code)){
+        for (SchemePermissionEnum status : values()) {
+            if (BitPermissions.hasPerm(perm, status.code)) {
                 permNames.add(status.getMessage());
             }
         }
@@ -64,7 +64,7 @@ public enum AttributeShowTypeEnum {
      */
     public static int getAllValue() {
         int all = 0;
-        for (AttributeShowTypeEnum status : values()) {
+        for (SchemePermissionEnum status : values()) {
             all = all + status.getCode();
         }
         return all;
@@ -72,7 +72,7 @@ public enum AttributeShowTypeEnum {
 
     public static Map<Integer, String> mapping() {
         Map<Integer, String> map = new LinkedHashMap<Integer, String>();
-        for (AttributeShowTypeEnum type : values()) {
+        for (SchemePermissionEnum type : values()) {
             map.put(type.getCode(), type.getMessage());
         }
         return map;
@@ -85,8 +85,8 @@ public enum AttributeShowTypeEnum {
      * @return 枚举值码对应的枚举值。
      * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
      */
-    public static AttributeShowTypeEnum find(int code) {
-        for (AttributeShowTypeEnum status : values()) {
+    public static SchemePermissionEnum find(int code) {
+        for (SchemePermissionEnum status : values()) {
             if (status.getCode() == code) {
                 return status;
             }
@@ -99,9 +99,9 @@ public enum AttributeShowTypeEnum {
      *
      * @return 全部枚举值。
      */
-    public static List<AttributeShowTypeEnum> getAll() {
-        List<AttributeShowTypeEnum> list = new ArrayList<AttributeShowTypeEnum>();
-        for (AttributeShowTypeEnum status : values()) {
+    public static List<SchemePermissionEnum> getAll() {
+        List<SchemePermissionEnum> list = new ArrayList<SchemePermissionEnum>();
+        for (SchemePermissionEnum status : values()) {
             list.add(status);
         }
         return list;
@@ -114,7 +114,7 @@ public enum AttributeShowTypeEnum {
      */
     public static List<Integer> getAllCode() {
         List<Integer> list = new ArrayList<Integer>();
-        for (AttributeShowTypeEnum status : values()) {
+        for (SchemePermissionEnum status : values()) {
             list.add(status.getCode());
         }
         return list;

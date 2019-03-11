@@ -6,12 +6,10 @@
  */
 package com.acooly.module.eav.service.impl;
 
-import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
 import com.acooly.module.eav.dao.EavEntityDao;
 import com.acooly.module.eav.entity.EavEntity;
 import com.acooly.module.eav.service.EavEntityEntityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,12 +21,5 @@ import org.springframework.stereotype.Service;
  */
 @Service("eavEntityEntityService")
 public class EavEntityEntityServiceImpl extends EntityServiceImpl<EavEntity, EavEntityDao> implements EavEntityEntityService {
-    @Autowired
-    private EavEntityService eavEntityService;
 
-    @Override
-    public void save(EavEntity o) throws BusinessException {
-        eavEntityService.validate(o);
-        super.save(o);
-    }
 }

@@ -132,6 +132,7 @@ public class EavAttributeEntityServiceImpl extends EntityServiceImpl<EavAttribut
     @Override
     public void update(EavAttribute o) throws BusinessException {
         super.update(o);
+
         if (!o.isNew()) {
             eavEntityService.sendEavAttributeChangeMessage(o.getId());
         }

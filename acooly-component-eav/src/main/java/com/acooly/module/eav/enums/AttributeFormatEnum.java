@@ -23,17 +23,19 @@ import java.util.Map;
 
 public enum AttributeFormatEnum implements Messageable {
 
-    NORMAL("NORMAL", "原始格式"),
-    FORMAT_DATA_TIME("FORMAT_DATA_TIME", "日期时间"),
-    FORMAT_DATA("FORMAT_DATA", "日期"),
-    FORMAT_TIME("FORMAT_TIME", "时间");
+    NORMAL("NORMAL", "原始格式", null),
+    FORMAT_DATA_TIME("FORMAT_DATA_TIME", "日期时间", "yyyy-MM-dd HH:mm:ss"),
+    FORMAT_DATA("FORMAT_DATA", "日期", "yyyy-MM-dd"),
+    FORMAT_TIME("FORMAT_TIME", "时间", "HH:mm:ss");
 
     private final String code;
     private final String message;
+    private final String pattern;
 
-    AttributeFormatEnum(String code, String message) {
+    AttributeFormatEnum(String code, String message, String pattern) {
         this.code = code;
         this.message = message;
+        this.pattern = pattern;
     }
 
     public String getCode() {
@@ -52,6 +54,10 @@ public enum AttributeFormatEnum implements Messageable {
     @Override
     public String message() {
         return message;
+    }
+
+    public String getPattern() {
+        return pattern;
     }
 
     public static Map<String, String> mapping() {

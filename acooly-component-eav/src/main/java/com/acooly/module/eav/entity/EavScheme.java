@@ -8,6 +8,9 @@ package com.acooly.module.eav.entity;
 
 
 import com.acooly.core.common.domain.AbstractEntity;
+import com.acooly.module.eav.EavConstants;
+import com.acooly.module.eav.enums.AttributePermissionEnum;
+import com.acooly.module.eav.enums.SchemePermissionEnum;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -45,6 +48,12 @@ public class EavScheme extends AbstractEntity {
     @Size(max = 128)
     private String title;
 
+
+    private int panelWidth = EavConstants.PANEL_WIDTH_DEFAULT;
+
+    private int panelHeight = EavConstants.PANEL_HEIGHT_DEFAULT;
+
+    private int permission = SchemePermissionEnum.LIST.getCode();
 
     /**
      * 备注

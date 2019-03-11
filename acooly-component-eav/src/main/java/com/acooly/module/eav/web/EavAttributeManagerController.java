@@ -18,7 +18,7 @@ import com.acooly.module.eav.entity.EavOption;
 import com.acooly.module.eav.entity.EavScheme;
 import com.acooly.module.eav.entity.EavSchemeTag;
 import com.acooly.module.eav.enums.AttributeFormatEnum;
-import com.acooly.module.eav.enums.AttributeShowTypeEnum;
+import com.acooly.module.eav.enums.AttributePermissionEnum;
 import com.acooly.module.eav.enums.AttributeTypeEnum;
 import com.acooly.module.eav.service.EavAttributeEntityService;
 import com.acooly.module.eav.service.EavOptionService;
@@ -107,12 +107,10 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
     }
 
 
-
-
     @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
         model.put("allAttributeTypes", AttributeTypeEnum.mapping());
-        model.put("allAttributeShowTypes", AttributeShowTypeEnum.mapping());
+        model.put("allAttributeShowTypes", AttributePermissionEnum.mapping());
         model.put("allAttributeFormats", AttributeFormatEnum.mapping());
         model.put("allWhetherStatus", WhetherStatus.mapping());
         model.put("allSchemes", eavSchemeEntityService.getAll());
@@ -164,22 +162,28 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
 
         // 处理tag
         String tag = Servlets.getParameter("tag");
-        if(Strings.isNotBlank(tag)){
-            eavSchemeTagService.save(entity.getSchemeId(),tag);
+        if (Strings.isNotBlank(tag)) {
+            eavSchemeTagService.save(entity.getSchemeId(), tag);
         }
 
         // 根据attributeType处理
         AttributeTypeEnum attributeType = entity.getAttributeType();
-        if(attributeType == AttributeTypeEnum.NUMBER_DECIMAL
-            || attributeType == AttributeTypeEnum.NUMBER_INTEGER
-            || attributeType == AttributeTypeEnum.NUMBER_MONEY){
-            entity.setMinLength(null);
-            entity.setMaxLength(null);
-        }else if(attributeType == AttributeTypeEnum.ENUM
-                || attributeType == AttributeTypeEnum.DATE
-                || attributeType == AttributeTypeEnum.STRING){
-            entity.setMaximum(null);
-            entity.setMinimum(null);
+        if (attributeType == AttributeTypeEnum.NUMBER_DECIMAL
+                || attributeType == AttributeTypeEnum.NUMBER_INTEGER
+                || attributeType == AttributeTypeEnum.NUMBER_MONEY) {
+            entity.setMinLength(0);
+            entity.setMaxLength(0);
+            entity.setEnumValue("");
+        } else if (attributeType == AttributeTypeEnum.STRING
+                || attributeType == AttributeTypeEnum.DATE) {
+            entity.setMaximum(0L);
+            entity.setMinimum(0L);
+            entity.setEnumValue("");
+        } else if (attributeType == AttributeTypeEnum.ENUM) {
+            entity.setMaximum(0L);
+            entity.setMinimum(0L);
+            entity.setMinLength(0);
+            entity.setMaxLength(0);
         }
 
         return entity;
@@ -188,10 +192,10 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
 
     @Override
     protected Map<String, Object> getSearchParams(HttpServletRequest request) {
-        Map<String, Object> map =  super.getSearchParams(request);
+        Map<String, Object> map = super.getSearchParams(request);
         // 如果没有传入schemeId，则设置一个不存在的schemeId
-        if(map.get("EQ_schemeId") == null){
-            map.put("EQ_schemeId",0);
+        if (map.get("EQ_schemeId") == null) {
+            map.put("EQ_schemeId", 0);
         }
         return map;
     }
@@ -200,7 +204,7 @@ public class EavAttributeManagerController extends AbstractJQueryEntityControlle
     protected Map<String, Boolean> getSortMap(HttpServletRequest request) {
         Map<String, Boolean> sort = super.getSortMap(request);
         sort.clear();
-        sort.put("sortTime",true);
+        sort.put("sortTime", true);
         return sort;
     }
 
