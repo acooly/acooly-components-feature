@@ -8,7 +8,6 @@ import com.acooly.core.common.type.DBMap;
 import com.acooly.core.utils.Assert;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.arithmetic.perm.BitPermissions;
-import com.acooly.module.eav.dao.EavAttributeDao;
 import com.acooly.module.eav.dao.EavEntityDao;
 import com.acooly.module.eav.dao.EavSchemeDao;
 import com.acooly.module.eav.dto.EavAttributeInfo;
@@ -45,6 +44,7 @@ import static com.acooly.module.eav.EavAutoConfig.EAV_REDIS_TOPIC;
 
 /**
  * @author qiuboboy@qq.com
+ * @author zhangpu
  * @date 2018-06-27 10:47
  */
 @Service
@@ -54,8 +54,6 @@ public class EavEntityService {
     public static final String EAV_SCHEMA_KEY = "eavSchema:";
     public static final String SQL_SORT = "eavSort";
     public static final String SQL_ORDER = "eavOrder";
-    @Autowired
-    private EavAttributeDao eavAttributeDao;
     @Autowired
     private EavAttributeEntityService eavAttributeEntityService;
     @Autowired
@@ -115,13 +113,19 @@ public class EavEntityService {
         } else {
             // 编辑
             entity = eavEntityEntityService.get(Long.valueOf(id));
-            entity.setValue(new DBMap(parameters));
+            entity.getValue().putAll(parameters);
             eavEntityEntityService.update(entity);
         }
         return entity;
     }
 
 
+    /**
+     * 加载动态实体信息
+     *
+     * @param entityId
+     * @return
+     */
     public EavEntityInfo loadEavEntity(Long entityId) {
         try {
             EavEntity eavEntity = eavEntityEntityService.get(entityId);
@@ -164,14 +168,8 @@ public class EavEntityService {
             parameters = Collections.emptyMap();
         }
         parametersConvertAndCheck(schemaId, parameters);
-        StringBuilder sql = new StringBuilder("SELECT * FROM eav_entity WHERE scheme_id= ?");
-        List<Object> args = Lists.newArrayList();
-        args.add(schemaId);
-        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
-            sql.append(" and  value->'$.").append(entry.getKey()).append("'=?");
-            args.add(entry.getValue());
-        }
-        return executeSql(sql, args);
+        StringBuilder sql = buildSql(parameters, schemaId);
+        return executeSql(sql, null);
     }
 
     /**
@@ -186,21 +184,8 @@ public class EavEntityService {
         if (parameters == null) {
             parameters = Collections.emptyMap();
         }
-//        parametersConvertAndCheck(schemeId, parameters);
-        StringBuilder sql = new StringBuilder("SELECT * FROM eav_entity WHERE scheme_id= ?");
-        List<Object> args = Lists.newArrayList();
-        args.add(schemeId);
-        parameters.remove("EQ_schemeId");
-        List<SearchFilter> searchFilters = SearchFilter.parse(parameters);
-        for (SearchFilter searchFilter : searchFilters) {
-            sql.append(" and  value->'$.").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
-//            args.add(searchFilter.value);
-        }
 
-//        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
-//            sql.append(" and  value->'$.").append(entry.getKey()).append("'=?");
-//            args.add(entry.getValue());
-//        }
+        StringBuilder sql = buildSql(parameters, schemeId);
         int idx = pageinfo.getCountOfCurrentPage() * (pageinfo.getCurrentPage() - 1);
         if (pageinfo.getEavSort() != null) {
             sql.append(" order by  ").append(pageinfo.getEavSort()).append(" ");
@@ -210,98 +195,9 @@ public class EavEntityService {
         sql.append(idx);
         sql.append(",");
         sql.append(pageinfo.getCountOfCurrentPage());
-        pageinfo.setPageResults(executeSql(sql, args));
+        pageinfo.setPageResults(executeSql(sql, null));
     }
 
-    private String operatorParse(SearchFilter searchFilter) {
-        StringBuilder sb = new StringBuilder();
-        Object value = searchFilter.value;
-        switch (searchFilter.operator) {
-            case EQ:
-                if (value instanceof String) {
-                    sb.append(" = '" + value + "'");
-                } else {
-                    sb.append(" = " + value);
-                }
-                break;
-            case NEQ:
-                if (value instanceof String) {
-                    sb.append(" != '" + value + "'");
-                } else {
-                    sb.append(" != " + value);
-                }
-                break;
-            case LIKE:
-                sb.append(" like '%" + value + "%'");
-                break;
-            case LLIKE:
-                sb.append(" like '%" + value + "'");
-                break;
-            case RLIKE:
-                sb.append(" like '" + value + "%'");
-                break;
-            case GT:
-                if (value instanceof String) {
-                    sb.append(" > '" + value + "'");
-                } else {
-                    sb.append(" > " + value);
-                }
-                break;
-            case LT:
-                if (value instanceof String) {
-                    sb.append(" < '" + value + "'");
-                } else {
-                    sb.append(" < " + value);
-                }
-                break;
-            case GTE:
-                if (value instanceof String) {
-                    sb.append(" >= '" + value + "'");
-                } else {
-                    sb.append(" >= " + value);
-                }
-                break;
-            case LTE:
-                if (value instanceof String) {
-                    sb.append(" <= '" + value + "'");
-                } else {
-                    sb.append(" <= " + value);
-                }
-                break;
-            case NULL:
-                sb.append(" is null ");
-                break;
-            case NOTNULL:
-                sb.append(" is not null ");
-                break;
-        }
-        return sb.toString();
-    }
-
-    private List<EavEntity> executeSql(StringBuilder sql, List<Object> args) {
-        return jdbcTemplate.query(sql.toString(), args.toArray(), (rs, rowNum) -> {
-            EavEntity eavEntity = new EavEntity();
-            eavEntity.setId(rs.getLong("id"));
-            eavEntity.setSchemeId(rs.getLong("scheme_id"));
-            eavEntity.setSchemeName(rs.getString("scheme_name"));
-            eavEntity.setValue(DBMap.fromJson(rs.getString("value")));
-            eavEntity.setCreateTime(rs.getDate("create_time"));
-            eavEntity.setUpdateTime(rs.getDate("update_time"));
-            return eavEntity;
-        });
-    }
-
-    private void parametersConvertAndCheck(Long schemaId, Map<String, Object> parameters) {
-        EavSchemeDto eavSchemaDto = findEavSchemaDto(schemaId);
-        Assert.notNull(eavSchemaDto);
-        parameters.forEach((s, o) -> {
-            EavAttribute eavAttribute = eavSchemaDto.getAttributes().get(s);
-            if (eavAttribute == null) {
-                throw new BusinessException("属性[" + s + "]不存在", false);
-            }
-            parameters.put(s, valueValidatorService.validate(eavAttribute, o));
-        });
-    }
 
     public void sendEavAttributeChangeMessage(Serializable id) {
         redisTemplate.convertAndSend(EAV_REDIS_TOPIC, EAV_ATTRIBUTE_KEY + id);
@@ -375,6 +271,111 @@ public class EavEntityService {
         });
     }
 
+
+    protected StringBuilder buildSql(Map<String, Object> parameters, Long schemeId) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM eav_entity WHERE scheme_id=");
+        sql.append(schemeId);
+        parameters.remove("EQ_schemeId");
+        List<SearchFilter> searchFilters = SearchFilter.parse(parameters);
+        // parametersConvertAndCheck(schemeId, parameters);
+        for (SearchFilter searchFilter : searchFilters) {
+            sql.append(" and  value->'$.").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
+        }
+        return sql;
+    }
+
+    protected String operatorParse(SearchFilter searchFilter) {
+        StringBuilder sb = new StringBuilder();
+        Object value = searchFilter.value;
+        switch (searchFilter.operator) {
+            case EQ:
+                if (value instanceof String) {
+                    sb.append(" = '" + value + "'");
+                } else {
+                    sb.append(" = " + value);
+                }
+                break;
+            case NEQ:
+                if (value instanceof String) {
+                    sb.append(" != '" + value + "'");
+                } else {
+                    sb.append(" != " + value);
+                }
+                break;
+            case LIKE:
+                sb.append(" like '%" + value + "%'");
+                break;
+            case LLIKE:
+                sb.append(" like '%" + value + "'");
+                break;
+            case RLIKE:
+                sb.append(" like '" + value + "%'");
+                break;
+            case GT:
+                if (value instanceof String) {
+                    sb.append(" > '" + value + "'");
+                } else {
+                    sb.append(" > " + value);
+                }
+                break;
+            case LT:
+                if (value instanceof String) {
+                    sb.append(" < '" + value + "'");
+                } else {
+                    sb.append(" < " + value);
+                }
+                break;
+            case GTE:
+                if (value instanceof String) {
+                    sb.append(" >= '" + value + "'");
+                } else {
+                    sb.append(" >= " + value);
+                }
+                break;
+            case LTE:
+                if (value instanceof String) {
+                    sb.append(" <= '" + value + "'");
+                } else {
+                    sb.append(" <= " + value);
+                }
+                break;
+            case NULL:
+                sb.append(" is null ");
+                break;
+            case NOTNULL:
+                sb.append(" is not null ");
+                break;
+        }
+        return sb.toString();
+    }
+
+    protected List<EavEntity> executeSql(StringBuilder sql, List<Object> args) {
+        if (args == null) {
+            args = Lists.newArrayList();
+        }
+        return jdbcTemplate.query(sql.toString(), args.toArray(), (rs, rowNum) -> {
+            EavEntity eavEntity = new EavEntity();
+            eavEntity.setId(rs.getLong("id"));
+            eavEntity.setSchemeId(rs.getLong("scheme_id"));
+            eavEntity.setSchemeName(rs.getString("scheme_name"));
+            eavEntity.setValue(DBMap.fromJson(rs.getString("value")));
+            eavEntity.setCreateTime(rs.getDate("create_time"));
+            eavEntity.setUpdateTime(rs.getDate("update_time"));
+            return eavEntity;
+        });
+    }
+
+    private void parametersConvertAndCheck(Long schemaId, Map<String, Object> parameters) {
+        EavSchemeDto eavSchemaDto = findEavSchemaDto(schemaId);
+        Assert.notNull(eavSchemaDto);
+        parameters.forEach((s, o) -> {
+            EavAttribute eavAttribute = eavSchemaDto.getAttributes().get(s);
+            if (eavAttribute == null) {
+                throw new BusinessException("属性[" + s + "]不存在", false);
+            }
+            parameters.put(s, valueValidatorService.validate(eavAttribute, o));
+        });
+    }
 
     private EavSchemeDto doFindEavSchemaDto(Long id) {
         EavScheme eavSchema = eavSchemaDao.get(id);

@@ -46,7 +46,7 @@ public class EavAutoConfig {
     public MessageListenerAdapter eavlistenerAdapter(RedisTemplate redisTemplate, EavEntityService eavEntityService) {
         return new MessageListenerAdapter((MessageListener) (message, pattern) -> {
             String key = (String) redisTemplate.getValueSerializer().deserialize(message.getBody());
-            log.info("eav[key={}]更新", key);
+//            log.info("eav[key={}]更新", key);
             eavEntityService.invalidateCache(key);
         });
     }

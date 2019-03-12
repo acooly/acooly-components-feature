@@ -147,7 +147,7 @@ var acoolyEavClass = {
         }
         var That = this;
         $.ajax({
-            url: "/eav/getEavSchemas.html",
+            url: "/manage/module/eav/eavEntity/getEavSchemas.html",
             success: function (result) {
                 $.acooly.eav.schemes = result.data;
                 var first = true;
@@ -259,7 +259,7 @@ var acoolyEavClass = {
         }
         var options = $.extend(defOpts, opts);
         $.ajax({
-            url: "/eav/getEavScheme?id=" + options.schemeId,
+            url: "/manage/module/eav/eavEntity/getEavScheme?id=" + options.schemeId,
             success: function (result) {
                 $.acooly.eav.scheme = result.entity;
                 $.acooly.eav.schemeId = result.entity.id;
@@ -302,8 +302,8 @@ var acoolyEavClass = {
             }
             columns.push(column);
         }
-        columns.push({"field": "createTime", "title": "创建时间"});
-        columns.push({"field": "updateTime", "title": "修改时间"});
+        columns.push({"field": "createTime", "title": "创建时间",formatter:function(value){ return dateTimeFormatter(value)}});
+        columns.push({"field": "updateTime", "title": "修改时间",formatter:function(value){ return dateTimeFormatter(value)}});
         var c = []
         c.push(columns)
         $('#' + result.elementIds.datagrid).datagrid({

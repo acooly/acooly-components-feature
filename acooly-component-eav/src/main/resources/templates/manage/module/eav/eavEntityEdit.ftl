@@ -13,6 +13,8 @@
                 var prevTag = null;
                 for(var key in entity.attributes){
                 var e = entity.attributes[key];
+                var showType = (options.entityId != null && options.entityId != ''?$.acooly.eav.showType.UPDATE:$.acooly.eav.showType.CREATE);
+                if(!$.acooly.eav.hasPermission(e.showType,showType)){ continue; }
                 %>
                 <%if(prevTag != e.tag && e.tag != ''){%>
                 <tr><td colspan="2"><div style="border-bottom: 1px solid #ddd;padding: 5px;margin-bottom: 10px;"><%=e.tag%></div></td></tr>

@@ -59,12 +59,6 @@ $(function() {
     <div id="manage_eavOption_toolbar">
       <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/eav/eavOption/create.html',entity:'eavOption',width:500,height:400})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
       <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/module/eav/eavOption/deleteJson.html','manage_eavOption_datagrid')"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a>
-      <a href="#" class="easyui-menubutton" data-options="menu:'#manage_eavOption_exports_menu'"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>批量导出</a>
-      <div id="manage_eavOption_exports_menu" style="width:150px;">
-        <div onclick="$.acooly.framework.exports('/manage/module/eav/eavOption/exportXls.html','manage_eavOption_searchform','属性选项')"><i class="fa fa-file-excel-o fa-lg fa-fw fa-col"></i>Excel</div>
-        <div onclick="$.acooly.framework.exports('/manage/module/eav/eavOption/exportCsv.html','manage_eavOption_searchform','属性选项')"><i class="fa fa-file-text-o fa-lg fa-fw fa-col"></i>CSV</div>
-      </div>
-      <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.imports({url:'/manage/module/eav/eavOption/importView.html',uploader:'manage_eavOption_import_uploader_file'});"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i>批量导入</a>
     </div>
   </div>
 

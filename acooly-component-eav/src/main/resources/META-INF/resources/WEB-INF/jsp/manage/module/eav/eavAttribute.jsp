@@ -69,7 +69,7 @@ $(function() {
       <%--<a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.imports({url:'/manage/module/eav/eavAttribute/importView.html',uploader:'manage_eavAttribute_import_uploader_file'});"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i>批量导入</a>--%>
     </div>
   </div>
-    <%--<script src="/manage/asset/eav/acooly.admin.eav.js" />--%>
+    <script src="/manage/asset/eav/acooly.eav.scheme.js" />
     <script type="text/javascript">
         $(function() {
             manage_eavAttribute_loadTree();

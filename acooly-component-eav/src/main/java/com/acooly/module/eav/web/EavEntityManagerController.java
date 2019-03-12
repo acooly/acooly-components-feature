@@ -8,6 +8,7 @@ package com.acooly.module.eav.web;
 
 import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.type.DBMap;
+import com.acooly.core.common.view.ViewResult;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
@@ -31,6 +32,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,6 +66,9 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
     @Autowired
     private EavSchemeEntityService eavSchemeEntityService;
 
+    /**
+     * 首页
+     */
     @Override
     public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
         Long schemeId = Servlets.getLongParameter(request, "schemeId");
@@ -80,23 +85,6 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
             model.addAttribute("eavScheme", eavScheme);
         }
         return super.index(request, response, model);
-    }
-
-    @Override
-    public void initBinder(WebDataBinder binder) {
-        super.initBinder(binder);
-        binder.registerCustomEditor(DBMap.class, new PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) throws IllegalArgumentException {
-                setValue(DBMap.fromJson(text));
-            }
-
-            @Override
-            public String getAsText() {
-                return ((DBMap) getValue()).toJson();
-            }
-        });
-
     }
 
     /**
@@ -208,6 +196,50 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
             handleException(result, "更新", e);
         }
         return result;
+    }
+
+
+    /**
+     * 加载所有方案基本信息
+     */
+    @RequestMapping("getEavSchemas")
+    @ResponseBody
+    public ViewResult getEavSchemas() {
+        return ViewResult.success(eavSchemeEntityService.getAll());
+    }
+
+    /**
+     * 查询单个方案及子数据
+     */
+    @RequestMapping("getEavScheme")
+    @ResponseBody
+    public JsonEntityResult getEavSchema(Long id, HttpServletRequest request) {
+        JsonEntityResult result = new JsonEntityResult();
+        try {
+            result.setEntity(eavEntityService.findEavSchemaDto(id));
+            result.appendData(referenceData(request));
+        } catch (Exception e) {
+            handleException(result, "加载方案", e);
+        }
+        return result;
+    }
+
+
+    @Override
+    public void initBinder(WebDataBinder binder) {
+        super.initBinder(binder);
+        binder.registerCustomEditor(DBMap.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                setValue(DBMap.fromJson(text));
+            }
+
+            @Override
+            public String getAsText() {
+                return ((DBMap) getValue()).toJson();
+            }
+        });
+
     }
 
 

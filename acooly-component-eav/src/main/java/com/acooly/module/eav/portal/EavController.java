@@ -1,4 +1,4 @@
-package com.acooly.module.eav.web;
+package com.acooly.module.eav.portal;
 
 import com.acooly.core.common.type.DBMap;
 import com.acooly.core.common.view.ViewResult;
@@ -15,6 +15,7 @@ import com.acooly.module.eav.service.EavEntityEntityService;
 import com.acooly.module.eav.service.EavSchemeEntityService;
 import com.acooly.module.eav.service.impl.EavEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +24,10 @@ import java.util.Map;
 
 /**
  * @author qiuboboy@qq.com
+ * @author zhangpu
  * @date 2018-06-26 21:28
  */
+@Profile("!online")
 @RestController
 @RequestMapping(value = "/eav")
 public class EavController extends AbstractJQueryEntityController {
@@ -87,7 +90,7 @@ public class EavController extends AbstractJQueryEntityController {
     }
 
     /**
-     * load Schema
+     * 查询单个方案及子数据
      */
     @RequestMapping("/getEavScheme")
     public JsonEntityResult getEavSchema(Long id, HttpServletRequest request) {
