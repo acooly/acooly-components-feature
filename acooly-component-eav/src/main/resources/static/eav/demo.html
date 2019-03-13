@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EAV前端Demo</title>
+    <style>
+        .eav-table {
+            border: 1px solid #ddd;
+            border-spacing: 0;
+            margin-top: 5px;
+        }
+
+        .eav-table th, .eav-table td {
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h3>1.获取所有方案</h3>
+    <div><code>json:/eav/getEavSchemas.html</code></div>
+    <button type="button" onclick="$.acooly.eav.loadSchemes()">加载所有方案</button>
+    <div id="loadSchemes"></div>
+</div>
+
+<div>
+    <h3>2.加载方案元数据</h3>
+    <div><code><a href="/eav/getEavScheme.html?id=1" target="_blank">/eav/getEavScheme.html?id=1</a></code></div>
+    <button type="button" onclick="$.acooly.eav.loadScheme({schemeId:1})">方案元数据</button>
+    <button type="button" onclick="$.acooly.eav.loadSchemes()">生成方案查询</button>
+    <button type="button" onclick="$.acooly.eav.loadSchemes()">生成方案列表</button>
+    <button type="button" onclick="$.acooly.eav.loadSchemes()">生成方案表单</button>
+    <div id="schemeMetadata"></div>
+</div>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
+<!--<script src="http://wangxiao.github.com/BaiduTemplate/debug/js/baiduTemplate.js"></script>-->
+<!--<script src="/manage/assert/script/acooly.template.js"></script>-->
+
+<script id="loadSchemes_template" type="text/html">
+    <table class="eav-table">
+        <tr>
+            <th>Id(schemeId)</th>
+            <th>表名(name)</th>
+            <th>方案名(title)</th>
+            <th>编辑框宽高(panelWidth,panelHeight)</th>
+            <th>权限(permission)</th>
+        </tr>
+        <%for(var i=0;i
+        <data.length
+                ; i++){ var e=data[i];%>
+            <tr>
+                <td><%=e.id%></td>
+                <td><%=e.name%></td>
+                <td><%=e.title%></td>
+                <td>(<%=e.panelWidth%>,<%=e.panelHeight%>)</td>
+                <th><%=e.permission%></th>
+            </tr>
+            <%}%>
+    </table>
+</script>
+
+<script id="schemeMetadata_template" type="text/html">
+    <table class="eav-table">
+        <tr>
+            <th>Id</th>
+            <th>字段名(name)</th>
+            <th>中文名(title)</th>
+            <th>分组标签</th>
+            <th>是否为空</th>
+            <th>数字最小值</th>
+            <th>数字最大值</th>
+            <th>最小长度</th>
+            <th>最大长度</th>
+            <th>正则</th>
+            <th>正则消息</th>
+            <th>显示权限</th>
+            <th>显示格式</th>
+            <th>选项值</th>
+        </tr>
+        <%
+        var attrs = entity.attributes;
+        for (var key in attrs) {
+        var e = attrs[key];
+        %>
+            <tr>
+                <td><%=e.id%></td>
+                <td><%=e.name%></td>
+                <td><%=e.displayName%></td>
+                <td><%=e.tag%></td>
+                <th><%=e.nullable%></th>
+                <th><%=e.minimum%></th>
+                <th><%=e.maximum%></th>
+                <th><%=e.minLength%></th>
+                <th><%=e.maxLength%></th>
+                <th><%=e.regex%></th>
+                <th><%=e.regexMessage%></th>
+                <th><%=e.showType%></th>
+                <th><%=e.showFormat%></th>
+                <th><%=JSON.stringify(e.options)%></th>
+            </tr>
+        <%}%>
+
+    </table>
+</script>
+
+<script>
+
+    var classEav = {
+
+        loadSchemes: function () {
+            $.ajax({
+                url: '/eav/getEavSchemas.html',
+                success: function (result) {
+                    $('#loadSchemes').html(baidu.template("loadSchemes_template", result));
+                }
+            });
+        },
+
+        loadScheme: function (opts) {
+            var options = $.extend({
+                schemeId: null,
+                onSuccess: null,
+            }, opts);
+            var That = this;
+            $.ajax({
+                url: '/eav/getEavScheme.html?id=' + options.schemeId,
+                success: function (result) {
+                    if (options.onSuccess) {
+                        options.onSuccess.call(this,result);
+                    } else {
+                        //显示元数据
+                        That.renderSchemeMetadata(result);
+                    }
+                }
+            });
+        },
+
+        renderSchemeMetadata: function(result){
+            $('#schemeMetadata').html(baidu.template("schemeMetadata_template", result));
+        }
+
+    };
+
+    $(function () {
+
+        if (!$.acooly) {
+            $.acooly = {};
+        }
+
+        $.extend($.acooly, {
+            eav: classEav
+        })
+
+    });
+
+
+</script>
+</body>
+</html>
