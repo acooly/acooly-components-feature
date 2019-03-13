@@ -4,22 +4,29 @@ import com.acooly.core.common.type.DBMap;
 import com.acooly.core.common.view.ViewResult;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
+import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.utils.Assert;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Servlets;
 import com.acooly.module.eav.dto.EavPageInfo;
+import com.acooly.module.eav.entity.EavAttribute;
 import com.acooly.module.eav.entity.EavEntity;
 import com.acooly.module.eav.enums.AttributeFormatEnum;
 import com.acooly.module.eav.enums.AttributePermissionEnum;
 import com.acooly.module.eav.enums.AttributeTypeEnum;
+import com.acooly.module.eav.service.EavAttributeEntityService;
 import com.acooly.module.eav.service.EavEntityEntityService;
 import com.acooly.module.eav.service.EavSchemeEntityService;
 import com.acooly.module.eav.service.impl.EavEntityService;
+import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,25 +45,50 @@ public class EavController extends AbstractJQueryEntityController {
     private EavEntityService eavEntityService;
     @Autowired
     private EavSchemeEntityService eavSchemeEntityService;
+    @Autowired
+    private EavAttributeEntityService eavAttributeEntityService;
 
     {
         allowMapping = "";
     }
 
     /**
-     * 查询实体
+     * 查询单个实体
      */
-    @RequestMapping("/getEavEntity")
-    public ViewResult getEavEntity(Long id) {
-        return ViewResult.success(eavEntityEntityService.get(id));
+    @RequestMapping("/entity/get")
+    public JsonEntityResult getEavEntity(Long id) {
+        JsonEntityResult result = new JsonEntityResult();
+        try {
+            if (id == null) {
+                throw new RuntimeException("实体ID不能为空");
+            }
+            result.setEntity(eavEntityService.loadEavEntity(id));
+        } catch (Exception e) {
+            handleException(result, "", e);
+        }
+        return result;
     }
 
-    @RequestMapping("/getEavEntitys")
-    public ViewResult getEavEntitys(HttpServletRequest request, Long schemaId) {
-        Map parameters = Servlets.getParameters(request);
-        parameters.remove("schemeId");
-        return ViewResult.success(eavEntityService.query(schemaId, parameters));
+    @RequestMapping("/entity/query")
+    public JsonListResult getEavEntitys(HttpServletRequest request, Long schemeId) {
+        JsonListResult result = new JsonListResult();
+        try {
+            // search开头的表单,例如：search_Like_name,search_EQ_id
+            Map searchParams = getSearchParams(request);
+            searchParams.remove("EQ_schemeId");
+            searchParams.remove("schemeId");
+            if (schemeId == null) {
+                schemeId = Servlets.getLongParameter("search_EQ_schemeId");
+            }
+            Assert.notNull(schemeId, "方案ID不能为空");
+            result.setRows(eavEntityService.query(schemeId, searchParams));
+            result.appendData(referenceDataScheme(schemeId));
+        } catch (Exception e) {
+            handleException(result, "", e);
+        }
+        return result;
     }
+
 
     /**
      * http://127.0.0.1:8081/eav/getEavEntitysByPage.json?schemaId=2&cpuCore=2&touchbar=0&eavPage=1&eavRows=2&eavOrder=id&eavSort=asc
@@ -161,6 +193,25 @@ public class EavController extends AbstractJQueryEntityController {
         parameters.remove("entityId");
         eavEntityService.addEavEntityValue(entityId, (Map) parameters);
         return ViewResult.success(null);
+    }
+
+    /**
+     * 生成scheme对应的选项字段的mapping
+     *
+     * @param schemeId
+     * @return
+     */
+    protected Map referenceDataScheme(Long schemeId) {
+        // referenceData
+        List<EavAttribute> eavAttributes = eavAttributeEntityService.loadEavAttribute(schemeId);
+        Map mapping = Maps.newHashMap();
+        for (EavAttribute attribute : eavAttributes) {
+            if (attribute.getAttributeType() == AttributeTypeEnum.ENUM) {
+                mapping.put("all" + StringUtils.capitalize(attribute.getName()) + "s"
+                        , Collections3.extractToMap(attribute.getOptions(), "code", "name"));
+            }
+        }
+        return mapping;
     }
 
     @Override

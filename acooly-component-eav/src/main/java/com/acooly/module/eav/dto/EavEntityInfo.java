@@ -16,9 +16,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 /**
+ * 动态实体dto，用于显示全属性
+ * <p>
+ * 基于属性列表显示属性值和格式化值
+ *
  * @author zhangpu
  * @date 2019-03-10 16:01
  */
@@ -61,5 +66,9 @@ public class EavEntityInfo extends InfoBase {
 
 
     private List<EavAttributeInfo> eavAttributeInfos = Lists.newArrayList();
+
+    private Date createTime;
+
+    private Date updateTime;
 
 }

@@ -1,5 +1,6 @@
 package com.acooly.module.eav.service.impl;
 
+import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.dao.support.SearchFilter;
 import com.acooly.core.common.exception.AppConfigException;
 import com.acooly.core.common.exception.BusinessException;
@@ -36,6 +37,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -72,6 +74,11 @@ public class EavEntityService {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    /**
+     * 非动态属性
+     */
+    private static final List<String> ENTITY_COMMON_ATTRS =
+            Lists.newArrayList(new String[]{"id", "createTime", "updateTime", "memo", "schemeName", "schemeTitle"});
 
     /**
      * 加载单个Scheme
@@ -87,6 +94,7 @@ public class EavEntityService {
             throw new AppConfigException(e);
         }
     }
+
 
     /**
      * 保存实体
@@ -138,6 +146,8 @@ public class EavEntityService {
             eavEntityInfo.setSchemeName(eavEntity.getSchemeName());
             eavEntityInfo.setSchemeTitle(eavEntity.getSchemeTitle());
             eavEntityInfo.setMemo(eavEntity.getMemo());
+            eavEntityInfo.setCreateTime(eavEntity.getCreateTime());
+            eavEntityInfo.setUpdateTime(eavEntity.getUpdateTime());
             eavEntityInfo.setValue(data);
             eavEntityInfo.setJsonValue(data.toJson());
 
@@ -155,6 +165,26 @@ public class EavEntityService {
     }
 
 
+    public PageInfo<EavEntity> query(Long schemeId, PageInfo<EavEntity> pageInfo, Map<String, Object> map, Map<String, Boolean> sortMap) throws BusinessException {
+        Assert.notNull(schemeId, "schemeId不能为空");
+        StringBuilder sql = buildSql(schemeId, map, sortMap, pageInfo);
+        pageInfo.setPageResults(executeSql(sql, null));
+        return null;
+    }
+
+
+    public List<EavEntity> query(Long schemeId, Map<String, Object> map, Map<String, Boolean> sortMap) {
+
+        Assert.notNull(schemeId, "schemaId不能为空");
+        if (map == null) {
+            map = Collections.emptyMap();
+        }
+//        parametersConvertAndCheck(schemaId, parameters);
+        StringBuilder sql = null;//buildSql(parameters, schemeId);
+        return executeSql(sql, null);
+
+    }
+
     /**
      * 列表查询
      *
@@ -167,8 +197,8 @@ public class EavEntityService {
         if (parameters == null) {
             parameters = Collections.emptyMap();
         }
-        parametersConvertAndCheck(schemaId, parameters);
-        StringBuilder sql = buildSql(parameters, schemaId);
+//        parametersConvertAndCheck(schemaId, parameters);
+        StringBuilder sql = null;//buildSql(parameters, schemaId);
         return executeSql(sql, null);
     }
 
@@ -185,7 +215,7 @@ public class EavEntityService {
             parameters = Collections.emptyMap();
         }
 
-        StringBuilder sql = buildSql(parameters, schemeId);
+        StringBuilder sql = null;
         int idx = pageinfo.getCountOfCurrentPage() * (pageinfo.getCurrentPage() - 1);
         if (pageinfo.getEavSort() != null) {
             sql.append(" order by  ").append(pageinfo.getEavSort()).append(" ");
@@ -272,14 +302,43 @@ public class EavEntityService {
     }
 
 
-    protected StringBuilder buildSql(Map<String, Object> parameters, Long schemeId) {
+    protected StringBuilder buildSql(Long schemeId, Map<String, Object> parameters, Map<String, Boolean> sortMap, PageInfo pageInfo) {
         StringBuilder sql = new StringBuilder("SELECT * FROM eav_entity WHERE scheme_id=");
         sql.append(schemeId);
         parameters.remove("EQ_schemeId");
-        List<SearchFilter> searchFilters = SearchFilter.parse(parameters);
-        // parametersConvertAndCheck(schemeId, parameters);
-        for (SearchFilter searchFilter : searchFilters) {
-            sql.append(" and  value->'$.").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
+
+        // 动态查询条件
+        if (parameters != null && !parameters.isEmpty()) {
+            List<SearchFilter> searchFilters = SearchFilter.parse(parameters);
+            for (SearchFilter searchFilter : searchFilters) {
+                if (ENTITY_COMMON_ATTRS.contains(searchFilter.fieldName)) {
+                    sql.append(" and ").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
+                }
+                sql.append(" and value->'$.").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
+            }
+        }
+
+        // 排序
+        if (sortMap != null && sortMap.size() > 0) {
+            sql.append(" order by");
+            int index = 1;
+            for (Map.Entry<String, Boolean> entry : sortMap.entrySet()) {
+                sql.append(" ").append(entry.getKey()).append(" ").append((entry.getValue() ? "asc" : "desc"));
+                if (index++ < sortMap.size()) {
+                    sql.append(",");
+                }
+            }
+        } else {
+            sql.append(" order by id desc");
+        }
+
+        // 分页
+        if (pageInfo != null) {
+            int idx = pageInfo.getCountOfCurrentPage() * (pageInfo.getCurrentPage() - 1);
+            sql.append(" LIMIT ");
+            sql.append(idx);
+            sql.append(",");
+            sql.append(pageInfo.getCountOfCurrentPage());
         }
         return sql;
     }
@@ -289,7 +348,7 @@ public class EavEntityService {
         Object value = searchFilter.value;
         switch (searchFilter.operator) {
             case EQ:
-                if (value instanceof String) {
+                if (value instanceof String || value instanceof Date) {
                     sb.append(" = '" + value + "'");
                 } else {
                     sb.append(" = " + value);
@@ -312,28 +371,28 @@ public class EavEntityService {
                 sb.append(" like '" + value + "%'");
                 break;
             case GT:
-                if (value instanceof String) {
+                if (value instanceof String || value instanceof Date) {
                     sb.append(" > '" + value + "'");
                 } else {
                     sb.append(" > " + value);
                 }
                 break;
             case LT:
-                if (value instanceof String) {
+                if (value instanceof String || value instanceof Date) {
                     sb.append(" < '" + value + "'");
                 } else {
                     sb.append(" < " + value);
                 }
                 break;
             case GTE:
-                if (value instanceof String) {
+                if (value instanceof String || value instanceof Date) {
                     sb.append(" >= '" + value + "'");
                 } else {
                     sb.append(" >= " + value);
                 }
                 break;
             case LTE:
-                if (value instanceof String) {
+                if (value instanceof String || value instanceof Date) {
                     sb.append(" <= '" + value + "'");
                 } else {
                     sb.append(" <= " + value);

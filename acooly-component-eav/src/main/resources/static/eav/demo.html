@@ -28,18 +28,28 @@
     <h3>2.加载方案元数据</h3>
     <div><code><a href="/eav/getEavScheme.html?id=1" target="_blank">/eav/getEavScheme.html?id=1</a></code></div>
     <button type="button" onclick="$.acooly.eav.loadScheme({schemeId:1})">方案元数据</button>
-    <button type="button" onclick="$.acooly.eav.loadSchemes()">生成方案查询</button>
-    <button type="button" onclick="$.acooly.eav.loadSchemes()">生成方案列表</button>
-    <button type="button" onclick="$.acooly.eav.loadSchemes()">生成方案表单</button>
     <div id="schemeMetadata"></div>
 </div>
 
+<div>
+    <h3>3.实体单个查询</h3>
+    <div><code><a href="/eav/getEavEntity.html?id=4" target="_blank">/eav/getEavScheme.html?id=4</a></code></div>
+    <button type="button" onclick="$.acooly.eav.loadEntityInfo(4)">查询单个实体（全属性）</button>
+    <div id="entity_info"></div>
+</div>
+
+<div>
+    <h3>4.实体列表查询</h3>
+    <div><code><a href="/eav/getEavEntity.html?id=4" target="_blank">/eav/getEavScheme.html?id=4</a></code></div>
+    <button type="button" onclick="$.acooly.eav.loadEntityInfo(4)">查询单个实体（全属性）</button>
+    <div id="entity_info"></div>
+</div>
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
 <!--<script src="http://wangxiao.github.com/BaiduTemplate/debug/js/baiduTemplate.js"></script>-->
 <!--<script src="/manage/assert/script/acooly.template.js"></script>-->
-
+<!-- shemes列表模板 -->
 <script id="loadSchemes_template" type="text/html">
     <table class="eav-table">
         <tr>
@@ -62,7 +72,7 @@
             <%}%>
     </table>
 </script>
-
+<!-- sheme的字段属性列表模板 -->
 <script id="schemeMetadata_template" type="text/html">
     <table class="eav-table">
         <tr>
@@ -91,19 +101,62 @@
                 <td><%=e.name%></td>
                 <td><%=e.displayName%></td>
                 <td><%=e.tag%></td>
-                <th><%=e.nullable%></th>
-                <th><%=e.minimum%></th>
-                <th><%=e.maximum%></th>
-                <th><%=e.minLength%></th>
-                <th><%=e.maxLength%></th>
-                <th><%=e.regex%></th>
-                <th><%=e.regexMessage%></th>
-                <th><%=e.showType%></th>
-                <th><%=e.showFormat%></th>
-                <th><%=JSON.stringify(e.options)%></th>
+                <td><%=e.nullable%></td>
+                <td><%=e.minimum%></td>
+                <td><%=e.maximum%></td>
+                <td><%=e.minLength%></td>
+                <td><%=e.maxLength%></td>
+                <td><%=e.regex%></td>
+                <td><%=e.regexMessage%></td>
+                <td><%=e.showType%></td>
+                <td><%=e.showFormat%></td>
+                <td><%=JSON.stringify(e.options,["code","name"])%></td>
             </tr>
         <%}%>
 
+    </table>
+</script>
+<!-- 实体全属性展示模板 -->
+<script id="entity_full_info_template" type="text/html">
+    <table class="eav-table" >
+        <tr>
+            <th width="20%">方案:</th>
+            <td colspan="2"><%=data.schemeId%>/<%=data.schemeName%>/<%=data.schemeTitle%></td>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <td><%=data.id%></td>
+            <td></td>
+        </tr>
+        <%
+        var prevTag=null;
+        for(var i=0;i<data.eavAttributeInfos.length;i++){
+            var e=data.eavAttributeInfos[i];
+        %>
+        <% if(prevTag != e.tag && e.tag != ''){%>
+        <tr><td colspan="3"><div style="padding: 5px;">
+            <i class="fa fa-tag" aria-hidden="true"></i> <%=e.tag%>
+        </div></td></tr>
+        <%}%>
+        <tr>
+            <th><%=e.displayName%></th>
+            <td><%=e.value%></td>
+            <td><%=e.formatValue%></td>
+        </tr>
+        <%
+        var prevTag=e.tag;
+        }
+        %>
+        <tr>
+            <th>创建时间</th>
+            <td><%=data.createTime%></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>最后修改时间</th>
+            <td><%=data.updateTime%></td>
+            <td></td>
+        </tr>
     </table>
 </script>
 
@@ -135,6 +188,15 @@
                         //显示元数据
                         That.renderSchemeMetadata(result);
                     }
+                }
+            });
+        },
+
+        loadEntityInfo:function(entityId){
+            $.ajax({
+                url: '/eav/getEavEntity.html?id=' + entityId,
+                success: function (result) {
+                    $('#entity_info').html(baidu.template("entity_full_info_template",result));
                 }
             });
         },
