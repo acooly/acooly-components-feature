@@ -103,8 +103,7 @@
             <th>编辑框宽高(panelWidth,panelHeight)</th>
             <th>权限(permission)</th>
         </tr>
-        <%for(var i=0;i
-        <data.length ;i++){ var e=data[i];%>
+        <%for(var i=0;i<rows.length ;i++){ var e=rows[i];%>
             <tr>
                 <td><%=e.id%></td>
                 <td><%=e.name%></td>
@@ -119,7 +118,7 @@
         下拉选择:
         <select>
             <%for(var i=0;i
-            <data.length ;i++){ var e=data[i];%>
+            <rows.length ;i++){ var e=rows[i];%>
                 <option value="<%=e.code%>"><%=e.name%>/<%=e.title%></option>
                 <%}%>
         </select>
@@ -296,9 +295,7 @@
             <th>修改时间</th>
         </tr>
 
-        <%for(var i=0;i
-        <rows.length
-        ;i++){ var row=rows[i]; %>
+        <%for(var i=0;i<rows.length ;i++){ var row=rows[i]; %>
         <tr>
             <%for(var key in row){ var v = row[key]; %>
             <td><%=v%></td>
