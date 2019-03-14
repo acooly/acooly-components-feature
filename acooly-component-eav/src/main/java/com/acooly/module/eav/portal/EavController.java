@@ -1,14 +1,17 @@
 package com.acooly.module.eav.portal;
 
+import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.type.DBMap;
 import com.acooly.core.common.view.ViewResult;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
+import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Assert;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Servlets;
-import com.acooly.module.eav.dto.EavPageInfo;
+import com.acooly.core.utils.Strings;
+import com.acooly.module.eav.dto.EavSchemeDto;
 import com.acooly.module.eav.entity.EavAttribute;
 import com.acooly.module.eav.entity.EavEntity;
 import com.acooly.module.eav.enums.AttributeFormatEnum;
@@ -18,14 +21,18 @@ import com.acooly.module.eav.service.EavAttributeEntityService;
 import com.acooly.module.eav.service.EavEntityEntityService;
 import com.acooly.module.eav.service.EavSchemeEntityService;
 import com.acooly.module.eav.service.impl.EavEntityService;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,8 +62,8 @@ public class EavController extends AbstractJQueryEntityController {
     /**
      * 查询单个实体
      */
-    @RequestMapping("/entity/get")
-    public JsonEntityResult getEavEntity(Long id) {
+    @RequestMapping("/entity/get/{id}")
+    public JsonEntityResult getEavEntityByPath(@PathVariable("id") Long id) {
         JsonEntityResult result = new JsonEntityResult();
         try {
             if (id == null) {
@@ -64,12 +71,74 @@ public class EavController extends AbstractJQueryEntityController {
             }
             result.setEntity(eavEntityService.loadEavEntity(id));
         } catch (Exception e) {
-            handleException(result, "", e);
+            handleException(result, "查看", e);
         }
         return result;
     }
 
-    @RequestMapping("/entity/query")
+    @RequestMapping("/entity/get")
+    public JsonEntityResult getEavEntityById(Long id) {
+        return getEavEntityByPath(id);
+    }
+
+
+    @RequestMapping("/entity/delete")
+    public JsonResult getEavEntityByPath(HttpServletRequest request) {
+        JsonResult result = new JsonResult();
+        try {
+            Serializable[] ids = this.getRequestIds(request);
+            if (ids != null && ids.length != 0) {
+                if (ids.length == 1) {
+                    eavEntityEntityService.removeById(ids[0]);
+                } else {
+                    eavEntityEntityService.removes(ids);
+                }
+            } else {
+                throw new IllegalArgumentException("请求参数中没有指定需要删除的实体Id");
+            }
+        } catch (Exception e) {
+            handleException(result, "查看", e);
+        }
+        return result;
+    }
+
+    /**
+     * 创建实体
+     * <p>
+     * /eav/createEavEntity.json?schemeId=2&color=白色&cpu=intel&os=windows&cputype=第五代智能英特尔酷睿i5处理器&touchbar=true&publishDate=2018-01-01 01:01:01&cpuCore=2
+     */
+    @RequestMapping("/entity/save")
+    public JsonEntityResult createEavEntity(HttpServletRequest request) {
+        JsonEntityResult result = new JsonEntityResult();
+        try {
+            Long schemeId = getSchemeId(request);
+            Map<String, String> parameters = Servlets.getParameters(request);
+            EavEntity eavEntity = eavEntityService.save(schemeId, parameters);
+            result.setEntity(eavEntity);
+            result.appendData(referenceDataScheme(schemeId));
+        } catch (Exception e) {
+            handleException(result, "添加", e);
+        }
+        return result;
+    }
+
+
+    @RequestMapping("/entity/update")
+    public JsonEntityResult updateEavEntity(HttpServletRequest request) {
+        JsonEntityResult result = new JsonEntityResult();
+        try {
+            Long schemeId = getSchemeId(request);
+            EavEntity eavEntity = eavEntityService.save(schemeId, Servlets.getParameters(request));
+            result.setEntity(eavEntity);
+            result.appendData(referenceDataScheme(schemeId));
+        } catch (Exception e) {
+            handleException(result, "编辑", e);
+        }
+        return result;
+    }
+
+
+    @RequestMapping("/entity/list")
     public JsonListResult getEavEntitys(HttpServletRequest request, Long schemeId) {
         JsonListResult result = new JsonListResult();
         try {
@@ -78,53 +147,51 @@ public class EavController extends AbstractJQueryEntityController {
             searchParams.remove("EQ_schemeId");
             searchParams.remove("schemeId");
             if (schemeId == null) {
-                schemeId = Servlets.getLongParameter("search_EQ_schemeId");
+                schemeId = getSchemeId(request);
             }
+
             Assert.notNull(schemeId, "方案ID不能为空");
-            result.setRows(eavEntityService.query(schemeId, searchParams));
+            List list = eavEntityService.query(schemeId, searchParams, getSortMap(request));
+            EavSchemeDto eavScheme = eavEntityService.findEavSchemaDto(schemeId);
+            result.setRows(convertList(list, eavScheme));
             result.appendData(referenceDataScheme(schemeId));
         } catch (Exception e) {
-            handleException(result, "", e);
+            handleException(result, "列表", e);
         }
         return result;
     }
 
 
     /**
-     * http://127.0.0.1:8081/eav/getEavEntitysByPage.json?schemaId=2&cpuCore=2&touchbar=0&eavPage=1&eavRows=2&eavOrder=id&eavSort=asc
+     * 分页查询
+     * /eav/getEavEntitysByPage.json?schemeId=2&...
      * <p>
-     * 查询条件： cpuCore=2 & touchbar=0
-     * 排序条件：eavOrder=id & eavSort=desc
+     * 查询条件：EQ_XXXX=2 & LIKE_XXX=0
+     * 排序条件：sort=列名 & order=true/false
      *
-     * @param schemaId
-     * @param eavPage  当前页，从1开始
-     * @param eavRows  每页数据条数
-     * @param eavOrder 排序条件
-     * @param eavSort  排序方向：asc,desc
+     * @param schemeId
      */
-    @RequestMapping("/getEavEntitysByPage")
-    public ViewResult getEavEntitysByPage(HttpServletRequest request, Long schemaId, Integer eavPage, Integer eavRows, String eavSort, String eavOrder) {
-        Assert.notNull(eavPage);
-        Assert.notNull(eavRows);
-        Map parameters = Servlets.getParameters(request);
-        EavPageInfo pageinfo = new EavPageInfo();
-        pageinfo.setCurrentPage(eavPage);
-        pageinfo.setCountOfCurrentPage(eavRows);
-        pageinfo.setEavOrder(eavOrder);
-        pageinfo.setEavSort(eavSort);
-        parameters.remove("schemeId");
-        parameters.remove("eavPage");
-        parameters.remove("eavRows");
-        parameters.remove("eavSort");
-        parameters.remove("eavOrder");
-        eavEntityService.queryByPage(schemaId, parameters, pageinfo);
-        return ViewResult.success(pageinfo);
+    @RequestMapping("/entity/query")
+    public JsonListResult getEavEntitysByPage(HttpServletRequest request, Long schemeId) {
+        JsonListResult result = new JsonListResult();
+        try {
+            PageInfo pageInfo = getPageInfo(request);
+            eavEntityService.query(schemeId, pageInfo, getSearchParams(request), getSortMap(request));
+            pageInfoToResult(pageInfo, result);
+            EavSchemeDto eavScheme = eavEntityService.findEavSchemaDto(schemeId);
+            result.setRows(convertList(pageInfo.getPageResults(), eavScheme));
+            result.appendData(referenceDataScheme(schemeId));
+        } catch (Exception e) {
+            handleException(result, "分页", e);
+        }
+        return result;
     }
+
 
     /**
      * 查询单个方案及子数据
      */
-    @RequestMapping("/getEavScheme")
+    @RequestMapping("/scheme/get")
     public JsonEntityResult getEavSchema(Long id, HttpServletRequest request) {
         JsonEntityResult result = new JsonEntityResult();
         try {
@@ -136,51 +203,18 @@ public class EavController extends AbstractJQueryEntityController {
         return result;
     }
 
-    @RequestMapping("/getEavSchemas")
-    public ViewResult getEavSchemas() {
-        return ViewResult.success(eavSchemeEntityService.getAll());
+    @RequestMapping("/scheme/list")
+    public JsonListResult getEavSchemas(HttpServletRequest request) {
+        JsonListResult result = new JsonListResult();
+        try {
+            result.setRows(eavSchemeEntityService.getAll());
+            result.appendData(referenceData(request));
+        } catch (Exception e) {
+            handleException(result, "加载方案列表", e);
+        }
+        return result;
     }
 
-    /**
-     * 创建实体
-     * <p>
-     * http://127.0.0.1:8081/eav/createEavEntityWithJsonValue.json?schemaId=2&value=%7b%22color%22%3a+%22%E7%99%BD%E8%89%B2%22%2c%22cpu%22%3a+%22intel%22%2c%22os%22%3a+%22windows%22%2c%22cputype%22%3a+%22%E7%AC%AC%E4%BA%94%E4%BB%A3%E6%99%BA%E8%83%BD%E8%8B%B1%E7%89%B9%E5%B0%94%E9%85%B7%E7%9D%BFi5%E5%A4%84%E7%90%86%E5%99%A8%22%2c%22touchbar%22%3a+true%2c%22publishDate%22%3a+%222018-01-01+01%3a01%3a01%22%2c%22cpuCore%22%3a+2%7d
-     * <p>
-     * json内容为：
-     * <p>
-     * {
-     * "color": "白色",
-     * "cpu": "intel",
-     * "os": "windows",
-     * "cputype": "第五代智能英特尔酷睿i5处理器",
-     * "touchbar": 1,
-     * "publishDate": "2018-01-01 01:01:01",
-     * "cpuCore": 2
-     * }
-     */
-    @RequestMapping("/createEavEntityWithJsonValue")
-    public ViewResult createEavEntityWithJsonValue(EavEntity eavEntity) {
-        eavEntityEntityService.save(eavEntity);
-        return ViewResult.success(eavEntity);
-    }
-
-    /**
-     * 创建实体
-     * <p>
-     * http://127.0.0.1:8081/eav/createEavEntity.json?schemaId=2&color=白色&cpu=intel&os=windows&cputype=第五代智能英特尔酷睿i5处理器&touchbar=true&publishDate=2018-01-01 01:01:01&cpuCore=2
-     */
-    @RequestMapping("/createEavEntity")
-    public ViewResult createEavEntity(Long schemaId, HttpServletRequest request) {
-        EavEntity eavEntity = new EavEntity();
-        eavEntity.setSchemeId(schemaId);
-        Map<String, String> parameters = Servlets.getParameters(request);
-        parameters.remove("schemeId");
-        DBMap dbMap = new DBMap();
-        dbMap.putAll(parameters);
-        eavEntity.setValue(dbMap);
-        eavEntityEntityService.save(eavEntity);
-        return ViewResult.success(eavEntity);
-    }
 
     /**
      * 增加或者修改属性
@@ -220,4 +254,53 @@ public class EavController extends AbstractJQueryEntityController {
         model.put("showTypes", AttributePermissionEnum.mapping());
         model.put("attributeTypes", AttributeTypeEnum.mapping());
     }
+
+    protected void pageInfoToResult(PageInfo pageInfo, JsonListResult result) {
+        result.setTotal(pageInfo.getTotalCount());
+        result.setRows(pageInfo.getPageResults());
+        result.setHasNext(pageInfo.hasNext());
+        result.setPageNo(pageInfo.getCurrentPage());
+        result.setPageSize(pageInfo.getCountOfCurrentPage());
+    }
+
+    protected Long getSchemeId(HttpServletRequest request) {
+        Long schemeId = Servlets.getLongParameter("schemeId");
+        if (schemeId != null) {
+            return schemeId;
+        }
+        String querySchemeId = Servlets.getParameter("search_EQ_schemeId");
+        if (Strings.isNumeric(querySchemeId)) {
+            return Long.valueOf(querySchemeId);
+        }
+        return null;
+    }
+
+    protected List<Map<String, Object>> convertList(List<EavEntity> eavEntities, final EavSchemeDto eavScheme) {
+        List<Map<String, Object>> list = Lists.newArrayList();
+        eavEntities.forEach(value -> {
+            list.add(convertEavEntity(value, eavScheme));
+        });
+        return list;
+    }
+
+    protected Map convertEavEntity(EavEntity eavEntity, EavSchemeDto eavScheme) {
+        Map<String, Object> map = Maps.newLinkedHashMap();
+        map.put("id", eavEntity.getId());
+        map.put("schemeId", eavEntity.getSchemeId());
+        map.putAll(sortValue(eavEntity.getValue(), eavScheme));
+        map.put("createTime", eavEntity.getCreateTime());
+        map.put("updateTime", eavEntity.getUpdateTime());
+        return map;
+    }
+
+    protected LinkedHashMap sortValue(DBMap dbMap, EavSchemeDto eavSchemeDto) {
+        LinkedHashMap map = Maps.newLinkedHashMap();
+        for (String key : eavSchemeDto.getAttributes().keySet()) {
+            if (dbMap.get(key) != null) {
+                map.put(key, dbMap.get(key));
+            }
+        }
+        return map;
+    }
+
 }

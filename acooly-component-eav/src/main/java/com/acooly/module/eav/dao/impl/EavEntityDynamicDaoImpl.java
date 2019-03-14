@@ -2,14 +2,17 @@ package com.acooly.module.eav.dao.impl;
 
 import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.dao.support.SearchFilter;
-import com.acooly.module.ds.AbstractJdbcTemplateDao;
+import com.acooly.core.common.type.DBMap;
 import com.acooly.module.eav.dao.EavEntityDynamicDao;
 import com.acooly.module.eav.entity.EavEntity;
 import com.google.common.collect.Lists;
 import io.jsonwebtoken.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,11 @@ import java.util.Map;
 public class EavEntityDynamicDaoImpl extends AbstractJdbcTemplateDao implements EavEntityDynamicDao {
 
     /**
+     * RowMapper实现
+     */
+    private EavEntityDynamicRowMapper eavEntityDynamicRowMapper = new EavEntityDynamicRowMapper();
+
+    /**
      * 非动态属性
      */
     private static final List<String> ENTITY_COMMON_ATTRS =
@@ -30,12 +38,12 @@ public class EavEntityDynamicDaoImpl extends AbstractJdbcTemplateDao implements 
 
     @Override
     public List<EavEntity> list(Map<String, Object> map, Map<String, Boolean> orderMap) {
-        return super.queryForList(buildSql(map, orderMap), EavEntity.class);
+        return super.queryForList(buildSql(map, orderMap), EavEntity.class, eavEntityDynamicRowMapper);
     }
 
     @Override
     public PageInfo<EavEntity> query(PageInfo<EavEntity> pageInfo, Map<String, Object> map, Map<String, Boolean> orderMap) {
-        return super.query(pageInfo, buildSql(map, orderMap), EavEntity.class);
+        return super.query(pageInfo, buildSql(map, orderMap), EavEntity.class, eavEntityDynamicRowMapper);
     }
 
     protected String buildSql(Map<String, Object> parameters, Map<String, Boolean> sortMap) {
@@ -143,4 +151,18 @@ public class EavEntityDynamicDaoImpl extends AbstractJdbcTemplateDao implements 
         return sb.toString();
     }
 
+
+    static class EavEntityDynamicRowMapper implements RowMapper<EavEntity> {
+        @Override
+        public EavEntity mapRow(ResultSet rs, int i) throws SQLException {
+            EavEntity eavEntity = new EavEntity();
+            eavEntity.setId(rs.getLong("id"));
+            eavEntity.setSchemeId(rs.getLong("scheme_id"));
+            eavEntity.setSchemeName(rs.getString("scheme_name"));
+            eavEntity.setValue(DBMap.fromJson(rs.getString("value")));
+            eavEntity.setCreateTime(rs.getDate("create_time"));
+            eavEntity.setUpdateTime(rs.getDate("update_time"));
+            return eavEntity;
+        }
+    }
 }

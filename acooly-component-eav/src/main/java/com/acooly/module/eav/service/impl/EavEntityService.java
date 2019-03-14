@@ -1,7 +1,6 @@
 package com.acooly.module.eav.service.impl;
 
 import com.acooly.core.common.dao.support.PageInfo;
-import com.acooly.core.common.dao.support.SearchFilter;
 import com.acooly.core.common.exception.AppConfigException;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.exception.CommonErrorCodes;
@@ -10,10 +9,10 @@ import com.acooly.core.utils.Assert;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.arithmetic.perm.BitPermissions;
 import com.acooly.module.eav.dao.EavEntityDao;
+import com.acooly.module.eav.dao.EavEntityDynamicDao;
 import com.acooly.module.eav.dao.EavSchemeDao;
 import com.acooly.module.eav.dto.EavAttributeInfo;
 import com.acooly.module.eav.dto.EavEntityInfo;
-import com.acooly.module.eav.dto.EavPageInfo;
 import com.acooly.module.eav.dto.EavSchemeDto;
 import com.acooly.module.eav.entity.EavAttribute;
 import com.acooly.module.eav.entity.EavEntity;
@@ -36,8 +35,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -68,6 +65,9 @@ public class EavEntityService {
     private EavEntityDao eavEntityDao;
     @Autowired
     private EavEntityEntityService eavEntityEntityService;
+
+    @Autowired
+    private EavEntityDynamicDao eavEntityDynamicDao;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -104,6 +104,7 @@ public class EavEntityService {
      * @return
      */
     public EavEntity save(Long schemeId, Map parameters) {
+        Assert.notNull(schemeId,"方案编码不能为空");
         EavScheme eavScheme = eavSchemeEntityService.get(schemeId);
         String id = (String) parameters.get("id");
         parameters.remove("schemeId");
@@ -122,6 +123,7 @@ public class EavEntityService {
             // 编辑
             entity = eavEntityEntityService.get(Long.valueOf(id));
             entity.getValue().putAll(parameters);
+            validate(entity);
             eavEntityEntityService.update(entity);
         }
         return entity;
@@ -137,6 +139,10 @@ public class EavEntityService {
     public EavEntityInfo loadEavEntity(Long entityId) {
         try {
             EavEntity eavEntity = eavEntityEntityService.get(entityId);
+            if (eavEntity == null) {
+                log.warn("动态实体不存在,entityId:" + entityId);
+                throw new BusinessException(CommonErrorCodes.OBJECT_NOT_EXIST, "动态实体不存在,entityId:" + entityId);
+            }
             List<EavAttribute> eavAttributes = eavAttributeEntityService.loadEavAttribute(eavEntity.getSchemeId());
             DBMap data = eavEntity.getValue();
 
@@ -164,68 +170,48 @@ public class EavEntityService {
 
     }
 
-
-    public PageInfo<EavEntity> query(Long schemeId, PageInfo<EavEntity> pageInfo, Map<String, Object> map, Map<String, Boolean> sortMap) throws BusinessException {
-        Assert.notNull(schemeId, "schemeId不能为空");
-        StringBuilder sql = buildSql(schemeId, map, sortMap, pageInfo);
-        pageInfo.setPageResults(executeSql(sql, null));
-        return null;
-    }
-
-
-    public List<EavEntity> query(Long schemeId, Map<String, Object> map, Map<String, Boolean> sortMap) {
-
-        Assert.notNull(schemeId, "schemaId不能为空");
-        if (map == null) {
-            map = Collections.emptyMap();
-        }
-//        parametersConvertAndCheck(schemaId, parameters);
-        StringBuilder sql = null;//buildSql(parameters, schemeId);
-        return executeSql(sql, null);
-
-    }
-
-    /**
-     * 列表查询
-     *
-     * @param schemaId
-     * @param parameters
-     * @return
-     */
-    public List<EavEntity> query(Long schemaId, Map<String, Object> parameters) {
-        Assert.notNull(schemaId, "schemaId不能为空");
-        if (parameters == null) {
-            parameters = Collections.emptyMap();
-        }
-//        parametersConvertAndCheck(schemaId, parameters);
-        StringBuilder sql = null;//buildSql(parameters, schemaId);
-        return executeSql(sql, null);
-    }
-
     /**
      * 分页查询
      *
      * @param schemeId
-     * @param parameters
-     * @param pageinfo
+     * @param pageInfo
+     * @param map
+     * @param sortMap
+     * @return
+     * @throws BusinessException
      */
-    public void queryByPage(Long schemeId, Map<String, Object> parameters, EavPageInfo pageinfo) {
+    public PageInfo<EavEntity> query(Long schemeId, PageInfo<EavEntity> pageInfo, Map<String, Object> map, Map<String, Boolean> sortMap) throws BusinessException {
         Assert.notNull(schemeId, "schemeId不能为空");
-        if (parameters == null) {
-            parameters = Collections.emptyMap();
-        }
+        map.put("schemeId", schemeId);
+        return eavEntityDynamicDao.query(pageInfo, map, sortMap);
+    }
 
-        StringBuilder sql = null;
-        int idx = pageinfo.getCountOfCurrentPage() * (pageinfo.getCurrentPage() - 1);
-        if (pageinfo.getEavSort() != null) {
-            sql.append(" order by  ").append(pageinfo.getEavSort()).append(" ");
-            sql.append(pageinfo.getEavOrder() == null ? "" : pageinfo.getEavOrder());
-        }
-        sql.append(" LIMIT ");
-        sql.append(idx);
-        sql.append(",");
-        sql.append(pageinfo.getCountOfCurrentPage());
-        pageinfo.setPageResults(executeSql(sql, null));
+
+    /**
+     * 列表查询
+     *
+     * @param schemeId
+     * @param map
+     * @param sortMap
+     * @return
+     */
+    public List<EavEntity> query(Long schemeId, Map<String, Object> map, Map<String, Boolean> sortMap) {
+        Assert.notNull(schemeId, "schemaId不能为空");
+        map.put("schemeId", schemeId);
+        return eavEntityDynamicDao.list(map, sortMap);
+
+    }
+
+
+    /**
+     * 列表查询
+     *
+     * @param schemeId
+     * @param parameters
+     * @return
+     */
+    public List<EavEntity> query(Long schemeId, Map<String, Object> parameters) {
+        return query(schemeId, parameters, null);
     }
 
 
@@ -301,128 +287,6 @@ public class EavEntityService {
         });
     }
 
-
-    protected StringBuilder buildSql(Long schemeId, Map<String, Object> parameters, Map<String, Boolean> sortMap, PageInfo pageInfo) {
-        StringBuilder sql = new StringBuilder("SELECT * FROM eav_entity WHERE scheme_id=");
-        sql.append(schemeId);
-        parameters.remove("EQ_schemeId");
-
-        // 动态查询条件
-        if (parameters != null && !parameters.isEmpty()) {
-            List<SearchFilter> searchFilters = SearchFilter.parse(parameters);
-            for (SearchFilter searchFilter : searchFilters) {
-                if (ENTITY_COMMON_ATTRS.contains(searchFilter.fieldName)) {
-                    sql.append(" and ").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
-                }
-                sql.append(" and value->'$.").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
-            }
-        }
-
-        // 排序
-        if (sortMap != null && sortMap.size() > 0) {
-            sql.append(" order by");
-            int index = 1;
-            for (Map.Entry<String, Boolean> entry : sortMap.entrySet()) {
-                sql.append(" ").append(entry.getKey()).append(" ").append((entry.getValue() ? "asc" : "desc"));
-                if (index++ < sortMap.size()) {
-                    sql.append(",");
-                }
-            }
-        } else {
-            sql.append(" order by id desc");
-        }
-
-        // 分页
-        if (pageInfo != null) {
-            int idx = pageInfo.getCountOfCurrentPage() * (pageInfo.getCurrentPage() - 1);
-            sql.append(" LIMIT ");
-            sql.append(idx);
-            sql.append(",");
-            sql.append(pageInfo.getCountOfCurrentPage());
-        }
-        return sql;
-    }
-
-    protected String operatorParse(SearchFilter searchFilter) {
-        StringBuilder sb = new StringBuilder();
-        Object value = searchFilter.value;
-        switch (searchFilter.operator) {
-            case EQ:
-                if (value instanceof String || value instanceof Date) {
-                    sb.append(" = '" + value + "'");
-                } else {
-                    sb.append(" = " + value);
-                }
-                break;
-            case NEQ:
-                if (value instanceof String) {
-                    sb.append(" != '" + value + "'");
-                } else {
-                    sb.append(" != " + value);
-                }
-                break;
-            case LIKE:
-                sb.append(" like '%" + value + "%'");
-                break;
-            case LLIKE:
-                sb.append(" like '%" + value + "'");
-                break;
-            case RLIKE:
-                sb.append(" like '" + value + "%'");
-                break;
-            case GT:
-                if (value instanceof String || value instanceof Date) {
-                    sb.append(" > '" + value + "'");
-                } else {
-                    sb.append(" > " + value);
-                }
-                break;
-            case LT:
-                if (value instanceof String || value instanceof Date) {
-                    sb.append(" < '" + value + "'");
-                } else {
-                    sb.append(" < " + value);
-                }
-                break;
-            case GTE:
-                if (value instanceof String || value instanceof Date) {
-                    sb.append(" >= '" + value + "'");
-                } else {
-                    sb.append(" >= " + value);
-                }
-                break;
-            case LTE:
-                if (value instanceof String || value instanceof Date) {
-                    sb.append(" <= '" + value + "'");
-                } else {
-                    sb.append(" <= " + value);
-                }
-                break;
-            case NULL:
-                sb.append(" is null ");
-                break;
-            case NOTNULL:
-                sb.append(" is not null ");
-                break;
-        }
-        return sb.toString();
-    }
-
-    protected List<EavEntity> executeSql(StringBuilder sql, List<Object> args) {
-        if (args == null) {
-            args = Lists.newArrayList();
-        }
-        return jdbcTemplate.query(sql.toString(), args.toArray(), (rs, rowNum) -> {
-            EavEntity eavEntity = new EavEntity();
-            eavEntity.setId(rs.getLong("id"));
-            eavEntity.setSchemeId(rs.getLong("scheme_id"));
-            eavEntity.setSchemeName(rs.getString("scheme_name"));
-            eavEntity.setValue(DBMap.fromJson(rs.getString("value")));
-            eavEntity.setCreateTime(rs.getDate("create_time"));
-            eavEntity.setUpdateTime(rs.getDate("update_time"));
-            return eavEntity;
-        });
-    }
 
     private void parametersConvertAndCheck(Long schemaId, Map<String, Object> parameters) {
         EavSchemeDto eavSchemaDto = findEavSchemaDto(schemaId);

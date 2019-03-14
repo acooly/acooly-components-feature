@@ -14,7 +14,6 @@ import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Servlets;
-import com.acooly.module.eav.dto.EavPageInfo;
 import com.acooly.module.eav.entity.EavAttribute;
 import com.acooly.module.eav.entity.EavEntity;
 import com.acooly.module.eav.entity.EavScheme;
@@ -100,13 +99,7 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
 
         Map searchParam = getSearchParams(request);
         searchParam.remove("search_EQ_schemeId");
-        PageInfo orginal = getPageInfo(request);
-        EavPageInfo pageinfo = new EavPageInfo();
-        pageinfo.setCountOfCurrentPage(orginal.getCountOfCurrentPage());
-        pageinfo.setCurrentPage(orginal.getCurrentPage());
-        pageinfo.setEavSort(Servlets.getParameter(request, "sort"));
-        pageinfo.setEavOrder(Servlets.getParameter(request, "order"));
-
+        PageInfo pageInfo = getPageInfo(request);
         Iterator it = searchParam.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry next = (Map.Entry) it.next();
@@ -114,11 +107,10 @@ public class EavEntityManagerController extends AbstractJQueryEntityController<E
                 it.remove();
             }
         }
-        eavEntityService.queryByPage(schemeId, searchParam, pageinfo);
-
+        pageInfo = eavEntityService.query(schemeId, pageInfo, searchParam, getSortMap(request));
         JsonListResult eavEntityJsonListResult = new JsonListResult();
-        eavEntityJsonListResult.setTotal(pageinfo.getTotalCount());
-        eavEntityJsonListResult.setRows(pageinfo.getPageResults());
+        eavEntityJsonListResult.setTotal(pageInfo.getTotalCount());
+        eavEntityJsonListResult.setRows(pageInfo.getPageResults());
         List<Map<String, Object>> list = Lists.newArrayList();
         eavEntityJsonListResult.getRows().forEach(value -> {
             list.add(convertEavEntity((EavEntity) value));

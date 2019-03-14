@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -55,15 +56,19 @@ public abstract class AbstractJdbcTemplateDao {
         return var2;
     }
 
-    public <T> PageInfo<T> query(PageInfo<T> pageInfo, String sql, Class<T> requiredType) {
+    public <T> PageInfo<T> query(PageInfo<T> pageInfo, String sql, Class<T> requiredType, RowMapper<T> rowMapper) {
         com.acooly.module.ds.AbstractJdbcTemplateDao.DbType dbType = this.getDbType();
         if (dbType == com.acooly.module.ds.AbstractJdbcTemplateDao.DbType.mysql) {
-            return this.queryMySql(pageInfo, sql, requiredType);
+            return this.queryMySql(pageInfo, sql, requiredType, rowMapper);
         } else if (dbType == com.acooly.module.ds.AbstractJdbcTemplateDao.DbType.oracle) {
-            return this.queryOracle(pageInfo, sql, requiredType);
+            return this.queryOracle(pageInfo, sql, requiredType, rowMapper);
         } else {
             throw new UnsupportedOperationException("不支持[" + dbType + "]的分页查询");
         }
+    }
+
+    public <T> PageInfo<T> query(PageInfo<T> pageInfo, String sql, Class<T> requiredType) {
+        return query(pageInfo, sql, requiredType, null);
     }
 
     protected com.acooly.module.ds.AbstractJdbcTemplateDao.DbType getDbType() {
@@ -86,10 +91,10 @@ public abstract class AbstractJdbcTemplateDao {
     }
 
     protected <T> List<T> queryForList(String sql, Class<T> elementType) throws DataAccessException {
-        return queryForList(sql, elementType);
+        return queryForList(sql, elementType, null);
     }
 
-    protected <T> List<T> queryForList(String sql, Class<T> elementType, BeanPropertyRowMapper<T> rowMapper) throws DataAccessException {
+    protected <T> List<T> queryForList(String sql, Class<T> elementType, RowMapper<T> rowMapper) throws DataAccessException {
 
         if (rowMapper != null) {
             return jdbcTemplate.query(sql, rowMapper);
@@ -105,7 +110,7 @@ public abstract class AbstractJdbcTemplateDao {
     }
 
 
-    private <T> PageInfo<T> queryOracle(PageInfo<T> pageInfo, String sql, Class<T> requiredType) {
+    private <T> PageInfo<T> queryOracle(PageInfo<T> pageInfo, String sql, Class<T> requiredType, RowMapper<T> rowMapper) {
         String orderBy = "";
         if (StringUtils.contains(sql, "order by")) {
             orderBy = sql.substring(sql.indexOf("order by"));
@@ -127,12 +132,16 @@ public abstract class AbstractJdbcTemplateDao {
         pageSql = StringUtils.replace(pageSql, "${sql}", sql);
         pageSql = StringUtils.replace(pageSql, "${startNum}", String.valueOf(startNum));
         pageSql = StringUtils.replace(pageSql, "${endNum}", String.valueOf(endNum));
-        List<T> result = this.queryForList(pageSql, requiredType);
+        List<T> result = this.queryForList(pageSql, requiredType, rowMapper);
         pageInfo.setPageResults(result);
         return pageInfo;
     }
 
-    private <T> PageInfo<T> queryMySql(PageInfo<T> pageInfo, String sql, Class<T> dtoEntity) {
+    private <T> PageInfo<T> queryOracle(PageInfo<T> pageInfo, String sql, Class<T> requiredType) {
+        return queryOracle(pageInfo, sql, requiredType, null);
+    }
+
+    private <T> PageInfo<T> queryMySql(PageInfo<T> pageInfo, String sql, Class<T> dtoEntity, RowMapper<T> rowMapper) {
         try {
             String sqlCount = "select count(*) from (" + sql + ") as xxttbb";
             long totalCount = this.getCount(sqlCount);
@@ -144,7 +153,7 @@ public abstract class AbstractJdbcTemplateDao {
 
             long totalPage = totalCount % (long) pageInfo.getCountOfCurrentPage() == 0L ? totalCount / (long) pageInfo.getCountOfCurrentPage() : totalCount / (long) pageInfo.getCountOfCurrentPage() + 1L;
             String pageSql = sql + " limit " + startNum + "," + pageInfo.getCountOfCurrentPage();
-            List<T> result = this.queryForList(pageSql, dtoEntity);
+            List<T> result = this.queryForList(pageSql, dtoEntity, rowMapper);
             pageInfo.setPageResults(result);
             pageInfo.setTotalCount(totalCount);
             pageInfo.setTotalPage(totalPage);
@@ -152,6 +161,10 @@ public abstract class AbstractJdbcTemplateDao {
         } catch (Exception var13) {
             throw new RuntimeException(var13);
         }
+    }
+
+    private <T> PageInfo<T> queryMySql(PageInfo<T> pageInfo, String sql, Class<T> dtoEntity) {
+        return queryMySql(pageInfo, sql, dtoEntity, null);
     }
 
     private long getCount(String sqlCount) {

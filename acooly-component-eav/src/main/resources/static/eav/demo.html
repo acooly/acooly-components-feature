@@ -7,46 +7,90 @@
         .eav-table {
             border: 1px solid #ddd;
             border-spacing: 0;
-            margin-top: 5px;
+            margin: 5px;
         }
 
         .eav-table th, .eav-table td {
             border: 1px solid #ddd;
             padding: 5px;
         }
+
+        .eav-demo {
+        }
+
+        .eav-demo input, .eav-demo select {
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .eav-demo input, .eav-demo select, .eav-demo textarea {
+            padding: 0 5px;
+            width: 350px;
+        }
+
     </style>
 </head>
 <body>
-<div>
-    <h3>1.获取所有方案</h3>
-    <div><code>json:/eav/getEavSchemas.html</code></div>
-    <button type="button" onclick="$.acooly.eav.loadSchemes()">加载所有方案</button>
-    <div id="loadSchemes"></div>
-</div>
+<div class="eav-demo">
+    <div>
+        <h3>1.获取所有方案</h3>
+        <div><code><a href="/eav/scheme/list.html" target="_blank">/eav/scheme/list.html</a></code></div>
+        <button type="button"
+                onclick="$.acooly.eav.loadSchemes({template:'loadSchemes_template',container:'loadSchemes'})">加载所有方案
+        </button>
+        <div id="loadSchemes"></div>
+    </div>
 
-<div>
-    <h3>2.加载方案元数据</h3>
-    <div><code><a href="/eav/getEavScheme.html?id=1" target="_blank">/eav/getEavScheme.html?id=1</a></code></div>
-    <button type="button" onclick="$.acooly.eav.loadScheme({schemeId:1})">方案元数据</button>
-    <div id="schemeMetadata"></div>
-</div>
+    <div>
+        <h3>2.加载方案元数据</h3>
+        <div><code><a href="/eav/scheme/get.html?id=1" target="_blank">/eav/scheme/get.html?id=1</a></code></div>
+        <button type="button"
+                onclick="$.acooly.eav.loadScheme({schemeId:1,template:'schemeMetadata_template',container:'schemeMetadata'})">
+            方案元数据
+        </button>
+        <div id="schemeMetadata"></div>
+    </div>
 
-<div>
-    <h3>3.实体单个查询</h3>
-    <div><code><a href="/eav/getEavEntity.html?id=4" target="_blank">/eav/getEavScheme.html?id=4</a></code></div>
-    <button type="button" onclick="$.acooly.eav.loadEntityInfo(4)">查询单个实体（全属性）</button>
-    <div id="entity_info"></div>
-</div>
+    <div>
+        <h3>3.实体单个查询</h3>
+        <div><code><a href="/eav/entity/get.html?id=4" target="_blank">/eav/entity/get.html?id=4</a></code></div>
+        <button type="button"
+                onclick="$.acooly.eav.loadEntity({entityId:4,template:'entity_info_template',container:'entity_info'})">
+            查询单个实体（全属性）
+        </button>
+        <div id="entity_info"></div>
+    </div>
 
-<div>
-    <h3>4.实体列表查询</h3>
-    <div><code><a href="/eav/getEavEntity.html?id=4" target="_blank">/eav/getEavScheme.html?id=4</a></code></div>
-    <button type="button" onclick="$.acooly.eav.loadEntityInfo(4)">查询单个实体（全属性）</button>
-    <div id="entity_info"></div>
-</div>
+    <div>
+        <h3>4.实体创建</h3>
+        <div><code><a href="/eav/entity/save.html?schemeId=1&code=9999&name=9999&inventory=10&price=2.44&unit=pack&upTime=2019-03-14&goodsType=virtual&desc=111" target="_blank">/eav/entity/save.html?schemeId=1&...</a></code></div>
+        <button type="button"
+                onclick="$.acooly.eav.create({schemeId:1,template:'entity_edit_form_template',container:'entity_edit_form_container'})">
+            添加
+        </button>
+        <div id="entity_edit_form_container"></div>
+        <div id="entity_edit_form_result"></div>
+    </div>
 
+    <div>
+        <h3>5.实体删除</h3>
+        <div><code><a href="/eav/entity/delete.html?id=4" target="_blank">/eav/entity/delete.html?id=4</a></code></div>
+        <button type="button" onclick="$.acooly.eav.delete(5)">删除</button>
+        <div id="entity_delete_result"></div>
+    </div>
+
+    <div>
+        <h3>6.实体列表</h3>
+        <div><code><a href="/eav/entity/list.html?schemeId=1" target="_blank">/eav/entity/list.html?schemeId=1</a></code></div>
+        <button type="button" onclick="$.acooly.eav.list({schemeId:1,template:'entity_list_template',container:'entity_list'})">列表</button>
+        <div id="entity_list"></div>
+    </div>
+
+</div>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
+<script src="/manage/assert/plugin/My97DatePicker/WdatePicker.js"></script>
+<script src="/manage/assert/script/acooly.js" charset="utf-8"></script>
 <!--<script src="http://wangxiao.github.com/BaiduTemplate/debug/js/baiduTemplate.js"></script>-->
 <!--<script src="/manage/assert/script/acooly.template.js"></script>-->
 <!-- shemes列表模板 -->
@@ -60,8 +104,7 @@
             <th>权限(permission)</th>
         </tr>
         <%for(var i=0;i
-        <data.length
-                ; i++){ var e=data[i];%>
+        <data.length ;i++){ var e=data[i];%>
             <tr>
                 <td><%=e.id%></td>
                 <td><%=e.name%></td>
@@ -71,6 +114,16 @@
             </tr>
             <%}%>
     </table>
+
+    <div>
+        下拉选择:
+        <select>
+            <%for(var i=0;i
+            <data.length ;i++){ var e=data[i];%>
+                <option value="<%=e.code%>"><%=e.name%>/<%=e.title%></option>
+                <%}%>
+        </select>
+    </div>
 </script>
 <!-- sheme的字段属性列表模板 -->
 <script id="schemeMetadata_template" type="text/html">
@@ -96,79 +149,189 @@
         for (var key in attrs) {
         var e = attrs[key];
         %>
-            <tr>
-                <td><%=e.id%></td>
-                <td><%=e.name%></td>
-                <td><%=e.displayName%></td>
-                <td><%=e.tag%></td>
-                <td><%=e.nullable%></td>
-                <td><%=e.minimum%></td>
-                <td><%=e.maximum%></td>
-                <td><%=e.minLength%></td>
-                <td><%=e.maxLength%></td>
-                <td><%=e.regex%></td>
-                <td><%=e.regexMessage%></td>
-                <td><%=e.showType%></td>
-                <td><%=e.showFormat%></td>
-                <td><%=JSON.stringify(e.options,["code","name"])%></td>
-            </tr>
+        <tr>
+            <td><%=e.id%></td>
+            <td><%=e.name%></td>
+            <td><%=e.displayName%></td>
+            <td><%=e.tag%></td>
+            <td><%=e.nullable%></td>
+            <td><%=e.minimum%></td>
+            <td><%=e.maximum%></td>
+            <td><%=e.minLength%></td>
+            <td><%=e.maxLength%></td>
+            <td><%=e.regex%></td>
+            <td><%=e.regexMessage%></td>
+            <td><%=e.showType%></td>
+            <td><%=e.showFormat%></td>
+            <td><%=JSON.stringify(e.options,["code","name"])%></td>
+        </tr>
         <%}%>
 
     </table>
 </script>
 <!-- 实体全属性展示模板 -->
-<script id="entity_full_info_template" type="text/html">
-    <table class="eav-table" >
+<script id="entity_info_template" type="text/html">
+    <table class="eav-table">
         <tr>
             <th width="20%">方案:</th>
-            <td colspan="2"><%=data.schemeId%>/<%=data.schemeName%>/<%=data.schemeTitle%></td>
+            <td colspan="2"><%=entity.schemeId%>/<%=entity.schemeName%>/<%=entity.schemeTitle%></td>
         </tr>
         <tr>
             <th>ID</th>
-            <td><%=data.id%></td>
+            <td><%=entity.id%></td>
             <td></td>
         </tr>
         <%
         var prevTag=null;
-        for(var i=0;i<data.eavAttributeInfos.length;i++){
-            var e=data.eavAttributeInfos[i];
-        %>
-        <% if(prevTag != e.tag && e.tag != ''){%>
-        <tr><td colspan="3"><div style="padding: 5px;">
-            <i class="fa fa-tag" aria-hidden="true"></i> <%=e.tag%>
-        </div></td></tr>
-        <%}%>
-        <tr>
-            <th><%=e.displayName%></th>
-            <td><%=e.value%></td>
-            <td><%=e.formatValue%></td>
-        </tr>
-        <%
-        var prevTag=e.tag;
-        }
-        %>
-        <tr>
-            <th>创建时间</th>
-            <td><%=data.createTime%></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>最后修改时间</th>
-            <td><%=data.updateTime%></td>
-            <td></td>
-        </tr>
+        for(var i=0;i
+        <entity.eavAttributeInfos.length
+                ;i++){
+                var e=entity.eavAttributeInfos[i];
+                %>
+            <% if(prevTag != e.tag && e.tag != ''){%>
+            <tr>
+                <td colspan="3">
+                    <div style="padding: 5px;">
+                        <i class="fa fa-tag" aria-hidden="true"></i> <%=e.tag%>
+                    </div>
+                </td>
+            </tr>
+            <%}%>
+            <tr>
+                <th><%=e.displayName%></th>
+                <td><%=e.value%></td>
+                <td><%=e.formatValue%></td>
+            </tr>
+            <%
+            var prevTag=e.tag;
+            }
+            %>
+            <tr>
+                <th>创建时间</th>
+                <td><%=entity.createTime%></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>最后修改时间</th>
+                <td><%=entity.updateTime%></td>
+                <td></td>
+            </tr>
     </table>
+</script>
+
+<script id="entity_edit_form_template" type="text/html">
+    <form id="entity_edit_form" action="/eav/entity/<%if(options.entityId != ''){%>create<%}else{%>update<%}%>.html" method="post">
+        <input name="id" type="hidden" value="<%=options.entityId%>"/>
+        <input name="schemeId" id="schemeId" type="hidden" value="<%=options.schemeId%>"/>
+        <table class="tableForm" width="100%">
+            <tr>
+                <th width="25%">方案：</th>
+                <td><%=entity.title%></td>
+            </tr>
+            <%
+            var prevTag = null;
+            for(var key in entity.attributes){
+            var e = entity.attributes[key];
+            if(!$.acooly.eav.hasPerm(options,e)){ continue; }
+            %>
+            <%if(prevTag != e.tag && e.tag != ''){%>
+            <tr>
+                <td colspan="2">
+                    <div style="border-bottom: 1px solid #ddd;padding: 5px;margin-bottom: 10px;"><%=e.tag%></div>
+                </td>
+            </tr>
+            <%}%>
+            <tr>
+                <th><%=e.displayName%>：</th>
+                <td>
+                    <% if(e.attributeType.startsWith("NUMBER_INTEGER")){ %>
+                    <input type="number" name="<%=e.name%>" size="20" style="<%=e.cssStyle%>" class="<%=e.cssClass%>"
+                    <%if(e.nullable=="no"){%> required="true"<%}%><%if(e.minimum!=null){%> min="<%=e.minimum%>"<%}%><%if(e.maximum!=null){%> max="<%=e.maximum%>"<%}%>/>
+                    <%}else if(e.attributeType == "NUMBER_MONEY"){%>
+                    <input type="number" name="<%=e.name%>" size="20" style="<%=e.cssStyle%>" class="<%=e.cssClass%>" precision="2"
+                    <%if(e.nullable=="no"){%> required="true"<%}%><%if(e.minimum!=null){%> min="<%=e.minimum/100%>"<%}%><%if(e.maximum!=null){%> max="<%=e.maximum/100%>"<%}%>/>
+                    <%}else if(e.attributeType == "DATE"){%>
+                    <input type="text" name="<%=e.name%>"<%if(e.nullable=="no"){%> required="true"<%}%> onFocus="WdatePicker({readOnly:true,dateFmt:$.acooly.eav.formatDate('<%=e.showFormat%>')})"
+                    class="<%=e.cssClass%>" style="<%=e.cssStyle%>">
+                    <%}else if(e.attributeType == "ENUM" && e.options && e.options.length > 0){%>
+                    <select name="<%=e.name%>" <%if(e.nullable=="no"){%>required="true"<%}%> class="<%=cssClass%>" style="<%=cssStyle%>">
+                    <% for(var j=0;j
+                    <e.options.length
+                            ;j++){ var o=e.options[j]; %>
+                        <option value="<%=o.code%>"><%=o.name%></option>
+                        <% } %>
+                        </select>
+                        <%}else{%>
+                        <%if(e.maxLength!=null&&e.maxLength>128){%><textarea rows="3" <%}else{%><input type="text" size="20" <%}%>
+                        name="<%=e.name%>" style="<%=e.cssStyle%>" class="<%=e.cssClass%>" <%if(e.nullable=="no"){%>required="true"<%}%>
+                        data-options="validType:['length[<%=e.minLength%>,<%=e.maxLength%>]'<%if(e.regex != null &&
+                        e.regex != ''){%>,'regExp[\'<%=e.regex%>\', \'<%=e .regexMessage%>\']'<%}%>]"/>
+                        <%if(e.maxLength!=null&&e.maxLength>128){%></textarea><%}%><%}%>
+                </td>
+            </tr>
+            <%
+            prevTag = e.tag;
+            }
+            %>
+            <tr>
+                <th></th>
+                <td>
+                    <button id="entity_edit_submit" type="button">提交</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</script>
+
+<script id="entity_list_template" type="text/html">
+    <table class="eav-table">
+        <tr>
+            <th>ID</th>
+            <th>schemeId</th>
+            <%for(var key in attributes){ var e = attributes[key]; %>
+            <th><%=e.displayName%></th>
+            <%}%>
+            <th>创建时间</th>
+            <th>修改时间</th>
+        </tr>
+
+        <%for(var i=0;i
+        <rows.length
+        ;i++){ var row=rows[i]; %>
+        <tr>
+            <%for(var key in row){ var v = row[key]; %>
+            <td><%=v%></td>
+            <%}%>
+        </tr>
+        <%}%>
+    </table>
+
 </script>
 
 <script>
 
     var classEav = {
 
-        loadSchemes: function () {
+        ShowType: {
+            'SEARCH': 1,
+            'LIST': 2,
+            'CREATE': 4,
+            'UPDATE': 8,
+            'SHOW': 16
+        },
+
+        loadSchemes: function (opts) {
+            var options = $.extend({
+                template: null,
+                container: null,
+                onSuccess: null,
+            }, opts);
+            var That = this;
             $.ajax({
-                url: '/eav/getEavSchemas.html',
+                url: '/eav/scheme/list.html',
                 success: function (result) {
-                    $('#loadSchemes').html(baidu.template("loadSchemes_template", result));
+                    That._doAjaxSuccess(options, result);
                 }
             });
         },
@@ -176,34 +339,133 @@
         loadScheme: function (opts) {
             var options = $.extend({
                 schemeId: null,
+                template: null,
+                container: null,
                 onSuccess: null,
             }, opts);
             var That = this;
             $.ajax({
-                url: '/eav/getEavScheme.html?id=' + options.schemeId,
+                url: '/eav/scheme/get.html?id=' + options.schemeId,
                 success: function (result) {
-                    if (options.onSuccess) {
-                        options.onSuccess.call(this,result);
-                    } else {
-                        //显示元数据
-                        That.renderSchemeMetadata(result);
-                    }
+                    That._doAjaxSuccess(options, result);
                 }
             });
         },
 
-        loadEntityInfo:function(entityId){
+        loadEntity: function (opts) {
+            var options = $.extend({
+                entityId: null,
+                template: null,
+                container: null,
+                onSuccess: null,
+            }, opts);
+            var That = this;
             $.ajax({
-                url: '/eav/getEavEntity.html?id=' + entityId,
+                url: '/eav/entity/get.html?id=' + options.entityId,
                 success: function (result) {
-                    $('#entity_info').html(baidu.template("entity_full_info_template",result));
+                    That._doAjaxSuccess(options, result);
                 }
             });
         },
 
-        renderSchemeMetadata: function(result){
+        create: function (opts) {
+            var options = $.extend({
+                entityId: null,
+                template: null,
+                container: null,
+                onSuccess: null,
+            }, opts);
+            var That = this;
+
+            this.loadScheme({
+                schemeId: 1,
+                onSuccess: function (result) {
+                    result.options = options;
+                    That.render(options.container, options.template, result);
+                    $('#entity_edit_submit').on('click', function () {
+                        That.save("entity_edit_form");
+                    });
+                }
+            })
+        },
+
+        save: function (container) {
+            var jsonData = $('#' + container).serializeJson();
+            $.ajax({
+                url: '/eav/entity/save.html',
+                data: jsonData,
+                success: function (result) {
+                    console.info(result);
+                    $('#entity_edit_form_result').html(JSON.stringify(result));
+                }
+            });
+        },
+
+        delete: function (entityId) {
+            $.ajax({
+                url: '/eav/entity/delete.html?id=' + entityId,
+                success: function (result) {
+                    console.info(result);
+                    $('#entity_delete_result').html(JSON.stringify(result));
+                }
+            });
+        },
+
+        list: function (opts) {
+            var options = $.extend({
+                schemeId: null,
+                template: null,
+                container: null,
+            }, opts);
+            var That = this;
+            this.loadScheme({
+                schemeId: options.schemeId,
+                onSuccess: function (result) {
+                    var attributes = result.entity.attributes;
+                    $.ajax({
+                        url: '/eav/entity/list.html?schemeId=' + options.schemeId,
+                        success: function (result) {
+                            result.attributes = attributes;
+                            That.render(options.container, options.template, result);
+                        }
+                    });
+
+                }
+            });
+        },
+
+        render: function (container, template, data) {
+            $('#' + container).html(baidu.template(template, data));
+        },
+
+        renderSchemeMetadata: function (result) {
             $('#schemeMetadata').html(baidu.template("schemeMetadata_template", result));
-        }
+        },
+
+        _doAjaxSuccess: function (options, result) {
+            result.options = options;
+            if (options.onSuccess) {
+                options.onSuccess.call(this, result);
+            } else {
+                $('#' + options.container).html(baidu.template(options.template, result));
+            }
+        },
+
+        hasPerm: function (options, attribute) {
+            var showType = (options.entityId != null && options.entityId !=
+            '' ? $.acooly.eav.ShowType.UPDATE : $.acooly.eav.ShowType.CREATE);
+            return ((attribute.showType & showType) == showType);
+        },
+
+        formatDate: function (formatType) {
+            if (formatType == 'FORMAT_DATA_TIME') {
+                return 'yyyy-MM-dd HH:mm:ss';
+            } else if (formatType == 'FORMAT_TIME') {
+                return 'HH:mm:ss';
+            } else {
+                return 'yyyy-MM-dd';
+            }
+        },
 
     };
 
