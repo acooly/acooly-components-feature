@@ -64,6 +64,7 @@ DROP TABLE IF EXISTS `c_chart_items`;
 CREATE TABLE `c_chart_items` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `chart_id` bigint(20) NOT NULL COMMENT '主题id',
+  `is_show` varchar(40) DEFAULT 'NO' COMMENT '是否显示数据',
   `title` varchar(64) NOT NULL COMMENT '标题',
   `type` varchar(64) NOT NULL COMMENT '图表类型{line:折线图,bar:柱状图,pie:饼图}',
   `status` varchar(32) NOT NULL COMMENT '状态{enable:正常,disable:禁用}',
@@ -85,3 +86,6 @@ CREATE TABLE `c_chart_items` (
 INSERT INTO `c_chart_items` VALUES ('1', '1', '折线图demo', 'line', 'enable', '16000', '55', '65', '{\"create_time\":\"创建时间\"}', '{\"width\":\"宽度\",\"loop_time\":\"循环时间\",\"height\":\"高度\"}', '2018-10-22 16:04:34', '2018-10-22 16:04:34', '2018-10-22 16:23:36', '');
 INSERT INTO `c_chart_items` VALUES ('2', '1', '柱状图demo', 'bar', 'enable', '26000', '50', '60', '{\"create_time\":\"创建时间\"}', '{\"height\":\"高度\",\"loop_time\":\"循环时间\",\"width\":\"宽度\"}', '2018-10-22 16:04:34', '2018-10-22 16:04:34', '2018-10-22 16:10:31', '');
 INSERT INTO `c_chart_items` VALUES ('3', '1', '饼图demo', 'pie', 'enable', '36000', '40', '40', '{}', '{\"height\":\"高度\",\"loop_time\":\"循环时间\",\"width\":\"宽度\"}', '2018-10-22 16:04:34', '2018-10-22 16:04:34', '2018-10-22 16:18:57', '');
+
+
+
