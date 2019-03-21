@@ -57,14 +57,55 @@
 					}
 // 						console.log(yShafts);
 					
-					pieChartDraw(title,legendData,xShaft,yShafts);
+					var	chartItemsParams=data.data.chartItemsParams;
+					
+					pieChartDraw(title,legendData,xShaft,yShafts,chartItemsParams);
 				}
 			}
 		});
 	}
 	
 	//动态数据解决
-	function pieChartDraw(title,legendData,xShaft,yShafts) {
+	function pieChartDraw(title,legendData,xShaft,yShafts,chartItemsParams) {
+
+		//是否显示 数值
+		var isShow={};
+		if(chartItemsParams.isShow=='YES'){
+			isShow={normal: {
+                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                backgroundColor: '#eee',
+                borderColor: '#aaa',
+                borderWidth: 1,
+                borderRadius: 4,
+                rich: {
+                    a: {
+                        color: '#999',
+                        lineHeight: 22,
+                        align: 'center'
+                    },
+                    hr: {
+                        borderColor: '#aaa',
+                        width: '100%',
+                        borderWidth: 0.5,
+                        height: 0
+                    },
+                    b: {
+                        fontSize: 16,
+                        lineHeight: 33
+                    },
+                    per: {
+                        color: '#eee',
+                        backgroundColor: '#334455',
+                        padding: [2, 4],
+                        borderRadius: 2
+                    }
+                }
+            }
+		};
+	};
+
+
+		
 		var dom = document.getElementById("container_"+${chartItemId});
 		var myChart = echarts.init(dom);
 		var app = {};
@@ -84,10 +125,11 @@
 				data : legendData
 			},
 			series : [ {
-				name : '访问来源',
+				name : '数据值',
 				type : 'pie',
 				radius : '70%',
 				center : [ '50%', '60%' ],
+				label: isShow,
 				data : yShafts,
 				itemStyle : {
 					emphasis : {

@@ -9,6 +9,7 @@ package com.acooly.module.eav.entity;
 
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.core.common.type.DBMap;
+import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
@@ -20,8 +21,10 @@ import javax.validation.constraints.Size;
  * eav_entity Entity
  *
  * @author qiubo
+ * @author zhangpu
  * Date: 2018-06-26 21:51:37
  */
+@Data
 @Entity
 @Table(name = "eav_entity")
 public class EavEntity extends AbstractEntity {
@@ -34,20 +37,29 @@ public class EavEntity extends AbstractEntity {
      * 方案id
      */
     @NotNull
-    private Long schemaId;
+    private Long schemeId;
 
     /**
-     * 名称
+     * 方案标题
+     * （表中文名，label）
      */
     @NotEmpty
     @Size(max = 128)
-    private String name;
+    private String schemeTitle;
+
+    /**
+     * 方案名称（表名）
+     */
+    @NotEmpty
+    @Size(max = 128)
+    private String schemeName;
+
 
     /**
      * 备注
      */
     @Size(max = 128)
-    private String comments;
+    private String memo;
 
 
     /**
@@ -56,19 +68,5 @@ public class EavEntity extends AbstractEntity {
     @NotEmpty
     private DBMap value;
 
-    public Long getSchemaId() {
-        return this.schemaId;
-    }
 
-    public void setSchemaId(Long schemaId) {
-        this.schemaId = schemaId;
-    }
-
-    public DBMap getValue() {
-        return this.value;
-    }
-
-    public void setValue(DBMap value) {
-        this.value = value;
-    }
 }

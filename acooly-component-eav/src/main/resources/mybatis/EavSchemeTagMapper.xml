@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.eav.dao.EavSchemeTagDao">
+
+    <resultMap id="eavSchemeTagResultMap" type="com.acooly.module.eav.entity.EavSchemeTag">
+        <id property="id" column="eavSchemeTag_id"/>
+        <result property="schemeid" column="eavSchemeTag_schemeId"/>
+        <result property="tag" column="eavSchemeTag_tag"/>
+        <result property="createTime" column="eavSchemeTag_create_time"/>
+        <result property="updateTime" column="eavSchemeTag_update_time"/>
+        <result property="memo" column="eavSchemeTag_memo"/>
+    </resultMap>
+
+    <sql id="eavSchemeTagSqlSelect">
+            eavSchemeTag.id as eavSchemeTag_id,
+            eavSchemeTag.schemeId as eavSchemeTag_schemeId,
+            eavSchemeTag.tag as eavSchemeTag_tag,
+            eavSchemeTag.create_time as eavSchemeTag_create_time,
+            eavSchemeTag.update_time as eavSchemeTag_update_time,
+            eavSchemeTag.memo as eavSchemeTag_memo
+    </sql>
+
+</mapper>

@@ -24,6 +24,8 @@ import java.util.List;
  * @author qiuboboy@qq.com
  * @date 2018-06-26 20:48
  */
+// todo: 待扩展客户端事件，包括：字段的事件（onChange等）和表单事件
+// todo: 待扩展服务器端事件
 @Configuration
 @ComponentScan(basePackages = "com.acooly.module.eav")
 @Slf4j
@@ -44,7 +46,7 @@ public class EavAutoConfig {
     public MessageListenerAdapter eavlistenerAdapter(RedisTemplate redisTemplate, EavEntityService eavEntityService) {
         return new MessageListenerAdapter((MessageListener) (message, pattern) -> {
             String key = (String) redisTemplate.getValueSerializer().deserialize(message.getBody());
-            log.info("eav[key={}]更新", key);
+//            log.info("eav[key={}]更新", key);
             eavEntityService.invalidateCache(key);
         });
     }

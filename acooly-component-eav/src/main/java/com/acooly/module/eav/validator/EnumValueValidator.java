@@ -1,5 +1,6 @@
 package com.acooly.module.eav.validator;
 
+import com.acooly.core.utils.Collections3;
 import com.acooly.module.eav.entity.EavAttribute;
 import com.google.common.base.Splitter;
 
@@ -14,7 +15,8 @@ public class EnumValueValidator extends ValueValidator {
 
     public EnumValueValidator(EavAttribute eavAttribute) {
         super(eavAttribute);
-        values = Splitter.on(",").trimResults().splitToList(eavAttribute.getEnumValue());
+        values = Collections3.extractToList(eavAttribute.getOptions(),"code");
+//        values = Splitter.on(",").trimResults().splitToList(eavAttribute.getEnumValue());
     }
 
     @Override

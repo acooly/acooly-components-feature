@@ -32,6 +32,8 @@
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/easyui.statistics.js" charset="utf-8"></script>
 
     <script type="text/javascript" src="/manage/assert/plugin/layui/layui.all.js"></script>
+    <!-- 模板引擎：baidu -->
+    <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
 
     <!-- 自己定义的样式和JS扩展 -->
     <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
@@ -43,6 +45,7 @@
     <script type="text/javascript" src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/script/acooly.ui.layer.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
 
     <!-- 扩展script -->
 ${extendScripts}

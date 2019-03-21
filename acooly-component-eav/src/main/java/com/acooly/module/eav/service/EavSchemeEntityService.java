@@ -8,7 +8,7 @@
 package com.acooly.module.eav.service;
 
 import com.acooly.core.common.service.EntityService;
-import com.acooly.module.eav.entity.EavSchema;
+import com.acooly.module.eav.entity.EavScheme;
 
 /**
  * eav_schema Service接口
@@ -17,5 +17,7 @@ import com.acooly.module.eav.entity.EavSchema;
  * @author qiubo
  *
  */
-public interface EavSchemaEntityService extends EntityService<EavSchema> {
+public interface EavSchemeEntityService extends EntityService<EavScheme> {
+
+    EavScheme getScheme(String schemeName);
 }

@@ -8,9 +8,9 @@ package com.acooly.module.eav.service.impl;
 
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
-import com.acooly.module.eav.dao.EavSchemaDao;
-import com.acooly.module.eav.entity.EavSchema;
-import com.acooly.module.eav.service.EavSchemaEntityService;
+import com.acooly.module.eav.dao.EavSchemeDao;
+import com.acooly.module.eav.entity.EavScheme;
+import com.acooly.module.eav.service.EavSchemeEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +24,18 @@ import java.util.List;
  *
  * @author qiubo
  */
-@Service("eavSchemaEntityService")
-public class EavSchemaEntityServiceImpl extends EntityServiceImpl<EavSchema, EavSchemaDao> implements EavSchemaEntityService {
+@Service("eavSchemeEntityService")
+public class EavSchemeEntityServiceImpl extends EntityServiceImpl<EavScheme, EavSchemeDao> implements EavSchemeEntityService {
     @Autowired
     private EavEntityService eavEntityService;
 
     @Override
-    public void remove(EavSchema o) throws BusinessException {
+    public EavScheme getScheme(String schemeName) {
+        return getEntityDao().findBySchemeName(schemeName);
+    }
+
+    @Override
+    public void remove(EavScheme o) throws BusinessException {
         super.remove(o);
         eavEntityService.sendEavSchemaChangeMessage(o.getId());
     }
@@ -51,7 +56,7 @@ public class EavSchemaEntityServiceImpl extends EntityServiceImpl<EavSchema, Eav
     }
 
     @Override
-    public void save(EavSchema o) throws BusinessException {
+    public void save(EavScheme o) throws BusinessException {
         super.save(o);
         if (!o.isNew()) {
             eavEntityService.sendEavSchemaChangeMessage(o.getId());
@@ -59,9 +64,9 @@ public class EavSchemaEntityServiceImpl extends EntityServiceImpl<EavSchema, Eav
     }
 
     @Override
-    public void saves(List<EavSchema> eavSchemas) throws BusinessException {
+    public void saves(List<EavScheme> eavSchemas) throws BusinessException {
         super.saves(eavSchemas);
-        for (EavSchema eavSchema : eavSchemas) {
+        for (EavScheme eavSchema : eavSchemas) {
             if (!eavSchema.isNew()) {
                 eavEntityService.sendEavSchemaChangeMessage(eavSchema.getId());
             }
@@ -69,16 +74,18 @@ public class EavSchemaEntityServiceImpl extends EntityServiceImpl<EavSchema, Eav
     }
 
     @Override
-    public void update(EavSchema o) throws BusinessException {
+    public void update(EavScheme o) throws BusinessException {
         super.update(o);
         eavEntityService.sendEavSchemaChangeMessage(o.getId());
     }
 
     @Override
-    public void saveOrUpdate(EavSchema eavSchema) throws BusinessException {
+    public void saveOrUpdate(EavScheme eavSchema) throws BusinessException {
         super.saveOrUpdate(eavSchema);
         if (!eavSchema.isNew()) {
             eavEntityService.sendEavSchemaChangeMessage(eavSchema.getId());
         }
     }
+
+
 }

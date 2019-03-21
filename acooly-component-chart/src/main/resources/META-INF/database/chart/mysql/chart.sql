@@ -27,7 +27,7 @@ CREATE TABLE `c_chart` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='图表-主题';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='图表-主题';
 
 -- ----------------------------
 -- Records of c_chart
@@ -48,7 +48,7 @@ CREATE TABLE `c_chart_data` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='图表-数据项';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='图表-数据项';
 
 -- ----------------------------
 -- Records of c_chart_data
@@ -64,6 +64,7 @@ DROP TABLE IF EXISTS `c_chart_items`;
 CREATE TABLE `c_chart_items` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `chart_id` bigint(20) NOT NULL COMMENT '主题id',
+  `is_show` varchar(40) DEFAULT 'NO' COMMENT '是否显示数据',
   `title` varchar(64) NOT NULL COMMENT '标题',
   `type` varchar(64) NOT NULL COMMENT '图表类型{line:折线图,bar:柱状图,pie:饼图}',
   `status` varchar(32) NOT NULL COMMENT '状态{enable:正常,disable:禁用}',
@@ -77,7 +78,7 @@ CREATE TABLE `c_chart_items` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='图表-图表选项';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='图表-图表选项';
 
 -- ----------------------------
 -- Records of c_chart_items
@@ -85,3 +86,6 @@ CREATE TABLE `c_chart_items` (
 INSERT INTO `c_chart_items` VALUES ('1', '1', '折线图demo', 'line', 'enable', '16000', '55', '65', '{\"create_time\":\"创建时间\"}', '{\"width\":\"宽度\",\"loop_time\":\"循环时间\",\"height\":\"高度\"}', '2018-10-22 16:04:34', '2018-10-22 16:04:34', '2018-10-22 16:23:36', '');
 INSERT INTO `c_chart_items` VALUES ('2', '1', '柱状图demo', 'bar', 'enable', '26000', '50', '60', '{\"create_time\":\"创建时间\"}', '{\"height\":\"高度\",\"loop_time\":\"循环时间\",\"width\":\"宽度\"}', '2018-10-22 16:04:34', '2018-10-22 16:04:34', '2018-10-22 16:10:31', '');
 INSERT INTO `c_chart_items` VALUES ('3', '1', '饼图demo', 'pie', 'enable', '36000', '40', '40', '{}', '{\"height\":\"高度\",\"loop_time\":\"循环时间\",\"width\":\"宽度\"}', '2018-10-22 16:04:34', '2018-10-22 16:04:34', '2018-10-22 16:18:57', '');
+
+
+

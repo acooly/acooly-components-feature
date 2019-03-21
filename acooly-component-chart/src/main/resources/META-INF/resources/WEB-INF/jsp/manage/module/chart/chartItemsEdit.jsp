@@ -81,6 +81,15 @@
 					</c:choose>
 				</td>
 			</tr>
+			
+			<tr>
+				<th>是否显示数据值：</th>
+				<td><select name="isShow" editable="false" style="height:27px;" panelHeight="auto" class="easyui-combobox" >
+					<c:forEach items="${allChartItemsIsShows}" var="e">
+						<option value="${e.key}">${e.value}</option>
+					</c:forEach>
+				</select></td>
+			</tr>
 
 			<tr>
 				<th>sql表达式：</th>

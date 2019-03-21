@@ -48,9 +48,20 @@
 						var yShaft = new Array();
 						yShaft = yShaftJsonList[y].split(",");
 
+						//是否显示 数值
+						var isShow={};
+						if(data.data.chartItemsParams.isShow=='YES'){
+							isShow={normal: {
+												show: true,
+												position: 'top'
+											}
+							};
+						};
+						
 						var yShaftJson={
 								name:y,
 								type : 'bar',
+								label:isShow,//是否显示 数值
 								data:yShaft
 						};
 						yShafts.push(yShaftJson);

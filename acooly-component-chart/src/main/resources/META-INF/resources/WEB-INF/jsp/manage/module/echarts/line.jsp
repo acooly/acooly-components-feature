@@ -4,7 +4,8 @@
 
 	<div id="container_${chartItemId}" style="height: 100%"></div>
 
-	<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
+	<script type="text/javascript"
+		src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/echarts.min.js"></script>
 
 
@@ -49,13 +50,25 @@
 							legendData.push(y);
 							var yShaft = new Array();
 							yShaft = yShaftJsonList[y].split(",");
-	
+
+							//是否显示 数值
+							var isShow={};
+							if(data.data.chartItemsParams.isShow=='YES'){
+								isShow={normal: {
+													show: true,
+													position: 'top'
+												}
+								};
+							};
+							
 							var yShaftJson={
 									name:y,
 									type : 'line',
 									data:yShaft,
+									label:isShow,//是否显示 数值
 									smooth: true
 							};
+
 							yShafts.push(yShaftJson);
 						}
 // 						console.log(yShafts);

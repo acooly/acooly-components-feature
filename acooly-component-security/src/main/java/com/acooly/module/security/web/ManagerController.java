@@ -94,12 +94,12 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
             boolean isOnline = (Lists.newArrayList(Apps.getEnvironment().getActiveProfiles()).contains(Env.online.name()));
             model.addAttribute("isOnline", isOnline);
 
-            if (Strings.equals(acoolyTheme, "adminlte")) {
+            if (Strings.equals(acoolyTheme, "easyui")) {
+                return "/manage/index_easyui";
+            } else {
                 // 新版直接返回菜单数据
                 model.addAttribute("menu", resourceService.getAuthorizedResourceNode(user.getId()));
                 return "/manage/index";
-            } else {
-                return "/manage/index_easyui";
             }
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。

@@ -33,6 +33,7 @@ import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.module.chart.entity.ChartItems;
 import com.acooly.module.chart.service.ChartItemsService;
 import com.acooly.module.chart.enums.TypeEnum;
+import com.acooly.module.chart.enums.ChartItemsIsShowEnum;
 import com.acooly.module.chart.enums.StatusEnum;
 
 import com.google.common.collect.Maps;
@@ -65,6 +66,7 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 	protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
 		model.put("allTypes", TypeEnum.mapping());
 		model.put("allStatuss", StatusEnum.mapping());
+		model.put("allChartItemsIsShows", ChartItemsIsShowEnum.mapping());
 	}
 
 	@Override
