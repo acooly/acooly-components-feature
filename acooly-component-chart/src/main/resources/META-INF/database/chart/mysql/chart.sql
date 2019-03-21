@@ -27,7 +27,7 @@ CREATE TABLE `c_chart` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='图表-主题';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='图表-主题';
 
 -- ----------------------------
 -- Records of c_chart
@@ -48,7 +48,7 @@ CREATE TABLE `c_chart_data` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='图表-数据项';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='图表-数据项';
 
 -- ----------------------------
 -- Records of c_chart_data
@@ -77,7 +77,7 @@ CREATE TABLE `c_chart_items` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='图表-图表选项';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='图表-图表选项';
 
 -- ----------------------------
 -- Records of c_chart_items
