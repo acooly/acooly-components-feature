@@ -230,6 +230,7 @@ public class ScheduleEngineImpl implements ScheduleEngine {
         }
     }
 
+    @Override
     public void validateRule(SchedulerRule rule) {
         Long taskId = rule.getId() == null ? -1 : rule.getId();
         String logPrefix = getLogPrefix(taskId);
