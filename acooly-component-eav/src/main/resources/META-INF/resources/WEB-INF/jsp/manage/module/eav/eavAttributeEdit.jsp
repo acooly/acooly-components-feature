@@ -1,7 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/jsp/manage/common/taglibs.jsp" %>
 <style>
-    .tableForm .checkInput { padding: 0; width: 27px; height: 18px; font-size: 1px; text-align: center; overflow: hidden;}
+    .tableForm .checkInput {
+        padding: 0;
+        width: 27px;
+        height: 18px;
+        font-size: 1px;
+        text-align: center;
+        overflow: hidden;
+    }
 </style>
 <div>
     <form id="manage_eavAttribute_editform"
@@ -14,7 +21,7 @@
                     <td colspan="3">
                         <c:if test="${eavScheme!=null}">
                             <input type="hidden" name="schemeId" value="${eavScheme.id}">
-                            <input type="hidden" name="schemeName" value="${eavScheme.name}" />
+                            <input type="hidden" name="schemeName" value="${eavScheme.name}"/>
                             ${eavScheme.name}/${eavScheme.title}
                         </c:if>
                         <c:if test="${eavScheme==null}">
@@ -92,10 +99,10 @@
                 <tbody id="manage_eavAttribute_editform_string_label" style="display: none">
                 <tr>
                     <th>最小长度：</th>
-                    <td><input type="text" name="minLength" size="20" placeholder="请输入最小长度..." style="width: 200px; line-height: 30px; height: 30px;"
+                    <td><input type="text" id="manage_eavAttribute_editform_minLength" name="minLength" size="20" placeholder="请输入最小长度..." style="width: 200px; line-height: 30px; height: 30px;"
                                class="easyui-numberbox text" data-options="validType:['length[1,10]']"/></td>
                     <th>最大长度：</th>
-                    <td><input type="text" name="maxLength" size="20" placeholder="请输入最大长度..." style="width: 200px;line-height: 30px; height: 30px;"
+                    <td><input type="text" id="manage_eavAttribute_editform_maxLength" name="maxLength" size="20" placeholder="请输入最大长度..." style="width: 200px;line-height: 30px; height: 30px;"
                                class="easyui-numberbox text" data-options="validType:['length[1,10]']"/></td>
                 </tr>
                 </tbody>
@@ -128,20 +135,19 @@
     <script>
 
 
-        function manage_eavAttribute_editform_beforeSubmit(){
-            $.each($("#manage_eavAttribute_editform .combo-text"),function(i,o){
-                if($(o).parent().prev().attr('comboname') == 'tag'){
+        function manage_eavAttribute_editform_beforeSubmit() {
+            $.each($("#manage_eavAttribute_editform .combo-text"), function (i, o) {
+                if ($(o).parent().prev().attr('comboname') == 'tag') {
                     var val = $(o).val();
-                    $('#manage_eavAttribute_editform_tag').combobox('setValue',val);
+                    $('#manage_eavAttribute_editform_tag').combobox('setValue', val);
                     // $('#manage_eavAttribute_editform :input[name=tag]').val(val);
-                    console.info("set tag value:",val);
+                    console.info("set tag value:", val);
                 }
             });
             return true;
         }
 
 
-        // todo: easyui根据表单名选择和值
         /**
          * 根据属性类型，动态显示需要填写的字段
          */
@@ -173,20 +179,34 @@
             })
         }
 
-        function initEavAttributeShowType(){
+        function initEavAttributeShowType() {
             var showType = "${eavAttribute.showType}";
-            if(showType == ''){
+            if (showType == '') {
                 return;
             }
             var perms = parseInt(showType);
-            $('#manage_eavAttribute_editform :input[name=showType]').each(function(index){
+            $('#manage_eavAttribute_editform :input[name=showType]').each(function (index) {
                 var v = parseInt($(this).val());
-                if((perms & v) == v){
-                    $(this).attr("checked","true");
-                }else{
+                if ((perms & v) == v) {
+                    $(this).attr("checked", "true");
+                } else {
                     $(this).removeAttr("checked");
                 }
             });
+        }
+
+        /**
+         * 初始化部分表单的默认值
+         */
+        function initEavAttributeDefaultValue() {
+            var minLength = $('#manage_eavAttribute_editform :input[name=minLength]').val();
+            if(!minLength){
+                $('#manage_eavAttribute_editform_minLength').numberbox('setValue', 0);
+            }
+            var minLength = $('#manage_eavAttribute_editform :input[name=maxLength]').val();
+            if(!minLength){
+                $('#manage_eavAttribute_editform_maxLength').numberbox('setValue', 128);
+            }
         }
 
         $(function () {
@@ -208,6 +228,7 @@
             initAttributeForm();
             // initSchemeAttribute();
             initEavAttributeShowType();
+            initEavAttributeDefaultValue();
         });
 
     </script>
