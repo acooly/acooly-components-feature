@@ -20,7 +20,7 @@ import com.acooly.core.utils.enums.Messageable;
  * @author CuiFuQ
  *
  */
-public enum WechatWebEnum implements Messageable {
+public enum WechatWebClientEnum implements Messageable {
 
 	/** 第二步：通过code换取网页授权access_token */
 	sns_oauth2_access_token("/sns/oauth2/access_token", "通过code换取网页授权access_token"),
@@ -45,7 +45,7 @@ public enum WechatWebEnum implements Messageable {
 	private final String code;
 	private final String message;
 
-	private WechatWebEnum(String code, String message) {
+	private WechatWebClientEnum(String code, String message) {
 		this.code = code;
 		this.message = message;
 	}
@@ -68,7 +68,7 @@ public enum WechatWebEnum implements Messageable {
 
 	public static Map<String, String> mapping() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		for (WechatWebEnum type : values()) {
+		for (WechatWebClientEnum type : values()) {
 			map.put(type.getCode(), type.getMessage());
 		}
 		return map;
@@ -81,8 +81,8 @@ public enum WechatWebEnum implements Messageable {
 	 * @return 枚举值码对应的枚举值。
 	 * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
 	 */
-	public static WechatWebEnum find(String code) {
-		for (WechatWebEnum status : values()) {
+	public static WechatWebClientEnum find(String code) {
+		for (WechatWebClientEnum status : values()) {
 			if (status.getCode().equals(code)) {
 				return status;
 			}
@@ -95,9 +95,9 @@ public enum WechatWebEnum implements Messageable {
 	 * 
 	 * @return 全部枚举值。
 	 */
-	public static List<WechatWebEnum> getAll() {
-		List<WechatWebEnum> list = new ArrayList<WechatWebEnum>();
-		for (WechatWebEnum status : values()) {
+	public static List<WechatWebClientEnum> getAll() {
+		List<WechatWebClientEnum> list = new ArrayList<WechatWebClientEnum>();
+		for (WechatWebClientEnum status : values()) {
 			list.add(status);
 		}
 		return list;
@@ -110,7 +110,7 @@ public enum WechatWebEnum implements Messageable {
 	 */
 	public static List<String> getAllCode() {
 		List<String> list = new ArrayList<String>();
-		for (WechatWebEnum status : values()) {
+		for (WechatWebClientEnum status : values()) {
 			list.add(status.code());
 		}
 		return list;

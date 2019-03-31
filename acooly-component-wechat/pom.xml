@@ -44,7 +44,10 @@
 			<artifactId>acooly-component-cache</artifactId>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.acooly</groupId>
+			<artifactId>acooly-component-ofile</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>

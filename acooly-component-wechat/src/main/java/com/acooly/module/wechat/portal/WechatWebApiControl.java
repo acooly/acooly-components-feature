@@ -97,7 +97,7 @@ public class WechatWebApiControl {
 	@ResponseBody
 	public void callback(HttpServletRequest request, HttpServletResponse response, Model model) {
 		try {
-			String token = wechatProperties.getServerToken();
+			String token = wechatProperties.getWebClient().getServerToken();
 			if (StringUtils.isBlank(token)) {
 				log.error("配置文件[acooly.wechat.serverToken]未设置,微信回调跳转验证失败");
 				return;
