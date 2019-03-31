@@ -22,15 +22,15 @@ import java.util.Map;
  */
 public enum AttributeTypeEnum implements Messageable {
 
+    STRING("STRING", "字符串"),
+
+    ENUM("ENUM", "枚举"),
+
     NUMBER_INTEGER("NUMBER_INTEGER", "整数"),
 
     NUMBER_DECIMAL("NUMBER_DECIMAL", "小数"),
 
     NUMBER_MONEY("NUMBER_MONEY", "金额"),
-
-    ENUM("ENUM", "枚举"),
-
-    STRING("STRING", "字符串"),
 
     DATE("DATE", "日期时间");
 
