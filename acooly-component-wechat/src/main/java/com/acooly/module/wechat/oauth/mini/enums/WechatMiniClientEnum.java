@@ -5,7 +5,7 @@
  * date:2018-10-10
  *
  */
-package com.acooly.module.wechat.oauth.client.enums;
+package com.acooly.module.wechat.oauth.mini.enums;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -20,32 +20,23 @@ import com.acooly.core.utils.enums.Messageable;
  * @author CuiFuQ
  *
  */
-public enum WechatWebEnum implements Messageable {
+public enum WechatMiniClientEnum implements Messageable {
 
-	/** 第二步：通过code换取网页授权access_token */
-	sns_oauth2_access_token("/sns/oauth2/access_token", "通过code换取网页授权access_token"),
-
-	/** 第三步：刷新access_token（如果需要） */
-	sns_oauth2_refresh_token("/sns/oauth2/refresh_token", "刷新access_token（如果需要）"),
-
-	/** 第四步：拉取用户基本信息(需scope为 snsapi_userinfo) */
-	sns_userinfo("/sns/userinfo", "拉取用户信息(需scope为 snsapi_userinfo)"),
+	/** 登录凭证校验 */
+	sns_jscode2session("/sns/jscode2session", "登录凭证校验"),
 
 	/** 获取access_token **/
 	cgi_bin_token("/cgi-bin/token", "获取access_token"),
 
-	/** 检验授权凭证（access_token）是否有效 */
-	sns_auth("/sns/auth", "检验授权凭证（access_token）是否有效"),
-
-	/** 通过OpenID来获取用户基本信息 */
-	cgi_bin_user_info("/cgi-bin/user/info", "获取用户基本信息（包括UnionID机制）"),
+	/** 获取小程序码 **/
+	wxa_getwxacodeunlimit("/wxa/getwxacodeunlimit", "获取小程序码（无限制数量）"),
 
 	;
 
 	private final String code;
 	private final String message;
 
-	private WechatWebEnum(String code, String message) {
+	private WechatMiniClientEnum(String code, String message) {
 		this.code = code;
 		this.message = message;
 	}
@@ -68,7 +59,7 @@ public enum WechatWebEnum implements Messageable {
 
 	public static Map<String, String> mapping() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		for (WechatWebEnum type : values()) {
+		for (WechatMiniClientEnum type : values()) {
 			map.put(type.getCode(), type.getMessage());
 		}
 		return map;
@@ -81,8 +72,8 @@ public enum WechatWebEnum implements Messageable {
 	 * @return 枚举值码对应的枚举值。
 	 * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
 	 */
-	public static WechatWebEnum find(String code) {
-		for (WechatWebEnum status : values()) {
+	public static WechatMiniClientEnum find(String code) {
+		for (WechatMiniClientEnum status : values()) {
 			if (status.getCode().equals(code)) {
 				return status;
 			}
@@ -95,9 +86,9 @@ public enum WechatWebEnum implements Messageable {
 	 * 
 	 * @return 全部枚举值。
 	 */
-	public static List<WechatWebEnum> getAll() {
-		List<WechatWebEnum> list = new ArrayList<WechatWebEnum>();
-		for (WechatWebEnum status : values()) {
+	public static List<WechatMiniClientEnum> getAll() {
+		List<WechatMiniClientEnum> list = new ArrayList<WechatMiniClientEnum>();
+		for (WechatMiniClientEnum status : values()) {
 			list.add(status);
 		}
 		return list;
@@ -110,7 +101,7 @@ public enum WechatWebEnum implements Messageable {
 	 */
 	public static List<String> getAllCode() {
 		List<String> list = new ArrayList<String>();
-		for (WechatWebEnum status : values()) {
+		for (WechatMiniClientEnum status : values()) {
 			list.add(status.code());
 		}
 		return list;

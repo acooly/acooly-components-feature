@@ -10,7 +10,7 @@
     if (!$.acooly) {
         $.acooly = {};
     }
-    $.extend($.acooly,{
+    $.extend($.acooly, {
         acooly: {
             selectedMenu: null,
             westTree: null,
@@ -450,7 +450,7 @@
                     'uploadLimit': 20,
                     'queueSizeLimit': 20,
                     // 'queueID': 'queue',
-                    'dnd' : true,
+                    'dnd': true,
                     'uploadScript': contextPath + options.url + "&k=v;jsessionid=" + options.jsessionid,
                     'formData': options.formData,
                     onUploadComplete: function (file, data) {
@@ -462,11 +462,11 @@
                         }
                         // $('#' + options.uploader).uploadify('cancel');
                     },
-                    onProgress   : function(file, e) {
+                    onProgress: function (file, e) {
                         if (e.lengthComputable) {
                             var percent = Math.round((e.loaded / e.total) * 100);
                             $('#' + options.messager).html("正在上传文件: [" + e.loaded / 1024 + "K/" + e.total / 1024 + "K]");
-                        }else {
+                        } else {
                             $('#' + options.messager).html("正在保存上传数据...");
                         }
                     },
@@ -488,17 +488,17 @@
                         var $data = $(this).data('uploadifive');
                         var settings = $data.settings;
                         if (errorType == 'QUEUE_LIMIT_EXCEEDED') {
-                            msg = "最多只能选择"+settings.uploadLimit+"个文件！";
+                            msg = "最多只能选择" + settings.uploadLimit + "个文件！";
                         } else if (errorType == "FILE_SIZE_LIMIT_EXCEEDED") {
-                            msg = "视频最大不允许超过:"+settings.fileSizeLimit/1024/1024+"MB！";
+                            msg = "视频最大不允许超过:" + settings.fileSizeLimit / 1024 / 1024 + "MB！";
                         }
                         $('#' + options.messager).html(msg);
                     }
                 }
 
-                var uploadfiveOptions = $.extend(uploadOptions,options);
+                var uploadfiveOptions = $.extend(uploadOptions, options);
 
-                if(!uploadfiveOptions.queueID){
+                if (!uploadfiveOptions.queueID) {
                     uploadfiveOptions.queueID = false;
                 }
 
@@ -901,8 +901,65 @@
                     url += ('&' + k + '=' + data[k]);
                 }
                 return url;
-            }
+            },
 
+            /**
+             * 根据变动名称获取表单对象
+             * @param form form表单的Id
+             * @param formItemName form表单下字段的name
+             */
+            getFormItem : function (form, formItemName) {
+                var itemObj;
+                var itemObj = $("#" + form + " input[name='" + formItemName + "']");
+                if (itemObj.length == 0) {
+                    itemObj = $("#" + form + " select[name='" + formItemName + "']");
+                }
+                if (itemObj.length == 0) {
+                    itemObj = $("#" + form + " textarea[name='" + formItemName + "']");
+                }
+
+                if (!itemObj.attr('class') && $(itemObj).prev().attr('class').indexOf("easyui-numberbox") >= 0) {
+                    itemObj = $(itemObj).prev();
+                }
+                if(itemObj.attr('class').indexOf("combo-value") >= 0 && $(itemObj).parent().prev().attr('class').indexOf("easyui-combobox") >= 0){
+                    itemObj = $(itemObj).parent().prev();
+                }
+                return itemObj;
+            },
+
+            getFromItemValue : function (form, formItemName) {
+                var itemObj = this.getFormItem(form, formItemName);
+                var itemClass = itemObj.attr('class');
+                var itemValue;
+                if (itemClass.indexOf("easyui-combobox") >= 0) {
+                    itemValue = $(itemObj).combobox("getValue");
+                } else if (itemClass.indexOf("easyui-numberbox") >= 0) {
+                    itemValue = $(itemObj).numberbox('getValue');
+                } else {
+                    itemValue = itemObj.val();
+                }
+                return itemValue;
+            },
+
+            setFormItemValue : function (form, formItemName, formItemValue) {
+                var itemObj = this.getFormItem(form, formItemName);
+                var itemClass = itemObj.attr('class');
+                var itemValue;
+                if (itemClass.indexOf("easyui-combobox") >= 0) {
+                    itemValue = $(itemObj).combobox("select", formItemValue);
+                } else if (itemClass.indexOf("easyui-numberbox") >= 0) {
+                    itemValue = $(itemObj).numberbox('setValue', formItemValue);
+                } else {
+                    itemValue = itemObj.val(formItemValue);
+                }
+            },
+
+            setFormItemDefaultValue : function (form, formItemName, formItemValue) {
+                var itemValue = this.getFromItemValue(form, formItemName);
+                if (!itemValue && itemValue == '') {
+                    this.setFormItemValue(form, formItemName, formItemValue);
+                }
+            }
 
         }
     });

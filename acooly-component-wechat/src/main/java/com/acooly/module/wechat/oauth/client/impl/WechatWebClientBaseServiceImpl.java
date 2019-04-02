@@ -18,7 +18,7 @@ import com.acooly.module.wechat.WechatProperties;
 import com.acooly.module.wechat.oauth.client.WechatWebClientBaseService;
 import com.acooly.module.wechat.oauth.client.dto.WechatOpenIdDto;
 import com.acooly.module.wechat.oauth.client.dto.WechatUserInfoDto;
-import com.acooly.module.wechat.oauth.client.enums.WechatWebEnum;
+import com.acooly.module.wechat.oauth.client.enums.WechatWebClientEnum;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.esotericsoftware.minlog.Log;
@@ -44,33 +44,33 @@ public class WechatWebClientBaseServiceImpl implements WechatWebClientBaseServic
 	@Autowired
 	private RedisTemplate redisTemplate;
 
-	private final String WECHAT_ACCESS_TOKEN = "wechat_access_token";
+	private final String WECHAT_ACCESS_TOKEN = "wechat_web_access_token";
 
 	@Override
 	public String wechatOauth(String redirectUri) {
 		StringBuffer wechatUrl = new StringBuffer();
 		try {
-			wechatUrl.append(wechatProperties.getOauthUrl());
+			wechatUrl.append(wechatProperties.getWebClient().getOauthUrl());
 			wechatUrl.append("?appid=");
-			wechatUrl.append(wechatProperties.getAppid());
+			wechatUrl.append(wechatProperties.getWebClient().getAppid());
 			wechatUrl.append("&redirect_uri=");
 			if (StringUtils.isNotBlank(redirectUri)) {
 				wechatUrl.append(redirectUri);
 			} else {
-				wechatUrl.append(URLEncoder.encode(wechatProperties.getRedirectUri(), "utf-8"));
+				wechatUrl.append(URLEncoder.encode(wechatProperties.getWebClient().getRedirectUri(), "utf-8"));
 			}
 			wechatUrl.append("&response_type=");
-			wechatUrl.append(wechatProperties.getResponseType());
+			wechatUrl.append(wechatProperties.getWebClient().getResponseType());
 			wechatUrl.append("&scope=");
-			wechatUrl.append(wechatProperties.getScope());
+			wechatUrl.append(wechatProperties.getWebClient().getScope());
 			wechatUrl.append("&state=");
-			wechatUrl.append(wechatProperties.getState());
+			wechatUrl.append(wechatProperties.getWebClient().getState());
 			wechatUrl.append("#wechat_redirect");
 		} catch (Exception e) {
 			Log.info("微信组件开关：已关闭");
-			return wechatProperties.getRedirectUri();
+			return wechatProperties.getWebClient().getRedirectUri();
 		}
-		log.info("访问微信授权地址:{}", wechatUrl);
+		log.info("访问微信公众号授权地址:{}", wechatUrl);
 		return wechatUrl.toString();
 	}
 
@@ -80,28 +80,28 @@ public class WechatWebClientBaseServiceImpl implements WechatWebClientBaseServic
 
 		// 重新获取 accessToken
 		if (StringUtils.isBlank(accessToken)) {
-			String openidUrl = wechatProperties.getApiUrl() + WechatWebEnum.cgi_bin_token.code();
+			String openidUrl = wechatProperties.getWebClient().getApiUrl() + WechatWebClientEnum.cgi_bin_token.code();
 			Map<String, Object> requestData = Maps.newTreeMap();
-			requestData.put("appid", wechatProperties.getAppid());
-			requestData.put("secret", wechatProperties.getSecret());
+			requestData.put("appid", wechatProperties.getWebClient().getAppid());
+			requestData.put("secret", wechatProperties.getWebClient().getSecret());
 			requestData.put("grant_type", "client_credential");
 
 			String requestUrl = HttpRequest.append(openidUrl, requestData);
 
-			log.info("微信[获取access_token],请求地址:{}", requestUrl);
+			log.info("微信公众号[获取access_token],请求地址:{}", requestUrl);
 			HttpRequest httpRequest = HttpRequest.get(requestUrl).acceptCharset(HttpRequest.CHARSET_UTF8);
 			httpRequest.trustAllCerts();
 			httpRequest.trustAllHosts();
 			int httpCode = httpRequest.code();
 			String resultBody = httpRequest.body(HttpRequest.CHARSET_UTF8);
-			log.info("微信[获取access_token],响应数据:{}", resultBody);
+			log.info("微信公众号[获取access_token],响应数据:{}", resultBody);
 
 			JSONObject bodyJson = JSON.parseObject(resultBody);
 			if (httpCode != 200) {
-				log.info("微信微信获取accessToken失败，" + bodyJson.get("errmsg"));
+				log.info("微信公众号获取accessToken失败，" + bodyJson.get("errmsg"));
 				throw new BusinessException(bodyJson.getString("errmsg"), bodyJson.getString("errcode"));
 			}
-			log.info("重新获取access_token数据{}", bodyJson);
+			log.info("公众号重新获取access_token数据{}", bodyJson);
 			accessToken = setRedisAccessToken(bodyJson);
 		}
 		return accessToken;
@@ -120,24 +120,24 @@ public class WechatWebClientBaseServiceImpl implements WechatWebClientBaseServic
 
 	@Override
 	public boolean accessTokenCheck(String openId) {
-		String openidUrl = wechatProperties.getApiUrl() + WechatWebEnum.sns_auth.code();
+		String openidUrl = wechatProperties.getWebClient().getApiUrl() + WechatWebClientEnum.sns_auth.code();
 		Map<String, Object> requestData = Maps.newTreeMap();
 		requestData.put("openid", openId);
 		requestData.put("access_token", getAccessToken());
 
 		String requestUrl = HttpRequest.append(openidUrl, requestData);
-		log.info("微信[检验授权凭证（access_token）是否过期],请求地址:{}", requestUrl);
+		log.info("微信公众号[检验授权凭证（access_token）是否过期],请求地址:{}", requestUrl);
 
 		HttpRequest httpRequest = HttpRequest.get(requestUrl).acceptCharset(HttpRequest.CHARSET_UTF8);
 		httpRequest.trustAllCerts();
 		httpRequest.trustAllHosts();
 		int httpCode = httpRequest.code();
 		String resultBody = httpRequest.body(HttpRequest.CHARSET_UTF8);
-		log.info("微信[检验授权凭证（access_token）是否过期],响应数据:{}", resultBody);
+		log.info("微信公众号[检验授权凭证（access_token）是否过期],响应数据:{}", resultBody);
 		JSONObject obj = JSON.parseObject(resultBody);
 
 		if (httpCode != 200) {
-			log.info("验证微信授权码网络异常errcode:{},errmsg:{}", obj.getString("errcode"), obj.getString("errmsg"));
+			log.info("验证微信公众号授权码网络异常errcode:{},errmsg:{}", obj.getString("errcode"), obj.getString("errmsg"));
 			return false;
 		}
 		if (obj.getInteger("errcode") != 0) {
@@ -149,23 +149,23 @@ public class WechatWebClientBaseServiceImpl implements WechatWebClientBaseServic
 
 	@Override
 	public WechatUserInfoDto getUserInfoByAccessToken(String openId, String accessToken) {
-		return getUserInfoBase(WechatWebEnum.sns_userinfo, openId, accessToken);
+		return getUserInfoBase(WechatWebClientEnum.sns_userinfo, openId, accessToken);
 	}
 
 	@Override
 	public WechatUserInfoDto getUserInfoByOpenId(String openId) {
-		return getUserInfoBase(WechatWebEnum.cgi_bin_user_info, openId, getAccessToken());
+		return getUserInfoBase(WechatWebClientEnum.cgi_bin_user_info, openId, getAccessToken());
 
 	}
 
-	private WechatUserInfoDto getUserInfoBase(WechatWebEnum WechatWebEnumCode, String openId, String accessToken) {
-		String openidUrl = wechatProperties.getApiUrl() + WechatWebEnumCode.code();
+	private WechatUserInfoDto getUserInfoBase(WechatWebClientEnum WechatWebEnumCode, String openId, String accessToken) {
+		String openidUrl = wechatProperties.getWebClient().getApiUrl() + WechatWebEnumCode.code();
 		Map<String, Object> requestData = Maps.newTreeMap();
 		requestData.put("openid", openId);
 		requestData.put("access_token", accessToken);
 		requestData.put("lang", "zh_CN");
 		String requestUrl = HttpRequest.append(openidUrl, requestData);
-		log.info("微信[获取微信用户信息],请求地址:{}", requestUrl);
+		log.info("微信公众号[获取微信用户信息],请求地址:{}", requestUrl);
 
 		HttpRequest httpRequest = HttpRequest.get(requestUrl).acceptCharset(HttpRequest.CHARSET_UTF8);
 		httpRequest.trustAllCerts();
@@ -174,16 +174,16 @@ public class WechatWebClientBaseServiceImpl implements WechatWebClientBaseServic
 		String httpResponse = httpRequest.body(HttpRequest.CHARSET_UTF8);
 
 		JSONObject bodyJson = JSON.parseObject(httpResponse);
-		log.info("微信[获取微信用户信息],响应数据:{}", httpResponse);
+		log.info("微信公众号[获取微信用户信息],响应数据:{}", httpResponse);
 
 		if (httpCode != 200) {
-			log.info("获取微信用户信息异常" + bodyJson);
+			log.info("获取微信公众号用户信息异常" + bodyJson);
 			throw new BusinessException(httpResponse);
 		}
 
 		String errMsg = bodyJson.getString("errmsg");
 		if (StringUtils.isNotBlank(errMsg)) {
-			log.error("获取微信用户信息失败：{}", bodyJson);
+			log.error("获取微信公众号用户信息失败：{}", bodyJson);
 			throw new BusinessException(bodyJson.getString("errmsg"), bodyJson.getString("errcode"));
 		}
 
@@ -200,13 +200,14 @@ public class WechatWebClientBaseServiceImpl implements WechatWebClientBaseServic
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 
-		log.info("微信页面跳转授权响应参数code:{},state:{}", code, state);
+		log.info("微信公众号页面跳转授权响应参数code:{},state:{}", code, state);
 
-		String openidUrl = wechatProperties.getApiUrl() + WechatWebEnum.sns_oauth2_access_token.code();
+		String openidUrl = wechatProperties.getWebClient().getApiUrl()
+				+ WechatWebClientEnum.sns_oauth2_access_token.code();
 
 		Map<String, Object> requestData = Maps.newTreeMap();
-		requestData.put("appid", wechatProperties.getAppid());
-		requestData.put("secret", wechatProperties.getSecret());
+		requestData.put("appid", wechatProperties.getWebClient().getAppid());
+		requestData.put("secret", wechatProperties.getWebClient().getSecret());
 		requestData.put("code", code);
 		requestData.put("grant_type", "authorization_code");
 
@@ -220,11 +221,11 @@ public class WechatWebClientBaseServiceImpl implements WechatWebClientBaseServic
 		JSONObject obj = JSON.parseObject(resultBody);
 
 		if (httpCode != 200) {
-			log.info("微信登录获取授权失败" + obj.get("errmsg"));
+			log.info("微信公众号登录获取授权失败" + obj.get("errmsg"));
 			throw new BusinessException(obj.getString("errmsg"), obj.getString("errcode"));
 		}
 		if (null != obj.get("errcode")) {
-			log.info("微信登录获取授权失败" + obj.get("errmsg"));
+			log.info("微信公众号登录获取授权失败" + obj.get("errmsg"));
 			throw new BusinessException(obj.getString("errmsg"), obj.getString("errcode"));
 		}
 
@@ -240,7 +241,7 @@ public class WechatWebClientBaseServiceImpl implements WechatWebClientBaseServic
 	 */
 	@SuppressWarnings("unchecked")
 	private String setRedisAccessToken(JSONObject obj) {
-		log.info("redis设置微信 access_token：{}", obj);
+		log.info("redis设置微信公众号 access_token：{}", obj);
 		String accessToken = obj.getString("access_token");
 		Long expiresIn = obj.getLong("expires_in");
 		redisTemplate.opsForValue().set(WECHAT_ACCESS_TOKEN, accessToken, (expiresIn - 900), TimeUnit.SECONDS);

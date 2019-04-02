@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 public interface SchedulerRuleDao extends EntityJpaDao<SchedulerRule, Long> {
 
@@ -22,4 +23,18 @@ public interface SchedulerRuleDao extends EntityJpaDao<SchedulerRule, Long> {
             nativeQuery = true
     )
     void updateExceptionAtLastExecute(@Param("lastExecute") String lastExecute, @Param("id") Long id);
+
+    /**
+     * 查询本地任务唯一
+     *
+     * @param actionType
+     * @param className
+     * @param methodName
+     * @return
+     */
+    List<SchedulerRule> findByActionTypeAndClassNameAndMethodName(String actionType, String className, String methodName);
+
+    List<SchedulerRule> findByActionTypeAndProperties(String actionType, String properties);
+
+    List<SchedulerRule> findByActionTypeAndDGroupAndDVersion(String actionType, String dGroup, String dVersion);
 }

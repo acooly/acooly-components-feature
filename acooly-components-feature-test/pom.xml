@@ -45,6 +45,12 @@
             <artifactId>acooly-component-security</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+                <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-wechat</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- openapi 用于其他组件内的api接口 -->
         <!--<dependency>-->

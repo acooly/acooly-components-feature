@@ -44,7 +44,7 @@ public class WechatWebClientServiceImpl implements WechatWebClientService {
 		try {
 			response.setContentType("text/html;charset=utf-8");
 			WechatOpenIdDto wechatOpenIdDto = wechatWebClientBaseService.getOpenId(request, response);
-			if (wechatProperties.getScope().equals("snsapi_base")) {
+			if (wechatProperties.getWebClient().getScope().equals("snsapi_base")) {
 				wechatUserInfo = new WechatUserInfoDto();
 				wechatUserInfo.setOpenId(wechatOpenIdDto.getOpenId());
 			} else {
