@@ -16,41 +16,53 @@
 
     <dependencies>
 
+        <!-- dlock start -->
         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-eav</artifactId>
+            <artifactId>acooly-component-distributedlock</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-dubbo</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-cache</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- dlock end -->
 
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-cms</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.acooly</groupId>-->
+            <!--<artifactId>acooly-component-cms</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-olog</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.acooly</groupId>-->
+            <!--<artifactId>acooly-component-olog</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-ofile</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.acooly</groupId>-->
+            <!--<artifactId>acooly-component-ofile</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-security</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        
-                <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-wechat</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.acooly</groupId>-->
+            <!--<artifactId>acooly-component-security</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+        <!---->
+        <!--<dependency>-->
+            <!--<groupId>com.acooly</groupId>-->
+            <!--<artifactId>acooly-component-wechat</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
 
         <!-- openapi 用于其他组件内的api接口 -->
         <!--<dependency>-->
