@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-dubbo</artifactId>
-            <scope>test</scope>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.acooly</groupId>
@@ -33,6 +33,13 @@
             <version>${project.version}</version>
         </dependency>
         <!-- dlock end -->
+
+        <!-- eav -->
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-eav</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!--<dependency>-->
             <!--<groupId>com.acooly</groupId>-->
@@ -52,11 +59,11 @@
             <!--<version>${project.version}</version>-->
         <!--</dependency>-->
 
-        <!--<dependency>-->
-            <!--<groupId>com.acooly</groupId>-->
-            <!--<artifactId>acooly-component-security</artifactId>-->
-            <!--<version>${project.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!---->
         <!--<dependency>-->
             <!--<groupId>com.acooly</groupId>-->
