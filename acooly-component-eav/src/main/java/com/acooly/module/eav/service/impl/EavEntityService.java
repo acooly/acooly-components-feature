@@ -104,7 +104,7 @@ public class EavEntityService {
      * @return
      */
     public EavEntity save(Long schemeId, Map parameters) {
-        Assert.notNull(schemeId,"方案编码不能为空");
+        Assert.notNull(schemeId, "方案编码不能为空");
         EavScheme eavScheme = eavSchemeEntityService.get(schemeId);
         String id = (String) parameters.get("id");
         parameters.remove("schemeId");
@@ -257,6 +257,9 @@ public class EavEntityService {
             }
             String attrName = attribute.getName();
             Object atrrValue = eavEntity.getValue().get(attrName);
+            if (atrrValue instanceof String && Strings.isBlank((String) atrrValue)) {
+                continue;
+            }
             dbMap.put(attrName, valueValidatorService.validate(attribute, atrrValue));
         }
         eavEntity.setValue(dbMap);
