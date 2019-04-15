@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.acooly.module.wechat.WechatProperties;
+import com.acooly.module.wechat.oauth.client.WechatWebClientBaseService;
 import com.acooly.module.wechat.oauth.service.WechatMiniService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,12 @@ public class WechatMiniApiControl {
 
 	@Autowired
 	private WechatMiniService wechatMiniService;
+
+	@Autowired
+	private WechatWebClientBaseService wechatWebClientBaseService;
+
+	@Autowired
+	private WechatProperties wechatProperties;
 
 	/**
 	 * 
@@ -34,9 +42,15 @@ public class WechatMiniApiControl {
 	 */
 	@RequestMapping("index")
 	public String index(HttpServletRequest request, HttpServletResponse response) {
-		String scene = null;
+
+//		wechatMiniService.loginAuthVerify("001g5Drr1VTwTk0KkTtr1Myjrr1g5Drb");
+
+		String scene = "hello";
 		String page = null;
-		wechatMiniService.getMiniProgramImgCode(scene, page);
-		return null;
+		String img = wechatMiniService.getMiniProgramImgCode(scene, page);
+
+//		wechatWebClientBaseService.getUserInfoByAccessToken("oa-6s1dIQwpJxe9IuKCyHXJQMDvU", wechatMiniService.getAccessToken());
+
+		return img;
 	}
 }

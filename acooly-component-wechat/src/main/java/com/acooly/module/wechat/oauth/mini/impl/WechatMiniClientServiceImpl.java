@@ -154,11 +154,12 @@ public class WechatMiniClientServiceImpl implements WechatMiniClientService {
 		requestData.put("access_token", accessToken);
 
 		String requestUrl = HttpRequest.append(openidUrl, requestData);
-		log.info("微信小程序[获取小程序码],请求地址:{}", requestUrl);
 
 		JSONObject paramJson = new JSONObject();
 		paramJson.put("scene", scene);
 		paramJson.put("page", page);
+
+		log.info("微信小程序[获取小程序码],请求地址:{},请求数据：{}", requestUrl, paramJson);
 
 		HttpRequest httpRequest = HttpRequest.post(requestUrl).acceptCharset(HttpRequest.CHARSET_UTF8)
 				.send(paramJson.toString());
@@ -175,6 +176,8 @@ public class WechatMiniClientServiceImpl implements WechatMiniClientService {
 
 		ByteArrayInputStream inputStream = null;
 		FileOutputStream outputStream = null;
+
+		log.info("微信小程序[获取小程序码],响应报文长度：{}", bodyByte.length);
 
 		try {
 			inputStream = new ByteArrayInputStream(bodyByte);
