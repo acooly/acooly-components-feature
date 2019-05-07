@@ -67,5 +67,6 @@
         <module>acooly-component-cms-openapi</module>
         <module>acooly-component-security</module>
         <module>acooly-component-wechat</module>
+        <module>acooly-component-data</module>
     </modules>
 </project>

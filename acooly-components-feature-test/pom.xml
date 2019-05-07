@@ -16,6 +16,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-data-region</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- dlock start -->
         <dependency>
             <groupId>com.acooly</groupId>
