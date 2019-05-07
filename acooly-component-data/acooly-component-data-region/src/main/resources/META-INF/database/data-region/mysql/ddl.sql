@@ -8,7 +8,7 @@ CREATE TABLE `data_region` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(128) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='省市区编码表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='省市区编码表';
 
 INSERT INTO `data_region` (`id`, `parent_id`, `name`, `pinyin`, `sort_time`, `create_time`, `update_time`, `comments`)
 VALUES
