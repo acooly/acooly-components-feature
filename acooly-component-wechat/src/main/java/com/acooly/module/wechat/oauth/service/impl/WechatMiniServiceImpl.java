@@ -23,4 +23,9 @@ public class WechatMiniServiceImpl implements WechatMiniService {
 		return wechatMiniClientService.getMiniProgramImgCode(scene, page);
 	}
 
+	@Override
+	public String getAccessToken() {
+		return wechatMiniClientService.getAccessToken();
+	}
+
 }
