@@ -35,7 +35,7 @@ public class DataRegionAutoConfig {
 
             @Override
             public List<String> getInitSqlFile() {
-                return Lists.newArrayList("ddl", "init");
+                return Lists.newArrayList("ddl");
             }
         };
     }

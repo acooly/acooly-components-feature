@@ -22,6 +22,6 @@ acooly-component-data-region组件是data组件的一个子组件，专用于提
 组件集成（pom依赖）后，自动开启应用。可以通过直接url访问获得树形结构的全国省市区数据。
 
 ```html
-/acooly/data/region/tree.js
+/acooly/data/region/tree
 ```
 
