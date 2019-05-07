@@ -5,6 +5,7 @@ import com.acooly.core.common.dao.support.SearchFilter;
 import com.acooly.core.common.type.DBMap;
 import com.acooly.module.eav.dao.EavEntityDynamicDao;
 import com.acooly.module.eav.entity.EavEntity;
+import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import io.jsonwebtoken.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -64,9 +66,10 @@ public class EavEntityDynamicDaoImpl extends AbstractJdbcTemplateDao implements 
         List<SearchFilter> searchFilters = SearchFilter.parse(parameters);
         for (SearchFilter searchFilter : searchFilters) {
             if (ENTITY_COMMON_ATTRS.contains(searchFilter.fieldName)) {
-                sql.append(" and ").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
+                sql.append(" and ").append(searchFilter.fieldName).append(operatorParse(searchFilter));
+            } else {
+                sql.append(" and value->'$.").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
             }
-            sql.append(" and value->'$.").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
         }
 
         // 排序
@@ -146,6 +149,23 @@ public class EavEntityDynamicDaoImpl extends AbstractJdbcTemplateDao implements 
                 break;
             case NOTNULL:
                 sb.append(" is not null ");
+                break;
+            case IN:
+                if (Collection.class.isAssignableFrom(value.getClass())) {
+                    Collection c = (Collection) value;
+                    Object first = c.iterator().next();
+                    if(first == null){
+                        break;
+                    }
+                    if(first instanceof String || first instanceof Date){
+                        sb.append(" in ('" + Joiner.on("','").skipNulls().join(c.iterator()) + "')");
+                    }else{
+                        sb.append(" in (" + Joiner.on(",").skipNulls().join(c.iterator()) + ")");
+                    }
+
+                } else {
+                    sb.append(" in (" + value + ")");
+                }
                 break;
         }
         return sb.toString();
