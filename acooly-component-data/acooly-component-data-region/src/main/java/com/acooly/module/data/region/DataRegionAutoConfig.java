@@ -21,7 +21,7 @@ import java.util.List;
 public class DataRegionAutoConfig {
 
     @Bean
-    public StandardDatabaseScriptIniter appConfigScriptIniter() {
+    public StandardDatabaseScriptIniter dataRegionConfigScriptIniter() {
         return new StandardDatabaseScriptIniter() {
             @Override
             public String getEvaluateTable() {
