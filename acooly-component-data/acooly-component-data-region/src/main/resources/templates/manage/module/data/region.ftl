@@ -15,7 +15,7 @@ $(function() {
 					父ID: <input type="text" class="text" size="15" name="search_EQ_pid"/>
 					区域名称: <input type="text" class="text" size="15" name="search_LIKE_name"/>
 					<a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:false" onclick="$.acooly.framework.search('manage_region_searchform','manage_region_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i>查询</a>
-          	</div>
+            </div>
           </td>
         </tr>
       </table>
@@ -48,14 +48,9 @@ $(function() {
 
     <!-- 表格的工具栏 -->
     <div id="manage_region_toolbar">
-      <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/eav/region/create.html',entity:'region',width:500,height:500})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
-      <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/module/eav/region/deleteJson.html','manage_region_datagrid')"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a>
-      <a href="#" class="easyui-menubutton" data-options="menu:'#manage_region_exports_menu'"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>批量导出</a>
-      <div id="manage_region_exports_menu" style="width:150px;">
-        <div onclick="$.acooly.framework.exports('/manage/module/eav/region/exportXls.html','manage_region_searchform','省市区编码表')"><i class="fa fa-file-excel-o fa-lg fa-fw fa-col"></i>Excel</div>
-        <div onclick="$.acooly.framework.exports('/manage/module/eav/region/exportCsv.html','manage_region_searchform','省市区编码表')"><i class="fa fa-file-text-o fa-lg fa-fw fa-col"></i>CSV</div>
-      </div>
-      <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.imports({url:'/manage/module/eav/region/importView.html',uploader:'manage_region_import_uploader_file'});"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i>批量导入</a>
+      <#--<a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/eav/region/create.html',entity:'region',width:500,height:500})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>-->
+      <#--<a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/module/eav/region/deleteJson.html','manage_region_datagrid')"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a>-->
+      <a href="#" title="客户端全数据缓存JSON树形结构" class="easyui-linkbutton" plain="true" onclick="window.open('/acooly/data/region/tree.html');"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>下载JSON树全数据</a>
     </div>
   </div>
 
