@@ -31,7 +31,7 @@ public class RegionManagerController extends AbstractJQueryEntityController<Regi
 
 
     {
-        allowMapping = "";
+        allowMapping = "*";
     }
 
     @Autowired
