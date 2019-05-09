@@ -1,4 +1,4 @@
-<!-- title: 数据组件-全国区域 -->
+<!-- title: 全国区域组件 -->
 <!-- type: app -->
 <!-- author: zhangpu -->
 
