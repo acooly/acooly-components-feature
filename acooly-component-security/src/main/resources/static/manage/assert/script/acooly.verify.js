@@ -55,6 +55,14 @@ var acooly_verify = {
         return /^-?(([1-9]\d{0,9})|0)(\.\d{1,2})?$/.test(value);
     },
 
+    number: function (value) {
+        return /^[0-9]*$/.test(value);
+    },
+
+    decimal: function (value) {
+        return /^(-?\d+)(\.\d+)?$/.test(value);
+    },
+
     password_security_level: {
         higRegex: "^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$",
         midRegex: "^(?=.{8,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$",
