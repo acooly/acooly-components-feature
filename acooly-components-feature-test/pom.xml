@@ -18,6 +18,12 @@
 
         <dependency>
             <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-app</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.acooly</groupId>
             <artifactId>acooly-component-data-region</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -48,21 +54,21 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>com.acooly</groupId>-->
-            <!--<artifactId>acooly-component-cms</artifactId>-->
-            <!--<version>${project.version}</version>-->
+        <!--<groupId>com.acooly</groupId>-->
+        <!--<artifactId>acooly-component-cms</artifactId>-->
+        <!--<version>${project.version}</version>-->
         <!--</dependency>-->
 
         <!--<dependency>-->
-            <!--<groupId>com.acooly</groupId>-->
-            <!--<artifactId>acooly-component-olog</artifactId>-->
-            <!--<version>${project.version}</version>-->
+        <!--<groupId>com.acooly</groupId>-->
+        <!--<artifactId>acooly-component-olog</artifactId>-->
+        <!--<version>${project.version}</version>-->
         <!--</dependency>-->
 
         <!--<dependency>-->
-            <!--<groupId>com.acooly</groupId>-->
-            <!--<artifactId>acooly-component-ofile</artifactId>-->
-            <!--<version>${project.version}</version>-->
+        <!--<groupId>com.acooly</groupId>-->
+        <!--<artifactId>acooly-component-ofile</artifactId>-->
+        <!--<version>${project.version}</version>-->
         <!--</dependency>-->
 
         <dependency>
@@ -72,22 +78,22 @@
         </dependency>
         <!---->
         <!--<dependency>-->
-            <!--<groupId>com.acooly</groupId>-->
-            <!--<artifactId>acooly-component-wechat</artifactId>-->
-            <!--<version>${project.version}</version>-->
+        <!--<groupId>com.acooly</groupId>-->
+        <!--<artifactId>acooly-component-wechat</artifactId>-->
+        <!--<version>${project.version}</version>-->
         <!--</dependency>-->
 
         <!-- openapi 用于其他组件内的api接口 -->
-        <!--<dependency>-->
-            <!--<groupId>com.acooly</groupId>-->
-            <!--<artifactId>openapi-framework-core</artifactId>-->
-            <!--<version>4.2.1-SNAPSHOT</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.acooly</groupId>-->
-            <!--<artifactId>openapi-framework-apidoc</artifactId>-->
-            <!--<version>4.2.1-SNAPSHOT</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>openapi-framework-core</artifactId>
+            <version>${openapi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>openapi-framework-apidoc</artifactId>
+            <version>${openapi.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.acooly</groupId>

@@ -74,6 +74,7 @@ public abstract class AppAbstractManageController<T extends Entityable, M extend
         String filePath = uploadResult.getFile().getPath();
         filePath = Strings.replace(filePath, "\\", "/");
         String rootPath = new File(oFileProperties.getStorageRoot()).getPath();
+        rootPath = Strings.replace(rootPath, "\\", "/");
         String relativePath = StringUtils.substringAfter(filePath, rootPath);
         if (!Strings.startsWith(relativePath, "/")) {
             relativePath = "/" + relativePath;

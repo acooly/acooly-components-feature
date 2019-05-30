@@ -11,6 +11,9 @@
     <name>acooly-components-feature</name>
     <packaging>pom</packaging>
 
+    <properties>
+        <openapi.version>4.2.1-SNAPSHOT</openapi.version>
+    </properties>
 
     <dependencies>
         <dependency>
