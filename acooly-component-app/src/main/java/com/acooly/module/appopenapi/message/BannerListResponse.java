@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 public class BannerListResponse extends ApiResponse {
 
-    @OpenApiField(desc = "媒体列表")
+    @OpenApiField(desc = "媒体列表", ordinal = 1)
     private List<MediaInfo> banners = Lists.newArrayList();
 
     public void append(MediaInfo dto) {

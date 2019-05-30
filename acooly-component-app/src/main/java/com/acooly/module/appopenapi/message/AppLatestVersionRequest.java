@@ -17,10 +17,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Setter
 public class AppLatestVersionRequest extends ApiRequest {
 
-    @OpenApiField(desc = "APP编码", constraint = "APP唯一标志,默认为:woldd")
+    @OpenApiField(desc = "APP编码", constraint = "APP唯一标志,默认为:woldd", demo = "woldd", ordinal = 1)
     private String appCode = "woldd";
 
     @NotEmpty
-    @OpenApiField(desc = "设备类型", constraint = "可选值:android和iphone")
+    @OpenApiField(desc = "设备类型", constraint = "可选值:android和iphone", demo = "android", ordinal = 2)
     private String deviceType;
 }

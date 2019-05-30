@@ -6,9 +6,12 @@ package com.acooly.module.appopenapi.service;
 import com.acooly.core.utils.mapper.BeanMapper;
 import com.acooly.module.app.domain.AppCrash;
 import com.acooly.module.app.service.AppCrashService;
+import com.acooly.module.appopenapi.AppApiDocType;
 import com.acooly.module.appopenapi.enums.ApiOwners;
 import com.acooly.module.appopenapi.message.AppCrashReportRequest;
 import com.acooly.module.appopenapi.message.AppCrashReportResponse;
+import com.acooly.openapi.framework.common.annotation.ApiDocNote;
+import com.acooly.openapi.framework.common.annotation.ApiDocType;
 import com.acooly.openapi.framework.common.annotation.OpenApiService;
 import com.acooly.openapi.framework.common.enums.ApiServiceResultCode;
 import com.acooly.openapi.framework.common.enums.ResponseType;
@@ -25,6 +28,8 @@ import java.util.Date;
  * @author zhangpu
  * @date 2015年9月11日
  */
+@ApiDocType(code = AppApiDocType.CODE, name = AppApiDocType.NAME)
+@ApiDocNote("提供App客户端出现程序奔溃时，上传对应的错误和堆栈信息，以便于诊断问题")
 @OpenApiService(
         name = "appCrashReport",
         desc = "崩溃上报",
