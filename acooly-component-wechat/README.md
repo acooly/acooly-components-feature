@@ -69,7 +69,7 @@ maven坐标：
 * 1.微信公众号快速对接授权
 * 2.支持接口请求access_token 缓存
 * 3.支持校验用户是否关注微信公众号判断
-* 4.支持获取授权用户用户基本信息（已经关注了公众号，并且已经授权；未关注了公众号，已经授权过）
+* 4.支持获取授权用户用户基本信息（已经关注了公众号，并且已经授权；未关注公众号，已经授权过）
 
 
 
@@ -122,7 +122,7 @@ acooly.wechat.miniClient.secret=xxxxxxxxxxxxxxxxxx
  * 参考 com.acooly.module.wechat.oauth.service.WechatClientService
  
 	/**
-	 * 非用户授权 access_token
+	 * 用户授权 access_token
 	 * 
 	 * access_token是公众号的全局唯一接口调用凭据； 公众号调用各接口时都需使用access_token
 	 * 

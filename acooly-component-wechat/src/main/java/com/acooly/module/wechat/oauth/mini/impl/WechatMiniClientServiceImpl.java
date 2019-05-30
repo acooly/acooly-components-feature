@@ -179,6 +179,14 @@ public class WechatMiniClientServiceImpl implements WechatMiniClientService {
 
 		log.info("微信小程序[获取小程序码],响应报文长度：{}", bodyByte.length);
 
+		if (bodyByte.length < 1000) {
+			String bodyStr = new String(bodyByte);
+			log.info("微信小程序[获取小程序码],响应报文：{}", bodyStr);
+			log.info("微信小程序[获取小程序码],删除redis key:{}", WECHAT_MINI_ACCESS_TOKEN);
+			redisTemplate.delete(WECHAT_MINI_ACCESS_TOKEN);
+			throw new BusinessException("获取小程序码,失败：{}", bodyStr);
+		}
+
 		try {
 			inputStream = new ByteArrayInputStream(bodyByte);
 

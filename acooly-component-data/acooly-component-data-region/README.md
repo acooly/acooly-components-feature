@@ -1,4 +1,4 @@
-<!-- title: 动态表单组件 -->
+<!-- title: 全国区域组件 -->
 <!-- type: app -->
 <!-- author: zhangpu -->
 
