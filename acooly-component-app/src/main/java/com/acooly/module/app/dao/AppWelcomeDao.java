@@ -15,4 +15,9 @@ public interface AppWelcomeDao extends EntityJpaDao<AppWelcome, Long> {
 
     @Query(value = "select * from app_welcome order by id desc limit 0,1", nativeQuery = true)
     AppWelcome getLatestOne();
+
+    @Query(value = "select * from app_welcome where sort_order >= ?1 and id <> ?2 limit 1", nativeQuery = true)
+    AppWelcome findBeforeOne(Long sortTime, Long id);
+
+
 }
