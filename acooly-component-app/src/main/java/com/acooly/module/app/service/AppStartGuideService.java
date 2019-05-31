@@ -14,4 +14,16 @@ import java.util.List;
  */
 public interface AppStartGuideService extends EntityService<AppStartGuide> {
     List<AppStartGuide> loadValidGuides();
+
+    /**
+     * 置顶
+     * @param id
+     */
+    void moveTop(Long id);
+
+    /**
+     * 上移
+     * @param id
+     */
+    void moveUp(Long id);
 }

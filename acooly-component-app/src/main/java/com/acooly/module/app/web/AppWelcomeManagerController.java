@@ -1,13 +1,17 @@
 package com.acooly.module.app.web;
 
+import com.acooly.core.common.dao.support.PageInfo;
+import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.module.app.domain.AppWelcome;
 import com.acooly.module.app.enums.EntityStatus;
 import com.acooly.module.app.service.AppWelcomeService;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,6 +61,7 @@ public class AppWelcomeManagerController
         }
         String comments = convertCharSet(request, "comments");
         entity.setComments(comments);
+        entity.setSortOrder(System.currentTimeMillis());
         return entity;
     }
 
@@ -94,6 +99,58 @@ public class AppWelcomeManagerController
             }
         } catch (Exception e) {
         }
+    }
+
+    /**
+     * 解决方案置顶
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "moveTop")
+    @ResponseBody
+    public JsonResult moveTop(HttpServletRequest request, HttpServletResponse response) {
+
+        JsonResult result = new JsonResult();
+        try {
+            String id = request.getParameter("id");
+            this.getEntityService().moveTop(Long.valueOf(id));
+            result.setMessage("置底成功");
+        } catch (Exception e) {
+            handleException(result, "置底", e);
+        }
+        return result;
+    }
+
+    /**
+     * 上移解决方案
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "moveUp")
+    @ResponseBody
+    public JsonResult moveUp(HttpServletRequest request, HttpServletResponse response) {
+
+        JsonResult result = new JsonResult();
+        try {
+            String id = request.getParameter("id");
+            this.getEntityService().moveUp(Long.valueOf(id));
+            result.setMessage("下移成功");
+        } catch (Exception e) {
+            handleException(result, "下移", e);
+        }
+        return result;
+    }
+
+    @Override
+    protected PageInfo<AppWelcome> doList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, Boolean> sortMap = Maps.newHashMap();
+        sortMap.put("sortOrder", false);
+        return getEntityService()
+                .query(getPageInfo(request), getSearchParams(request), sortMap);
     }
 
     @Override
