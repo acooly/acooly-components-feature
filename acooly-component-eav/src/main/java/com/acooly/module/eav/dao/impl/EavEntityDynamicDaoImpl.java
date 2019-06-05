@@ -68,7 +68,7 @@ public class EavEntityDynamicDaoImpl extends AbstractJdbcTemplateDao implements 
             if (ENTITY_COMMON_ATTRS.contains(searchFilter.fieldName)) {
                 sql.append(" and ").append(searchFilter.fieldName).append(operatorParse(searchFilter));
             } else {
-                sql.append(" and value->'$.").append(searchFilter.fieldName).append("'").append(operatorParse(searchFilter));
+                sql.append(" and value->'$.\"").append(searchFilter.fieldName).append("\"'").append(operatorParse(searchFilter));
             }
         }
 

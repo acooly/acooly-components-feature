@@ -9,7 +9,8 @@ CREATE TABLE `eav_option` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `memo` varchar(255) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 INSERT INTO `eav_option` (`id`, `parent_id`, `path`, `code`, `name`, `sort_time`, `status`, `create_time`, `update_time`, `memo`)
