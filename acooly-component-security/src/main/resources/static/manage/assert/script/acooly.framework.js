@@ -318,8 +318,8 @@
                             row: result.entity
                         });
                     } else {
-                        $('#' + datagrid).treegrid('updateRow', {
-                            index: $('#' + datagrid).treegrid('getRowIndex', result.entity.id),
+                        $('#' + datagrid).datagrid('updateRow', {
+                            index: $('#' + datagrid).datagrid('getRowIndex', result.entity.id),
                             row: result.entity
                         });
                     }
