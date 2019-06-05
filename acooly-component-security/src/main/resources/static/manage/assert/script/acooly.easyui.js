@@ -131,6 +131,13 @@ $.extend($.fn.validatebox.defaults.rules, {
 // ******** 常用 formatter 定义 **************//
 
 /**
+ * id formatter
+ */
+var idFormatter = function (value, row) {
+    return row.id;
+}
+
+/**
  * 金额元formatter
  */
 var moneyFormatter = function (value) {
