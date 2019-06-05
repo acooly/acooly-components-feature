@@ -6,6 +6,7 @@
  */
 package com.acooly.module.eav.web;
 
+import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonResult;
@@ -17,6 +18,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +49,15 @@ public class EavOptionManagerController extends AbstractJQueryEntityController<E
     @SuppressWarnings("unused")
     @Autowired
     private EavOptionService eavOptionService;
+
+    @Override
+    protected EavOption doSave(HttpServletRequest request, HttpServletResponse response, Model model, boolean isCreate) throws Exception {
+        try {
+            return super.doSave(request, response, model, isCreate);
+        } catch (DuplicateKeyException e) {
+            throw new BusinessException("选项编码不能重复", false);
+        }
+    }
 
     /**
      * 查询顶层
