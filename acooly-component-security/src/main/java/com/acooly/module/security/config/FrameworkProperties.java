@@ -54,7 +54,7 @@ public class FrameworkProperties implements Serializable {
     private boolean conflict = false;
     
     /**
-     * 是否开启验证手机号唯一性验证，邮箱（true:必须唯一，false:可以不唯一）
+     * 是否开启验证手机号唯一性验证，手机号（true:必须唯一，false:可以不唯一）
      */
     private boolean onlyMobile = true;
     
