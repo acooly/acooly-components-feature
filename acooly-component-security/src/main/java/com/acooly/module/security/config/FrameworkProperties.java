@@ -52,6 +52,17 @@ public class FrameworkProperties implements Serializable {
      * 是否开启同名用户登录互斥 开关 [未实现]
      */
     private boolean conflict = false;
+    
+    /**
+     * 是否开启验证手机号唯一性验证，邮箱（true:必须唯一，false:可以不唯一）
+     */
+    private boolean onlyMobile = true;
+    
+    /**
+     * 是否开启验证邮箱唯一性验证，邮箱（true:必须唯一，false:可以不唯一）
+     */
+    private boolean onlyEmail = true;
+    
     /**
      * 是否开启密码过期处理 开关
      */
