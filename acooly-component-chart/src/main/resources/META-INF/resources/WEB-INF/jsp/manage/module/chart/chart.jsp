@@ -180,8 +180,8 @@ function manage_chartData_create(itemsId) {
             <!-- tab1 -->
 
             <div title="图表" style="margin-left: 0px;">
-                <table id="manage_chartItems_datagrid" class="easyui-datagrid" url="${pageContext.request.contextPath}/manage/module/chart/chartItems/listJson.html" toolbar="#manage_chartItems_toolbar" fit="true" border="false" fitColumns="false"
-                       pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc" checkOnSelect="true" selectOnCheck="true" singleSelect="true">
+                <table id="manage_chartItems_datagrid" class="easyui-datagrid" toolbar="#manage_chartItems_toolbar" fit="true" border="false" fitColumns="false"
+                       idField="id"  sortName="id" sortOrder="desc" checkOnSelect="true" selectOnCheck="true" singleSelect="true">
                     <thead>
                     <tr>
                         <th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
