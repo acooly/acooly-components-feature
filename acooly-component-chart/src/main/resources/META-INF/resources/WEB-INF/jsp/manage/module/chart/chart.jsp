@@ -163,13 +163,13 @@ function manage_chartData_create(itemsId) {
     <!-- 表格的工具栏 -->
     <div id="manage_chart_toolbar">
       <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/chart/chart/create.html',entity:'chart',width:500,height:400})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
-      <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/module/chart/chart/deleteJson.html','manage_chart_datagrid')"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a>
-      <a href="#" class="easyui-menubutton" data-options="menu:'#manage_chart_exports_menu'"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>批量导出</a>
-      <div id="manage_chart_exports_menu" style="width:150px;">
-        <div onclick="$.acooly.framework.exports('/manage/module/chart/chart/exportXls.html','manage_chart_searchform','图表-主题')"><i class="fa fa-file-excel-o fa-lg fa-fw fa-col"></i>Excel</div>
-        <div onclick="$.acooly.framework.exports('/manage/module/chart/chart/exportCsv.html','manage_chart_searchform','图表-主题')"><i class="fa fa-file-text-o fa-lg fa-fw fa-col"></i>CSV</div>
-      </div>
-      <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.imports({url:'/manage/module/chart/chart/importView.html',uploader:'manage_chart_import_uploader_file'});"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i>批量导入</a>
+<!--       <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/module/chart/chart/deleteJson.html','manage_chart_datagrid')"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a> -->
+<!--       <a href="#" class="easyui-menubutton" data-options="menu:'#manage_chart_exports_menu'"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>批量导出</a> -->
+<!--       <div id="manage_chart_exports_menu" style="width:150px;"> -->
+<!--         <div onclick="$.acooly.framework.exports('/manage/module/chart/chart/exportXls.html','manage_chart_searchform','图表-主题')"><i class="fa fa-file-excel-o fa-lg fa-fw fa-col"></i>Excel</div> -->
+<!--         <div onclick="$.acooly.framework.exports('/manage/module/chart/chart/exportCsv.html','manage_chart_searchform','图表-主题')"><i class="fa fa-file-text-o fa-lg fa-fw fa-col"></i>CSV</div> -->
+<!--       </div> -->
+<!--       <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.imports({url:'/manage/module/chart/chart/importView.html',uploader:'manage_chart_import_uploader_file'});"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i>批量导入</a> -->
     </div>
   </div>
 
