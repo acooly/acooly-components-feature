@@ -80,15 +80,15 @@ public class OrgManagerController extends AbstractJQueryEntityController<Org, Or
     @RequestMapping(value = "listOrganize")
     @ResponseBody
     public String getListOrganize(HttpServletRequest request, HttpServletResponse response) {
+    	String orgName=request.getParameter("orgName");
         String organizesJson = "";
         try {
             Long orgId = Long.valueOf(0);
             if (getSessionUser().getUserType() != 1) {
                 orgId = ShiroUtils.getCurrentUser().getOrgId();
             }
-            List<Org> organizes = orgService.getTreeList(orgId);
+            List<Org> organizes = orgService.getTreeListLikeName(orgId,orgName);
             organizesJson = JsonMapper.nonEmptyMapper().toJson(organizes);
-
         } catch (Exception e) {
             handleException(new JsonResult(), "机构管理提供机构树查列表", e);
         }

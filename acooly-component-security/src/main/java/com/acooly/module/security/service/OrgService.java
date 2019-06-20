@@ -20,9 +20,11 @@ import java.util.Map;
  */
 public interface OrgService extends EntityService<Org> {
 
-    Map<Long, Object> getOrganizeInfo(long parentId);
+	Map<Long, Object> getOrganizeInfo(long parentId);
 
-    List<Org> getTreeList(Long orgId);
+	List<Org> getTreeList(Long orgId);
 
-    boolean checkOrgValid(Long orgId);
+	List<Org> getTreeListLikeName(Long orgId, String name);
+
+	boolean checkOrgValid(Long orgId);
 }
