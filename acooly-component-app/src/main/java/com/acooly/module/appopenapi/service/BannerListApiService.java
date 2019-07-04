@@ -4,11 +4,14 @@ import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
 import com.acooly.module.app.domain.AppBanner;
 import com.acooly.module.app.service.AppBannerService;
+import com.acooly.module.appopenapi.AppApiDocType;
 import com.acooly.module.appopenapi.dto.MediaInfo;
 import com.acooly.module.appopenapi.enums.ApiOwners;
 import com.acooly.module.appopenapi.message.BannerListRequest;
 import com.acooly.module.appopenapi.message.BannerListResponse;
 import com.acooly.module.ofile.OFileProperties;
+import com.acooly.openapi.framework.common.annotation.ApiDocNote;
+import com.acooly.openapi.framework.common.annotation.ApiDocType;
 import com.acooly.openapi.framework.common.annotation.OpenApiService;
 import com.acooly.openapi.framework.common.enums.ApiBusiType;
 import com.acooly.openapi.framework.common.enums.ResponseType;
@@ -25,6 +28,8 @@ import java.util.Map;
  *
  * @author zhangpu
  */
+@ApiDocType(code = AppApiDocType.CODE, name = AppApiDocType.NAME)
+@ApiDocNote("App端的横幅广告专用查询接口。该接口返回在后台管理的App的banner列表，返回的列表中的图片URL为全路径URL，可直接访问")
 @OpenApiService(
         name = "bannerList",
         desc = "横幅广告",

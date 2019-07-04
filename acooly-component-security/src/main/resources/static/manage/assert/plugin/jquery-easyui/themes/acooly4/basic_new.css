@@ -279,21 +279,6 @@ a.button span img {
 }
 
 
-.tableForm {
-    background-color: white;
-    width: 100%;
-}
-
-.tableForm th {
-    text-align: right;
-    padding: 10px 0;
-    font-weight: normal;
-}
-
-.tableForm td {
-    text-align: left;
-    padding-left: 5px;
-}
 
 
 .combo input[type='text'] {
@@ -320,14 +305,31 @@ a.button span img {
 }
 
 
-.tableForm .select {
+.tableForm .select .editForm .select {
     height: 33px;
     min-width: 80px;
 }
 
 
-.tableForm .combo {
+.tableForm .combo .editForm .combo{
     margin-top: -2px;
+}
+
+
+.tableForm,.editForm {
+    background-color: white;
+    width: 100%;
+}
+
+.tableForm th,.editForm th {
+    text-align: right;
+    padding: 10px 0;
+    font-weight: normal;
+}
+
+.tableForm td,.editForm td {
+    text-align: left;
+    padding-left: 5px;
 }
 
 /*

@@ -23,6 +23,20 @@
         required: true
     })
     $('#orgEdit').combotree('setValue', '${user.orgId}');
+    
+    
+    //检索
+    function searchOrgName(){
+    	var orgName=$('#orgEdit').combobox('getText');
+	    $('#orgEdit').combotree({
+	        url: '${pageContext.request.contextPath}/manage/module/security/org/listOrganize.html?orgName='+orgName,
+	        required: true
+	    })
+	    $('#orgEdit').combobox('clear');
+        $('#orgEdit').combobox('showPanel');
+    }
+    
+    
 </script>
 
 <div align="center">
@@ -98,8 +112,9 @@
                 </tr>
                 <tr>
                     <th>所属机构</th>
-                    <td><input type="text" editable="false" name="orgId" id="orgEdit" style="height: 30px;"
-                               class="easyui-combobox"/></td>
+                    <td><input type="text" editable="true" name="orgId" id="orgEdit" style="width: 200px; height: 30px;" class="easyui-combobox"/> 
+						<a href="javascript:void(0);" style="width:70px;" class="easyui-linkbutton" data-options="plain:false" onclick="searchOrgName()"><i class="fa fa-search fa-lg fa-fw fa-col"></i>检索</a>                                 
+                    </td>
                 </tr>
                 <tr>
                     <th>备注</th>

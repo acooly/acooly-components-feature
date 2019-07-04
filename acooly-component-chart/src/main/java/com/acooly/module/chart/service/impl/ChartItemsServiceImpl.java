@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
 import com.acooly.module.chart.service.ChartItemsService;
 import com.acooly.module.chart.dao.ChartItemsDao;
@@ -33,33 +34,42 @@ import com.acooly.module.chart.enums.StatusEnum;
 @Service("chartItemsService")
 public class ChartItemsServiceImpl extends EntityServiceImpl<ChartItems, ChartItemsDao> implements ChartItemsService {
 
-    @Autowired
-    private ChartDataService chartDataService;
+	@Autowired
+	private ChartDataService chartDataService;
 
-    @Override
-    @Transactional(rollbackFor=Exception.class)
-    public void saveOrUpdateChartItemsAndChartData(ChartItems entity,Boolean isSave){
-        if (isSave){
-            entity.setOrderTime(new Date());
-            this.getEntityDao().create(entity);
-            ChartData chartData = new ChartData();
-            chartData.setSqlData(entity.getSqlData());
-            chartData.setFieldMapped(entity.getFieldMapped());
-            chartData.setItemsId(entity.getId());
-            chartData.setChartId(entity.getChartId());
-            chartData.setItemsId(entity.getId());
-            chartDataService.save(chartData);
-        }else {
-            this.getEntityDao().update(entity);
-           ChartData chartData = chartDataService.findChartDataByItemsId(entity.getId());
-            chartData.setSqlData(entity.getSqlData());
-            chartData.setFieldMapped(entity.getFieldMapped());
-            chartDataService.update(chartData);
-        }
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void saveOrUpdateChartItemsAndChartData(ChartItems entity, Boolean isSave) {
+		String sqlData = entity.getSqlData();
+		String sqlDataUpperCase = sqlData.toUpperCase();
 
+		if (sqlDataUpperCase.contains("INSERT ") || sqlDataUpperCase.contains("DELETE ")
+				|| sqlDataUpperCase.contains("UPDATE ") || sqlDataUpperCase.contains("CREATE ")
+				|| sqlDataUpperCase.contains("DROP ") || sqlDataUpperCase.contains("ALTER ")
+				|| sqlDataUpperCase.contains("LOCK ") || sqlDataUpperCase.contains("UNLOCK ")) {
+			throw new BusinessException(
+					"sql语句中不能出现 <br/>insert,<br/>delete,<br/>update,<br/>create,<br/>drop,<br/>alter,<br/>lock,<br/>unlock");
+		}
 
-    }
+		if (isSave) {
+			entity.setOrderTime(new Date());
+			this.getEntityDao().create(entity);
+			ChartData chartData = new ChartData();
+			chartData.setSqlData(sqlData);
+			chartData.setFieldMapped(entity.getFieldMapped());
+			chartData.setItemsId(entity.getId());
+			chartData.setChartId(entity.getChartId());
+			chartData.setItemsId(entity.getId());
+			chartDataService.save(chartData);
+		} else {
+			this.getEntityDao().update(entity);
+			ChartData chartData = chartDataService.findChartDataByItemsId(entity.getId());
+			chartData.setSqlData(sqlData);
+			chartData.setFieldMapped(entity.getFieldMapped());
+			chartDataService.update(chartData);
+		}
 
+	}
 
 	@Override
 	public List<ChartItems> findByChartId(Long chartId) {
@@ -71,19 +81,19 @@ public class ChartItemsServiceImpl extends EntityServiceImpl<ChartItems, ChartIt
 		return getEntityDao().findByChartIdAndStatus(chartId, status.code());
 	}
 
-    @Override
-    @Transactional(rollbackFor=Exception.class)
-	public void removeChartItemsAndChartDataById(Long chartItemsId){
-        ChartItems chartItems = this.getEntityDao().get(chartItemsId);
-        if (chartItems!=null){
-            ChartData chartData  =  chartDataService.findChartDataByItemsId(chartItemsId);
-            if (chartData!=null){
-                chartDataService.removeById(chartData.getId());
-            }
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void removeChartItemsAndChartDataById(Long chartItemsId) {
+		ChartItems chartItems = this.getEntityDao().get(chartItemsId);
+		if (chartItems != null) {
+			ChartData chartData = chartDataService.findChartDataByItemsId(chartItemsId);
+			if (chartData != null) {
+				chartDataService.removeById(chartData.getId());
+			}
 
-            this.getEntityDao().removeById(chartItems.getId());
-        }
+			this.getEntityDao().removeById(chartItems.getId());
+		}
 
-    }
+	}
 
 }

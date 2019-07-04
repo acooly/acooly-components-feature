@@ -2,6 +2,7 @@ package com.acooly.module.cms.openapi;
 
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Dates;
+import com.acooly.module.cms.CmsApiDocType;
 import com.acooly.module.cms.CmsProperties;
 import com.acooly.module.cms.domain.Content;
 import com.acooly.module.cms.dto.ContentInfo;
@@ -10,6 +11,8 @@ import com.acooly.module.cms.openapi.request.ContentInfoRequest;
 import com.acooly.module.cms.openapi.response.ContentInfoResponse;
 import com.acooly.module.cms.service.ContentService;
 import com.acooly.module.ofile.OFileProperties;
+import com.acooly.openapi.framework.common.annotation.ApiDocNote;
+import com.acooly.openapi.framework.common.annotation.ApiDocType;
 import com.acooly.openapi.framework.common.annotation.OpenApiService;
 import com.acooly.openapi.framework.common.enums.ApiBusiType;
 import com.acooly.openapi.framework.common.enums.ApiServiceResultCode;
@@ -31,6 +34,11 @@ import java.util.concurrent.TimeUnit;
  * 通过id,编码或模块名称（返回该模块对应的最新一条数据）三种方式获取内容详情。
  * </p>
  */
+@ApiDocType(code = CmsApiDocType.CODE, name = CmsApiDocType.NAME)
+@ApiDocNote("CMS系统内容详情查询接口,支持多种方式灵活获取单个内容信息详情，主要包括以下几种方式：" +
+        "<li>1、通过ID定位查询：contentQueryType=id, key传入从列表查询中获取的内容ID（id）</li>" +
+        "<li>2、通过唯一编码定位查询：contentQueryType=key, key传入从列表查询中获取的内容编码（code字段），该自动由人工方式在后头添加内容时填入</li>" +
+        "<li>3、通过type分类查询最新TOP1：contentQueryType=type, key传入的是内容分类的编码,该编码在后台的内容分类管理模块中</li>")
 @OpenApiService(name = "contentInfo", desc = "内容信息", responseType = ResponseType.SYN, busiType = ApiBusiType.Query)
 public class ContentInfoApiService extends AbstractApiService<ContentInfoRequest, ContentInfoResponse> {
 

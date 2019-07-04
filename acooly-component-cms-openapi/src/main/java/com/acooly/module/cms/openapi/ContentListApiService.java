@@ -4,6 +4,7 @@ import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
+import com.acooly.module.cms.CmsApiDocType;
 import com.acooly.module.cms.CmsProperties;
 import com.acooly.module.cms.domain.Content;
 import com.acooly.module.cms.dto.ContentListInfo;
@@ -11,6 +12,8 @@ import com.acooly.module.cms.openapi.request.ContentListRequest;
 import com.acooly.module.cms.openapi.response.ContentListResponse;
 import com.acooly.module.cms.service.ContentService;
 import com.acooly.module.ofile.OFileProperties;
+import com.acooly.openapi.framework.common.annotation.ApiDocNote;
+import com.acooly.openapi.framework.common.annotation.ApiDocType;
 import com.acooly.openapi.framework.common.annotation.OpenApiService;
 import com.acooly.openapi.framework.common.enums.ApiBusiType;
 import com.acooly.openapi.framework.common.enums.ApiServiceResultCode;
@@ -38,6 +41,8 @@ import java.util.concurrent.TimeUnit;
  * </p>
  */
 @Slf4j
+@ApiDocType(code = CmsApiDocType.CODE, name = CmsApiDocType.NAME)
+@ApiDocNote("CMS系统内容列表查询(分页),支持传入分类编码和关键字（关键字模匹配标题，主题和内容）。")
 @OpenApiService(name = "contentList", desc = "内容列表", responseType = ResponseType.SYN, busiType = ApiBusiType.Query)
 public class ContentListApiService extends AbstractApiService<ContentListRequest, ContentListResponse> {
 

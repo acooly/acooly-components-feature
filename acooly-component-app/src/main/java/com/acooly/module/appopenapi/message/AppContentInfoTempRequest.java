@@ -15,12 +15,12 @@ import com.acooly.openapi.framework.common.message.AppRequest;
  */
 public class AppContentInfoTempRequest extends AppRequest {
 
-    @OpenApiField(desc = "查询方式", constraint = "默认按唯一标识方式查询")
+    @OpenApiField(desc = "查询方式", constraint = "默认按唯一标识方式查询", ordinal = 1)
     private QueryType queryType = QueryType.byId;
 
     /**
      * 内容信息唯一标识(可以是数字或字符编码，由服务器端确定并转型)
      */
-    @OpenApiField(desc = "标识", constraint = "内容信息唯一标识")
+    @OpenApiField(desc = "标识", constraint = "内容信息唯一标识", demo = "1", ordinal = 2)
     private String id;
 }

@@ -9,7 +9,8 @@ CREATE TABLE `eav_option` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `memo` varchar(255) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 INSERT INTO `eav_option` (`id`, `parent_id`, `path`, `code`, `name`, `sort_time`, `status`, `create_time`, `update_time`, `memo`)
@@ -90,7 +91,8 @@ CREATE TABLE `eav_attribute` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `memo` varchar(128) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `eav_attribute_name_idx` (`scheme_id`,`name`)
+  UNIQUE KEY `eav_shemaId_name_idx` (`scheme_id`,`name`),
+  UNIQUE KEY `eav_shemaId_displayName_idx` (`scheme_id`,`display_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `eav_attribute` (`id`, `scheme_id`, `scheme_name`, `name`, `display_name`, `tag`, `attribute_type`, `keyable`, `nullable`, `minimum`, `maximum`, `min_length`, `max_length`, `regex`, `regex_message`, `show_type`, `show_format`, `enum_value`, `default_value`, `sort_time`, `create_time`, `update_time`, `memo`)

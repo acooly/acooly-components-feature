@@ -5,10 +5,13 @@ import com.acooly.module.app.domain.AppStartGuide;
 import com.acooly.module.app.domain.AppWelcome;
 import com.acooly.module.app.service.AppStartGuideService;
 import com.acooly.module.app.service.AppWelcomeService;
+import com.acooly.module.appopenapi.AppApiDocType;
 import com.acooly.module.appopenapi.enums.ApiOwners;
 import com.acooly.module.appopenapi.message.WelcomeInfoRequest;
 import com.acooly.module.appopenapi.message.WelcomeInfoResponse;
 import com.acooly.module.ofile.OFileProperties;
+import com.acooly.openapi.framework.common.annotation.ApiDocNote;
+import com.acooly.openapi.framework.common.annotation.ApiDocType;
 import com.acooly.openapi.framework.common.annotation.OpenApiService;
 import com.acooly.openapi.framework.common.enums.ApiBusiType;
 import com.acooly.openapi.framework.common.enums.DeviceType;
@@ -27,6 +30,8 @@ import java.util.List;
  * <li>包括：启动界面图和向导图组
  * <li>根据请求的设备类型，返回对应规格的图片
  */
+@ApiDocType(code = AppApiDocType.CODE, name = AppApiDocType.NAME)
+@ApiDocNote("App端的启动封面图片专用查询接口，返回的列表中的图片URL为全路径URL，可直接访问")
 @OpenApiService(
         name = "welcomeInfo",
         desc = "欢迎信息",

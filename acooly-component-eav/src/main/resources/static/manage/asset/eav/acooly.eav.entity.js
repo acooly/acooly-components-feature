@@ -12,6 +12,7 @@ var acoolyEavClass = {
         '            <tr>' +
         '                <td align="left">' +
         '                    <div>' +
+        '                        ID:<input type="text" name="search_EQ_id" style="width: 100px;">' +
         '                        <% if(schemes != null){ %>' +
         '                        方案:<select name="search_EQ_schemeId" id="search_EQ_schemeId">' +
         '                            <%for(var i=0;i<schemes.length;i++){ var e = schemes[i]; %>' +

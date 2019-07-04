@@ -5,7 +5,6 @@ import com.acooly.module.cms.enums.ContentQueryTypeEnum;
 import com.acooly.openapi.framework.common.annotation.OpenApiField;
 import com.acooly.openapi.framework.common.message.ApiRequest;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
@@ -23,11 +22,12 @@ import javax.validation.constraints.NotNull;
 public class ContentInfoRequest extends ApiRequest {
 
     @NotNull
-    @OpenApiField(desc = "查询方式")
+    @OpenApiField(desc = "查询方式", ordinal = 1)
     private ContentQueryTypeEnum contentQueryType = ContentQueryTypeEnum.id;
 
     @NotBlank
-    @OpenApiField(desc = "查询值", constraint = "根据查询方式不同传入不同值，如果是id，请转换为字符串方式传入")
+    @OpenApiField(desc = "查询值", constraint = "根据查询方式不同传入不同值，如果是id，请转换为字符串方式传入",
+            demo = "1", ordinal = 2)
     private String key;
 
 }

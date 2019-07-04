@@ -13,6 +13,22 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: '输入的数据长度超出范围.'
     },
+    number: {
+        validator: function (value, param) {
+            var min = param[0] || 0;
+            var max = param[1] || 999999999;
+            return $.acooly.verify.number(value) && value >= min && value <= max;
+        },
+        message: '输入的数字超出范围.'
+    },
+    decimal: {
+        validator: function (value, param) {
+            var min = param[0] || 0;
+            var max = param[1] || 999999999;
+            return $.acooly.verify.decimal(value) && value >= min && value <= max;
+        },
+        message: '输入的数字超出范围.'
+    },
     // 两个表单相等
     equals: {
         validator: function (value, param) {
@@ -113,6 +129,13 @@ $.extend($.fn.validatebox.defaults.rules, {
 });
 
 // ******** 常用 formatter 定义 **************//
+
+/**
+ * id formatter
+ */
+var idFormatter = function (value, row) {
+    return row.id;
+}
 
 /**
  * 金额元formatter
@@ -320,7 +343,7 @@ $.fn.datagrid.defaults.loadFilter = function (data, parent) {
 /**
  * 通用异常处理
  */
-var commonErrorFunction = function (XMLHttpRequest,e,x) {
+var commonErrorFunction = function (XMLHttpRequest, e, x) {
     $.messager.progress('close');
     var message;
     switch (XMLHttpRequest.status) {
@@ -342,7 +365,7 @@ var commonErrorFunction = function (XMLHttpRequest,e,x) {
         default:
             message = XMLHttpRequest.responseText;
     }
-    $.acooly.alert('错误',message);
+    $.acooly.alert('错误', message);
     // $.messager.alert('错误', message);
 };
 

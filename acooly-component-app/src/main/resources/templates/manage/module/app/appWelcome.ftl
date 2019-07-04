@@ -59,6 +59,10 @@
                                            href="#" title="编辑"></a> <a class="line-action icon-delete"
                                                                        onclick="$.acooly.framework.remove('/manage/module/app/appWelcome/deleteJson.html','{0}','manage_appWelcome_datagrid');"
                                                                        href="#" title="删除"></a>
+            <a onclick="moveTop('{0}')" href="#" title="置顶">
+                <i class="fa fa-arrow-circle-up fa-lg fa-fw fa-col"></i>
+            </a>
+            <a onclick="moveUp('{0}')" href="#" title="上移"><i class="fa fa-arrow-up fa-lg fa-fw fa-col"></i></a>
         </div>
 
         <!-- 表格的工具栏 -->
@@ -69,3 +73,32 @@
     </div>
 
 </div>
+<script type="text/javascript">
+
+    function moveUp(id) {
+        var path = contextPath + '/manage/module/app/appWelcome/moveUp.html?id='+id+"&"+new Date();
+        move(path);
+    }
+
+    function moveTop(id) {
+        var path = contextPath + '/manage/module/app/appWelcome/moveTop.html?id='+id+"&"+new Date();
+        move(path);
+    }
+
+
+    function move(path) {
+        $.ajax({
+            url:path,
+            success : function(result) {
+                $.acooly.framework.search('manage_appWelcome_searchform','manage_appWelcome_datagrid');
+                $.messager.show({title:'提示', msg:result.message, timeout:1000});
+            },
+            error:function(XmlHttpRequest){
+                var e = XmlHttpRequest.responseText;
+                var json = eval('(' + e + ')');
+                console.log(json);
+                $.messager.alert('提示', json.message);
+            }
+        });
+    }
+</script>
