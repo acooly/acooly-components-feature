@@ -69,6 +69,7 @@
                 format = 'yyyy-MM-dd HH:mm:ss'
             }
             if (typeof (d) == 'string') {
+                d = d.replace(/-/g,"/");
                 d = new Date(d);
             }
             return this._dateFormat(d, format);
