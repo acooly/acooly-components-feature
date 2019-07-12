@@ -454,7 +454,11 @@ img {
 .datagrid-header {
     overflow: hidden;
     cursor: default;
-    border-width: 3px 0 1px 0;
+    border-width: 1px 0 1px 0;
     border-style: solid;
-    border-top: 3px solid #d2d6de;
+    /*border-top: 3px solid #d2d6de;*/
+}
+
+.main-tree li ul{
+    padding-left: 15px;
 }
