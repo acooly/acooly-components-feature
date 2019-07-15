@@ -28,6 +28,9 @@
                     $('.logo-lg').text("<b>Accoly</b> Sys V4.x");
                 }
             }
+            if ($.acooly.system.config.shorttitle) {
+                $('.logo-mini').html($.acooly.system.config.shorttitle);
+            }
         },
 
         /**

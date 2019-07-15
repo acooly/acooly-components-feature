@@ -435,3 +435,30 @@ img {
     line-height: 35px;
     position: inherit;
 }
+
+.datagrid-toolbar, .datagrid-pager {background: #ecf0f5;}
+.datagrid-header, .datagrid-td-rownumber {background-color: #fff;}
+.datagrid-header td, .datagrid-body td, .datagrid-footer td {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    margin: 0;
+    padding: 0;
+}
+.datagrid-header td, .datagrid-body td, .datagrid-footer td {
+    border-color: #f4f4f4;
+}
+.datagrid-toolbar, .datagrid-pager, .datagrid-footer-inner {
+    border-color: #f4f4f4;
+}
+
+.datagrid-header {
+    overflow: hidden;
+    cursor: default;
+    border-width: 1px 0 1px 0;
+    border-style: solid;
+    /*border-top: 3px solid #d2d6de;*/
+}
+
+.main-tree li ul{
+    padding-left: 15px;
+}

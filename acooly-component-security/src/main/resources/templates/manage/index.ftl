@@ -201,7 +201,7 @@ ${extendStyles}
                 </div>
             </div>
             <!-- sidebar menu -->
-            <ul class="sidebar-menu" data-widget="tree">
+            <ul class="sidebar-menu main-tree" data-widget="tree">
                 <li class="header">
                     功能菜单
                     <span class="pull-right-container">
