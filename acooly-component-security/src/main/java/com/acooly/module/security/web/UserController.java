@@ -7,6 +7,8 @@ import com.acooly.core.common.web.MappingMethod;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
+import com.acooly.core.utils.Collections3;
+import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.mapper.BeanCopier;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.module.event.EventBus;
@@ -269,6 +271,7 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
         super.initBinder(binder);
     }
 
+
     @Override
     protected User doImportEntity(List<String> fields) {
         User user = new User();
@@ -277,6 +280,16 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
         user.setRealName(fields.get(2));
         user.setMobileNo(fields.get(3));
         user.setEmail(fields.get(4));
+        // 角色
+        if (fields.size() >= 6) {
+            String roleName = fields.get(5);
+            if (Strings.isNotBlank(roleName)) {
+                Set<Role> roles = roleService.getRole(roleName);
+                if (Collections3.isNotEmpty(roles)) {
+                    user.setRoles(roles);
+                }
+            }
+        }
         user.setUserType(2);
         return user;
     }
