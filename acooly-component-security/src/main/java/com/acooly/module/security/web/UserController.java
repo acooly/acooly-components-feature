@@ -305,7 +305,9 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.get(1L));
         for (User user : entities) {
-            user.setRoles(roles);
+            if(Collections3.isEmpty(user.getRoles())){
+                user.setRoles(roles);
+            }
             getEntityService().createUser(user);
         }
         return entities;
