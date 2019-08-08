@@ -115,6 +115,14 @@ function manage_chartData_create(itemsId) {
 
 
 
+
+// (url, ids, datagrid, confirmTitle, confirmMessage, successCallBack)
+function manage_chartItems_remove(chartItemsId){
+	$.acooly.framework.remove('/manage/module/chart/chartItems/deleteJson.html',chartItemsId,'manage_chartItems_datagrid','删除确认','您是否要删除该记录？',function(){load_manage_chartItems_datagrid();});
+}
+
+
+
 </script>
 <div class="easyui-layout" data-options="fit : true,border : false">
   <!-- 查询条件 -->
@@ -190,13 +198,11 @@ function manage_chartData_create(itemsId) {
                         <th field="title">标题</th>
                         <th field="type" formatter="mappingFormatter">图表类型</th>
                         <th field="status" formatter="mappingFormatter">状态</th>
-                        <th field="loopTime" sum="true" data-options="formatter:function(value,row){ return value/1000}">循环时间</th>
+                        <th field="loopTime" sum="true" data-options="formatter:function(value,row){ return value/1000}">刷新时间</th>
                         <th field="xShaft">x轴</th>
                         <th field="yShaft">y轴</th>
-                        <th field="orderTime" formatter="dateTimeFormatter">排序</th>
                         <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
                         <th field="updateTime" formatter="dateTimeFormatter">更新时间</th>
-                        <th field="comments">备注</th>
                         <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_chartItems_action',value,row)}">动作</th>
                     </tr>
                     </thead>
@@ -220,7 +226,7 @@ function manage_chartData_create(itemsId) {
 		                    }
 		                    }]});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
                     <a onclick="$.acooly.framework.show('/manage/module/chart/chartItems/show.html?id={0}',900,600);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
-                    <a onclick="$.acooly.framework.remove('/manage/module/chart/chartItems/deleteJson.html','{0}','manage_chartItems_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
+                    <a onclick="manage_chartItems_remove({0})" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
                     <a onclick="moveUp('{0}')" href="#" title="上移"><i class="<%--line-action icon-movetop--%>line-action icon-moveup"></i></a>
                 </div>
 
