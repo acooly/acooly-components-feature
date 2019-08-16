@@ -18,9 +18,9 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -50,21 +50,21 @@ public class EavAttribute extends AbstractEntity {
     /**
      * 方案名称
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 128)
     private String schemeName;
 
     /**
      * 字段名称
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 128)
     private String name;
 
     /**
      * 展示名称
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 128)
     private String displayName;
 

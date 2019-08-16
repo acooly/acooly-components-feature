@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OFile Upload Tests</title>
+    <style>
+        label {
+            width: 100px;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        input {
+            min-width: 300px;
+        }
+    </style>
+</head>
+<body>
+<h3>签名认证</h3>
+<p>
+    注意：请服务器端配置对应的签名认证：accessKey和secretKey。测试环境的秘钥对为：
+<ul>
+    <li>accessKey: test</li>
+    <li>secretKey: 06f7aab08aa2431e6dae6a156fc9e0b4</li>
+</ul>
+</p>
+
+<div>
+    <form action="/ofile/upload.html" enctype="multipart/form-data" method="post">
+        <div><label>上传的文件：</label><input id="uploadFile" name="uploadFile" type="file" onchange="onSelectFile()"></div>
+        <div><label>accessKey：</label><input id="accessKey" name="accessKey" type="text" value="test"></div>
+        <div><label>fileName：</label><input id="fileName" name="fileName" type="text"></div>
+        <div><label>timestamp：</label><input id="timestamp" name="timestamp" placeholder="yyyyMMddHHmmss" type="text" value="">
+            <button type="button" onclick="genTimestamp()">新时间戳</button>
+        </div>
+        <div><label>sign：</label><input id="sign" name="sign" placeholder="请计算完成后填写签名值" type="text" value="">
+            <button type="button" onclick="calcSignature()">计算签名</button></div>
+        <div><label></label><button type="submit">签名认证上传测试</button></div>
+    </form>
+
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script>
+
+    function genTimestamp() {
+        var now = new Date();
+        var timestamp = now.getFullYear() + "-" + padding(now.getMonth() + 1) + "-" + padding(now.getDate()) + " " +
+            padding(now.getHours()) + ":" + padding(now.getMinutes()) + ":" + padding(now.getSeconds());
+        console.info("timestamp:", timestamp);
+        $('#timestamp').val(timestamp);
+    }
+
+    function padding(n) {
+        return n < 10 ? "0" + n : "" + n;
+    }
+
+    function calcSignature() {
+        var signWaiting = "accessKey=" + $('#accessKey').val() + "&fileName=" + $('#fileName').val() + "&timestamp=" + $('#timestamp').val() + "06f7aab08aa2431e6dae6a156fc9e0b4";
+        console.info("signWaiting: ", signWaiting);
+        var hash = md5(signWaiting);
+        console.info("md5: ", hash);
+        $('#sign').val(hash);
+    }
+
+    function signTest() {
+        var signWaiting = "accessKey=test&fileName=C:\\fakepath\\autoconfig-10dt.log&timestamp=2019-05-09 17:12:0806f7aab08aa2431e6dae6a156fc9e0b4";
+        console.info("signWaiting",signWaiting);
+        console.info("sign",md5(signWaiting));
+    }
+
+    function onSelectFile(){
+        var filePath = $('#uploadFile').val();
+        $('#fileName').val(filePath.substring(filePath.lastIndexOf("\\")+1));
+    }
+
+    $(function () {
+        genTimestamp();
+    });
+
+</script>
+</body>
+</html>

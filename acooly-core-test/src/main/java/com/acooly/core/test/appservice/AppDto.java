@@ -22,16 +22,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Setter
 public class AppDto extends DtoBase {
 
-    @NotEmpty(groups = Test1.class)
+    @NotBlank(groups = Test1.class)
     private String a1;
 
-    @NotEmpty
+    @NotBlank
     private String a2;
 
-    @NotEmpty(groups = Test2.class)
+    @NotBlank(groups = Test2.class)
     private String a3;
 
-    @NotEmpty(groups = {Test1.class, Test2.class})
+    @NotBlank(groups = {Test1.class, Test2.class})
     private String a4;
 
     private String a5;

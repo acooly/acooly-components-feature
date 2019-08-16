@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author shuijing
@@ -30,7 +31,7 @@ public class EmailTemplate extends AbstractEntity {
     /**
      * 模版名称
      */
-    @NotEmpty
+    @NotBlank
     private String name;
 
     /**

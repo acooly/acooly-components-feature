@@ -25,7 +25,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
@@ -39,7 +38,7 @@ import java.util.List;
 @EnableConfigurationProperties({PortletProperties.class})
 @ConditionalOnProperty(value = PortletProperties.PREFIX + ".enable", matchIfMissing = true)
 @ComponentScan(basePackages = "com.acooly.module.portlet")
-public class PortletAutoConfig extends WebMvcConfigurerAdapter {
+public class PortletAutoConfig {
 
     @Autowired
     private PortletProperties portletProperties;

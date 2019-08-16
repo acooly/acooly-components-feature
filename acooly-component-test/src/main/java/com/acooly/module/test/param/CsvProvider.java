@@ -16,7 +16,6 @@ import junitparams.custom.ParametersProvider;
 import junitparams.internal.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.junit.runners.model.FrameworkMethod;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -80,17 +79,14 @@ public class CsvProvider implements ParametersProvider<CsvParameter> {
         if (reader == null) {
             return new Object[0];
         }
-        BufferedReader br = new BufferedReader(reader);
         String line;
         List<Object> result = new LinkedList<>();
         int lineNo = 0;
         String[] header = null;
-        try {
+        try (BufferedReader br = new BufferedReader(reader);) {
             while ((line = br.readLine()) != null) {
-
                 lineNo++;
                 if (lineNo == 1) {
-//          log.info("header:{}", line);
                     header = Utils.splitAtCommaOrPipe(line);
                 } else {
                     if (line.contains("~")) {
@@ -102,8 +98,6 @@ public class CsvProvider implements ParametersProvider<CsvParameter> {
             return result.toArray();
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-            IOUtils.closeQuietly(br);
         }
     }
 

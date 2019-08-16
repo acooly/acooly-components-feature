@@ -1,8 +1,9 @@
 package com.acooly.module.sso;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author shuijing

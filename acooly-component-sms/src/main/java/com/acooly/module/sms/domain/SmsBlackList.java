@@ -9,12 +9,12 @@ package com.acooly.module.sms.domain;
 
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.module.sms.enums.StatusEnum;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -36,7 +36,7 @@ public class SmsBlackList extends AbstractEntity {
     /**
      * mobile
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 20)
     private String mobile;
 

@@ -10,12 +10,12 @@ package com.acooly.module.certification.platform.entity;
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.module.certification.enums.CertTypeEnum;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
@@ -36,14 +36,14 @@ public class BankCertificationRecord extends AbstractEntity {
     /**
      * 持卡人姓名
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 20)
     private String realName;
 
     /**
      * 银行卡帐号
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 32)
     private String cardNo;
 
@@ -101,7 +101,7 @@ public class BankCertificationRecord extends AbstractEntity {
     @Size(max = 32)
     private String bankUrl;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 100)
     private String failReason;
 

@@ -8,10 +8,12 @@ import com.acooly.module.sms.SmsProperties;
 import com.acooly.module.sms.sender.ShortMessageSendException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.kevinsawicki.http.HttpRequest;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -92,7 +94,6 @@ public class CL253JsonShortMessageSender extends AbstractShortMessageSender {
         } catch (JsonProcessingException e) {
             throw new ShortMessageSendException("-2", "请求数据解析失败", e.getMessage());
         }
-
         Https instance = Https.getInstance();
         instance.connectTimeout(timeout / 2);
         instance.readTimeout(timeout / 2);

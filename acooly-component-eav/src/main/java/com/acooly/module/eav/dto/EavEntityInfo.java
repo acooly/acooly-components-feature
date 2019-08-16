@@ -12,8 +12,8 @@ import com.acooly.core.common.facade.InfoBase;
 import com.acooly.core.common.type.DBMap;
 import com.google.common.collect.Lists;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -42,14 +42,14 @@ public class EavEntityInfo extends InfoBase {
      * 方案标题
      * （表中文名，label）
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 128)
     private String schemeTitle;
 
     /**
      * 方案名称（表名）
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 128)
     private String schemeName;
 

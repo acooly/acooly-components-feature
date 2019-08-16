@@ -5,51 +5,21 @@
     <parent>
         <groupId>com.acooly</groupId>
         <artifactId>acooly-app-parent</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
+        <version>5.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>acooly-components-feature</artifactId>
     <name>acooly-components-feature</name>
     <packaging>pom</packaging>
-
     <properties>
         <openapi.version>4.2.1-SNAPSHOT</openapi.version>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-configuration-processor</artifactId>
-            <version>${project.version}</version>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
-    <build>
-        <resources>
-            <resource>
-                <directory>.</directory>
-                <includes>
-                    <include>*.md</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
-    </build>
-
-
     <modules>
         <module>acooly-components-feature-test</module>
+        <module>acooly-component-ofile</module>
         <module>acooly-component-olog</module>
-		<module>acooly-component-chat</module>
+        <module>acooly-component-chat</module>
         <module>acooly-component-chart</module>
         <module>acooly-component-scheduler</module>
-        <module>acooly-component-appservice</module>
         <module>acooly-component-sms</module>
         <module>acooly-component-mail</module>
         <module>acooly-component-captcha</module>
@@ -64,12 +34,24 @@
         <module>acooly-component-sso</module>
         <module>acooly-component-test</module>
         <module>acooly-component-cms</module>
-        <module>acooly-component-app</module>
         <module>acooly-component-portlet</module>
         <module>acooly-component-cms-facade</module>
-        <module>acooly-component-cms-openapi</module>
         <module>acooly-component-security</module>
         <module>acooly-component-wechat</module>
         <module>acooly-component-data</module>
     </modules>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>.</directory>
+                <includes>
+                    <include>*.md</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
 </project>

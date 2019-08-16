@@ -10,10 +10,10 @@ package com.acooly.module.eav.entity;
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.core.common.type.DBMap;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -43,14 +43,14 @@ public class EavEntity extends AbstractEntity {
      * 方案标题
      * （表中文名，label）
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 128)
     private String schemeTitle;
 
     /**
      * 方案名称（表名）
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 128)
     private String schemeName;
 
@@ -65,7 +65,7 @@ public class EavEntity extends AbstractEntity {
     /**
      * 内容
      */
-    @NotEmpty
+    @NotBlank
     private DBMap value;
 
 

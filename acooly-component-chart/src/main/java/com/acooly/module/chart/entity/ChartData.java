@@ -1,26 +1,21 @@
 /*
-* acooly.cn Inc.
-* Copyright (c) 2018 All Rights Reserved.
-* create by acooly
-* date:2018-10-10
-*/
+ * acooly.cn Inc.
+ * Copyright (c) 2018 All Rights Reserved.
+ * create by acooly
+ * date:2018-10-10
+ */
 package com.acooly.module.chart.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.acooly.core.common.domain.AbstractEntity;
-import com.acooly.module.chart.enums.ChartItemsIsShowEnum;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * 图表-数据项 Entity
@@ -34,26 +29,36 @@ import lombok.Setter;
 @Setter
 public class ChartData extends AbstractEntity {
 
-	/** 主题id */
-	@NotNull
+    /**
+     * 主题id
+     */
+    @NotNull
     private Long chartId;
 
-	/** 图表选项id */
-	@NotNull
+    /**
+     * 图表选项id
+     */
+    @NotNull
     private Long itemsId;
-	
-	/** sql表达式 */
-	@NotEmpty
-	@Size(max=2048)
+
+    /**
+     * sql表达式
+     */
+    @NotBlank
+    @Size(max = 2048)
     private String sqlData;
 
-	/** 数据字段 */
-	@NotEmpty
-	@Size(max=512)
+    /**
+     * 数据字段
+     */
+    @NotBlank
+    @Size(max = 512)
     private String fieldMapped;
 
-	/** 备注 */
-	@Size(max=255)
+    /**
+     * 备注
+     */
+    @Size(max = 255)
     private String comments;
 
 }

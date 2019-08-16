@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -29,12 +30,12 @@ public class Feedback extends AbstractEntity {
     /**
      * 标题
      */
-    @NotEmpty
+    @NotBlank
     private String title;
     /**
      * 内容
      */
-    @NotEmpty
+    @NotBlank
     private String content;
     /**
      * 用户名
