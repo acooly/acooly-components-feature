@@ -9,24 +9,33 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>acooly-component-cms-facade</artifactId>
-
-
+    <artifactId>acooly-component-app</artifactId>
     <dependencies>
-
         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-common</artifactId>
-            <version>${project.version}</version>
+            <artifactId>acooly-component-ofile</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-web</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.httpcomponents</groupId>-->
+<!--            <artifactId>httpclient</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>openapi-framework-common</artifactId>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>openapi-framework-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
-
-
 </project>
