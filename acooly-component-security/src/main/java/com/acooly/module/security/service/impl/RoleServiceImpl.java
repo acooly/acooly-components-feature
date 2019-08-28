@@ -13,6 +13,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 @Service("roleService")
 @Transactional
 @ConditionalOnProperty(
@@ -32,5 +34,10 @@ public class RoleServiceImpl extends EntityServiceImpl<Role, RoleDao> implements
         } catch (Exception e) {
             // ig
         }
+    }
+
+    @Override
+    public Set<Role> getRole(String name) {
+        return getEntityDao().findByName(name);
     }
 }
