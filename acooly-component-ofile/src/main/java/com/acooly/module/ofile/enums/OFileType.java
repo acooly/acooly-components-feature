@@ -12,14 +12,22 @@ import java.util.Map;
  * @author zhangpu
  */
 public enum OFileType {
-    picture("picture", "图片", "jpg,jpeg,png,gif"),
 
+    picture("picture", "图片", "jpg,jpeg,png,gif,bmp"),
     app("app", "程序", "apk,ipa"),
-
     other("other", "未知", "");
 
+    /**
+     * code
+     */
     private String code;
+    /**
+     * message
+     */
     private String message;
+    /**
+     * 扩展名
+     */
     private String extentions;
 
     OFileType(String code, String message, String extentions) {
@@ -57,8 +65,4 @@ public enum OFileType {
         return extentions;
     }
 
-    @Override
-    public String toString() {
-        return this.code + " : " + this.message;
-    }
 }
