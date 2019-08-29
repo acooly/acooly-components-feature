@@ -61,22 +61,24 @@ public class OlogHandleInterceptor extends HandlerInterceptorAdapter {
             HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
         try {
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            Object[] args = {request, response, ex};
-            Object result = getResult(request, response, handlerMethod, ex);
-            OlogTarget target =
-                    new OlogTarget(
-                            handlerMethod.getBean(),
-                            handlerMethod.getMethod(),
-                            args,
-                            result,
-                            getExecuteTimes(request));
-            OlogDTO collected = ologCollector.collect(request, response, target);
-            if (collected != null) {
-                if (!OlogHandleInterceptor.responseBody(request)) {
-                    ologClient.logger(collected);
-                } else {
-                    request.setAttribute(OLOG_DTO_KEY, collected);
+            if(HandlerMethod.class.isAssignableFrom(handler.getClass())){
+                HandlerMethod handlerMethod = (HandlerMethod) handler;
+                Object[] args = {request, response, ex};
+                Object result = getResult(request, response, handlerMethod, ex);
+                OlogTarget target =
+                        new OlogTarget(
+                                handlerMethod.getBean(),
+                                handlerMethod.getMethod(),
+                                args,
+                                result,
+                                getExecuteTimes(request));
+                OlogDTO collected = ologCollector.collect(request, response, target);
+                if (collected != null) {
+                    if (!OlogHandleInterceptor.responseBody(request)) {
+                        ologClient.logger(collected);
+                    } else {
+                        request.setAttribute(OLOG_DTO_KEY, collected);
+                    }
                 }
             }
         } catch (Exception e) {
