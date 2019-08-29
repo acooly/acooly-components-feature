@@ -63,6 +63,8 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
 
     @Autowired
     private ResourceService resourceService;
+    @Autowired
+    private FrameworkProperties frameworkProperties;
 
     @RequestMapping("")
     public String none(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -103,8 +105,6 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
             }
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。
-            FrameworkProperties frameworkProperties = FrameworkPropertiesHolder.get();
-            // model.addAttribute("securityConfig", securityConfig);
             request.getSession(true).setAttribute("securityConfig", frameworkProperties);
             return "/manage/login";
         }
@@ -261,7 +261,7 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
     }
 
     private void doExtendResources(HttpServletRequest request, Model model) {
-        List<String> scripts = FrameworkPropertiesHolder.get().getScripts();
+        List<String> scripts = frameworkProperties.getScripts();
         if (Collections3.isNotEmpty(scripts)) {
             StringBuilder sb = new StringBuilder();
             for (String script : scripts) {
@@ -269,7 +269,7 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
             }
             model.addAttribute("extendScripts", sb.toString());
         }
-        List<String> styles = FrameworkPropertiesHolder.get().getStyles();
+        List<String> styles = frameworkProperties.getStyles();
         if (Collections3.isNotEmpty(styles)) {
             StringBuilder sb = new StringBuilder();
             for (String style : styles) {
