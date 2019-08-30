@@ -29,6 +29,8 @@ public class UserDto {
 
     private String realName;
 
+    private String pinyin;
+
     private String email;
 
     private String mobileNo;

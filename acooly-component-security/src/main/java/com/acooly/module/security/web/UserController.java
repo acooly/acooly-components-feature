@@ -231,6 +231,9 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
             Org organize = orgService.get(entity.getOrgId());
             entity.setOrgName(organize.getName());
         }
+        if (entity.getPinyin() == null) {
+            entity.setPinyin(Strings.toPinyinFistWord(entity.getRealName()));
+        }
         return entity;
     }
 
@@ -290,6 +293,7 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
                 }
             }
         }
+        user.setPinyin(Strings.toPinyinFistWord(user.getRealName()));
         user.setUserType(2);
         return user;
     }
@@ -305,7 +309,7 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.get(1L));
         for (User user : entities) {
-            if(Collections3.isEmpty(user.getRoles())){
+            if (Collections3.isEmpty(user.getRoles())) {
                 user.setRoles(roles);
             }
             getEntityService().createUser(user);
