@@ -160,8 +160,6 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
             return "redirect:/manage/index.html";
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。
-            FrameworkProperties frameworkProperties = FrameworkPropertiesHolder.get();
-            // model.addAttribute("securityConfig", securityConfig);
             request.getSession(true).setAttribute("securityConfig", frameworkProperties);
             return "/manage/login";
         }
