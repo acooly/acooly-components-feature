@@ -346,7 +346,12 @@
                     queryParams = serializeObjectFromContainer($('#' + searchForm));
                 }
                 $.acooly.framework.afterQueryParams[searchForm] = queryParams;
-                $('#' + datagrid).datagrid('load', queryParams);
+                if(!this._isDatagrid(datagrid)){
+                    $('#' + datagrid).treegrid('load', queryParams);
+                }else{
+                    $('#' + datagrid).datagrid('load', queryParams);
+                }
+
             },
 
             /**
@@ -908,7 +913,7 @@
              * @param form form表单的Id
              * @param formItemName form表单下字段的name
              */
-            getFormItem : function (form, formItemName) {
+            getFormItem: function (form, formItemName) {
                 var itemObj;
                 var itemObj = $("#" + form + " input[name='" + formItemName + "']");
                 if (itemObj.length == 0) {
@@ -921,13 +926,13 @@
                 if (!itemObj.attr('class') && $(itemObj).prev().attr('class').indexOf("easyui-numberbox") >= 0) {
                     itemObj = $(itemObj).prev();
                 }
-                if(itemObj.attr('class').indexOf("combo-value") >= 0 && $(itemObj).parent().prev().attr('class').indexOf("easyui-combobox") >= 0){
+                if (itemObj.attr('class').indexOf("combo-value") >= 0 && $(itemObj).parent().prev().attr('class').indexOf("easyui-combobox") >= 0) {
                     itemObj = $(itemObj).parent().prev();
                 }
                 return itemObj;
             },
 
-            getFromItemValue : function (form, formItemName) {
+            getFromItemValue: function (form, formItemName) {
                 var itemObj = this.getFormItem(form, formItemName);
                 var itemClass = itemObj.attr('class');
                 var itemValue;
@@ -941,7 +946,7 @@
                 return itemValue;
             },
 
-            setFormItemValue : function (form, formItemName, formItemValue) {
+            setFormItemValue: function (form, formItemName, formItemValue) {
                 var itemObj = this.getFormItem(form, formItemName);
                 var itemClass = itemObj.attr('class');
                 var itemValue;
@@ -954,11 +959,16 @@
                 }
             },
 
-            setFormItemDefaultValue : function (form, formItemName, formItemValue) {
+            setFormItemDefaultValue: function (form, formItemName, formItemValue) {
                 var itemValue = this.getFromItemValue(form, formItemName);
                 if (!itemValue && itemValue == '') {
                     this.setFormItemValue(form, formItemName, formItemValue);
                 }
+            },
+
+            _isDatagrid: function (datagrid) {
+                var className = $('#' + datagrid).attr('class');
+                return (className && className == 'easyui-datagrid');
             }
 
         }
