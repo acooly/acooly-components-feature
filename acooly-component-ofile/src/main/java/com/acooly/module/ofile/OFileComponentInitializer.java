@@ -10,11 +10,13 @@
 package com.acooly.module.ofile;
 
 import com.acooly.core.common.boot.Apps;
+import com.acooly.core.common.boot.EnvironmentHolder;
 import com.acooly.core.common.boot.component.ComponentInitializer;
 import com.acooly.core.common.exception.AppConfigException;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.File;

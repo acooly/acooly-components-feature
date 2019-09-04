@@ -70,7 +70,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     public static boolean isLoginSmsEnable() {
         return EnvironmentHolder.get()
                 .getProperty(
-                        "acooly.security.loginSmsEnable", Boolean.class, SecurityProperties.DEFAULT_LOGIN_SMS);
+                        "acooly.security.enableSmsAuth", Boolean.class, SecurityProperties.DEFAULT_LOGIN_SMS);
     }
 
     /**

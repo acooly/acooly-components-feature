@@ -31,7 +31,7 @@ public class SecurityComponentInitializer implements ComponentInitializer {
                 "acooly.ds.Checker.excludedColumnTables.security", "sys_role_resc, sys_user_role");
         SecurityProperties securityProperties = new SecurityProperties();
         EnvironmentHolder.buildProperties(securityProperties);
-        if (securityProperties.isEnableSSOAuthzService()) {
+        if (securityProperties.isEnableSsoAuth()) {
             System.setProperty(DUBBO_CUMSTOM_CONFIG_PACKAGE, DUBBO_SSO_CONFIG_PACKAGE);
             setPropertyIfMissing("acooly.olog.storage.enable", "false");
         }

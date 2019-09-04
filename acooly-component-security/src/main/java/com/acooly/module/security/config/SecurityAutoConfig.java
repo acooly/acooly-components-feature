@@ -71,7 +71,7 @@ import java.util.Map;
 public class SecurityAutoConfig {
 
     @Autowired
-    SecurityProperties securityProperties;
+    private SecurityProperties securityProperties;
     @Autowired
     private ServletContext servletContext;
 
@@ -92,8 +92,8 @@ public class SecurityAutoConfig {
 
     @PostConstruct
     public void ssoContextInitializer() {
-        if (securityProperties.isLoginSmsEnable()) {
-            servletContext.setAttribute("loginSmsEnable", true);
+        if (securityProperties.isEnableSmsAuth()) {
+            servletContext.setAttribute("enableSmsAuth", true);
         }
     }
 
