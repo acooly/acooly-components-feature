@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.acooly.module.data.region.DataRegionAutoConfig
+com.acooly.core.common.boot.component.ComponentInitializer=\
+com.acooly.module.data.region.DataRegionComponentInitializer

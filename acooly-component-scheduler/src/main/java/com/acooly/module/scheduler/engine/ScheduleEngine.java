@@ -15,4 +15,6 @@ public interface ScheduleEngine extends ApplicationListener<ContextRefreshedEven
     void update(SchedulerRule rule);
 
     void deleteJob(SchedulerRule ruleDO);
+
+    void validateRule(SchedulerRule rule);
 }

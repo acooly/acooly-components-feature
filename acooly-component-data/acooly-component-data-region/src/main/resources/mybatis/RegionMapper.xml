@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.data.region.dao.RegionDao">
+
+    <resultMap id="regionResultMap" type="com.acooly.module.data.region.entity.Region">
+        <id property="id" column="region_id"/>
+        <result property="parentId" column="region_pid"/>
+        <result property="name" column="region_name"/>
+        <result property="pinyin" column="region_pinyin"/>
+        <result property="sortTime" column="region_sort_time"/>
+        <result property="createTime" column="region_create_time"/>
+        <result property="updateTime" column="region_update_time"/>
+        <result property="comments" column="region_comments"/>
+    </resultMap>
+
+    <sql id="regionSqlSelect">
+            region.id as region_id,
+            region.parentId as region_pid,
+            region.name as region_name,
+            region.pinyin as region_pinyin,
+            region.sort_time as region_sort_time,
+            region.create_time as region_create_time,
+            region.update_time as region_update_time,
+            region.comments as region_comments
+    </sql>
+
+</mapper>

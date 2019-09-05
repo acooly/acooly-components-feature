@@ -10,6 +10,8 @@ package com.acooly.module.eav.service;
 import com.acooly.core.common.service.EntityService;
 import com.acooly.module.eav.entity.EavAttribute;
 
+import java.util.List;
+
 /**
  * eav_attribute Service接口
  *
@@ -18,5 +20,11 @@ import com.acooly.module.eav.entity.EavAttribute;
  *
  */
 public interface EavAttributeEntityService extends EntityService<EavAttribute> {
+
+    List<EavAttribute> loadEavAttribute(Long schemeId);
+
+    void moveTop(Long id);
+
+    void moveUp(Long id);
 
 }

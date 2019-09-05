@@ -18,10 +18,12 @@ import java.util.List;
 @Setter
 public class WelcomeInfoResponse extends ApiResponse {
 
-    @OpenApiField(desc = "启动界面", constraint = "全URL，可直接访问. 返回空着不显示")
+    @OpenApiField(desc = "启动界面", constraint = "全URL，可直接访问. 返回空着不显示"
+            , demo = "https://images.xxxx.com/xxx/xxx/xx.jpg", ordinal = 1)
     private String welcome;
 
-    @OpenApiField(desc = "导航图组", constraint = "全URL，可直接访问. 返回空着不显示")
+    @OpenApiField(desc = "导航图组", constraint = "全URL，可直接访问. 返回空着不显示",
+            demo = "[\"https://images.xxxx.com/xxx/xxx/1.jpg\"，\"https://images.xxxx.com/xxx/xxx/2.jpg\"]", ordinal = 2)
     private List<String> guides = Lists.newArrayList();
 
     public void append(String url) {

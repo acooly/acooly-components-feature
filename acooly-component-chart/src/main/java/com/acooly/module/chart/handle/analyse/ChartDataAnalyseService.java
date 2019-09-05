@@ -31,7 +31,10 @@ public class ChartDataAnalyseService {
 			dto.setTitle(title);
 
 			if (dbData.isEmpty()) {
-				throw new RuntimeException("数据库查询数据为空,请检查sql语句");
+				dto.setxShaft(Maps.newHashMap());
+				dto.setyShafts(Lists.newArrayList());
+				logger.info("数据库查询数据为空,请检查sql语句");
+				return dto;
 			}
 
 			// x轴数据映射+解析

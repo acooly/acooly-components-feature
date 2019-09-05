@@ -32,6 +32,7 @@ import com.acooly.module.chart.service.ChartDataService;
 import com.acooly.module.chart.service.ChartItemsService;
 import com.acooly.module.chart.service.ChartService;
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Maps;
 
 /**
  * 图表-主题 管理控制器
@@ -114,7 +115,8 @@ public class ChartDrawController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = { "charData_line_{chartItemId}", "charData_bar_{chartItemId}", "charData_pie_{chartItemId}" })
+	@RequestMapping(value = { "charData_line_{chartItemId}", "charData_bar_{chartItemId}",
+			"charData_pie_{chartItemId}" })
 	@ResponseBody
 	public JsonResult charData(@PathVariable("chartItemId") String chartItemId, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
@@ -129,9 +131,15 @@ public class ChartDrawController {
 		ChartData chartData = chartDataService.findChartDataByItemsId(chartItems.getId());
 		String sql = chartData.getSqlData();
 		List<Map<String, Object>> dbData = chartDataQueryService.querySql(sql);
+		// x轴，y轴 赋值
 		ShaftDataDto shaftDataDto = chartDataAnalyseService.shaftDataAnalyse(chartItems.getTitle(),
 				chartItems.getxShaft(), chartItems.getyShaft(), dbData);
 		result.appendData("shaftData", JSON.toJSON(shaftDataDto));
+
+		// 图表参数设置
+		Map<String, Object> params = Maps.newHashMap();
+		params.put("isShow", chartItems.getIsShow().code());
+		result.appendData("chartItemsParams", JSON.toJSON(params));
 		return result;
 	}
 

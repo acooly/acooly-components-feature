@@ -22,6 +22,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.acooly.core.common.domain.AbstractEntity;
+import com.acooly.module.chart.enums.ChartItemsIsShowEnum;
 import com.acooly.module.chart.enums.StatusEnum;
 import java.util.Map;
 
@@ -57,6 +58,10 @@ public class ChartItems extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private StatusEnum status;
+	
+	/** 状态 */
+    @Enumerated(EnumType.STRING)
+    private ChartItemsIsShowEnum isShow;
 
 	/** 高 */
 	@NotNull

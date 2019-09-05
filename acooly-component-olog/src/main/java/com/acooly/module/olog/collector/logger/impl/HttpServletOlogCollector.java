@@ -122,8 +122,10 @@ public class HttpServletOlogCollector implements OlogCollector {
                     if (name.startsWith("com.acooly.module.")) {
                         name = name.substring("com.acooly.module.".length());
                         name = name.substring(0, name.indexOf('.'));
-                        olog.setModuleName(name);
+                    }else{
+                        name = module;
                     }
+                    olog.setModuleName(name);
                 }
             }
         }

@@ -18,6 +18,6 @@ import lombok.Setter;
 @Setter
 public class WelcomeInfoRequest extends ApiRequest {
 
-    @OpenApiField(desc = "设备类型", constraint = "如果不传，则返回默认规格图片")
+    @OpenApiField(desc = "设备类型", constraint = "如果不传，则返回默认规格图片", ordinal = 1)
     private DeviceType deviceType;
 }

@@ -21,7 +21,6 @@ public class OlogDTO extends InfoBase {
     /**
      * 模块名称
      */
-    @NotEmpty
     @Length(max = 255)
     private String moduleName;
 
@@ -35,7 +34,6 @@ public class OlogDTO extends InfoBase {
     /**
      * 操作名称
      */
-    @NotEmpty
     @Length(max = 32)
     private String actionName;
 

@@ -50,6 +50,16 @@ maven坐标：
 
 ## 3.版本说明
 
+#### 2019-06-13
+
+* 1.屏蔽sql中出现的insert,delete,update,create,drop,alter,lock,unlock
+
+#### 2019-03-21
+
+* 1.支持数据值显示在图形上：（支持：折线图，柱状图，饼图；默认关闭）
+
+
+
 #### 2018-10-10
 
 * 1.支持日常图形格式：折线图，柱状图，饼图
@@ -107,5 +117,9 @@ maven坐标：
 
 * 当天
 * SELECT * FROM table WHERE to_days(时间字段) = to_days(now());　
+
+
+* 最近一小时
+* SELECT * FROM table WHERE DATE_SUB(NOW(),INTERVAL  1 HOUR) <= date(时间字段)
 
 

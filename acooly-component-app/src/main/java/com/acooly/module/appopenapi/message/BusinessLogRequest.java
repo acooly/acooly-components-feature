@@ -18,7 +18,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class BusinessLogRequest extends ApiRequest {
-    @OpenApiField(desc = "业务日志数据列表")
+    @OpenApiField(desc = "业务日志数据列表", ordinal = 1)
     private List<BLog> contents = Lists.newArrayList();
 
     public BusinessLogRequest addContents(BLog bLog) {
@@ -28,9 +28,9 @@ public class BusinessLogRequest extends ApiRequest {
 
     @Data
     public static class BLog {
-        @OpenApiField(desc = "业务名称")
+        @OpenApiField(desc = "业务名称", demo = "order", ordinal = 1)
         private String name;
-        @OpenApiField(desc = "业务体")
+        @OpenApiField(desc = "业务体", demo = "{\"xxx\":1}", ordinal = 2)
         private Map<String, Object> body;
 
         public BLog name(String name) {

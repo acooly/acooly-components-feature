@@ -35,6 +35,12 @@ public class ValueValidatorService implements InitializingBean {
 
     private ValueValidator getValueValidator(EavAttribute eavAttribute) {
         try {
+            // change by zhangpu 2019-6-14
+            // 如果是枚举类型，因为枚举的Option值可能改变，所以不使用Validator缓存
+            // 后期可改造ValueValidator的结构实现进行优化
+            if (eavAttribute.getAttributeType() == AttributeTypeEnum.ENUM) {
+                valueValidatorCache.invalidate(eavAttribute.getId());
+            }
             return valueValidatorCache.get(eavAttribute.getId(), () -> {
                 ValueValidator valueValidator;
                 Class<? extends ValueValidator> clazz = classEnumMap.get(eavAttribute.getAttributeType());
@@ -60,7 +66,7 @@ public class ValueValidatorService implements InitializingBean {
     public void invalidateCacheBySchemaId(Long id) {
         ConcurrentMap<Long, ValueValidator> map = valueValidatorCache.asMap();
         for (ValueValidator valueValidator : map.values()) {
-            if (valueValidator.getEavAttribute().getSchemaId().equals(id)) {
+            if (valueValidator.getEavAttribute().getSchemeId().equals(id)) {
                 invalidateCacheByEavAttributeId(valueValidator.getEavAttribute().getId());
             }
         }
@@ -69,11 +75,11 @@ public class ValueValidatorService implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         classEnumMap = Maps.newEnumMap(AttributeTypeEnum.class);
-        classEnumMap.put(AttributeTypeEnum.BOOLEAN, BooleanValueValidator.class);
+        classEnumMap.put(AttributeTypeEnum.NUMBER_DECIMAL, DoubleValueValidator.class);
+        classEnumMap.put(AttributeTypeEnum.NUMBER_INTEGER, LongValueValidator.class);
+        classEnumMap.put(AttributeTypeEnum.NUMBER_MONEY, MoneyValueValidator.class);
         classEnumMap.put(AttributeTypeEnum.DATE, DateValueValidator.class);
-        classEnumMap.put(AttributeTypeEnum.DOUBLE, DoubleValueValidator.class);
         classEnumMap.put(AttributeTypeEnum.ENUM, EnumValueValidator.class);
-        classEnumMap.put(AttributeTypeEnum.LONG, LongValueValidator.class);
         classEnumMap.put(AttributeTypeEnum.STRING, StringValueValidator.class);
     }
 }

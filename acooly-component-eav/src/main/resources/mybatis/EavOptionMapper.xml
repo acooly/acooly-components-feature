@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.eav.dao.EavOptionDao">
+
+    <resultMap id="eavOptionResultMap" type="com.acooly.module.eav.entity.EavOption">
+        <id property="id" column="eavOption_id"/>
+        <result property="parentId" column="eavOption_parent_id"/>
+        <result property="path" column="eavOption_path"/>
+        <result property="code" column="eavOption_code"/>
+        <result property="name" column="eavOption_name"/>
+        <result property="sortTime" column="eavOption_sort_time"/>
+        <result property="status" column="eavOption_status"/>
+        <result property="createTime" column="eavOption_create_time"/>
+        <result property="updateTime" column="eavOption_update_time"/>
+        <result property="memo" column="eavOption_memo"/>
+    </resultMap>
+
+    <sql id="eavOptionSqlSelect">
+            eavOption.id as eavOption_id,
+            eavOption.parent_id as eavOption_parent_id,
+            eavOption.path as eavOption_path,
+            eavOption.code as eavOption_code,
+            eavOption.name as eavOption_name,
+            eavOption.sort_time as eavOption_sort_time,
+            eavOption.status as eavOption_status,
+            eavOption.create_time as eavOption_create_time,
+            eavOption.update_time as eavOption_update_time,
+            eavOption.memo as eavOption_memo
+    </sql>
+
+</mapper>

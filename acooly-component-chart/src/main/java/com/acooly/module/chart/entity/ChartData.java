@@ -8,14 +8,19 @@ package com.acooly.module.chart.entity;
 
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.*;
-import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.acooly.core.common.domain.AbstractEntity;
+import com.acooly.module.chart.enums.ChartItemsIsShowEnum;
+
 import lombok.Getter;
 import lombok.Setter;
-import com.acooly.core.common.domain.AbstractEntity;
-import java.util.Date;
 
 /**
  * 图表-数据项 Entity
@@ -36,7 +41,7 @@ public class ChartData extends AbstractEntity {
 	/** 图表选项id */
 	@NotNull
     private Long itemsId;
-
+	
 	/** sql表达式 */
 	@NotEmpty
 	@Size(max=2048)

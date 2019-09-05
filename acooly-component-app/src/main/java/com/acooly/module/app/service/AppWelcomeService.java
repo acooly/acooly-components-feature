@@ -13,4 +13,16 @@ import com.acooly.module.app.domain.AppWelcome;
 public interface AppWelcomeService extends EntityService<AppWelcome> {
 
     AppWelcome getLatestOne();
+
+    /**
+     * 置顶
+     * @param id
+     */
+    void moveTop(Long id);
+
+    /**
+     * 上移
+     * @param id
+     */
+    void moveUp(Long id);
 }
