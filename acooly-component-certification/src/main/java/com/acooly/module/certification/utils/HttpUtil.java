@@ -18,8 +18,10 @@
  */
 package com.acooly.module.certification.utils;
 
+import com.acooly.core.common.exception.BusinessException;
 import com.acooly.module.certification.common.Response;
 import com.acooly.module.certification.constant.*;
+import com.esotericsoftware.minlog.Log;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -43,11 +45,10 @@ import org.apache.http.params.CoreConnectionPNames;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
@@ -649,5 +650,50 @@ public class HttpUtil {
     public static String getPath(String url) {
         String path = StringUtils.substringAfterLast(url, getHost(url));
         return path;
+    }
+
+    /**
+     * 阿里云接口请求
+     *
+     * @param strUrl
+     * @param param
+     * @param appcode
+     * @return
+     */
+    public static String aliApiRequest(String strUrl, String param, String appcode, String Method) {
+        // 返回结果定义
+        String returnStr = null;
+        URL url = null;
+        HttpURLConnection httpURLConnection = null;
+        try {
+            url = new URL(strUrl + "?" + param);
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestProperty("Accept-Charset", "utf-8");
+            httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            httpURLConnection.setRequestProperty("Authorization", "APPCODE " + appcode);
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setRequestMethod(Method);
+            // 不用缓存
+            httpURLConnection.setUseCaches(false);
+            httpURLConnection.connect();
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(httpURLConnection.getInputStream(), "utf-8"));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            reader.close();
+            returnStr = buffer.toString();
+        } catch (Exception e) {
+            Log.info("请求异常：{}", e.getMessage());
+            throw new BusinessException("请求异常" + e.getMessage());
+        } finally {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
+            }
+        }
+        return returnStr;
     }
 }
