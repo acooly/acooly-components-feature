@@ -39,7 +39,7 @@ maven坐标：
 * freemarker页面
 
         <#if ssoEnable>
-            <#include "*/include.ftl">
+            <#include "/manage/common/ssoInclude.ftl">
         </#if>
 * jsp页面 
 
