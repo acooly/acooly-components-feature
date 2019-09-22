@@ -1,6 +1,13 @@
-<!-- title: 单点登录组件 -->
-<!-- type: type -->
-<!-- author: shuijing -->
+<!-- title: 后台单点登录组件   -->
+<!-- type: app -->
+<!-- author: shuijing,zhangpu -->
+
+后台单点登录组件
+====
+acooly-component-sso
+----
+
+
 ## 1. 组件介绍
 
 此组件提供多系统集成单点登录能力

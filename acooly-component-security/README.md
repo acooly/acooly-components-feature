@@ -1,8 +1,8 @@
-<!-- title: 安全后台管理组件   -->
+<!-- title: 后台安全管理组件   -->
 <!-- type: app -->
 <!-- author: zhangpu,qiubo,shuijing -->
 
-管理系统框架组件
+后台安全管理组件
 ====
 acooly-component-security
 ----
