@@ -46,7 +46,7 @@ public class CertificationProperties {
     /**
      * 工商信息查询，默认为阿里云
      */
-    private EnterpriseBsuiInfoProvider enterpriseBsuiInfoProvider = EnterpriseBsuiInfoProvider.ALI;
+    private EnterpriseBsuiInfoProvider enterpriseBsuiInfoProvider;
 
     /**
      * 实名认证url 当使用非阿里云时配置
@@ -79,8 +79,8 @@ public class CertificationProperties {
         }
 
         if (this.enterpriseBsuiInfoProvider == EnterpriseBsuiInfoProvider.ALI) {
-            Assert.notNull(enterpriseBsuiInfo, "银行卡认证渠道配置不能为空");
-            Assert.hasText(enterpriseBsuiInfo.getAppCode(), "银行卡认证渠道配置不能为空");
+            Assert.notNull(enterpriseBsuiInfo, "企业信息查询渠道配置不能为空");
+            Assert.hasText(enterpriseBsuiInfo.getAppCode(), "企业信息查询渠道配置不能为空");
         }
     }
 
