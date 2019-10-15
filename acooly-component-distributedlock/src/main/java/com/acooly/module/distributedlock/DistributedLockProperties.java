@@ -1,14 +1,19 @@
 package com.acooly.module.distributedlock;
 
+import com.acooly.core.utils.Assert;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * @author shuijing
  */
 @ConfigurationProperties(DistributedLockProperties.PREFIX)
 @Data
-public class DistributedLockProperties {
+@Validated
+public class DistributedLockProperties implements InitializingBean {
 
     public static final String PREFIX = "acooly.distributedlock";
 
@@ -22,6 +27,13 @@ public class DistributedLockProperties {
     private Zookeeper zookeeper = new Zookeeper();
     private Redis redis = new Redis();
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if(mode == Mode.ZOOKEEPER){
+            Assert.hasText(zookeeper.url,"zookeeper模式下 acooly.distributedlock.zookeeper.url 属性必须配置");
+        }
+    }
+
     @Data
     public static class Redis {
         /**
@@ -32,6 +44,13 @@ public class DistributedLockProperties {
 
     @Data
     public static class Zookeeper {
+
+        /**
+         * zkUrl
+         */
+        @NotBlank
+        private String url;
+
         /**
          * zk连接故障时重试次数
          */
