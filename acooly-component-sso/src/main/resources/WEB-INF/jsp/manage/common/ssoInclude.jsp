@@ -2,12 +2,11 @@
 <html>
 <head>
     <title>${Session.securityConfig.title}</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta http-equiv="cache-control" content="max-age=86400">
     <meta http-equiv="expires" content="1440">
     <meta http-equiv="keywords" content="acooly">
     <meta http-equiv="description" content="spring+jpa+hibernate+easyui+springmvc+jstl/freemarker">
-    <meta name="X-CSRF-TOKEN" content="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
+    <meta name="X-CSRF-TOKEN" content="${requestScope["org.springframework.security.web.csrf.CsrfToken"].token}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- layui -->
@@ -165,8 +164,3 @@
         });
     }
 </script>
-
-
-
-
-
