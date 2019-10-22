@@ -1,12 +1,10 @@
 package com.acooly.module.distributedlock;
 
-import com.acooly.core.common.boot.EnvironmentHolder;
-import com.acooly.core.common.exception.AppConfigException;
-import com.acooly.module.dubbo.DubboProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.RetryNTimes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +21,9 @@ import static com.acooly.module.distributedlock.DistributedLockProperties.PREFIX
 @ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
 public class DistributedLockAutoConfig {
 
-    private DubboProperties dubboProperties;
+    @Autowired
+    private DistributedLockProperties distributedLockProperties;
+
 
     @Bean
     @ConditionalOnProperty(
@@ -31,19 +31,8 @@ public class DistributedLockAutoConfig {
             havingValue = "zookeeper"
     )
     public CuratorFramework curatorFramework(DistributedLockProperties lockProperties) {
-        try {
-            if (dubboProperties == null) {
-                DubboProperties properties = new DubboProperties();
-                EnvironmentHolder.buildProperties(properties);
-                properties.afterPropertiesSet();
-                dubboProperties = properties;
-            }
-        } catch (Exception e) {
-            throw new AppConfigException("dubbo配置错误", e);
-        }
-
         CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder()
-                .connectString(dubboProperties.getZkUrl())
+                .connectString(distributedLockProperties.getZookeeper().getUrl())
                 .retryPolicy(
                         new RetryNTimes(lockProperties.getZookeeper().getRetryTimes(), lockProperties.getZookeeper().getSleepMsBetweenRetries()))
                 .connectionTimeoutMs(lockProperties.getZookeeper().getConnectionTimeoutMs())
