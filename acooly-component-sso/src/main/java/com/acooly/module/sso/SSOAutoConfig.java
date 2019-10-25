@@ -9,6 +9,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
@@ -49,7 +50,8 @@ public class SSOAutoConfig {
         registration.addUrlPatterns("/manage/*");
         registration.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST));
         registration.setName("ssoFilter");
-        registration.setOrder(Integer.MIN_VALUE);
+        // 确保认证在OrderedCharacterEncodingFilter后
+        registration.setOrder(Ordered.HIGHEST_PRECEDENCE + 1);
         return registration;
     }
 
@@ -60,7 +62,7 @@ public class SSOAutoConfig {
         registration.addUrlPatterns("/manage/*");
         registration.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST));
         registration.setName("autzFilter");
-        registration.setOrder(Integer.MIN_VALUE + 1);
+        registration.setOrder(Ordered.HIGHEST_PRECEDENCE + 2);
         return registration;
     }
 
