@@ -3,6 +3,7 @@ package com.acooly.module.security.web;
 import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.MappingMethod;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
@@ -48,7 +49,7 @@ import java.util.*;
         value = SecurityProperties.PREFIX + ".shiro.auth.enable",
         matchIfMissing = true
 )
-public class UserController extends AbstractJQueryEntityController<User, UserService> {
+public class UserController extends AbstractJsonEntityController<User, UserService> {
 
     private static Map<Integer, String> allUserTypes = FrameworkPropertiesHolder.get().getUserTypes();
     private static Map<Integer, String> allStatus = FrameworkPropertiesHolder.get().getUserStatus();

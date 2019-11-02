@@ -4,6 +4,7 @@ import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.boot.Env;
 import com.acooly.core.common.olog.annotation.Olog;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Servlets;
@@ -57,7 +58,7 @@ import static com.acooly.module.security.shiro.realm.ShiroDbRealm.SESSION_USER;
         matchIfMissing = true
 )
 @Olog.Ignore
-public class ManagerController extends AbstractJQueryEntityController<User, UserService> {
+public class ManagerController extends AbstractJsonEntityController<User, UserService> {
 
     private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 

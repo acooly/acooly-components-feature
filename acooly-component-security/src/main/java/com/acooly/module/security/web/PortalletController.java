@@ -1,6 +1,7 @@
 package com.acooly.module.security.web;
 
 import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.Portallet;
@@ -25,7 +26,7 @@ import java.util.Map;
         matchIfMissing = true
 )
 public class PortalletController
-        extends AbstractJQueryEntityController<Portallet, PortalletService> {
+        extends AbstractJsonEntityController<Portallet, PortalletService> {
 
     private static Map<Integer, String> allCollapsibles = Maps.newTreeMap();
 

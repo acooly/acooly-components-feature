@@ -1,6 +1,7 @@
 package com.acooly.module.security.web;
 
 import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Collections3;
@@ -42,7 +43,7 @@ import java.util.Set;
         value = SecurityProperties.PREFIX + ".shiro.auth.enable",
         matchIfMissing = true
 )
-public class ResourceController extends AbstractJQueryEntityController<Resource, ResourceService> {
+public class ResourceController extends AbstractJsonEntityController<Resource, ResourceService> {
 
     private static final Logger logger = LoggerFactory.getLogger(ResourceController.class);
     private Set<String> icons = null;

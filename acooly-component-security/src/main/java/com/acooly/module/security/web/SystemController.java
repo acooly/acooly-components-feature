@@ -2,6 +2,7 @@ package com.acooly.module.security.web;
 
 import com.acooly.core.common.olog.annotation.Olog;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Strings;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
@@ -40,7 +41,7 @@ import java.util.List;
         matchIfMissing = true
 )
 @Olog.Ignore
-public class SystemController extends AbstractJQueryEntityController<User, UserService> {
+public class SystemController extends AbstractJsonEntityController<User, UserService> {
 
     @Autowired
     private UserService userService;
