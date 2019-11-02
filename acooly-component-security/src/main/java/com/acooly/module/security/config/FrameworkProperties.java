@@ -39,7 +39,7 @@ public class FrameworkProperties implements Serializable {
      * 登录短信验证码重新发送时间间隔 s
      */
     public int smsSendInterval = 30;
-    private String title = "Acooly Boss 4.x";
+    private String title = "Acooly Boss 5.x";
     private String shorttitle="<b>B</b>oss";
     private String subtitle = "专注于业务开发，规范最佳实践，自动代码生成，提高70%效率！";
     private String logo = "/manage/assert/image/logo.png";

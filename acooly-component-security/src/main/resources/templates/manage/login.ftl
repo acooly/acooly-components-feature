@@ -5,9 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
     <!-- bootstrap -->
-    <#--<link rel="stylesheet" href="/manage/assert/plugin/bootstrap/3.3.5/css/bootstrap.min.css">-->
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <#--<link rel="stylesheet" href="/manage/assert/plugin/bootstrap/3.3.5/css/bootstrap-theme.min.css">-->
+    <link rel="stylesheet" href="/manage/assert/plugin/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/manage/assert/style/login.css">
 
@@ -115,8 +113,8 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-1.9.1.min.js"></script>
+<script src="/manage/assert/plugin/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
 <script src="/manage/assert/plugin/jquery-plugin/jquery.cookie.js" charset="utf-8"></script>
 
