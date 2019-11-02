@@ -1,7 +1,7 @@
 package com.acooly.module.security.web;
 
 import com.acooly.core.common.dao.support.PageInfo;
-import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.mapper.JsonMapper;
@@ -36,7 +36,7 @@ import java.util.Set;
         value = SecurityProperties.PREFIX + ".shiro.auth.enable",
         matchIfMissing = true
 )
-public class RoleController extends AbstractJQueryEntityController<Role, RoleService> {
+public class RoleController extends AbstractJsonEntityController<Role, RoleService> {
 
     @Autowired
     private RoleService roleService;
