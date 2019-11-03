@@ -1,6 +1,6 @@
 <!-- title: 文件上传组件   -->
-<!-- type: infrastructure -->
-<!-- author: kule,qiubo -->
+<!-- type: app -->
+<!-- author: zhangpu,qiubo -->
 ## 1. 组件介绍
 
 此组件提供文件上传(图片压缩)、下载、访问的能力
