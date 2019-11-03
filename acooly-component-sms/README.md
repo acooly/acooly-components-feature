@@ -1,5 +1,5 @@
 <!-- title: 短信发送组件  -->
-<!-- type: infrastructure -->
+<!-- type: app -->
 <!-- author: kule,shuijing,qiubo -->
 ## 1. 组件介绍
 

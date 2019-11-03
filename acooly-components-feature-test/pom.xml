@@ -22,6 +22,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-treetype</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- dlock start -->
         <dependency>
             <groupId>com.acooly</groupId>

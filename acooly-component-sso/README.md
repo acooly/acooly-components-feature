@@ -1,5 +1,5 @@
 <!-- title: 单点登录组件 -->
-<!-- type: type -->
+<!-- type: app -->
 <!-- author: shuijing -->
 ## 1. 组件介绍
 

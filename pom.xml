@@ -159,6 +159,7 @@
         <module>acooly-component-security</module>
         <module>acooly-component-wechat</module>
         <module>acooly-component-data</module>
+        <module>acooly-component-treetype</module>
     </modules>
 
     <build>

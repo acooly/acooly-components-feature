@@ -12,14 +12,14 @@ public class AcoolyCoder {
         DefaultCodeGenerateService service = (DefaultCodeGenerateService) Generator.getGenerator();
         //set workspace if possible
         if (StringUtils.isBlank(service.getGenerateConfiguration().getWorkspace())) {
-            String workspace = getProjectPath() + "acooly-component-data/acooly-component-data-region";
+            String workspace = getProjectPath() + "acooly-component-treetype";
             service.getGenerateConfiguration().setWorkspace(workspace);
         }
         //set root pacakge if possible
         if (StringUtils.isBlank(service.getGenerateConfiguration().getRootPackage())) {
             service.getGenerateConfiguration().setRootPackage(getRootPackage());
         }
-        service.generateTable("data_region");
+        service.generateTable("ac_tree_type");
     }
 
     public static String getProjectPath() {
@@ -30,6 +30,6 @@ public class AcoolyCoder {
     }
 
     private static String getRootPackage() {
-        return "com.acooly.module.data.region";
+        return "com.acooly.module.treetype";
     }
 }
