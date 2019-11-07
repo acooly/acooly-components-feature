@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -29,7 +30,8 @@ public class AppConfigManager implements InitializingBean {
     private RedisTemplate<String, AppConfig> redisTemplate;
     @Autowired
     private AppConfigDao appConfigDao;
-    @Autowired
+
+    @Autowired(required = false)
     @Qualifier("mvcConversionService")
     private ConversionService conversionService;
     private Cache<String, AppConfig> configCache = null;
@@ -83,6 +85,9 @@ public class AppConfigManager implements InitializingBean {
         Assert.hasText(name);
         Assert.notNull(clazz);
         String value = get(name);
+        if (conversionService == null) {
+            conversionService = new DefaultFormattingConversionService();
+        }
         return conversionService.convert(value, clazz);
     }
 
@@ -104,12 +109,13 @@ public class AppConfigManager implements InitializingBean {
         redisTemplate.delete(key);
     }
 
-    public void delete(String name){
+    public void delete(String name) {
         appConfigDao.deleteByName(name);
         invalidate(name);
     }
 
 
+    @Override
     public void afterPropertiesSet() {
 
         configCache = Caffeine.newBuilder().expireAfter(new Expiry<String, AppConfig>() {

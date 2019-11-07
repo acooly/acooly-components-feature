@@ -6,13 +6,11 @@
 package com.acooly.module.certification;
 
 import com.acooly.core.utils.enums.ResultStatus;
-import com.acooly.module.certification.cert.BankCardCertService;
-import com.acooly.module.certification.cert.CertficationException;
-import com.acooly.module.certification.cert.RealNameAuthentication;
-import com.acooly.module.certification.cert.RealNameAuthenticationException;
+import com.acooly.module.certification.cert.*;
 import com.acooly.module.certification.enums.BankCardResult;
 import com.acooly.module.certification.enums.CertResult;
 import com.acooly.module.certification.enums.CertTypeEnum;
+import com.acooly.module.certification.enums.EnterpriseBusinessInfoResult;
 import com.acooly.module.certification.platform.entity.BankCertificationRecord;
 import com.acooly.module.certification.platform.entity.CertificationRecord;
 import com.acooly.module.certification.platform.service.BankCertificationRecordService;
@@ -45,6 +43,9 @@ public class CertificationServiceImpl implements CertificationService {
 
     @Resource
     private BankCertificationRecordService bankCertificationRecordService;
+
+    @Resource
+    private EnterpriseBusinessInfoService enterpriseBusinessInfoService;
 
     @Override
     public CertResult certification(String realName, String idCardNo) {
@@ -128,6 +129,11 @@ public class CertificationServiceImpl implements CertificationService {
         }
         log.info("银行卡认证完成，耗时: {} ms", (System.currentTimeMillis() - st));
         return result;
+    }
+
+    @Override
+    public EnterpriseBusinessInfoResult enterpriseBusinessInfo(String comInfo) {
+        return enterpriseBusinessInfoService.enterpriseBusinessInfo(comInfo);
     }
 
     protected void saveRecord(CertResult result, CertificationRecord certificationRecord) {

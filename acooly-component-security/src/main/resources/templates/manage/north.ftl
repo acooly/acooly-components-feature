@@ -33,8 +33,6 @@
         <div id="layout_menu_theme" style="width: 100px; display: none;">
             <div id="theme_acooly" onclick="changeTheme('acooly');">acooly</div>
             <div id="theme_acooly4" onclick="changeTheme('acooly4');">acooly4</div>
-            <div id="theme_bootstrap" onclick="changeTheme('bootstrap');">bootstrap</div>
-            <div id="theme_metro" onclick="changeTheme('metro');">metro</div>
         </div>
     </div>
 </div>

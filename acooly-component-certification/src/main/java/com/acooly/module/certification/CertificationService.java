@@ -7,6 +7,7 @@ package com.acooly.module.certification;
 
 import com.acooly.module.certification.enums.BankCardResult;
 import com.acooly.module.certification.enums.CertResult;
+import com.acooly.module.certification.enums.EnterpriseBusinessInfoResult;
 
 /**
  * 修订记录：
@@ -53,4 +54,11 @@ public interface CertificationService {
      * @return
      */
     BankCardResult bankCardCertFour(String realName, String cardNo, String certId, String phoneNum);
+
+    /**
+     * 企业工商信息查询
+     * @param comInfo(完整的公司名称、注册号、信用代码、组织机构代码、税务登记号 任选其一)
+     * @return
+     */
+    EnterpriseBusinessInfoResult enterpriseBusinessInfo(String comInfo);
 }

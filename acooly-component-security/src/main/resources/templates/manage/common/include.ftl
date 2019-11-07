@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <title>${Session.securityConfig.title}</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta http-equiv="cache-control" content="max-age=86400">
-    <meta http-equiv="expires" content="1440">
     <meta http-equiv="keywords" content="acooly">
     <meta http-equiv="description" content="spring+jpa+hibernate+easyui+springmvc+jstl/freemarker">
-    <meta name="X-CSRF-TOKEN" content="${requestScope["org.springframework.security.web.csrf.CsrfToken"].token}"/>
+    <meta name="X-CSRF-TOKEN" content="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- layui -->
@@ -23,14 +21,18 @@
     <!-- icons -->
     <link href="https://cdn.bootcss.com/ionicons/4.4.8/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
+    <#--<link rel="stylesheet" href="/manage/assert/plugin/Ionicons/css/ionicons.min.css">-->
 
     <!-- AdminLte 扩展 -->
     <!-- jvectormap: 地图 -->
     <link href="https://cdn.bootcss.com/jvectormap/2.0.4/jquery-jvectormap.min.css" rel="stylesheet">
+    <#--<link rel="stylesheet" href="/manage/assert/plugin/jvectormap/jquery-jvectormap.css">-->
     <!-- Date Picker 日期-->
     <link href="https://cdn.bootcss.com/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <#--<link rel="stylesheet" href="/manage/assert/plugin/bootstrap-datepicker/css/bootstrap-datepicker.min.css">-->
     <!-- Daterange picker 日期段 -->
     <link href="https://cdn.bootcss.com/bootstrap-daterangepicker/2.1.27/daterangepicker.min.css" rel="stylesheet">
+    <#--<link rel="stylesheet" href="/manage/assert/plugin/bootstrap-daterangepicker/daterangepicker.css">-->
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="/manage/assert/plugin/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <!-- Google Font -->
@@ -75,19 +77,23 @@
     <script src="/manage/assert/plugin/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <!-- Slimscroll -->
     <script src="https://cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+    <#--<script src="/manage/assert/plugin/jquery-slimscroll/jquery.slimscroll.min.js"></script>-->
     <!-- FastClick -->
     <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+    <#--<script src="/manage/assert/plugin/fastclick/lib/fastclick.js"></script>-->
     <!-- AdminLTE App -->
     <script src="/manage/assert/plugin/adminlte/js/adminlte.js"></script>
     <!-- 模板引擎：baidu -->
     <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <#--<script src="/manage/assert/plugin/adminlte/js/pages/dashboard.js"></script>-->
     <!-- AdminLTE for demo purposes -->
     <script src="/manage/assert/plugin/adminlte/js/demo.js"></script>
     <script src="https://cdn.bootcss.com/javascript-detect-element-resize/0.5.3/jquery.resize.min.js"></script>
 
 
+    <#--<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>-->
     <script type="text/javascript" src="//cdn.staticfile.org/jquery-migrate/1.1.0/jquery-migrate-1.1.0.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
@@ -139,7 +145,8 @@
 </head>
 
 <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">
-    <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span></h1>
+    <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i>
+<span class="sr-only">Loading...</span>单点登录远程加载中....</span></h1>
 </div>
 
 <script>
@@ -156,3 +163,8 @@
         });
     }
 </script>
+
+
+
+
+

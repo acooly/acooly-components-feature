@@ -32,7 +32,7 @@ import static com.acooly.module.certification.CertificationProperties.PREFIX;
 public class CertificationProperties {
     public static final String PREFIX = "acooly.certification";
 
-    private Boolean enable=true;
+    private Boolean enable = true;
     /**
      * 实名认证
      */
@@ -42,6 +42,12 @@ public class CertificationProperties {
      * 银行卡认证，默认为阿里云
      */
     private BankCertProvider bankCertProvider = ALI;
+
+    /**
+     * 工商信息查询，默认为阿里云
+     */
+    private EnterpriseBsuiInfoProvider enterpriseBsuiInfoProvider;
+
     /**
      * 实名认证url 当使用非阿里云时配置
      */
@@ -55,15 +61,26 @@ public class CertificationProperties {
      */
     private BankCert bankcert;
 
+    /**
+     * 企业工商信息查询配置
+     */
+    private EnterpriseBsuiInfo enterpriseBsuiInfo;
+
+
     @PostConstruct
     public void init() {
         if (this.provider == Provider.ALI) {
-            Assert.notNull(realname,"实名认证渠道配置不能为空");
-            Assert.hasText(realname.getAppCode(),"实名认证渠道配置不能为空");
+            Assert.notNull(realname, "实名认证渠道配置不能为空");
+            Assert.hasText(realname.getAppCode(), "实名认证渠道配置不能为空");
         }
         if (this.bankCertProvider == ALI) {
-            Assert.notNull(bankcert,"银行卡认证渠道配置不能为空");
-            Assert.hasText(bankcert.getAppCode(),"银行卡认证渠道配置不能为空");
+            Assert.notNull(bankcert, "银行卡认证渠道配置不能为空");
+            Assert.hasText(bankcert.getAppCode(), "银行卡认证渠道配置不能为空");
+        }
+
+        if (this.enterpriseBsuiInfoProvider == EnterpriseBsuiInfoProvider.ALI) {
+            Assert.notNull(enterpriseBsuiInfo, "企业信息查询渠道配置不能为空");
+            Assert.hasText(enterpriseBsuiInfo.getAppCode(), "企业信息查询渠道配置不能为空");
         }
     }
 
@@ -116,6 +133,30 @@ public class CertificationProperties {
         }
     }
 
+    public enum EnterpriseBsuiInfoProvider implements Messageable {
+        /**
+         * 阿里工商信息查询
+         */
+        ALI("aliEnterpriseBusinessInfoService", "阿里工商信息查询");
+        private final String code;
+        private final String message;
+
+        EnterpriseBsuiInfoProvider(String code, String message) {
+            this.code = code;
+            this.message = message;
+        }
+
+        @Override
+        public String code() {
+            return this.code;
+        }
+
+        @Override
+        public String message() {
+            return this.message;
+        }
+    }
+
     @Data
     public static class RealName {
         /**
@@ -130,6 +171,16 @@ public class CertificationProperties {
     public static class BankCert {
         /**
          * 银行卡要素二三四要素appCode
+         */
+        private String appCode;
+
+        private int timeout = 20000;
+    }
+
+    @Data
+    public static class EnterpriseBsuiInfo {
+        /**
+         * 企业工商信息查询appCode
          */
         private String appCode;
 
