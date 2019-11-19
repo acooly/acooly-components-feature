@@ -40,17 +40,17 @@
 				</select></td>
 			</tr>					
 			<tr>
-				<th>循环时间：</th>
+				<th>刷新时间：</th>
 				<td>
                     <c:choose>
                         <c:when test="${action=='create'}">
-                            <input type="text" name="loopTime" size="48" placeholder="请输入循环拉取数据时间(单位秒),为0时手动拉取数据" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]'],required:true"/>
+                            <input type="text" name="loopTime" size="20" placeholder="请输入循环拉取数据时间(单位秒),为0时手动拉取数据" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]'],required:true"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="text" name="loopTime" value="${chartItems.loopTime/1000}" size="48" placeholder="请输入循环拉取数据时间(单位秒),为0时手动拉取数据" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]'],required:true"/>
+                            <input type="text" name="loopTime" value="${chartItems.loopTime/1000}" size="20" placeholder="请输入循环拉取数据时间(单位秒),为0时手动拉取数据" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]'],required:true"/>
                         </c:otherwise>
                     </c:choose>
-
+					<br/>规则：&nbsp;&nbsp;&nbsp; 0：页面图形不自动刷新；  &nbsp;&nbsp;&nbsp;     （1-9）:页面图形10秒刷新一次;  &nbsp;&nbsp;&nbsp;     x>9:页面图形x秒刷新一次;
                 </td>
 			</tr>
 			<tr>

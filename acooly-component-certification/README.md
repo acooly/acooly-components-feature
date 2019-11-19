@@ -4,9 +4,9 @@
 ## 1. 组件介绍
 
 此组件提供实名认证、银行卡二三四要素认证能力。
-
-服务地址：https://market.aliyun.com/products/56928004/cmapi013074.html?spm=5176.730005.0.0.1wZOy0#sku=yuncode707400003
-
+实名认证服务地址：https://market.aliyun.com/products/56928004/cmapi014760.html?spm=5176.730005.productlist.d_cmapi014760.9QqrCb#sku=yuncode876000009
+银行卡二三四要素认证服务地址：https://market.aliyun.com/products/56928004/cmapi013074.html?spm=5176.730005.0.0.1wZOy0#sku=yuncode707400003
+企业工商信息查询：https://market.aliyun.com/products/57000002/cmapi031025.html#sku=yuncode2502500001
 ## 2. 使用说明
 
 maven坐标：
@@ -31,6 +31,9 @@ maven坐标：
   
 * `acooly.certification.realname.appCode=a08c5badb879******bc8d67e709b` 
   使用阿里云实名认证 必填  
+  
+  * `acooly.certification.enterprise-bsui-info.appCode=a08c5badb879******bc8d67e709b` 
+    使用阿里云工商信息查询 必填
   
 * `acooly.certification.realnameurl=http://idcard.market.alicloudapi.com`
   可选，实名认证服务地址，当使用非阿里云时配置   
