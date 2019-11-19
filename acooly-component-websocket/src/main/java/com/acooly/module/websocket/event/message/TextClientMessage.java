@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.acooly.module.websocket.enums.WebSocketStatusEnum;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +29,11 @@ public class TextClientMessage implements Serializable {
 	 * 业务类型
 	 */
 	private String businessType;
+
+	/**
+	 * webSocket 当前状态
+	 */
+	private WebSocketStatusEnum status;
 
 	/**
 	 * 客户端消息

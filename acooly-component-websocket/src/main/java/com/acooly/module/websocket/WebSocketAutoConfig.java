@@ -70,8 +70,8 @@ public class WebSocketAutoConfig {
 	}
 
 	@Bean
-	public RedisMessageListenerContainer countNumRedisMessageListenerContainer(RedisConnectionFactory connectionFactory,
-			Environment environment) {
+	public RedisMessageListenerContainer webSocketRedisMessageListenerContainer(
+			RedisConnectionFactory connectionFactory, Environment environment) {
 		String subscribe = webSocketProperties.getSubscribeKey();
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);

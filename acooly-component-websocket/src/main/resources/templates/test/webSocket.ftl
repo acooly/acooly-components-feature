@@ -20,7 +20,7 @@
     if ('WebSocket' in window) {
         // 不带参数的写法
         var host = window.location.host;
-        websocket = new WebSocket("ws://"+host+"/websocket/text/chat/cuifuq7");
+        websocket = new WebSocket("ws://"+host+"/websocket/text/bulletScreen/activity_406");
     }
     else {
         alert('当前浏览器 Not support websocket')

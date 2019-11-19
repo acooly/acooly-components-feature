@@ -69,10 +69,10 @@ maven坐标：
 ### 3.1 文本接入协议
 
 #### 3.1.2 服务端 http协议： 
-- 请求地址：ws://127.0.0.1:8080/websocket/text/{businessKey}/{businessType}
+- 请求地址：ws://127.0.0.1:8080/websocket/text/{businessType}/{businessKey}
 
 #### 3.1.2 服务端 https协议：
-- 请求地址：wss://127.0.0.1:8080/websocket/text/{businessKey}/{businessType}
+- 请求地址：wss://127.0.0.1:8080/websocket/text/{businessType}/{businessKey}
 
 ####  3.1.3 服务端 https协议
 
@@ -82,8 +82,8 @@ maven坐标：
 - businessType：业务类型定义；业务参数定义
 
 例如: 
-- ws://127.0.0.1:8080/websocket/text/activity_12/activity
-- ws://127.0.0.1:8080/websocket/text/activity_12/game
+- ws://127.0.0.1:8080/websocket/text/activity/activity_12
+- ws://127.0.0.1:8080/websocket/text/game/activity_12
 
 - activity_12:活动id（业务id唯一）
 - activity，game 业务类型（活动，游戏）
