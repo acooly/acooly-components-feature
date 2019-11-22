@@ -105,6 +105,9 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
                 }
             }
 
+            // Web安全-会话标识未更新问题（shiro）：让旧session失效，这一句代码一定要放在登录验证的最前面
+            SecurityUtils.getSubject().logout();
+
             Subject subject = getSubject(httpServletRequest, response);
             subject.login(token);
             shireLoginLogoutSubject.afterLogin(
