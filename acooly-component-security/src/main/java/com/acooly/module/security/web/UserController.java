@@ -2,7 +2,6 @@ package com.acooly.module.security.web;
 
 import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.exception.BusinessException;
-import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.MappingMethod;
 import com.acooly.core.common.web.support.JsonEntityResult;
@@ -20,10 +19,12 @@ import com.acooly.module.security.domain.Role;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.dto.UserDto;
 import com.acooly.module.security.dto.UserRole;
+import com.acooly.module.security.enums.SecurityErrorCode;
 import com.acooly.module.security.event.UserCreatedEvent;
 import com.acooly.module.security.service.OrgService;
 import com.acooly.module.security.service.RoleService;
 import com.acooly.module.security.service.UserService;
+import com.acooly.module.security.utils.ShiroUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -154,13 +155,12 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
     }
 
     @RequestMapping(value = "showChangePassword")
-    public String showChangePassword(
-            @ModelAttribute("loadEntity") User entity,
-            Model model,
-            HttpServletRequest request,
-            HttpServletResponse response) {
+    public String showChangePassword(@ModelAttribute("loadEntity") User entity, Model model,
+                                     HttpServletRequest request, HttpServletResponse response) {
         try {
             model.addAttribute(getEntityName(), loadEntity(request));
+            model.addAttribute("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegex());
+            model.addAttribute("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordStrength().getDetail());
         } catch (Exception e) {
             handleException("修改密码界面", e, request);
         }
@@ -174,8 +174,15 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
     public JsonResult changePassword(
             HttpServletRequest request, HttpServletResponse response, Model model) {
         String newPassword = request.getParameter("newPassword");
+        String adminPassword = request.getParameter("adminPassword");
         JsonResult result = new JsonResult();
         try {
+            // 验证当前操作员的密码
+            User admin = ShiroUtils.getCurrentUser();
+            if (!getEntityService().validatePassword(admin, adminPassword)) {
+                log.warn("管理员修改密码 认证失败 operator: {}", admin.getUsername());
+                throw new BusinessException(SecurityErrorCode.ADMIN_PASSWORD_AUTH_FAIL,"管理员密码错误");
+            }
             User entity = loadEntity(request);
             getEntityService().changePassword(entity, newPassword);
             result.setMessage("密码修改成功");
@@ -244,8 +251,8 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         model.put("allUserTypes", allUserTypes);
         List<Role> list = roleService.getAll();
         model.put("allRoles", list);
-        model.put("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordRegex());
-        model.put("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordError());
+        model.put("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegex());
+        model.put("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordStrength().getDetail());
         String id = request.getParameter(getEntityIdName());
         model.put("roleIds", id == null ? "[]" : getRoleIds(Long.valueOf(id)));
     }

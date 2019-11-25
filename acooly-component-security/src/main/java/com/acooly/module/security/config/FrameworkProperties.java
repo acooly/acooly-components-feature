@@ -1,5 +1,6 @@
 package com.acooly.module.security.config;
 
+import com.acooly.module.defence.password.PasswordStrength;
 import com.acooly.module.security.domain.User;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
@@ -40,30 +41,34 @@ public class FrameworkProperties implements Serializable {
      */
     public int smsSendInterval = 30;
     private String title = "Acooly Boss 5.x";
-    private String shorttitle="<b>B</b>oss";
+    private String shorttitle = "<b>B</b>oss";
     private String subtitle = "专注于业务开发，规范最佳实践，自动代码生成，提高70%效率！";
     private String logo = "/manage/assert/image/logo.png";
     private String copyright = "Copyright © 2016 acooly. All rights reserved";
-    /** 外部扩展css */
+    /**
+     * 外部扩展css
+     */
     private List<String> styles = new ArrayList<>();
-    /** 外部扩展js */
+    /**
+     * 外部扩展js
+     */
     private List<String> scripts = new ArrayList<>();
 
     /**
      * 是否开启同名用户登录互斥 开关 [未实现]
      */
     private boolean conflict = false;
-    
+
     /**
      * 是否开启验证手机号唯一性验证，手机号（true:必须唯一，false:可以不唯一）
      */
     private boolean onlyMobile = true;
-    
+
     /**
      * 是否开启验证邮箱唯一性验证，邮箱（true:必须唯一，false:可以不唯一）
      */
     private boolean onlyEmail = true;
-    
+
     /**
      * 是否开启密码过期处理 开关
      */
@@ -84,15 +89,7 @@ public class FrameworkProperties implements Serializable {
      * 密码锁定时长 秒
      */
     private long loginLockSeconds = 43200;
-    /**
-     * 密码格式组成规则
-     */
-    //[a-zA-Z]{1}[\\\\w]{7,15}  密码必须以字母开头，由字母、数字、下划线组成，长度8-16字节。
-    private String passwordRegex = "[\\\\w]{6,16}";
-    /**
-     * 密码格式错误提示
-     */
-    private String passwordError = "密码由任意字母、数字、下划线组成，长度6-16字节";
+
     /**
      * 用户状态
      */
@@ -101,6 +98,13 @@ public class FrameworkProperties implements Serializable {
      * 用户类型
      */
     private Map<Integer, String> userTypes = Maps.newLinkedHashMap();
+
+    /**
+     * 密码强度
+     * 控制：登录，设置/修改/找回密码等功能
+     */
+    private PasswordStrength passwordStrength = PasswordStrength.simple;
+
 
     public FrameworkProperties() {
         userStatus.put(User.STATUS_ENABLE, "正常");
@@ -126,4 +130,5 @@ public class FrameworkProperties implements Serializable {
             this.logo = null;
         }
     }
+
 }

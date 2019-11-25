@@ -81,6 +81,7 @@ public class SecurityAutoConfig {
     }
 
     @Bean
+    @ConditionalOnProperty(value = SecurityProperties.PREFIX + ".druid-stat-view-enable", matchIfMissing = true)
     public ServletRegistrationBean statViewServlet() {
         ServletRegistrationBean bean = new ServletRegistrationBean();
 
@@ -103,11 +104,8 @@ public class SecurityAutoConfig {
     @AutoConfigureAfter({JPAAutoConfig.class, DataSourceTransactionManagerAutoConfiguration.class})
     public static class ShiroAutoConfigration {
         public static boolean isShiroFilterAnon() {
-            return EnvironmentHolder.get()
-                    .getProperty(
-                            "acooly.security.shiroFilterAnon",
-                            Boolean.class,
-                            SecurityProperties.DEFAULT_SHIRO_FILTER_ANON);
+            return EnvironmentHolder.get().getProperty("acooly.security.shiroFilterAnon",
+                            Boolean.class, SecurityProperties.DEFAULT_SHIRO_FILTER_ANON);
         }
 
         @Bean

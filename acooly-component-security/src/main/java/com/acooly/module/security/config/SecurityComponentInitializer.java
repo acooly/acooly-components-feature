@@ -9,6 +9,7 @@
  */
 package com.acooly.module.security.config;
 
+import com.acooly.core.common.boot.Env;
 import com.acooly.core.common.boot.EnvironmentHolder;
 import com.acooly.core.common.boot.component.ComponentInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -34,6 +35,11 @@ public class SecurityComponentInitializer implements ComponentInitializer {
         if (securityProperties.isEnableSsoAuth()) {
             System.setProperty(DUBBO_CUMSTOM_CONFIG_PACKAGE, DUBBO_SSO_CONFIG_PACKAGE);
             setPropertyIfMissing("acooly.olog.storage.enable", "false");
+        }
+
+        // 线上系统，密码强度自少为: usually
+        if (Env.isOnline()) {
+            setPropertyIfMissing("acooly.framework.password-strength", "usually");
         }
     }
 }

@@ -132,7 +132,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
         if (subject.isAuthenticated()) {
             /** 如果已经登录的情况，其他系统集成sso则重定向目标地址，否则直接跳主页 */
             String targetUrl = Servlets.getRequestParameter(JWTUtils.KEY_TARGETURL);
-            // targetUrl = (String) ServletUtil.getSessionAttribute(JWTUtils.KEY_TARGETURL);
+//             targetUrl = (String) ServletUtil.getSessionAttribute(JWTUtils.KEY_TARGETURL);
             if (StringUtils.isNotBlank(targetUrl)) {
                 String jwt = JWTUtils.getJwtFromCookie(request.getCookies());
                 if (!StringUtils.isEmpty(jwt)) {

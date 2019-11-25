@@ -65,6 +65,12 @@ public class SecurityProperties {
      */
     private boolean enableSsoAuth = false;
 
+    /**
+     * 是否开启druidStatView,默认开启。在部分安全级别要求较高的场景，可通过该参数关闭
+     * 存在主机头攻击的风险，在不愿开启主机头攻击防御的情况下，可关闭。
+     */
+    private boolean druidStatViewEnable = true;
+
 
     @Getter
     @Setter

@@ -1,12 +1,15 @@
 package com.acooly.module.security.shiro.filter;
 
 import com.acooly.core.common.boot.EnvironmentHolder;
+import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.Encodes;
 import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.security.JWTUtils;
+import com.acooly.module.defence.password.PasswordStrength;
 import com.acooly.module.security.captche.Captchas;
+import com.acooly.module.security.config.FrameworkProperties;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
@@ -58,6 +61,9 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
     @Autowired
     protected UserService userService;
+
+    @Autowired
+    protected FrameworkProperties frameworkProperties;
     /**
      * 登录失败Redirect URL
      */
@@ -69,8 +75,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
     public static boolean isLoginSmsEnable() {
         return EnvironmentHolder.get()
-                .getProperty(
-                        "acooly.security.enableSmsAuth", Boolean.class, SecurityProperties.DEFAULT_LOGIN_SMS);
+                .getProperty("acooly.security.enableSmsAuth", Boolean.class, SecurityProperties.DEFAULT_LOGIN_SMS);
     }
 
     /**
@@ -81,19 +86,25 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             throws Exception {
 
         setTargetUrlToSession();
-
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         AuthenticationToken token = createToken(httpServletRequest, response);
         if (token == null) {
-            String msg =
-                    "createToken method implementation returned null. A valid non-null AuthenticationToken "
-                            + "must be created in order to execute a login attempt.";
+            String msg = "createToken method implementation returned null. A valid non-null AuthenticationToken "
+                    + "must be created in order to execute a login attempt.";
             throw new IllegalStateException(msg);
         }
+
         try {
+            // 密码强度验证
+            try {
+                PasswordStrength passwordStrength = frameworkProperties.getPasswordStrength();
+                passwordStrength.verify(new String((char[]) token.getCredentials()));
+            } catch (BusinessException be) {
+                throw new AuthenticationException(be.getMessage());
+            }
 
+            // 用户状态验证
             User user = checkUserStatus(token, httpServletRequest);
-
             //开启短信验证码
             if (isLoginSmsEnable()) {
                 if (!checkSmsCaptcha()) {
@@ -107,17 +118,13 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
             // Web安全-会话标识未更新问题（shiro）：让旧session失效，这一句代码一定要放在登录验证的最前面
             SecurityUtils.getSubject().logout();
-
             Subject subject = getSubject(httpServletRequest, response);
             subject.login(token);
-            shireLoginLogoutSubject.afterLogin(
-                    token, null, httpServletRequest, (HttpServletResponse) response);
+            shireLoginLogoutSubject.afterLogin(token, null, httpServletRequest, (HttpServletResponse) response);
             return onLoginSuccess(token, subject, httpServletRequest, response);
         } catch (AuthenticationException e) {
-            logger.debug(
-                    "login failure. token:[" + token + "], exception:[" + e.getClass().getName() + "]");
-            shireLoginLogoutSubject.afterLogin(
-                    token, e, httpServletRequest, (HttpServletResponse) response);
+            logger.debug("login failure. token:[" + token + "], exception:[" + e.getClass().getName() + "]");
+            shireLoginLogoutSubject.afterLogin(token, e, httpServletRequest, (HttpServletResponse) response);
             return onLoginFailure(token, e, httpServletRequest, response);
         }
     }
@@ -217,7 +224,6 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         String username = (String) token.getPrincipal();
         userService.clearLoginFailureCount(username);
         SecurityUtils.getSubject().getSession().removeAttribute(CAPTCHA_FIRST_VERFIY);
-
         return super.onLoginSuccess(token, subject, request, response);
     }
 
@@ -233,11 +239,8 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
      * @return
      */
     @Override
-    protected boolean onLoginFailure(
-            AuthenticationToken token,
-            AuthenticationException e,
-            ServletRequest request,
-            ServletResponse response) {
+    protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e,
+                                     ServletRequest request, ServletResponse response) {
         try {
             log.error("登录失败：{}", e.getMessage());
             String username = (String) token.getPrincipal();
@@ -249,8 +252,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             Map<String, String> queryParams = Maps.newHashMap();
             queryParams.put(getFailureKeyAttribute(), e.getClass().getName());
             queryParams.put("message", e.getMessage());
-            int lastTimes =
-                    FrameworkPropertiesHolder.get().getLoginLockErrorTimes() - user.getLoginFailTimes();
+            int lastTimes = FrameworkPropertiesHolder.get().getLoginLockErrorTimes() - user.getLoginFailTimes();
             if (lastTimes > 0) {
                 queryParams.put("lastTimes", String.valueOf(lastTimes));
             }

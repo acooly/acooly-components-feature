@@ -1,7 +1,6 @@
 package com.acooly.module.security.web;
 
 import com.acooly.core.common.olog.annotation.Olog;
-import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Strings;
@@ -85,10 +84,8 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
                 String url = p.getHref();
                 if (StringUtils.isNotBlank(url)
                         && (Strings.endsWith(url, ".html") || Strings.endsWith(url, ".jsp"))) {
-                    if (SecurityUtils.getSecurityManager()
-                            .isPermitted(
-                                    SecurityUtils.getSubject().getPrincipals(),
-                                    "do" + PathMatchPermission.PART_DIVIDER_TOKEN + url)) {
+                    if (SecurityUtils.getSecurityManager().isPermitted(
+                            SecurityUtils.getSubject().getPrincipals(), "do" + PathMatchPermission.PART_DIVIDER_TOKEN + url)) {
                         authPortallets.add(p);
                     }
                 } else {
@@ -106,9 +103,8 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
             Model model, HttpServletRequest request, HttpServletResponse response) {
         User user = ShiroUtils.getCurrentUser();
         model.addAttribute("user", user);
-
-        model.addAttribute("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordRegex());
-        model.addAttribute("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordError());
+        model.addAttribute("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegex());
+        model.addAttribute("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordStrength().getDetail());
 
         return "/manage/system/changePassword";
     }
@@ -122,14 +118,16 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
 
         JsonResult result = new JsonResult();
         try {
+            // 密码强度验证
+            FrameworkPropertiesHolder.get().getPasswordStrength().verify(newPassword);
             User user = ShiroUtils.getCurrentUser();
             if (user != null) {
+                // 验证原密码
                 boolean checkResult = userService.validatePassword(user, orginalPassword);
-                if (checkResult) {
-                    userService.changePassword(user, newPassword);
-                } else {
+                if (!checkResult) {
                     throw new RuntimeException("原始密码错误");
                 }
+                userService.changePassword(user, newPassword);
             } else {
                 throw new RuntimeException("当前用户会话过期，未找到对应用户");
             }
