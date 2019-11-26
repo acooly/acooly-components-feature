@@ -159,7 +159,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
                                      HttpServletRequest request, HttpServletResponse response) {
         try {
             model.addAttribute(getEntityName(), loadEntity(request));
-            model.addAttribute("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegex());
+            model.addAttribute("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegexForJs());
             model.addAttribute("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordStrength().getDetail());
         } catch (Exception e) {
             handleException("修改密码界面", e, request);

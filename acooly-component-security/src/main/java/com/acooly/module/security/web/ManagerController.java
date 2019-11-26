@@ -3,7 +3,6 @@ package com.acooly.module.security.web;
 import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.boot.Env;
 import com.acooly.core.common.olog.annotation.Olog;
-import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Collections3;
@@ -12,7 +11,6 @@ import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.core.utils.security.JWTUtils;
 import com.acooly.module.security.config.FrameworkProperties;
-import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.service.ResourceService;
@@ -162,6 +160,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。
             request.getSession(true).setAttribute("securityConfig", frameworkProperties);
+            request.setAttribute("passwordRegex", frameworkProperties.getPasswordStrength().getRegexForJs());
             return "/manage/login";
         }
     }

@@ -103,7 +103,7 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
             Model model, HttpServletRequest request, HttpServletResponse response) {
         User user = ShiroUtils.getCurrentUser();
         model.addAttribute("user", user);
-        model.addAttribute("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegex());
+        model.addAttribute("PASSWORD_REGEX",FrameworkPropertiesHolder.get().getPasswordStrength().getRegexForJs());
         model.addAttribute("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordStrength().getDetail());
 
         return "/manage/system/changePassword";

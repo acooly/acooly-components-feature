@@ -123,9 +123,8 @@
 <script type="text/javascript">
 
 
-    var passwordRegex = "${securityConfig.passwordStrength.regex}";
+    var passwordRegex = "${passwordRegex}";
     var passwordMessage = "${securityConfig.passwordStrength.detail}";
-
 
     /**
      * 刷新验证码
