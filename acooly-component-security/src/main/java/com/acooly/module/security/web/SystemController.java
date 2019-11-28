@@ -4,6 +4,7 @@ import com.acooly.core.common.olog.annotation.Olog;
 import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Strings;
+import com.acooly.module.security.captche.Captchas;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.Portallet;
@@ -115,9 +116,12 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
             Model model, HttpServletRequest request, HttpServletResponse response) {
         String orginalPassword = request.getParameter("password");
         String newPassword = request.getParameter("newPassword");
-
+        String passwordCaptcha = request.getParameter("passwordCaptcha");
         JsonResult result = new JsonResult();
         try {
+            if (!Captchas.verify(request, passwordCaptcha)) {
+                throw new RuntimeException("验证码错误");
+            }
             // 密码强度验证
             FrameworkPropertiesHolder.get().getPasswordStrength().verify(newPassword);
             User user = ShiroUtils.getCurrentUser();
