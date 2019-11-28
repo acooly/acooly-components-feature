@@ -87,19 +87,22 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
         setTargetUrlToSession();
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        AuthenticationToken token = createToken(httpServletRequest, response);
-        if (token == null) {
-            String msg = "createToken method implementation returned null. A valid non-null AuthenticationToken "
-                    + "must be created in order to execute a login attempt.";
-            throw new IllegalStateException(msg);
-        }
+        AuthenticationToken token = null;
 
         try {
+            // 获取认证参数
+            token = createToken(httpServletRequest, response);
+            if (token == null) {
+                log.error("Shiro认证 [失败] 用户名({})或密码({})没有按参数规范传入。", getUsernameParam(), getPasswordParam());
+                throw new AuthenticationException("用户名或密码错误");
+            }
+
             // 密码强度验证
+            PasswordStrength passwordStrength = frameworkProperties.getPasswordStrength();
             try {
-                PasswordStrength passwordStrength = frameworkProperties.getPasswordStrength();
                 passwordStrength.verify(new String((char[]) token.getCredentials()));
             } catch (BusinessException be) {
+                log.error("Shiro认证 [失败] 密码强度认证未通过。强度要求: {}", passwordStrength);
                 throw new AuthenticationException(be.getMessage());
             }
 
@@ -108,6 +111,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             //开启短信验证码
             if (isLoginSmsEnable()) {
                 if (!checkSmsCaptcha()) {
+                    log.error("Shiro认证 [失败] 短信验证码验证未通过。");
                     throw new InvaildCaptchaException("验证码错误.");
                 }
             } else {
@@ -123,7 +127,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             shireLoginLogoutSubject.afterLogin(token, null, httpServletRequest, (HttpServletResponse) response);
             return onLoginSuccess(token, subject, httpServletRequest, response);
         } catch (AuthenticationException e) {
-            logger.debug("login failure. token:[" + token + "], exception:[" + e.getClass().getName() + "]");
+            logger.debug("登录失败. token:[" + token + "], exception:[" + e.getClass().getName() + "]");
             shireLoginLogoutSubject.afterLogin(token, e, httpServletRequest, (HttpServletResponse) response);
             return onLoginFailure(token, e, httpServletRequest, response);
         }
@@ -133,20 +137,20 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         String username = (String) token.getPrincipal();
         User user = userService.findUserByUsername(username);
         if (user == null) {
-            logger.debug("login checkUserStatus：用户不存在");
+            log.error("Shiro认证 [失败] 用户不存在。username: {}", username);
             throw new UnknownAccountException("用户名或密码错误");
         }
         Date now = new Date();
         if (user.getStatus() == User.STATUS_LOCK) {
             if (now.getTime() >= user.getUnlockTime().getTime()) {
-                logger.debug("用户已到解锁时间 {}，登录时自动解锁定", Dates.format(user.getUnlockTime()));
+                log.error("Shiro认证 [失败] 用户已到解锁时间 {}，登录时自动解锁定", Dates.format(user.getUnlockTime()));
                 user.setStatus(User.STATUS_ENABLE);
                 user.setLastModifyTime(now);
                 userService.save(user);
             } else {
-                logger.debug("login checkUserStatus：用户已锁定:{}", user.getStatus());
-                throw new AuthenticationException(
-                        "用户已锁定，解锁时间：" + Dates.format(user.getUnlockTime(), "yyyy-MM-dd HH:mm"));
+                String unlockTime = Dates.format(user.getUnlockTime(), "yyyy-MM-dd HH:mm");
+                log.error("Shiro认证 [失败] 用户已锁定: {}, 解锁时间: {}", user.getStatus(), unlockTime);
+                throw new AuthenticationException("用户已锁定，解锁时间：" + unlockTime);
             }
         }
 
@@ -157,14 +161,13 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
                 && now.getTime() >= user.getExpirationTime().getTime())) {
             user.setStatus(User.STATUS_EXPIRES);
             userService.save(user);
-            logger.debug("密码已经过期, expireTime:{}", Dates.format(user.getExpirationTime()));
+            log.error("Shiro认证 [失败] 密码已经过期, expireTime:{}", Dates.format(user.getExpirationTime()));
             throw new AuthenticationException("密码已过期，请联系管理员修改密码");
         }
 
         if (user.getStatus() != User.STATUS_ENABLE) {
-            logger.debug("login checkUserStatus：用户状态非法:{}", user.getStatus());
-            throw new AuthenticationException(
-                    "用户已" + FrameworkPropertiesHolder.get().getUserStatus().get(user.getStatus()));
+            log.error("Shiro认证 [失败] 用户状态非法:{}", user.getStatus());
+            throw new AuthenticationException("用户已" + FrameworkPropertiesHolder.get().getUserStatus().get(user.getStatus()));
         }
         return user;
     }
@@ -242,7 +245,6 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e,
                                      ServletRequest request, ServletResponse response) {
         try {
-            log.error("登录失败：{}", e.getMessage());
             String username = (String) token.getPrincipal();
             User user = null;
             if (!UnknownAccountException.class.isAssignableFrom(e.getClass())
@@ -252,7 +254,10 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             Map<String, String> queryParams = Maps.newHashMap();
             queryParams.put(getFailureKeyAttribute(), e.getClass().getName());
             queryParams.put("message", e.getMessage());
-            int lastTimes = FrameworkPropertiesHolder.get().getLoginLockErrorTimes() - user.getLoginFailTimes();
+            int lastTimes = FrameworkPropertiesHolder.get().getLoginLockErrorTimes();
+            if (user != null) {
+                lastTimes = lastTimes - user.getLoginFailTimes();
+            }
             if (lastTimes > 0) {
                 queryParams.put("lastTimes", String.valueOf(lastTimes));
             }
