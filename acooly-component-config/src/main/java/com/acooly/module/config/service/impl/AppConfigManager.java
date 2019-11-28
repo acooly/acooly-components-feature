@@ -29,7 +29,7 @@ public class AppConfigManager implements InitializingBean {
     private RedisTemplate<String, AppConfig> redisTemplate;
     @Autowired
     private AppConfigDao appConfigDao;
-    @Autowired
+    @Autowired(required = false)
     @Qualifier("mvcConversionService")
     private ConversionService conversionService;
     private Cache<String, AppConfig> configCache = null;
