@@ -85,6 +85,9 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
     public JsonEntityResult<User> saveJson(HttpServletRequest request, HttpServletResponse response) {
         JsonEntityResult<User> result = new JsonEntityResult<>();
         try {
+            // 密码强度验证
+            String password = request.getParameter("password");
+            FrameworkPropertiesHolder.get().getPasswordStrength().verify(password);
             result = super.saveJson(request, response);
             if (!result.isSuccess()) {
                 return result;
@@ -177,6 +180,8 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         String adminPassword = request.getParameter("adminPassword");
         JsonResult result = new JsonResult();
         try {
+            // 密码强度验证
+            FrameworkPropertiesHolder.get().getPasswordStrength().verify(newPassword);
             // 验证当前操作员的密码
             User admin = ShiroUtils.getCurrentUser();
             if (!getEntityService().validatePassword(admin, adminPassword)) {
@@ -251,7 +256,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         model.put("allUserTypes", allUserTypes);
         List<Role> list = roleService.getAll();
         model.put("allRoles", list);
-        model.put("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegex());
+        model.put("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegexForJs());
         model.put("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordStrength().getDetail());
         String id = request.getParameter(getEntityIdName());
         model.put("roleIds", id == null ? "[]" : getRoleIds(Long.valueOf(id)));
