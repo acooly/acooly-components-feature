@@ -2,7 +2,6 @@ package com.acooly.module.websocket.event;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.acooly.module.event.EventHandler;
 import com.acooly.module.websocket.WebSocketProperties;
@@ -24,7 +23,6 @@ public class TextServerMessageHandle {
 
 	// 异步事件处理器
 	@Handler(delivery = Invoke.Asynchronously)
-	@Transactional
 	public void textServerMessageHandleAsyn(TextServerMessage message) {
 		try {
 			log.info("-WebSocket组件-发布发布redis订阅事件:{}", message);

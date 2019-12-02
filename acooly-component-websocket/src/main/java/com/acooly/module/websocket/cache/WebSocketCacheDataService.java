@@ -8,10 +8,11 @@ import java.util.concurrent.locks.Lock;
 import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
+import com.acooly.core.common.exception.BusinessException;
 import com.acooly.module.distributedlock.DistributedLockFactory;
 import com.acooly.module.websocket.WebSocketProperties;
 import com.beust.jcommander.internal.Maps;
@@ -51,20 +52,17 @@ public class WebSocketCacheDataService {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setWebSocketSession(Session session) {
-		// 过期时间
-		Long timeOut = webSocketProperties.getTimeOut();
-
-		HashOperations redisDataHash = redisTemplate.opsForHash();
 		String rediskey = getRedisKey(session);
-		String redisHashKey = getRedisHashKey(session);
 		String redisValue = session.getId();
+		String lockRedisKey = getLockRedisKey(session);
 
-		Lock lock = factory.newLock(getLockRedisKey(session));
+		Lock lock = factory.newLock(lockRedisKey);
 		try {
-			try {
-				if (lock.tryLock(WEB_SOCKET_TRY_LOCK_TIME, TimeUnit.SECONDS)) {
+			if (lock.tryLock(WEB_SOCKET_TRY_LOCK_TIME, TimeUnit.SECONDS)) {
+				try {
+					ValueOperations redisData = redisTemplate.opsForValue();
 					// 获取当前 redis中缓存值
-					Map<String, Object> valueMap = (Map<String, Object>) redisDataHash.get(rediskey, redisHashKey);
+					Map<String, Object> valueMap = (Map<String, Object>) redisData.get(rediskey);
 					if (valueMap == null) {
 						valueMap = Maps.newHashMap();
 					}
@@ -75,16 +73,23 @@ public class WebSocketCacheDataService {
 					}
 
 					valueMap.put(redisValue, redisValue);
-					redisDataHash.put(rediskey, redisHashKey, valueMap);
-					redisTemplate.expire(rediskey, timeOut, TimeUnit.HOURS);
+					redisData.set(rediskey, valueMap, webSocketProperties.getTimeOut(), TimeUnit.HOURS);
+				} catch (Exception e) {
+					log.error("-webSocket-设置 session key 缓存 失败{}", e);
+					throw new BusinessException("设置 session key 缓存 失败", e);
+				} finally {
+					lock.unlock();
 				}
-			} finally {
-				lock.unlock();
+			} else {
+				if (redisTemplate.hasKey(lockRedisKey)) {
+					log.info("-webSocket组件,当前key未释放,系统删除:lockKey:{}", lockRedisKey);
+					redisTemplate.delete(lockRedisKey);
+				}
+				log.info("-webSocket-设置 session key缓存 失败,获取redis锁失败rediskey:{},redisValue:{}", rediskey, redisValue);
 			}
 		} catch (Exception e) {
 			log.error("-webSocket-设置 session key缓存 失败{}", e);
 		}
-
 	}
 
 	/**
@@ -94,30 +99,29 @@ public class WebSocketCacheDataService {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void deleteWebSocketSession(Session session) {
-		HashOperations redisDataHash = redisTemplate.opsForHash();
 		String rediskey = getRedisKey(session);
-		String redisHashKey = getRedisHashKey(session);
 		String redisValue = session.getId();
-
-		Lock lock = factory.newLock(getLockRedisKey(session));
+		String lockRedisKey = getLockRedisKey(session);
+		Lock lock = factory.newLock(lockRedisKey);
 		try {
 			if (lock.tryLock(WEB_SOCKET_TRY_LOCK_TIME, TimeUnit.SECONDS)) {
 				try {
-					Map<String, Object> valueMap = (Map<String, Object>) redisDataHash.get(rediskey, redisHashKey);
+					ValueOperations redisData = redisTemplate.opsForValue();
+					Map<String, Object> valueMap = (Map<String, Object>) redisData.get(rediskey);
 					if (valueMap != null) {
-						int size = valueMap.size();
-						if (size == 1L) {
-							redisDataHash.delete(rediskey, redisHashKey);
-						} else {
-							valueMap.remove(redisValue);
-							// 过期时间
-							Long timeOut = webSocketProperties.getTimeOut();
-							redisDataHash.put(rediskey, redisHashKey, valueMap);
-							redisTemplate.expire(rediskey, timeOut, TimeUnit.HOURS);
-						}
+						valueMap.remove(redisValue);
+						redisData.set(rediskey, valueMap, webSocketProperties.getTimeOut(), TimeUnit.HOURS);
 					}
+				} catch (Exception e) {
+					log.error("-webSocket-删除 session key失败{}", e);
+					throw new BusinessException("-webSocket-删除   session key失败", e);
 				} finally {
 					lock.unlock();
+				}
+			} else {
+				if (redisTemplate.hasKey(lockRedisKey)) {
+					log.info("-webSocket组件,当前key未释放,系统删除:lockKey:{}", lockRedisKey);
+					redisTemplate.delete(lockRedisKey);
 				}
 			}
 		} catch (Exception e) {
@@ -132,38 +136,15 @@ public class WebSocketCacheDataService {
 	 * @param businessType
 	 * @return
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Set getWebSocketSessionId(String businessKey, String businessType) {
-		HashOperations redisDataHash = redisTemplate.opsForHash();
-		String rediskey = getRedisKey(businessKey);
-		String redisHashKey = getRedisHashKey(businessKey, businessType);
-		Map<String, Object> valueMap = (Map<String, Object>) redisDataHash.get(rediskey, redisHashKey);
-		return valueMap.keySet();
-	}
-
-	/**
-	 * 获取HashKey
-	 * 
-	 * @param session
-	 * @return
-	 */
-	private String getRedisHashKey(Session session) {
-		Map<String, String> map = session.getPathParameters();
-		String businessKey = map.get("businessKey");
-		String businessType = map.get("businessType");
-		return getRedisHashKey(businessKey, businessType);
-	}
-
-	/**
-	 * 获取HashKey
-	 * 
-	 * @param businessKey
-	 * @param businessType
-	 * @return
-	 */
-	private String getRedisHashKey(String businessKey, String businessType) {
-		String rediskey = REDIS_KEY + businessKey + "_" + businessType;
-		return rediskey;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Set getWebSocketSessionId(String businessType, String businessKey) {
+		String rediskey = getRedisKey(REDIS_KEY, businessType, businessKey);
+		ValueOperations redisData = redisTemplate.opsForValue();
+		Map<String, Object> valueMap = (Map<String, Object>) redisData.get(rediskey);
+		if (valueMap != null) {
+			return valueMap.keySet();
+		}
+		return null;
 	}
 
 	/**
@@ -175,7 +156,21 @@ public class WebSocketCacheDataService {
 	private String getRedisKey(Session session) {
 		Map<String, String> map = session.getPathParameters();
 		String businessKey = map.get("businessKey");
-		return getRedisKey(businessKey);
+		String businessType = map.get("businessType");
+		return getRedisKey(REDIS_KEY, businessType, businessKey);
+	}
+
+	/**
+	 * 获取锁， 单节点key
+	 * 
+	 * @param session
+	 * @return
+	 */
+	private String getLockRedisKey(Session session) {
+		Map<String, String> map = session.getPathParameters();
+		String businessKey = map.get("businessKey");
+		String businessType = map.get("businessType");
+		return getRedisKey(LOCK_REDIS_KEY, businessType, businessKey);
 	}
 
 	/**
@@ -184,21 +179,9 @@ public class WebSocketCacheDataService {
 	 * @param businessKey
 	 * @return
 	 */
-	private String getRedisKey(String businessKey) {
-		String rediskey = REDIS_KEY + businessKey;
+	private String getRedisKey(String key, String businessType, String businessKey) {
+		String rediskey = key + businessType + "_" + businessKey;
 		return rediskey;
-	}
-
-	/**
-	 * 获取
-	 * 
-	 * @param session
-	 * @return
-	 */
-	private String getLockRedisKey(Session session) {
-		Map<String, String> map = session.getPathParameters();
-		String businessKey = map.get("businessKey");
-		return LOCK_REDIS_KEY + businessKey;
 	}
 
 }

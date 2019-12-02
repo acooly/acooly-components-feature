@@ -45,15 +45,16 @@ public class WebSocketRedisListenerHandler implements MessageListener {
 			if (Strings.isNotBlank(sessionIdStr)) {
 				sessionIdSet.add(sessionIdStr);
 			} else {
-				sessionIdSet = webSocketCacheDataService.getWebSocketSessionId(businessKey, businessType);
+				sessionIdSet = webSocketCacheDataService.getWebSocketSessionId(businessType, businessKey);
 			}
-
-			for (String sessionId : sessionIdSet) {
-				Session session = WebSocketSessionMap.webSocketMap.get(sessionId);
-				if (session != null) {
-					String text = JSON.toJSONString(textServerMessage.getMessage());
-					session.getBasicRemote().sendText(text);
-					log.info("-WebSocket组件-发送消息到客户端成功 message:{}", textServerMessage);
+			if (sessionIdSet != null) {
+				for (String sessionId : sessionIdSet) {
+					Session session = WebSocketSessionMap.webSocketMap.get(sessionId);
+					if (session != null) {
+						String text = JSON.toJSONString(textServerMessage.getMessage());
+						session.getBasicRemote().sendText(text);
+						log.info("-WebSocket组件-发送消息到客户端成功 message:{}", textServerMessage);
+					}
 				}
 			}
 		} catch (Exception e) {

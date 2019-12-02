@@ -1,4 +1,4 @@
-package com.acooly.module.websocket.enums.result;
+package com.acooly.module.websocket.enums;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -8,22 +8,27 @@ import java.util.Map;
 import com.acooly.core.utils.enums.Messageable;
 
 /**
- * 返回码定义 枚举定义
+ * WebSocketStatusEnum
  * 
  * @author cuifuq Date: 2019-03-05 18:18:09
  */
-public enum WebSocketResultCodeEnum implements Messageable {
+public enum WebSocketStatusEnum implements Messageable {
 
-	/** session不存在或者过期 **/
-	SESSION_NOT_EXISTING("SESSION_NOT_EXISTING", "session不存在或者过期"),
+	/** WebSocket 连接成功 **/
+	ON_OPEN("ON_OPEN", "WebSocket客户端-连接成功"),
 
-	/** 功能关闭 **/
-	FUNCTION_COLSE("FUNCTION_COLSE", "请设置acooly.websocket.enable=true"),;
+	/** WebSocket 关闭 **/
+	ON_CLOSE("ON_CLOSE", "WebSocket客户端-关闭"),
+
+	/** WebSocket客户端 消息 **/
+	ON_MESSAGE("ON_MESSAGE", "WebSocket客户端-消息"),
+
+	;
 
 	private final String code;
 	private final String message;
 
-	private WebSocketResultCodeEnum(String code, String message) {
+	private WebSocketStatusEnum(String code, String message) {
 		this.code = code;
 		this.message = message;
 	}
@@ -46,7 +51,7 @@ public enum WebSocketResultCodeEnum implements Messageable {
 
 	public static Map<String, String> mapping() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		for (WebSocketResultCodeEnum type : values()) {
+		for (WebSocketStatusEnum type : values()) {
 			map.put(type.getCode(), type.getMessage());
 		}
 		return map;
@@ -59,8 +64,8 @@ public enum WebSocketResultCodeEnum implements Messageable {
 	 * @return 枚举值码对应的枚举值。
 	 * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
 	 */
-	public static WebSocketResultCodeEnum find(String code) {
-		for (WebSocketResultCodeEnum status : values()) {
+	public static WebSocketStatusEnum find(String code) {
+		for (WebSocketStatusEnum status : values()) {
 			if (status.getCode().equals(code)) {
 				return status;
 			}
@@ -73,9 +78,9 @@ public enum WebSocketResultCodeEnum implements Messageable {
 	 * 
 	 * @return 全部枚举值。
 	 */
-	public static List<WebSocketResultCodeEnum> getAll() {
-		List<WebSocketResultCodeEnum> list = new ArrayList<WebSocketResultCodeEnum>();
-		for (WebSocketResultCodeEnum status : values()) {
+	public static List<WebSocketStatusEnum> getAll() {
+		List<WebSocketStatusEnum> list = new ArrayList<WebSocketStatusEnum>();
+		for (WebSocketStatusEnum status : values()) {
 			list.add(status);
 		}
 		return list;
@@ -88,7 +93,7 @@ public enum WebSocketResultCodeEnum implements Messageable {
 	 */
 	public static List<String> getAllCode() {
 		List<String> list = new ArrayList<String>();
-		for (WebSocketResultCodeEnum status : values()) {
+		for (WebSocketStatusEnum status : values()) {
 			list.add(status.code());
 		}
 		return list;
