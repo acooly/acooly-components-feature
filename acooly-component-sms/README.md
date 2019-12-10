@@ -111,23 +111,27 @@ key为模版名，value为模版的值，`com.acooly.module.sms.SmsService.sendB
 ### 2.4 注意
    
 #### 2.4.1. 阿里云短信通道,阿里云通道只支持模板和签名为短信内容,
-   发送接口send(String mobileNo, String content) content内容需为json格式 如：
-   `AliyunSmsSendVo vo=new AliyunSmsSendVo();
+   发送接口`send(String mobileNo, String content) content`内容需为json格式 如：
+```java
+    AliyunSmsSendVo vo=new AliyunSmsSendVo();
     params.put("customer", "Testcustomer");
     asa.setFreeSignName("观世宇");
     asa.setSmsParamsMap(params);
     asa.setTemplateCode("SMS_67185863");
-    content = asa.toJson();`
+    content = asa.toJson();
+```
     测试用例见 `com.acooly.core.test.web.TestController#testAliyunSms()`
     
 #### 2.4.2. 容联.云通讯通道,只支持模板短信内容,
-   发送接口send(String mobileNo, String content) content内容需为json格式 如：
-   `  CloopenSmsSendVo clo = new CloopenSmsSendVo();
-      clo.setTemplateId("1");
-      List<String> data = new ArrayList<>();
-      data.add("aaattt");
-      clo.setDatas(data);
-      smsService.send("18612299409", clo.toJson());`
+   发送接口`send(String mobileNo, String content) content`内容需为json格式 如：
+```java
+    CloopenSmsSendVo clo = new CloopenSmsSendVo();
+    clo.setTemplateId("1");
+    List<String> data = new ArrayList<>();
+    data.add("aaattt");
+    clo.setDatas(data);
+    smsService.send("18612299409", clo.toJson());
+```
     测试用例见 `com.acooly.core.test.web.TestController#testCloopenSms()`    
     
 #### 2.4.3. 短信黑名单遵循以下规则
