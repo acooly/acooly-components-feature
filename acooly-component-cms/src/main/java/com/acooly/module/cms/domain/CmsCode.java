@@ -9,10 +9,10 @@ package com.acooly.module.cms.domain;
 import com.acooly.core.common.domain.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 /**
  * 编码 Entity
@@ -32,7 +32,7 @@ public class CmsCode extends AbstractEntity {
     /**
      * 二级编码
      */
-    @NotEmpty
+    @NotBlank
     private String keycode;
 
     /**

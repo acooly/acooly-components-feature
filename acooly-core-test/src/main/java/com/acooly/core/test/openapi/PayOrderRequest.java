@@ -29,7 +29,7 @@ public class PayOrderRequest extends ApiRequest {
     @OpenApiField(desc = "金额")
     private Money amount;
 
-    @NotEmpty
+    @NotBlank
     @OpenApiField(desc = "买家用户ID")
     private String payerUserId;
 }

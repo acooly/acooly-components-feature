@@ -16,7 +16,7 @@
     };
 
     function manage_role_load_tree() {
-        var roleId = <#if role != null>${role.id}<#else>0</#if>;
+        var roleId = <#if role?? && role.id??>${role.id}<#else>"0"</#if>;
         $.ajax({
             url: "/manage/system/role/getAllResourceNode.html",
             data: {roleId: roleId},

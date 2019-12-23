@@ -12,11 +12,11 @@ import com.acooly.module.config.AppConfigAutoConfig;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.concurrent.TimeUnit;
 
@@ -35,21 +35,21 @@ public class AppConfig extends AbstractEntity {
     /**
      * 配置项名称
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 128)
     private String configName;
 
     /**
      * 配置值
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 2048)
     private String configValue;
 
     /**
      * 配置描述
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     private String comments;
 
@@ -82,6 +82,6 @@ public class AppConfig extends AbstractEntity {
     }
 
     public static String key(String name) {
-        return AppConfigAutoConfig.CACHE_PREFIX +  name;
+        return AppConfigAutoConfig.CACHE_PREFIX + name;
     }
 }

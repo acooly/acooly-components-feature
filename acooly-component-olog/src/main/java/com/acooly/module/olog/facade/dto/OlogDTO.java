@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author qiubo@yiji.com
  */
@@ -27,7 +29,7 @@ public class OlogDTO extends InfoBase {
     /**
      * 功能模块
      */
-    @NotEmpty
+    @NotBlank
     @Length(max = 255)
     private String module;
 
@@ -40,14 +42,14 @@ public class OlogDTO extends InfoBase {
     /**
      * 操作
      */
-    @NotEmpty
+    @NotBlank
     @Length(max = 32)
     private String action;
 
     /**
      * 操作员
      */
-    @NotEmpty
+    @NotBlank
     @Length(max = 64)
     private String operateUser;
 

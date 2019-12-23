@@ -12,10 +12,11 @@ package com.acooly.module.mail;
 import com.google.common.base.Charsets;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.NotBlank;
 
 import static com.acooly.module.mail.MailProperties.PREFIX;
 
@@ -39,28 +40,28 @@ public class MailProperties implements InitializingBean {
     /**
      * 邮件服务器地址
      */
-    @NotEmpty
-    private String hostname;
+    @NotBlank
+    private String hostname = "smtp.acooly.cn";
     /**
      * 邮件服务器用户名
      */
-    @NotEmpty
+    @NotBlank
     private String username;
     /**
      * 邮件服务器密码
      */
-    @NotEmpty
+    @NotBlank
     private String password;
     /**
      * 邮件发送者名称：比如 xx客服
      */
-    @NotEmpty
-    private String fromName;
+    @NotBlank
+    private String fromName = "acooly";
     /**
      * 邮件发送者邮箱地址：比如 xx@xx.com
      */
-    @NotEmpty
-    private String fromAddress;
+    @NotBlank
+    private String fromAddress = "support@acooly.cn";
 
     private int threadMin = 1;
     private int threadMax = 20;

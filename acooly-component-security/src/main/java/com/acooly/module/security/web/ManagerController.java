@@ -3,7 +3,7 @@ package com.acooly.module.security.web;
 import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.boot.Env;
 import com.acooly.core.common.olog.annotation.Olog;
-import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Servlets;
@@ -11,7 +11,6 @@ import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.core.utils.security.JWTUtils;
 import com.acooly.module.security.config.FrameworkProperties;
-import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.service.ResourceService;
@@ -57,12 +56,14 @@ import static com.acooly.module.security.shiro.realm.ShiroDbRealm.SESSION_USER;
         matchIfMissing = true
 )
 @Olog.Ignore
-public class ManagerController extends AbstractJQueryEntityController<User, UserService> {
+public class ManagerController extends AbstractJsonEntityController<User, UserService> {
 
     private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 
     @Autowired
     private ResourceService resourceService;
+    @Autowired
+    private FrameworkProperties frameworkProperties;
 
     @RequestMapping("")
     public String none(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -103,8 +104,6 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
             }
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。
-            FrameworkProperties frameworkProperties = FrameworkPropertiesHolder.get();
-            // model.addAttribute("securityConfig", securityConfig);
             request.getSession(true).setAttribute("securityConfig", frameworkProperties);
             return "/manage/login";
         }
@@ -131,7 +130,7 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
         if (subject.isAuthenticated()) {
             /** 如果已经登录的情况，其他系统集成sso则重定向目标地址，否则直接跳主页 */
             String targetUrl = Servlets.getRequestParameter(JWTUtils.KEY_TARGETURL);
-            // targetUrl = (String) ServletUtil.getSessionAttribute(JWTUtils.KEY_TARGETURL);
+//             targetUrl = (String) ServletUtil.getSessionAttribute(JWTUtils.KEY_TARGETURL);
             if (StringUtils.isNotBlank(targetUrl)) {
                 String jwt = JWTUtils.getJwtFromCookie(request.getCookies());
                 if (!StringUtils.isEmpty(jwt)) {
@@ -160,9 +159,8 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
             return "redirect:/manage/index.html";
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。
-            FrameworkProperties frameworkProperties = FrameworkPropertiesHolder.get();
-            // model.addAttribute("securityConfig", securityConfig);
             request.getSession(true).setAttribute("securityConfig", frameworkProperties);
+            request.setAttribute("passwordRegex", frameworkProperties.getPasswordStrength().getRegexForJs());
             return "/manage/login";
         }
     }
@@ -261,7 +259,7 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
     }
 
     private void doExtendResources(HttpServletRequest request, Model model) {
-        List<String> scripts = FrameworkPropertiesHolder.get().getScripts();
+        List<String> scripts = frameworkProperties.getScripts();
         if (Collections3.isNotEmpty(scripts)) {
             StringBuilder sb = new StringBuilder();
             for (String script : scripts) {
@@ -269,7 +267,7 @@ public class ManagerController extends AbstractJQueryEntityController<User, User
             }
             model.addAttribute("extendScripts", sb.toString());
         }
-        List<String> styles = FrameworkPropertiesHolder.get().getStyles();
+        List<String> styles = frameworkProperties.getStyles();
         if (Collections3.isNotEmpty(styles)) {
             StringBuilder sb = new StringBuilder();
             for (String style : styles) {

@@ -1,3 +1,7 @@
+<!-- title: CMS组件  -->
+<!-- type: app -->
+<!-- author: zhangpu -->
+
 ## 1. 组件介绍
 
 此组件提供内容发布管理的能力

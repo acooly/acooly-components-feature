@@ -12,8 +12,8 @@ package com.acooly.module.cms.dto;
 import com.acooly.openapi.framework.common.annotation.OpenApiField;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,43 +30,43 @@ public class ContentInfo {
     @OpenApiField(desc = "Id", constraint = "物理编码", demo = "1", ordinal = 1)
     private Long id;
 
-    @NotEmpty
+    @NotBlank
     @Length(min = 8, max = 64)
     @OpenApiField(desc = "编码", constraint = "唯一编码", demo = "20160909122220001", ordinal = 2)
     private String code;
 
-    @NotEmpty
+    @NotBlank
     @Length(min = 6, max = 60)
     @OpenApiField(desc = "标题", constraint = "标题", demo = "最新好消息,融资10000000", ordinal = 3)
     private String title;
 
-    @NotEmpty
+    @NotBlank
     @Length(min = 8, max = 64)
     @OpenApiField(desc = "简介", constraint = "内容摘要信息", demo = "最新好消息,融资10000000", ordinal = 4)
     private String subject;
 
-    @NotEmpty
+    @NotBlank
     @Length(min = 8, max = 64)
     @OpenApiField(desc = "封面", constraint = "封面图片路径，全路径可直接访问",
             demo = "https://cdn.images.xxx.com/112/11.jpg", ordinal = 5)
     private String cover;
 
-    @NotEmpty
+    @NotBlank
     @Length(min = 8, max = 64)
     @OpenApiField(desc = "发布时间", constraint = "内容首次发布时间", demo = "2016-09-09 12:12:12", ordinal = 6)
     private String pubTime;
 
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 1024 * 1024 * 5)
     @OpenApiField(desc = "内容信息", constraint = "多媒体内容详情（HTML）,最大5M", demo = "最新好消息,融资10000000xxxx", ordinal = 7)
     private String content;
 
-    @NotEmpty
+    @NotBlank
     @OpenApiField(desc = "内容类型编码", constraint = "自定义分类编码，来自后端内容分类管理模块", demo = "news", ordinal = 8)
     private String typeCode;
 
-    @NotEmpty
+    @NotBlank
     @OpenApiField(desc = "内容类型名称", constraint = "自定义分类名称，来自后端内容分类管理模块", demo = "新闻", ordinal = 9)
     private String typeName;
 

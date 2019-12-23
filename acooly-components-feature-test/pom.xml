@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.acooly</groupId>
         <artifactId>acooly-components-feature</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
+        <version>5.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>acooly-components-feature-test</artifactId>
@@ -18,13 +18,13 @@
 
         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-app</artifactId>
+            <artifactId>acooly-component-data-region</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-data-region</artifactId>
+            <artifactId>acooly-component-treetype</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -53,11 +53,11 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-cms-openapi</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.acooly</groupId>-->
+        <!--            <artifactId>acooly-component-cms-openapi</artifactId>-->
+        <!--            <version>${project.version}</version>-->
+        <!--        </dependency>-->
 
         <!--<dependency>-->
         <!--<groupId>com.acooly</groupId>-->
@@ -84,16 +84,16 @@
         <!--</dependency>-->
 
         <!-- openapi 用于其他组件内的api接口 -->
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>openapi-framework-core</artifactId>
-            <version>${openapi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>openapi-framework-apidoc</artifactId>
-            <version>${openapi.version}</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.acooly</groupId>-->
+        <!--            <artifactId>openapi-framework-core</artifactId>-->
+        <!--            <version>${openapi.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.acooly</groupId>-->
+        <!--            <artifactId>openapi-framework-apidoc</artifactId>-->
+        <!--            <version>${openapi.version}</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.acooly</groupId>
@@ -103,6 +103,7 @@
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-coder</artifactId>
+            <version>4.2.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 

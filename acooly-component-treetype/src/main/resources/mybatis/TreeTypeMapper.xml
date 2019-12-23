@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.treetype.dao.TreeTypeDao">
+
+    <resultMap id="treeTypeResultMap" type="com.acooly.module.treetype.entity.TreeType">
+        <id property="id" column="treeType_id"/>
+        <result property="theme" column="treeType_theme"/>
+        <result property="parentId" column="treeType_parent_id"/>
+        <result property="path" column="treeType_path"/>
+        <result property="sortTime" column="treeType_sort_time"/>
+        <result property="code" column="treeType_code"/>
+        <result property="name" column="treeType_name"/>
+        <result property="subCount" column="treeType_sub_count"/>
+        <result property="comments" column="treeType_comments"/>
+        <result property="createTime" column="treeType_create_time"/>
+        <result property="updateTime" column="treeType_update_time"/>
+    </resultMap>
+
+    <sql id="treeTypeSqlSelect">
+            treeType.id as treeType_id,
+            treeType.theme as treeType_theme,
+            treeType.parent_id as treeType_parent_id,
+            treeType.path as treeType_path,
+            treeType.sort_time as treeType_sort_time,
+            treeType.code as treeType_code,
+            treeType.name as treeType_name,
+            treeType.sub_count as treeType_sub_count,
+            treeType.comments as treeType_comments,
+            treeType.create_time as treeType_create_time,
+            treeType.update_time as treeType_update_time
+    </sql>
+
+</mapper>

@@ -11,10 +11,10 @@ import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.core.utils.enums.AbleStatus;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
@@ -43,14 +43,14 @@ public class EavOption extends AbstractEntity {
     /**
      * 编码
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 64)
     private String code;
 
     /**
      * 名称
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 64)
     private String name;
 
@@ -62,7 +62,7 @@ public class EavOption extends AbstractEntity {
     /**
      * 状态
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 16)
     private String status = AbleStatus.enable.code();
 

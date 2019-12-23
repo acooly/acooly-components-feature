@@ -63,10 +63,8 @@ public class AuthenticationFilter implements Filter {
         }
         String compactJws = AuthFilterUtil.getCompactJwt(httpServletRequest);
 
-        AuthResult result =
-                (AuthResult)
-                        defaultLoginAuthentication.loginAuthentication(
-                                compactJws, loginUrl, httpServletRequest, httpServletResponse);
+        AuthResult result = (AuthResult) defaultLoginAuthentication.loginAuthentication(
+                compactJws, loginUrl, httpServletRequest, httpServletResponse);
         // 根据认证结果处理逻辑
         switch (result) {
             case LOGIN_URL_NULL:

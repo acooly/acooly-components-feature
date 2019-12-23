@@ -2,6 +2,7 @@ package com.acooly.module.security.web;
 
 import com.acooly.module.security.config.FrameworkProperties;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/security/config")
 public class SecurityConfigController {
 
+    @Autowired
+    private FrameworkProperties frameworkProperties;
+
     /**
      * 授权功能顶级菜单
      *
@@ -27,6 +31,6 @@ public class SecurityConfigController {
     @ResponseBody
     public FrameworkProperties authorisedMenus(
             HttpServletRequest request, HttpServletResponse response) {
-        return FrameworkPropertiesHolder.get();
+        return frameworkProperties;
     }
 }

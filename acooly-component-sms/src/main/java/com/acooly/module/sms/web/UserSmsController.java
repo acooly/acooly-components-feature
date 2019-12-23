@@ -33,7 +33,7 @@ import static com.acooly.module.security.shiro.filter.CaptchaFormAuthenticationF
 @Controller
 @RequestMapping(value = "/sms/user/login/")
 @ConditionalOnProperty(
-        value = SecurityProperties.PREFIX + ".loginSmsEnable",
+        value = SecurityProperties.PREFIX + ".enableSmsAuth",
         matchIfMissing = false
 )
 public class UserSmsController {

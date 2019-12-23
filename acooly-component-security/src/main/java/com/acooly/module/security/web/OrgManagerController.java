@@ -7,6 +7,7 @@
 package com.acooly.module.security.web;
 
 import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
@@ -38,7 +39,7 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping(value = "/manage/module/security/org")
-public class OrgManagerController extends AbstractJQueryEntityController<Org, OrgService> {
+public class OrgManagerController extends AbstractJsonEntityController<Org, OrgService> {
 
     @Autowired
     private OrgService orgService;

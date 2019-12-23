@@ -119,14 +119,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
             Set<Resource> resources = role.getRescs();
             Set<String> urls = new HashSet<String>();
             for (Resource resource : resources) {
+                if (!resource.getType().equalsIgnoreCase(FrameworkProperties.RESOURCE_TYPE_MENU)
+                    && Strings.isNullOrEmpty(resource.getValue())) {
+                    continue;
+                }
                 if (resource.getType().equalsIgnoreCase(FrameworkProperties.RESOURCE_TYPE_URL)) {
-                    urls.add(
-                            "*"
-                                    + PathMatchPermission.PART_DIVIDER_TOKEN
-                                    + getCanonicalResource(contextPath, resource.getValue()));
-                } else if (resource
-                        .getType()
-                        .equalsIgnoreCase(FrameworkProperties.RESOURCE_TYPE_FUNCTION)) {
+                    urls.add("*" + PathMatchPermission.PART_DIVIDER_TOKEN
+                            + getCanonicalResource(contextPath, resource.getValue()));
+                } else if (resource.getType().equalsIgnoreCase(FrameworkProperties.RESOURCE_TYPE_FUNCTION)) {
                     urls.add(IS_FUNCTION_PREFIX + resource.getValue());
                 }
             }

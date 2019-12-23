@@ -13,8 +13,8 @@ import com.acooly.core.utils.arithmetic.tree.TreeNode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -39,7 +39,7 @@ public class RegionInfo extends InfoBase implements TreeNode<RegionInfo> {
     /**
      * 区域名称
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 64)
     private String name;
 
@@ -53,7 +53,7 @@ public class RegionInfo extends InfoBase implements TreeNode<RegionInfo> {
     public RegionInfo() {
     }
 
-    public RegionInfo(Long id, Long parentId, String name,Long sortTime) {
+    public RegionInfo(Long id, Long parentId, String name, Long sortTime) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;

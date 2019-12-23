@@ -11,8 +11,8 @@ package com.acooly.module.mail;
 
 import com.google.common.collect.Maps;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -34,7 +34,7 @@ public class MailDto implements Serializable {
 
     private Map<String, Object> params = Maps.newHashMap();
 
-    @NotEmpty
+    @NotBlank
     private String templateName;
 
     /**
