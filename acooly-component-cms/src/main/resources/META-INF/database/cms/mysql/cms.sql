@@ -66,6 +66,7 @@ CREATE TABLE `cms_code` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `KEYCODE` varchar(32) DEFAULT NULL,
   `STATUS` int(2) NOT NULL DEFAULT '1' COMMENT '状态 (1:正常,2:禁用)',
+  `descn` varchar(512) DEFAULT NULL,
   `create_time` timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`ID`)
