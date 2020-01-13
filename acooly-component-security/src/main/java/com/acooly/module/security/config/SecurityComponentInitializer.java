@@ -9,6 +9,7 @@
  */
 package com.acooly.module.security.config;
 
+import com.acooly.core.common.boot.Env;
 import com.acooly.core.common.boot.EnvironmentHolder;
 import com.acooly.core.common.boot.component.ComponentInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -23,13 +24,22 @@ public class SecurityComponentInitializer implements ComponentInitializer {
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
+
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_user[0].columnName", "pinyin");
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_user[0].patchSql", "ALTER TABLE `sys_user` ADD COLUMN `pinyin` VARCHAR(16) NULL COMMENT '姓名拼音';");
+
         setPropertyIfMissing(
-                "acooly.ds.Checker.excludedColumnTables.security", "SYS_ROLE_RESC, SYS_USER_ROLE");
+                "acooly.ds.Checker.excludedColumnTables.security", "sys_role_resc, sys_user_role");
         SecurityProperties securityProperties = new SecurityProperties();
         EnvironmentHolder.buildProperties(securityProperties);
-        if (securityProperties.isEnableSSOAuthzService()) {
+        if (securityProperties.isEnableSsoAuth()) {
             System.setProperty(DUBBO_CUMSTOM_CONFIG_PACKAGE, DUBBO_SSO_CONFIG_PACKAGE);
             setPropertyIfMissing("acooly.olog.storage.enable", "false");
+        }
+
+        // 线上系统，密码强度自少为: usually
+        if (Env.isOnline()) {
+            setPropertyIfMissing("acooly.framework.password-strength", "usually");
         }
     }
 }

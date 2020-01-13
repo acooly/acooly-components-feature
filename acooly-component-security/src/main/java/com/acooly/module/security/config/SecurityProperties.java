@@ -33,7 +33,8 @@ import java.util.Map;
 // OK: 6.新版：左边菜单缩放后，界面resize自适应
 // OK: 7.优化表单验证的错误提示样式，输入框应该有颜色提示。
 @ConfigurationProperties(SecurityProperties.PREFIX)
-@Data
+@Getter
+@Setter
 public class SecurityProperties {
 
     public static final String PREFIX = "acooly.security";
@@ -57,16 +58,19 @@ public class SecurityProperties {
     /**
      * 开启短信验证
      */
-    private boolean loginSmsEnable = DEFAULT_LOGIN_SMS;
+    private boolean enableSmsAuth = DEFAULT_LOGIN_SMS;
 
     /**
      * 开启单点登录权限校验dubbo服务(主boss才开启，为防止非主boss应用提供此服务，同一个zk环境中仅仅允许一个应用为服务提供者)
      */
-    private boolean enableSSOAuthzService = false;
+    private boolean enableSsoAuth = false;
 
-    @PostConstruct
-    public void initXss() {
-    }
+    /**
+     * 是否开启druidStatView,默认开启。在部分安全级别要求较高的场景，可通过该参数关闭
+     * 存在主机头攻击的风险，在不愿开启主机头攻击防御的情况下，可关闭。
+     */
+    private boolean druidStatViewEnable = true;
+
 
     @Getter
     @Setter
@@ -157,13 +161,15 @@ public class SecurityProperties {
         }
     }
 
-    @Data
+    @Getter
+    @Setter
     public static class Captcha {
         private boolean enable = true;
         private String url = "/jcaptcha.jpg";
         private Kaptcha kaptcha = new Kaptcha();
 
-        @Data
+        @Getter
+        @Setter
         public static class Kaptcha {
             /**
              * 图片高

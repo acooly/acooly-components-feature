@@ -2,7 +2,7 @@ package com.acooly.module.security.web;
 
 import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.exception.BusinessException;
-import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.MappingMethod;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
@@ -19,10 +19,12 @@ import com.acooly.module.security.domain.Role;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.dto.UserDto;
 import com.acooly.module.security.dto.UserRole;
+import com.acooly.module.security.enums.SecurityErrorCode;
 import com.acooly.module.security.event.UserCreatedEvent;
 import com.acooly.module.security.service.OrgService;
 import com.acooly.module.security.service.RoleService;
 import com.acooly.module.security.service.UserService;
+import com.acooly.module.security.utils.ShiroUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -48,7 +50,7 @@ import java.util.*;
         value = SecurityProperties.PREFIX + ".shiro.auth.enable",
         matchIfMissing = true
 )
-public class UserController extends AbstractJQueryEntityController<User, UserService> {
+public class UserController extends AbstractJsonEntityController<User, UserService> {
 
     private static Map<Integer, String> allUserTypes = FrameworkPropertiesHolder.get().getUserTypes();
     private static Map<Integer, String> allStatus = FrameworkPropertiesHolder.get().getUserStatus();
@@ -83,6 +85,9 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
     public JsonEntityResult<User> saveJson(HttpServletRequest request, HttpServletResponse response) {
         JsonEntityResult<User> result = new JsonEntityResult<>();
         try {
+            // 密码强度验证
+            String password = request.getParameter("password");
+            FrameworkPropertiesHolder.get().getPasswordStrength().verify(password);
             result = super.saveJson(request, response);
             if (!result.isSuccess()) {
                 return result;
@@ -153,13 +158,12 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
     }
 
     @RequestMapping(value = "showChangePassword")
-    public String showChangePassword(
-            @ModelAttribute("loadEntity") User entity,
-            Model model,
-            HttpServletRequest request,
-            HttpServletResponse response) {
+    public String showChangePassword(@ModelAttribute("loadEntity") User entity, Model model,
+                                     HttpServletRequest request, HttpServletResponse response) {
         try {
             model.addAttribute(getEntityName(), loadEntity(request));
+            model.addAttribute("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegexForJs());
+            model.addAttribute("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordStrength().getDetail());
         } catch (Exception e) {
             handleException("修改密码界面", e, request);
         }
@@ -173,8 +177,17 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
     public JsonResult changePassword(
             HttpServletRequest request, HttpServletResponse response, Model model) {
         String newPassword = request.getParameter("newPassword");
+        String adminPassword = request.getParameter("adminPassword");
         JsonResult result = new JsonResult();
         try {
+            // 密码强度验证
+            FrameworkPropertiesHolder.get().getPasswordStrength().verify(newPassword);
+            // 验证当前操作员的密码
+            User admin = ShiroUtils.getCurrentUser();
+            if (!getEntityService().validatePassword(admin, adminPassword)) {
+                log.warn("管理员修改密码 认证失败 operator: {}", admin.getUsername());
+                throw new BusinessException(SecurityErrorCode.ADMIN_PASSWORD_AUTH_FAIL,"管理员密码错误");
+            }
             User entity = loadEntity(request);
             getEntityService().changePassword(entity, newPassword);
             result.setMessage("密码修改成功");
@@ -231,6 +244,9 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
             Org organize = orgService.get(entity.getOrgId());
             entity.setOrgName(organize.getName());
         }
+        if (entity.getPinyin() == null) {
+            entity.setPinyin(Strings.toPinyinFistWord(entity.getRealName()));
+        }
         return entity;
     }
 
@@ -240,8 +256,8 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
         model.put("allUserTypes", allUserTypes);
         List<Role> list = roleService.getAll();
         model.put("allRoles", list);
-        model.put("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordRegex());
-        model.put("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordError());
+        model.put("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegexForJs());
+        model.put("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordStrength().getDetail());
         String id = request.getParameter(getEntityIdName());
         model.put("roleIds", id == null ? "[]" : getRoleIds(Long.valueOf(id)));
     }
@@ -290,6 +306,7 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
                 }
             }
         }
+        user.setPinyin(Strings.toPinyinFistWord(user.getRealName()));
         user.setUserType(2);
         return user;
     }
@@ -305,7 +322,7 @@ public class UserController extends AbstractJQueryEntityController<User, UserSer
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.get(1L));
         for (User user : entities) {
-            if(Collections3.isEmpty(user.getRoles())){
+            if (Collections3.isEmpty(user.getRoles())) {
                 user.setRoles(roles);
             }
             getEntityService().createUser(user);

@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.acooly</groupId>
         <artifactId>acooly-components-feature</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
+        <version>5.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>acooly-component-olog</artifactId>
     <name>acooly-component-olog</name>
@@ -13,15 +13,14 @@
     <dependencies>
         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.acooly</groupId>
             <artifactId>acooly-component-security</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-dubbo</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>eu.bitwalker</groupId>

@@ -10,11 +10,9 @@
 package com.acooly.module.security.event;
 
 import com.acooly.module.security.domain.User;
-import lombok.Data;
 
 /**
  * @author shuijing
  */
-@Data
 public class UserCreatedEvent extends User {
 }

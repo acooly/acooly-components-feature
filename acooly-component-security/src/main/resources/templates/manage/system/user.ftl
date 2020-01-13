@@ -7,9 +7,9 @@
         $('<div/>').dialog({
             href: '/manage/system/user/showChangePassword.html?id=' + id,
             width: 400,
-            height: 200,
+            height: 300,
             modal: true,
-            title: '修改用戶密碼',
+            title: '修改用戶密码',
             buttons: [{
                 text: '修改',
                 iconCls: 'icon-edit',

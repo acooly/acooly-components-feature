@@ -71,7 +71,7 @@ maven坐标
 
 在使用单点登录的时候，主boss作为权限的主配置提供者，默认提供http接口校验权限`{@link com.acooly.module.security.web.RoleFacadeController.isPermitted}`
 当使用dubbo作为权限校验时候，主boss应用必须开启服务提供者：
-`acooly.security.enableSSOAuthzService=true
+`acooly.security.enable-sso-auth=true
 `
 
 ### 3.4 新增用户后，需要做其他业务操作，如何扩展？

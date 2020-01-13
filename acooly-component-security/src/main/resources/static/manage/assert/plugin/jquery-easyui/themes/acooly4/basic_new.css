@@ -462,3 +462,7 @@ img {
 .main-tree li ul{
     padding-left: 15px;
 }
+/*bootstrap中定义label的样式为font-weight: bold;，会导致easyui-datagrid中超长的数据以粗体显示，在此修改为normal*/
+div.datagrid-cell > div > label {
+    font-weight: normal;
+}

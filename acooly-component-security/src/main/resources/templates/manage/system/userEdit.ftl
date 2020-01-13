@@ -84,14 +84,14 @@
                 <tr>
                     <th>类型</th>
                     <td><select id="userTypeTest" name="userType" <#if (allUserTypes?size<=10)>panelHeight="auto"</#if>
-                                class="easyui-combobox" style="width:280px;">
+                                class="easyui-combobox" style="width:200px;">
 						<#list allUserTypes as k,v>
                             <option value="${k}">${v}</option></#list>
                     </select></td>
                 </tr>
                 <tr>
                     <th>状态</th>
-                    <td><select name="status" panelHeight="auto" class="easyui-combobox" style="height: 30px;">
+                    <td><select name="status" panelHeight="auto" class="easyui-combobox" style="width: 200px;height: 30px;">
 							<#list allStatus as k,v>
                                 <option value="${k}">${v}</option></#list>
                     </select></td>

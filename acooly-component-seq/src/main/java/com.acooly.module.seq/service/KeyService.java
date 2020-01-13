@@ -1,5 +1,6 @@
 package com.acooly.module.seq.service;
 
+import com.acooly.core.utils.Asserts;
 import org.springframework.util.Assert;
 
 import javax.sql.DataSource;
@@ -32,7 +33,7 @@ public class KeyService {
         this.keyName = keyName;
         maxId = new AtomicLong(0);
         nextId = new AtomicLong(0);
-        Assert.isTrue(incrementBy > 0);
+        Asserts.isTrue(incrementBy > 0);
     }
 
     /**

@@ -10,8 +10,7 @@
 package com.acooly.module.security.config;
 
 import com.acooly.core.common.boot.EnvironmentHolder;
-import com.acooly.core.common.dao.dialect.DatabaseType;
-import com.acooly.core.common.dao.support.AbstractDatabaseScriptIniter;
+import com.acooly.core.common.dao.support.StandardDatabaseScriptIniter;
 import com.acooly.module.jpa.JPAAutoConfig;
 import com.acooly.module.security.captche.CaptchaServlet;
 import com.acooly.module.security.health.HealthCheckServlet;
@@ -72,16 +71,17 @@ import java.util.Map;
 public class SecurityAutoConfig {
 
     @Autowired
-    SecurityProperties securityProperties;
+    private SecurityProperties securityProperties;
     @Autowired
     private ServletContext servletContext;
 
     @Bean
-    public AbstractDatabaseScriptIniter securityScriptIniter() {
+    public StandardDatabaseScriptIniter securityScriptIniter() {
         return new SecurityDatabaseScriptIniter();
     }
 
     @Bean
+    @ConditionalOnProperty(value = SecurityProperties.PREFIX + ".druid-stat-view-enable", matchIfMissing = true)
     public ServletRegistrationBean statViewServlet() {
         ServletRegistrationBean bean = new ServletRegistrationBean();
 
@@ -93,8 +93,8 @@ public class SecurityAutoConfig {
 
     @PostConstruct
     public void ssoContextInitializer() {
-        if (securityProperties.isLoginSmsEnable()) {
-            servletContext.setAttribute("loginSmsEnable", true);
+        if (securityProperties.isEnableSmsAuth()) {
+            servletContext.setAttribute("enableSmsAuth", true);
         }
     }
 
@@ -104,11 +104,8 @@ public class SecurityAutoConfig {
     @AutoConfigureAfter({JPAAutoConfig.class, DataSourceTransactionManagerAutoConfiguration.class})
     public static class ShiroAutoConfigration {
         public static boolean isShiroFilterAnon() {
-            return EnvironmentHolder.get()
-                    .getProperty(
-                            "acooly.security.shiroFilterAnon",
-                            Boolean.class,
-                            SecurityProperties.DEFAULT_SHIRO_FILTER_ANON);
+            return EnvironmentHolder.get().getProperty("acooly.security.shiroFilterAnon",
+                            Boolean.class, SecurityProperties.DEFAULT_SHIRO_FILTER_ANON);
         }
 
         @Bean
@@ -372,17 +369,23 @@ public class SecurityAutoConfig {
     }
 
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    private static class SecurityDatabaseScriptIniter extends AbstractDatabaseScriptIniter {
+    private static class SecurityDatabaseScriptIniter extends StandardDatabaseScriptIniter {
+
         @Override
-        public String getEvaluateSql(DatabaseType databaseType) {
-            return "SELECT count(*) FROM SYS_ROLE";
+        public String getEvaluateTable() {
+            return "sys_user";
         }
 
         @Override
-        public List<String> getInitSqlFile(DatabaseType databaseType) {
-            return Lists.newArrayList(
-                    "META-INF/database/security/" + databaseType.name() + "/security.sql");
+        public String getComponentName() {
+            return "security";
         }
+
+        @Override
+        public List<String> getInitSqlFile() {
+            return Lists.newArrayList("security");
+        }
+
     }
 
 }

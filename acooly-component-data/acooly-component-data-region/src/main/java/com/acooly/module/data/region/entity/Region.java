@@ -10,10 +10,10 @@ package com.acooly.module.data.region.entity;
 import com.acooly.core.common.domain.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -41,7 +41,7 @@ public class Region extends AbstractEntity {
     /**
      * 区域名称
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 64)
     private String name;
 

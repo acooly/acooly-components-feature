@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class MailAttachmentDto implements Serializable {
     /**
      * 附件名称
      */
-    @NotEmpty
+    @NotBlank
     private String name;
 
     public void setContentFile(File file) {

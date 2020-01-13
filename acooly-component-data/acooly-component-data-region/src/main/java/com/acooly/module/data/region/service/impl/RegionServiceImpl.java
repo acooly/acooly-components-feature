@@ -41,8 +41,8 @@ public class RegionServiceImpl extends EntityServiceImpl<Region, RegionDao> impl
         });
         // 构建树，先按排序时间倒叙，然后按id升序排序
         return QuickTree.quickTree(regionInfos, Region.ROOT_ID, Comparator.nullsLast(
-                Comparator.comparing(RegionInfo::getSortTime).reversed()
-                        .thenComparing(RegionInfo::getId)));
+                Comparator.comparing((RegionInfo r) -> -r.getSortTime())
+                        .thenComparing(r -> r.getId())));
 
     }
 

@@ -46,6 +46,11 @@ public class User extends AbstractEntity {
     private String realName;
 
     /**
+     * 姓名拼音首字母
+     */
+    private String pinyin;
+
+    /**
      * 电子邮件
      */
     private String email;

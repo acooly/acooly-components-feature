@@ -1,5 +1,5 @@
 <!-- title: 序列号生成器组件 -->
-<!-- type: infrastructure -->
+<!-- type: app -->
 <!-- author: qiubo -->
 ## 1. 组件介绍
 

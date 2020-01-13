@@ -1,13 +1,6 @@
 <!-- title: 后台单点登录组件   -->
 <!-- type: app -->
 <!-- author: shuijing,zhangpu -->
-
-后台单点登录组件
-====
-acooly-component-sso
-----
-
-
 ## 1. 组件介绍
 
 此组件提供多系统集成单点登录能力
@@ -18,11 +11,13 @@ acooly-component-sso
 
 maven坐标：
 
-     <dependency>
-        <groupId>com.acooly</groupId>
-        <artifactId>acooly-component-sso</artifactId>
-        <version>${acooly-latest-version}</version>
-      </dependency>
+```xml
+<dependency>
+	<groupId>com.acooly</groupId>
+	<artifactId>acooly-component-sso</artifactId>
+	<version>${acooly-latest-version}</version>
+</dependency>
+```      
 
 `${acooly-latest-version}`为框架最新版本或者购买的版本。
 
@@ -45,14 +40,19 @@ maven坐标：
 
 * freemarker页面
 
-        <#if ssoEnable>
-            <#include "/manage/common/ssoInclude.ftl">
-        </#if>
+```java
+<#if ssoEnable>
+	<#include "/manage/common/ssoInclude.ftl">
+</#if>
+```        
+ 
 * jsp页面 
 
-        <c:if test="${initParam['ssoEnable']=='true'}">
-               <%@ include file="/WEB-INF/jsp/manage/common/ssoInclude.jsp" %>
-        </c:if>
+```java
+<c:if test="${initParam['ssoEnable']=='true'}">
+	<%@ include file="/WEB-INF/jsp/manage/common/ssoInclude.jsp" %>
+</c:if>
+```
    
 #### 资源菜单 
 

@@ -18,7 +18,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ import static com.acooly.module.cms.CmsProperties.PREFIX;
 @ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
 @ComponentScan(basePackages = "com.acooly.module.cms")
 @AutoConfigureAfter(SecurityAutoConfig.class)
-public class CmsAutoConfig extends WebMvcConfigurerAdapter {
+public class CmsAutoConfig {
 
     @Bean
     public StandardDatabaseScriptIniter cmsScriptIniter() {

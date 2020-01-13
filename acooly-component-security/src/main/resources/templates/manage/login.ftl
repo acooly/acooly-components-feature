@@ -5,9 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
     <!-- bootstrap -->
-    <#--<link rel="stylesheet" href="/manage/assert/plugin/bootstrap/3.3.5/css/bootstrap.min.css">-->
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <#--<link rel="stylesheet" href="/manage/assert/plugin/bootstrap/3.3.5/css/bootstrap-theme.min.css">-->
+    <link rel="stylesheet" href="/manage/assert/plugin/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/manage/assert/style/login.css">
 
@@ -20,11 +18,11 @@
         <div class="container">
             <div class="row">
                 <div class="text" style="text-align: center;">
-                <#if Session.securityConfig.logo??>
-                    <img alt="logo" width="300" src="${Session.securityConfig.logo}">
-                <#else>
-                    <h1>${Session.securityConfig.title}</h1>
-                </#if>
+                    <#if Session.securityConfig.logo??>
+                        <img alt="logo" width="300" src="${Session.securityConfig.logo}">
+                    <#else>
+                        <h1>${Session.securityConfig.title}</h1>
+                    </#if>
                     <div class="description">${Session.securityConfig.subtitle}</div>
                 </div>
             </div>
@@ -34,11 +32,11 @@
                         <div class="form-top-left">
                             <h3>登录您的账号</h3>
                             <p id="message" class="text-danger"><i class="fa fa-exclamation"></i>
-                        <#if Request.message??>
-                            ${Request.message}
-                        <#else>
-                            请注意账户安全
-                        </#if>
+                                <#if Request.message??>
+                                    ${Request.message}
+                                <#else>
+                                    请注意账户安全
+                                </#if>
                             </p>
                         </div>
                         <div class="form-top-right">
@@ -46,59 +44,60 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" action="" method="post" class="login-form">
+                        <form role="form" action="" method="post" class="login-form" autocomplete="off">
                             <input type="hidden" id="_csrf" name="_csrf"
                                    value="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
                             <div class="form-group input-group">
                                 <span class="input-group-addon" id="username-addon"><i
-                                        class="fa fa-user fa-fw"></i></span>
+                                            class="fa fa-user fa-fw"></i></span>
                                 <label class="sr-only" for="form-username">用户名</label>
-                                <input type="text" name="username" placeholder="账号..." aria-describedby="username-addon"
+                                <input type="text" name="username" placeholder="账号..." aria-describedby="username-addon" autocomplete="new-password"
                                        class="form-username form-control" id="form-username">
                             </div>
+                            <input style="display:none">
                             <div class="form-group input-group">
                                 <span class="input-group-addon" id="password-addon"><i
-                                        class="fa fa-key fa-fw"></i></span>
+                                            class="fa fa-key fa-fw"></i></span>
                                 <label class="sr-only" for="form-password">密码</label>
-                                <input type="password" name="password" placeholder="密码..."
+                                <input type="password" name="password" placeholder="密码..." autocomplete="new-password"
                                        aria-describedby="password-addon" class="form-password form-control"
                                        id="form-password">
                             </div>
 
-                    <#if Application.loginSmsEnable?exists>
-                        <div class="form-group input-group" style="white-space:nowrap;">
+                            <#if Application.loginSmsEnable?exists>
+                                <div class="form-group input-group" style="white-space:nowrap;">
                                    <span class="input-group-addon" id="captcha-addon"><i
-                                           class="fa fa-check fa-fw"></i></span>
-                        <#-- <input id="phoneNumber" name="phoneNumber" value="" size="100"
-                                class="form-captcha form-control"
-                                type="text" placeholder="手机号码"/>-->
+                                               class="fa fa-check fa-fw"></i></span>
+                                    <#-- <input id="phoneNumber" name="phoneNumber" value="" size="100"
+                                            class="form-captcha form-control"
+                                            type="text" placeholder="手机号码"/>-->
 
-                            <input id="validCode" name="validCode" type="text" value="" size="30"
-                                   class="form-smscaptcha form-control"
-                                   placeholder="验证码"/>
-                            <input
-                                    id="getValidCodeaa" class="btn btn-info" width="20" type="button"
-                                    style="font-size: small" value="获取验证码"
-                            />
-                            <input style="display: none;" id="smsSendInterval"
-                                   value="${Session.securityConfig.smsSendInterval}"/>
-                        </div>
-                    <#else>
-                        <div class="form-group input-group" id="captchaPanel" style="display: none;">
+                                    <input id="validCode" name="validCode" type="text" value="" size="30"
+                                           class="form-smscaptcha form-control"
+                                           placeholder="验证码"/>
+                                    <input
+                                            id="getValidCodeaa" class="btn btn-info" width="20" type="button"
+                                            style="font-size: small" value="获取验证码"
+                                    />
+                                    <input style="display: none;" id="smsSendInterval"
+                                           value="${Session.securityConfig.smsSendInterval}"/>
+                                </div>
+                            <#else>
+                                <div class="form-group input-group" id="captchaPanel" style="display: none;">
                                 <span class="input-group-addon" id="captcha-addon"><i
-                                        class="fa fa-check fa-fw"></i></span>
-                            <label class="sr-only" for="form-captcha">验证码</label>
-                            <input type="text" name="captcha" placeholder="验证码..." aria-describedby="captcha-addon"
-                                   class="form-captcha form-control" id="form-captcha">
-                            <span class="ml5">
+                                            class="fa fa-check fa-fw"></i></span>
+                                    <label class="sr-only" for="form-captcha">验证码</label>
+                                    <input type="text" name="captcha" placeholder="验证码..." aria-describedby="captcha-addon"
+                                           class="form-captcha form-control" id="form-captcha">
+                                    <span class="ml5">
                                         <img id="jcaptchaImage" onclick="refreshCaptcha()" src="/jcaptcha.jpg"
                                              height="34"
                                              width="65" align="top" style="cursor: pointer;" title="看不清楚？点击更换">
                                         <a href="javascript:;" onclick="refreshCaptcha()"
                                            style="font-size: 12px;">看不清,换一下！</a>
                                 </span>
-                        </div>
-                    </#if>
+                                </div>
+                            </#if>
 
                             <button type="button" id="loginButton" onclick="loginForm()" class="btn btn-warning">登 录
                             </button>
@@ -115,14 +114,17 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/manage/assert/plugin/jquery/jquery-3.3.1.min.js"></script>
+<script src="/manage/assert/plugin/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
 <script src="/manage/assert/plugin/jquery-plugin/jquery.cookie.js" charset="utf-8"></script>
 
 
 <script type="text/javascript">
 
+
+    var passwordRegex = "${passwordRegex}";
+    var passwordMessage = "${securityConfig.passwordStrength.detail}";
 
     /**
      * 刷新验证码
@@ -144,17 +146,35 @@
                 $(this).removeClass('input-error');
             }
         });
-        if ($('#form-username').val() == "" || $('#form-password').val() == "") {
+        var username = $('#form-username').val();
+        var password = $('#form-password').val();
+        if (username == "" || password == "") {
+            $('#message').html("用户名和密码不能为空");
             return;
         }
 
-        <#if Application.loginSmsEnable?exists>
-            if (!checkCodee()) {
+        if(username.length > 64){
+            $('#message').html("用户名长度不能操过64字符");
+            return;
+        }
+
+
+        if(passwordRegex != ""){
+            var regexPassword = new RegExp(passwordRegex);
+            if(!regexPassword.test(password)){
+                $('#message').html(passwordMessage);
                 return;
             }
-            var captcha = $('#validCode').val();
+        }
+
+
+        <#if Application.loginSmsEnable?exists>
+        if (!checkCodee()) {
+            return;
+        }
+        var captcha = $('#validCode').val();
         <#else>
-            var captcha = $('#form-captcha').val();
+        var captcha = $('#form-captcha').val();
         </#if>
 
         var targetUrl = getParameterByName('targetUrl');
@@ -165,7 +185,7 @@
             captcha: captcha,
             _csrf: $('#_csrf').val(),
             targetUrl: targetUrl
-            ,acoolyTheme:cookiesAcoolyTheme
+            , acoolyTheme: cookiesAcoolyTheme
         };
 
         loading();
@@ -184,7 +204,7 @@
                 } else {
                     <#if Application.loginSmsEnable?exists>
                     <#else>
-                        refreshCaptcha();
+                    refreshCaptcha();
                     </#if>
                     var message = result.message;
 //					if(result.data.lastTimes){

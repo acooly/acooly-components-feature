@@ -8,10 +8,10 @@ package com.acooly.module.certification.platform.entity;
 
 import com.acooly.core.common.domain.AbstractEntity;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -44,21 +44,21 @@ public class CertificationRecord extends AbstractEntity {
     /**
      * 性别
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 18)
     private String sex;
 
     /**
      * 所在地址
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 512)
     private String address;
 
     /**
      * 出生日期
      */
-    @NotEmpty
+    @NotBlank
     @Size(max = 32)
     private String birthday;
 
