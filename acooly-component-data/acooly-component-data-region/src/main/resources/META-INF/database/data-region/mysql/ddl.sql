@@ -3527,3 +3527,71 @@ VALUES
 	(659002, 659000, '阿拉尔市', NULL, NULL, NULL, NULL, NULL),
 	(659003, 659000, '图木舒克市', NULL, NULL, NULL, NULL, NULL),
 	(659004, 659000, '五家渠市', NULL, NULL, NULL, NULL, NULL);
+	
+	
+--完善东莞市、中山市省市区第三级信息
+INSERT INTO `data_region` VALUES ('441901', '441900', '市辖区', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441902', '441900', '东城街道办事处', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441903', '441900', '南城街道办事处', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441904', '441900', '万江街道办事处', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441905', '441900', '莞城街道办事处', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441906', '441900', '石碣镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441907', '441900', '石龙镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441908', '441900', '茶山镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441909', '441900', '石排镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441910', '441900', '企石镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441911', '441900', '横沥镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441912', '441900', '桥头镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441913', '441900', '谢岗镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441914', '441900', '东坑镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441915', '441900', '常平镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441916', '441900', '寮步镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441917', '441900', '樟木头镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441918', '441900', '大朗镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441919', '441900', '黄江镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441920', '441900', '清溪镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441921', '441900', '塘厦镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441922', '441900', '凤岗镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441923', '441900', '大岭山镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441924', '441900', '长安镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441925', '441900', '虎门镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441926', '441900', '厚街镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441927', '441900', '沙田镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441928', '441900', '道滘镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441929', '441900', '洪梅镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441930', '441900', '麻涌镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441931', '441900', '望牛墩镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441932', '441900', '中堂镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441933', '441900', '高埗镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441934', '441900', '松山湖管委会', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441935', '441900', '东莞港', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('441936', '441900', '东莞生态园', NULL, '0', NULL, NULL, NULL);
+
+INSERT INTO `data_region` VALUES ('442001', '442000', '市辖区', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442002', '442000', '石岐区街道办事处', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442003', '442000', '东区街道办事处', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442004', '442000', '火炬开发区街道办事处', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442005', '442000', '西区街道办事处', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442006', '442000', '南区街道办事处', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442007', '442000', '五桂山街道办事处', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442008', '442000', '小榄镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442009', '442000', '黄圃镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442010', '442000', '民众镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442011', '442000', '东凤镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442012', '442000', '东升镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442013', '442000', '古镇镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442014', '442000', '沙溪镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442015', '442000', '坦洲镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442016', '442000', '港口镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442017', '442000', '三角镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442018', '442000', '横栏镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442019', '442000', '南头镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442020', '442000', '阜沙镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442021', '442000', '南朗镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442022', '442000', '三乡镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442023', '442000', '板芙镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442024', '442000', '大涌镇', NULL, '0', NULL, NULL, NULL);
+INSERT INTO `data_region` VALUES ('442025', '442000', '神湾镇', NULL, '0', NULL, NULL, NULL);
+
+--sort_time赋值
+update data_region set sort_time='0' where sort_time is null;
