@@ -41,10 +41,6 @@ CREATE TABLE `cms_content` (
   `update_time` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `COMMENTS` varchar(128) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`ID`),
-  KEY `idx_cms_content_id` (`ID`),
-  KEY `idx_cms_content_type` (`TYPE`),
-  CONSTRAINT `pk_cms_content_body_id` FOREIGN KEY (`ID`) REFERENCES `cms_content_body` (`ID`),
-  CONSTRAINT `pk_cms_content_type_id` FOREIGN KEY (`TYPE`) REFERENCES `cms_content_type` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='内容主表';
 
 DROP TABLE IF EXISTS `cms_attachment`;
@@ -57,9 +53,7 @@ CREATE TABLE `cms_attachment` (
   `FILE_NAME` varchar(128) DEFAULT NULL,
   `create_time` timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`ID`),
-  KEY `FK2731B5D9D02C81BF` (`CONTENTID`),
-  CONSTRAINT `cms_attachment_ibfk_1` FOREIGN KEY (`CONTENTID`) REFERENCES `cms_content` (`ID`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='内容附件';
 
 CREATE TABLE `cms_code` (
