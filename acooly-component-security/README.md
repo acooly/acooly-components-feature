@@ -22,7 +22,7 @@ acooly-component-security
 * 可扩展JS和CSS库
 * 支持EASYUI,LAYUI和AdminLTE三种UI风格开发。
 
-## 2. 使用说明
+## 3. 使用说明
 
 maven坐标
 
@@ -38,7 +38,7 @@ maven坐标
 
 ## 3. FAQ
 
-### 3.1 怎么开启登录短信验证码
+### 4.1 怎么开启登录短信验证码
 
 * 配置开启短信验证
     `acooly.security.loginSmsEnable=true
@@ -59,7 +59,7 @@ maven坐标
 * 开启短信验证码功能后，在新增user的时候，填写手机号码
 
 
-### 3.2 怎么设置不需要需登录(授权、认证)访问所有boss页面
+### 4.2 怎么设置不需要需登录(授权、认证)访问所有boss页面
 
 只需要添加配置：
 `acooly.security.shiroFilterAnon=true
@@ -67,14 +67,14 @@ maven坐标
 
 开启后shiro filter链都会设为不拦截，可在系统不需要任何授权、认证时开启（慎用）
 
-### 3.3 设置单点登录启用dubbo权限校验服务
+### 4.3 设置单点登录启用dubbo权限校验服务
 
 在使用单点登录的时候，主boss作为权限的主配置提供者，默认提供http接口校验权限`{@link com.acooly.module.security.web.RoleFacadeController.isPermitted}`
 当使用dubbo作为权限校验时候，主boss应用必须开启服务提供者：
 `acooly.security.enable-sso-auth=true
 `
 
-### 3.4 新增用户后，需要做其他业务操作，如何扩展？
+### 4.4 新增用户后，需要做其他业务操作，如何扩展？
        
                //异步事件处理器
                @Handler(delivery = Invoke.Asynchronously)
@@ -83,7 +83,7 @@ maven坐标
                    log.info("异步用户保存事件处理器{}",user.toString());
                }
  
-### 3.5 增加扩展资源（js和css库）
+### 4.5 增加扩展资源（js和css库）
 配置参数：
 
 ```ini
@@ -96,7 +96,7 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 
 >注意：扩展加入自定义的js和css引用后，会在扩展主界面（基础）加载，扩展内全局可用，请注意不要与现有扩展内资源冲突。
    
-### 3.6 设置功能权限控制按钮权限
+### 4.6 设置功能权限控制按钮权限
 
 组件本身的权限控制粒度为最小业务操作（可以理解为控制层的方法级别），但为了简化管理配置，我们一般使用URL权限通配方式，即：只需配置控制器的首页则该模块都具有权限。在实际生产中，URL通配方式可以解决80%以上的需求，但也有明确需要控制某个页面上具体一个功能权限的需求，这个时候，我们使用功能权限进行设置，框架本身是能很好支持的。
 
@@ -128,9 +128,9 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 	```
 	    
                
-## 4.附录
+## 5.资源
 
-### 开发资源
+### 5.1 开发
 
 1. **easyui文档**：http://www.jeasyui.com/
 1. **图标库**：
@@ -142,10 +142,17 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
     ```
 2. **layui库**：已经引入，可以直接使用其组件。文档：https://www.layui.com/
 
-### 风格
+### 5.2 风格
 
 * acooly：v3标准/easyui标准风格
 * acooly4：layui风格，AdminLTE风格
+
+## 6. changelog
+
+### 5.0.0-SNAPSHOT-20200114
+
+* 2020-01-14 - fixed：资源权限管理中，从下层拖动到顶层时无法正确报错位置的问题。 - [zhangpu] 763906e
+* 2020-01-14 - fixed：PasswordStrength为低等级时，支持高等级的密码。例如：simple可支持：AA123!@#$模式的密码。
 
 
              

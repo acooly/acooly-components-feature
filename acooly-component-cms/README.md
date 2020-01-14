@@ -29,4 +29,8 @@ maven坐标：
         log.info("异步保存内容后事件处理器{}",c.toString());
     }
 
+## 4. changelog
 
+### 5.0.0-SNAPSHOT-20200114
+
+* 2020-01-14 - fixed:Issue#14:V5的CMS在添加内容时报错JAP报错。原因：重复的自动生成外接和初始化脚本问题，目前已删除初始化脚本中的外键关系。 - [zhangpu] 480f366
