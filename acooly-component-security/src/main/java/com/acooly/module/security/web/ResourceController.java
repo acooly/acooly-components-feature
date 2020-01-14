@@ -1,6 +1,5 @@
 package com.acooly.module.security.web;
 
-import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
@@ -171,24 +170,12 @@ public class ResourceController extends AbstractJsonEntityController<Resource, R
         try {
             Resource source = resourceService.get(Long.valueOf(sourceId));
             Resource target = resourceService.get(Long.valueOf(targetId));
-            if ("inner".equals(moveType)) {
-                source.setParent(target);
-            } else if ("prev".equals(moveType)) {
-                source.setOrderTime(Dates.addDate(target.getOrderTime(), 1000));
-                // 不同级
-                if (source.getParent() != null
-                        && target.getParent() != null
-                        && !source.getParent().getId().equals(target.getParent().getId())) {
-                    source.setParent(target.getParent());
-                }
+            source.setParent(target);
+            //inner
+            if ("prev".equals(moveType)) {
+                source.setOrderTime(Dates.addDate(target.getOrderTime(), 1));
             } else if ("next".equals(moveType)) {
-                source.setOrderTime(Dates.addDate(target.getOrderTime(), -1000));
-                // 不同级
-                if (source.getParent() != null
-                        && target.getParent() != null
-                        && !source.getParent().getId().equals(target.getParent().getId())) {
-                    source.setParent(target.getParent());
-                }
+                source.setOrderTime(Dates.addDate(target.getOrderTime(), -1));
             }
             resourceService.save(source);
         } catch (Exception e) {
@@ -198,9 +185,8 @@ public class ResourceController extends AbstractJsonEntityController<Resource, R
     }
 
     @Override
-    protected void onRemove(
-            HttpServletRequest request, HttpServletResponse response, Model model, Serializable... ids)
-            throws Exception {
+    protected void onRemove(HttpServletRequest request, HttpServletResponse response,
+                            Model model, Serializable... ids) {
         Resource role = null;
         for (Serializable id : ids) {
             role = getEntityService().get(id);
@@ -223,8 +209,8 @@ public class ResourceController extends AbstractJsonEntityController<Resource, R
             entity.setParent(resourceService.get(Long.valueOf(parentId)));
         }
 
-        String customIcon = Servlets.getParameter(request,"customIcon");
-        if(Strings.isNotBlank(customIcon)){
+        String customIcon = Servlets.getParameter(request, "customIcon");
+        if (Strings.isNotBlank(customIcon)) {
             entity.setIcon(customIcon);
         }
         return entity;
