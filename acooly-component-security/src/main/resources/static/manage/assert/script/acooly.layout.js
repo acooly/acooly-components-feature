@@ -21,10 +21,10 @@
                                 if (domEle.children && domEle.children.length > 0) {
                                     $.acooly.layout.menus.push(domEle);
 
-                                    if(domEle.iconSkin != null){
+                                    if (domEle.iconSkin != null) {
                                         a += "<a id='mainMenu_" + domEle.id + "' href=\"javascript:$.acooly.layout.loadTree('" + domEle.id + "','" + domEle.name + "');\" class=\"" + (i == 1 ? 'buttonaft' : 'button') + "\">" +
-                                            "<span><i class='fa "+domEle.iconSkin+"'></i>  " + domEle.name + "</span></a>";
-                                    }else{
+                                            "<span><i class='fa " + domEle.iconSkin + "'></i>  " + domEle.name + "</span></a>";
+                                    } else {
                                         a += "<a id='mainMenu_" + domEle.id + "' href=\"javascript:$.acooly.layout.loadTree('" + domEle.id + "','" + domEle.name + "');\" class=\"" + (i == 1 ? 'buttonaft' : 'button') + "\">" +
                                             "<span><img src='" + $.acooly.layout.getIconPath(domEle.icon) + "'/>" + domEle.name + "</span></a>";
                                     }
@@ -104,7 +104,7 @@
                 var opts = {
                     title: node.name,
                     closable: true,
-                    iconCls: node.icon != null && node.icon.startsWith("fa")? "fa " + node.icon:node.icon
+                    iconCls: node.icon != null && node.icon.startsWith("fa") ? "fa " + node.icon : node.icon
                 };
                 if (node.showMode == 1) {
                     opts.href = contextPath + url;
@@ -146,7 +146,7 @@
                     $.extend(opts, {
                         onLoadError: function (e, x, y) {
                             $.acooly.layout.closeTab();
-                            $.acooly.alert('错误', "请求的功能不存在");
+                            $.acooly.msgrb("请求的功能不存在或没有权限", false)
                         }
                     })
                     t.tabs('add', opts);
