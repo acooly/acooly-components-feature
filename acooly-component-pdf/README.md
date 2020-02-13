@@ -1,6 +1,7 @@
 <!-- title: pdf组件 -->
 <!-- type: app -->
 <!-- author: shuijing -->
+<!-- date: 2019-11-08 -->
 ## 1. 组件介绍
 
 此组件提供html or docx转换pdf能力 原有PDFService  扩展为-》 PdfGeneratorService

@@ -1,6 +1,7 @@
-<!-- title: im组件  -->
+<!-- title: IM聊天组件  -->
 <!-- type: app -->
 <!-- author: cuifuqiang -->
+<!-- date: 2019-11-12 -->
 ## 1. 组件介绍
 
 acooly-component-chat以acooly框架为基础,封装极光IM聊天组件；

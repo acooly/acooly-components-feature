@@ -1,7 +1,7 @@
-<!-- title: 全国区域组件 -->
+<!-- title: 数据-全国区域 -->
 <!-- type: app -->
 <!-- author: zhangpu -->
-
+<!-- date: 2019-11-02 -->
 ## 1. 组件介绍
 acooly-component-data-region组件是data组件的一个子组件，专用于提供统一的全国省市区三级区域数据及应用场景。以实现多端统一区域数据和应用。
 

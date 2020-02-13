@@ -1,7 +1,7 @@
-<!-- title: 移动端app组件 -->
+<!-- title: 前端App组件 -->
 <!-- type: app -->
 <!-- author: zhangpu -->
-
+<!-- date: 2019-10-30 -->
 ## 1. 组件介绍
 
 提供app常用接口，并通过openapi暴露服务
