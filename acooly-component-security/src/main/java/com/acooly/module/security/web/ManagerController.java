@@ -74,6 +74,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
     @Override
     public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
         Subject subject = SecurityUtils.getSubject();
+        request.getSession(true).setAttribute("securityConfig", frameworkProperties);
         if (subject.isAuthenticated()) {
             // 如果已经登录的情况，直接回到主框架界面
             doExtendResources(request, model);

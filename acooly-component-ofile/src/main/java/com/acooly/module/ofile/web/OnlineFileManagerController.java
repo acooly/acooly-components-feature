@@ -34,7 +34,7 @@ public class OnlineFileManagerController
 
     @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
-        model.put("ofileTypes", ofileTypes);
+        model.put("allFileTypes", ofileTypes);
     }
 
     @Override

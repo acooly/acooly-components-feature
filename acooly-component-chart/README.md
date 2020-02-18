@@ -1,7 +1,7 @@
 <!-- title: 图表组件  -->
 <!-- type: app -->
 <!-- author: cuifuqiang ,xierui-->
-
+<!-- date: 2019-11-04 -->
 ## 1. 组件介绍
 
 acooly-component-chart 以acooly框架为基础, 集成百度echarts图表；支持 折线图，柱状图，饼图；动态sql语法解析，动态转换为不同的图表展示；

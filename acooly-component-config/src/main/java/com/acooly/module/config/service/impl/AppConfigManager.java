@@ -104,12 +104,13 @@ public class AppConfigManager implements InitializingBean {
         redisTemplate.delete(key);
     }
 
-    public void delete(String name){
+    public void delete(String name) {
         appConfigDao.deleteByName(name);
         invalidate(name);
     }
 
 
+    @Override
     public void afterPropertiesSet() {
 
         configCache = Caffeine.newBuilder().expireAfter(new Expiry<String, AppConfig>() {

@@ -54,8 +54,6 @@ public class DistributedlockTest extends AppTestBase {
                 }
                 break;
             }
-
-
         });
         log.info("dlock test. threads:{},success:{}, ms:{}", threads, countSuccess.intValue(), timeTasks);
     }
@@ -113,8 +111,7 @@ public class DistributedlockTest extends AppTestBase {
      * @throws InterruptedException
      */
     public long runTasks(int nThreads, final Runnable task) throws InterruptedException {
-        // 真正的测试
-        // 使用同步工具类，保证多个线程同时（近似同时）执行
+        // 真正的测试,使用同步工具类，保证多个线程同时（近似同时）执行
         final CountDownLatch startGate = new CountDownLatch(1);
         // 使用同步工具类，用于等待所有线程都运行结束时，再统计耗时
         final CountDownLatch endGate = new CountDownLatch(nThreads);

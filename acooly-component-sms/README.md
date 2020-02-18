@@ -1,6 +1,7 @@
 <!-- title: 短信发送组件  -->
 <!-- type: app -->
 <!-- author: zhangpu,shuijing,qiubo -->
+<!-- date: 2019-11-20 -->
 ## 1. 组件介绍
 
 此组件给应用短信服务能力

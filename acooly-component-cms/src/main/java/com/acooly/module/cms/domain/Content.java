@@ -137,7 +137,7 @@ public class Content implements Entityable {
     }
 
 
-
+    @Override
     public Long getId() {
         return id;
     }
@@ -151,6 +151,7 @@ public class Content implements Entityable {
         return createTime;
     }
 
+    @Override
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }

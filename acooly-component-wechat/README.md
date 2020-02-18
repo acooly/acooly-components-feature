@@ -1,7 +1,7 @@
 <!-- title: 微信接入组件  -->
 <!-- type: app -->
 <!-- author: cuifuqiang-->
-
+<!-- date: 2019-11-10 -->
 ## 1. 组件介绍
 
 acooly-component-wechat 以acooly框架为基础, 集成微信公众号认证体系；方便研发团队依赖此组件快速对接微信公众号，微信小程序；

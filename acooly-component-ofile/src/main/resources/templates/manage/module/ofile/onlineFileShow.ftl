@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <th>文件类型:</th>
-            <td>${onlineFile.fileType}</td>
+            <td>${onlineFile.fileType.getMessage()}</td>
         </tr>
         <tr>
             <th>文件大小:</th>

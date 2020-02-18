@@ -144,9 +144,7 @@ public class ContentManagerController
         }
         entity.setContentBody(contentBody);
         contentBody.setContent(entity);
-
-        setPubDate(entity,request);
-
+        setPubDate(entity, request);
         return entity;
     }
 
@@ -191,6 +189,7 @@ public class ContentManagerController
             HttpServletRequest request, HttpServletResponse response, Model model, Content entity) {
         entity.setPubDateStr(Dates.format(entity.getPubDate()));
     }
+
     /**
      * 删除内容
      * <p>
