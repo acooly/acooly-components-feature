@@ -56,6 +56,8 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
     private static Map<Integer, String> allStatus = FrameworkPropertiesHolder.get().getUserStatus();
 
     @Autowired
+    private UserService userService;
+    @Autowired
     private RoleService roleService;
     @Autowired
     private OrgService orgService;
@@ -186,7 +188,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
             User admin = ShiroUtils.getCurrentUser();
             if (!getEntityService().validatePassword(admin, adminPassword)) {
                 log.warn("管理员修改密码 认证失败 operator: {}", admin.getUsername());
-                throw new BusinessException(SecurityErrorCode.ADMIN_PASSWORD_AUTH_FAIL,"管理员密码错误");
+                throw new BusinessException(SecurityErrorCode.ADMIN_PASSWORD_AUTH_FAIL, "管理员密码错误");
             }
             User entity = loadEntity(request);
             getEntityService().changePassword(entity, newPassword);
