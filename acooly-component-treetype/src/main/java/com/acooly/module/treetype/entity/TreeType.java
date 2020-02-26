@@ -94,8 +94,20 @@ public class TreeType extends AbstractEntity implements TreeNode<TreeType>, Sort
     /**
      * easyui的treegrid专用属性
      */
+    @Transient
     public String getState() {
-        return subCount > 0 ? "closed" : null;
+        return subCount > 0 ? "closed" : "open";
+    }
+
+    /**
+     * name的别名
+     * 方便前端组件在树形结构时直接使用
+     *
+     * @return
+     */
+    @Transient
+    public String getText() {
+        return this.name;
     }
 
     @Override

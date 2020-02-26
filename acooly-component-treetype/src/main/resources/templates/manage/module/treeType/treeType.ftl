@@ -6,7 +6,7 @@
     /**
      * onLoadSuccess:manage_treeType_datagrid_onLoadSuccess
      */
-    function manage_treeType_datagrid_onLoadSuccess() {
+    function manage_treeType_datagrid_onLoadSuccess(row, data) {
         $(".tree-icon,.tree-file").removeClass("tree-file");
         $(".tree-icon,.tree-folder").removeClass("tree-folder-open tree-folder");
     }
@@ -17,8 +17,12 @@
         <form id="manage_treeType_searchform${theme}" onsubmit="return false"></form>
         <table id="manage_treeType_datagrid${theme}" class="easyui-treegrid" url="/manage/module/treeType/treeType/queryTree.html?theme=${theme}" toolbar="#manage_treeType_toolbar${theme}"
                fit="true" border="false" fitColumns="true"
-               idField="id" treeField="code" checkOnSelect="true" selectOnCheck="true" singleSelect="false"
-               data-options="loadFilter:function(data){ return data.rows;}">
+               idField="id" treeField="code" checkOnSelect="true" selectOnCheck="true" singleSelect="true"
+               data-options="
+                    loadFilter:function(data){ return data.rows;},
+                    animate:true,
+                    onLoadSuccess:manage_treeType_datagrid_onLoadSuccess
+               ">
             <thead>
             <tr>
                 <th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
@@ -27,12 +31,12 @@
                 <th field="parentId" sortable="true" sum="true">PID</th>
                 <th field="path" formatter="contentFormatter">目录</th>
 <#--                <th field="sortTime" sortable="true" sum="true">排序值</th>-->
-                <th field="code">类型编码</th>
+                <th field="code" data-options="formatter:function(v,row){ var fa='fa-file-o'; if(row.subCount > 0){fa='fa-folder-o';}  return '<i class=\'fa '+fa+'\' aria-hidden=\'true\'></i> ' + v; }">类型编码</th>
                 <th field="name">类型名称</th>
                 <th field="subCount" sortable="true">子节点数量</th>
 <#--                <th field="comments" formatter="contentFormatter">备注</th>-->
-                <th field="createTime" formatter="dateFormatter">创建时间</th>
-                <th field="updateTime" formatter="dateFormatter">修改时间</th>
+                <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
+                <th field="updateTime" formatter="dateTimeFormatter">修改时间</th>
                 <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_treeType_action${theme}',value,row)}">动作</th>
             </tr>
             </thead>
