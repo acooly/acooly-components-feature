@@ -16,13 +16,8 @@
     <div data-options="region:'center',border:false">
         <form id="manage_treeType_searchform${theme}" onsubmit="return false"></form>
         <table id="manage_treeType_datagrid${theme}" class="easyui-treegrid" url="/manage/module/treeType/treeType/queryTree.html?theme=${theme}" toolbar="#manage_treeType_toolbar${theme}"
-               fit="true" border="false" fitColumns="true"
-               idField="id" treeField="code" checkOnSelect="true" selectOnCheck="true" singleSelect="true"
-               data-options="
-                    loadFilter:function(data){ return data.rows;},
-                    animate:true,
-                    onLoadSuccess:manage_treeType_datagrid_onLoadSuccess
-               ">
+               fit="true" border="false" fitColumns="true" idField="id" treeField="code" checkOnSelect="true" selectOnCheck="true" singleSelect="true"
+               data-options="loadFilter:function(data){ return data.rows;}">
             <thead>
             <tr>
                 <th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
@@ -30,8 +25,7 @@
 <#--                <th field="theme">主题</th>-->
                 <th field="parentId" sortable="true" sum="true">PID</th>
                 <th field="path" formatter="contentFormatter">目录</th>
-<#--                <th field="sortTime" sortable="true" sum="true">排序值</th>-->
-                <th field="code" data-options="formatter:function(v,row){ var fa='fa-file-o'; if(row.subCount > 0){fa='fa-folder-o';}  return '<i class=\'fa '+fa+'\' aria-hidden=\'true\'></i> ' + v; }">类型编码</th>
+                <th field="code">类型编码</th>
                 <th field="name">类型名称</th>
                 <th field="subCount" sortable="true">子节点数量</th>
 <#--                <th field="comments" formatter="contentFormatter">备注</th>-->
@@ -45,7 +39,7 @@
         <!-- 每行的Action动作模板 -->
         <div id="manage_treeType_action${theme}" style="display: none;">
             <a onclick="$.acooly.framework.create({url: '/manage/module/treeType/treeType/create.html?parentId={0}&theme=${theme}', form: 'manage_treeType_editform${theme}', datagrid: 'manage_treeType_datagrid${theme}', height: 300});" href="#" title="添加子分类"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i></a>
-            <a onclick="$.acooly.framework.edit({url:'/manage/module/treeType/treeType/edit.html',id:'{0}',entity:'treeType',width:500,height:500});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
+            <a onclick="$.acooly.framework.edit({url:'/manage/module/treeType/treeType/edit.html&theme=${theme}',id:'{0}',form:'manage_treeType_editform${theme}',datagrid: 'manage_treeType_datagrid${theme}',width:500,height:500});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.move('/manage/module/treeType/treeType/topJson.html','{0}','manage_treeType_datagrid');" href="#" title="置顶"><i class="fa fa fa-chevron-circle-up fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.move('/manage/module/treeType/treeType/upJson.html','{0}','manage_treeType_datagrid');" href="#" title="上移动"><i class="fa fa-arrow-circle-up fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.show('/manage/module/treeType/treeType/show.html?id={0}',500,500);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>

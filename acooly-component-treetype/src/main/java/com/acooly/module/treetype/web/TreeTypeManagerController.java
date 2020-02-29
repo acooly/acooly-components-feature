@@ -50,7 +50,7 @@ public class TreeTypeManagerController extends AbstractJsonEntityController<Tree
             result.appendData(referenceData(request));
             Long parentId = Servlets.getLongParameter(request, "id");
             String theme = Servlets.getParameter(request, "theme");
-            List<TreeType> entities = treeTypeService.level(parentId, theme);
+            List<TreeType> entities = treeTypeService.level(theme, parentId);
             result.setTotal((long) entities.size());
             result.setRows(entities);
         } catch (Exception e) {
@@ -91,8 +91,7 @@ public class TreeTypeManagerController extends AbstractJsonEntityController<Tree
         if (!TreeType.TOP_PARENT_ID.equals(entity.getParentId())) {
             model.addAttribute("parent", getParent(entity.getParentId()));
         }
-        String theme = Servlets.getParameter(request, "theme");
-        model.addAttribute("theme", theme);
+        model.addAttribute("theme", entity.getTheme());
         super.onEdit(request, response, model, entity);
     }
 
@@ -110,6 +109,9 @@ public class TreeTypeManagerController extends AbstractJsonEntityController<Tree
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
         super.referenceData(request, model);
         String theme = Servlets.getParameter(request, "theme");
+        if (Strings.isBlank(theme)) {
+            theme = TreeType.DEFAULT_THEME;
+        }
         request.setAttribute("theme", theme);
     }
 
