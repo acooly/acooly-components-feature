@@ -40,10 +40,10 @@
         <div id="manage_treeType_action${theme}" style="display: none;">
             <a onclick="$.acooly.framework.create({url: '/manage/module/treeType/treeType/create.html?parentId={0}&theme=${theme}', form: 'manage_treeType_editform${theme}', datagrid: 'manage_treeType_datagrid${theme}', height: 300});" href="#" title="添加子分类"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.edit({url:'/manage/module/treeType/treeType/edit.html&theme=${theme}',id:'{0}',form:'manage_treeType_editform${theme}',datagrid: 'manage_treeType_datagrid${theme}',width:500,height:500});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
-            <a onclick="$.acooly.framework.move('/manage/module/treeType/treeType/topJson.html','{0}','manage_treeType_datagrid');" href="#" title="置顶"><i class="fa fa fa-chevron-circle-up fa-lg fa-fw fa-col"></i></a>
-            <a onclick="$.acooly.framework.move('/manage/module/treeType/treeType/upJson.html','{0}','manage_treeType_datagrid');" href="#" title="上移动"><i class="fa fa-arrow-circle-up fa-lg fa-fw fa-col"></i></a>
+            <a onclick="$.acooly.framework.move('/manage/module/treeType/treeType/topJson.html','{0}','manage_treeType_datagrid${theme}');" href="#" title="置顶"><i class="fa fa fa-chevron-circle-up fa-lg fa-fw fa-col"></i></a>
+            <a onclick="$.acooly.framework.move('/manage/module/treeType/treeType/upJson.html','{0}','manage_treeType_datagrid${theme}');" href="#" title="上移动"><i class="fa fa-arrow-circle-up fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.show('/manage/module/treeType/treeType/show.html?id={0}',500,500);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
-            <a onclick="$.acooly.framework.remove('/manage/module/treeType/treeType/deleteJson.html','{0}','manage_treeType_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
+            <a onclick="$.acooly.framework.remove('/manage/module/treeType/treeType/deleteJson.html','{0}','manage_treeType_datagrid${theme}');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
         </div>
 
         <!-- 表格的工具栏 -->
