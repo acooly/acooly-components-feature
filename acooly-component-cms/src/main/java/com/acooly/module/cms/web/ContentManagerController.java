@@ -119,7 +119,7 @@ public class ContentManagerController
             UploadResult uploadResult = uploadResults.get("cover_f");
             if (uploadResult != null) {
                 if (uploadResult.getSize() > 0) {
-                    entity.setCover(uploadResult.getRelativeFile());
+                   entity.setCover(uploadResult.getRelativeFile());
                 }
             }
             UploadResult appUploadResult = uploadResults.get("cover_app");
