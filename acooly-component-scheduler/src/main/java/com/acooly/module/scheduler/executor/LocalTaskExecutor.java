@@ -28,10 +28,11 @@ public class LocalTaskExecutor implements TaskExecutor {
     private Map<String, Class<?>> classMap;
 
     private ExecutorService executorService =
-            Executors.newCachedThreadPool(new CustomizableThreadFactory("scheduler-LocalTaskExecutor-"));
+            Executors.newCachedThreadPool(
+                    new CustomizableThreadFactory("scheduler-LocalTaskExecutor-"));
 
     @Override
-    public Boolean execute(SchedulerRule schedulerRule) {
+    public Boolean execute( SchedulerRule schedulerRule ) {
         String className = schedulerRule.getClassName();
         try {
             Class<?> clazz = getClassByCache(className);
@@ -42,8 +43,9 @@ public class LocalTaskExecutor implements TaskExecutor {
                 throw new SchedulerExecuteException("本地执行方法必须为public:" + declaredMethod);
             }
             declaredMethod.setAccessible(true);
+            LocalTask task = new LocalTask(declaredMethod, bean);
             CompletableFuture.runAsync(
-                    () -> ReflectionUtils.invokeMethod(declaredMethod, bean), executorService)
+                    task, executorService)
                     .get(TIME_OUT, TimeUnit.SECONDS);
         } catch (Exception e) {
             throw new SchedulerExecuteException(e);
@@ -51,7 +53,7 @@ public class LocalTaskExecutor implements TaskExecutor {
         return true;
     }
 
-    private Class<?> getClassByCache(String className) throws ClassNotFoundException {
+    private Class<?> getClassByCache( String className ) throws ClassNotFoundException {
         Class<?> clazz;
         if (classMap.containsKey(className)) {
             clazz = classMap.get(className);
@@ -62,7 +64,7 @@ public class LocalTaskExecutor implements TaskExecutor {
         return clazz;
     }
 
-    private Object getBeanByCache(Class<?> clazz) {
+    private Object getBeanByCache( Class<?> clazz ) {
         Object object;
         if (beanMap.containsKey(clazz)) {
             object = beanMap.get(clazz);
