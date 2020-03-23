@@ -47,6 +47,18 @@
                         <form role="form" action="" method="post" class="login-form" autocomplete="off">
                             <input type="hidden" id="_csrf" name="_csrf"
                                    value="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
+
+                            <#if Session.TENANT_FLAG?exists>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon" id="username-addon"><i
+                                        class="fa fa-user fa-fw"></i></span>
+                                <label class="sr-only" for="form-username">租户号</label>
+                                <select id="tenant_id" name="tenantId" editable="false" aria-describedby="username-addon" panelHeight="auto" class="form-control" style="width: 100%">
+                                    <#list Session.TENANT_FLAG?keys as k><option value="${k}">${Session.TENANT_FLAG[k]}</option></#list></select>
+                            </div>
+                            </#if>
+
+
                             <div class="form-group input-group">
                                 <span class="input-group-addon" id="username-addon"><i
                                             class="fa fa-user fa-fw"></i></span>
@@ -152,6 +164,14 @@
             $('#message').html("用户名和密码不能为空");
             return;
         }
+        <#if Session.TENANT_FLAG?exists>
+
+        var tenantId = $('#tenant_id').val();
+        if (tenantId == "" ) {
+            $('#message').html("租户Id不能为空");
+            return;
+        }
+        </#if>
 
         if(username.length > 64){
             $('#message').html("用户名长度不能操过64字符");
@@ -182,6 +202,9 @@
         var jsonData = {
             username: $('#form-username').val(),
             password: $('#form-password').val(),
+            <#if Session.TENANT_FLAG?exists>
+            tenantId: $('#tenant_id').val(),
+            </#if>
             captcha: captcha,
             _csrf: $('#_csrf').val(),
             targetUrl: targetUrl

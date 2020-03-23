@@ -84,7 +84,6 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response)
             throws Exception {
-
         setTargetUrlToSession();
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         AuthenticationToken token = null;

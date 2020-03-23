@@ -470,7 +470,7 @@
                     onProgress: function (file, e) {
                         if (e.lengthComputable) {
                             var percent = Math.round((e.loaded / e.total) * 100);
-                            $('#' + options.messager).html("正在上传文件: [" + e.loaded / 1024 + "K/" + e.total / 1024 + "K]");
+                            $('#' + options.messager).html("正在上传文件: [" + Math.round(e.loaded / 1024) + "K/" +  Math.round(e.total / 1024) + "K]");
                         } else {
                             $('#' + options.messager).html("正在保存上传数据...");
                         }
@@ -520,7 +520,7 @@
                     height: h,
                     iconCls: 'icon-import',
                     modal: true,
-                    title: '数据导入',
+                    title: opts.title ? opts.title : '数据导入',
                     buttons: [{
                         text: '上传导入',
                         iconCls: 'icon-import',

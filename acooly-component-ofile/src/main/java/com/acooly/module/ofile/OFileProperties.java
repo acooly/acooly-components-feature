@@ -46,7 +46,7 @@ public class OFileProperties implements InitializingBean {
     private String storageNameSpace;
 
 
-    private String allowExtentions = "txt,zip,csv,xls,word,jpg,gif,png";
+    private String allowExtentions = "txt,zip,csv,xls,word,jpg,jpeg,gif,png";
     private long maxSize = 5242880;
     private int thumbnailSize = 200;
     private boolean checkSession = false;

@@ -7,7 +7,9 @@
 package com.acooly.module.treetype.service.impl;
 
 import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.common.exception.CommonErrorCodes;
 import com.acooly.core.common.service.EntityServiceImpl;
+import com.acooly.core.utils.Asserts;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Exceptions;
 import com.acooly.core.utils.Strings;
@@ -19,8 +21,6 @@ import com.acooly.module.treetype.service.TreeTypeService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +61,12 @@ public class TreeTypeServiceImpl extends EntityServiceImpl<TreeType, TreeTypeDao
         // 设置默认theme
         if (Strings.isBlank(o.getTheme())) {
             o.setTheme(TreeType.DEFAULT_THEME);
+        }
+
+        // 检查code是否唯一（theme+code）
+        if (findByCode(o.getTheme(), o.getCode()) != null) {
+            log.error("多级分类 方案({})的编码({})不唯一", o.getTheme(), o.getCode());
+            throw new BusinessException(CommonErrorCodes.OBJECT_NOT_UNIQUE);
         }
 
         // 更新父节点计数
@@ -141,11 +147,11 @@ public class TreeTypeServiceImpl extends EntityServiceImpl<TreeType, TreeTypeDao
 
     @Override
     public List<TreeType> level(Long parentId) {
-        return level(parentId, null);
+        return level(null, parentId);
     }
 
     @Override
-    public List<TreeType> level(Long parentId, String theme) {
+    public List<TreeType> level(String theme, Long parentId) {
         Long queryParentId = Strings.isBlankDefault(parentId, TreeType.TOP_PARENT_ID);
         String queryTheme = Strings.isBlankDefault(theme, TreeType.DEFAULT_THEME);
         Map<String, Object> map = Maps.newHashMap();
@@ -193,7 +199,15 @@ public class TreeTypeServiceImpl extends EntityServiceImpl<TreeType, TreeTypeDao
 
     @Override
     public TreeType findByCode(String typeCode) {
-        return getEntityDao().findUniqu("EQ_code", typeCode);
+        return findByCode(null, typeCode);
+    }
+
+    @Override
+    public TreeType findByCode(String theme, String typeCode) {
+        theme = Strings.defaultString(theme, TreeType.DEFAULT_THEME);
+        Asserts.notEmpty(theme, "主题");
+        Asserts.notEmpty(typeCode, "类型编码");
+        return getEntityDao().findByThemeAndCode(theme, typeCode);
     }
 
     /**

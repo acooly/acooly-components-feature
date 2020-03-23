@@ -3,7 +3,7 @@
     <form id="manage_treeType_editform${theme}" action="/manage/module/treeType/treeType/<#if action=='create'>saveJson<#else>updateJson</#if>.html" method="post">
         <@jodd.form bean="treeType" scope="request">
             <input name="id" type="hidden"/>
-            <input name="theme" type="hidden" value="${theme}"/>
+            <#if action=='create'><input name="theme" type="hidden" value="${theme}"/></#if>
             <table class="tableForm" width="100%">
                 <tr>
                     <th>父类型ID：</th>
