@@ -28,7 +28,11 @@ maven坐标：
 #### 2.2.1. 设置人脸识别阀值
 
     参考com.acooly.module.face.FaceProperties
-
+    
+    通过百度云账户，人工智能->人脸识别->创建应用后获得
+    acooly.face.appId=xxx
+    acooly.face.apiKey=xxx
+    acooly.face.secretKey=xxx
 
 #### 2.2.2. 使用人脸识别
 
