@@ -38,7 +38,7 @@ public class UserDaoImpl extends AbstractJdbcTemplateDao implements UserDaoCusto
                 "select t1.id,t1.USERNAME as userName,t1.REAL_NAME as realName,t1.USER_TYPE as userType,\n"
                         + "t1.EMAIL as email,t1.MOBILE_NO as mobileNo,t1.CREATE_TIME as createTime,t1.LAST_MODIFY_TIME as lastModifyTime,\n"
                         + "t1.UNLOCK_TIME as unlockTime,t3.id as roleId,t3.NAME as roleName,t3.DESCN as roleDescn,\n"
-                        + "t1.STATUS as status,t1.ORG_ID as orgId,t1.ORG_NAME as orgName\n"
+                        + "t1.STATUS as status,t1.ORG_ID as orgId,t1.ORG_NAME as orgName,t1.descn as descn\n"
                         + "from sys_user t1, sys_user_role t2,sys_role t3 where t1.id = t2.user_id and t2.role_id = t3.id ";
 
         String username = (String) map.get("LIKE_username");
