@@ -60,7 +60,7 @@ public class OcrServiceImpl implements OcrService {
                 dto.setNation(res.optJSONObject("words_result").optJSONObject("民族").optString("words"));
                 dto.setAddress(res.optJSONObject("words_result").optJSONObject("住址").optString("words"));
                 dto.setIdCardNo(res.optJSONObject("words_result").optJSONObject("公民身份号码").optString("words"));
-                dto.setBrithday(res.optJSONObject("words_result").optJSONObject("出生").optString("words"));
+                dto.setBirthday(res.optJSONObject("words_result").optJSONObject("出生").optString("words"));
                 dto.setSex(res.optJSONObject("words_result").optJSONObject("性别").optString("words"));
                 result.setIdCardOcrFrontDto(dto);
             } else {

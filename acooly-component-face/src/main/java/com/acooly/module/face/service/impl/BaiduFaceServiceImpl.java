@@ -98,6 +98,7 @@ public class BaiduFaceServiceImpl implements BaiduFaceService {
                 PersonVerifyResult personVerifyResult = personVerify(verifyOrder);
                 result.setIdCardScore(personVerifyResult.getScore());
                 result.setPass(personVerifyResult.isPass());
+                result.setDetail(personVerifyResult.getDetail());
             }
         } catch (BusinessException e) {
             result.setPass(false);
