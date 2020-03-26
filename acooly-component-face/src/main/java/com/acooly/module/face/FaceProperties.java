@@ -41,7 +41,7 @@ public class FaceProperties implements InitializingBean {
      * 验证码相似程度 0：完全不一致，1：完全一致
      * 0.75 （百度推荐默认值）
      */
-    private String codeThreshold = "0";
+    private String codeThreshold = "0.75";
 
     /**
      * 是否要求唇语必须验证通过
