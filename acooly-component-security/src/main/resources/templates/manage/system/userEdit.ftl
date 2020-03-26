@@ -104,9 +104,10 @@
                     valueField:'id',
                     textField:'name',
                     value:${roleIds},
-                    multiple:true,
+                    multiple:false,
                     <#--panelHeight: 'auto',-->
                     label: 'Language:',
+                    editable: false,
                     labelPosition: 'top'
                     "></td>
                 </tr>
@@ -123,14 +124,4 @@
             </table>
         </@jodd.form>
     </form>
-    <script>
-
-        $(function(){
-            $('.combo-text .validatebox-text').attr("style","111");
-            console.info("init ok");
-        });
-
-
-
-    </script>
 </div>
