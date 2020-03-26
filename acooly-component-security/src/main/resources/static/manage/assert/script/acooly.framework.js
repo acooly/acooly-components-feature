@@ -470,7 +470,7 @@
                     onProgress: function (file, e) {
                         if (e.lengthComputable) {
                             var percent = Math.round((e.loaded / e.total) * 100);
-                            $('#' + options.messager).html("正在上传文件: [" + Math.round(e.loaded / 1024) + "K/" +  Math.round(e.total / 1024) + "K]");
+                            $('#' + options.messager).html("正在上传文件: [" + Math.round(e.loaded / 1024) + "K/" + Math.round(e.total / 1024) + "K]");
                         } else {
                             $('#' + options.messager).html("正在保存上传数据...");
                         }
@@ -972,6 +972,41 @@
             _isDatagrid: function (datagrid) {
                 var className = $('#' + datagrid).attr('class');
                 return (className && className == 'easyui-datagrid');
+            },
+
+            /**
+             * 初始化搜索分页下拉
+             * @param inputId 渲染的对象ID
+             * @param data 数组[{...},{...}]
+             * @param opts {keyField,showField,listSize,onSelect,onClear,formatter}
+             * @see https://terryz.gitee.io/selectpage/demo.html
+             */
+            selectPage: function (inputId, data, opts) {
+                let defOpts = {
+                    pagination: false,
+                    listSize: 10,
+                    multiple: false,
+                    data: data,
+                    formatItem: function (row) {
+                        if (opts && opts.formatter) {
+                            return opts.formatter.call(this, row);
+                        } else {
+                            return opts.showField;
+                        }
+                    },
+                    eSelect: function (row) {
+                        if (opts && opts.onSelect) {
+                            opts.onSelect.call(this, row);
+                        }
+                    },
+                    eClear: function () {
+                        if (opts && opts.onClear) {
+                            opts.onClear.call(this);
+                        }
+                    }
+                };
+                let options = $.extend(defOpts, opts);
+                $('#' + inputId).selectPage(options);
             }
 
         }

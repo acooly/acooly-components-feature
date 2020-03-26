@@ -87,7 +87,7 @@
                 }
             });
             $('#layout_center_tabs').tabs({
-                fit: true,
+                height:$(window).height()-52,
                 border: false,
                 onContextMenu: function (e, title) {
                     e.preventDefault();
@@ -141,11 +141,12 @@
                 }]
             });
 
+
             // 通过jquery-resize插件实现：父节点大小改变后，resize tabs
             $('.content-wrapper').resize(function () {
                 $('#layout_center_tabs').tabs({
                     width: $("#_tabs").parent().width(),
-                    height: "auto"
+                    height: $("#_tabs").parent().height()
                 }).tabs('resize');
             });
         },
