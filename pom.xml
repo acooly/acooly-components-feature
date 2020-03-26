@@ -130,6 +130,11 @@
                 <artifactId>acooly-component-wechat</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-face</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -160,6 +165,8 @@
         <module>acooly-component-wechat</module>
         <module>acooly-component-data</module>
         <module>acooly-component-treetype</module>
+        <module>acooly-component-face</module>
+        <module>acooly-component-ocr</module>
     </modules>
 
     <build>
