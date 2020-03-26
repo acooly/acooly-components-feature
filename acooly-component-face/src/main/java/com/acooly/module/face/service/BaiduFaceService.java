@@ -32,7 +32,7 @@ public interface BaiduFaceService {
     VideoVerifyResult videoVerify(VideoVerifyOrder order);
 
     /**
-     * 身份认证（人脸质量检测（可选）->活体检测（可选）->公安身份验证（必选））
+     * 身份认证（人脸质量检测（可选）->活体检测（可选）->公安身份验证（必选）默认会检查身份证号和姓名是否一致）
      *
      * @param order
      * @return
