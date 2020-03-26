@@ -142,6 +142,7 @@ public class BaiduFaceServiceImpl implements BaiduFaceService {
             result.setStatus(ResultStatus.failure);
             result.setDetail("系统异常");
         }
+        log.info("公安认证结果{}", result.toString());
         return result;
     }
 
