@@ -49,6 +49,8 @@ public class BaiduFaceServiceImpl implements BaiduFaceService {
         try {
             AipFace client = initClient();
             HashMap<String, String> options = Maps.newHashMap();
+            options.put("min_code_length", order.getMinCodeLength());
+            options.put("max_code_length", order.getMaxCodeLength());
             JSONObject res = client.videoSessioncode(options);
             if (0 != res.getInt(ERROR_CODE)) {
                 log.info("语音验证码生成失败！原因{}", res.optString(ERROR_MSG));
