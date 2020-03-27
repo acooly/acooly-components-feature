@@ -205,15 +205,15 @@ public class BaiduFaceServiceImpl implements BaiduFaceService {
         }
         if (new BigDecimal(faceProperties.getFaceThreshold()).compareTo(result.getScore()) > 0) {
             log.info("当前设定人脸阀值为{},实际结果评分为{},人脸识别阀值未达标,人脸识别未通过", faceProperties.getFaceThreshold(), result.getScore());
-            throw new BusinessException("视频验证未通过");
+            throw new BusinessException("视频验证未通过,人脸识别阀值未达标");
         }
         if (new BigDecimal(faceProperties.getCodeThreshold()).compareTo(result.getSimilarity()) > 0) {
             log.info("当前设定验证码阀值为{},实际结果评分为{},验证码阀值未达标,人脸识别未通过", faceProperties.getCodeThreshold(), result.getSimilarity());
-            throw new BusinessException("视频验证未通过");
+            throw new BusinessException("视频验证未通过,验证码阀值未达标");
         }
         if (faceProperties.isLipLanguage() && !result.isLipLanguage()) {
             log.info("唇语验证失败,人脸识别未通过");
-            throw new BusinessException("视频验证未通过");
+            throw new BusinessException("视频验证未通过,唇语验证失败");
         }
         log.info("人脸识别通过,当前最高评分FACE_TOKEN={}", result.getHighScorePicDto().getFaceToken());
     }
