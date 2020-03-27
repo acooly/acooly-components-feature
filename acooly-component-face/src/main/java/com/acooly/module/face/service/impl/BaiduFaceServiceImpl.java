@@ -71,7 +71,6 @@ public class BaiduFaceServiceImpl implements BaiduFaceService {
 
     @Override
     public VideoVerifyResult videoVerify(VideoVerifyOrder order) {
-        log.info("视频认证入参{}",order);
         Validators.assertJSR303(order);
         VideoVerifyResult result = new VideoVerifyResult();
         try {
@@ -115,7 +114,6 @@ public class BaiduFaceServiceImpl implements BaiduFaceService {
 
     @Override
     public PersonVerifyResult personVerify(PersonVerifyOrder order) {
-        log.info("身份认证入参{}",order);
         Validators.assertJSR303(order);
         PersonVerifyResult result = new PersonVerifyResult();
         try {
