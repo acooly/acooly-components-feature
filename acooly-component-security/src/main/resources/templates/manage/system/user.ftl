@@ -70,13 +70,16 @@
                         登录名: <input type="text" class="text" size="10" name="search_LIKE_username"/>
                         姓名: <input type="text" class="text" size="10" name="search_LIKE_realName"/>
                         状态: <select id="search_EQ_status" name="search_EQ_status" editable="false" panelHeight="auto" class="easyui-combobox" style="width:100px;">
-                            <option value="">所有</option><#list allStatus as k,v><option value="${k}">${v}</option></#list></select>
+                            <option value="">所有</option><#list allStatus as k,v>
+                            <option value="${k}">${v}</option></#list></select>
                         类型:<select id="search_EQ_userType" name="search_EQ_userType" panelHeight="auto" editable="false" class="easyui-combobox" style="width:150px;">
-                        <option value="">所有</option>
-                        <#list allUserTypes as k,v><option value="${k}">${v}</option></#list></select>
+                            <option value="">所有</option>
+                            <#list allUserTypes as k,v>
+                                <option value="${k}">${v}</option></#list></select>
                         角色:<select id="search_EQ_role" name="search_EQ_role" panelHeight="auto" editable="false" class="easyui-combobox">
-                        <option value="">所有</option>
-                        <#list allRoles as e><option value="${e.id}">${e.name}</option></#list>
+                            <option value="">所有</option>
+                            <#list allRoles as e>
+                                <option value="${e.id}">${e.name}</option></#list>
                         </select>
                         组织机构: <input type="text" id="orgId" class="easyui-combobox" name="search_EQ_orgId"/>
                         <a href="javascript:void(0);" style="width:70px;" class="easyui-linkbutton" data-options="plain:false"
@@ -124,7 +127,7 @@
             <!--<a title="查看"  onclick="$.acooly.framework.show('/manage/system/user/show.html?id={0}',500,350);" href="#"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>-->
             <a title="修改密码" onclick="manage_user_changePasswd('{0}');" href="#"><i class="fa fa-key fa-lg fa-fw fa-col"></i></a>
             <a title="删除" onclick="$.acooly.framework.remove('/manage/system/user/deleteJson.html','{0}','manage_user_datagrid');" href="#"><i
-                    class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
+                        class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
         </div>
 
         <div id="manage_user_toolbar">
@@ -133,5 +136,4 @@
             uploader:'manage_user_import_uploader_file'});"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i>批量导入</a>
         </div>
     </div>
-
 </div>

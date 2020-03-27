@@ -65,6 +65,12 @@ var acooly_template = {
      * @param engineOpts 具体模板引擎的参数设置
      */
     renderTo: function (container, template, data, opts, engineOpts) {
+        var defOpts = {
+            engine: null,
+            append: false,
+            beforeRender: null,
+            afterRender: null
+        }
         var options = $.extend(defOpts, opts);
         var result = this.render(template, data, opts, engineOpts)
         if (options.append) {
