@@ -12,12 +12,12 @@ import java.io.Serializable;
 public class IdCardOcrBackDto implements Serializable {
 
     /**
-     * 签发日期，格式：20170804
+     * 签发日期，格式：2017-08-04
      */
     private String issuanceDate;
 
     /**
-     * 失效日期，格式：20170804
+     * 失效日期，格式：2017-08-04
      */
     private String expiryDate;
 

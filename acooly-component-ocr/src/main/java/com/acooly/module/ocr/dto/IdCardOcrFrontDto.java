@@ -34,7 +34,7 @@ public class IdCardOcrFrontDto implements Serializable {
      */
     private String idCardNo;
     /**
-     * 生日，例如：19890701
+     * 生日，例如：1989-07-01
      */
     private String birthday;
 
@@ -60,7 +60,7 @@ public class IdCardOcrFrontDto implements Serializable {
 
     public String getYear() {
         if (Strings.isNotBlank(birthday)) {
-            Date date = Dates.parse(birthday, "yyyyMMdd");
+            Date date = Dates.parse(birthday, "yyyy-MM-dd");
             return String.valueOf(Dates.getYear(date));
         }
         return year;
@@ -68,7 +68,7 @@ public class IdCardOcrFrontDto implements Serializable {
 
     public String getMonth() {
         if (Strings.isNotBlank(birthday)) {
-            Date date = Dates.parse(birthday, "yyyyMMdd");
+            Date date = Dates.parse(birthday, "yyyy-MM-dd");
             return String.valueOf(Dates.getMonth(date));
         }
         return month;
@@ -76,7 +76,7 @@ public class IdCardOcrFrontDto implements Serializable {
 
     public String getDay() {
         if (Strings.isNotBlank(birthday)) {
-            Date date = Dates.parse(birthday, "yyyyMMdd");
+            Date date = Dates.parse(birthday, "yyyy-MM-dd");
             return String.valueOf(Dates.getDay(date));
         }
         return day;

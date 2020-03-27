@@ -1,6 +1,7 @@
 package com.acooly.module.ocr.service.impl;
 
 import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.enums.ResultStatus;
 import com.acooly.core.utils.validate.Validators;
 import com.acooly.module.ocr.OcrProperties;
@@ -60,13 +61,15 @@ public class OcrServiceImpl implements OcrService {
                 dto.setNation(res.optJSONObject("words_result").optJSONObject("民族") != null ? res.optJSONObject("words_result").optJSONObject("民族").optString("words") : null);
                 dto.setAddress(res.optJSONObject("words_result").optJSONObject("住址") != null ? res.optJSONObject("words_result").optJSONObject("住址").optString("words") : null);
                 dto.setIdCardNo(res.optJSONObject("words_result").optJSONObject("公民身份号码") != null ? res.optJSONObject("words_result").optJSONObject("公民身份号码").optString("words") : null);
-                dto.setBirthday(res.optJSONObject("words_result").optJSONObject("出生") != null ? res.optJSONObject("words_result").optJSONObject("出生").optString("words") : null);
+                dto.setBirthday(res.optJSONObject("words_result").optJSONObject("出生") != null ? formatDateStr(res.optJSONObject("words_result").optJSONObject("出生").optString("words")) : null);
                 dto.setSex(res.optJSONObject("words_result").optJSONObject("性别") != null ? res.optJSONObject("words_result").optJSONObject("性别").optString("words") : null);
                 result.setIdCardOcrFrontDto(dto);
             } else {
                 IdCardOcrBackDto dto = new IdCardOcrBackDto();
-                dto.setIssuanceDate(res.optJSONObject("words_result").optJSONObject("签发日期") != null ? res.optJSONObject("words_result").optJSONObject("签发日期").optString("words") : null);
-                dto.setExpiryDate(res.optJSONObject("words_result").optJSONObject("失效日期") != null ? res.optJSONObject("words_result").optJSONObject("失效日期").optString("words") : null);
+                JSONObject issuanceDate = res.optJSONObject("words_result").optJSONObject("签发日期");
+                JSONObject expiryDate = res.optJSONObject("words_result").optJSONObject("失效日期");
+                dto.setIssuanceDate(issuanceDate != null ? formatDateStr(issuanceDate.optString("签发日期")) : null);
+                dto.setExpiryDate(expiryDate != null ? formatDateStr(expiryDate.optString("失效日期")) : null);
                 dto.setAuthority(res.optJSONObject("words_result").optJSONObject("签发机关") != null ? res.optJSONObject("words_result").optJSONObject("签发机关").optString("words") : null);
                 result.setIdCardOcrBackDto(dto);
             }
@@ -107,17 +110,20 @@ public class OcrServiceImpl implements OcrService {
             result.setGender(gender != null ? gender.optString("words") : null);
             result.setNationality(nationality != null ? nationality.optString("words") : null);
             result.setAddress(address != null ? address.optString("words") : null);
-            result.setBirthday(birthday != null ? birthday.optString("words") : null);
-            result.setFirstIssueDate(firstIssueDate != null ? firstIssueDate.optString("words") : null);
+            result.setBirthday(birthday != null ? formatDateStr(birthday.optString("words")) : null);
+            result.setFirstIssueDate(firstIssueDate != null ? formatDateStr(firstIssueDate.optString("words")) : null);
             result.setType(type != null ? type.optString("words") : null);
 
             JSONObject validTo = res.optJSONObject("words_result").optJSONObject("至");
             if (validTo != null) {
-                result.setValidFrom(res.optJSONObject("words_result").optJSONObject("有效期限") != null ? res.optJSONObject("words_result").optJSONObject("有效期限").optString("words") : null);
-                result.setValidTo(res.optJSONObject("words_result").optJSONObject("至") != null ? res.optJSONObject("words_result").optJSONObject("至").optString("words") : null);
+                JSONObject validFrom = res.optJSONObject("words_result").optJSONObject("有效期限");
+                result.setValidFrom(validFrom != null ? formatDateStr(validFrom.optString("words")) : null);
+                result.setValidTo(validTo != null ? formatDateStr(validTo.optString("words")) : null);
             } else {
-                result.setValidFrom(res.optJSONObject("words_result").optJSONObject("有效起始日期") != null ? res.optJSONObject("words_result").optJSONObject("有效起始日期").optString("words") : null);
-                result.setValidTo(res.optJSONObject("words_result").optJSONObject("有效期限") != null ? res.optJSONObject("words_result").optJSONObject("有效期限").optString("words") : null);
+                JSONObject validFrom = res.optJSONObject("words_result").optJSONObject("有效起始日期");
+                validTo = res.optJSONObject("words_result").optJSONObject("有效期限");
+                result.setValidFrom(validFrom != null ? formatDateStr(validFrom.optString("words")) : null);
+                result.setValidTo(validTo != null ? formatDateStr(validTo.optString("words")) : null);
             }
         } catch (BusinessException e) {
             log.info("业务异常，原因{}", e.getMessage());
@@ -129,6 +135,14 @@ public class OcrServiceImpl implements OcrService {
             result.setDetail("系统异常");
         }
         return result;
+    }
+
+    private String formatDateStr(String str) {
+        try {
+            return Dates.format(Dates.parse(str, "yyyyMMdd"), Dates.CHINESE_DATE_FORMAT_LINE);
+        } catch (Exception e) {
+            return str;
+        }
     }
 
     private AipOcr initClient() {
