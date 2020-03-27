@@ -17,7 +17,7 @@ public class IdCardOcrBackDto implements Serializable {
     private String issuanceDate;
 
     /**
-     * 失效日期，格式：2017-08-04
+     * 失效日期，格式：2017-08-04或者长期
      */
     private String expiryDate;
 

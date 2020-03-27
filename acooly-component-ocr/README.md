@@ -34,6 +34,6 @@ maven坐标：
     acooly.face.apiKey=xxx
     acooly.face.secretKey=xxx
 
-#### 2.2.2. 使用人脸识别
+#### 2.2.2. 使用ocr识别
 
-    直接通过OcrService注入后使用
+    直接通过OcrService注入后使用，注意身份证识别和驾驶证识别中的到期时间有可能出现非时间格式，如6年，10年，长期
