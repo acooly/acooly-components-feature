@@ -25,28 +25,19 @@
     <!-- icons -->
     <link href="/manage/assert/plugin/icon/Ionicons/4.4.7/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
-    <#--<link rel="stylesheet" href="/manage/assert/plugin/Ionicons/css/ionicons.min.css">-->
+    <#--    <link rel="stylesheet" href="/manage/assert/plugin/Ionicons/css/ionicons.min.css">-->
 
-    <!-- AdminLte 扩展 -->
-    <!-- Date Picker 日期-->
-<#--    <link href="https://cdn.bootcss.com/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet">-->
-<#--    <link rel="stylesheet" href="/manage/assert/plugin/bootstrap-datepicker/css/bootstrap-datepicker.min.css">-->
-    <!-- Daterange picker 日期段 -->
-<#--    <link href="https://cdn.bootcss.com/bootstrap-daterangepicker/2.1.27/daterangepicker.min.css" rel="stylesheet">-->
-    <#--<link rel="stylesheet" href="/manage/assert/plugin/bootstrap-daterangepicker/daterangepicker.css">-->
-<#--    <!-- bootstrap wysihtml5 - text editor &ndash;&gt;-->
-<#--    <link rel="stylesheet" href="/manage/assert/plugin/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">-->
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <!-- easyui及自定义 -->
-    <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly4/easyui.css" type="text/css"/>
+    <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="/manage/assert/style/icon.css">
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/icon.css" type="text/css"/>
-    <link id="easyuiThemeBasic" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly4/basic_new.css">
+    <link id="easyuiThemeBasic" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic_new.css">
 
     <!-- 扩展css -->
-${extendStyles}
+    ${extendStyles}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -73,53 +64,53 @@ ${extendStyles}
             <!-- Sidebar toggle button-->
             <ul class="nav navbar-nav">
                 <li><a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a></li>
+                        <span class="sr-only">Toggle navigation</span>
+                    </a></li>
             </ul>
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Notifications: style can be found in dropdown.less -->
                     <#--<li class="dropdown notifications-menu">-->
-                        <#--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
-                            <#--<i class="fa fa-bell-o"></i>-->
-                            <#--<span class="label label-warning">10</span>-->
-                        <#--</a>-->
-                        <#--<ul class="dropdown-menu">-->
-                            <#--<li class="header">你有10个消息未读</li>-->
-                            <#--<li>-->
-                                <#--<!-- inner menu: contains the actual data &ndash;&gt;-->
-                                <#--<ul class="top-menu">-->
-                                    <#--<li>-->
-                                        <#--<a href="#">-->
-                                            <#--<i class="fa fa-users text-aqua"></i> 5 new members joined today-->
-                                        <#--</a>-->
-                                    <#--</li>-->
-                                    <#--<li>-->
-                                        <#--<a href="#">-->
-                                            <#--<i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the-->
-                                            <#--page and may cause design problems-->
-                                        <#--</a>-->
-                                    <#--</li>-->
-                                    <#--<li>-->
-                                        <#--<a href="#">-->
-                                            <#--<i class="fa fa-users text-red"></i> 5 new members joined-->
-                                        <#--</a>-->
-                                    <#--</li>-->
-                                    <#--<li>-->
-                                        <#--<a href="#">-->
-                                            <#--<i class="fa fa-shopping-cart text-green"></i> 25 sales made-->
-                                        <#--</a>-->
-                                    <#--</li>-->
-                                    <#--<li>-->
-                                        <#--<a href="#">-->
-                                            <#--<i class="fa fa-user text-red"></i> You changed your username-->
-                                        <#--</a>-->
-                                    <#--</li>-->
-                                <#--</ul>-->
-                            <#--</li>-->
-                            <#--<li class="footer"><a href="#">View all</a></li>-->
-                        <#--</ul>-->
+                    <#--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                    <#--<i class="fa fa-bell-o"></i>-->
+                    <#--<span class="label label-warning">10</span>-->
+                    <#--</a>-->
+                    <#--<ul class="dropdown-menu">-->
+                    <#--<li class="header">你有10个消息未读</li>-->
+                    <#--<li>-->
+                    <#--<!-- inner menu: contains the actual data &ndash;&gt;-->
+                    <#--<ul class="top-menu">-->
+                    <#--<li>-->
+                    <#--<a href="#">-->
+                    <#--<i class="fa fa-users text-aqua"></i> 5 new members joined today-->
+                    <#--</a>-->
+                    <#--</li>-->
+                    <#--<li>-->
+                    <#--<a href="#">-->
+                    <#--<i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the-->
+                    <#--page and may cause design problems-->
+                    <#--</a>-->
+                    <#--</li>-->
+                    <#--<li>-->
+                    <#--<a href="#">-->
+                    <#--<i class="fa fa-users text-red"></i> 5 new members joined-->
+                    <#--</a>-->
+                    <#--</li>-->
+                    <#--<li>-->
+                    <#--<a href="#">-->
+                    <#--<i class="fa fa-shopping-cart text-green"></i> 25 sales made-->
+                    <#--</a>-->
+                    <#--</li>-->
+                    <#--<li>-->
+                    <#--<a href="#">-->
+                    <#--<i class="fa fa-user text-red"></i> You changed your username-->
+                    <#--</a>-->
+                    <#--</li>-->
+                    <#--</ul>-->
+                    <#--</li>-->
+                    <#--<li class="footer"><a href="#">View all</a></li>-->
+                    <#--</ul>-->
                     <#--</li>-->
 
                     <!-- User Account: style can be found in dropdown.less -->
@@ -134,26 +125,26 @@ ${extendStyles}
                                 <img src="/manage/assert/plugin/adminlte/img/avatar_def.jpg" class="img-circle" alt="User Image">
 
                                 <p>
-                                ${Session.user.username} - ${Session.user.realName}
+                                    ${Session.user.username} - ${Session.user.realName}
                                     <small>${roleName}</small>
                                     <small>创建：${Session.user.createTime?string('yyyy-MM-dd')}</small>
                                 </p>
                             </li>
                             <!-- Menu Body -->
-                        <#--<li class="user-body">-->
-                        <#--<div class="row">-->
-                        <#--<div class="col-xs-4 text-center">-->
-                        <#--<a href="#">Followers</a>-->
-                        <#--</div>-->
-                        <#--<div class="col-xs-4 text-center">-->
-                        <#--<a href="#">Sales</a>-->
-                        <#--</div>-->
-                        <#--<div class="col-xs-4 text-center">-->
-                        <#--<a href="#">Friends</a>-->
-                        <#--</div>-->
-                        <#--</div>-->
-                        <#--<!-- /.row &ndash;&gt;-->
-                        <#--</li>-->
+                            <#--<li class="user-body">-->
+                            <#--<div class="row">-->
+                            <#--<div class="col-xs-4 text-center">-->
+                            <#--<a href="#">Followers</a>-->
+                            <#--</div>-->
+                            <#--<div class="col-xs-4 text-center">-->
+                            <#--<a href="#">Sales</a>-->
+                            <#--</div>-->
+                            <#--<div class="col-xs-4 text-center">-->
+                            <#--<a href="#">Friends</a>-->
+                            <#--</div>-->
+                            <#--</div>-->
+                            <#--<!-- /.row &ndash;&gt;-->
+                            <#--</li>-->
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
@@ -166,13 +157,13 @@ ${extendStyles}
                         </ul>
                     </li>
                     <#if isOnline == false>
-                    <li><a href="javascript:;" onclick="$.acooly.admin.tab.addIframe('帮助文档','fa fa-question-circle fa-lg','https://acooly.cn/docs/core.html')"
-                           title="帮助" role="button"><i class="fa fa-question-circle fa-lg"></i></a></li>
+                        <li><a href="javascript:;" onclick="$.acooly.admin.tab.addIframe('帮助文档','fa fa-question-circle fa-lg','https://acooly.cn/docs/core.html')"
+                               title="帮助" role="button"><i class="fa fa-question-circle fa-lg"></i></a></li>
                     </#if>
                     <li><a href="/manage/index.html?acoolyTheme=easyui" role="button">
-                        <i class="fa fa-heart"></i>
-                        <span>旧版</span>
-                    </a></li>
+                            <i class="fa fa-heart"></i>
+                            <span>旧版</span>
+                        </a></li>
                     <!-- Control Sidebar Toggle Button -->
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -208,43 +199,43 @@ ${extendStyles}
         </span>
                 </li>
 
-    <#list menu as e1>
-    <#--第一层-->
-         <li class="treeview<#if e1?index==0> menu-open active</#if>">
-             <a href="javascript:;">
-                 <#if e1.iconSkin??><i class="fa ${e1.iconSkin}"></i><#else><span class="line-action ${e1.icon}"></span></#if>
-                 <span>${e1.name}</span>
-                 <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-             </a>
-             <ul class="treeview-menu">
-                 <#if e1.children??>
-                 <#list e1.children as e2>
-                     <#if e2.children??>
-                        <li class="treeview">
-                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}'})">
-                                <#if e2.iconSkin??><i class="fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>
-                                ${e2.name}
-                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <#list e2.children as e3>
-                                    <li>
-                                        <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}'})">
-                                     <#if e3.iconSkin??><i class="fa ${e3.iconSkin}"></i><#else><span class="line-action ${e3.icon}"></span></#if>${e3.name}</a>
-                                    </li>
+                <#list menu as e1>
+                <#--第一层-->
+                    <li class="treeview<#if e1?index==0> menu-open active</#if>">
+                        <a href="javascript:;">
+                            <#if e1.iconSkin??><i class="fa ${e1.iconSkin}"></i><#else><span class="line-action ${e1.icon}"></span></#if>
+                            <span>${e1.name}</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <#if e1.children??>
+                                <#list e1.children as e2>
+                                    <#if e2.children??>
+                                        <li class="treeview">
+                                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}'})">
+                                                <#if e2.iconSkin??><i class="fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>
+                                                ${e2.name}
+                                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <#list e2.children as e3>
+                                                    <li>
+                                                        <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}'})">
+                                                            <#if e3.iconSkin??><i class="fa ${e3.iconSkin}"></i><#else><span class="line-action ${e3.icon}"></span></#if>${e3.name}</a>
+                                                    </li>
+                                                </#list>
+                                            </ul>
+                                        </li>
+                                    <#else>
+                                        <li><a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}'})">
+                                                <#if e2.iconSkin??><i class="fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>${e2.name}
+                                            </a></li>
+                                    </#if>
                                 </#list>
-                            </ul>
-                        </li>
-                     <#else>
-                        <li><a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}'})">
-                            <#if e2.iconSkin??><i class="fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>${e2.name}
-                        </a></li>
-                     </#if>
-                 </#list>
-                 </#if>
-             </ul>
-         </li>
-    </#list>
+                            </#if>
+                        </ul>
+                    </li>
+                </#list>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -270,7 +261,7 @@ ${extendStyles}
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
             <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-book"></i></a></li>
-        <#--<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>-->
+            <#--<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>-->
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -329,7 +320,7 @@ ${extendStyles}
                     <li>
                         <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'Acooly文档',value:'https://acooly.cn/docs/core.html',
                     showMode:'2',icon:'fa-home'})">
-                        <#--<a href="https://acooly.cn/docs/core.html" target="_blank">-->
+                            <#--<a href="https://acooly.cn/docs/core.html" target="_blank">-->
                             <i class="sidebar-menu-icon fa fa-file-code-o bg-green"></i>
                             <div class="menu-info">
                                 <h4 class="control-sidebar-subheading">Acooly官方文档</h4>
@@ -386,9 +377,8 @@ ${extendStyles}
 
 <!-- AdminLTE for -->
 <script src="/manage/assert/plugin/adminlte/js/demo.js"></script>
-<script src="/manage/assert/plugin/jquery-plugin/jquery.resize-0.5.3.min.js"></script>
-
-<script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-migrate-1.1.0.min.js" charset="utf-8"></script>
+<script src="/manage/assert/plugin/jquery-plugin/jquery.resize.js"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-detailview.js" charset="utf-8"></script>

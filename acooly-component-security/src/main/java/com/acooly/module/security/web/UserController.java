@@ -254,7 +254,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
 
     @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
-        model.put("allStatus", allStatus);
+        model.put("allStatuss", allStatus);
         model.put("allUserTypes", allUserTypes);
         List<Role> list = roleService.getAll();
         model.put("allRoles", list);

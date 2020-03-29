@@ -69,8 +69,8 @@
                     <td align="left">
                         登录名: <input type="text" class="text" size="10" name="search_LIKE_username"/>
                         姓名: <input type="text" class="text" size="10" name="search_LIKE_realName"/>
-                        状态: <select id="search_EQ_status" name="search_EQ_status" editable="false" panelHeight="auto" class="easyui-combobox" style="width:100px;">
-                            <option value="">所有</option><#list allStatus as k,v>
+                        状态: <select id="search_EQ_status" name="search_EQ_status" editable="false" panelHeight="auto" class="easyui-combobox">
+                            <option value="">所有</option><#list allStatuss as k,v>
                             <option value="${k}">${v}</option></#list></select>
                         类型:<select id="search_EQ_userType" name="search_EQ_userType" panelHeight="auto" editable="false" class="easyui-combobox" style="width:150px;">
                             <option value="">所有</option>
@@ -94,7 +94,7 @@
         <table id="manage_user_datagrid" class="easyui-datagrid" url="${rc.getContextPath()}/manage/system/user/listUser.html"
                toolbar="#manage_user_toolbar" fit="true" fitColumns="false"
                pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc"
-               checkOnSelect="true" selectOnCheck="true" singleSelect="true">
+               checkOnSelect="true" selectOnCheck="true" singleSelect="false">
             <thead>
             <tr>
                 <th field="userId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
@@ -103,16 +103,11 @@
                 <th field="realName">姓名</th>
                 <th field="email">E-mail</th>
                 <th field="mobileNo">手机号码</th>
-                <th field="createTime">创建时间</th>
-                <th field="lastModifyTime">修改时间</th>
+                <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
                 <th field="unlockTime">解锁时间</th>
                 <th field="roleName">角色</th>
-                <th field="status"
-                    data-options="formatter:function(value){ return formatRefrence('manage_user_datagrid','allStatus',value);} ">状态
-                </th>
-                <th field="userType"
-                    data-options="formatter:function(value){ return formatRefrence('manage_user_datagrid','allUserTypes',value);} ">用户类型
-                </th>
+                <th field="status" formatter="mappingFormatter">状态</th>
+                <th field="userType" formatter="mappingFormatter">用户类型</th>
                 <th field="orgName">所属机构</th>
                 <th field="action"
                     data-options="formatter:function(value, row, index){return formatAction('manage_user_action',value,row)}">动作
@@ -132,8 +127,10 @@
 
         <div id="manage_user_toolbar">
             <a href="#" class="easyui-linkbutton" data-options="size:'small'" plain="true" onclick="$.acooly.framework.create({url:'/manage/system/user/create.html',entity:'user',height:510})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
-            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.imports({url:'/manage/system/user/importView.html',
-            uploader:'manage_user_import_uploader_file'});"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i>批量导入</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/system/user/deleteJson.html','manage_user_datagrid')">
+                <i class="fa fa-trash fa-lg fa-fw fa-col"></i>批量删除
+            </a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.imports({url:'/manage/system/user/importView.html',uploader:'manage_user_import_uploader_file',datagrid:'manage_user_datagrid'});"><i class="fa fa-cloud-upload fa-lg fa-fw fa-col"></i>批量导入</a>
         </div>
     </div>
 </div>

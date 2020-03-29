@@ -92,7 +92,7 @@
                 <tr>
                     <th>状态</th>
                     <td><select name="status" panelHeight="auto" class="easyui-combobox" style="width: 200px;height: 30px;">
-							<#list allStatus as k,v>
+							<#list allStatuss as k,v>
                                 <option value="${k}">${v}</option></#list>
                     </select></td>
                 </tr>
@@ -106,7 +106,6 @@
                     value:${roleIds},
                     multiple:false,
                     <#--panelHeight: 'auto',-->
-                    label: 'Language:',
                     editable: false,
                     labelPosition: 'top'
                     "></td>

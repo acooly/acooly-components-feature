@@ -2,7 +2,7 @@
 <div align="center">
 <table class="tableForm" width="100%">
   <tr>
-    <td>根据文件扩展名自动适配导入文件类型，目前支持的格式包括：Excel和CSV。 请：<a href="/manage/data/import_user_template.xlsx" target="_blank">模板下载</a>。</td>
+    <td>根据文件扩展名自动适配导入文件类型，目前支持的格式包括：Excel和CSV。 请：<a href="/manage/assert/data/import_user_template.xlsx" target="_blank">模板下载</a>。</td>
   </tr>
     <tr>
         <td><div class="uploadfive-queue" id="manage_user_import_uploader_queue"></div></td>
@@ -23,7 +23,7 @@
                 messager:"manage_user_import_uploader_message",
                 queueID:"manage_user_import_uploader_queue",
                 /** 上传导入文件表单ID */
-                uploader:"manage_user_import_uploader_file"
+                uploader:"manage_user_import_uploader_file",
             });
         });
     </script>

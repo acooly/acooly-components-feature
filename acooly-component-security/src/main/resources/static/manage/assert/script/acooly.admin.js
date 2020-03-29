@@ -87,7 +87,8 @@
                 }
             });
             $('#layout_center_tabs').tabs({
-                height:$(window).height()-52,
+                // fit:true,
+                height: $(window).height() - 52,
                 border: false,
                 onContextMenu: function (e, title) {
                     e.preventDefault();
@@ -146,7 +147,7 @@
             $('.content-wrapper').resize(function () {
                 $('#layout_center_tabs').tabs({
                     width: $("#_tabs").parent().width(),
-                    height: $("#_tabs").parent().height()
+                    height: $(window).height() - 52
                 }).tabs('resize');
             });
         },
