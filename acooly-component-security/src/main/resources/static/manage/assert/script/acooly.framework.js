@@ -431,7 +431,7 @@
                 var height = opts.height != null ? opts.height : 300;
                 var title = opts.title != null ? opts.title : '<i class="fa fa-file-o fa-lg fa-fw fa-col"></i>查看'
                 var buttonLable = opts.buttonLable != null ? opts.buttonLable : '关闭';
-                return $('<div/>').dialog({
+                var d = $('<div/>').dialog({
                     href: contextPath + url,
                     width: width,
                     height: height,
@@ -440,7 +440,7 @@
                     buttons: [{
                         text: '<i class="fa fa-times-circle fa-lg fa-fw fa-col" ></i>关闭',
                         handler: function () {
-                            var d = $(this).closest('.window-body');
+                            // var d = $(this).closest('.window-body');
                             d.dialog('close');
                         }
                     }],
@@ -448,6 +448,7 @@
                         $(this).dialog('destroy');
                     }
                 });
+                return d;
             },
 
             /**
