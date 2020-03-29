@@ -10,22 +10,18 @@
             <table class="tableForm" width="100%">
                 <tr>
                     <td align="left">
-                        系统:<input type="text" class="text" size="10" name="search_EQ_system"/>
-                        模块:<input type="text" class="text" size="10" name="search_LIKE_module"/>
-                        操作:<input type="text" class="text" size="10" name="search_LIKE_actionName"/>
-                        操作结果:<select name="search_EQ_operateResult" editable="false" style="width:80px;height:27px;" panelHeight="auto"
-                                     class="easyui-combobox">
-                        <option value="">所有</option>
-          <#list allOperateResults as k,v>
-              <option value="${k}">${v}</option></#list>
-                    </select>
-                        操作时间:<input id="search_GTE_operateTime" class="text name=" search_GTE_operateTime" size="10"
-                        onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
-                        至<input id="search_LTE_operateTime" class="text name=" search_LTE_operateTime" size="10"
-                        onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
-                        操作员:<input type="text" class="text" size="15" name="search_LIKE_operateUser"/>
-                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"
-                           onclick="$.acooly.framework.search('manage_olog_searchform','manage_olog_datagrid');">查询</a>
+                        系统: <input type="text" size="10" name="search_EQ_system"/>
+                        模块: <input type="text" size="10" name="search_LIKE_module"/>
+                        功能: <input type="text" size="10" name="search_LIKE_actionName"/>
+                        结果: <select name="search_EQ_operateResult" editable="false" style="width:100px;" panelHeight="auto" class="easyui-combobox">
+                            <option value="">所有</option>
+                            <#list allOperateResults as k,v><option value="${k}">${v}</option></#list>
+                            </select>
+                        操作时间: <input id="search_GTE_operateTime" name=" search_GTE_operateTime" size="10" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
+                        至 <input id="search_LTE_operateTime" name=" search_LTE_operateTime" size="10" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
+                        操作员: <input type="text" size="15" name="search_LIKE_operateUser"/>
+                        <a href="javascript:void(0);" style="width:70px;" class="easyui-linkbutton" data-options="plain:false"
+                           onclick="$.acooly.framework.search('manage_olog_searchform','manage_olog_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</a>
                     </td>
                 </tr>
             </table>
@@ -61,8 +57,8 @@
 
         <!-- 每行的Action动作模板 -->
         <div id="manage_olog_action" style="display: none;">
-            <a class="line-action icon-show" title="详情"
-               onclick="$.acooly.framework.show('/manage/component/olog/olog/show.html?id={0}',700,500);" href="#"></a>
+            <a onclick="$.acooly.framework.show('/manage/component/olog/olog/show.html?id={0}',700,500);" href="#" title="详情"><i
+                        class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
         </div>
 
         <!-- 表格的工具栏 -->
