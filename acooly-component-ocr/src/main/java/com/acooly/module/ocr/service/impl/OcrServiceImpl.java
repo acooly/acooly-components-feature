@@ -68,8 +68,8 @@ public class OcrServiceImpl implements OcrService {
                 IdCardOcrBackDto dto = new IdCardOcrBackDto();
                 JSONObject issuanceDate = res.optJSONObject("words_result").optJSONObject("签发日期");
                 JSONObject expiryDate = res.optJSONObject("words_result").optJSONObject("失效日期");
-                dto.setIssuanceDate(issuanceDate != null ? formatDateStr(issuanceDate.optString("签发日期")) : null);
-                dto.setExpiryDate(expiryDate != null ? formatDateStr(expiryDate.optString("失效日期")) : null);
+                dto.setIssuanceDate(issuanceDate != null ? formatDateStr(issuanceDate.optString("words")) : null);
+                dto.setExpiryDate(expiryDate != null ? formatDateStr(expiryDate.optString("words")) : null);
                 dto.setAuthority(res.optJSONObject("words_result").optJSONObject("签发机关") != null ? res.optJSONObject("words_result").optJSONObject("签发机关").optString("words") : null);
                 result.setIdCardOcrBackDto(dto);
             }
