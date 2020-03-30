@@ -10,16 +10,16 @@
     <meta http-equiv="description" content="spring+jpa+hibernate+easyui+springmvc+jstl/freemarker">
     <meta name="X-CSRF-TOKEN" content="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
     <!-- easyui控件 -->
-    <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly4/easyui.css" type="text/css"/>
+    <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/default/easyui.css" type="text/css"/>
     <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
-    <link id="easyuiThemeBasic" rel="stylesheet"  href="/manage/assert/plugin/jquery-easyui/themes/acooly4/basic.css">
+    <link id="easyuiThemeBasic" rel="stylesheet"  href="/manage/assert/plugin/jquery-easyui/themes/default/basic.css">
     <link rel="stylesheet" type="text/css" href="/manage/assert/style/icon.css">
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/icon.css" type="text/css"/>
     <!-- 扩展css -->
     ${extendStyles}
 
     <script src="/manage/assert/plugin/jquery/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-migrate-1.1.0.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-detailview.js" charset="utf-8"></script>

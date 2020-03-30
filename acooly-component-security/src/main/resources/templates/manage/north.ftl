@@ -11,35 +11,25 @@
                 <div class="userinfo">
                     <@shiroPrincipal/>
                 </div>
-                <div style="float: right;padding-right: 10px;">
-                    <button class="layui-btn layui-btn-xs layui-btn-normal" onclick="$.acooly.framework.changePassword();">
-                        <i class="fa fa-key fa-fw" aria-hidden="true"></i>修改密码
+                <div class="layui-btn-group" style="float: right;padding-right: 10px;">
+                    <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="$.acooly.framework.changePassword();">
+                        <i class="fa fa-key fa-fw fa-col" aria-hidden="true"></i>密码
                     </button>
-                    <button class="layui-btn layui-btn-xs layui-btn-normal" onclick="$.acooly.framework.logout();">
-                        <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>注销
+                    <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="$.acooly.framework.logout();">
+                        <i class="fa fa-sign-out fa-fw fa-col" aria-hidden="true"></i>注销
                     </button>
-                    <button class="layui-btn layui-btn-xs layui-btn-danger" onclick="location.href='/manage/index' + '.html?acoolyTheme=adminlte'">
-                        <i class="fa fa-thumbs-o-up fa-fw" aria-hidden="true"></i> 新版
+                    <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="location.href='/manage/index' + '.html?acoolyTheme=adminlte'">
+                        <i class="fa fa-thumbs-o-up fa-fw fa-col" aria-hidden="true"></i> 新版
                     </button>
                 </div>
             </div>
         </div>
         <div id="mainMenu" class="nav"></div>
-        <div class="top-menu" style="position: absolute; right: 0px; bottom: 0px;">
-            <a href="javascript:void(0);" class="easyui-menubutton" data-options="menu:'#layout_menu_theme'">
-                <i class="fa fa-chevron-down fa-fw" aria-hidden="true"></i>主题</a>
-        </div>
-        <div id="layout_menu_theme" style="width: 100px; display: none;">
-            <div id="theme_default" onclick="changeTheme('default');">acooly</div>
-            <div id="theme_acooly4" onclick="changeTheme('acooly4');">acooly4</div>
-        </div>
     </div>
 </div>
 <script type="text/javascript">
     $(function () {
         $.acooly.layout.loadMenu();
-        // 旧版风格内的切换
-        loadTheme();
         if ($.acooly.system.config.logo) {
             $('#acooly_logo img').attr('src', $.acooly.system.config.logo)
             $('#acooly_title').hide();

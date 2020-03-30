@@ -82,7 +82,7 @@
                                 <option value="${e.id}">${e.name}</option></#list>
                         </select>
                         组织机构: <input type="text" id="orgId" class="easyui-combobox" name="search_EQ_orgId"/>
-                        <a href="javascript:void(0);" style="width:70px;" class="easyui-linkbutton" data-options="plain:false"
+                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:false"
                            onclick="$.acooly.framework.search('manage_user_searchform','manage_user_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</a>
                     </td>
                 </tr>
