@@ -25,7 +25,6 @@
     <!-- icons -->
     <link href="/manage/assert/plugin/icon/Ionicons/4.4.7/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
-    <#--    <link rel="stylesheet" href="/manage/assert/plugin/Ionicons/css/ionicons.min.css">-->
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -351,21 +350,6 @@
     $.widget.bridge('uibutton', $.ui.button);
 </script>
 <script src="/manage/assert/plugin/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<#--<!-- Sparkline 图表 &ndash;&gt;-->
-<#--<script src="https://cdn.bootcss.com/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>-->
-<!-- jvectormap -->
-<#--<script src="https://cdn.bootcss.com/jvectormap/2.0.4/jquery-jvectormap.min.js"></script>-->
-<!-- 矢量图 -->
-<#--<script src="https://cdn.bootcss.com/raphael/2.2.0/raphael.min.js"></script>-->
-<!-- jQuery Knob Chart -->
-<#--<script src="https://cdn.bootcss.com/jQuery-Knob/1.2.12/jquery.knob.min.js"></script>-->
-<!-- daterangepicker -->
-<#--<script src="https://cdn.bootcss.com/bootstrap-daterangepicker/2.1.27/moment.min.js"></script>-->
-<#--<script src="https://cdn.bootcss.com/bootstrap-daterangepicker/2.1.27/daterangepicker.min.js"></script>-->
-<!-- datepicker -->
-<#--<script src="https://cdn.bootcss.com/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>-->
-<!-- Bootstrap WYSIHTML5 -->
-<#--<script src="/manage/assert/plugin/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>-->
 <!-- Slimscroll -->
 <script src="/manage/assert/plugin/jquery-plugin/jquery.slimscroll-1.3.8.min.js"></script>
 <!-- FastClick -->
@@ -374,7 +358,6 @@
 <script src="/manage/assert/plugin/adminlte/js/adminlte.js"></script>
 <!-- 模板引擎：baidu -->
 <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
-
 <!-- AdminLTE for -->
 <script src="/manage/assert/plugin/adminlte/js/demo.js"></script>
 <script src="/manage/assert/plugin/jquery-plugin/jquery.resize.js"></script>

@@ -104,7 +104,7 @@
                 var opts = {
                     title: node.name,
                     closable: true,
-                    iconCls: node.icon != null && node.icon.startsWith("fa") ? "fa " + node.icon : node.icon
+                    iconCls: node.icon != null && node.icon.indexOf("fa") != -1 ? "fa " + node.icon : node.icon
                 };
                 if (node.showMode == 1) {
                     opts.href = contextPath + url;
