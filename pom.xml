@@ -135,6 +135,11 @@
                 <artifactId>acooly-component-face</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-obs</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -167,6 +172,7 @@
         <module>acooly-component-treetype</module>
         <module>acooly-component-face</module>
         <module>acooly-component-ocr</module>
+        <module>acooly-component-obs</module>
     </modules>
 
     <build>

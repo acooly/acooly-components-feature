@@ -105,6 +105,11 @@
             <artifactId>acooly-component-ocr</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-obs</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.acooly</groupId>
