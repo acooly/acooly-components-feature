@@ -520,6 +520,13 @@
                 if (!uploadfiveOptions.queueID) {
                     uploadfiveOptions.queueID = false;
                 }
+                if(options.onFormData){
+                    var data = options.onFormData.call(this);
+                    if(options.formData){
+                        data = $.extend(options.formData, data);
+                    }
+                    $('#' + options.uploader).data('uploadifive').settings.formData = data;
+                }
                 $('#' + options.uploader).uploadifive(uploadfiveOptions);
             },
             imports_dialog: '',
