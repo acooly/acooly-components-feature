@@ -520,13 +520,7 @@
                 if (!uploadfiveOptions.queueID) {
                     uploadfiveOptions.queueID = false;
                 }
-                if(options.onFormData){
-                    var data = options.onFormData.call(this);
-                    if(options.formData){
-                        data = $.extend(options.formData, data);
-                    }
-                    $('#' + options.uploader).data('uploadifive').settings.formData = data;
-                }
+
                 $('#' + options.uploader).uploadifive(uploadfiveOptions);
             },
             imports_dialog: '',
@@ -548,6 +542,14 @@
                     buttons: [{
                         text: '<i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i> 上传导入',
                         handler: function () {
+                            let uploadifiveOptions = $('#' + opts.uploader).data('uploadifive').settings;
+                            if(uploadifiveOptions.onFormData){
+                                var data = uploadifiveOptions.onFormData.call(this);
+                                if(uploadifiveOptions.formData){
+                                    data = $.extend(uploadifiveOptions.formData, data);
+                                }
+                                $('#' + opts.uploader).data('uploadifive').settings.formData = data;
+                            }
                             $('#' + opts.uploader).uploadifive('upload');
                         }
                     }, {
