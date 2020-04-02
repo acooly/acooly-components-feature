@@ -72,7 +72,7 @@
                         状态: <select id="search_EQ_status" name="search_EQ_status" editable="false" panelHeight="auto" class="easyui-combobox">
                             <option value="">所有</option><#list allStatuss as k,v>
                             <option value="${k}">${v}</option></#list></select>
-                        类型:<select id="search_EQ_userType" name="search_EQ_userType" panelHeight="auto" editable="false" class="easyui-combobox" style="width:150px;">
+                        类型:<select id="search_EQ_userType" name="search_EQ_userType" panelHeight="auto" editable="false" class="easyui-combobox">
                             <option value="">所有</option>
                             <#list allUserTypes as k,v>
                                 <option value="${k}">${v}</option></#list></select>

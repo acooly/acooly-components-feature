@@ -377,6 +377,7 @@
                         $.acooly.framework.search(searchForm, datagride);
                     }
                 });
+                $.acooly.framework.extendCombobox();
             },
 
             /**
@@ -1023,6 +1024,21 @@
                 };
                 let options = $.extend(defOpts, opts);
                 $('#' + inputId).selectPage(options);
+            },
+
+            extendCombobox: function () {
+                $('.easyui-combobox').combobox({
+                    onLoadSuccess: function () {
+                        let originalWidth = $(this).next().css('width');
+                        if (originalWidth) {
+                            if (originalWidth.indexOf('px') != -1) {
+                                originalWidth = originalWidth.substring(0, originalWidth.indexOf('px'));
+                                const newWidth = parseInt(originalWidth) + 20;
+                                $(this).combobox("resize", newWidth);
+                            }
+                        }
+                    }
+                });
             }
 
         }

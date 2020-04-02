@@ -105,7 +105,7 @@
                     textField:'name',
                     value:${roleIds},
                     multiple:false,
-                    <#--panelHeight: 'auto',-->
+                    panelHeight: 'auto',
                     editable: false,
                     labelPosition: 'top'
                     "></td>
