@@ -1,11 +1,8 @@
 package com.acooly.module.obs.client;
 
 import com.acooly.module.obs.ObsProperties;
-import com.acooly.module.obs.common.model.ObjectMetadata;
-import com.acooly.module.obs.common.model.ObjectResult;
-import com.acooly.module.obs.common.model.ObsObject;
-import com.acooly.module.obs.exceptions.ClientException;
-import com.acooly.module.obs.exceptions.ObsException;
+import com.acooly.module.obs.common.OssFile;
+import com.aliyun.oss.model.ObjectMetadata;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -16,8 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.Map;
+import java.util.Date;
 
 /**
  * @author shuijing
@@ -35,6 +31,7 @@ public class ObsClientProxy
     @Autowired
     private ObsProperties obsProperties;
 
+    @Override
     public String getProvider() {
         return obsClient.getProvider();
     }
@@ -45,50 +42,38 @@ public class ObsClientProxy
     }
 
     @Override
-    public ObjectResult putObject(String bucketName, String key, File file)
-            throws ObsException, ClientException {
+    public OssFile putObject(String bucketName, String key, File file) {
         return obsClient.putObject(bucketName, key, file);
     }
 
     @Override
-    public ObjectResult putObject(String bucketName, String key, InputStream input)
-            throws ObsException, ClientException {
+    public OssFile putObject(String bucketName, String key, InputStream input) {
         return obsClient.putObject(bucketName, key, input);
     }
 
     @Override
-    public ObjectResult putObject(String bucketName, String key, File file, ObjectMetadata metadata)
-            throws ObsException, ClientException {
+    public String getAccessUrlBySts(String bucketName, String key, String processStyle, Date expireDate) {
+        return obsClient.getAccessUrlBySts(bucketName, key, processStyle, expireDate);
+    }
+
+    @Override
+    public OssFile putObject(String bucketName, String key, File file, ObjectMetadata metadata) {
         return obsClient.putObject(bucketName, key, file, metadata);
     }
 
     @Override
-    public ObjectResult putObject(
-            String bucketName, String key, InputStream input, ObjectMetadata metadata)
-            throws ObsException, ClientException {
+    public OssFile putObject(
+            String bucketName, String key, InputStream input, ObjectMetadata metadata) {
         return obsClient.putObject(bucketName, key, input, metadata);
     }
 
     @Override
-    public ObjectResult putObject(URL signedUrl, File file, Map<String, String> requestHeaders)
-            throws ObsException, ClientException {
-        return null;
-    }
-
-    @Override
-    public ObjectResult putObject(
-            URL signedUrl, InputStream inputStream, Map<String, String> requestHeaders)
-            throws ObsException, ClientException {
-        return null;
-    }
-
-    @Override
-    public ObsObject getObject(String bucketName, String key) throws ObsException, ClientException {
+    public OssFile getObject(String bucketName, String key) {
         return obsClient.getObject(bucketName, key);
     }
 
     @Override
-    public void deleteObject(String bucketName, String key) throws ObsException, ClientException {
+    public void deleteObject(String bucketName, String key) {
         obsClient.deleteObject(bucketName, key);
     }
 

@@ -74,6 +74,17 @@ public class ObsProperties {
 
     @Data
     public static class Aliyun {
+
+        /**
+         * 地域id
+         * https://help.aliyun.com/document_detail/40654.html?spm=5176.10695662.1996646101.1.7e8f10132OTSUc
+         */
+        private String regionId;
+
+        /**
+         * 协议头,可选值 http:// 或者https://
+         */
+        private String protocol;
         /**
          * 接入keyId
          */
@@ -83,10 +94,49 @@ public class ObsProperties {
          */
         private String accessKeySecret;
         /**
-         * 华东一：http://oss-cn-hangzhou.aliyuncs.com
-         *
-         * <p>https://intl.aliyun.com/help/zh/doc-detail/31837.htm
+         * 内网访问域名（主要用于ecs或者vpc环境内网做上传，加快上传速度）
+         * 例如:oss-cn-hangzhou-internal.aliyuncs.com
+         * <p>https://intl.aliyun.com/help/zh/doc-detail/31837.htm</p>
          */
         private String endpoint;
+
+        /**
+         * 外网访问域名（主要用于图片或者文件展示，及下载）
+         * 例如:oss-cn-hangzhou.aliyuncs.com
+         * <p>https://intl.aliyun.com/help/zh/doc-detail/31837.htm</p>
+         */
+        private String endpointExternal;
+
+        /**
+         * 默认桶名称
+         */
+        public String bucketName;
+
+
+        //sts需要使用的配置
+        /**
+         * 通过RAM控制台创建一个RAM用户，拿到的accessKey，不能用主账号的accessKey
+         */
+        private String stsAccessKeyId;
+
+        /**
+         * 通过RAM控制台创建一个RAM用户，拿到的accessKeySecret，不能用主账号的accessKeySecret
+         */
+        private String stsAccessKeySecret;
+
+        /**
+         * 指定角色的ARN。格式：acs:ram::$accountID:role/$roleName
+         */
+        private String stsRoleArn;
+
+        /**
+         * 用户自定义参数。此参数用来区分不同的令牌，可用于用户级别的访问审计。格式：^[a-zA-Z0-9\.@\-_]+$。
+         */
+        private String stsRoleSessionName;
+
+        /**
+         * sts公共参数，默认版本传入2015-04-01
+         */
+        private String stsApiVersion = "2015-04-01";
     }
 }
