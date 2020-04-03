@@ -525,6 +525,14 @@
                         text: '上传导入',
                         iconCls: 'icon-import',
                         handler: function () {
+                            let uploadifiveOptions = $('#' + opts.uploader).data('uploadifive').settings;
+                            if(uploadifiveOptions.onFormData){
+                                var data = uploadifiveOptions.onFormData.call(this);
+                                if(uploadifiveOptions.formData){
+                                    data = $.extend(uploadifiveOptions.formData, data);
+                                }
+                                $('#' + opts.uploader).data('uploadifive').settings.formData = data;
+                            }
                             $('#' + opts.uploader).uploadifive('upload');
                         }
                     }, {

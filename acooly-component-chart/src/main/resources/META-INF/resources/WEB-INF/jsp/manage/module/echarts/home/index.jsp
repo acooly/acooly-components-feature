@@ -7,7 +7,7 @@
 
 <body style="text-align: center; margin-left: auto; margin-right: auto;">
 	<c:forEach var="e" items="${chartItemsList}">
-		<iframe src="/manage/module/echarts/chartItem_${e.type.code}_${e.id}.html" height="${e.height}%" width="${e.width}%"></iframe>
+		<iframe src="/manage/module/echarts/chartItem_${e.type.code}_${e.id}.html" height="${e.height}%" width="${e.width}%"  frameborder="no"></iframe>
 		<br />
 		<br />
 	</c:forEach>
