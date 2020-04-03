@@ -192,10 +192,10 @@
                 <li class="header">
                     功能菜单
                     <span class="pull-right-container">
-            <#--<a title="刷新菜单(重新授权后)" href="javascript:;"><i style="margin-top: 0.3em;" class="fa fa-refresh pull-right"></i></a>-->
-            <a onclick="$.acooly.admin.headerToggle();" title="最大/小化菜单" href="javascript:;">
-                <i id="menu-toggle-icon" style="margin-top: 0.3em;" class="fa fa-expand pull-right"></i>
-            </a>
+<#--            <a title="刷新菜单(重新授权后)" href="javascript:;"><i style="margin-top: 0.3em;" class="fa fa-refresh pull-right"></i></a>-->
+<#--            <a onclick="$.acooly.admin.headerToggle();" title="最大/小化菜单" href="javascript:;">-->
+<#--                <i id="menu-toggle-icon" style="margin-top: 0.3em;" class="fa fa-expand pull-right"></i>-->
+<#--            </a>-->
         </span>
                 </li>
 
@@ -407,8 +407,8 @@ ${extendScripts}
 <script type="text/javascript">
     var contextPath = '';
     $(function () {
+        $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "adminlte");
         $.acooly.system.init();
-        $.acooly.admin.init();
     });
 
 

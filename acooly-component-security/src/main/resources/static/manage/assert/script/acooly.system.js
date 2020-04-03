@@ -24,12 +24,14 @@
                 var That = this;
                 $.ajax({
                     url: contextPath + "/security/config/index.html",
-                    async: false,
                     success: function (data, textStatus) {
                         if (typeof (data) == 'string') {
                             data = eval('(' + data + ')');
                         }
                         That.config = data;
+                        if($.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey) == 'adminlte'){
+                            $.acooly.admin.init();
+                        }
                     }
                 });
             },

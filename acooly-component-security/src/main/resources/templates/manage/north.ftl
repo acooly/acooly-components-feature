@@ -30,13 +30,22 @@
 <script type="text/javascript">
     $(function () {
         $.acooly.layout.loadMenu();
-        if ($.acooly.system.config.logo) {
-            $('#acooly_logo img').attr('src', $.acooly.system.config.logo)
-            $('#acooly_title').hide();
-        } else {
-            if ($.acooly.system.config.title) {
-                $('#acooly_title').text($.acooly.system.config.title);
+
+        $.ajax({
+            url: contextPath + "/security/config/index.html",
+            success: function (data, textStatus) {
+                if (typeof (data) == 'string') {
+                    data = eval('(' + data + ')');
+                }
+                if (data.logo) {
+                    $('#acooly_logo img').attr('src', data.logo)
+                    $('#acooly_title').hide();
+                } else {
+                    if (data.title) {
+                        $('#acooly_title').text(data.title);
+                    }
+                }
             }
-        }
+        });
     });
 </script>
