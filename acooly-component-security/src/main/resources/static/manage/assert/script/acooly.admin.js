@@ -90,6 +90,7 @@
                 // fit:true,
                 height: $(window).height() - 52,
                 border: false,
+                pill:true,
                 onContextMenu: function (e, title) {
                     e.preventDefault();
                     $('#layout_center_tabsMenu').menu('show', {
@@ -145,8 +146,10 @@
 
             // 通过jquery-resize插件实现：父节点大小改变后，resize tabs
             $('.content-wrapper').resize(function () {
+                let parentWidth = $(this).width();
+                // let parentWidth = $(window).width();
                 $('#layout_center_tabs').tabs({
-                    width: $("#_tabs").parent().width(),
+                    width: parentWidth,
                     height: $(window).height() - 52
                 }).tabs('resize');
             });
