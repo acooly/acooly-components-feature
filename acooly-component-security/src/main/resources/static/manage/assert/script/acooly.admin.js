@@ -35,7 +35,7 @@
 
             // adminlte3
             if ($.acooly.system.config.logo) {
-                $('#logo_image').attr('src',$.acooly.system.config.logo);
+                $('#logo_image').attr('src',$.acooly.system.config.logoMini);
             }
             if ($.acooly.system.config.title) {
                 $('#logo_title').text($.acooly.system.config.title);
