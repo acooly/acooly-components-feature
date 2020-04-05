@@ -9,10 +9,10 @@
             width: 400,
             height: 300,
             modal: true,
-            title: '修改用戶密码',
+            title: ' <i class="fa fa-lock fa-lg"></i> 重置密码',
             buttons: [{
-                text: '修改',
-                iconCls: 'icon-edit',
+                text: '<i class="fa fa-check fa-col"></i> 提 交',
+                // iconCls: 'icon-edit',
                 handler: function () {
                     var d = $(this).closest('.window-body');
                     $('#manage_user_changePassword_form').form('submit', {
@@ -120,7 +120,7 @@
             <a title="编辑" onclick="$.acooly.framework.edit({url:'/manage/system/user/edit.html',id:'{0}',entity:'user',height:500});"
                href="#"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
             <!--<a title="查看"  onclick="$.acooly.framework.show('/manage/system/user/show.html?id={0}',500,350);" href="#"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>-->
-            <a title="修改密码" onclick="manage_user_changePasswd('{0}');" href="#"><i class="fa fa-key fa-lg fa-fw fa-col"></i></a>
+            <a title="重置密码" onclick="manage_user_changePasswd('{0}');" href="#"><i class="fa fa-key fa-lg fa-fw fa-col"></i></a>
             <a title="删除" onclick="$.acooly.framework.remove('/manage/system/user/deleteJson.html','{0}','manage_user_datagrid');" href="#"><i
                         class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
         </div>

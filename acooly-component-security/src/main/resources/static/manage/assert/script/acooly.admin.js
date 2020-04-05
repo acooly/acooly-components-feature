@@ -12,13 +12,14 @@
             this.initMenus();
             this.initTab();
             // 新旧版本的风格(访问到旧版页面，则设置版本cookies)
-            $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "adminlte")
+            // $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "adminlte")
         },
 
         /**
          * 初始化LOGO
          */
         initLogo: function () {
+            // adminlte2
             if ($.acooly.system.config.logo) {
                 $('.logo-lg').html("<img src='" + $.acooly.system.config.logo + "' width='200'>")
             } else {
@@ -31,6 +32,16 @@
             if ($.acooly.system.config.shorttitle) {
                 $('.logo-mini').html($.acooly.system.config.shorttitle);
             }
+
+            // adminlte3
+            if ($.acooly.system.config.logo) {
+                $('#logo_image').attr('src',$.acooly.system.config.logo);
+            }
+            if ($.acooly.system.config.title) {
+                $('#logo_title').text($.acooly.system.config.title);
+            } else {
+                $('#logo_title').text("<b>Accoly</b> Sys V5.x");
+            }
         },
 
         /**
@@ -38,12 +49,21 @@
          */
         initMenus: function () {
 
-            // 注册点击主菜单（.treeview）的选中效果(.active)
+            // adminlte2: 注册点击主菜单（.treeview）的选中效果(.active)
             $(document).on("click", '.sidebar-menu ul li', function (e) {
                 $(".sidebar-menu li").removeClass("active");
                 $(this).addClass("active");
                 if ($(this).parent() && $(this).parent().parent()) {
                     $(this).parent().parent().addClass("active");
+                }
+            });
+
+            // adminlte3: 注册点击主菜单（.nav-link）的选中效果(.active)
+            $(document).on("click", '.nav .nav-link', function (e) {
+                $(".nav .nav-link").removeClass("active");
+                $(this).addClass("active");
+                if ($(this).parent() && $(this).parent().parent()) {
+                    $(this).parent().parent().prev().addClass("active");
                 }
             });
         },
@@ -87,7 +107,7 @@
                 }
             });
             $('#layout_center_tabs').tabs({
-                // fit:true,
+                fit:true,
                 height: $(window).height() - 52,
                 border: false,
                 pill:true,

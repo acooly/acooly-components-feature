@@ -96,7 +96,7 @@
                                 }
                             }
                             if (result.message) {
-                                $.acooly.msgrb(result.message, result.success)
+                                $.acooly.messager(result.message, result.success?'success':'danger');
                             }
                         } catch (e) {
                             $.acooly.alert('错误', e);
@@ -733,10 +733,9 @@
                     width: 400,
                     height: 300,
                     modal: true,
-                    title: '修改密码',
+                    title: ' <i class="fa fa-lock fa-lg"></i> 修改密码',
                     buttons: [{
-                        text: '修改密码',
-                        iconCls: 'icon-edit',
+                        text: '<i class="fa fa-check fa-col"></i> 提交',
                         handler: function () {
                             var d = $(this).closest('.window-body');
                             $('#user_changePassword_form').form('submit', {
