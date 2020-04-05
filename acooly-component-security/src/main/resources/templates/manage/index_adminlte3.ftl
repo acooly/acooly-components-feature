@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
     <!-- pace-progress -->
-    <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/plugins/pace-progress/themes/black/pace-theme-flat-top.css">
+    <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- easyui及自定义 -->
@@ -240,7 +240,7 @@
 <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
 <script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- pace-progress -->
-<script src="/manage/assert/plugin/adminlte3/plugins/pace-progress/pace.min.js"></script>
+<script src="/manage/assert/plugin/pace-progress/pace.min.js"></script>
 <!-- Slimscroll -->
 <script src="/manage/assert/plugin/jquery-plugin/jquery.slimscroll-1.3.8.min.js"></script>
 <!-- FastClick -->
