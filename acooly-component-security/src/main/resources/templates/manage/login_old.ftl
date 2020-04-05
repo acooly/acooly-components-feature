@@ -2,143 +2,144 @@
 <html>
 <head>
     <title>${Session.securityConfig.title }</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
-    <!-- icons -->
-    <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="/manage/assert/plugin/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="/manage/assert/plugin/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- adminlte -->
-    <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
-
-<#--    <link rel="stylesheet" href="/manage/assert/style/login.css">-->
+    <link rel="stylesheet" href="/manage/assert/style/login.css">
 
 </head>
 
-<body class="hold-transition login-page" style="background: #007cd9 url(/manage/assert/image/white-bg.png) no-repeat center bottom;">
-
-<div class="login-logo">
-    <#if Session.securityConfig.logo??>
-        <img alt="logo" width="200" src="${Session.securityConfig.logo}">
-    <#else>
-        <a href="javascript:;">${Session.securityConfig.title}</a>
-    </#if>
-    <div class="text-center text-white" style="font-size: 12px;margin-top: 10px;">${Session.securityConfig.subtitle}</div>
-</div>
-<div class="login-box">
-
-    <!-- /.login-logo -->
-    <div class="card" style="font-size: 14px;">
-        <div class="card-body login-card-body">
-            <p id="message" class="login-box-msg text-danger">
-                <#if Request.message??>
-                    ${Request.message}
-                <#else>
-                    请注意账户安全
-                </#if>
-            </p>
-
-            <form role="form" action="" method="post" autocomplete="off">
-                <input type="hidden" id="_csrf" name="_csrf" value="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
-                <#if Session.TENANT_FLAG?exists>
-                    <div class="input-group mb-3">
-                        <select id="tenant_id" name="tenantId" placeholder="租户号..."  class="form-control" style="width: 100%">
-                            <#list Session.TENANT_FLAG?keys as k><option value="${k}">${Session.TENANT_FLAG[k]}</option></#list>
-                        </select>
-                    </div>
-                </#if>
-
-                <div class="input-group mb-3">
-                    <input type="text" name="username" placeholder="用户名..." class="form-control" id="form-username">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fa fa-user"></span>
+<body>
+<!-- Top content -->
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="text" style="text-align: center;">
+                    <#if Session.securityConfig.logo??>
+                        <img alt="logo" width="300" src="${Session.securityConfig.logo}">
+                    <#else>
+                        <h1>${Session.securityConfig.title}</h1>
+                    </#if>
+                    <div class="description">${Session.securityConfig.subtitle}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>登录您的账号</h3>
+                            <p id="message" class="text-danger"><i class="fa fa-exclamation"></i>
+                                <#if Request.message??>
+                                    ${Request.message}
+                                <#else>
+                                    请注意账户安全
+                                </#if>
+                            </p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-lock"></i>
                         </div>
                     </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="password" name="password" placeholder="密码..." class="form-control" id="form-password">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fa fa-lock"></span>
-                        </div>
-                    </div>
-                </div>
+                    <div class="form-bottom">
+                        <form role="form" action="" method="post" class="login-form" autocomplete="off">
+                            <input type="hidden" id="_csrf" name="_csrf"
+                                   value="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
 
-                <#if Application.loginSmsEnable?exists>
-                <!-- sms -->
-                <div class="input-group mb-3">
-                    <input id="validCode" name="validCode" type="text" value="" size="25" class="form-smscaptcha form-control" placeholder="短信验证码"/>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fa fa-mobile fa-lg"></span>
+                            <#if Session.TENANT_FLAG?exists>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon" id="username-addon"><i
+                                        class="fa fa-user fa-fw"></i></span>
+                                <label class="sr-only" for="form-username">租户号</label>
+                                <select id="tenant_id" name="tenantId" editable="false" aria-describedby="username-addon" panelHeight="auto" class="form-control" style="width: 100%">
+                                    <#list Session.TENANT_FLAG?keys as k><option value="${k}">${Session.TENANT_FLAG[k]}</option></#list></select>
+                            </div>
+                            </#if>
+
+
+                            <div class="form-group input-group">
+                                <span class="input-group-addon" id="username-addon"><i
+                                            class="fa fa-user fa-fw"></i></span>
+                                <label class="sr-only" for="form-username">用户名</label>
+                                <input type="text" name="username" placeholder="账号..." aria-describedby="username-addon" autocomplete="new-password"
+                                       class="form-username form-control" id="form-username">
+                            </div>
+                            <input style="display:none">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon" id="password-addon"><i
+                                            class="fa fa-key fa-fw"></i></span>
+                                <label class="sr-only" for="form-password">密码</label>
+                                <input type="password" name="password" placeholder="密码..." autocomplete="new-password"
+                                       aria-describedby="password-addon" class="form-password form-control"
+                                       id="form-password">
+                            </div>
+
+                            <#if Application.loginSmsEnable?exists>
+                                <div class="form-group input-group" style="white-space:nowrap;">
+                                   <span class="input-group-addon" id="captcha-addon"><i
+                                               class="fa fa-check fa-fw"></i></span>
+                                    <#-- <input id="phoneNumber" name="phoneNumber" value="" size="100"
+                                            class="form-captcha form-control"
+                                            type="text" placeholder="手机号码"/>-->
+
+                                    <input id="validCode" name="validCode" type="text" value="" size="30"
+                                           class="form-smscaptcha form-control"
+                                           placeholder="验证码"/>
+                                    <input
+                                            id="getValidCodeaa" class="btn btn-info" width="20" type="button"
+                                            style="font-size: small" value="获取验证码"
+                                    />
+                                    <input style="display: none;" id="smsSendInterval"
+                                           value="${Session.securityConfig.smsSendInterval}"/>
+                                </div>
+                            <#else>
+                                <div class="form-group input-group" id="captchaPanel" style="display: none;">
+                                <span class="input-group-addon" id="captcha-addon"><i
+                                            class="fa fa-check fa-fw"></i></span>
+                                    <label class="sr-only" for="form-captcha">验证码</label>
+                                    <input type="text" name="captcha" placeholder="验证码..." aria-describedby="captcha-addon"
+                                           class="form-captcha form-control" id="form-captcha">
+                                    <span class="ml5">
+                                        <img id="jcaptchaImage" onclick="refreshCaptcha()" src="/jcaptcha.jpg"
+                                             height="34"
+                                             width="65" align="top" style="cursor: pointer;" title="看不清楚？点击更换">
+                                        <a href="javascript:;" onclick="refreshCaptcha()"
+                                           style="font-size: 12px;">看不清,换一下！</a>
+                                </span>
+                                </div>
+                            </#if>
+
+                            <button type="button" id="loginButton" onclick="loginForm()" class="btn btn-warning">登 录</button>
+                        </form>
+                        <div style="margin-top: 10px;font-size: 18px;">
+                            <span style="font-size: 14px;">推荐浏览器：</span>
+                            <a href="https://www.google.cn/chrome/" class="text-success" target="_blank" title="Google Chrome浏览器"><i class="fa fa-chrome fa-lg" aria-hidden="true"></i></a>
+                            <a href="http://www.firefox.com.cn/" class="text-danger" target="_blank" title="Firefox火狐浏览器"><i class="fa fa-firefox fa-lg" aria-hidden="true"></i></a>
+                            <a href="javascript:;" onclick="alert('苹果自带...');return false;" target="_blank" title="Safari苹果浏览器"><i class="fa fa-safari fa-lg" aria-hidden="true"></i></a>
                         </div>
                     </div>
-                    <button id="getValidCodeaa" type="button" class="btn btn-secondary" style="margin-left: 5px;font-size: 14px;">获取验证码</button>
-                    <input style="display: none;" id="smsSendInterval" value="${Session.securityConfig.smsSendInterval}"/>
+
                 </div>
-                <#else>
-                <!-- human验证码 -->
-                <div class="input-group mb-3" id="captchaPanel" style="display: none;">
-                    <input type="text" name="captcha" placeholder="验证码..." class="form-captcha form-control" id="form-captcha">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fa fa-male"></span>
-                        </div>
-                    </div>
-                    <span class="ml5">
-                        <img id="jcaptchaImage" onclick="refreshCaptcha()" src="/jcaptcha.jpg" height="34" width="65" align="top" style="cursor: pointer;" title="看不清楚？点击更换">
-                        <a href="javascript:;" onclick="refreshCaptcha()" style="font-size: 12px;">看不清,换一下！</a>
-                    </span>
-                </div>
-                </#if>
-                <div class="row mb-3">
-                    <div class="col-12"><button type="button" id="loginButton" onclick="loginForm()" class="btn btn-primary btn-block">登 录</button></div>
-                </div>
-<#--                <div class="row mb-3">-->
-<#--                    <div class="col-6">-->
-<#--                        <div class="icheck-primary">-->
-<#--                            <input type="checkbox" id="remember">-->
-<#--                            <label for="remember">记住用户名</label>-->
-<#--                        </div>-->
-<#--                    </div>-->
-<#--                    <div class="col-6" style="line-height: 36px;text-align: right;">-->
-<#--                        <a href="forgot-password.html">找回密码</a>-->
-<#--                    </div>-->
-<#--                </div>-->
-                <div class="row">
-                    <div class="col-12" style="font-size: 18px;">
-                        <span style="font-size: 14px;">推荐浏览器：</span>
-                        <a href="https://www.google.cn/chrome/" class="text-success" target="_blank" title="Google Chrome浏览器"><i class="fa fa-chrome fa-lg" aria-hidden="true"></i></a>
-                        <a href="http://www.firefox.com.cn/" class="text-danger" target="_blank" title="Firefox火狐浏览器"><i class="fa fa-firefox fa-lg" aria-hidden="true"></i></a>
-                        <a href="javascript:;" onclick="alert('苹果自带...');return false;" target="_blank" title="Safari苹果浏览器"><i class="fa fa-safari fa-lg" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-            </form>
+            </div>
+            <!-- footer -->
+            <div class="row ">
+                <div class="login-footer">${Session.securityConfig.copyright}</div>
+            </div>
+
         </div>
-        <!-- /.login-card-body -->
-    </div>
-    <!-- footer -->
-    <div class="row">
-        <div class="col-12 login-footer text-center text-white" style="font-size: 14px;">${Session.securityConfig.copyright}</div>
     </div>
 </div>
-<!-- /.login-box -->
 
-<!-- jQuery -->
 <script src="/manage/assert/plugin/jquery/jquery-3.3.1.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/manage/assert/plugin/adminlte3/js/adminlte.js"></script>
+<script src="/manage/assert/plugin/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
 <script src="/manage/assert/plugin/jquery-plugin/jquery.cookie.js" charset="utf-8"></script>
 
 
 <script type="text/javascript">
+
 
     var passwordRegex = "${passwordRegex}";
     var passwordMessage = "${securityConfig.passwordStrength.detail}";

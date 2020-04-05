@@ -1,5 +1,3 @@
-/***** Top content *****/
-
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "Microsoft YaHei", "WenQuanYi Micro Hei";
     background: #007cd9 url(/manage/assert/image/white-bg.png) no-repeat center bottom;
@@ -136,3 +134,15 @@ body {
     h1, h2 {
         font-size: 32px;
     }
+
+.ac-login-page {
+    -ms-flex-align: center;
+    align-items: center;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100vh;
+    -ms-flex-pack: center;
+    justify-content: center;
+}

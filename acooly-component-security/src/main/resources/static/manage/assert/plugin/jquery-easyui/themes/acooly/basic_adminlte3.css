@@ -351,6 +351,8 @@ div.datagrid-cell > div > label {
     background-color: #ffffff;
 }
 
+.panel-header-noborder {border-width: 0;}
+.dialog-button {border-top:0;}
 
 .ac-notification { display: flex; width: 330px;box-sizing: border-box;position: fixed; background-color: rgb(255, 255, 255);box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;padding: 14px 26px 14px 13px; border-radius: 8px; border: 1px solid #E6EBF5; border-image: initial; transition: opacity 0.3s ease 0s, transform 0.3s ease 0s, left 0.3s ease 0s, right 0.3s ease 0s, top 0.4s ease 0s, bottom 0.3s ease 0s, -webkit-transform 0.3s ease 0s;overflow: hidden;}
 .ac-notification.right{right: 16px;}
