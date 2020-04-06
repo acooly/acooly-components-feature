@@ -18,15 +18,15 @@
 
 </head>
 
-<body class="hold-transition login-page" style="background: #007cd9 url(/manage/assert/image/white-bg.png) no-repeat center bottom;">
+<body class="hold-transition login-page" style="height:80vh;background: #007cd9 url(/manage/assert/image/white-bg.png) no-repeat center bottom;">
 
 <div class="login-logo">
-    <#if Session.securityConfig.logo??>
+    <#if Session.securityConfig.logo?? && Session.securityConfig.logo != "">
         <img alt="logo" width="200" src="${Session.securityConfig.logo}">
     <#else>
-        <a href="javascript:;">${Session.securityConfig.title}</a>
+        <a href="javascript:;" class="text-white">${Session.securityConfig.title}</a>
     </#if>
-    <div class="text-center text-white" style="font-size: 12px;margin-top: 10px;">${Session.securityConfig.subtitle}</div>
+    <div class="text-center text-white" style="font-size: 14px;margin-top: 10px;">${Session.securityConfig.subtitle}</div>
 </div>
 <div class="login-box">
 
@@ -121,10 +121,12 @@
         </div>
         <!-- /.login-card-body -->
     </div>
+    <#if Session.securityConfig.copyright?? && Session.securityConfig.copyright != "">
     <!-- footer -->
     <div class="row">
         <div class="col-12 login-footer text-center text-white" style="font-size: 14px;">${Session.securityConfig.copyright}</div>
     </div>
+    </#if>
 </div>
 <!-- /.login-box -->
 
