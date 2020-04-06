@@ -124,7 +124,7 @@
             <img id="logo_image" src="/manage/assert/plugin/adminlte3/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8;width: 33px;">
             </span>
-            <span id="logo_title" class="brand-text font-weight-light" style="font-size: 20px;">Acooly<b>Boss</b> 5.x</span>
+            <span id="logo_title" class="ac-logo-title brand-text font-weight-light">Acooly<b>Boss</b> 5.x</span>
         </a>
 
         <!-- Sidebar -->
@@ -283,9 +283,7 @@
 <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
-
 <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
-
 <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.layout.js" charset="utf-8"></script>
