@@ -14,13 +14,15 @@
 
     <!-- layui -->
     <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
-    <!-- adminlte -->
-    <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
     <!-- zTree -->
     <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/jquery-ztree/css/zTreeStyle/zTreeStyle.css"/>
     <!-- icons -->
     <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/manage/assert/plugin/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- adminlte -->
+    <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
     <!-- pace-progress -->
     <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
     <!-- Google Font -->
@@ -141,14 +143,14 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-header">功能菜单</li>
                     <#list menu as e1>
                     <#--第一层-->
                         <li class="nav-item has-treeview<#if e1?index==0> menu-open</#if>">
-                            <a href="#" class="nav-link<#if e1?index==0> active</#if>">
+                            <a href="#" class="nav-link<#if e1?index==0> active</#if>" style="padding-left: 0.5rem;">
                                 <#if e1.iconSkin??><i class="nav-icon fa ${e1.iconSkin}"></i><#else><span class="line-action ${e1.icon}"></span></#if>
                                 <p>
                                     ${e1.name}
@@ -160,7 +162,7 @@
                                     <#list e1.children as e2>
                                         <#if e2.children?? && (e2.children?size > 0)>
                                             <li class="nav-item has-treeview">
-                                                <a href="#" class="nav-link">
+                                                <a href="#" class="nav-link" style="padding-left: 0.5rem;">
                                                     <#if e2.iconSkin??><i class="nav-icon fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>
                                                     <p>
                                                         ${e2.name}
@@ -170,7 +172,7 @@
                                                 <ul class="nav nav-treeview">
                                                     <#list e2.children as e3>
                                                         <li class="nav-item">
-                                                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}'})" class="nav-link">
+                                                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}'})" class="nav-link" style="padding-left: 0.5rem;">
                                                                 <#if e3.iconSkin??><i class="nav-icon fa ${e3.iconSkin}"></i><#else><span class="line-action ${e3.icon}"></span></#if><p>${e3.name}</p></a>
                                                         </li>
                                                     </#list>
@@ -178,7 +180,7 @@
                                             </li>
                                         <#else>
                                             <li class="nav-item">
-                                                <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}'})" class="nav-link">
+                                                <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}'})" class="nav-link" style="padding-left: 0.5rem;">
                                                     <#if e2.iconSkin??><i class="nav-icon fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>
                                                     <p>${e2.name}</p>
                                                 </a>
@@ -213,29 +215,88 @@
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
+
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="active"><a href="#control-sidebar-options-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-wrench"></i></a></li>
+            <li class=""><a href="#control-sidebar-devdocs-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-book"></i></a></li>
+        </ul>
+
+        <div class="tab-content control-sidebar-content">
+            <div class="tab-pane control-sidebar-options-tab active" id="control-sidebar-options-tab"></div>
+            <#if isOnline == false>
+            <!-- docs tab content -->
+            <div class="tab-pane" id="control-sidebar-devdocs-tab">
+                <h3 class="control-sidebar-heading">开发文档</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="http://www.fontawesome.com.cn/faicons/" target="_blank">
+                            <i class="sidebar-menu-icon fa fa-font-awesome bg-gradient-green"></i>
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Awesome图标库</h4>
+                                <p>推荐使用的文字图标库查询</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ionicons.com/v2/" target="_blank">
+                            <i class="sidebar-menu-icon ico ion-ionic bg-gradient-lightblue"></i>
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Ionicons图标库</h4>
+                                <p>推荐使用的文字图标库查询</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.jeasyui.com/" target="_blank">
+                            <i class="sidebar-menu-icon fa fa-etsy bg-purple"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">EasyUI文档</h4>
+                                <p>EasyUI升级到1.9了，新的控件</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://adminlte.io/" target="_blank">
+                            <i class="sidebar-menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">AdminLte3</h4>
+                                <p>升级为V3，可用其漂亮组件</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://freemarker.foofun.cn/" target="_blank">
+                            <i class="sidebar-menu-icon fa fa-file-code-o bg-gradient-blue"></i>
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Freemarker文档</h4>
+                                <p>Freemarker中文文档，方便查询</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'Acooly文档',value:'https://acooly.cn/docs/core.html',
+                    showMode:'2',icon:'fa-home'})">
+                            <i class="sidebar-menu-icon fa fa-book bg-gradient-danger"></i>
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Acooly官方文档</h4>
+                                <p>Acooly框架所有的文档</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+            </div>
+            <!-- / docs tab content -->
+            </#if>
+        </div>
+
     </aside>
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
-<div role="alert" class="ac-notification right" style="top: 100px; z-index: 2150;display: none;">
-    <i class="ac-notification__icon text-success ico ion-ios-checkmark"></i>
-    <div class="ac-notification__group is-with-icon">
-        <h2 class="ac-notification__title">成功</h2>
-        <div class="ac-notification__content"><p>更新成功</p></div>
-        <ion-icon class="ac-notification__closeBtn" name="close-outline"></ion-icon>
-    </div>
-</div>
-
-<div role="alert" class="ac-notification right" style="top: 100px; z-index: 2150;display: none; ">
-    <ion-icon class="ac-notification__icon ac-icon-warning" name="close-circle"></ion-icon>
-    <div class="ac-notification__group is-with-icon">
-        <h2 class="ac-notification__title">失败</h2>
-        <div class="ac-notification__content"><p>错误：添加的用户已存在，请重新命名用户名</p></div>
-        <ion-icon class="ac-notification__closeBtn" name="close-outline"></ion-icon>
-    </div>
-</div>
 
 <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
 <script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -250,7 +311,7 @@
 <!-- 模板引擎：baidu -->
 <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
 <!-- AdminLTE for -->
-<script src="/manage/assert/plugin/adminlte3/js/demo.js"></script>
+<script src="/manage/assert/plugin/adminlte3/js/adminlte_acooly.js"></script>
 <script src="/manage/assert/plugin/jquery-plugin/jquery.resize.js"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>

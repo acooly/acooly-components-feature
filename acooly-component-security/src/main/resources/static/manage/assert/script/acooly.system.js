@@ -29,7 +29,8 @@
                             data = eval('(' + data + ')');
                         }
                         That.config = data;
-                        if($.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey).indexOf('adminlte') != -1){
+                        var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
+                        if(acoolyTheme && acoolyTheme.indexOf('adminlte') != -1){
                             $.acooly.admin.init();
                         }
                     }
@@ -356,7 +357,7 @@ function manage_resource_tree_delete(id) {
 function loadTheme() {
     var themeName = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
     if (!themeName) {
-        themeName = 'default';
+        themeName = 'adminlte3';
     }
     changeThemeStyle(themeName);
     // $('#theme_' + themeName).attr("data-options", "iconCls:'icon-ok'");

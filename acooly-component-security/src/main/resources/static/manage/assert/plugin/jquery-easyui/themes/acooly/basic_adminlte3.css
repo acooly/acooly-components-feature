@@ -1,7 +1,7 @@
 body {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    /*text-rendering: optimizeLegibility;*/
+    text-rendering: optimizeLegibility;
     font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     /*font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;*/
     font-size: 14px;
@@ -354,6 +354,7 @@ div.datagrid-cell > div > label {
 .panel-header-noborder {border-width: 0;}
 .dialog-button {border-top:0;}
 
+/* 自定义alert */
 .ac-notification { display: flex; width: 330px;box-sizing: border-box;position: fixed; background-color: rgb(255, 255, 255);box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;padding: 14px 26px 14px 13px; border-radius: 8px; border: 1px solid #E6EBF5; border-image: initial; transition: opacity 0.3s ease 0s, transform 0.3s ease 0s, left 0.3s ease 0s, right 0.3s ease 0s, top 0.4s ease 0s, bottom 0.3s ease 0s, -webkit-transform 0.3s ease 0s;overflow: hidden;}
 .ac-notification.right{right: 16px;}
 .ac-notification__icon { font-size: 36px;}
@@ -365,3 +366,92 @@ div.datagrid-cell > div > label {
 .ac-notification__content p { margin: 0px;}
 
 
+.ac-logo-title {font-size: 20px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: -webkit-box;}
+
+.control-sidebar {bottom: 0;}
+.control-sidebar-dark .nav-tabs.control-sidebar-tabs {    border-bottom: #1c2529;}
+.control-sidebar-dark .nav-tabs.control-sidebar-tabs > li.active > a, .control-sidebar-dark .nav-tabs.control-sidebar-tabs > li.active > a:hover, .control-sidebar-dark .nav-tabs.control-sidebar-tabs > li.active > a:focus, .control-sidebar-dark .nav-tabs.control-sidebar-tabs > li.active > a:active {
+    background: #343a40;
+    color: #fff;
+}
+.control-sidebar-dark .nav-tabs.control-sidebar-tabs > li > a, .control-sidebar-dark .nav-tabs.control-sidebar-tabs > li > a:hover, .control-sidebar-dark .nav-tabs.control-sidebar-tabs > li > a:focus {
+    border-left-color: #141a1d;
+    border-bottom-color: #141a1d;
+}
+.nav-tabs.control-sidebar-tabs > li:first-of-type > a, .nav-tabs.control-sidebar-tabs > li:first-of-type > a:hover, .nav-tabs.control-sidebar-tabs > li:first-of-type > a:focus {
+    border-left-width: 0;
+}
+.control-sidebar .nav {display: block;}
+.control-sidebar .nav-justified>li {
+    text-align: center;
+    display: table-cell;
+    width: 1%;
+    background-color: #222d32;
+}
+.control-sidebar .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.control-sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0 -15px;
+}
+
+.control-sidebar-menu > li > a {
+    display: block;
+    padding: 10px 15px;
+}
+
+.control-sidebar-dark .control-sidebar-heading, .control-sidebar-dark .control-sidebar-subheading {
+    color: #fff;
+}
+
+.control-sidebar-heading {
+    font-weight: 400;
+    font-size: 16px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.control-sidebar-menu .sidebar-menu-icon {
+    float: left;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    position: inherit;
+}
+.control-sidebar-menu .menu-info {
+     margin-left: 45px;
+ }
+
+.control-sidebar-menu .menu-info > .control-sidebar-subheading {
+    margin: 0;
+}
+
+.control-sidebar-dark .control-sidebar-heading, .control-sidebar-dark .control-sidebar-subheading {
+    color: #fff;
+}
+
+.control-sidebar-subheading {
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.control-sidebar-dark .control-sidebar-menu > li > a .menu-info > p {
+    color: #b8c7ce;
+}
+
+.control-sidebar-menu .menu-info > p {
+    margin: 0;
+    font-size: 11px;
+}
+
+.nav-link {
+    padding: 0.5rem 0.5rem;
+}

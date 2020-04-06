@@ -10,29 +10,26 @@
     <meta name="X-CSRF-TOKEN" content="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
     <!-- layui -->
     <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
-    <link href="/manage/assert/plugin/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/manage/assert/plugin/adminlte/css/AdminLTE.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-     folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="/manage/assert/plugin/adminlte/css/skins/_all-skins.min.css">
+    <!-- adminlte -->
+    <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
     <!-- zTree -->
     <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/jquery-ztree/css/zTreeStyle/zTreeStyle.css"/>
     <!-- icons -->
-    <link href="/manage/assert/plugin/icon/Ionicons/4.4.7/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
-    <#--    <link rel="stylesheet" href="/manage/assert/plugin/Ionicons/css/ionicons.min.css">-->
-
+    <!-- pace-progress -->
+<#--    <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">-->
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- easyui及自定义 -->
     <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.css" type="text/css"/>
     <link id="easyuiThemeBasic" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.css">
     <link rel="stylesheet" type="text/css" href="/manage/assert/style/icon.css">
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/icon.css" type="text/css"/>
+
 
     <!-- 扩展css -->
     ${extendStyles}
@@ -45,23 +42,20 @@
     <![endif]-->
 
 
-    <script src="/manage/assert/plugin/jquery/jquery-3.3.1.min.js"></script>
-    <script src="/manage/assert/plugin/jquery/jquery-ui-1.11.4.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-    </script>
-    <script src="/manage/assert/plugin/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- pace-progress -->
+<#--    <script src="/manage/assert/plugin/pace-progress/pace.min.js"></script>-->
     <!-- Slimscroll -->
     <script src="/manage/assert/plugin/jquery-plugin/jquery.slimscroll-1.3.8.min.js"></script>
     <!-- FastClick -->
     <script src="/manage/assert/plugin/jquery-plugin/fastclick-1.0.6.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="/manage/assert/plugin/adminlte/js/adminlte.js"></script>
+    <script src="/manage/assert/plugin/adminlte3/js/adminlte.js"></script>
     <!-- 模板引擎：baidu -->
     <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
     <!-- AdminLTE for -->
-    <script src="/manage/assert/plugin/adminlte/js/demo.js"></script>
+    <script src="/manage/assert/plugin/adminlte3/js/demo.js"></script>
     <script src="/manage/assert/plugin/jquery-plugin/jquery.resize.js"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
@@ -94,15 +88,14 @@
     <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
-
     <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
-
     <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.layout.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
-    <script src="/manage/assert/script/acooly.ui.layer.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
+
     <!-- 扩展script -->
     ${extendScripts}
     <script type="text/javascript">
