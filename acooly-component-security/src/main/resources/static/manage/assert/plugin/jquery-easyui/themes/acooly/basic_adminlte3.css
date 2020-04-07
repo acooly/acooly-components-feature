@@ -455,3 +455,5 @@ div.datagrid-cell > div > label {
 .nav-link {
     padding: 0.5rem 0.5rem;
 }
+
+.toast {width:350px;}

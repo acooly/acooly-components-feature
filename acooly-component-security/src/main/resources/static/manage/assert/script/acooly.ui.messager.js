@@ -34,6 +34,7 @@ var acooly_layui = {
     },
 
     msg_data: {
+        "default": {title: '信息', defaultContent: '', icon: 'ion ion-ios-information'},
         "success": {title: '成功', defaultContent: '处理成功', icon: 'ion ion-ios-checkmark'},
         "info": {title: '提示', defaultContent: '', icon: 'ion ion-ios-information'},
         "warning": {title: '警告', defaultContent: '', icon: 'ion ion-android-alert'},
@@ -54,19 +55,19 @@ var acooly_layui = {
             ctype = 'primary';
             data = this.msg_data[ctype];
             data.message = title;
-        }else if(args.length == 2){
+        } else if (args.length == 2) {
             ctype = message;
             data = this.msg_data[ctype];
             data.message = title;
-        }else{
-            ctype = !type?'primary':type;
+        } else {
+            ctype = !type ? 'primary' : type;
             data = this.msg_data[ctype];
-            data.title = title?title:data.title;
-            data.message = message?message:data.message;
+            data.title = title ? title : data.title;
+            data.message = message ? message : data.message;
         }
         var html = "<div role=\"alert\" class=\"ac-notification right\" style=\"top: 16px; z-index: 12150;display: none \">\n" +
             // "    <ion-icon class=\"ac-notification__icon text-" + ctype + "\" name=\"" + data.icon + "\"></ion-icon>\n" +
-            "    <i class=\""+data.icon+" ac-notification__icon text-" + ctype + "\"></i>\n" +
+            "    <i class=\"" + data.icon + " ac-notification__icon text-" + ctype + "\"></i>\n" +
             "    <div class=\"ac-notification__group is-with-icon\">\n" +
             "        <h2 class=\"ac-notification__title\">" + data.title + "</h2>\n" +
             "        <div class=\"ac-notification__content\"><p>" + data.message + "</p></div>\n" +
@@ -121,6 +122,21 @@ var acooly_layui = {
             closeBtn: [1, true] //显示关闭按钮
         });
     },
+
+    toast: function (title, message, type, position) {
+        ctype = !type ? 'default' : type;
+        data = this.msg_data[ctype];
+        data.title = title ? title : data.title;
+        data.message = message ? message : data.message;
+        $(document).Toasts('create', {
+            class: 'bg-' + ctype,
+            icon: data.icon + " fa-lg",
+            autohide: true,
+            delay: 3000,
+            title: data.title,
+            body: data.message
+        })
+    }
 };
 
 (function ($) {

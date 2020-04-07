@@ -65,7 +65,6 @@
                 $(this).addClass("active");
                 var e = $(this).parent();
                 while (e && e.parent() && e.attr('class').indexOf('nav-sidebar') == -1){
-                    console.info('class',e.attr('class'));
                     e.parent().prev().addClass("active");
                     e = e.parent();
                 }
@@ -228,7 +227,7 @@
                 $.extend(options, {
                     onLoadError: function (e, x, y) {
                         That.close();
-                        $.acooly.alert('错误', "请求的功能不存在");
+                        $.acooly.toast('错误', "请求的功能不存在");
                     }
                 })
                 t.tabs('add', options);

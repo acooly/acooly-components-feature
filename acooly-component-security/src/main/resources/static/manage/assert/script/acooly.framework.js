@@ -99,15 +99,13 @@
                                 $.acooly.messager(result.message, result.success?'success':'danger');
                             }
                         } catch (e) {
-                            $.acooly.alert('错误', e);
-                            // $.messager.alert('提示', e);
+                            $.acooly.messager('错误', e,'danger');
                         }
 
                     },
                     error: function (XmlHttpRequest, textStatus, errorThrown) {
                         $(thisObject).linkbutton('enable');
-                        $.acooly.alert('错误', errorThrown);
-                        // $.messager.alert('提示', errorThrown);
+                        $.acooly.messager('错误', errorThrown,'danger');
                     }
                 });
             },
@@ -261,7 +259,7 @@
                 }
                 // changelog-end
                 if (!id || id == '') {
-                    $.acooly.alert('提示', '请选择需要编辑的数据');
+                    $.acooly.messager('提示', '请选择需要编辑的数据','primary');
                     return;
                 }
                 var href = $.acooly.framework.getCanonicalUrl(url, id);
@@ -746,7 +744,7 @@
                                     }
                                     // 自定义检查合法性
                                     if ($('#system_newPassword').val() != $('#system_confirmNewPassword').val()) {
-                                        $.acooly.alert('提示', '两次密码输入不一致');
+                                        $.acooly.messager('提示', '两次密码输入不一致','warning');
                                         return false;
                                     }
                                     return true;
@@ -767,7 +765,7 @@
                                             $.messager.show({title: '提示', msg: result.message});
                                         }
                                     } catch (e) {
-                                        $.acooly.alert('提示', result);
+                                        $.acooly.messager('错误', result,'danger');
                                     }
                                 }
                             });

@@ -146,7 +146,7 @@
                     $.extend(opts, {
                         onLoadError: function (e, x, y) {
                             $.acooly.layout.closeTab();
-                            $.acooly.msgrb("请求的功能不存在或没有权限", false)
+                            $.acooly.messager("错误","请求的功能不存在或没有权限", 'danger')
                         }
                     })
                     t.tabs('add', opts);
