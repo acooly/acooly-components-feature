@@ -96,16 +96,16 @@
                                 }
                             }
                             if (result.message) {
-                                $.acooly.messager(result.message, result.success?'success':'danger');
+                                $.acooly.messager(result.message, result.success ? 'success' : 'danger');
                             }
                         } catch (e) {
-                            $.acooly.messager('错误', e,'danger');
+                            $.acooly.messager('错误', e, 'danger');
                         }
 
                     },
                     error: function (XmlHttpRequest, textStatus, errorThrown) {
                         $(thisObject).linkbutton('enable');
-                        $.acooly.messager('错误', errorThrown,'danger');
+                        $.acooly.messager('错误', errorThrown, 'danger');
                     }
                 });
             },
@@ -185,7 +185,7 @@
                 if (reload) {
                     $.acooly.framework.gridReload(datagrid);
                 } else {
-                    if (className == 'easyui-treegrid') {
+                    if (className.indexOf('easyui-treegrid') != -1) {
                         var node = $('#' + datagrid).treegrid('getSelected');
                         if (node) {
                             if ($('#' + datagrid).treegrid('getChildren', node.id).length > 0) {
@@ -259,7 +259,7 @@
                 }
                 // changelog-end
                 if (!id || id == '') {
-                    $.acooly.messager('提示', '请选择需要编辑的数据','primary');
+                    $.acooly.messager('提示', '请选择需要编辑的数据', 'primary');
                     return;
                 }
                 var href = $.acooly.framework.getCanonicalUrl(url, id);
@@ -320,7 +320,7 @@
                 if (reload) {
                     $.acooly.framework.gridReload(datagrid);
                 } else {
-                    if (className == 'easyui-treegrid') {
+                    if (className.indexOf('easyui-treegrid') != -1) {
                         $('#' + datagrid).treegrid('update', {
                             id: result.entity.id,
                             row: result.entity
@@ -541,9 +541,9 @@
                         text: '<i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i> 上传导入',
                         handler: function () {
                             let uploadifiveOptions = $('#' + opts.uploader).data('uploadifive').settings;
-                            if(uploadifiveOptions.onFormData){
+                            if (uploadifiveOptions.onFormData) {
                                 var data = uploadifiveOptions.onFormData.call(this);
-                                if(uploadifiveOptions.formData){
+                                if (uploadifiveOptions.formData) {
                                     data = $.extend(uploadifiveOptions.formData, data);
                                 }
                                 $('#' + opts.uploader).data('uploadifive').settings.formData = data;
@@ -584,7 +584,7 @@
                                     result = eval('(' + result + ')');
                                 if (result.success) {
                                     var className = $('#' + datagrid).attr('class');
-                                    if (className == 'easyui-treegrid') {
+                                    if (className.indexOf('easyui-treegrid') != -1) {
                                         var node = $('#' + datagrid).treegrid('getSelected');
                                         var parent = $('#' + datagrid).treegrid('getParent', node.id);
                                         if (parent) {
@@ -600,10 +600,7 @@
                                     }
                                 }
                                 if (result.message) {
-                                    $.messager.show({
-                                        title: '提示',
-                                        msg: result.message
-                                    });
+                                    $.acooly.messager('提示', result.message,result.success?'success':'danger');
                                 }
                             }
                         });
@@ -632,10 +629,7 @@
                                     }
                                 }
                                 if (result.message) {
-                                    $.messager.show({
-                                        title: '提示',
-                                        msg: result.message
-                                    });
+                                    $.acooly.messager('提示', result.message,result.success?'success':'danger');
                                 }
                             }
                         });
@@ -652,7 +646,7 @@
                 }, function (result) {
                     if (result.success) {
                         var className = $('#' + datagrid).attr('class');
-                        if (className == 'easyui-treegrid') {
+                        if (className.indexOf('easyui-treegrid') != -1) {
                             var node = $('#' + datagrid).treegrid('getSelected');
                             var parent = $('#' + datagrid).treegrid('getParent', node.id);
                             if (parent) {
@@ -665,10 +659,7 @@
                         }
                     }
                     if (result.message) {
-                        $.messager.show({
-                            title: '提示',
-                            msg: result.message
-                        });
+                        $.acooly.messager('提示', result.message,result.success?'success':'danger');
                     }
                 });
             },
@@ -695,10 +686,7 @@
                     }
                     $.acooly.framework.remove(url, ids.join(','), datagrid, confirmTitle, confirmMessage);
                 } else {
-                    $.messager.show({
-                        title: '提示',
-                        msg: '请勾选要删除的记录！'
-                    });
+                    $.acooly.messager('提示', "请勾选要删除的记录", 'warning');
                 }
             },
             logout: function () {
@@ -744,7 +732,7 @@
                                     }
                                     // 自定义检查合法性
                                     if ($('#system_newPassword').val() != $('#system_confirmNewPassword').val()) {
-                                        $.acooly.messager('提示', '两次密码输入不一致','warning');
+                                        $.acooly.messager('提示', '两次密码输入不一致', 'warning');
                                         return false;
                                     }
                                     return true;
@@ -765,7 +753,7 @@
                                             $.messager.show({title: '提示', msg: result.message});
                                         }
                                     } catch (e) {
-                                        $.acooly.messager('错误', result,'danger');
+                                        $.acooly.messager('错误', result, 'danger');
                                     }
                                 }
                             });
@@ -873,7 +861,7 @@
              */
             reloadGrid: function (grid) {
                 var className = $('#' + datagrid).attr('class');
-                if (className == 'easyui-treegrid') {
+                if (className.indexOf('easyui-treegrid') != -1) {
                     $('#' + grid).treegrid('reload');
                 } else {
                     $('#' + grid).datagrid('reload');

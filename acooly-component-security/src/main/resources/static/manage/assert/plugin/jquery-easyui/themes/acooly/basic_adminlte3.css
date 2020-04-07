@@ -58,9 +58,8 @@ body {
 
 
 input:hover, textarea:hover {
-    border-color: #3c8dbc;
+    border-color: #007aff !important;
     box-shadow: none;
-    border-color: #D2D2D2 !important;
 }
 
 
@@ -115,7 +114,7 @@ input:hover, textarea:hover {
 
 
 input:focus, textarea:focus {
-    border-color: #3c8dbc !important;
+    border-color: #007aff !important;
     box-shadow: none;
     outline-offset: 0;
     outline: none;
@@ -457,3 +456,6 @@ div.datagrid-cell > div > label {
 }
 
 .toast {width:350px;}
+
+.checkbox {border: 2px solid #e6e6e6;}
+.checkbox-checked { background: #007aff;border:0;}

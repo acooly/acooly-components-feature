@@ -39,10 +39,10 @@
             <table class="tableForm" width="100%">
                 <tr>
                     <td align="left">
-                        标题:<input type="text" class="text" name="search_LIKE_title"/>
-                        关键字:<input type="text" class="text" name="search_LIKE_keywords" "/>
-                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"
-                           onclick="$.acooly.framework.search('manage_content${RequestParameters.code}_searchform', 'manage_content${RequestParameters.code}_datagrid');">查询</a>
+                         标题: <input type="text" class="text" name="search_LIKE_title"/>
+                         关键字: <input type="text" class="text" name="search_LIKE_keywords"/>
+                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true"
+                           onclick="$.acooly.framework.search('manage_content${RequestParameters.code}_searchform', 'manage_content${RequestParameters.code}_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</a>
                     </td>
                 </tr>
             </table>
@@ -63,52 +63,43 @@
                 <th field="contentType" data-options="formatter:function(e){return e.name;}">类型</th>
                 <th field="title">标题</th>
                 <#if RequestParameters.cmsType = 'banner'>
-                <th field="cover"
-                    data-options="formatter:function(v,r,i){ if(v){return '<img src=\'${mediaRoot}/'+v+'\' width=\'100\'>';}else{return '';} }">
-                    pc图片
-                </th>
-                <th field="appcover"
-                    data-options="formatter:function(v,r,i){ if(v){return '<img src=\'${mediaRoot}/'+v+'\' width=\'100\'>';}else{return '';} }">
-                    app图片
-                </th>
-
+                <th field="cover" data-options="formatter:function(v,r,i){ if(v){return '<img src=\'${mediaRoot}/'+v+'\' width=\'100\'>';}else{return '';} }">Web封面</th>
+                <th field="appcover" data-options="formatter:function(v,r,i){ if(v){return '<img src=\'${mediaRoot}/'+v+'\' width=\'100\'>';}else{return '';} }">App封面</th>
                 <th field="link" formatter="linkFormatter">链接</th>
                 <#else >
                 <th field="keywords">关键字</th>
                 <th field="keycode">编码</th>
                 </#if>
                 <th field="pubDate" formatter="dateTimeFormatter">发布时间</th>
-                <th field="rowActions"
-                    data-options="formatter:function(value, row, index){return formatAction('manage_content${RequestParameters.code}_action',value,row)}">
-                    动作
-                </th>
+                <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_content${RequestParameters.code}_action',value,row)}">动作</th>
             </tr>
             </thead>
         </table>
 
         <!-- 每行的Action动作模板 -->
         <div id="manage_content${RequestParameters.code}_action" style="display: none;">
-            <a class="line-action icon-edit"
-               onclick="$.acooly.framework.edit({url:'/manage/module/cms/content/edit.html?code=${RequestParameters.code}&cmsType=${RequestParameters.cmsType}',id:{0},entity:'content${RequestParameters.code}',width:manage_content${RequestParameters.code}_size().w,height:manage_content${RequestParameters.code}_size().h,maximizable:true});"
-               href="#"></a>
-            <a class="line-action icon-delete"
-               onclick="$.acooly.framework.remove('/manage/module/cms/content/deleteJson.html',{0},'manage_content${RequestParameters.code}_datagrid');"
-               href="#"></a>
-            <a class="line-action icon-movetop"
-               onclick="$.acooly.framework.move('/manage/module/cms/content/moveTop.html',{0},'manage_content${RequestParameters.code}_datagrid');"
-               href="#"></a>
-            <a class="line-action icon-moveup"
-               onclick="$.acooly.framework.move('/manage/module/cms/content/moveUp.html',{0},'manage_content${RequestParameters.code}_datagrid');"
-               href="#"></a>
+            <a onclick="$.acooly.framework.edit({url:'/manage/module/cms/content/edit.html?code=${RequestParameters.code}&cmsType=${RequestParameters.cmsType}',id:{0},entity:'content${RequestParameters.code}',width:manage_content${RequestParameters.code}_size().w,height:manage_content${RequestParameters.code}_size().h,maximizable:true});"
+               href="#"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
+            <a onclick="$.acooly.framework.remove('/manage/module/cms/content/deleteJson.html','{0}','manage_content${RequestParameters.code}_datagrid');"
+               href="#"><i class="fa fa-trash fa-lg fa-fw fa-col"></i></a>
+            <a onclick="$.acooly.framework.move('/manage/module/cms/content/moveTop.html','{0}','manage_content${RequestParameters.code}_datagrid');" href="#">
+                <span class="fa-stack fa-fw fa-col fa-lg">
+                  <i class="fa fa-circle fa-stack-1x"></i>
+                  <i class="fa fa-angle-double-up fa-stack-1x fa-inverse" style="font-size: 10px;"></i>
+                </span>
+            </a>
+            <a onclick="$.acooly.framework.move('/manage/module/cms/content/moveUp.html','{0}','manage_content${RequestParameters.code}_datagrid');" href="#">
+                <i class="fa fa-arrow-circle-up fa-fw fa-col fa-lg" aria-hidden="true"></i>
+            </a>
         </div>
 
         <!-- 表格的工具栏 -->
         <div id="manage_content${RequestParameters.code}_toolbar">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"
-               onclick="$.acooly.framework.create({url:'/manage/module/cms/content/create.html?code=${RequestParameters.code}&cmsType=${RequestParameters.cmsType}',entity:'content${RequestParameters.code}',width:manage_content${RequestParameters.code}_size().w,height:manage_content${RequestParameters.code}_size().h,maximizable:true})">添加</a>
+            <a href="#" class="easyui-linkbutton" plain="true"
+               onclick="$.acooly.framework.create({url:'/manage/module/cms/content/create.html?code=${RequestParameters.code}&cmsType=${RequestParameters.cmsType}',entity:'content${RequestParameters.code}',width:manage_content${RequestParameters.code}_size().w,height:manage_content${RequestParameters.code}_size().h,maximizable:true})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
             <!--
             <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"
-               onclick="manage_content${RequestParameters.code}_show();"> 详情 </a>
+<#--               onclick="manage_content${RequestParameters.code}_show();"> 详情 </a>-->
             -->
         </div>
     </div>

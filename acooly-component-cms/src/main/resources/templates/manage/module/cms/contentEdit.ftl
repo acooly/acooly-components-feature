@@ -69,15 +69,13 @@
 
         <table class="tableForm" width="100%">
             <tr>
-                <th width="20%">标题：</th>
+                <th width="30%">标题：</th>
                 <td>
                     <input type="text" style="width: 300px;" class="text" name="title" size="128"
                            class="easyui-validatebox"
                            data-options="required:true" id="title" validType="byteLength[1,128]"/>
                     <#if RequestParameters.cmsType != 'banner'>
-                    <span style="margin-left: 10px;">编码: <select name="keycode" editable="false" style="width: 80px;"
-                                                                 panelHeight="auto"
-                                                                 class="easyui-combobox"><option value="">选择编码</option>
+                    <span style="margin-left: 10px;">编码: <select name="keycode" editable="false" style="width: 120px;" panelHeight="auto" class="easyui-combobox"><option value="">选择编码</option>
                                      <#list allCodes as k,v>
                                          <option value="${k}">${v}</option></#list>
                                </select></span>
@@ -87,24 +85,21 @@
             <#if RequestParameters.cmsType != 'banner'>
             <tr>
                 <th>页面标题(SEO)：</th>
-                <td><input type="text" style="width: 300px;" class="text" name="webTitle" size="128"
-                           class="easyui-validatebox" class="text"
-                           validType="byteLength[1,128]"/>
-                    <span style="margin-left: 10px;">关键字（SEO）：<input type="text" class="text" name="keywords" size="20"
-                                                                     class="easyui-validatebox"
-                                                                     validType="byteLength[1,128]"/></span>
+                <td><input type="text" style="width: 300px;" name="webTitle"
+                           class="easyui-validatebox" class="text" validType="byteLength[1,128]"/>
+                    <span style="margin-left: 10px;">关键字（SEO）：<input type="text" style="width: 300px;" name="keywords" class="easyui-validatebox" validType="byteLength[1,128]"/></span>
                 </td>
             </tr>
             <tr>
                 <th>简介(SEO)：</th>
-                <td><textarea class="easyui-validatebox" id="subject" name="subject" cols="80" rows="2" style="width:700px;"></textarea></td>
+                <td><textarea class="easyui-validatebox" id="subject" name="subject" cols="80" rows="2" style="width:721px;"></textarea></td>
             </tr>
             </#if>
             <tr>
-                <th>pc图片(封面)：</th>
+                <th>Web封面：</th>
                 <td>
-                    <input type="file" name="cover_f" id="cover_f" class="easyui-validatebox"
-                           validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']"/>
+                    <input name="cover_f" id="cover_f" class="easyui-filebox" style="width: 300px;"
+                           buttonText="<i class='fa fa-picture-o'></i> 选择文件" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']"/>
                     <#if content.cover?? && content.cover != '' && action!='create'>
                         <div><a href="${mediaRoot}/${content.cover}" target="_blank" data-lightbox="cover"><img
                                 src="${mediaRoot}/${content.cover}" width="200"></a></div>
@@ -112,10 +107,10 @@
                 </td>
             </tr>
             <tr>
-                <th>app图片(封面)：</th>
+                <th>App封面：</th>
                 <td>
-                    <input type="file" name="cover_app" id="cover_f" class="easyui-validatebox"
-                           validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']"/>
+                    <input name="cover_app" id="cover_app" class="easyui-filebox" style="width: 300px;"
+                           buttonText="<i class='fa fa-picture-o'></i> 选择文件" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']"/>
                     <#if content.appcover?? && content.appcover != '' && action!='create'>
                         <div><a href="${mediaRoot}/${content.appcover}" target="_blank" data-lightbox="cover"><img
                                 src="${mediaRoot}/${content.appcover}" width="200"></a></div>
@@ -125,7 +120,7 @@
             <#if RequestParameters.cmsType = 'banner'>
             <tr>
                 <th width="20%">简介：</th>
-                <td><textarea name="subject" cols="100" rows="2" style="width:360px;"></textarea></td>
+                <td><textarea name="subject" class="easyui-validatebox" cols="100" rows="2" style="width:300px;"></textarea></td>
             </tr>
             <tr>
                 <th>链接：</th>
@@ -136,17 +131,19 @@
             <#else>
                 <tr>
                     <th>链接：</th>
-                    <td><input type="text" style="width: 300px;" class="text" name="link" size="128"
+                    <td><input type="text" style="width: 300px;" name="link" size="128"
                                class="easyui-validatebox"
                                class="text" validType="byteLength[1,128]"/></td>
                 </tr>
                 <tr>
-                    <th>是否推送事件通知：</th>
-                    <td><input type="checkbox" id="isEventNotify" name="isEventNotify" value="isEventNotify"/></td>
+                    <th>是否推送通知：</th>
+                    <td>
+                        <input type="checkbox" class="easyui-checkbox" id="isEventNotify" name="isEventNotify" value="isEventNotify"/>
+                    </td>
                 </tr>
                 <tr>
                     <th>发布日期：</th>
-                    <td><input size="20" class="text" id="pubDate" name="pubDate"
+                    <td><input size="20" class="easyui-validatebox" id="pubDate" name="pubDate" style="width: 300px;"
                                onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/></td>
                 </tr>
             <tr>

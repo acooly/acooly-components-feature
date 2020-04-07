@@ -53,20 +53,16 @@
 
         <!-- 每行的Action动作模板 -->
         <div id="manage_contentType_action" style="display: none;">
-            <a class="line-action icon-edit"
-               onclick="$.acooly.framework.edit({url:'/manage/module/cms/contentType/edit.html',id:{0},entity:'contentType',height:300});"
-               href="#"></a>&nbsp
-            <a class="line-action icon-delete"
-               onclick="$.acooly.framework.remove('/manage/module/cms/contentType/deleteJson.html',{0},'manage_contentType_datagrid');"
-               href="#"></a>
+            <a onclick="$.acooly.framework.edit({url:'/manage/module/cms/contentType/edit.html',id:'{0}',entity:'contentType',height:300});"
+               href="#"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
+            <a onclick="$.acooly.framework.remove('/manage/module/cms/contentType/deleteJson.html','{0}','manage_contentType_datagrid');"
+               href="#"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
         </div>
 
         <!-- 表格的工具栏 -->
         <div id="manage_contentType_toolbar">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"
-               onclick="manage_contentType_create();">添加</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-delete" plain="true"
-               onclick="$.acooly.framework.removes('/manage/module/cms/contentType/deleteJson.html','manage_contentType_datagrid')">删除</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="manage_contentType_create();"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i> 添加</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/module/cms/contentType/deleteJson.html','manage_contentType_datagrid')"><i class="fa fa-trash fa-lg fa-fw fa-col"></i> 删除</a>
         </div>
 
     </div>
