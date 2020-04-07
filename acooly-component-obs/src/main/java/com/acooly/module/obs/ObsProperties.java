@@ -112,8 +112,12 @@ public class ObsProperties {
          */
         public String bucketName;
 
+        /**
+         * 是否使用sts，当使用sts时，bucket内容应设置为公网不可访问
+         */
+        private boolean stsEnable;
 
-        //sts需要使用的配置
+        //当使用sts时，可访问路径为临时授权路径，bucket内容应设置为公网不可访问
         /**
          * 通过RAM控制台创建一个RAM用户，拿到的accessKey，不能用主账号的accessKey
          */
