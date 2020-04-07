@@ -52,6 +52,11 @@ public class ObsClientProxy
     }
 
     @Override
+    public String getUrlByKey(String key) {
+        return obsClient.getUrlByKey(key);
+    }
+
+    @Override
     public String getAccessUrlBySts(String bucketName, String key, String processStyle, Date expireDate) {
         return obsClient.getAccessUrlBySts(bucketName, key, processStyle, expireDate);
     }
