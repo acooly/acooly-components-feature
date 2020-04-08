@@ -45,7 +45,7 @@ public interface ObsService {
      * @param bucketName   bucketName （为空则使用默认桶配置）
      * @param key          文件相对地址
      * @param processStyle 图片处理参数，一般用于获取缩略图
-     * @param expireDate   过期时间
+     * @param expireDate   过期时间 (为空则使用配置文件中指定的时间，24小时后过期)
      * @return
      */
     String getAccessUrlBySts(String bucketName, String key, String processStyle, Date expireDate);

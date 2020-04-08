@@ -117,6 +117,11 @@ public class ObsProperties {
          */
         private boolean stsEnable;
 
+        /**
+         * url过期时间，单位秒（默认值60*60*24，默认一天过期）
+         */
+        private long expiresTime = 86400;
+
         //当使用sts时，可访问路径为临时授权路径，bucket内容应设置为公网不可访问
         /**
          * 通过RAM控制台创建一个RAM用户，拿到的accessKey，不能用主账号的accessKey
