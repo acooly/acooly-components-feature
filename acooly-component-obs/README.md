@@ -38,8 +38,12 @@ maven坐标：
     acooly.obs.aliyun.bucketName=xxxx
    
     #sts需要使用的配置
+    #是否使用sts，当使用sts时，bucket内容应设置为公网不可访问
+    acooly.obs.aliyun.stsEnable=true
     acooly.obs.aliyun.stsAccessKeyId=LTAIKG****xZdYJQ
     acooly.obs.aliyun.stsAccessKeySecret=WVQ1t6yxlL*********um86
+    #url过期时间，单位秒（默认值60*60*24，默认一天过期）    
+    acooly.obs.aliyun.stsExpiresTime=86400
     #指定角色的ARN。格式：acs:ram::$accountID:role/$roleName，阿里云ram控制台获取
     acooly.obs.aliyun.stsRoleArn=acs:ram::1822369285247857:role/aliyunosstokengeneratorrole
     #阿里云ram控制台获取

@@ -147,7 +147,7 @@ public class AliyunObsClient extends AbstractObsClient {
                 dto.getAccessKeyId(), dto.getAccessKeySecret(), dto.getSecurityToken());
         GeneratePresignedUrlRequest req = new GeneratePresignedUrlRequest(bucketName, key, method);
         if (expireDate == null) {
-            req.setExpiration(new Date(System.currentTimeMillis() + properties.getAliyun().getExpiresTime() * 1000));
+            req.setExpiration(new Date(System.currentTimeMillis() + properties.getAliyun().getStsExpiresTime() * 1000));
         } else {
             req.setExpiration(expireDate);
         }

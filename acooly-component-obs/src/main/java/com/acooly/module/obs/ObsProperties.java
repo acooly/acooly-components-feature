@@ -120,7 +120,7 @@ public class ObsProperties {
         /**
          * url过期时间，单位秒（默认值60*60*24，默认一天过期）
          */
-        private long expiresTime = 86400;
+        private long stsExpiresTime = 86400;
 
         //当使用sts时，可访问路径为临时授权路径，bucket内容应设置为公网不可访问
         /**
