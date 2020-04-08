@@ -63,7 +63,7 @@ var acooly_layui = {
             ctype = !type ? 'primary' : type;
             data = this.msg_data[ctype];
             data.title = title ? title : data.title;
-            data.message = message ? message : data.message;
+            data.message = message ? message : data.defaultContent;
         }
         var html = "<div role=\"alert\" class=\"ac-notification right\" style=\"top: 16px; z-index: 12150;display: none \">\n" +
             // "    <ion-icon class=\"ac-notification__icon text-" + ctype + "\" name=\"" + data.icon + "\"></ion-icon>\n" +

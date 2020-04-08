@@ -106,6 +106,9 @@ var acooly_layui = {
             closeBtn: [1, true] //显示关闭按钮
         });
     },
+
+    toast: function (title, message, type, position) {
+    }
 };
 
 (function ($) {
