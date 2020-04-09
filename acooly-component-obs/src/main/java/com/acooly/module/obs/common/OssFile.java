@@ -18,7 +18,7 @@ public class OssFile implements Serializable {
      */
     private String key;
     /**
-     * eTag
+     * eTag 文件的md5值
      */
     private String eTag;
 
