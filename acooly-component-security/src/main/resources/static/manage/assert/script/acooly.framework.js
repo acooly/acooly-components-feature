@@ -375,7 +375,7 @@
                         $.acooly.framework.search(searchForm, datagride);
                     }
                 });
-                $.acooly.framework.extendCombobox();
+                $.acooly.framework.extendCombobox(searchForm);
             },
 
             /**
@@ -1020,8 +1020,8 @@
                 $('#' + inputId).selectPage(options);
             },
 
-            extendCombobox: function () {
-                $('.easyui-combobox').combobox({
+            extendCombobox: function (searchForm) {
+                $('#' + searchForm + ' .easyui-combobox').combobox({
                     onLoadSuccess: function () {
                         let originalWidth = $(this).next().css('width');
                         if (originalWidth) {
