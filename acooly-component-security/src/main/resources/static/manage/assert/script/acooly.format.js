@@ -117,11 +117,11 @@
                 maxSize = 20;
             if (html.length > maxSize) {
                 temp = html.substring(0, maxSize);
-                html = '<div style="cursor: pointer;" title="' + html + '" >'
-                    + '<label style="white-space: normal;">' + temp + '...&nbsp;<i class="fa fa-angle-double-down" aria-hidden="true"' +
-                    ' onclick="$(this).parent().parent().children().toggle()"></i></label>'
-                    + '<label style="white-space: normal;display:none;">' + html
-                    + '&nbsp;<i class="fa fa-angle-double-up" aria-hidden="true" onclick="$(this).parent().parent().children().toggle()"></i></label></div>';
+                html = '<a style="cursor: pointer;" title="' + html + '" >'
+                    + '<span style="white-space: normal;">' + temp + '...&nbsp;<i class="fa fa-angle-double-down fa-col fa-lg text-primary" aria-hidden="true"' +
+                    ' onclick="$(this).parent().parent().children().toggle()"></i></span>'
+                    + '<span style="white-space: normal;display:none;">' + html
+                    + '&nbsp;<i class="fa fa-angle-double-up fa-col fa-lg text-primary" aria-hidden="true" onclick="$(this).parent().parent().children().toggle()"></i></span></a>';
             }
             return html;
         },
