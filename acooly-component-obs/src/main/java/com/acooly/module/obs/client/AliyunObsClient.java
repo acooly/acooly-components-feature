@@ -124,9 +124,6 @@ public class AliyunObsClient extends AbstractObsClient {
         PutObjectResult putObject = null;
         try {
             putObject = client.putObject(putObjectRequest);
-            if (!putObject.getResponse().isSuccessful()) {
-                throw new RuntimeException(putObject.getResponse().getErrorResponseAsString());
-            }
             ossFile.setETag(putObject.getETag());
             ossFile.setKey(putObjectRequest.getKey());
             ossFile.setUrl(properties.getAliyun().getProtocol()

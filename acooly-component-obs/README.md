@@ -24,7 +24,7 @@ maven坐标：
 [OSS简介](https://help.aliyun.com/product/31815.html?spm=5176.doc31817.6.55.hkKLeQ)
 
 #### 2.1.1 配置： 
-    acooly.obs.provider=aliyun
+    acooly.obs.provider=Aliyun
     #地域id，sts转换时需要使用。
     acooly.obs.aliyun.regionId=cn-shanghai
     acooly.obs.aliyun.protocol=http://

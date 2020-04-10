@@ -2,6 +2,7 @@ package com.acooly.module.obs.common;
 
 import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.Ids;
+import com.google.common.io.Files;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
@@ -18,12 +19,12 @@ public class OssUtils {
 
     public static String generateKey(String rootPackage, String filePath) {
         String result = "";
-        String basePath = Dates.format(new Date(), "/yyyy/MM/dd");
+        if(StringUtils.isNotBlank(rootPackage)){
+            result = result.concat(rootPackage).concat("/");
+        }
+        String basePath = Dates.format(new Date(), "yyyy/MM/dd");
         String randomId = Ids.oid();
-        String fileExt = getFileExtention(filePath);
-        return result.concat(rootPackage).concat(basePath).concat(randomId).concat(fileExt);
-    }
-    private static String getFileExtention(String filePath) {
-        return StringUtils.substringAfterLast(filePath, ".");
+        String fileExt = Files.getFileExtension(filePath);
+        return result.concat(basePath).concat(randomId).concat(".").concat(fileExt);
     }
 }
