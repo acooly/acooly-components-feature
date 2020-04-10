@@ -1036,7 +1036,6 @@
                 $(obj).find('.easyui-combobox').combobox({
                     onLoadSuccess: function () {
                         if($(this).attr('style').indexOf("width") != -1){
-                            console.info("combobox  was set width : " + $(this).attr('style'));
                             return;
                         }
                         let originalWidth = $(this).next().css('width');
