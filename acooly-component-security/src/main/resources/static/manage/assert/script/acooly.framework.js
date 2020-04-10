@@ -303,6 +303,17 @@
                             onClose.call(d);
                         }
                         $(this).dialog('destroy');
+                    },
+                    onOpen: function () {
+                        // 打开dialog，EASYUI渲染完成后，处理combobox的宽度
+                        var that = $(this);
+                        $.parser.onComplete = function () {
+                            //要执行的操作
+                            $.acooly.framework.extendCombobox($(that));
+                            //最后把坑爹的事件绑定解除
+                            $.parser.onComplete = function () { };
+                        }
+
                     }
                 });
             },
@@ -1020,9 +1031,14 @@
                 $('#' + inputId).selectPage(options);
             },
 
-            extendCombobox: function (searchForm) {
-                $('#' + searchForm + ' .easyui-combobox').combobox({
+            extendCombobox: function (container) {
+                var obj = container && container.jquery?container:$('#'+container)
+                $(obj).find('.easyui-combobox').combobox({
                     onLoadSuccess: function () {
+                        if($(this).attr('style').indexOf("width") != -1){
+                            console.info("combobox  was set width : " + $(this).attr('style'));
+                            return;
+                        }
                         let originalWidth = $(this).next().css('width');
                         if (originalWidth) {
                             if (originalWidth.indexOf('px') != -1) {
