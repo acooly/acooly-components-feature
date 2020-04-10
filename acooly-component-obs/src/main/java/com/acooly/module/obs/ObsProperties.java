@@ -8,7 +8,6 @@ import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
-import javax.validation.constraints.NotNull;
 
 import static com.acooly.module.obs.ObsProperties.PREFIX;
 
@@ -26,7 +25,6 @@ public class ObsProperties {
     /**
      * 文件服务提供方式
      */
-    @NotNull
     private Provider provider;
 
     /**
@@ -38,11 +36,14 @@ public class ObsProperties {
 
     @PostConstruct
     public void init() {
+        if (!this.enable) {
+            return;
+        }
         if (this.provider == Provider.Aliyun) {
-            Assert.notNull(this.aliyun);
-            Assert.hasText(this.aliyun.getAccessKeyId());
-            Assert.hasText(this.aliyun.getAccessKeySecret());
-            Assert.hasText(this.aliyun.getEndpoint());
+            Assert.notNull(this.aliyun, "文件服务提供方不能为空");
+            Assert.hasText(this.aliyun.getAccessKeyId(), "accessKeyId不能为空");
+            Assert.hasText(this.aliyun.getAccessKeySecret(), "accessKeySecret不能为空");
+            Assert.hasText(this.aliyun.getEndpoint(), "endpoint不能为空");
         }
     }
 

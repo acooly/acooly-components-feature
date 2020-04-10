@@ -86,9 +86,8 @@ public class ObsClientProxy
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (obsClient == null) {
             synchronized (object) {
-                if (obsClient == null) {
-                    obsClient =
-                            (ObsClient) this.applicationContext.getBean(obsProperties.getProvider().code());
+                if (obsClient == null && obsProperties.isEnable()) {
+                    obsClient = (ObsClient) this.applicationContext.getBean(obsProperties.getProvider().code());
                 }
             }
         }
