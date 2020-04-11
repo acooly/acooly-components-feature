@@ -114,7 +114,7 @@
             if (!html || html == '')
                 return '';
             if (!maxSize)
-                maxSize = 20;
+                maxSize = 18;
             if (html.length > maxSize) {
                 temp = html.substring(0, maxSize);
                 html = '<a style="cursor: pointer;" title="' + html + '" >'

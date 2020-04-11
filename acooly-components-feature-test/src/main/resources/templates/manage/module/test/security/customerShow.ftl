@@ -1,0 +1,88 @@
+<div style="padding: 5px;font-family:微软雅黑;">
+<table class="tableForm" width="100%">
+	<tr>
+		<th>ID:</th>
+		<td>${customer.id}</td>
+	</tr>					
+	<tr>
+		<th width="25%">用户名:</th>
+		<td>${customer.username}</td>
+	</tr>					
+	<tr>
+		<th>年龄:</th>
+		<td>${customer.age}</td>
+	</tr>					
+	<tr>
+		<th>生日:</th>
+		<td>${customer.birthday?string('yyyy-MM-dd HH:mm:ss')}</td>
+	</tr>					
+	<tr>
+		<th>性别:</th>
+		<td>${customer.gender.message()}</td>
+	</tr>					
+	<tr>
+		<th>姓名:</th>
+		<td>${customer.realName}</td>
+	</tr>					
+	<tr>
+		<th>证件类型:</th>
+		<td>${customer.idcardType.message()}</td>
+	</tr>					
+	<tr>
+		<th>身份证号码:</th>
+		<td>${customer.idcardNo}</td>
+	</tr>					
+	<tr>
+		<th>手机号码:</th>
+		<td>${customer.mobileNo}</td>
+	</tr>					
+	<tr>
+		<th>邮件:</th>
+		<td>${customer.mail}</td>
+	</tr>					
+	<tr>
+		<th>照片:</th>
+		<td>${customer.photo}</td>
+	</tr>					
+	<tr>
+		<th>照片缩略图:</th>
+		<td>${customer.photoThum}</td>
+	</tr>					
+	<tr>
+		<th>摘要:</th>
+		<td>${customer.subject}</td>
+	</tr>					
+	<tr>
+		<th>客户类型:</th>
+		<td>${customer.customerType.message()}</td>
+	</tr>					
+	<tr>
+		<th>手续费:</th>
+		<td>${customer.fee}</td>
+	</tr>					
+	<tr>
+		<th>测试Text类型:</th>
+		<td>${customer.content}</td>
+	</tr>					
+	<tr>
+		<th>薪水:</th>
+		<td>${customer.salary}</td>
+	</tr>					
+	<tr>
+		<th>状态:</th>
+		<td>${allStatuss?api.get(customer.status)}</td>
+	</tr>					
+	<tr>
+		<th>创建时间:</th>
+		<td>${customer.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
+	</tr>					
+	<tr>
+		<th>update_time:</th>
+		<td>${customer.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
+	</tr>					
+	<tr>
+		<th>备注:</th>
+		<td>${customer.comments}</td>
+	</tr>					
+</table>
+</div>

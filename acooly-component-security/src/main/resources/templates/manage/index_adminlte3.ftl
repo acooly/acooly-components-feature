@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
     <!-- pace-progress -->
     <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/manage/assert/plugin/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- easyui及自定义 -->
@@ -285,6 +288,16 @@
                             </div>
                         </a>
                     </li>
+                    <li>
+                        <a href="https://bantikyan.github.io/icheck-bootstrap/" target="_blank">
+                            <i class="sidebar-menu-icon fa fa-file-code-o bg-gradient-blue"></i>
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">icheck-bootstrap</h4>
+                                <p>icheck-bootstrap的演示和文档</p>
+                            </div>
+                        </a>
+                    </li>
+
                 </ul>
                 <!-- /.control-sidebar-menu -->
             </div>
@@ -336,6 +349,10 @@
 <!--kindEditor插件库 -->
 <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all-min.js"></script>
 <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
+<!-- select2 -->
+<script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
+<!-- inputmask -->
+<script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 
 <!-- 自己定义的样式和JS扩展 -->
 <!-- acooly -->
@@ -351,6 +368,7 @@
 <script src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
+<script src="/manage/assert/script/acooly.inputmask.js"></script>
 
 <!-- 扩展script -->
 ${extendScripts}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.test.security.dao.CustomerDao">
+
+    <resultMap id="customerResultMap" type="com.acooly.module.test.security.entity.Customer">
+        <id property="id" column="customer_id"/>
+        <result property="username" column="customer_username"/>
+        <result property="age" column="customer_age"/>
+        <result property="birthday" column="customer_birthday"/>
+        <result property="gender" column="customer_gender"/>
+        <result property="realName" column="customer_real_name"/>
+        <result property="idcardType" column="customer_idcard_type"/>
+        <result property="idcardNo" column="customer_idcard_no"/>
+        <result property="mobileNo" column="customer_mobile_no"/>
+        <result property="mail" column="customer_mail"/>
+        <result property="photo" column="customer_photo"/>
+        <result property="photoThum" column="customer_photo_thum"/>
+        <result property="subject" column="customer_subject"/>
+        <result property="customerType" column="customer_customer_type"/>
+        <result property="fee" column="customer_fee"/>
+        <result property="content" column="customer_content"/>
+        <result property="salary" column="customer_salary"/>
+        <result property="status" column="customer_status"/>
+        <result property="createTime" column="customer_create_time"/>
+        <result property="updateTime" column="customer_update_time"/>
+        <result property="comments" column="customer_comments"/>
+    </resultMap>
+
+    <sql id="customerSqlSelect">
+            customer.id as customer_id,
+            customer.username as customer_username,
+            customer.age as customer_age,
+            customer.birthday as customer_birthday,
+            customer.gender as customer_gender,
+            customer.real_name as customer_real_name,
+            customer.idcard_type as customer_idcard_type,
+            customer.idcard_no as customer_idcard_no,
+            customer.mobile_no as customer_mobile_no,
+            customer.mail as customer_mail,
+            customer.photo as customer_photo,
+            customer.photo_thum as customer_photo_thum,
+            customer.subject as customer_subject,
+            customer.customer_type as customer_customer_type,
+            customer.fee as customer_fee,
+            customer.content as customer_content,
+            customer.salary as customer_salary,
+            customer.status as customer_status,
+            customer.create_time as customer_create_time,
+            customer.update_time as customer_update_time,
+            customer.comments as customer_comments
+    </sql>
+
+</mapper>

@@ -3,10 +3,27 @@
  */
 var acooly_verify = {
 
+
+    pattens: {
+        "cert15": /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/,
+        "cert18": /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[A-Z])$/,
+        "phone": /^(^0\d{2}-?\d{8}$)|(^0\d{3}-?\d{7}$)|(^0\d2-?\d{8}$)|(^0\d3-?\d{7}$)$/,
+        "mobile": /^1[2|3|4|5|6|7|8|9]\d{9}$/,
+        "account": !/^[a-zA-Z][\w]+$/,
+        "chs": /^[\u0391-\uFFE5]+$/,
+        "csv": /^[\w,\$,\{,\},_,\u4e00-\u9fa5]+(,[\w,\$,\{,\},_,\u4e00-\u9fa5]+)*$/,
+        "money": /^-?(([1-9]\d{0,9})|0)(\.\d{1,2})?$/
+    },
+
+
     regExp: function (value, pattern) {
         var re = new RegExp(pattern);
         var result = re.test(value);
         return re.test(value);
+    },
+
+    regVerify: function (value, patternName) {
+        return this.pattens[patternName].test(value);
     },
 
     byteLength: function (value, minlen, maxlen) {
@@ -24,35 +41,30 @@ var acooly_verify = {
     },
 
     cert: function (value) {
-        //(15位)
-        isIDCard1 = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
-        //(18位)
-        isIDCard2 = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[A-Z])$/;
-        return isIDCard1.test(value) || isIDCard2.test(value);
+        return this.pattens.cert15.test(value) || this.pattens.cert18.test(value);
     },
 
     phone: function (value) {
-        return this.regExp(value, "(^0\\d{2}-?\\d{8}$)|(^0\\d{3}-?\\d{7}$)|(^0\\d2-?\\d{8}$)|(^0\\d3-?\\d{7}$)");
+        return this.pattens.phone.test(value);
     },
 
     mobile: function (value) {
-        var reg = /^1[2|3|4|5|6|7|8|9]\d{9}$/;
-        return reg.test(value);
+        return this.pattens.mobile.test(value);
     },
 
     account: function (value) {
-        return !/^[a-zA-Z][\w]+$/.test(value);
+        return this.pattens.account.test(value);
     },
 
     chs: function (value) {
-        return /^[\u0391-\uFFE5]+$/.test(value);
+        return this.pattens.chs.test(value);
     },
 
     csv: function (value) {
-        return /^[\w,\$,\{,\},_,\u4e00-\u9fa5]+(,[\w,\$,\{,\},_,\u4e00-\u9fa5]+)*$/.test(value)
+        return this.pattens.csv.test(value)
     },
     money: function (value) {
-        return /^-?(([1-9]\d{0,9})|0)(\.\d{1,2})?$/.test(value);
+        return this.pattens.money.test(value);
     },
 
     number: function (value) {

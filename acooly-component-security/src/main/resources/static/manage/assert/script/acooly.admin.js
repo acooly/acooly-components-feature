@@ -11,6 +11,7 @@
             this.initLogo();
             this.initMenus();
             this.initTab();
+            this.initPlugins();
             // 新旧版本的风格(访问到旧版页面，则设置版本cookies)
             // $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "adminlte")
         },
@@ -176,6 +177,13 @@
                     height: $(window).height() - 52
                 }).tabs('resize');
             });
+        },
+
+        /**
+         * 初始化第三方插件
+         */
+        initPlugins: function(){
+
         },
 
         /**
