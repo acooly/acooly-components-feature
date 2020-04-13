@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.util.*;
 
 @Slf4j
@@ -250,6 +251,27 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
             entity.setPinyin(Strings.toPinyinFistWord(entity.getRealName()));
         }
         return entity;
+    }
+
+    @Override
+    public JsonResult deleteJson(HttpServletRequest request, HttpServletResponse response) {
+        JsonResult result = new JsonResult();
+        this.allow(request, response, MappingMethod.delete);
+        try {
+            Serializable[] ids = this.getRequestIds(request);
+            User user = ShiroUtils.getCurrentUser();
+            for (Serializable id : ids) {
+                if (user.getId().equals(id)) {
+                    throw new RuntimeException("不能删除当前登录的用户");
+                }
+            }
+            this.onRemove(request, response, (Model) null, ids);
+            this.doRemove(request, response, (Model) null, ids);
+            result.setMessage("删除成功");
+        } catch (Exception var5) {
+            this.handleException(result, "删除", var5);
+        }
+        return result;
     }
 
     @Override
