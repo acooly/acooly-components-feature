@@ -72,8 +72,7 @@
                         <span style="font-size: 60px;"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></span>
                         <p>
                             ${Session.user.username} - ${Session.user.realName}
-                            <small>${roleName}</small>
-                            <small>创建：${Session.user.createTime?string('yyyy-MM-dd')}</small>
+                            <div style="font-size:14px;">${roleName}</div>
                         </p>
                     </li>
                     <!-- Menu Footer-->

@@ -4,7 +4,7 @@
      */
     function manage_user_changePasswd(id) {
         $('#manage_user_datagrid').datagrid('uncheckAll').datagrid('unselectAll').datagrid('clearSelections');
-        $('<div/>').dialog({
+        var d = $('<div/>').dialog({
             href: '/manage/system/user/showChangePassword.html?id=' + id,
             width: 400,
             height: 300,
@@ -12,30 +12,19 @@
             title: ' <i class="fa fa-lock fa-lg"></i> 重置密码',
             buttons: [{
                 text: '<i class="fa fa-check fa-col"></i> 提 交',
-                // iconCls: 'icon-edit',
                 handler: function () {
-                    var d = $(this).closest('.window-body');
-                    $('#manage_user_changePassword_form').form('submit', {
-                        onSubmit: function () {
-                            var isValid = $('#manage_user_changePassword_form').form('validate');
-                            if (!isValid) {
-                                return false;
-                            }
-                            return true;
+                    $('#manage_user_changePassword_form').ajaxSubmit({
+                        beforeSubmit: function () {
+                            return $('#manage_user_changePassword_form').form('validate');
                         },
-                        success: function (data) {
-                            try {
-                                var result = $.parseJSON(data);
-                                if (result.success) {
-                                    d.dialog('destroy');
-                                }
-                                $.messager.show({
-                                    title: '提示',
-                                    msg: result.message
-                                });
-                            } catch (e) {
-                                $.messager.alert('提示', result);
+                        success: function (result) {
+                            $.acooly.messager('修改密码', result.message, result.success ? "success" : "danger");
+                            if (result.success) {
+                                d.dialog('destroy');
                             }
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            $.acooly.messager('错误', errorThrown, 'danger');
                         }
                     });
                 }
