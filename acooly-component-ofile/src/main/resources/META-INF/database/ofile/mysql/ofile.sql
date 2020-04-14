@@ -14,6 +14,8 @@ CREATE TABLE `ofile` (
   `status` varchar(16) DEFAULT 'enable' COMMENT '状态',
   `thumbnail` varchar(128) DEFAULT NULL COMMENT '缩略图路径',
   `user_name` varchar(32) DEFAULT NULL COMMENT '用户名',
+  `bucket_name` varchar(64) NULL COMMENT 'obs桶名称',
+  `access_type` varchar(16) NULL COMMENT '文件访问类型{LOCAL_STORAGE:本地存储,OBS_PUBLIC:OBS公网访问,OBS_STS:OBS_STS令牌访问}',
   `create_time` timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)

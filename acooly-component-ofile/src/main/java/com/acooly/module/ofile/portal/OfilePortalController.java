@@ -9,27 +9,38 @@ import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.*;
+import com.acooly.module.obs.ObsProperties;
+import com.acooly.module.obs.ObsService;
+import com.acooly.module.obs.common.OssFile;
 import com.acooly.module.ofile.OFileProperties;
 import com.acooly.module.ofile.auth.OFileUploadAuthenticate;
 import com.acooly.module.ofile.domain.OnlineFile;
+import com.acooly.module.ofile.enums.AccessTypeEnum;
 import com.acooly.module.ofile.enums.OFileType;
+import com.acooly.module.ofile.enums.StorageTypeEnum;
 import com.acooly.module.ofile.service.OnlineFileService;
+import com.acooly.module.ofile.support.OfileSupportService;
+import com.alibaba.fastjson.JSON;
+import com.aliyun.oss.model.ObjectMetadata;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.io.Files;
 import com.google.common.net.HttpHeaders;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +49,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -46,11 +58,11 @@ import java.util.regex.Pattern;
 /**
  * @author zhangpu
  */
+@Slf4j
 @Controller
 @RequestMapping("/ofile")
 public class OfilePortalController
         extends AbstractJQueryEntityController<OnlineFile, OnlineFileService> {
-    private static final Logger logger = LoggerFactory.getLogger(OfilePortalController.class);
     private static final Pattern ABSOLUTE_URL = Pattern.compile("\\A[a-z0-9.+-]+://.*", 2);
     public static final String WATERMARK_TEXT = "watermarkText";
     public static final String WATERMARK_IMAGE = "watermarkImage";
@@ -67,6 +79,14 @@ public class OfilePortalController
 
     @Resource(name = "ofileUploadAuthenticateSpringProxy")
     private OFileUploadAuthenticate ofileUploadAuthenticate;
+
+    @Autowired
+    private OfileSupportService ofileSupportService;
+
+    @Autowired
+    private ObsProperties obsProperties;
+    @Autowired
+    private ObsService obsService;
 
     private static boolean isAbsoluteUrl(String url) {
         return ABSOLUTE_URL.matcher(url).matches();
@@ -85,29 +105,117 @@ public class OfilePortalController
             getUploadConfig().setStorageRoot(getStoragePath(request));
             getUploadConfig().setUseMemery(false);
             getUploadConfig().setStorageNameSpace(oFileProperties.getStorageNameSpace());
-
-            Map<String, UploadResult> uploadResults = doUpload(request);
-            UploadResult uploadResult = null;
+            String storageType = ofileSupportService.getStorageType(request);
             List<OnlineFile> onlineFiles = Lists.newArrayList();
-            for (Map.Entry<String, UploadResult> entry : uploadResults.entrySet()) {
-                uploadResult = entry.getValue();
-                if (uploadResult == null || uploadResult.getSize() <= 0) {
-                    continue;
+            if (StorageTypeEnum.OBS.getCode().equals(storageType)) {
+                //obs上传
+                uploadByObs(request, onlineFiles);
+            } else {
+                //本地上传
+                Map<String, UploadResult> uploadResults = doUpload(request);
+                UploadResult uploadResult = null;
+                for (Map.Entry<String, UploadResult> entry : uploadResults.entrySet()) {
+                    uploadResult = entry.getValue();
+                    if (uploadResult == null || uploadResult.getSize() <= 0) {
+                        continue;
+                    }
+                    onlineFiles.add(fillOnlineFile(request, uploadResult));
                 }
-                onlineFiles.add(fillOnlineFile(request, uploadResult));
-            }
-            if (onlineFiles.isEmpty()) {
-                throw new RuntimeException("请求中没有可上传的文件");
+                if (onlineFiles.isEmpty()) {
+                    throw new RuntimeException("请求中没有可上传的文件");
+                }
             }
             onlineFileService.saves(onlineFiles);
             result.setRows(onlineFiles);
             result.setTotal((long) onlineFiles.size());
             result.appendData("serverRoot", oFileProperties.getServerRoot());
-            logger.info("ofile文件上传成功。files:{}", onlineFiles.toString());
+            log.info("ofile文件上传成功。files:{}", onlineFiles.toString());
         } catch (Exception e) {
             handleException(result, "上传文件", e);
         }
         return result;
+    }
+
+    private void uploadByObs(HttpServletRequest request, List<OnlineFile> onlineFiles) throws IOException {
+        MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+        MultiValueMap<String, MultipartFile> multiValueMap = multiRequest.getMultiFileMap();
+        if (multiValueMap.size() <= 0) {
+            throw new RuntimeException("请求中没有可上传的文件");
+        }
+        // 通用参数配置，可由业务系统重写
+        String metadata = ofileSupportService.getMetadata(request);
+        String bucketName = ofileSupportService.getBucketName(request);
+        String userName = getSessionUser(request);
+        Iterator<String> iterator = multiValueMap.keySet().iterator();
+        while (iterator.hasNext()) {
+            String inputName = iterator.next();
+            List<MultipartFile> multipartFileList = multiValueMap.get(inputName);
+            for (MultipartFile multipartFile : multipartFileList) {
+                doObsUpload(onlineFiles, multipartFile, metadata, inputName, userName, bucketName, request);
+            }
+        }
+    }
+
+    protected void doObsUpload(List<OnlineFile> onlineFileList, MultipartFile multipartFile, String metadata, String inputName, String userName, String bucketName, HttpServletRequest request) throws IOException {
+        if (multipartFile == null || multipartFile.getSize() <= 0) {
+            return;
+        }
+        UploadConfig uploadConfig = getUploadConfig();
+        String originalFilename = multipartFile.getOriginalFilename();
+        String extension = Files.getFileExtension(originalFilename);
+        OFileType oFileType = OFileType.with(extension);
+        if (multipartFile.getSize() > uploadConfig.getMaxSize()) {
+            throw new BusinessException(
+                    "文件[" + originalFilename + "]大小操作限制，最大限制:" + uploadConfig.getMaxSize() / 1024 / 1024 + "M");
+        }
+        if (!StringUtils.containsIgnoreCase(uploadConfig.getAllowExtentions(), extension)) {
+            throw new BusinessException(
+                    "文件[" + originalFilename + "]类型不支持，支持类型:" + uploadConfig.getAllowExtentions());
+        }
+        // obs key生成策略，可由业务系统重写
+        String key = ofileSupportService.generateKey(request, inputName, originalFilename);
+
+        log.info("inputName={},OriginalFilename={},fileSize={},oFileType={}", inputName, originalFilename, multipartFile.getSize(), oFileType.getCode());
+        ObjectMetadata objectMetadata = null;
+        if (Strings.isNotBlank(metadata)) {
+            objectMetadata = new ObjectMetadata();
+            objectMetadata.setUserMetadata(JSON.parseObject(userName, Map.class));
+        }
+        OssFile ossFile = obsService.putObject(bucketName, key, multipartFile.getInputStream(), objectMetadata);
+        String accessUrl = ossFile.getUrl();
+        //公网可访问的缩略图地址，按ofile配置进行缩放
+        String accessThumbnailUrl = getAccessThumbnailUrl(accessUrl, request);
+        AccessTypeEnum accessType = AccessTypeEnum.OBS_PUBLIC;
+
+        // 采用sts令牌形式转换可访问路径
+        if (ObsProperties.Provider.Aliyun.equals(obsProperties.getProvider()) && obsProperties.getAliyun().isStsEnable()) {
+            accessUrl = obsService.getAccessUrlBySts(bucketName, ossFile.getKey(), null, ofileSupportService.getExpireDate());
+            accessThumbnailUrl = obsService.getAccessUrlBySts(bucketName, ossFile.getKey(), ofileSupportService.getProcess(oFileType), ofileSupportService.getExpireDate());
+            accessType = AccessTypeEnum.OBS_STS;
+        }
+        OnlineFile onlineFile = new OnlineFile();
+        onlineFile.setObjectId(ossFile.getETag());
+        onlineFile.setInputName(inputName);
+        onlineFile.setFileName(Files.getNameWithoutExtension(ossFile.getKey()) + "." + extension);
+        onlineFile.setFileType(oFileType);
+        onlineFile.setModule(ofileSupportService.getModule(request));
+        onlineFile.setFileExt(extension);
+        onlineFile.setFileSize(multipartFile.getSize());
+        onlineFile.setFilePath(key);
+        onlineFile.setThumbnail(key);
+        onlineFile.setUserName(userName);
+        onlineFile.setOriginalName(originalFilename);
+        onlineFile.setMetadatas(metadata);
+        onlineFile.setAccessType(accessType);
+        onlineFile.setBucketName(bucketName);
+        onlineFile.setAccessUrl(accessUrl);
+        onlineFile.setAccessThumbnailUrl(accessThumbnailUrl);
+        onlineFileList.add(onlineFile);
+    }
+
+    protected String getAccessThumbnailUrl(String accessUrl, HttpServletRequest request) {
+        return accessUrl.concat("?x-oss-process=image/resize,w_").concat(String.valueOf(ofileSupportService.getThumbnailSize(request)))
+                .concat(",").concat("h_").concat(String.valueOf(ofileSupportService.getThumbnailSize(request)));
     }
 
     @RequestMapping("kindEditor")
@@ -117,11 +225,7 @@ public class OfilePortalController
         try {
             JsonListResult<OnlineFile> onlineFiles = upload(request, response);
             result.put("error", 0);
-            result.put(
-                    "url",
-                    oFileProperties.getServerRoot()
-                            + "/"
-                            + Collections3.getFirst(onlineFiles.getRows()).getFilePath());
+            result.put("url", Collections3.getFirst(onlineFiles.getRows()).getAccessUrl());
         } catch (Exception e) {
             result.put("error", 1);
             result.put("message", "文件上传失败:" + e.getMessage());
@@ -137,15 +241,13 @@ public class OfilePortalController
     public Object download(
             @PathVariable String id, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-
-
         OnlineFile onlineFile = getEntityService().get(Long.valueOf(id));
         return doDownload(
                 request,
                 response,
                 onlineFile.getOriginalName(),
-                getStorageRoot() + onlineFile.getFilePath(),
-                onlineFile.getFileType());
+                onlineFile.getFilePath(),
+                onlineFile.getFileType(), onlineFile.getAccessType(), onlineFile.getBucketName(), null);
     }
 
     /**
@@ -161,8 +263,8 @@ public class OfilePortalController
                 request,
                 response,
                 onlineFile.getOriginalName(),
-                getStorageRoot() + onlineFile.getFilePath(),
-                onlineFile.getFileType());
+                onlineFile.getFilePath(),
+                onlineFile.getFileType(), onlineFile.getAccessType(), onlineFile.getBucketName(), null);
     }
 
     /**
@@ -178,8 +280,8 @@ public class OfilePortalController
                 request,
                 response,
                 onlineFile.getOriginalName(),
-                getStorageRoot() + onlineFile.getThumbnail(),
-                onlineFile.getFileType());
+                onlineFile.getThumbnail(),
+                onlineFile.getFileType(), onlineFile.getAccessType(), onlineFile.getBucketName(), ofileSupportService.getProcess(onlineFile.getFileType()));
     }
 
     /**
@@ -204,21 +306,26 @@ public class OfilePortalController
         @SuppressWarnings("deprecation")
         // 兼容servlet2.4环境
                 String filePath = request.getRealPath(path);
-
-        File file = new File(filePath);
-        if (!file.exists()) {
-            file = new File(oFileProperties.getStorageRoot() + path);
+        OnlineFile onlineFile = onlineFileService.findByFilePathAndBucket(filePath, null);
+        if (onlineFile == null) {
+            throw new RuntimeException("文件不存在");
         }
-        if (!file.exists()) {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            return null;
+        if (onlineFile.getAccessType() == null || AccessTypeEnum.LOCAL_STORAGE.equals(onlineFile.getAccessType())) {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file = new File(oFileProperties.getStorageRoot() + path);
+            }
+            if (!file.exists()) {
+                response.setStatus(HttpStatus.NOT_FOUND.value());
+                return null;
+            }
         }
         return doDownload(
                 request,
                 response,
-                file.getName(),
-                file.getPath(),
-                OFileType.with(FilenameUtils.getExtension(file.getName())));
+                onlineFile.getOriginalName(),
+                onlineFile.getFilePath(),
+                onlineFile.getFileType(), onlineFile.getAccessType(), onlineFile.getBucketName(), null);
     }
 
     private void checkFilePathAttacks(String absolutePath) {
@@ -252,14 +359,19 @@ public class OfilePortalController
             HttpServletResponse response,
             String fileName,
             String filePath,
-            OFileType fileType) {
+            OFileType fileType, AccessTypeEnum accessType, String bucketName, String processStyle) {
         OutputStream out = null;
         InputStream in = null;
         try {
             checkReferer(request);
             doHeader(fileName, response, fileType);
-            File file = new File(filePath);
-            in = FileUtils.openInputStream(file);
+            if (accessType == null || AccessTypeEnum.LOCAL_STORAGE.equals(accessType)) {
+                File file = new File(getStorageRoot() +filePath);
+                in = FileUtils.openInputStream(file);
+            } else {
+                OssFile ossFile = obsService.getObject(bucketName, filePath, processStyle);
+                in = ossFile.getFileInputStream();
+            }
             out = response.getOutputStream();
             IOUtils.copyLarge(in, out);
             out.flush();
@@ -283,8 +395,8 @@ public class OfilePortalController
         onlineFile.setFilePath(getFilePath(request, file));
         onlineFile.setFileSize(file.length());
         onlineFile.setFileType(OFileType.with(onlineFile.getFileExt()));
-        onlineFile.setModule(getModule(request));
-        onlineFile.setMetadatas(getMetadata(request));
+        onlineFile.setModule(ofileSupportService.getModule(request));
+        onlineFile.setMetadatas(ofileSupportService.getMetadata(request));
         onlineFile.setOriginalName(uploadResult.getName());
         onlineFile.setObjectId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
         onlineFile.setUserName(getSessionUser(request));
@@ -297,12 +409,12 @@ public class OfilePortalController
                                     + "_thum."
                                     + FilenameUtils.getExtension(file.getName()));
 
-            int thumbSize = getThumbnailSize(request);
+            int thumbSize = ofileSupportService.getThumbnailSize(request);
             try {
                 Images.resize(file.getPath(), thumbnailFile.getPath(), thumbSize, thumbSize, false);
                 thumbnailFilePath = thumbnailFile.getPath();
             } catch (Exception e) {
-                logger.error("缩略图生成失败,使用原图地址", e);
+                log.error("缩略图生成失败,使用原图地址", e);
                 thumbnailFilePath = file.getPath();
             }
             onlineFile.setThumbnail(getFilePath(thumbnailFilePath));
@@ -314,7 +426,7 @@ public class OfilePortalController
                 String watermarkImage = request.getParameter(WATERMARK_IMAGE);
                 if (StringUtils.isNotEmpty(watermarkImage) && watermarkImage.equals("true")) {
                     addWaterMarkImage(onlineFile);
-                    logger.info("添加水印图片成功，路径：{}", onlineFile.getAbsolutePath());
+                    log.info("添加水印图片成功，路径：{}", onlineFile.getAbsolutePath());
                 }
             }
             //水印文字
@@ -323,10 +435,10 @@ public class OfilePortalController
                     String watermarkText = request.getParameter(WATERMARK_TEXT);
                     if (StringUtils.isNotEmpty(watermarkText) && watermarkText.equals("true")) {
                         addWaterMarkText(onlineFile);
-                        logger.info("添加水印文字成功，路径：{}", onlineFile.getAbsolutePath());
+                        log.info("添加水印文字成功，路径：{}", onlineFile.getAbsolutePath());
                     }
                 } catch (Exception e) {
-                    logger.error("添加水印文字失败，文件名：{},路径：{}", onlineFile.getFileName(), onlineFile.getAbsolutePath(), e);
+                    log.error("添加水印文字失败，文件名：{},路径：{}", onlineFile.getFileName(), onlineFile.getAbsolutePath(), e);
                 }
             }
         }
@@ -346,7 +458,7 @@ public class OfilePortalController
         try {
             Images.pressImageFile(new FileInputStream(new File(markImageFilePath)), new File(originfilePath), watermarkImage.getX(), watermarkImage.getY());
         } catch (FileNotFoundException e) {
-            logger.error("添加水印图片失败，文件名：{},路径：{}", onlineFile.getFileName(), originfilePath, e);
+            log.error("添加水印图片失败，文件名：{},路径：{}", onlineFile.getFileName(), originfilePath, e);
         }
     }
 
@@ -354,17 +466,6 @@ public class OfilePortalController
         OFileProperties.Watermarktext watermarkText = oFileProperties.getWatermarktext();
         Assert.notNull(watermarkText.getMarkText(), "水印图片文字不能为空");
         Images.pressText(watermarkText.getMarkText(), onlineFile.getAbsolutePath(), null, Font.ITALIC, Color.BLACK, watermarkText.getFontSize(), watermarkText.getX(), watermarkText.getY(), watermarkText.getAlpha(), null);
-    }
-
-    /**
-     * 获取thumbSize
-     */
-    protected int getThumbnailSize(HttpServletRequest request) {
-        String thumbSize = request.getParameter("thumbSize");
-        if (Strings.isNumber(thumbSize)) {
-            return Integer.parseInt(thumbSize);
-        }
-        return oFileProperties.getThumbnailSize();
     }
 
     protected void doHeader(String fileName, HttpServletResponse response, OFileType ofileType) {
@@ -401,16 +502,6 @@ public class OfilePortalController
             userName = userName.substring(0, 28) + "...";
         }
         return userName;
-    }
-
-    protected String getMetadata(HttpServletRequest request) {
-        String module = request.getParameter("metadata");
-        return Strings.trimToNull(module);
-    }
-
-    protected String getModule(HttpServletRequest request) {
-        String module = request.getParameter("module");
-        return Strings.trimToNull(module);
     }
 
     protected String getFilePath(HttpServletRequest request, File file) {
@@ -458,15 +549,10 @@ public class OfilePortalController
             try {
                 FileUtils.forceMkdir(new File(storageSubPath));
             } catch (Exception e) {
-                logger.warn("创建上传存储文件夹失败。路径：{},原因:{)", storageSubPath, e.getMessage());
+                log.warn("创建上传存储文件夹失败。路径：{},原因:{)", storageSubPath, e.getMessage());
             }
             return storageSubPath;
         }
         return getStorageRoot();
     }
-
-    public static void main(String[] args) {
-        System.out.println(Paths.get("d:/data/", ""));
-    }
-
 }

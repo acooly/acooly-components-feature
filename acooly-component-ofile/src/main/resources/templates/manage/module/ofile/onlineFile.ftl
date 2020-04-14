@@ -40,18 +40,18 @@
             <tr>
                 <th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
                 <th field="id">id</th>
-                <th field="thumbnail"
-                    data-options="formatter:function(value,row,index){ if(row.fileType == 'picture'){ return '<div style=\'padding:5px;\'><img src=\'/ofile/thumb/'+row.id+'.html\' width=\'64\'></div>'; }else{ return '' } }">
-                    缩略图
-                </th>
-                <th field="filePath"
-                    data-options="formatter:function(value,row,index){ return linkFormatter('/ofile/image/'+row.id+'.html') + ' ' + value;}">
-                    路径
-                </th>
+<#--                <th field="thumbnail"-->
+<#--                    data-options="formatter:function(value,row,index){ if(row.fileType == 'picture'){ return '<div style=\'padding:5px;\'><img src=\'/ofile/thumb/'+row.id+'.html\' width=\'64\'></div>'; }else{ return '' } }">-->
+<#--                    缩略图-->
+<#--                </th>-->
+<#--                <th field="filePath"-->
+<#--                    data-options="formatter:function(value,row,index){ return linkFormatter('/ofile/image/'+row.id+'.html') + ' ' + value;}">-->
+<#--                    路径-->
+<#--                </th>-->
+                <th field="filePath">路径</th>
                 <th field="originalName">原文件名</th>
                 <th field="fileType" formatter="mappingFormatter">文件类型</th>
                 <th field="fileSize" formatter="formatFileSize">大小</th>
-
                 <th field="module">模块分类</th>
                 <th field="userName">用户名</th>
                 <th field="createTime">上传时间</th>
@@ -64,6 +64,8 @@
 
         <!-- 每行的Action动作模板 -->
         <div id="manage_onlineFile_action" style="display: none;">
+            <a onclick="window.open('/ofile/download/{0}')"
+               href="#" title="下载"><i class="fa fa-download fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/show.html?id={0}',600,600);"
                href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.remove('/manage/module/ofile/onlineFile/deleteJson.html','{0}','manage_onlineFile_datagrid');"

@@ -11,11 +11,14 @@ package com.acooly.module.ofile;
 
 import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.dao.support.StandardDatabaseScriptIniter;
+import com.acooly.module.ofile.support.DefaultOfileSupportService;
+import com.acooly.module.ofile.support.OfileSupportService;
 import com.acooly.module.security.config.SecurityAutoConfig;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -73,6 +76,16 @@ public class OFileAutoConfig extends WebMvcConfigurerAdapter {
                     .addResourceHandler(pathPatterns)
                     .addResourceLocations(resourceLocations)
                     .resourceChain(useResourceCache);
+        }
+    }
+
+    @Configuration
+    @ConditionalOnProperty(value = "acooly.obs.enable", matchIfMissing = true)
+    public static class ApiLoginConfiguration {
+        @ConditionalOnMissingBean(OfileSupportService.class)
+        @Bean
+        public OfileSupportService defaultObsSupportService() {
+            return new DefaultOfileSupportService();
         }
     }
 }

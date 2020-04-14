@@ -127,3 +127,12 @@ acooly.ofile.watermarktext.y=10
 ```
 
 请求路径示例：`http://127.0.0.1:8081/ofile/upload?watermarkImage=true&watermarkText=true`
+
+## 4. 集成obs能力
+### 4.1 说明
+ofile组件内部集成了obs相关能力，通过配置开启acooly.ofile.storageType=OBS，则默认使用obs上传，同时也可以通过参数化进行控制如http://127.0.0.1:8081/ofile/upload.html?storageType=OBS
+默认obs相关实现已经定义，对于单个应用使用单bucket时，无需进行任何开发，仅需完成obs配置。
+### 4.2 能力扩展
+OfileSupportService提供文件上传相关能力的扩展，
+例如一个应用有多个bucket的情况，需要由业务定制实现OfileSupportService接口，默认实现路径com.acooly.module.ofile.support.DefaultOfileSupportService，根据不同的业务请求返回不同的bucket。
+ 

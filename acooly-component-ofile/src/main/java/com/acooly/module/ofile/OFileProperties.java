@@ -12,6 +12,7 @@ package com.acooly.module.ofile;
 import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.exception.AppConfigException;
 import com.acooly.core.utils.Strings;
+import com.acooly.module.ofile.enums.StorageTypeEnum;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SystemUtils;
@@ -31,6 +32,8 @@ import static com.acooly.module.ofile.OFileProperties.PREFIX;
 @Slf4j
 public class OFileProperties implements InitializingBean {
     public static final String PREFIX = "acooly.ofile";
+
+    public String storageType = StorageTypeEnum.LOCAL.getCode();
     /**
      * 文件访问路径,可以配置为域名的形式，建议为//www.test.com/media,不区分协议
      */

@@ -6,6 +6,7 @@ package com.acooly.module.ofile.domain;
 import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.module.ofile.OFileProperties;
+import com.acooly.module.ofile.enums.AccessTypeEnum;
 import com.acooly.module.ofile.enums.OFileType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -175,6 +176,41 @@ public class OnlineFile extends AbstractEntity {
     )
     private String comments;
 
+    /**
+     * obs桶名称
+     */
+    @Column(
+            name = "bucket_name",
+            nullable = true,
+            length = 64,
+            columnDefinition = "varchar(64) COMMENT 'obs桶名称'"
+    )
+    private String bucketName;
+
+    /**
+     * 文件访问类型
+     */
+    @Column(
+            name = "access_type",
+            nullable = false,
+            length = 16,
+            columnDefinition = "varchar(16) not null COMMENT '文件访问类型'"
+    )
+    @Enumerated(EnumType.STRING)
+    private AccessTypeEnum accessType = AccessTypeEnum.LOCAL_STORAGE;
+
+    /**
+     * 可访问的文件地址
+     */
+    @Transient
+    private String accessUrl;
+
+    /**
+     * 可访问的缩略图地址
+     */
+    @Transient
+    private String accessThumbnailUrl;
+
     public void init() {
         if (oFileProperties == null) {
             oFileProperties = Apps.getApplicationContext().getBean(OFileProperties.class);
@@ -207,17 +243,33 @@ public class OnlineFile extends AbstractEntity {
      * @return
      */
     public String getAccessUrl() {
-        init();
-        return oFileProperties.getServerRoot() + filePath;
+        if (AccessTypeEnum.LOCAL_STORAGE.equals(accessType)) {
+            init();
+            return oFileProperties.getServerRoot() + filePath;
+        }
+        return accessUrl;
     }
 
     /**
      * 获取缩略图文件访问地址
+     * 历史使用过的方法，将在不使用后移除
      *
      * @return
      */
+    @Deprecated
     public String getThumbnailAccessUrl() {
-        init();
-        return oFileProperties.getServerRoot() + thumbnail;
+        if (AccessTypeEnum.LOCAL_STORAGE.equals(accessType)) {
+            init();
+            return oFileProperties.getServerRoot() + thumbnail;
+        }
+        return accessThumbnailUrl;
+    }
+
+    public String getAccessThumbnailUrl() {
+        if (AccessTypeEnum.LOCAL_STORAGE.equals(accessType)) {
+            init();
+            return oFileProperties.getServerRoot() + thumbnail;
+        }
+        return accessThumbnailUrl;
     }
 }

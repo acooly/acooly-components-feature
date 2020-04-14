@@ -12,10 +12,12 @@ import java.util.Map;
  * @author zhangpu
  */
 public enum OFileType {
-
     picture("picture", "图片", "jpg,jpeg,png,gif,bmp"),
+    video("video", "视频", "mp4,avi,mpg,mkv,mv,mov"),
+    voice("voice", "音频", "mp3,wav"),
     app("app", "程序", "apk,ipa"),
-    other("other", "未知", "");
+    document("document", "文档", "doc,docx,xls,xlsx,pdf,txt,json"),
+    other("other", "其它", "");
 
     /**
      * code
