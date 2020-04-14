@@ -3,7 +3,7 @@
  */
 package com.acooly.module.appopenapi.service;
 
-import com.acooly.core.utils.mapper.BeanMapper;
+import com.acooly.core.utils.mapper.BeanCopier;
 import com.acooly.module.app.domain.AppCrash;
 import com.acooly.module.app.service.AppCrashService;
 import com.acooly.module.appopenapi.AppApiDocType;
@@ -46,7 +46,7 @@ public class AppCrashReportService
     protected void doService(AppCrashReportRequest request, AppCrashReportResponse response) {
         try {
             AppCrash appCrash = new AppCrash();
-            BeanMapper.copy(request, appCrash);
+            BeanCopier.copy(request, appCrash);
             appCrash.setCrashDate(new Date());
             appCrash.setStackTrace(new String(Base64.decodeBase64(appCrash.getStackTrace())));
             appCrashService.save(appCrash);

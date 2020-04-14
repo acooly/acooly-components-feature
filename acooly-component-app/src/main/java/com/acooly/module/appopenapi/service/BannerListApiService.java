@@ -15,7 +15,6 @@ import com.acooly.openapi.framework.common.annotation.ApiDocType;
 import com.acooly.openapi.framework.common.annotation.OpenApiService;
 import com.acooly.openapi.framework.common.enums.ApiBusiType;
 import com.acooly.openapi.framework.common.enums.ResponseType;
-import com.acooly.openapi.framework.common.utils.ApiUtils;
 import com.acooly.openapi.framework.core.service.base.BaseApiService;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +71,7 @@ public class BannerListApiService extends BaseApiService<BannerListRequest, Bann
         if (Strings.isBlank(url)) {
             return url;
         }
-        if (ApiUtils.isHttpUrl(url)) {
+        if (url.contains("http")) {
             return url;
         }
         String fullUrl = oFileProperties.getServerRoot();

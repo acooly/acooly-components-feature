@@ -1,7 +1,7 @@
 package com.acooly.module.appopenapi.service;
 
 import com.acooly.core.utils.Strings;
-import com.acooly.core.utils.mapper.BeanMapper;
+import com.acooly.core.utils.mapper.BeanCopier;
 import com.acooly.module.app.domain.AppVersion;
 import com.acooly.module.app.service.AppVersionService;
 import com.acooly.module.appopenapi.AppApiDocType;
@@ -53,7 +53,7 @@ public class AppLatestVersionApiService
             if (version == null) {
                 throw new ApiServiceException(AppApiErrorCode.VERSION_NOFOUND);
             }
-            BeanMapper.copy(version, response);
+            BeanCopier.copy(version, response);
             if (Strings.equalsIgnoreCase(AppVersion.DEVICE_TYPE_IPHONE, version.getDeviceType())) {
                 response.setUrl(version.getAppleUrl());
             }
