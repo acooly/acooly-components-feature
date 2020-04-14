@@ -73,8 +73,9 @@ public interface ObsClient {
      *
      * @param bucketName bucketName （为空则使用默认桶配置）
      * @param key        文件名
+     * @param processStyle 文件处理参数
      */
-    OssFile getObject(String bucketName, String key);
+    OssFile getObject(String bucketName, String key,String processStyle);
 
     /**
      * 删除文件

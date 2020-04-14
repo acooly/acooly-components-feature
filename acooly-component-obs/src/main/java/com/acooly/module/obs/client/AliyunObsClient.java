@@ -89,13 +89,15 @@ public class AliyunObsClient extends AbstractObsClient {
     }
 
     @Override
-    public OssFile getObject(String bucketName, String key) {
+    public OssFile getObject(String bucketName, String key, String processStyle) {
         OSS client = getOssClient();
         OssFile ossFile = new OssFile();
         if (Strings.isBlank(bucketName)) {
             bucketName = properties.getAliyun().getBucketName();
         }
-        OSSObject ossObject = client.getObject(bucketName, key);
+        GetObjectRequest getObjectRequest = new GetObjectRequest(bucketName, key);
+        getObjectRequest.setProcess(processStyle);
+        OSSObject ossObject = client.getObject(getObjectRequest);
         ossFile.setETag(ossObject.getKey());
         ossFile.setMetadata(ossObject.getObjectMetadata());
         ossFile.setUrl(OssUtils.getUrlByKey(properties.getAliyun().getProtocol(),

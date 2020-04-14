@@ -34,6 +34,7 @@ public interface ObsService {
 
     /**
      * 通过文件key获取完整url
+     *
      * @param key
      * @return
      */
@@ -73,10 +74,11 @@ public interface ObsService {
     /**
      * 下载文件
      *
-     * @param bucketName bucketName （为空则使用默认桶配置）
-     * @param key        文件名 长度必须在 1–1023 字节之间,不能以正斜线（/）或者反斜线（\）开头
+     * @param bucketName   bucketName （为空则使用默认桶配置）
+     * @param key          文件名 长度必须在 1–1023 字节之间,不能以正斜线（/）或者反斜线（\）开头
+     * @param processStyle 文件处理参数
      */
-    OssFile getObject(String bucketName, String key);
+    OssFile getObject(String bucketName, String key, String processStyle);
 
     /**
      * 删除文件

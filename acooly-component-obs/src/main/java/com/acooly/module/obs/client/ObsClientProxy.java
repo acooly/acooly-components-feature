@@ -73,8 +73,8 @@ public class ObsClientProxy
     }
 
     @Override
-    public OssFile getObject(String bucketName, String key) {
-        return obsClient.getObject(bucketName, key);
+    public OssFile getObject(String bucketName, String key, String processStyle) {
+        return obsClient.getObject(bucketName, key, processStyle);
     }
 
     @Override
