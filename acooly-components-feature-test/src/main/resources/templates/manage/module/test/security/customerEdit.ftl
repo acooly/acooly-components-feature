@@ -32,7 +32,7 @@
 					<div class="form-group clearfix">
 						<#list allGenders as k,v>
 							<div class="icheck-primary d-inline<#if k?index gt 0> ml-2</#if>">
-								<input type="radio" id="manage_customer_gender${k?index}" name="gender" value="${k}">
+								<input type="radio" id="manage_customer_gender${k?index}" name="gender" value="${k}" required>
 								<label for="manage_customer_gender${k?index}">${v}</label>
 							</div>
 						</#list>
@@ -45,7 +45,7 @@
 				<div class="col-sm-10">
 					<div class="form-group clearfix">
 						<div class="icheck-primary d-inline">
-							<input type="checkbox" id="manage_customer_edit_subscribe0" name="subscribe" value="sports">
+							<input type="checkbox" id="manage_customer_edit_subscribe0" name="subscribe" value="sports" required>
 							<label for="manage_customer_edit_subscribe0">运动</label>
 						</div>
 						<div class="icheck-primary d-inline">

@@ -96,7 +96,7 @@
                                 }
                             }
                             if (result.message) {
-                                $.acooly.messager(result.message, result.success ? 'success' : 'danger');
+                                $.acooly.messager("提示",result.message, result.success ? 'success' : 'danger');
                             }
                         } catch (e) {
                             $.acooly.messager('错误', e, 'danger');

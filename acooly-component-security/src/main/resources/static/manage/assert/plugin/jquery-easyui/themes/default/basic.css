@@ -1,7 +1,10 @@
 body {
-    font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei";
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /*font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;*/
     font-size: 14px;
-    /*color: #404040;*/
 }
 
 /* login Header */
@@ -193,6 +196,11 @@ a.button1 span img {
     font-size: 14px;
 }
 
+.tableForm .item {
+    display: inline-block;
+    margin-left: 2px;
+}
+
 .tableForm th {
     text-align: right;
     border-bottom: 1px dotted #ccc;
@@ -304,3 +312,33 @@ img {
 }
 
 .layui-btn-sm {font-size: 14px;}
+
+
+/* adminlte bootstrap form  */
+.form-horizontal .validatebox-invalid {
+    border-color: #dc3545;
+    padding-right: 2.25rem;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+
+.form-horizontal .form-control {
+    font-size: inherit;
+    height: calc(2rem + 2px);
+    border-radius: 0;
+}
+
+.form-horizontal textarea.form-control{
+    height:auto;
+}
+
+.form-horizontal .select2-container--bootstrap4 .select2-selection--single {
+    height: calc(2rem + 2px) !important;
+    border-radius: 0;
+}
+
+.select2-dropdown {
+    z-index: 10000;
+}

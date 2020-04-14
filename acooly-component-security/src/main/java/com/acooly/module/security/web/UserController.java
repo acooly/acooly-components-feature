@@ -9,6 +9,7 @@ import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
+import com.acooly.core.utils.enums.Messageable;
 import com.acooly.core.utils.mapper.BeanCopier;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.module.event.EventBus;
@@ -262,6 +263,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
             User user = ShiroUtils.getCurrentUser();
             for (Serializable id : ids) {
                 if (user.getId().equals(id)) {
+                    log.warn("不能删除当前登录的用户， user: {}", user.getUsername());
                     throw new RuntimeException("不能删除当前登录的用户");
                 }
             }
@@ -354,5 +356,16 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         return entities;
     }
 
-
+    @Override
+    protected void handleException(JsonResult result, String action, Exception e) {
+        result.setSuccess(false);
+        if (e instanceof Messageable) {
+            Messageable be = (Messageable)e;
+            result.setCode(be.code());
+            result.setMessage(be.message());
+        } else {
+            result.setCode(e.getClass().getSimpleName());
+            result.setMessage(this.getExceptionMessage(action, e));
+        }
+    }
 }

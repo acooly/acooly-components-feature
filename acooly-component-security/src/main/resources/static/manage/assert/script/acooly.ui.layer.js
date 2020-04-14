@@ -56,7 +56,7 @@ var acooly_layui = {
             ctype = type;
         }
         layer.msg(cmessage, {
-            icon: (type ? 1 : 5),
+            icon: (type=='success' ? 1 : 5),
             title: (title == null ? '提示' : title),
             offset: 'rb',
             time: 4000,
