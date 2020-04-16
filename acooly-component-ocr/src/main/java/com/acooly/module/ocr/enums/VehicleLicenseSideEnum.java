@@ -2,7 +2,7 @@ package com.acooly.module.ocr.enums;
 
 /**
  * @author liangsong
- * @date 2020, 03, 25 16:55
+ * @date 2020-03-25 15:45
  */
 
 import com.acooly.core.utils.enums.Messageable;
@@ -12,15 +12,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public enum ImageStatusEnum implements Messageable {
-	normal("normal", "识别正常"), reversed_side("reversed_side", "身份证正反面颠倒"), non_idcard("non_idcard", "上传的图片中不包含身份证"),
-	blurred("blurred", "身份证模糊"), other_type_card("other_type_card", "其他类型证照"),
-	over_exposure("over_exposure", "身份证关键字段反光或过曝"), over_dark("over_dark", "身份证欠曝（亮度过低）"), unknown("unknown", "未知状态"),;
+public enum VehicleLicenseSideEnum implements Messageable {
+
+	front("front", "识别行驶证主页"),
+
+	back("back", "识别行驶证副页"),;
 
 	private final String code;
 	private final String message;
 
-	ImageStatusEnum(String code, String message) {
+	VehicleLicenseSideEnum(String code, String message) {
 		this.code = code;
 		this.message = message;
 	}
@@ -45,7 +46,7 @@ public enum ImageStatusEnum implements Messageable {
 
 	public static Map<String, String> mapping() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		for (ImageStatusEnum type : values()) {
+		for (VehicleLicenseSideEnum type : values()) {
 			map.put(type.getCode(), type.getMessage());
 		}
 		return map;
@@ -58,8 +59,8 @@ public enum ImageStatusEnum implements Messageable {
 	 * @return 枚举值码对应的枚举值。
 	 * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
 	 */
-	public static ImageStatusEnum find(String code) {
-		for (ImageStatusEnum status : values()) {
+	public static VehicleLicenseSideEnum find(String code) {
+		for (VehicleLicenseSideEnum status : values()) {
 			if (status.getCode().equals(code)) {
 				return status;
 			}
@@ -72,9 +73,9 @@ public enum ImageStatusEnum implements Messageable {
 	 *
 	 * @return 全部枚举值。
 	 */
-	public static List<ImageStatusEnum> getAll() {
-		List<ImageStatusEnum> list = new ArrayList<ImageStatusEnum>();
-		for (ImageStatusEnum status : values()) {
+	public static List<VehicleLicenseSideEnum> getAll() {
+		List<VehicleLicenseSideEnum> list = new ArrayList<VehicleLicenseSideEnum>();
+		for (VehicleLicenseSideEnum status : values()) {
 			list.add(status);
 		}
 		return list;
@@ -87,7 +88,7 @@ public enum ImageStatusEnum implements Messageable {
 	 */
 	public static List<String> getAllCode() {
 		List<String> list = new ArrayList<String>();
-		for (ImageStatusEnum status : values()) {
+		for (VehicleLicenseSideEnum status : values()) {
 			list.add(status.code());
 		}
 		return list;
@@ -97,4 +98,5 @@ public enum ImageStatusEnum implements Messageable {
 	public String toString() {
 		return this.code + ":" + this.message;
 	}
+
 }

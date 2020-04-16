@@ -1,4 +1,5 @@
 package com.acooly.module.ocr.enums;
+
 /**
  * @author liangsong
  * @date 2020-03-25 15:45
@@ -12,83 +13,86 @@ import java.util.List;
 import java.util.Map;
 
 public enum IdCardSideEnum implements Messageable {
-    front("front","身份证含照片的一面"),
-    back("back","身份证带国徽的一面"),
-    ;
-    private final String code;
-    private final String message;
+	front("front", "身份证含照片的一面"), back("back", "身份证带国徽的一面"),;
 
-    IdCardSideEnum(String code, String message) {
-        this.code = code;
-        this.message = message;
-    }
+	private final String code;
+	private final String message;
 
-    public String getCode() {
-        return code;
-    }
+	IdCardSideEnum(String code, String message) {
+		this.code = code;
+		this.message = message;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    @Override
-    public String code() {
-        return code;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    @Override
-    public String message() {
-        return message;
-    }
+	@Override
+	public String code() {
+		return code;
+	}
 
-    public static Map<String, String> mapping() {
-        Map<String, String> map = new LinkedHashMap<String, String>();
-        for (IdCardSideEnum type : values()) {
-            map.put(type.getCode(), type.getMessage());
-        }
-        return map;
-    }
+	@Override
+	public String message() {
+		return message;
+	}
 
-    /**
-     * 通过枚举值码查找枚举值。
-     *
-     * @param code 查找枚举值的枚举值码。
-     * @return 枚举值码对应的枚举值。
-     * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
-     */
-    public static IdCardSideEnum find(String code) {
-        for (IdCardSideEnum status : values()) {
-            if (status.getCode().equals(code)) {
-                return status;
-            }
-        }
-        return null;
-    }
+	public static Map<String, String> mapping() {
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		for (IdCardSideEnum type : values()) {
+			map.put(type.getCode(), type.getMessage());
+		}
+		return map;
+	}
 
-    /**
-     * 获取全部枚举值。
-     *
-     * @return 全部枚举值。
-     */
-    public static List<IdCardSideEnum> getAll() {
-        List<IdCardSideEnum> list = new ArrayList<IdCardSideEnum>();
-        for (IdCardSideEnum status : values()) {
-            list.add(status);
-        }
-        return list;
-    }
+	/**
+	 * 通过枚举值码查找枚举值。
+	 *
+	 * @param code 查找枚举值的枚举值码。
+	 * @return 枚举值码对应的枚举值。
+	 * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
+	 */
+	public static IdCardSideEnum find(String code) {
+		for (IdCardSideEnum status : values()) {
+			if (status.getCode().equals(code)) {
+				return status;
+			}
+		}
+		return null;
+	}
 
-    /**
-     * 获取全部枚举值码。
-     *
-     * @return 全部枚举值码。
-     */
-    public static List<String> getAllCode() {
-        List<String> list = new ArrayList<String>();
-        for (IdCardSideEnum status : values()) {
-            list.add(status.code());
-        }
-        return list;
-    }
+	/**
+	 * 获取全部枚举值。
+	 *
+	 * @return 全部枚举值。
+	 */
+	public static List<IdCardSideEnum> getAll() {
+		List<IdCardSideEnum> list = new ArrayList<IdCardSideEnum>();
+		for (IdCardSideEnum status : values()) {
+			list.add(status);
+		}
+		return list;
+	}
 
+	/**
+	 * 获取全部枚举值码。
+	 *
+	 * @return 全部枚举值码。
+	 */
+	public static List<String> getAllCode() {
+		List<String> list = new ArrayList<String>();
+		for (IdCardSideEnum status : values()) {
+			list.add(status.code());
+		}
+		return list;
+	}
+
+	@Override
+	public String toString() {
+		return this.code + ":" + this.message;
+	}
 }
