@@ -6,6 +6,7 @@
  */
 package com.acooly.module.data.region.portal;
 
+import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.module.data.region.dto.RegionInfo;
 import com.acooly.module.data.region.entity.Region;
@@ -41,6 +42,6 @@ public class RegionPortalController extends AbstractJQueryEntityController<Regio
     @RequestMapping("tree")
     @ResponseBody
     public List<RegionInfo> tree(HttpServletRequest request, HttpServletResponse response) {
-        return regionService.tree();
+        return regionService.tree(Apps.getAppName());
     }
 }

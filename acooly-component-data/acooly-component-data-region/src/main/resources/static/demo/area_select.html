@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title >省-市-县-街道  四级联动</title>
+    <script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/area-1.0.js"></script>
+    
+  </head>
+  <body>
+  
+  
+  <br/><br/>
+  <div>
+	
+	初始化：
+    <select id="s_province" name="province" style = "width:150px;" ></select>  
+	<select id="s_city" name="city"  style = "width:150px;"></select>  
+	<select id="s_county" name="county"  style = "width:150px;"></select>
+	<select id="s_street" name="street"  style = "width:150px;"></select>
+	
+	<br/><br/>
+	选中text：
+	<input type="text" id="s_province_text" />
+	<input type="text" id="s_city_text" />
+	<input type="text" id="s_county_text"/>
+	<input type="text" id="s_street_text" />
+
+  </div>
+	
+	
+	
+  </body>
+
+	<script type="text/javascript">
+	//初始化
+	initAreaData("");    
+    </script>
+
+-------------------------------------------------------------------------
+<div>
+ <br/> 省市县 四级联动
+ <br/> 
+ <br/> 可以直接看 CCCC
+ <br/> 
+ <br/> 
+ <br/> 使用方式
+ <br/> AAAA:
+ <br/> 服务器地址：/acooly/data/region/tree.html
+ <br/> 数据结构："id":110000000000,"parentId":100000,"name":"北京市","sortTime":0,"children"
+ <br/> 解析方式:  < option value=' 数据结构 id ' > 数据结构 name  < /option>  
+ <br/>
+ <br/> BBBB:
+ <br/> 动态支持 省-市-县-街道 四级联动
+ <br/> 配置方式如下：可自定义id,可自定义初始化 文字
+ <br/> 		配置对应的 省-市-县-街道 id: 	var selectIds = [ "s_province", "s_city", "s_county", "s_street" ];
+ <br/> 		配置对应的 省-市-县-街道 name : 	var selectInitText = [ "请选择-省份", "请选择-市", "请选择-区、县级市", "请选择-街道" ]
+ <br/> 
+ <br/> CCCC:
+ <br/> 初始化赋值：
+ <br/> var initData=new Array('${org.province}', '${org.city}', '${org.county}', '${org.street}');
+ <br/> initAreaData(initData);
+ <br/> 
+ <br/> 
+ <br/> DDDD:
+ <br/> var selectInitText  数据可以为空 
+ <br/> var selectIds 至少一个参数，最多四个参数（省-市-县-街道）
+ <br/> 
+</div>
+
+  
+</html>
+
+
+

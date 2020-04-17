@@ -1,5 +1,10 @@
 <script type="text/javascript">
 $(function() {
+	$("#manage_region_datagrid").treegrid({
+            loadFilter: function (result) {
+                return result.rows;
+            }
+        });
 	$.acooly.framework.registerKeydown('manage_region_searchform','manage_region_datagrid');
 });
 
@@ -24,8 +29,8 @@ $(function() {
 
   <!-- 列表和工具栏 -->
   <div data-options="region:'center',border:false">
-    <table id="manage_region_datagrid" class="easyui-datagrid" url="/manage/module/data/region/listJson.html" toolbar="#manage_region_toolbar" fit="true" border="false" fitColumns="false"
-      pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc" checkOnSelect="true" selectOnCheck="true" singleSelect="true">
+    <table id="manage_region_datagrid" class="easyui-treegrid" url="/manage/module/data/region/listTree.html" toolbar="#manage_region_toolbar" fit="true"
+               border="false" fitColumns="true"  rownumbers="true" idField="id" treeField="name" collapsible="true" checkOnSelect="true" selectOnCheck="true">
       <thead>
         <tr>
         	<th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
