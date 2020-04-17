@@ -31,7 +31,7 @@ public class ResourceDaoImpl extends JapDynamicQueryDao<Resource> implements Res
         List<ResourceNode> resourceNodes = Lists.newArrayList();
         String sql =
                 "select t1.* from sys_resource t1, sys_role_resc t2, sys_user_role t3 "
-                        + "where t1.id = t2.resc_id and t2.role_id = t3.role_id and t1.show_state = 0 and "
+                        + "where t1.id = t2.resc_id and t2.role_id = t3.role_id and "
                         + "t3.user_id = ? order by t1.order_time desc";
         SqlRowSet rs = pagedJdbcTemplate.queryForRowSet(sql, userId);
         while (rs.next()) {
