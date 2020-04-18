@@ -315,3 +315,5 @@ img {
     overflow: auto;
     padding: 3px;
 }
+.main-header {position: absolute; width: 100%;}
+.content-wrapper {margin-top:50px;}

@@ -89,25 +89,23 @@
                                     $.acooly.framework.onUpdateSuccess(d, datagrid, result, reload);
                                 }
 
-                                d.dialog('destroy');
+                                $.acooly.divdialog.dialog('destroy');
                             } else {
                                 if (onFailure) {
                                     onFailure.call(d, result);
                                 }
                             }
                             if (result.message) {
-                                $.acooly.msgrb(result.message, result.success)
+                                $.acooly.messager("提示",result.message, result.success ? 'success' : 'danger');
                             }
                         } catch (e) {
-                            $.acooly.alert('错误', e);
-                            // $.messager.alert('提示', e);
+                            $.acooly.messager('错误', e, 'danger');
                         }
 
                     },
                     error: function (XmlHttpRequest, textStatus, errorThrown) {
                         $(thisObject).linkbutton('enable');
-                        $.acooly.alert('错误', errorThrown);
-                        // $.messager.alert('提示', errorThrown);
+                        $.acooly.messager('错误', errorThrown, 'danger');
                     }
                 });
             },
@@ -172,6 +170,16 @@
                             onClose.call(d);
                         }
                         $(this).dialog('destroy');
+                    },
+                    onOpen: function () {
+                        // 打开dialog，EASYUI渲染完成后，处理combobox的宽度
+                        var that = $(this);
+                        $.parser.onComplete = function () {
+                            //要执行的操作
+                            $.acooly.framework.extendCombobox($(that));
+                            //最后把坑爹的事件绑定解除
+                            $.parser.onComplete = function () { };
+                        }
                     }
                 });
             },
@@ -185,13 +193,9 @@
                     return;
                 }
                 if (reload) {
-                    if (className == 'easyui-treegrid') {
-                        $('#' + datagrid).treegrid('reload');
-                    } else {
-                        $('#' + datagrid).datagrid('reload');
-                    }
+                    $.acooly.framework.gridReload(datagrid);
                 } else {
-                    if (className == 'easyui-treegrid') {
+                    if (className.indexOf('easyui-treegrid') != -1) {
                         var node = $('#' + datagrid).treegrid('getSelected');
                         if (node) {
                             if ($('#' + datagrid).treegrid('getChildren', node.id).length > 0) {
@@ -210,6 +214,24 @@
                     }
                 }
             },
+
+            /**
+             * reload表格
+             * @param datagrid
+             * @private
+             */
+            gridReload: function (datagrid) {
+                var className = $('#' + datagrid).attr('class');
+                if (!className || className == '') {
+                    return;
+                }
+                if (className.indexOf('easyui-treegrid') != -1) {
+                    $('#' + datagrid).treegrid('reload');
+                } else {
+                    $('#' + datagrid).datagrid('reload');
+                }
+            },
+
 
             /**
              * 编辑
@@ -247,7 +269,7 @@
                 }
                 // changelog-end
                 if (!id || id == '') {
-                    $.acooly.alert('提示', '请选择需要编辑的数据');
+                    $.acooly.messager('提示', '请选择需要编辑的数据', 'primary');
                     return;
                 }
                 var href = $.acooly.framework.getCanonicalUrl(url, id);
@@ -291,6 +313,16 @@
                             onClose.call(d);
                         }
                         $(this).dialog('destroy');
+                    },
+                    onOpen: function () {
+                        // 打开dialog，EASYUI渲染完成后，处理combobox的宽度
+                        var that = $(this);
+                        $.parser.onComplete = function () {
+                            //要执行的操作
+                            $.acooly.framework.extendCombobox($(that));
+                            //最后把坑爹的事件绑定解除
+                            $.parser.onComplete = function () { };
+                        }
                     }
                 });
             },
@@ -306,13 +338,9 @@
                     return;
                 }
                 if (reload) {
-                    if (className == 'easyui-treegrid') {
-                        $('#' + datagrid).treegrid('reload');
-                    } else {
-                        $('#' + datagrid).datagrid('reload');
-                    }
+                    $.acooly.framework.gridReload(datagrid);
                 } else {
-                    if (className == 'easyui-treegrid') {
+                    if (className.indexOf('easyui-treegrid') != -1) {
                         $('#' + datagrid).treegrid('update', {
                             id: result.entity.id,
                             row: result.entity
@@ -367,6 +395,7 @@
                         $.acooly.framework.search(searchForm, datagride);
                     }
                 });
+                $.acooly.framework.extendCombobox(searchForm);
             },
 
             /**
@@ -421,7 +450,7 @@
                 var height = opts.height != null ? opts.height : 300;
                 var title = opts.title != null ? opts.title : '<i class="fa fa-file-o fa-lg fa-fw fa-col"></i>查看'
                 var buttonLable = opts.buttonLable != null ? opts.buttonLable : '关闭';
-                return $('<div/>').dialog({
+                var d = $('<div/>').dialog({
                     href: contextPath + url,
                     width: width,
                     height: height,
@@ -430,7 +459,7 @@
                     buttons: [{
                         text: '<i class="fa fa-times-circle fa-lg fa-fw fa-col" ></i>关闭',
                         handler: function () {
-                            var d = $(this).closest('.window-body');
+                            // var d = $(this).closest('.window-body');
                             d.dialog('close');
                         }
                     }],
@@ -438,10 +467,16 @@
                         $(this).dialog('destroy');
                     }
                 });
+                return d;
             },
 
             /**
              * 创建uploadify上传组件
+             * @param options:可覆盖所有uploadify标准参数，自定扩展参数包括: {
+             *     formData: {},        // 附带提交的post参数
+             *     jsessionid: ''       // 可选，目前使用uploadfive，已不需要,
+             *     messager: ''         // 用于显示上传提示信息的容器ID
+             * }
              */
             createUploadify: function (options) {
                 var uploadOptions = {
@@ -465,7 +500,6 @@
                         } else {
                             $('#' + options.messager).html('导入失败:' + result.message);
                         }
-                        // $('#' + options.uploader).uploadify('cancel');
                     },
                     onProgress: function (file, e) {
                         if (e.lengthComputable) {
@@ -500,9 +534,7 @@
                         $('#' + options.messager).html(msg);
                     }
                 }
-
                 var uploadfiveOptions = $.extend(uploadOptions, options);
-
                 if (!uploadfiveOptions.queueID) {
                     uploadfiveOptions.queueID = false;
                 }
@@ -510,25 +542,28 @@
                 $('#' + options.uploader).uploadifive(uploadfiveOptions);
             },
             imports_dialog: '',
+
+            /**
+             * 导入视图
+             * @param opts {width,height,title,url,datagrid,uploader}
+             */
             imports: function (opts) {
                 var w = opts.width ? opts.width : 400;
                 var h = opts.height ? opts.height : 280;
-
+                var load = (opts.datagrid) ? true : false;
                 $.acooly.framework.imports_dialog = $('<div/>').dialog({
                     href: contextPath + opts.url,
                     width: w,
                     height: h,
-                    iconCls: 'icon-import',
                     modal: true,
-                    title: opts.title ? opts.title : '数据导入',
+                    title: opts.title ? opts.title : '<i class="fa fa-cloud-upload fa-lg fa-fw fa-col"></i> 数据导入',
                     buttons: [{
-                        text: '上传导入',
-                        iconCls: 'icon-import',
+                        text: '<i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i> 上传导入',
                         handler: function () {
                             let uploadifiveOptions = $('#' + opts.uploader).data('uploadifive').settings;
-                            if(uploadifiveOptions.onFormData){
+                            if (uploadifiveOptions.onFormData) {
                                 var data = uploadifiveOptions.onFormData.call(this);
-                                if(uploadifiveOptions.formData){
+                                if (uploadifiveOptions.formData) {
                                     data = $.extend(uploadifiveOptions.formData, data);
                                 }
                                 $('#' + opts.uploader).data('uploadifive').settings.formData = data;
@@ -536,15 +571,16 @@
                             $('#' + opts.uploader).uploadifive('upload');
                         }
                     }, {
-                        text: '关闭',
-                        iconCls: 'icon-cancel',
+                        text: '<i class="fa fa-times-circle fa-lg fa-fw fa-col" ></i> 关闭',
                         handler: function () {
-                            var d = $(this).closest('.window-body');
-                            d.dialog('close');
+                            $.acooly.framework.imports_dialog.dialog('close');
                         }
                     }],
                     onClose: function () {
-                        $('#' + opts.uploader).uploadifive('destroy');
+                        // $('#' + opts.uploader).uploadifive('destroy');
+                        if (load) {
+                            $.acooly.framework.gridReload(opts.datagrid);
+                        }
                         $(this).dialog('destroy');
                     }
                 });
@@ -568,7 +604,7 @@
                                     result = eval('(' + result + ')');
                                 if (result.success) {
                                     var className = $('#' + datagrid).attr('class');
-                                    if (className == 'easyui-treegrid') {
+                                    if (className.indexOf('easyui-treegrid') != -1) {
                                         var node = $('#' + datagrid).treegrid('getSelected');
                                         var parent = $('#' + datagrid).treegrid('getParent', node.id);
                                         if (parent) {
@@ -584,10 +620,7 @@
                                     }
                                 }
                                 if (result.message) {
-                                    $.messager.show({
-                                        title: '提示',
-                                        msg: result.message
-                                    });
+                                    $.acooly.messager('提示', result.message,result.success?'success':'danger');
                                 }
                             }
                         });
@@ -616,10 +649,7 @@
                                     }
                                 }
                                 if (result.message) {
-                                    $.messager.show({
-                                        title: '提示',
-                                        msg: result.message
-                                    });
+                                    $.acooly.messager('提示', result.message,result.success?'success':'danger');
                                 }
                             }
                         });
@@ -636,7 +666,7 @@
                 }, function (result) {
                     if (result.success) {
                         var className = $('#' + datagrid).attr('class');
-                        if (className == 'easyui-treegrid') {
+                        if (className.indexOf('easyui-treegrid') != -1) {
                             var node = $('#' + datagrid).treegrid('getSelected');
                             var parent = $('#' + datagrid).treegrid('getParent', node.id);
                             if (parent) {
@@ -649,10 +679,7 @@
                         }
                     }
                     if (result.message) {
-                        $.messager.show({
-                            title: '提示',
-                            msg: result.message
-                        });
+                        $.acooly.messager('提示', result.message,result.success?'success':'danger');
                     }
                 });
             },
@@ -679,10 +706,7 @@
                     }
                     $.acooly.framework.remove(url, ids.join(','), datagrid, confirmTitle, confirmMessage);
                 } else {
-                    $.messager.show({
-                        title: '提示',
-                        msg: '请勾选要删除的记录！'
-                    });
+                    $.acooly.messager('提示', "请勾选要删除的记录", 'warning');
                 }
             },
             logout: function () {
@@ -715,10 +739,9 @@
                     width: 400,
                     height: 300,
                     modal: true,
-                    title: '修改密码',
+                    title: ' <i class="fa fa-lock fa-lg"></i> 修改密码',
                     buttons: [{
-                        text: '修改密码',
-                        iconCls: 'icon-edit',
+                        text: '<i class="fa fa-check fa-col"></i> 提交',
                         handler: function () {
                             var d = $(this).closest('.window-body');
                             $('#user_changePassword_form').form('submit', {
@@ -729,7 +752,7 @@
                                     }
                                     // 自定义检查合法性
                                     if ($('#system_newPassword').val() != $('#system_confirmNewPassword').val()) {
-                                        $.acooly.alert('提示', '两次密码输入不一致');
+                                        $.acooly.messager('提示', '两次密码输入不一致', 'warning');
                                         return false;
                                     }
                                     return true;
@@ -750,7 +773,7 @@
                                             $.messager.show({title: '提示', msg: result.message});
                                         }
                                     } catch (e) {
-                                        $.acooly.alert('提示', result);
+                                        $.acooly.messager('错误', result, 'danger');
                                     }
                                 }
                             });
@@ -858,7 +881,7 @@
              */
             reloadGrid: function (grid) {
                 var className = $('#' + datagrid).attr('class');
-                if (className == 'easyui-treegrid') {
+                if (className.indexOf('easyui-treegrid') != -1) {
                     $('#' + grid).treegrid('reload');
                 } else {
                     $('#' + grid).datagrid('reload');
@@ -979,7 +1002,7 @@
 
             _isDatagrid: function (datagrid) {
                 var className = $('#' + datagrid).attr('class');
-                return (className && className == 'easyui-datagrid');
+                return (className && className.indexOf('easyui-datagrid') != -1);
             },
 
             /**
@@ -1015,6 +1038,25 @@
                 };
                 let options = $.extend(defOpts, opts);
                 $('#' + inputId).selectPage(options);
+            },
+
+            extendCombobox: function (container) {
+                var obj = container && container.jquery?container:$('#'+container)
+                $(obj).find('.easyui-combobox').combobox({
+                    onLoadSuccess: function () {
+                        if($(this).attr('style').indexOf("width") != -1){
+                            return;
+                        }
+                        let originalWidth = $(this).next().css('width');
+                        if (originalWidth) {
+                            if (originalWidth.indexOf('px') != -1) {
+                                originalWidth = originalWidth.substring(0, originalWidth.indexOf('px'));
+                                const newWidth = parseInt(originalWidth) + 20;
+                                $(this).combobox("resize", newWidth);
+                            }
+                        }
+                    }
+                });
             }
 
         }

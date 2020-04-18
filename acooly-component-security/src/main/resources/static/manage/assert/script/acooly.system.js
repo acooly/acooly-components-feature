@@ -24,12 +24,15 @@
                 var That = this;
                 $.ajax({
                     url: contextPath + "/security/config/index.html",
-                    async: false,
                     success: function (data, textStatus) {
                         if (typeof (data) == 'string') {
                             data = eval('(' + data + ')');
                         }
                         That.config = data;
+                        var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
+                        if(acoolyTheme && acoolyTheme.indexOf('adminlte') != -1){
+                            $.acooly.admin.init();
+                        }
                     }
                 });
             },
@@ -352,23 +355,23 @@ function manage_resource_tree_delete(id) {
  */
 
 function loadTheme() {
-    var themeName = getTheme();
+    var themeName = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
     if (!themeName) {
-        themeName = 'default';
+        themeName = 'adminlte3';
     }
     changeThemeStyle(themeName);
-    $('#theme_' + themeName).attr("data-options", "iconCls:'icon-ok'");
+    // $('#theme_' + themeName).attr("data-options", "iconCls:'icon-ok'");
 }
 
 function changeThemeStyle(themeName) {
     var $easyuiTheme = $('#easyuiTheme');
     var url = $easyuiTheme.attr('href');
-    var href = url.substring(0, url.indexOf('themes')) + 'themes/' + themeName + '/easyui.css';
+    var href = url.substring(0, url.indexOf('themes')) + 'themes/acooly/easyui.css';
     $easyuiTheme.attr('href', href);
 
     var $easyuiThemeBasic = $('#easyuiThemeBasic');
     var urlBasic = $easyuiThemeBasic.attr('href');
-    var hrefBasic = url.substring(0, urlBasic.indexOf('themes')) + 'themes/' + themeName + '/basic.css';
+    var hrefBasic = url.substring(0, urlBasic.indexOf('themes')) + 'themes/acooly/basic_'+themeName+'.css';
     $easyuiThemeBasic.attr('href', hrefBasic);
 
 

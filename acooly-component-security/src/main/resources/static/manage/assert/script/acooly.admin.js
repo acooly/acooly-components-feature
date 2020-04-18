@@ -11,14 +11,16 @@
             this.initLogo();
             this.initMenus();
             this.initTab();
+            this.initPlugins();
             // 新旧版本的风格(访问到旧版页面，则设置版本cookies)
-            $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "adminlte")
+            // $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "adminlte")
         },
 
         /**
          * 初始化LOGO
          */
         initLogo: function () {
+            // adminlte2
             if ($.acooly.system.config.logo) {
                 $('.logo-lg').html("<img src='" + $.acooly.system.config.logo + "' width='200'>")
             } else {
@@ -31,6 +33,16 @@
             if ($.acooly.system.config.shorttitle) {
                 $('.logo-mini').html($.acooly.system.config.shorttitle);
             }
+
+            // adminlte3
+            if ($.acooly.system.config.logo) {
+                $('#logo_image').attr('src', $.acooly.system.config.logoMini);
+            }
+            if ($.acooly.system.config.title) {
+                $('#logo_title').text($.acooly.system.config.title);
+            } else {
+                $('#logo_title').text("<b>Accoly</b> Sys V5.x");
+            }
         },
 
         /**
@@ -38,12 +50,24 @@
          */
         initMenus: function () {
 
-            // 注册点击主菜单（.treeview）的选中效果(.active)
+            // adminlte2: 注册点击主菜单（.treeview）的选中效果(.active)
             $(document).on("click", '.sidebar-menu ul li', function (e) {
                 $(".sidebar-menu li").removeClass("active");
                 $(this).addClass("active");
                 if ($(this).parent() && $(this).parent().parent()) {
                     $(this).parent().parent().addClass("active");
+                }
+            });
+
+            // adminlte3: 注册点击主菜单（.nav-link）的选中效果(.active)
+            $(document).on("click", '.nav .nav-link', function (e) {
+                // 选择效果
+                $(".nav .nav-link").removeClass("active");
+                $(this).addClass("active");
+                var e = $(this).parent();
+                while (e && e.parent() && e.attr('class').indexOf('nav-sidebar') == -1){
+                    e.parent().prev().addClass("active");
+                    e = e.parent();
                 }
             });
         },
@@ -87,8 +111,10 @@
                 }
             });
             $('#layout_center_tabs').tabs({
-                height:$(window).height()-52,
+                fit: true,
+                height: $(window).height() - 52,
                 border: false,
+                pill: true,
                 onContextMenu: function (e, title) {
                     e.preventDefault();
                     $('#layout_center_tabsMenu').menu('show', {
@@ -98,57 +124,66 @@
                 },
                 tools: [
                     {
-                    text: '<i class="fa fa-refresh"></i>',
-                    handler: function () {
-                        var href = $('#layout_center_tabs').tabs('getSelected').panel('options').href;
-                        if (href) {/*说明tab是以href方式引入的目标页面*/
-                            var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
-                            $('#layout_center_tabs').tabs('getTab', index).panel('refresh');
-                        } else {/*说明tab是以content方式引入的目标页面*/
-                            var panel = $('#layout_center_tabs').tabs('getSelected').panel('panel');
-                            var frame = panel.find('iframe');
-                            try {
-                                if (frame.length > 0) {
-                                    for (var i = 0; i < frame.length; i++) {
-                                        //跨域情况会报错，注释掉
-                                        //frame[i].contentWindow.document.write('');
-                                        //frame[i].contentWindow.close();
-                                        frame[i].src = frame[i].src;
+                        text: '<i class="fa fa-refresh"></i>',
+                        handler: function () {
+                            var href = $('#layout_center_tabs').tabs('getSelected').panel('options').href;
+                            if (href) {/*说明tab是以href方式引入的目标页面*/
+                                var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
+                                $('#layout_center_tabs').tabs('getTab', index).panel('refresh');
+                            } else {/*说明tab是以content方式引入的目标页面*/
+                                var panel = $('#layout_center_tabs').tabs('getSelected').panel('panel');
+                                var frame = panel.find('iframe');
+                                try {
+                                    if (frame.length > 0) {
+                                        for (var i = 0; i < frame.length; i++) {
+                                            //跨域情况会报错，注释掉
+                                            //frame[i].contentWindow.document.write('');
+                                            //frame[i].contentWindow.close();
+                                            frame[i].src = frame[i].src;
+                                        }
+                                        if ($.browser.msie) {
+                                            CollectGarbage();
+                                        }
                                     }
-                                    if ($.browser.msie) {
-                                        CollectGarbage();
-                                    }
+                                } catch (e) {
                                 }
-                            } catch (e) {
                             }
                         }
-                    }
-                },
+                    },
                     {
-                    text: '<i class="fa fa-close"></i>',
-                    handler: function () {
-                        var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
-                        if (index <= 0) {
-                            return;
+                        text: '<i class="fa fa-close"></i>',
+                        handler: function () {
+                            var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
+                            if (index <= 0) {
+                                return;
+                            }
+                            var tab = $('#layout_center_tabs').tabs('getTab', index);
+                            if (tab.panel('options').closable) {
+                                $('#layout_center_tabs').tabs('close', index);
+                            } else {
+                                $.messager.alert('提示', '[' + tab.panel('options').title + ']不可以被关闭', 'error');
+                            }
                         }
-                        var tab = $('#layout_center_tabs').tabs('getTab', index);
-                        if (tab.panel('options').closable) {
-                            $('#layout_center_tabs').tabs('close', index);
-                        } else {
-                            $.messager.alert('提示', '[' + tab.panel('options').title + ']不可以被关闭', 'error');
-                        }
-                    }
-                }]
+                    }]
             });
 
 
             // 通过jquery-resize插件实现：父节点大小改变后，resize tabs
             $('.content-wrapper').resize(function () {
+                let parentWidth = $(this).width();
+                // let parentWidth = $(window).width();
                 $('#layout_center_tabs').tabs({
-                    width: $("#_tabs").parent().width(),
-                    height: $("#_tabs").parent().height()
+                    width: parentWidth,
+                    height: $(window).height() - 52
                 }).tabs('resize');
             });
+        },
+
+        /**
+         * 初始化第三方插件
+         */
+        initPlugins: function(){
+
         },
 
         /**
@@ -200,7 +235,7 @@
                 $.extend(options, {
                     onLoadError: function (e, x, y) {
                         That.close();
-                        $.acooly.alert('错误', "请求的功能不存在");
+                        $.acooly.toast('错误', "请求的功能不存在");
                     }
                 })
                 t.tabs('add', options);
@@ -291,13 +326,43 @@
          * @param theme
          */
         saveTheme: function (key, value) {
-            if (!key) {
-                key = this.acoolyThemeKey;
+            var args = arguments;
+            var ckey = args.length == 1 ? this.acoolyThemeKey : key;
+            if (!ckey) {
+                ckey = this.acoolyThemeKey;
             }
-            $.cookie(key, value, {
-                expires: this.defaultExpires
+            var domain = this.getMainHost();
+            $.cookie(ckey, value, {
+                expires: this.defaultExpires,
+                domain: domain
             });
+        },
+
+        getMainHost: function () {
+            let key = `mh_${Math.random()}`;
+            let keyR = new RegExp(`(^|;)\\s*${key}=12345`);
+            let expiredTime = new Date(0);
+            let domain = document.domain;
+            let domainList = domain.split('.');
+
+            let urlItems = [];
+            // 主域名一定会有两部分组成
+            urlItems.unshift(domainList.pop());
+            // 慢慢从后往前测试
+            while (domainList.length) {
+                urlItems.unshift(domainList.pop());
+                let mainHost = urlItems.join('.');
+                let cookie = `${key}=${12345};domain=.${mainHost}`;
+                document.cookie = cookie;
+                //如果cookie存在，则说明域名合法
+                if (keyR.test(document.cookie)) {
+                    document.cookie = `${cookie};expires=${expiredTime}`;
+                    return mainHost;
+                }
+            }
         }
+
+
     }
 
 

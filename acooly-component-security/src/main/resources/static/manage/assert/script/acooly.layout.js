@@ -104,7 +104,7 @@
                 var opts = {
                     title: node.name,
                     closable: true,
-                    iconCls: node.icon != null && node.icon.startsWith("fa") ? "fa " + node.icon : node.icon
+                    iconCls: node.icon != null && node.icon.indexOf("fa") != -1 ? "fa " + node.icon : node.icon
                 };
                 if (node.showMode == 1) {
                     opts.href = contextPath + url;
@@ -146,7 +146,7 @@
                     $.extend(opts, {
                         onLoadError: function (e, x, y) {
                             $.acooly.layout.closeTab();
-                            $.acooly.msgrb("请求的功能不存在或没有权限", false)
+                            $.acooly.messager("错误","请求的功能不存在或没有权限", 'danger')
                         }
                     })
                     t.tabs('add', opts);

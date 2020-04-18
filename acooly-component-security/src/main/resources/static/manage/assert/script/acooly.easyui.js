@@ -43,6 +43,12 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: '只能输入汉字'
     },
+    chinese: {
+        validator: function (value) {
+            return $.acooly.verify.chs(value);
+        },
+        message: '只能输入汉字'
+    },
     // 移动手机号码验证
     mobile: {// value值为文本框中的值
         validator: function (value) {

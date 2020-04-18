@@ -1,324 +1,347 @@
-﻿/**
- * jQuery EasyUI 1.3.6
+/**
+ * EasyUI for jQuery 1.9.4
+ * 
+ * Copyright (c) 2009-2020 www.jeasyui.com. All rights reserved.
  *
- * Copyright (c) 2009-2014 www.jeasyui.com. All rights reserved.
- *
- * Licensed under the GPL license: http://www.gnu.org/licenses/gpl.txt
- * To use it on other terms please contact us at info@jeasyui.com
+ * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
+ * To use it on other terms please contact us: info@jeasyui.com
  *
  */
-(function ($) {
-    function _1(_2) {
-        var _3 = $("<div class=\"slider\">" + "<div class=\"slider-inner\">" + "<a href=\"javascript:void(0)\" class=\"slider-handle\"></a>" + "<span class=\"slider-tip\"></span>" + "</div>" + "<div class=\"slider-rule\"></div>" + "<div class=\"slider-rulelabel\"></div>" + "<div style=\"clear:both\"></div>" + "<input type=\"hidden\" class=\"slider-value\">" + "</div>").insertAfter(_2);
-        var t = $(_2);
-        t.addClass("slider-f").hide();
-        var _4 = t.attr("name");
-        if (_4) {
-            _3.find("input.slider-value").attr("name", _4);
-            t.removeAttr("name").attr("sliderName", _4);
-        }
-        return _3;
-    };
-
-    function _5(_6, _7) {
-        var _8 = $.data(_6, "slider");
-        var _9 = _8.options;
-        var _a = _8.slider;
-        if (_7) {
-            if (_7.width) {
-                _9.width = _7.width;
-            }
-            if (_7.height) {
-                _9.height = _7.height;
-            }
-        }
-        if (_9.mode == "h") {
-            _a.css("height", "");
-            _a.children("div").css("height", "");
-            if (!isNaN(_9.width)) {
-                _a.width(_9.width);
-            }
-        } else {
-            _a.css("width", "");
-            _a.children("div").css("width", "");
-            if (!isNaN(_9.height)) {
-                _a.height(_9.height);
-                _a.find("div.slider-rule").height(_9.height);
-                _a.find("div.slider-rulelabel").height(_9.height);
-                _a.find("div.slider-inner")._outerHeight(_9.height);
-            }
-        }
-        _b(_6);
-    };
-
-    function _c(_d) {
-        var _e = $.data(_d, "slider");
-        var _f = _e.options;
-        var _10 = _e.slider;
-        var aa = _f.mode == "h" ? _f.rule : _f.rule.slice(0).reverse();
-        if (_f.reversed) {
-            aa = aa.slice(0).reverse();
-        }
-        _11(aa);
-
-        function _11(aa) {
-            var _12 = _10.find("div.slider-rule");
-            var _13 = _10.find("div.slider-rulelabel");
-            _12.empty();
-            _13.empty();
-            for (var i = 0; i < aa.length; i++) {
-                var _14 = i * 100 / (aa.length - 1) + "%";
-                var _15 = $("<span></span>").appendTo(_12);
-                _15.css((_f.mode == "h" ? "left" : "top"), _14);
-                if (aa[i] != "|") {
-                    _15 = $("<span></span>").appendTo(_13);
-                    _15.html(aa[i]);
-                    if (_f.mode == "h") {
-                        _15.css({left: _14, marginLeft: -Math.round(_15.outerWidth() / 2)});
-                    } else {
-                        _15.css({top: _14, marginTop: -Math.round(_15.outerHeight() / 2)});
-                    }
-                }
-            }
-        };
-    };
-
-    function _16(_17) {
-        var _18 = $.data(_17, "slider");
-        var _19 = _18.options;
-        var _1a = _18.slider;
-        _1a.removeClass("slider-h slider-v slider-disabled");
-        _1a.addClass(_19.mode == "h" ? "slider-h" : "slider-v");
-        _1a.addClass(_19.disabled ? "slider-disabled" : "");
-        _1a.find("a.slider-handle").draggable({
-            axis: _19.mode, cursor: "pointer", disabled: _19.disabled, onDrag: function (e) {
-                var _1b = e.data.left;
-                var _1c = _1a.width();
-                if (_19.mode != "h") {
-                    _1b = e.data.top;
-                    _1c = _1a.height();
-                }
-                if (_1b < 0 || _1b > _1c) {
-                    return false;
-                } else {
-                    var _1d = _33(_17, _1b);
-                    _1e(_1d);
-                    return false;
-                }
-            }, onBeforeDrag: function () {
-                _18.isDragging = true;
-            }, onStartDrag: function () {
-                _19.onSlideStart.call(_17, _19.value);
-            }, onStopDrag: function (e) {
-                var _1f = _33(_17, (_19.mode == "h" ? e.data.left : e.data.top));
-                _1e(_1f);
-                _19.onSlideEnd.call(_17, _19.value);
-                _19.onComplete.call(_17, _19.value);
-                _18.isDragging = false;
-            }
-        });
-        _1a.find("div.slider-inner").unbind(".slider").bind("mousedown.slider", function (e) {
-            if (_18.isDragging) {
-                return;
-            }
-            var pos = $(this).offset();
-            var _20 = _33(_17, (_19.mode == "h" ? (e.pageX - pos.left) : (e.pageY - pos.top)));
-            _1e(_20);
-            _19.onComplete.call(_17, _19.value);
-        });
-
-        function _1e(_21) {
-            var s = Math.abs(_21 % _19.step);
-            if (s < _19.step / 2) {
-                _21 -= s;
-            } else {
-                _21 = _21 - s + _19.step;
-            }
-            _22(_17, _21);
-        };
-    };
-
-    function _22(_23, _24) {
-        var _25 = $.data(_23, "slider");
-        var _26 = _25.options;
-        var _27 = _25.slider;
-        var _28 = _26.value;
-        if (_24 < _26.min) {
-            _24 = _26.min;
-        }
-        if (_24 > _26.max) {
-            _24 = _26.max;
-        }
-        _26.value = _24;
-        $(_23).val(_24);
-        _27.find("input.slider-value").val(_24);
-        var pos = _29(_23, _24);
-        var tip = _27.find(".slider-tip");
-        if (_26.showTip) {
-            tip.show();
-            tip.html(_26.tipFormatter.call(_23, _26.value));
-        } else {
-            tip.hide();
-        }
-        if (_26.mode == "h") {
-            var _2a = "left:" + pos + "px;";
-            _27.find(".slider-handle").attr("style", _2a);
-            tip.attr("style", _2a + "margin-left:" + (-Math.round(tip.outerWidth() / 2)) + "px");
-        } else {
-            var _2a = "top:" + pos + "px;";
-            _27.find(".slider-handle").attr("style", _2a);
-            tip.attr("style", _2a + "margin-left:" + (-Math.round(tip.outerWidth())) + "px");
-        }
-        if (_28 != _24) {
-            _26.onChange.call(_23, _24, _28);
-        }
-    };
-
-    function _b(_2b) {
-        var _2c = $.data(_2b, "slider").options;
-        var fn = _2c.onChange;
-        _2c.onChange = function () {
-        };
-        _22(_2b, _2c.value);
-        _2c.onChange = fn;
-    };
-
-    function _29(_2d, _2e) {
-        var _2f = $.data(_2d, "slider");
-        var _30 = _2f.options;
-        var _31 = _2f.slider;
-        var _32 = _30.mode == "h" ? _31.width() : _31.height();
-        var pos = _30.converter.toPosition.call(_2d, _2e, _32);
-        if (_30.mode == "v") {
-            pos = _31.height() - pos;
-        }
-        if (_30.reversed) {
-            pos = _32 - pos;
-        }
-        return pos.toFixed(0);
-    };
-
-    function _33(_34, pos) {
-        var _35 = $.data(_34, "slider");
-        var _36 = _35.options;
-        var _37 = _35.slider;
-        var _38 = _36.mode == "h" ? _37.width() : _37.height();
-        var _39 = _36.converter.toValue.call(_34, _36.mode == "h" ? (_36.reversed ? (_38 - pos) : pos) : (_38 - pos), _38);
-        return _39.toFixed(0);
-    };
-    $.fn.slider = function (_3a, _3b) {
-        if (typeof _3a == "string") {
-            return $.fn.slider.methods[_3a](this, _3b);
-        }
-        _3a = _3a || {};
-        return this.each(function () {
-            var _3c = $.data(this, "slider");
-            if (_3c) {
-                $.extend(_3c.options, _3a);
-            } else {
-                _3c = $.data(this, "slider", {
-                    options: $.extend({}, $.fn.slider.defaults, $.fn.slider.parseOptions(this), _3a),
-                    slider: _1(this)
-                });
-                $(this).removeAttr("disabled");
-            }
-            var _3d = _3c.options;
-            _3d.min = parseFloat(_3d.min);
-            _3d.max = parseFloat(_3d.max);
-            _3d.value = parseFloat(_3d.value);
-            _3d.step = parseFloat(_3d.step);
-            _3d.originalValue = _3d.value;
-            _16(this);
-            _c(this);
-            _5(this);
-        });
-    };
-    $.fn.slider.methods = {
-        options: function (jq) {
-            return $.data(jq[0], "slider").options;
-        }, destroy: function (jq) {
-            return jq.each(function () {
-                $.data(this, "slider").slider.remove();
-                $(this).remove();
-            });
-        }, resize: function (jq, _3e) {
-            return jq.each(function () {
-                _5(this, _3e);
-            });
-        }, getValue: function (jq) {
-            return jq.slider("options").value;
-        }, setValue: function (jq, _3f) {
-            return jq.each(function () {
-                _22(this, _3f);
-            });
-        }, clear: function (jq) {
-            return jq.each(function () {
-                var _40 = $(this).slider("options");
-                _22(this, _40.min);
-            });
-        }, reset: function (jq) {
-            return jq.each(function () {
-                var _41 = $(this).slider("options");
-                _22(this, _41.originalValue);
-            });
-        }, enable: function (jq) {
-            return jq.each(function () {
-                $.data(this, "slider").options.disabled = false;
-                _16(this);
-            });
-        }, disable: function (jq) {
-            return jq.each(function () {
-                $.data(this, "slider").options.disabled = true;
-                _16(this);
-            });
-        }
-    };
-    $.fn.slider.parseOptions = function (_42) {
-        var t = $(_42);
-        return $.extend({}, $.parser.parseOptions(_42, ["width", "height", "mode", {
-            reversed: "boolean",
-            showTip: "boolean",
-            min: "number",
-            max: "number",
-            step: "number"
-        }]), {
-            value: (t.val() || undefined),
-            disabled: (t.attr("disabled") ? true : undefined),
-            rule: (t.attr("rule") ? eval(t.attr("rule")) : undefined)
-        });
-    };
-    $.fn.slider.defaults = {
-        width: "auto",
-        height: "auto",
-        mode: "h",
-        reversed: false,
-        showTip: false,
-        disabled: false,
-        value: 0,
-        min: 0,
-        max: 100,
-        step: 1,
-        rule: [],
-        tipFormatter: function (_43) {
-            return _43;
-        },
-        converter: {
-            toPosition: function (_44, _45) {
-                var _46 = $(this).slider("options");
-                return (_44 - _46.min) / (_46.max - _46.min) * _45;
-            }, toValue: function (pos, _47) {
-                var _48 = $(this).slider("options");
-                return _48.min + (_48.max - _48.min) * (pos / _47);
-            }
-        },
-        onChange: function (_49, _4a) {
-        },
-        onSlideStart: function (_4b) {
-        },
-        onSlideEnd: function (_4c) {
-        },
-        onComplete: function (_4d) {
-        }
-    };
+(function($){
+function _1(_2){
+var _3=$("<div class=\"slider\">"+"<div class=\"slider-inner\">"+"<a href=\"javascript:;\" class=\"slider-handle\"></a>"+"<span class=\"slider-tip\"></span>"+"</div>"+"<div class=\"slider-rule\"></div>"+"<div class=\"slider-rulelabel\"></div>"+"<div style=\"clear:both\"></div>"+"<input type=\"hidden\" class=\"slider-value\">"+"</div>").insertAfter(_2);
+var t=$(_2);
+t.addClass("slider-f").hide();
+var _4=t.attr("name");
+if(_4){
+_3.find("input.slider-value").attr("name",_4);
+t.removeAttr("name").attr("sliderName",_4);
+}
+_3._bind("_resize",function(e,_5){
+if($(this).hasClass("easyui-fluid")||_5){
+_6(_2);
+}
+return false;
+});
+return _3;
+};
+function _6(_7,_8){
+var _9=$.data(_7,"slider");
+var _a=_9.options;
+var _b=_9.slider;
+if(_8){
+if(_8.width){
+_a.width=_8.width;
+}
+if(_8.height){
+_a.height=_8.height;
+}
+}
+_b._size(_a);
+if(_a.mode=="h"){
+_b.css("height","");
+_b.children("div").css("height","");
+}else{
+_b.css("width","");
+_b.children("div").css("width","");
+_b.children("div.slider-rule,div.slider-rulelabel,div.slider-inner")._outerHeight(_b._outerHeight());
+}
+_c(_7);
+};
+function _d(_e){
+var _f=$.data(_e,"slider");
+var _10=_f.options;
+var _11=_f.slider;
+var aa=_10.mode=="h"?_10.rule:_10.rule.slice(0).reverse();
+if(_10.reversed){
+aa=aa.slice(0).reverse();
+}
+_12(aa);
+function _12(aa){
+var _13=_11.find("div.slider-rule");
+var _14=_11.find("div.slider-rulelabel");
+_13.empty();
+_14.empty();
+for(var i=0;i<aa.length;i++){
+var _15=i*100/(aa.length-1)+"%";
+var _16=$("<span></span>").appendTo(_13);
+_16.css((_10.mode=="h"?"left":"top"),_15);
+if(aa[i]!="|"){
+_16=$("<span></span>").appendTo(_14);
+_16.html(aa[i]);
+if(_10.mode=="h"){
+_16.css({left:_15,marginLeft:-Math.round(_16.outerWidth()/2)});
+}else{
+_16.css({top:_15,marginTop:-Math.round(_16.outerHeight()/2)});
+}
+}
+}
+};
+};
+function _17(_18){
+var _19=$.data(_18,"slider");
+var _1a=_19.options;
+var _1b=_19.slider;
+_1b.removeClass("slider-h slider-v slider-disabled");
+_1b.addClass(_1a.mode=="h"?"slider-h":"slider-v");
+_1b.addClass(_1a.disabled?"slider-disabled":"");
+var _1c=_1b.find(".slider-inner");
+_1c.html("<a href=\"javascript:;\" class=\"slider-handle\"></a>"+"<span class=\"slider-tip\"></span>");
+if(_1a.range){
+_1c.append("<a href=\"javascript:;\" class=\"slider-handle\"></a>"+"<span class=\"slider-tip\"></span>");
+}
+_1b.find("a.slider-handle").draggable({axis:_1a.mode,cursor:"pointer",disabled:_1a.disabled,onDrag:function(e){
+var _1d=e.data.left;
+var _1e=_1b.width();
+if(_1a.mode!="h"){
+_1d=e.data.top;
+_1e=_1b.height();
+}
+if(_1d<0||_1d>_1e){
+return false;
+}else{
+_1f(_1d,this);
+return false;
+}
+},onStartDrag:function(){
+_19.isDragging=true;
+_1a.onSlideStart.call(_18,_1a.value);
+},onStopDrag:function(e){
+_1f(_1a.mode=="h"?e.data.left:e.data.top,this);
+_1a.onSlideEnd.call(_18,_1a.value);
+_1a.onComplete.call(_18,_1a.value);
+_19.isDragging=false;
+}});
+_1b.find("div.slider-inner")._unbind(".slider")._bind("mousedown.slider",function(e){
+if(_19.isDragging||_1a.disabled){
+return;
+}
+var pos=$(this).offset();
+_1f(_1a.mode=="h"?(e.pageX-pos.left):(e.pageY-pos.top));
+_1a.onComplete.call(_18,_1a.value);
+});
+function _20(_21){
+var dd=String(_1a.step).split(".");
+var _22=dd.length>1?dd[1].length:0;
+return parseFloat(_21.toFixed(_22));
+};
+function _1f(pos,_23){
+var _24=_25(_18,pos);
+var s=Math.abs(_24%_1a.step);
+if(s<_1a.step/2){
+_24-=s;
+}else{
+_24=_24-s+_1a.step;
+}
+_24=_20(_24);
+if(_1a.range){
+var v1=_1a.value[0];
+var v2=_1a.value[1];
+var m=parseFloat((v1+v2)/2);
+if(_23){
+var _26=$(_23).nextAll(".slider-handle").length>0;
+if(_24<=v2&&_26){
+v1=_24;
+}else{
+if(_24>=v1&&(!_26)){
+v2=_24;
+}
+}
+}else{
+if(_24<v1){
+v1=_24;
+}else{
+if(_24>v2){
+v2=_24;
+}else{
+_24<m?v1=_24:v2=_24;
+}
+}
+}
+$(_18).slider("setValues",[v1,v2]);
+}else{
+$(_18).slider("setValue",_24);
+}
+};
+};
+function _27(_28,_29){
+var _2a=$.data(_28,"slider");
+var _2b=_2a.options;
+var _2c=_2a.slider;
+var _2d=$.isArray(_2b.value)?_2b.value:[_2b.value];
+var _2e=[];
+if(!$.isArray(_29)){
+_29=$.map(String(_29).split(_2b.separator),function(v){
+return parseFloat(v);
+});
+}
+_2c.find(".slider-value").remove();
+var _2f=$(_28).attr("sliderName")||"";
+for(var i=0;i<_29.length;i++){
+var _30=_29[i];
+if(_30<_2b.min){
+_30=_2b.min;
+}
+if(_30>_2b.max){
+_30=_2b.max;
+}
+var _31=$("<input type=\"hidden\" class=\"slider-value\">").appendTo(_2c);
+_31.attr("name",_2f);
+_31.val(_30);
+_2e.push(_30);
+var _32=_2c.find(".slider-handle:eq("+i+")");
+var tip=_32.next();
+var pos=_33(_28,_30);
+if(_2b.showTip){
+tip.show();
+tip.html(_2b.tipFormatter.call(_28,_30));
+}else{
+tip.hide();
+}
+if(_2b.mode=="h"){
+var _34="left:"+pos+"px;";
+_32.attr("style",_34);
+tip.attr("style",_34+"margin-left:"+(-Math.round(tip.outerWidth()/2))+"px");
+}else{
+var _34="top:"+pos+"px;";
+_32.attr("style",_34);
+tip.attr("style",_34+"margin-left:"+(-Math.round(tip.outerWidth()))+"px");
+}
+}
+_2b.value=_2b.range?_2e:_2e[0];
+$(_28).val(_2b.range?_2e.join(_2b.separator):_2e[0]);
+if(_2d.join(",")!=_2e.join(",")){
+_2b.onChange.call(_28,_2b.value,(_2b.range?_2d:_2d[0]));
+}
+};
+function _c(_35){
+var _36=$.data(_35,"slider").options;
+var fn=_36.onChange;
+_36.onChange=function(){
+};
+_27(_35,_36.value);
+_36.onChange=fn;
+};
+function _33(_37,_38){
+var _39=$.data(_37,"slider");
+var _3a=_39.options;
+var _3b=_39.slider;
+var _3c=_3a.mode=="h"?_3b.width():_3b.height();
+var pos=_3a.converter.toPosition.call(_37,_38,_3c);
+if(_3a.mode=="v"){
+pos=_3b.height()-pos;
+}
+if(_3a.reversed){
+pos=_3c-pos;
+}
+return pos;
+};
+function _25(_3d,pos){
+var _3e=$.data(_3d,"slider");
+var _3f=_3e.options;
+var _40=_3e.slider;
+var _41=_3f.mode=="h"?_40.width():_40.height();
+var pos=_3f.mode=="h"?(_3f.reversed?(_41-pos):pos):(_3f.reversed?pos:(_41-pos));
+var _42=_3f.converter.toValue.call(_3d,pos,_41);
+return _42;
+};
+$.fn.slider=function(_43,_44){
+if(typeof _43=="string"){
+return $.fn.slider.methods[_43](this,_44);
+}
+_43=_43||{};
+return this.each(function(){
+var _45=$.data(this,"slider");
+if(_45){
+$.extend(_45.options,_43);
+}else{
+_45=$.data(this,"slider",{options:$.extend({},$.fn.slider.defaults,$.fn.slider.parseOptions(this),_43),slider:_1(this)});
+$(this)._propAttr("disabled",false);
+}
+var _46=_45.options;
+_46.min=parseFloat(_46.min);
+_46.max=parseFloat(_46.max);
+if(_46.range){
+if(!$.isArray(_46.value)){
+_46.value=$.map(String(_46.value).split(_46.separator),function(v){
+return parseFloat(v);
+});
+}
+if(_46.value.length<2){
+_46.value.push(_46.max);
+}
+}else{
+_46.value=parseFloat(_46.value);
+}
+_46.step=parseFloat(_46.step);
+_46.originalValue=_46.value;
+_17(this);
+_d(this);
+_6(this);
+});
+};
+$.fn.slider.methods={options:function(jq){
+return $.data(jq[0],"slider").options;
+},destroy:function(jq){
+return jq.each(function(){
+$.data(this,"slider").slider.remove();
+$(this).remove();
+});
+},resize:function(jq,_47){
+return jq.each(function(){
+_6(this,_47);
+});
+},getValue:function(jq){
+return jq.slider("options").value;
+},getValues:function(jq){
+return jq.slider("options").value;
+},setValue:function(jq,_48){
+return jq.each(function(){
+_27(this,[_48]);
+});
+},setValues:function(jq,_49){
+return jq.each(function(){
+_27(this,_49);
+});
+},clear:function(jq){
+return jq.each(function(){
+var _4a=$(this).slider("options");
+_27(this,_4a.range?[_4a.min,_4a.max]:[_4a.min]);
+});
+},reset:function(jq){
+return jq.each(function(){
+var _4b=$(this).slider("options");
+$(this).slider(_4b.range?"setValues":"setValue",_4b.originalValue);
+});
+},enable:function(jq){
+return jq.each(function(){
+$.data(this,"slider").options.disabled=false;
+_17(this);
+});
+},disable:function(jq){
+return jq.each(function(){
+$.data(this,"slider").options.disabled=true;
+_17(this);
+});
+}};
+$.fn.slider.parseOptions=function(_4c){
+var t=$(_4c);
+return $.extend({},$.parser.parseOptions(_4c,["width","height","mode",{reversed:"boolean",showTip:"boolean",range:"boolean",min:"number",max:"number",step:"number"}]),{value:(t.val()||undefined),disabled:(t.attr("disabled")?true:undefined),rule:(t.attr("rule")?eval(t.attr("rule")):undefined)});
+};
+$.fn.slider.defaults={width:"auto",height:"auto",mode:"h",reversed:false,showTip:false,disabled:false,range:false,value:0,separator:",",min:0,max:100,step:1,rule:[],tipFormatter:function(_4d){
+return _4d;
+},converter:{toPosition:function(_4e,_4f){
+var _50=$(this).slider("options");
+var p=(_4e-_50.min)/(_50.max-_50.min)*_4f;
+return p;
+},toValue:function(pos,_51){
+var _52=$(this).slider("options");
+var v=_52.min+(_52.max-_52.min)*(pos/_51);
+return v;
+}},onChange:function(_53,_54){
+},onSlideStart:function(_55){
+},onSlideEnd:function(_56){
+},onComplete:function(_57){
+}};
 })(jQuery);
 

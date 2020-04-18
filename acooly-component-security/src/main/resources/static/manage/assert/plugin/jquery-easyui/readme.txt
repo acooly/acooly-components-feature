@@ -1,4 +1,4 @@
-Current Version: 1.3.6
+Current Version: 1.9.4
 ======================
-This software is allowed to use under GPL or you need to buy commercial license for better support or other purpose.
+This software is allowed to use under freeware license or you need to buy commercial license for better support or other purpose.
 Please contact us at info@jeasyui.com

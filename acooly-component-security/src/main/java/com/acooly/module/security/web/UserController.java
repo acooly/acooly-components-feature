@@ -9,6 +9,7 @@ import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
+import com.acooly.core.utils.enums.Messageable;
 import com.acooly.core.utils.mapper.BeanCopier;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.module.event.EventBus;
@@ -40,6 +41,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.util.*;
 
 @Slf4j
@@ -253,8 +255,30 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
     }
 
     @Override
+    public JsonResult deleteJson(HttpServletRequest request, HttpServletResponse response) {
+        JsonResult result = new JsonResult();
+        this.allow(request, response, MappingMethod.delete);
+        try {
+            Serializable[] ids = this.getRequestIds(request);
+            User user = ShiroUtils.getCurrentUser();
+            for (Serializable id : ids) {
+                if (user.getId().equals(id)) {
+                    log.warn("不能删除当前登录的用户， user: {}", user.getUsername());
+                    throw new RuntimeException("不能删除当前登录的用户");
+                }
+            }
+            this.onRemove(request, response, (Model) null, ids);
+            this.doRemove(request, response, (Model) null, ids);
+            result.setMessage("删除成功");
+        } catch (Exception var5) {
+            this.handleException(result, "删除", var5);
+        }
+        return result;
+    }
+
+    @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
-        model.put("allStatus", allStatus);
+        model.put("allStatuss", allStatus);
         model.put("allUserTypes", allUserTypes);
         List<Role> list = roleService.getAll();
         model.put("allRoles", list);
@@ -332,5 +356,16 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         return entities;
     }
 
-
+    @Override
+    protected void handleException(JsonResult result, String action, Exception e) {
+        result.setSuccess(false);
+        if (e instanceof Messageable) {
+            Messageable be = (Messageable)e;
+            result.setCode(be.code());
+            result.setMessage(be.message());
+        } else {
+            result.setCode(e.getClass().getSimpleName());
+            result.setMessage(this.getExceptionMessage(action, e));
+        }
+    }
 }

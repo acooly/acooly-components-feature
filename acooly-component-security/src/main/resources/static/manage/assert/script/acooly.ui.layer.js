@@ -33,6 +33,39 @@ var acooly_layui = {
         layer.closeAll();
     },
 
+    /**
+     * 消息框
+     * @param title 标题
+     * @param message 消息
+     * @param type {info,success,warning,danger,primary}
+     */
+    messager: function (title, message, type) {
+        var args = arguments;
+        var ctitle,cmessage,ctype;
+        if (args.length == 1) {
+            ctitle = '提示';
+            cmessage = title;
+            ctype = true;
+        }else if(args.length == 2){
+            ctitle = '提示';
+            cmessage = title;
+            ctype = message;
+        }else{
+            ctitle = '提示';
+            cmessage = message;
+            ctype = type;
+        }
+        layer.msg(cmessage, {
+            icon: (type=='success' ? 1 : 5),
+            title: (title == null ? '提示' : title),
+            offset: 'rb',
+            time: 4000,
+            anim: 2,
+            area: '260px'
+        });
+
+    },
+
     msg: function (message, icon) {
         if (!icon) {
             icon = 0;
@@ -73,6 +106,9 @@ var acooly_layui = {
             closeBtn: [1, true] //显示关闭按钮
         });
     },
+
+    toast: function (title, message, type, position) {
+    }
 };
 
 (function ($) {
