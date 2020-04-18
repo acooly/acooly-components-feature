@@ -94,11 +94,11 @@
                         <i class="fa fa-pie-chart fa-lg mr-2"></i> 创新素雅
                         <span class="float-right text-muted text-sm">AdminLte3</span>
                     </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="/manage/index.html?acoolyTheme=adminlte" class="dropdown-item<#if acoolyTheme='adminlte'> active</#if>">
-                        <i class="fa fa-telegram fa-lg mr-2"></i> 蓝色科技
-                        <span class="float-right text-muted text-sm">AdminLte2</span>
-                    </a>
+<#--                    <div class="dropdown-divider"></div>-->
+<#--                    <a href="/manage/index.html?acoolyTheme=adminlte" class="dropdown-item<#if acoolyTheme='adminlte'> active</#if>">-->
+<#--                        <i class="fa fa-telegram fa-lg mr-2"></i> 蓝色科技-->
+<#--                        <span class="float-right text-muted text-sm">AdminLte2</span>-->
+<#--                    </a>-->
                     <div class="dropdown-divider"></div>
                     <a href="/manage/index.html?acoolyTheme=easyui" class="dropdown-item">
                         <i class="fa fa-bandcamp fa-lg mr-2"></i> 原滋原味

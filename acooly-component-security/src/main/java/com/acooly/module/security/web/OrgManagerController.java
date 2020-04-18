@@ -6,7 +6,6 @@
  */
 package com.acooly.module.security.web;
 
-import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
@@ -81,14 +80,14 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
     @RequestMapping(value = "listOrganize")
     @ResponseBody
     public String getListOrganize(HttpServletRequest request, HttpServletResponse response) {
-    	String orgName=request.getParameter("orgName");
+        String orgName = request.getParameter("orgName");
         String organizesJson = "";
         try {
             Long orgId = Long.valueOf(0);
             if (getSessionUser().getUserType() != 1) {
                 orgId = ShiroUtils.getCurrentUser().getOrgId();
             }
-            List<Org> organizes = orgService.getTreeListLikeName(orgId,orgName);
+            List<Org> organizes = orgService.getTreeListLikeName(orgId, orgName);
             organizesJson = JsonMapper.nonEmptyMapper().toJson(organizes);
         } catch (Exception e) {
             handleException(new JsonResult(), "机构管理提供机构树查列表", e);

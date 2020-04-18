@@ -18,7 +18,7 @@
                     <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="$.acooly.framework.logout();">
                         <i class="fa fa-sign-out fa-fw fa-col" aria-hidden="true"></i>注销
                     </button>
-                    <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="location.href='/manage/index' + '.html?acoolyTheme=adminlte'">
+                    <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="location.href='/manage/index' + '.html?acoolyTheme=adminlte3'">
                         <i class="fa fa-thumbs-o-up fa-fw fa-col" aria-hidden="true"></i> 新版
                     </button>
                 </div>

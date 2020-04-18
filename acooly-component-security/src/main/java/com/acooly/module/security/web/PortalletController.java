@@ -1,6 +1,5 @@
 package com.acooly.module.security.web;
 
-import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
