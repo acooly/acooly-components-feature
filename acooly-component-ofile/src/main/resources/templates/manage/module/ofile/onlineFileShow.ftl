@@ -32,7 +32,7 @@
 		<tr>
             <th>缩略图:</th>
             <td>
-                <a class="online_file_image" href="/media/${onlineFile.filePath}"><img src="/media${onlineFile.thumbnail}"></a>
+                <a class="online_file_image" href="${onlineFile.accessThumbnailUrl}"><img src="${onlineFile.accessThumbnailUrl}"></a>
             </td>
         </tr>
 		<script>
