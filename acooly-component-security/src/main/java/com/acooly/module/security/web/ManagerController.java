@@ -95,7 +95,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
                 acoolyTheme = refreshTheme;
             }
             if (Strings.isBlank(acoolyTheme)) {
-                acoolyTheme = "adminlte3";
+                acoolyTheme = "acooly";
             }
             request.getSession().setAttribute("acoolyTheme", acoolyTheme);
             boolean isOnline = (Lists.newArrayList(Apps.getEnvironment().getActiveProfiles()).contains(Env.online.name()));
@@ -107,11 +107,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
 
             // 新版直接返回菜单数据
             model.addAttribute("menu", resourceService.getAuthorizedResourceNode(user.getId()));
-            if (Strings.equals(acoolyTheme, "adminlte")) {
-                return "/manage/index_adminlte";
-            } else {
-                return "/manage/index_adminlte3";
-            }
+            return "/manage/index_adminlte3";
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。
             request.getSession(true).setAttribute("securityConfig", frameworkProperties);

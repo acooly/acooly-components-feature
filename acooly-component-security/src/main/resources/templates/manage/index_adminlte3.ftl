@@ -90,7 +90,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="font-size: 14px;">
                     <div class="dropdown-divider"></div>
-                    <a href="/manage/index.html?acoolyTheme=adminlte3" class="dropdown-item<#if acoolyTheme='adminlte3'> active</#if>">
+                    <a href="#" class="dropdown-item<#if acoolyTheme='acooly'> active</#if>">
                         <i class="fa fa-pie-chart fa-lg mr-2"></i> 创新素雅
                         <span class="float-right text-muted text-sm">AdminLte3</span>
                     </a>

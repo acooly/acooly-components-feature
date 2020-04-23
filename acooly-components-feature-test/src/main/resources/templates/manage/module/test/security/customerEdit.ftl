@@ -44,6 +44,11 @@
 				<label class="col-sm-2 col-form-label">爱好</label>
 				<div class="col-sm-10">
 					<div class="form-group clearfix">
+						<div class="icheck-primary d-inline mr-2">
+							<input type="checkbox" id="manage_customer_edit_subscribe" name="subscribe" value="all" required>
+							<label for="manage_customer_edit_subscribe">全选</label>
+						</div>
+
 						<div class="icheck-primary d-inline">
 							<input type="checkbox" id="manage_customer_edit_subscribe0" name="subscribe" value="sports" required>
 							<label for="manage_customer_edit_subscribe0">运动</label>
@@ -59,6 +64,10 @@
 						<div class="icheck-primary d-inline">
 							<input type="checkbox" id="manage_customer_edit_subscribe3" name="subscribe" value="game">
 							<label for="manage_customer_edit_subscribe3">游戏</label>
+						</div>
+
+						<div class="d-inline">
+							<button class="btn btn-info btn-sm">icheckbox获取值</button>
 						</div>
 					</div>
 				</div>

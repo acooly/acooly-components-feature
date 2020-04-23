@@ -1,4 +1,3 @@
-<#include "/manage/common/ssoInclude.ftl">
 <script type="text/javascript">
     $(function () {
         $.acooly.framework.registerKeydown('manage_customer_searchform', 'manage_customer_datagrid');
