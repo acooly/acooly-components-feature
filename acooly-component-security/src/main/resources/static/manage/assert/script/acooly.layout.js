@@ -109,7 +109,7 @@
                 if (node.showMode == 1) {
                     opts.href = contextPath + url;
                 } else {
-                    opts.content = '<iframe src="' + contextPath + url + '" frameborder="0" style="border:0;width:100%;height:99%;" ></iframe>'
+                    opts.content = '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99%;" ></iframe>'
                 }
                 $.acooly.layout.addTab(opts);
             },
@@ -130,7 +130,7 @@
                         if (node.attributes.loadMode == 1) {
                             opts.href = contextPath + url;
                         } else {
-                            opts.content = '<iframe src="' + contextPath + url + '" frameborder="0" style="border:0;width:100%;height:99%;"></iframe>'
+                            opts.content = '<iframe src="' + url + '" frameborder="0" style="border:0;width:100%;height:99%;"></iframe>'
                         }
                         $.acooly.layout.addTab(opts);
                     }
@@ -147,6 +147,22 @@
                         onLoadError: function (e, x, y) {
                             $.acooly.layout.closeTab();
                             $.acooly.messager("错误","请求的功能不存在或没有权限", 'danger')
+                        },
+                        onLoad: function () {
+                            var $easyuiTheme = $('#easyuiTheme');
+                            var url = $easyuiTheme.attr('href');
+                            var href = url.substring(0, url.indexOf('themes')) + 'themes/'+themeName+'/easyui.css';
+                            var $easyuiThemeBasic = $('#easyuiThemeBasic');
+                            var urlBasic = $easyuiThemeBasic.attr('href');
+                            var hrefBasic = url.substring(0, urlBasic.indexOf('themes')) + 'themes/'+themeName+'/basic.css';
+                            var $iframe = $('iframe');
+                            if ($iframe.length > 0) {
+                                for (var i = 0; i < $iframe.length; i++) {
+                                    var ifr = $iframe[i];
+                                    $(ifr).contents().find('#easyuiTheme').attr('href', href);
+                                    $(ifr).contents().find('#easyuiThemeBasic').attr('href', hrefBasic);
+                                }
+                            }
                         }
                     })
                     t.tabs('add', opts);

@@ -30,7 +30,7 @@
                         }
                         That.config = data;
                         var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
-                        if(acoolyTheme && acoolyTheme.indexOf('adminlte') != -1){
+                        if(acoolyTheme && acoolyTheme.indexOf('acooly') != -1){
                             $.acooly.admin.init();
                         }
                     }
@@ -357,32 +357,24 @@ function manage_resource_tree_delete(id) {
 function loadTheme() {
     var themeName = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
     if (!themeName) {
-        themeName = 'adminlte3';
+        themeName = 'acooly';
+    }
+    if(themeName == 'easyui'){
+        themeName = 'default';
     }
     changeThemeStyle(themeName);
-    // $('#theme_' + themeName).attr("data-options", "iconCls:'icon-ok'");
 }
 
 function changeThemeStyle(themeName) {
     var $easyuiTheme = $('#easyuiTheme');
     var url = $easyuiTheme.attr('href');
-    var href = url.substring(0, url.indexOf('themes')) + 'themes/acooly/easyui.css';
+    var href = url.substring(0, url.indexOf('themes')) + 'themes/'+themeName+'/easyui.css';
     $easyuiTheme.attr('href', href);
 
     var $easyuiThemeBasic = $('#easyuiThemeBasic');
     var urlBasic = $easyuiThemeBasic.attr('href');
-    var hrefBasic = url.substring(0, urlBasic.indexOf('themes')) + 'themes/acooly/basic_'+themeName+'.css';
+    var hrefBasic = url.substring(0, urlBasic.indexOf('themes')) + 'themes/'+themeName+'/basic.css';
     $easyuiThemeBasic.attr('href', hrefBasic);
-
-
-    var $iframe = $('iframe');
-    if ($iframe.length > 0) {
-        for (var i = 0; i < $iframe.length; i++) {
-            var ifr = $iframe[i];
-            $(ifr).contents().find('#easyuiTheme').attr('href', href);
-            $(ifr).contents().find('#easyuiThemeBasic').attr('href', hrefBasic);
-        }
-    }
 }
 
 var changeTheme = function (themeName) {

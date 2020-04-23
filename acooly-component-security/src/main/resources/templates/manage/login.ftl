@@ -343,29 +343,6 @@
         }, 1000);
     };
 
-    /**
-     * 验证手机号。
-     * @param input 手机号输入域
-     * @returns {boolean}
-     */
-//        function checkPhone(input) {
-//            input = input || this.inputPhone;
-//            var value = input.val();
-//            if (!value) {
-//                $('#message').html('手机号码不能为空!');
-//                return false;
-//            }
-//            var reg = /(^0{0,1}[13|15|18|14|17]{2}[0-9]{9}$)/;
-//            if (!reg.test(value)) {
-//                $('#message').html('手机号码格式错误!');
-//                return false;
-//            } else {
-//                //$('#message').html('手机号码格式正确');
-//                $('#message').html('');
-//                return true;
-//            }
-//        }
-
     function checkCodee() {
 //            if (!this.checkPhone()) {
 //                return false;
@@ -376,39 +353,13 @@
         }
         return true;
     }
-    //
-    // $.IEVersion = function() {
-    //     var userAgent = navigator.userAgent.toLowerCase(); //取得浏览器的userAgent字符串
-    //     var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("msie") > -1; //判断是否IE<11浏览器
-    //     var isEdge = userAgent.indexOf("edge") > -1 && !isIE; //判断是否IE的Edge浏览器
-    //     var isIE11 = userAgent.indexOf('trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
-    //     //alert("userAgent = "+userAgent+" isIE = "+isIE+"  isEdge = "+isEdge+" isIE11 = "+isIE11);
-    //     if (isIE) {
-    //         var reIE = new RegExp("msie (\\d+\\.\\d+);");
-    //         reIE.test(userAgent);
-    //         var fIEVersion = parseFloat(RegExp["$1"]);
-    //         if (fIEVersion == 7) {
-    //             return 7;
-    //         } else if (fIEVersion == 8) {
-    //             return 8;
-    //         } else if (fIEVersion == 9) {
-    //             return 9;
-    //         } else if (fIEVersion == 10) {
-    //             return 10;
-    //         } else {
-    //             return 6; //IE版本<=6
-    //         }
-    //     } else if (isEdge) {
-    //         return 'edge'; //edge
-    //     } else if (isIE11) {
-    //         return 11; //IE11
-    //     }
-    //     return -1; //不是ie浏览器
-    // };
-    //
-    // if($.IEVersion() != -1){
-    //     $('#message').html("请使用非IE浏览器");
-    // }
+
+    $(function () {
+        <#if notFirstVerify>
+        refreshCaptcha();
+        </#if>
+    });
+
 </script>
 
 </body>

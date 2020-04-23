@@ -55,7 +55,6 @@
     <!-- 模板引擎：baidu -->
     <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
     <!-- AdminLTE for -->
-    <script src="/manage/assert/plugin/adminlte3/js/demo.js"></script>
     <script src="/manage/assert/plugin/jquery-plugin/jquery.resize.js"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
@@ -117,6 +116,7 @@
     }
 
     function closes() {
+        loadTheme();
         $('#loading').fadeOut('normal', function () {
             $(this).remove();
         });

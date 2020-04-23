@@ -23,14 +23,19 @@ import java.io.IOException;
  */
 @Slf4j
 public class CaptchaServlet extends HttpServlet {
+
+
+    private SecurityCaptchaManager securityCaptchaManager;
+
     /**
      * 回调执行
      */
+    @Override
     protected void doGet(
             HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
         try {
-            byte[] imageBytes = Captchas.generateImage(httpServletRequest.getSession());
+            byte[] imageBytes = securityCaptchaManager.generateImage(httpServletRequest);
             ServletOutputStream out = httpServletResponse.getOutputStream();
             out.write(imageBytes);
             out.flush();
@@ -38,5 +43,9 @@ public class CaptchaServlet extends HttpServlet {
         } catch (Exception e) {
             log.error("生成验证码错误", e);
         }
+    }
+
+    public void setSecurityCaptchaManager(SecurityCaptchaManager securityCaptchaManager) {
+        this.securityCaptchaManager = securityCaptchaManager;
     }
 }

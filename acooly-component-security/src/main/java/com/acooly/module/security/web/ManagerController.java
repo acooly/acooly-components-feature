@@ -10,6 +10,7 @@ import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.core.utils.security.JWTUtils;
+import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.config.FrameworkProperties;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
@@ -64,6 +65,8 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
     private ResourceService resourceService;
     @Autowired
     private FrameworkProperties frameworkProperties;
+    @Autowired
+    private SecurityCaptchaManager securityCaptchaManager;
 
     @RequestMapping("")
     public String none(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -91,7 +94,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
             if (Strings.isNotBlank(refreshTheme)) {
                 acoolyTheme = refreshTheme;
             }
-            if(Strings.isBlank(acoolyTheme)){
+            if (Strings.isBlank(acoolyTheme)) {
                 acoolyTheme = "adminlte3";
             }
             request.getSession().setAttribute("acoolyTheme", acoolyTheme);
@@ -104,9 +107,9 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
 
             // 新版直接返回菜单数据
             model.addAttribute("menu", resourceService.getAuthorizedResourceNode(user.getId()));
-            if(Strings.equals(acoolyTheme, "adminlte")) {
+            if (Strings.equals(acoolyTheme, "adminlte")) {
                 return "/manage/index_adminlte";
-            }else{
+            } else {
                 return "/manage/index_adminlte3";
             }
         } else {
@@ -168,6 +171,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。
             request.getSession(true).setAttribute("securityConfig", frameworkProperties);
             request.setAttribute("passwordRegex", frameworkProperties.getPasswordStrength().getRegexForJs());
+            request.setAttribute("notFirstVerify", !securityCaptchaManager.isFirstVerify(request));
             return "/manage/login";
         }
     }

@@ -26,6 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class WordRender extends Configurable implements WordRenderer {
 
+    @Override
     public BufferedImage renderWord(String word, int width, int height) {
         int fontSize = getConfig().getTextProducerFontSize();
         Font[] fonts = getConfig().getTextProducerFonts(fontSize);

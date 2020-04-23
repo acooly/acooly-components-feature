@@ -13,6 +13,7 @@ import com.acooly.core.common.boot.EnvironmentHolder;
 import com.acooly.core.common.dao.support.StandardDatabaseScriptIniter;
 import com.acooly.module.jpa.JPAAutoConfig;
 import com.acooly.module.security.captche.CaptchaServlet;
+import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.health.HealthCheckServlet;
 import com.acooly.module.security.shiro.cache.ShiroCacheManager;
 import com.acooly.module.security.shiro.filter.CaptchaFormAuthenticationFilter;
@@ -105,7 +106,7 @@ public class SecurityAutoConfig {
     public static class ShiroAutoConfigration {
         public static boolean isShiroFilterAnon() {
             return EnvironmentHolder.get().getProperty("acooly.security.shiroFilterAnon",
-                            Boolean.class, SecurityProperties.DEFAULT_SHIRO_FILTER_ANON);
+                    Boolean.class, SecurityProperties.DEFAULT_SHIRO_FILTER_ANON);
         }
 
         @Bean
@@ -344,11 +345,13 @@ public class SecurityAutoConfig {
             matchIfMissing = true
     )
     public static class CaptchaAutoConfigration {
+
         @Bean
-        public ServletRegistrationBean mycaptcha(SecurityProperties securityProperties) {
+        public ServletRegistrationBean mycaptcha(SecurityCaptchaManager securityCaptchaManager, SecurityProperties securityProperties) {
             ServletRegistrationBean bean = new ServletRegistrationBean();
             bean.setUrlMappings(Lists.newArrayList(securityProperties.getCaptcha().getUrl()));
             CaptchaServlet captchaServlet = new CaptchaServlet();
+            captchaServlet.setSecurityCaptchaManager(securityCaptchaManager);
             bean.setServlet(captchaServlet);
             bean.setLoadOnStartup(1);
             return bean;

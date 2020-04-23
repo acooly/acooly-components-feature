@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.util.Arrays;
 import java.util.Properties;
 
 /**
@@ -149,54 +148,4 @@ public class Captchas {
         return generate("png");
     }
 
-    public static class CaptchaResult {
-
-        private byte[] imageByte;
-        private String imageType;
-        private String answer;
-
-        public CaptchaResult(byte[] imageByte, String imageType, String answer) {
-            this.imageByte = imageByte;
-            this.imageType = imageType;
-            this.answer = answer;
-        }
-
-        public byte[] getImageByte() {
-            return imageByte;
-        }
-
-        public void setImageByte(byte[] imageByte) {
-            this.imageByte = imageByte;
-        }
-
-        public String getImageType() {
-            return imageType;
-        }
-
-        public void setImageType(String imageType) {
-            this.imageType = imageType;
-        }
-
-        public String getAnswer() {
-            return answer;
-        }
-
-        public void setAnswer(String answer) {
-            this.answer = answer;
-        }
-
-        @Override
-        public String toString() {
-            return "Yaptcha{"
-                    + "imageByte="
-                    + Arrays.toString(imageByte)
-                    + ", imageType='"
-                    + imageType
-                    + '\''
-                    + ", answer='"
-                    + answer
-                    + '\''
-                    + '}';
-        }
-    }
 }

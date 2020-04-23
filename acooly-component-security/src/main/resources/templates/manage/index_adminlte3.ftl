@@ -373,7 +373,7 @@ ${extendScripts}
 <script type="text/javascript">
     var contextPath = '';
     $(function () {
-        $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "adminlte3");
+        $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "acooly");
         loadTheme();
         $.acooly.system.init();
     });

@@ -8,7 +8,7 @@ import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.security.JWTUtils;
 import com.acooly.module.defence.password.PasswordStrength;
-import com.acooly.module.security.captche.Captchas;
+import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.config.FrameworkProperties;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
@@ -64,6 +64,9 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
     @Autowired
     protected FrameworkProperties frameworkProperties;
+
+    @Autowired
+    private SecurityCaptchaManager securityCaptchaManager;
     /**
      * 登录失败Redirect URL
      */
@@ -107,6 +110,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
             // 用户状态验证
             User user = checkUserStatus(token, httpServletRequest);
+
             //开启短信验证码
             if (isLoginSmsEnable()) {
                 if (!checkSmsCaptcha()) {
@@ -114,9 +118,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
                     throw new InvaildCaptchaException("验证码错误.");
                 }
             } else {
-                if (user.getLoginFailTimes() > 0) {
-                    checkCaptcha(httpServletRequest);
-                }
+                checkCaptcha(httpServletRequest);
             }
 
             // Web安全-会话标识未更新问题（shiro）：让旧session失效，这一句代码一定要放在登录验证的最前面
@@ -191,14 +193,12 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
      * @param request
      */
     protected void checkCaptcha(HttpServletRequest request) {
-        String requestCaptcha = request.getParameter(captchaInputName);
         //判断是否为第一次验证码检查
-        Object firstVerfiy = SecurityUtils.getSubject().getSession().getAttribute(CAPTCHA_FIRST_VERFIY);
-        if (firstVerfiy == null) {
-            SecurityUtils.getSubject().getSession().setAttribute(CAPTCHA_FIRST_VERFIY, "");
+        if (securityCaptchaManager.isFirstVerify(request)) {
             return;
         } else {
-            if (!Captchas.verify(request, requestCaptcha)) {
+            String requestCaptcha = request.getParameter(captchaInputName);
+            if (!securityCaptchaManager.verify(request, requestCaptcha)) {
                 throw new InvaildCaptchaException("验证码错误.");
             }
         }
@@ -225,7 +225,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             throws Exception {
         String username = (String) token.getPrincipal();
         userService.clearLoginFailureCount(username);
-        SecurityUtils.getSubject().getSession().removeAttribute(CAPTCHA_FIRST_VERFIY);
+        securityCaptchaManager.removeFirstVerify((HttpServletRequest) request);
         return super.onLoginSuccess(token, subject, request, response);
     }
 
@@ -244,6 +244,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e,
                                      ServletRequest request, ServletResponse response) {
         try {
+            securityCaptchaManager.setFirstVerify((HttpServletRequest) request);
             String username = (String) token.getPrincipal();
             User user = null;
             if (!UnknownAccountException.class.isAssignableFrom(e.getClass())

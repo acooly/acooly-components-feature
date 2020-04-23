@@ -13,6 +13,7 @@ import com.acooly.core.utils.enums.Messageable;
 import com.acooly.core.utils.mapper.BeanCopier;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.module.event.EventBus;
+import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.Org;

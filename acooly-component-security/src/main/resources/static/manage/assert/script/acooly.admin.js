@@ -35,7 +35,7 @@
             }
 
             // adminlte3
-            if ($.acooly.system.config.logo) {
+            if ($.acooly.system.config.logoMini) {
                 $('#logo_image').attr('src', $.acooly.system.config.logoMini);
             }
             if ($.acooly.system.config.title) {
@@ -165,17 +165,6 @@
                             }
                         }
                     }]
-            });
-
-
-            // 通过jquery-resize插件实现：父节点大小改变后，resize tabs
-            $('.content-wrapper').resize(function () {
-                let parentWidth = $(this).width();
-                // let parentWidth = $(window).width();
-                $('#layout_center_tabs').tabs({
-                    width: parentWidth,
-                    height: $(window).height() - 52
-                }).tabs('resize');
             });
         },
 

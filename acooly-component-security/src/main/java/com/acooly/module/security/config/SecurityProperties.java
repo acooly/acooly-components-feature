@@ -11,12 +11,10 @@ package com.acooly.module.security.config;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import javax.annotation.PostConstruct;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -165,6 +163,7 @@ public class SecurityProperties {
     @Setter
     public static class Captcha {
         private boolean enable = true;
+        private int maxTry = 10;
         private String url = "/jcaptcha.jpg";
         private Kaptcha kaptcha = new Kaptcha();
 
