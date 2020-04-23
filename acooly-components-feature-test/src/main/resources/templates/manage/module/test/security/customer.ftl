@@ -1,8 +1,8 @@
+<#include "/manage/common/ssoInclude.ftl">
 <script type="text/javascript">
     $(function () {
         $.acooly.framework.registerKeydown('manage_customer_searchform', 'manage_customer_datagrid');
     });
-
 </script>
 <div class="easyui-layout" data-options="fit : true,border : false">
     <!-- 查询条件 -->

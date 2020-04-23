@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <title>${Session.securityConfig.title}</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta http-equiv="cache-control" content="max-age=86400">
     <meta http-equiv="expires" content="1440">
     <meta http-equiv="keywords" content="acooly">
     <meta http-equiv="description" content="spring+jpa+hibernate+easyui+springmvc+jstl/freemarker">
-    <meta name="X-CSRF-TOKEN" content="${requestScope["org.springframework.security.web.csrf.CsrfToken"].token}"/>
+    <meta name="X-CSRF-TOKEN" content="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- pace-progress -->
-    <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
+<#--    <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">-->
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- easyui及自定义 -->
@@ -52,7 +52,7 @@
     <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
     <script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- pace-progress -->
-    <script src="/manage/assert/plugin/pace-progress/pace.min.js"></script>
+<#--    <script src="/manage/assert/plugin/pace-progress/pace.min.js"></script>-->
     <!-- Slimscroll -->
     <script src="/manage/assert/plugin/jquery-plugin/jquery.slimscroll-1.3.8.min.js"></script>
     <!-- FastClick -->
@@ -114,11 +114,11 @@
         $.acooly.system.init();
     </script>
 </head>
-
+<body>
 <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">
-    <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span></h1>
+    <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i>
+<span class="sr-only">Loading...</span>单点登录远程加载中....</span></h1>
 </div>
-
 <script>
     var pc;
     //不要放在$(function(){});中

@@ -20,8 +20,15 @@
     <!-- icons -->
     <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/manage/assert/plugin/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- adminlte -->
+    <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/manage/assert/plugin/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- pace-progress -->
-<#--    <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">-->
+    <#--    <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">-->
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- easyui及自定义 -->
@@ -45,7 +52,7 @@
     <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
     <script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- pace-progress -->
-<#--    <script src="/manage/assert/plugin/pace-progress/pace.min.js"></script>-->
+    <#--    <script src="/manage/assert/plugin/pace-progress/pace.min.js"></script>-->
     <!-- Slimscroll -->
     <script src="/manage/assert/plugin/jquery-plugin/jquery.slimscroll-1.3.8.min.js"></script>
     <!-- FastClick -->
@@ -55,7 +62,6 @@
     <!-- 模板引擎：baidu -->
     <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
     <!-- AdminLTE for -->
-    <script src="/manage/assert/plugin/adminlte3/js/demo.js"></script>
     <script src="/manage/assert/plugin/jquery-plugin/jquery.resize.js"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
@@ -80,6 +86,10 @@
     <!--kindEditor插件库 -->
     <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all-min.js"></script>
     <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
+    <!-- select2 -->
+    <script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
+    <!-- inputmask -->
+    <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 
     <!-- 自己定义的样式和JS扩展 -->
     <!-- acooly -->
@@ -95,6 +105,7 @@
     <script src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.inputmask.js"></script>
 
     <!-- 扩展script -->
     ${extendScripts}
@@ -103,12 +114,11 @@
         $.acooly.system.init();
     </script>
 </head>
-
+<body>
 <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">
     <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i>
 <span class="sr-only">Loading...</span>单点登录远程加载中....</span></h1>
 </div>
-
 <script>
     var pc;
     //不要放在$(function(){});中
@@ -118,6 +128,7 @@
     }
 
     function closes() {
+        loadTheme();
         $('#loading').fadeOut('normal', function () {
             $(this).remove();
         });

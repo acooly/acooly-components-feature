@@ -129,7 +129,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">手续费</label>
 				<div class="col-sm-10">
-					<input type="text" name="fee" placeholder="请输入手续费..." class="form-control easyui-validatebox" data-options="validType:['length[1,12]']"/>
+					<input type="text" name="fee" placeholder="请输入手续费..." class="form-control easyui-validatebox" data-inputmask="'alias':'money','min':0.02,'max':1000" data-options="validType:['length[1,12]']"/>
 				</div>
 			</div>
 
