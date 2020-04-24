@@ -104,8 +104,8 @@ public class ScheduleEngineImpl implements ScheduleEngine {
         try {
             if (!scheduler.isStarted()) {
                 scheduler.start();
+                init();
             }
-            init();
         } catch (SchedulerException e) {
             throw new SchedulerEngineException("启动时候初始任务失败!", e);
         }
