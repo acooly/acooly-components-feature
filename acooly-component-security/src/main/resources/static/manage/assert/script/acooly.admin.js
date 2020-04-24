@@ -43,6 +43,7 @@
             } else {
                 $('#logo_title').text("<b>Accoly</b> Sys V5.x");
             }
+            $('.logo').show('normal');
         },
 
         /**

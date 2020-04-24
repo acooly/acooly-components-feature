@@ -118,12 +118,9 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="javascript:;" class="logo brand-link">
-            <span>
-            <img id="logo_image" src="/manage/assert/plugin/adminlte3/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: .8;width: 33px;">
-            </span>
-            <span id="logo_title" class="ac-logo-title brand-text font-weight-light">Acooly<b>Boss</b> 5.x</span>
+        <a href="javascript:;" class="logo brand-link" style="display: none;">
+            <span><img id="logo_image" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8;width: 33px;"></span>
+            <span id="logo_title" class="ac-logo-title brand-text font-weight-light"></span>
         </a>
 
         <!-- Sidebar -->
