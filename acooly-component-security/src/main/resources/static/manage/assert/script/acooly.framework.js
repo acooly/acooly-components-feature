@@ -734,7 +734,7 @@
                 });
             },
             changePassword: function () {
-                $('<div/>').dialog({
+                var d = $('<div/>').dialog({
                     href: contextPath + '/manage/system/changePasswordView.html',
                     width: 400,
                     height: 400,
@@ -743,7 +743,6 @@
                     buttons: [{
                         text: '<i class="fa fa-check fa-col"></i> 提交',
                         handler: function () {
-                            var d = $(this).closest('.window-body');
                             $('#user_changePassword_form').ajaxSubmit({
                                 beforeSubmit: function (formData, jqForm, options) {
                                     return $('#user_changePassword_form').form('validate');
@@ -758,12 +757,9 @@
                                                     window.location.href = contextPath + '/manage/logout.html';
                                                 }
                                             );
-                                        }
-                                        if(!result.success){
+                                        }else{
                                             $.acooly.framework.changePasswordCaptcha();
-                                        }
-                                        if (result.message) {
-                                            $.acooly.messager('提示', result.message,result.success?"success":"danger");
+                                            $.acooly.messager('提示', result.message,"danger");
                                         }
                                     } catch (e) {
                                         $.acooly.framework.changePasswordCaptcha();

@@ -10,7 +10,7 @@ import org.springframework.boot.SpringApplication;
 @BootApp(sysName = "acooly-featrues-test", httpPort = 8090)
 public class Main {
 	public static void main(String[] args) {
-		Apps.setProfileIfNotExists("dev");
+		Apps.setProfileIfNotExists("online");
 		new SpringApplication(Main.class).run(args);
 	}
 }
