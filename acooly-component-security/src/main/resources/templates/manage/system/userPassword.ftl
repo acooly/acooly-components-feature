@@ -22,7 +22,7 @@
             </tr>
 
             <tr>
-                <th>当前操作员密码：</th>
+                <th>当前用户密码：</th>
                 <td><input name="adminPassword" type="password" style="width: 220px;"
                            validType="commonRegExp['${PASSWORD_REGEX}','${PASSWORD_ERROR}']" class="easyui-validatebox text"
                            data-options="required:'true'"/></td>

@@ -737,29 +737,19 @@
                 $('<div/>').dialog({
                     href: contextPath + '/manage/system/changePasswordView.html',
                     width: 400,
-                    height: 300,
+                    height: 400,
                     modal: true,
                     title: ' <i class="fa fa-lock fa-lg"></i> 修改密码',
                     buttons: [{
                         text: '<i class="fa fa-check fa-col"></i> 提交',
                         handler: function () {
                             var d = $(this).closest('.window-body');
-                            $('#user_changePassword_form').form('submit', {
-                                onSubmit: function () {
-                                    var isValid = $(this).form('validate');
-                                    if (!isValid) {
-                                        return false;
-                                    }
-                                    // 自定义检查合法性
-                                    if ($('#system_newPassword').val() != $('#system_confirmNewPassword').val()) {
-                                        $.acooly.messager('提示', '两次密码输入不一致', 'warning');
-                                        return false;
-                                    }
-                                    return true;
+                            $('#user_changePassword_form').ajaxSubmit({
+                                beforeSubmit: function (formData, jqForm, options) {
+                                    return $('#user_changePassword_form').form('validate');
                                 },
-                                success: function (data) {
+                                success: function (result, statusText) {
                                     try {
-                                        var result = $.parseJSON(data);
                                         if (result.success) {
                                             d.dialog('destroy');
                                             // 注销，重新登录
@@ -769,12 +759,20 @@
                                                 }
                                             );
                                         }
+                                        if(!result.success){
+                                            $.acooly.framework.changePasswordCaptcha();
+                                        }
                                         if (result.message) {
-                                            $.messager.show({title: '提示', msg: result.message});
+                                            $.acooly.messager('提示', result.message,result.success?"success":"danger");
                                         }
                                     } catch (e) {
+                                        $.acooly.framework.changePasswordCaptcha();
                                         $.acooly.messager('错误', result, 'danger');
                                     }
+
+                                },
+                                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                                    $.acooly.messager('错误', errorThrown, 'danger');
                                 }
                             });
                         }
@@ -786,6 +784,11 @@
 
                     }
                 });
+            },
+            changePasswordCaptcha:function(){
+                $('#user_changePassword_jcaptchaImage').show();
+                $('#user_changePassword_jcaptchaImage').attr("src", "/jcaptcha.jpg?" + new Date());
+                $('#user_changePassword_passwordCaptcha').val('');
             },
 
             /**
@@ -858,7 +861,7 @@
                 if (!row) {
                     var msg = '请先选择操作的数据行';
                     if (errorMessage) msg = errorMessage;
-                    $.messager.show({title: '提示', msg: msg});
+                    $.acooly.messager('提示', msg);
                     return null;
                 }
                 selectedCallBack.call(this, row);

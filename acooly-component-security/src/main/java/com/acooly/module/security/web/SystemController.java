@@ -5,6 +5,7 @@ import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Strings;
 import com.acooly.module.security.captche.Captchas;
+import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.Portallet;
@@ -49,7 +50,8 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
     private ResourceService resourceService;
     @Autowired
     private PortalletService portalletService;
-
+    @Autowired
+    private SecurityCaptchaManager securityCaptchaManager;
     /**
      * 授权功能顶级菜单
      *
@@ -119,7 +121,7 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
         String passwordCaptcha = request.getParameter("passwordCaptcha");
         JsonResult result = new JsonResult();
         try {
-            if (!Captchas.verify(request, passwordCaptcha)) {
+            if (!securityCaptchaManager.verify(request, passwordCaptcha)) {
                 throw new RuntimeException("验证码错误");
             }
             // 密码强度验证
