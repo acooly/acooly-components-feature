@@ -58,51 +58,6 @@
   var $no_border_container = $('<div />', {'class': 'mb-1 icheck-primary'}).append($no_border_checkbox).append('<span>导航条无边框</span>')
   $container.append($no_border_container)
 
-  // var $text_sm_body_checkbox = $('<input />', {
-  //   type   : 'checkbox',
-  //   value  : 1,
-  //   checked: $('body').hasClass('text-sm'),
-  //   'class': 'mr-1'
-  // }).on('click', function () {
-  //   if ($(this).is(':checked')) {
-  //     $('body').addClass('text-sm')
-  //   } else {
-  //     $('body').removeClass('text-sm')
-  //   }
-  // })
-  // var $text_sm_body_container = $('<div />', {'class': 'mb-1'}).append($text_sm_body_checkbox).append('<span>Body small text</span>')
-  // $container.append($text_sm_body_container)
-
-  // var $text_sm_header_checkbox = $('<input />', {
-  //   type   : 'checkbox',
-  //   value  : 1,
-  //   checked: $('.main-header').hasClass('text-sm'),
-  //   'class': 'mr-1'
-  // }).on('click', function () {
-  //   if ($(this).is(':checked')) {
-  //     $('.main-header').addClass('text-sm')
-  //   } else {
-  //     $('.main-header').removeClass('text-sm')
-  //   }
-  // })
-  // var $text_sm_header_container = $('<div />', {'class': 'mb-1'}).append($text_sm_header_checkbox).append('<span>Navbar small text</span>')
-  // $container.append($text_sm_header_container)
-
-  // var $text_sm_sidebar_checkbox = $('<input />', {
-  //   type   : 'checkbox',
-  //   value  : 1,
-  //   checked: $('.nav-sidebar').hasClass('text-sm'),
-  //   'class': 'mr-1'
-  // }).on('click', function () {
-  //   if ($(this).is(':checked')) {
-  //     $('.nav-sidebar').addClass('text-sm')
-  //   } else {
-  //     $('.nav-sidebar').removeClass('text-sm')
-  //   }
-  // })
-  // var $text_sm_sidebar_container = $('<div />', {'class': 'mb-1'}).append($text_sm_sidebar_checkbox).append('<span>Sidebar nav small text</span>')
-  // $container.append($text_sm_sidebar_container)
-
   var $flat_sidebar_checkbox = $('<input />', {
     type   : 'checkbox',
     value  : 1,
@@ -178,21 +133,6 @@
   var $no_expand_sidebar_container = $('<div />', {'class': 'mb-3'}).append($no_expand_sidebar_checkbox).append('<span>主菜单收缩后悬浮效果</span>')
   $container.append($no_expand_sidebar_container)
 
-  // var $text_sm_brand_checkbox = $('<input />', {
-  //   type   : 'checkbox',
-  //   value  : 1,
-  //   checked: $('.brand-link').hasClass('text-sm'),
-  //   'class': 'mr-1'
-  // }).on('click', function () {
-  //   if ($(this).is(':checked')) {
-  //     $('.brand-link').addClass('text-sm')
-  //   } else {
-  //     $('.brand-link').removeClass('text-sm')
-  //   }
-  // })
-  // var $text_sm_brand_container = $('<div />', {'class': 'mb-4'}).append($text_sm_brand_checkbox).append('<span>Brand small text</span>')
-  // $container.append($text_sm_brand_container)
-
   $container.append('<h6>导航栏风格</h6>')
 
   var $navbar_variants        = $('<div />', {
@@ -237,25 +177,6 @@
     'bg-olive'
   ]
 
-  var accent_colors = [
-    'accent-primary',
-    'accent-warning',
-    'accent-info',
-    'accent-danger',
-    'accent-success',
-    'accent-indigo',
-    'accent-lightblue',
-    'accent-navy',
-    'accent-purple',
-    'accent-fuchsia',
-    'accent-pink',
-    'accent-maroon',
-    'accent-orange',
-    'accent-lime',
-    'accent-teal',
-    'accent-olive'
-  ]
-
   var sidebar_skins = [
     'sidebar-dark-primary',
     'sidebar-dark-warning',
@@ -291,21 +212,6 @@
     'sidebar-light-olive'
   ]
 
-  // $container.append('<h6>Accent Color Variants</h6>')
-  // var $accent_variants = $('<div />', {
-  //   'class': 'd-flex'
-  // })
-  // $container.append($accent_variants)
-  // $container.append(createSkinBlock(accent_colors, function () {
-  //   var color         = $(this).data('color')
-  //   var accent_class = color
-  //   var $body      = $('body')
-  //   accent_colors.map(function (skin) {
-  //     $body.removeClass(skin)
-  //   })
-  //
-  //   $body.addClass(accent_class)
-  // }))
 
   $container.append('<h6>主菜单选择效果</h6>')
   var $sidebar_variants_dark = $('<div />', {
@@ -319,25 +225,8 @@
     sidebar_skins.map(function (skin) {
       $sidebar.removeClass(skin)
     })
-
     $sidebar.addClass(sidebar_class)
   }))
-
-  // $container.append('<h6>Light Sidebar Variants</h6>')
-  // var $sidebar_variants_light = $('<div />', {
-  //   'class': 'd-flex'
-  // })
-  // $container.append($sidebar_variants_light)
-  // $container.append(createSkinBlock(sidebar_colors, function () {
-  //   var color         = $(this).data('color')
-  //   var sidebar_class = 'sidebar-light-' + color.replace('bg-', '')
-  //   var $sidebar      = $('.main-sidebar')
-  //   sidebar_skins.map(function (skin) {
-  //     $sidebar.removeClass(skin)
-  //   })
-  //
-  //   $sidebar.addClass(sidebar_class)
-  // }))
 
   var logo_skins = navbar_all_colors
   $container.append('<h6>LOGO效果</h6>')

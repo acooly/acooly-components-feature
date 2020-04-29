@@ -145,7 +145,7 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 ## 6. changelog
 
 
-### 5.0.0-SNAPSHOT-20200428
+### 5.0.0-SNAPSHOT(20200428)
 
 * 修复因重构验证码造成的系统功能：修改密码验证码验证错误BUG.
 * 同时优化datagrid的fireSelectRow的弹出款显示为：acooly.messager

@@ -72,7 +72,7 @@
                         <span style="font-size: 60px;"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></span>
                         <p>
                             ${Session.user.username} - ${Session.user.realName}
-                            <div style="font-size:14px;">${roleName}</div>
+                        <div style="font-size:14px;">${roleName}</div>
                         </p>
                     </li>
                     <!-- Menu Footer-->
@@ -82,7 +82,6 @@
                     </li>
                 </ul>
             </li>
-
             <!-- choose theme -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
@@ -102,14 +101,14 @@
                     <div class="dropdown-divider"></div>
                 </div>
             </li>
-
-
+            <!-- 帮组文档按钮 -->
             <#if isOnline == false>
-                <li class="nav-item"><a class="nav-link" href="javascript:;" onclick="$.acooly.admin.tab.addIframe('帮助文档','fa fa-question-circle fa-lg','https://acooly.cn/docs/core.html')"
-                                        title="帮助" role="button"><i class="fa fa-question-circle fa-lg"></i></a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:;" onclick="$.acooly.admin.tab.addIframe('帮助文档','fa fa-question-circle fa-lg','https://acooly.cn/docs/core.html')" title="帮助" role="button"><i class="fa fa-question-circle fa-lg"></i></a>
+                </li>
             </#if>
             <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fa fa-th-large"></i></a>
+                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fa fa-th-large fa-lg"></i></a>
             </li>
         </ul>
     </nav>
@@ -218,81 +217,81 @@
         <div class="tab-content control-sidebar-content">
             <div class="tab-pane control-sidebar-options-tab active" id="control-sidebar-options-tab"></div>
             <#if isOnline == false>
-            <!-- docs tab content -->
-            <div class="tab-pane" id="control-sidebar-devdocs-tab">
-                <h3 class="control-sidebar-heading">开发文档</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="http://www.fontawesome.com.cn/faicons/" target="_blank">
-                            <i class="sidebar-menu-icon fa fa-font-awesome bg-gradient-green"></i>
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Awesome图标库</h4>
-                                <p>推荐使用的文字图标库查询</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://ionicons.com/v2/" target="_blank">
-                            <i class="sidebar-menu-icon ico ion-ionic bg-gradient-lightblue"></i>
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Ionicons图标库</h4>
-                                <p>推荐使用的文字图标库查询</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.jeasyui.com/" target="_blank">
-                            <i class="sidebar-menu-icon fa fa-etsy bg-purple"></i>
+                <!-- docs tab content -->
+                <div class="tab-pane" id="control-sidebar-devdocs-tab">
+                    <h3 class="control-sidebar-heading">开发文档</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="http://www.fontawesome.com.cn/faicons/" target="_blank">
+                                <i class="sidebar-menu-icon fa fa-font-awesome bg-gradient-green"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Awesome图标库</h4>
+                                    <p>推荐使用的文字图标库查询</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://ionicons.com/v2/" target="_blank">
+                                <i class="sidebar-menu-icon ico ion-ionic bg-gradient-lightblue"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Ionicons图标库</h4>
+                                    <p>推荐使用的文字图标库查询</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://www.jeasyui.com/" target="_blank">
+                                <i class="sidebar-menu-icon fa fa-etsy bg-purple"></i>
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">EasyUI文档</h4>
-                                <p>EasyUI升级到1.9了，新的控件</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://adminlte.io/" target="_blank">
-                            <i class="sidebar-menu-icon fa fa-user bg-yellow"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">EasyUI文档</h4>
+                                    <p>EasyUI升级到1.9了，新的控件</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://adminlte.io/" target="_blank">
+                                <i class="sidebar-menu-icon fa fa-user bg-yellow"></i>
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">AdminLte3</h4>
-                                <p>升级为V3，可用其漂亮组件</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://freemarker.foofun.cn/" target="_blank">
-                            <i class="sidebar-menu-icon fa fa-file-code-o bg-gradient-blue"></i>
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Freemarker文档</h4>
-                                <p>Freemarker中文文档，方便查询</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'Acooly文档',value:'https://acooly.cn/docs/core.html',
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">AdminLte3</h4>
+                                    <p>升级为V3，可用其漂亮组件</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://freemarker.foofun.cn/" target="_blank">
+                                <i class="sidebar-menu-icon fa fa-file-code-o bg-gradient-blue"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Freemarker文档</h4>
+                                    <p>Freemarker中文文档，方便查询</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'Acooly文档',value:'https://acooly.cn/docs/core.html',
                     showMode:'2',icon:'fa-home'})">
-                            <i class="sidebar-menu-icon fa fa-book bg-gradient-danger"></i>
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Acooly官方文档</h4>
-                                <p>Acooly框架所有的文档</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://bantikyan.github.io/icheck-bootstrap/" target="_blank">
-                            <i class="sidebar-menu-icon fa fa-file-code-o bg-gradient-blue"></i>
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">icheck-bootstrap</h4>
-                                <p>icheck-bootstrap的演示和文档</p>
-                            </div>
-                        </a>
-                    </li>
+                                <i class="sidebar-menu-icon fa fa-book bg-gradient-danger"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Acooly官方文档</h4>
+                                    <p>Acooly框架所有的文档</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://bantikyan.github.io/icheck-bootstrap/" target="_blank">
+                                <i class="sidebar-menu-icon fa fa-file-code-o bg-gradient-blue"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">icheck-bootstrap</h4>
+                                    <p>icheck-bootstrap的演示和文档</p>
+                                </div>
+                            </a>
+                        </li>
 
-                </ul>
-                <!-- /.control-sidebar-menu -->
-            </div>
-            <!-- / docs tab content -->
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+                </div>
+                <!-- / docs tab content -->
             </#if>
         </div>
 

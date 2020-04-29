@@ -1,25 +1,44 @@
 <script type="text/javascript">
     $(function () {
         $.acooly.framework.registerKeydown('manage_customer_searchform', 'manage_customer_datagrid');
+        $('.select2bs4').select2({theme: 'bootstrap4'});
     });
 </script>
 <div class="easyui-layout" data-options="fit : true,border : false">
     <!-- 查询条件 -->
     <div data-options="region:'north',border:false" style="padding:5px; overflow: hidden;" align="left">
-        <form id="manage_customer_searchform" onsubmit="return false">
-            <div class="tableForm">
-                <div class="item">用户名:<input type="text" class="text" size="15" name="search_LIKE_username"/></div>
-                <div class="item">性别: <select name="search_EQ_gender" editable="false" panelHeight="auto" class="easyui-combobox" style="width: 100px;">
-                        <option value="">所有</option><#list allGenders as k,v>
-                        <option value="${k}">${v}</option></#list></select></div>
-                <div class="item">姓名: <input type="text" class="text" size="15" name="search_LIKE_realName"/></div>
-                <div class="item">手机号码: <input type="text" class="text" size="15" name="search_LIKE_mobileNo"/></div>
-                <div class="item">客户类型: <select name="search_EQ_customerType" editable="false" panelHeight="auto" class="easyui-combobox">
-                        <option value="">所有</option><#list allCustomerTypes as k,v>
-                        <option value="${k}">${v}</option></#list></select></div>
-                <div class="item">创建时间: <input size="15" class="text" id="search_GTE_createTime" name="search_GTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
-                至 <input size="15" class="text" id="search_LTE_createTime" name="search_LTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/></div>
-                <div class="item"><a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:false" onclick="$.acooly.framework.search('manage_customer_searchform','manage_customer_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i>查询</a></div>
+        <form id="manage_customer_searchform" class="form-inline ac-form-search" onsubmit="return false">
+            <div class="form-group">
+                <label class="col-form-label">用户名：</label>
+                <input type="text" class="form-control form-control-sm" name="search_LIKE_username"/>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">姓名：</label>
+                <input type="text" class="form-control form-control-sm" name="search_LIKE_realName"/>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">性别：</label>
+                <select name="search_EQ_gender" class="form-control input-sm select2bs4">
+                    <option value="">所有</option><#list allGenders as k,v><option value="${k}">${v}</option></#list>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">手机号码：</label>
+                <input type="text" class="form-control form-control-sm" name="search_LIKE_mobileNo"/>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">类型：</label>
+                <select name="search_EQ_customerType" class="form-control select2bs4">
+                    <option value="">所有</option><#list allCustomerTypes as k,v><option value="${k}">${v}</option></#list>
+                </select>
+            </div>
+            <div class="form-group mr-2">
+                <label class="col-form-label">创建时间：</label>
+                <input type="text" class="form-control form-control-sm" id="search_GTE_createTime" name="search_GTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
+                至 <input type="text" class="form-control form-control-sm" id="search_LTE_createTime" name="search_LTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_customer_searchform','manage_customer_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>
             </div>
         </form>
     </div>
