@@ -606,3 +606,4 @@ div.datagrid-cell > div > label {
 /** 弹出框圆角 */
 .window {border-radius: 5px;}
 .window-shadow {border-radius: 5px;}
+.dialog-button {padding: 10px 20px;}

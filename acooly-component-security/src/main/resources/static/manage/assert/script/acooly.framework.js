@@ -177,6 +177,9 @@
                         $.parser.onComplete = function () {
                             //要执行的操作
                             $.acooly.framework.extendCombobox($(that));
+                            //Initialize Select2 and inputmask
+                            $('.select2bs4').select2({theme: 'bootstrap4',});
+                            $('[data-mask]').inputmask();
                             //最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () { };
                         }
@@ -315,12 +318,15 @@
                         $(this).dialog('destroy');
                     },
                     onOpen: function () {
-                        // 打开dialog，EASYUI渲染完成后，处理combobox的宽度
+                        // 打开dialog，EASYUI渲染完成后，
                         var that = $(this);
                         $.parser.onComplete = function () {
-                            //要执行的操作
+                            // 处理combobox的宽度
                             $.acooly.framework.extendCombobox($(that));
-                            //最后把坑爹的事件绑定解除
+                            //Initialize Select2 and inputmask
+                            $('.select2bs4').select2({theme: 'bootstrap4',});
+                            $('[data-mask]').inputmask();
+                            // 最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () { };
                         }
                     }
@@ -395,7 +401,15 @@
                         $.acooly.framework.search(searchForm, datagride);
                     }
                 });
-                $.acooly.framework.extendCombobox(searchForm);
+
+            },
+
+            initPage: function(searchForm, datagride){
+                this.registerKeydown(searchForm,datagride);
+                this.extendCombobox(searchForm);
+                //Initialize Select2 and inputmask
+                $('.select2bs4').select2({theme: 'bootstrap4',});
+                $('[data-mask]').inputmask();
             },
 
             /**
