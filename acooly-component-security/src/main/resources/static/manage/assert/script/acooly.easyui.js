@@ -21,6 +21,14 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: '输入的数字超出范围.'
     },
+    integer: {
+        validator: function (value, param) {
+            var min = param[0] || 0;
+            var max = param[1] || 999999999;
+            return $.acooly.verify.number(value) && value >= min && value <= max;
+        },
+        message: '输入的数字超出范围.'
+    },
     decimal: {
         validator: function (value, param) {
             var min = param[0] || 0;
@@ -29,6 +37,7 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: '输入的数字超出范围.'
     },
+    money:this.decimal,
     // 两个表单相等
     equals: {
         validator: function (value, param) {
@@ -67,18 +76,11 @@ $.extend($.fn.validatebox.defaults.rules, {
     // 用户账号验证(只能包括 _ 数字 字母)
     account: {// param的值为[]中值
         validator: function (value, param) {
-            if (value.length < param[0]
-                || value.length > param[1]) {
-                $.fn.validatebox.defaults.rules.account.message = '用户名长度必须在'
-                    + param[0] + '至' + param[1] + '范围';
+            if (!$.acooly.verify.account(value)) {
+                $.fn.validatebox.defaults.rules.account.message = '用户名只能字母开头，数字、字母、下划线组成.';
                 return false;
             } else {
-                if ($.acooly.verify.account(value)) {
-                    $.fn.validatebox.defaults.rules.account.message = '用户名只能数字、字母、下划线组成.';
-                    return false;
-                } else {
-                    return true;
-                }
+                return true;
             }
         },
         message: '用户名只能字母开头，数字、字母、下划线组成.'
@@ -125,7 +127,25 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: '金额必须为整数或最多两位小数'
     },
+    percent: {
+        validator: function (value, param) {
+            return $.acooly.verify.decimal(value) && value >= 0 && value <= 100;
+        },
+        message: '百分数必须在0-100间'
+    },
+    bankcard: {
+        validator: function (value, param) {
+            return $.acooly.verify.number(value);
+        },
+        message: '银行卡号必须为数字组成'
+    },
     cert: {
+        validator: function (value, param) {
+            return $.acooly.verify.cert(value);
+        },
+        message: '18位有效身份证号码'
+    },
+    idcard: {
         validator: function (value, param) {
             return $.acooly.verify.cert(value);
         },
@@ -204,6 +224,10 @@ var jsonFormatter = function (value) {
     return $.acooly.format.json(value);
 }
 
+var percentFormatter = function (value) {
+    return value + "%"
+}
+
 var mappingFormatter = function (value, row, index, data, field) {
     try {
         var mapping = "all" + field.substring(0, 1).toUpperCase() + field.substring(1, field.length) + "s";
@@ -211,6 +235,10 @@ var mappingFormatter = function (value, row, index, data, field) {
     } catch (e) {
         return value;
     }
+}
+
+var actionFormatter = function (value, row, index, data, field) {
+    return formatString($('#' + actionContainer).html(), row.id);
 }
 
 
@@ -238,6 +266,11 @@ var formatContent = function (value, maxSize) {
 var formatLink = function (value, label) {
     return $.acooly.format.link(value, label);
 }
+
+var formatPercent = function (value, label) {
+    return value + "%"
+}
+
 
 
 /*
@@ -267,6 +300,9 @@ var formatRefrence = function (datagrid, filed, value) {
 }
 
 var formatAction = function (actionContainer, value, row) {
+    if(row.showCheckboxWithId == ''){
+        return '';
+    }
     return formatString($('#' + actionContainer).html(), row.id);
 }
 

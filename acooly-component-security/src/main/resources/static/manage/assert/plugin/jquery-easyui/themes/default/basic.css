@@ -342,6 +342,8 @@ img {
     line-height: calc(2rem + 2px) !important;
 }
 
+.form-horizontal .input-group-append { height: calc(2rem + 2px);}
+
 .select2-dropdown {
     z-index: 10000;
 }

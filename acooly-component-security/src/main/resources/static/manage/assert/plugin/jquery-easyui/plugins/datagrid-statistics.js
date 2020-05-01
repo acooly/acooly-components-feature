@@ -47,27 +47,27 @@ $.extend($.fn.datagrid.methods, {
 
         for (var i = 0; i < opt[0].length; i++) {
             var fieldName = opt[0][i].field;
-            if (opt[0][i].sum) {
+            if (isStatics(fieldName,"sum")) {
                 sumShow = true;
                 footer['sum'] = footer['sum'] + sum(fieldName) + ',';
             } else {
                 footer['sum'] = footer['sum'] + '"' + fieldName + '":"",';
             }
-            if (opt[0][i].avg) {
+            if (isStatics(fieldName,"avg")) {
                 avgShow = true;
                 footer['avg'] = footer['avg'] + avg(opt[0][i].field) + ',';
             } else {
                 footer['avg'] = footer['avg'] + '"' + fieldName + '":"",';
             }
 
-            if (opt[0][i].max) {
+            if (isStatics(fieldName,"max")) {
                 maxShow = true;
                 footer['max'] = footer['max'] + max(opt[0][i].field) + ',';
             } else {
                 footer['max'] = footer['max'] + '"' + fieldName + '":"",';
             }
 
-            if (opt[0][i].min) {
+            if (isStatics(fieldName,"min")) {
                 minShow = true;
                 footer['min'] = footer['min'] + min(opt[0][i].field) + ',';
             } else {
@@ -140,6 +140,9 @@ $.extend($.fn.datagrid.methods, {
             $(jq).datagrid('reloadFooter', footerObj);
         }
 
+        function isStatics(fieldName,statics) {
+            return $(jq).find("th[field='"+fieldName+"']").attr(statics);
+        }
 
         function sum(filed) {
             var sumNum = 0;
