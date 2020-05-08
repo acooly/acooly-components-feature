@@ -1,11 +1,15 @@
 package com.acooly.module.smsend.domain;
 
 import com.acooly.core.common.domain.AbstractEntity;
-import com.acooly.module.smsend.enums.SmsStatus;
+import com.acooly.module.smsend.enums.SmsProvider;
+import com.acooly.module.smsend.enums.SmsendStatus;
+import com.acooly.module.smsend.enums.SmsendType;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -30,14 +34,31 @@ public class SmsLog extends AbstractEntity {
      * 手机号码
      */
     private String mobileNo;
+
+    /**
+     * 发送类型
+     */
+    private SmsendType sendType;
+
     /**
      * 短信内容
      */
     private String content;
+
+
     /**
-     * 创建时间
+     * 模板编码
      */
-    private Date createTime = new Date();
+    private String templateCode;
+
+    /**
+     * 模板数据(JSON)
+     */
+    private String templateData;
+
+
+    private String system;
+
     /**
      * 发送时间
      */
@@ -49,7 +70,9 @@ public class SmsLog extends AbstractEntity {
     /**
      * 短信发送提供商
      */
-    private String provider;
+    @Enumerated(EnumType.STRING)
+    private SmsProvider provider;
+
     /**
      * 提供商状态
      */
@@ -58,10 +81,11 @@ public class SmsLog extends AbstractEntity {
      * 提供商说明
      */
     private String providerMemo;
+
     /**
      * 状态
      */
-    private int status = SmsStatus.UN_SEND.getCode();
+    private SmsendStatus status = SmsendStatus.WAIT;
 
     /**
      * 客户端IP

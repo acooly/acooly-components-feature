@@ -1,7 +1,7 @@
 package com.acooly.module.smsend.sender.impl;
 
 import com.acooly.module.smsend.enums.SmsProvider;
-import org.springframework.stereotype.Component;
+import com.acooly.module.smsend.sender.dto.SmsResult;
 
 import java.util.List;
 import java.util.Map;
@@ -11,26 +11,26 @@ import java.util.Map;
  *
  * @author zhangpu
  */
-@Component
+//@Component
 public class MaidaoMessageSender extends AbstractShortMessageSender {
 
     @Override
-    public String send(String mobileNo, String content) {
+    public SmsResult send(String mobileNo, String content, String contentSign) {
         return null;
     }
 
     @Override
-    public String send(String mobileNo, String templateCode, Map<String, String> templateParams) {
+    public SmsResult send(List<String> mobileNos, String content, String contentSign) {
         return null;
     }
 
     @Override
-    public String send(List<String> mobileNos, String content) {
+    public SmsResult sendTemplate(String mobileNo, String templateCode, Map<String, String> templateParams, String contentSign) {
         return null;
     }
 
     @Override
-    public String send(List<String> mobileNos, String templateCode, Map<String, String> templateParams) {
+    public SmsResult sendTemplate(List<String> mobileNos, String templateCode, Map<String, String> templateParams, String contentSign) {
         return null;
     }
 

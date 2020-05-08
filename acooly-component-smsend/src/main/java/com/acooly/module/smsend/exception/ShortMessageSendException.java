@@ -1,7 +1,8 @@
-package com.acooly.module.smsend.sender;
+package com.acooly.module.smsend.exception;
 
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.enums.Messageable;
+import com.acooly.module.smsend.sender.dto.SmsResult;
 
 /**
  * 短信发送异常

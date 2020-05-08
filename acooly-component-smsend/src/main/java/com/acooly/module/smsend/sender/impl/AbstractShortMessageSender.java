@@ -23,4 +23,11 @@ public abstract class AbstractShortMessageSender implements ShortMessageSender {
     @Autowired
     protected SmsendProperties properties;
 
+    protected SmsendProperties.SmsProviderInfo getProviderInfo() {
+        return properties.getProviders().get(getProvider());
+    }
+
+    public void setProperties(SmsendProperties properties) {
+        this.properties = properties;
+    }
 }

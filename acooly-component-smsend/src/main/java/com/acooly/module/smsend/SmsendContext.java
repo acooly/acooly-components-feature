@@ -6,7 +6,7 @@ package com.acooly.module.smsend;
 /**
  * @author zhangpu
  */
-public class SmsContext {
+public class SmsendContext {
     /**
      * 是否需要check
      */

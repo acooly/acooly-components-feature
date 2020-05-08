@@ -10,13 +10,11 @@ package com.acooly.module.smsend.sender.rule;
 
 import com.acooly.module.smsend.SmsendProperties;
 import com.acooly.module.smsend.enums.SmsendResultCode;
-import com.acooly.module.smsend.sender.ShortMessageSendException;
+import com.acooly.module.smsend.exception.ShortMessageSendException;
 import com.acooly.module.smsend.sender.ShortMessageSender;
 import com.acooly.module.smsend.sender.ShortMessageSenderManager;
-import com.acooly.module.smsend.sender.SmsendCounter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -25,7 +23,6 @@ import java.util.List;
  * @date 2020-04-12 20:29
  */
 @Slf4j
-@Component
 public class PriorityThresholdSenderRule implements MessageSenderRule {
 
     @Autowired
@@ -50,6 +47,6 @@ public class PriorityThresholdSenderRule implements MessageSenderRule {
         }
 
         log.warn("短信发送 所有渠道发送配额用完 mobileNo:{}", key);
-        throw new ShortMessageSendException(SmsendResultCode.all_provider_quota_full);
+        throw new ShortMessageSendException(SmsendResultCode.ALL_PROVIDER_QUOTA_FULL);
     }
 }

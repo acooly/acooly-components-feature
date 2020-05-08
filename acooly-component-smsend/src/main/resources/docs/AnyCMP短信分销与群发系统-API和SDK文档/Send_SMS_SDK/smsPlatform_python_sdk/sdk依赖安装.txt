@@ -1,0 +1,2 @@
+#Python SDK依赖安装，运行此命令：
+pip install aliyun-python-sdk-core

@@ -10,6 +10,8 @@ package com.acooly.module.smsend.service;
 import com.acooly.core.common.service.EntityService;
 import com.acooly.module.smsend.domain.SmsBlackList;
 
+import java.util.List;
+
 /**
  * 短信黑名单 Service接口
  * <p>
@@ -18,5 +20,7 @@ import com.acooly.module.smsend.domain.SmsBlackList;
  * @author shuijing
  */
 public interface BlackListService extends EntityService<SmsBlackList> {
+
+    List<SmsBlackList> getEffective();
 
 }

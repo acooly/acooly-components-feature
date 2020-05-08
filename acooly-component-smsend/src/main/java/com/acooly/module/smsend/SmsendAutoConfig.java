@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -24,15 +25,16 @@ import static com.acooly.module.smsend.SmsendProperties.PREFIX;
 
 
 /**
- * @author qiubo@yiji.com
+ * @author zhangpu@acooly.cn
  */
 @Configuration
 @EnableConfigurationProperties({SmsendProperties.class})
 @ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
 @AutoConfigureAfter(SecurityAutoConfig.class)
-public class SmsAutoConfig {
+@ComponentScan(basePackages = "com.acooly.module.smsend")
+public class SmsendAutoConfig {
     @Bean
-    public StandardDatabaseScriptIniter smsScriptIniter() {
+    public StandardDatabaseScriptIniter smsendScriptIniter() {
         return new StandardDatabaseScriptIniter() {
             @Override
             public String getEvaluateTable() {
@@ -41,7 +43,7 @@ public class SmsAutoConfig {
 
             @Override
             public String getComponentName() {
-                return "sms";
+                return "smsend";
             }
 
             @Override

@@ -18,6 +18,12 @@
 
         <dependency>
             <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-smsend</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.acooly</groupId>
             <artifactId>acooly-component-data-region</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -105,11 +111,11 @@
             <artifactId>acooly-component-ocr</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-obs</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.acooly</groupId>-->
+<!--            <artifactId>acooly-component-obs</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.acooly</groupId>

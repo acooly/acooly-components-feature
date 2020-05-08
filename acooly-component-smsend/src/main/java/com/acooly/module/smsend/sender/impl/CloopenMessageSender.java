@@ -1,6 +1,7 @@
 package com.acooly.module.smsend.sender.impl;
 
 import com.acooly.module.smsend.enums.SmsProvider;
+import com.acooly.module.smsend.sender.dto.SmsResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.Map;
  * com.acooly.core.test.web.TestController#testCloopenSms()
  */
 @Slf4j
-@Component
+//@Component
 public class CloopenMessageSender extends AbstractShortMessageSender {
 
     private final String SEND_URL_CLO = "https://app.cloopen.com:8883/";
@@ -25,22 +26,22 @@ public class CloopenMessageSender extends AbstractShortMessageSender {
     private final String ENCODING = "UTF-8";
 
     @Override
-    public String send(String mobileNo, String content) {
+    public SmsResult send(String mobileNo, String content, String contentSign) {
         return null;
     }
 
     @Override
-    public String send(String mobileNo, String templateCode, Map<String, String> templateParams) {
+    public SmsResult send(List<String> mobileNos, String content, String contentSign) {
         return null;
     }
 
     @Override
-    public String send(List<String> mobileNos, String content) {
+    public SmsResult sendTemplate(String mobileNo, String templateCode, Map<String, String> templateParams, String contentSign) {
         return null;
     }
 
     @Override
-    public String send(List<String> mobileNos, String templateCode, Map<String, String> templateParams) {
+    public SmsResult sendTemplate(List<String> mobileNos, String templateCode, Map<String, String> templateParams, String contentSign) {
         return null;
     }
 

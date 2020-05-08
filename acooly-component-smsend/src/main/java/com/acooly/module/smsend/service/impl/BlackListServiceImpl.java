@@ -6,12 +6,18 @@
  */
 package com.acooly.module.smsend.service.impl;
 
+import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
-
+import com.acooly.core.utils.enums.SimpleStatus;
 import com.acooly.module.smsend.dao.SmsBlackListDao;
 import com.acooly.module.smsend.domain.SmsBlackList;
 import com.acooly.module.smsend.service.BlackListService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 短信黑名单 Service实现
@@ -23,4 +29,30 @@ import org.springframework.stereotype.Service;
 @Service("blackListService")
 public class BlackListServiceImpl extends EntityServiceImpl<SmsBlackList, SmsBlackListDao> implements BlackListService {
 
+    public static final String ALL_SMS_BLACKLIST_CACHE_KEY = "SMSEND:ALL_BLACKLIST";
+
+    @Override
+    @CacheEvict(ALL_SMS_BLACKLIST_CACHE_KEY)
+    public void removeById(Serializable id) throws BusinessException {
+        super.removeById(id);
+    }
+
+    @Override
+    @CacheEvict(ALL_SMS_BLACKLIST_CACHE_KEY)
+    public void save(SmsBlackList o) throws BusinessException {
+        super.save(o);
+    }
+
+    @Override
+    @CacheEvict(ALL_SMS_BLACKLIST_CACHE_KEY)
+    public void update(SmsBlackList o) throws BusinessException {
+        super.update(o);
+    }
+
+
+    @Override
+    @Cacheable(ALL_SMS_BLACKLIST_CACHE_KEY)
+    public List<SmsBlackList> getEffective() {
+        return getEntityDao().findByStatus(SimpleStatus.enable);
+    }
 }

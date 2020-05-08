@@ -35,7 +35,7 @@ import java.util.Map;
 public class SmsendProperties {
     public static final String PREFIX = "acooly.smsend";
 
-    public boolean enable;
+    public boolean enable = true;
 
     /**
      * 服务商列表
@@ -75,6 +75,12 @@ public class SmsendProperties {
          * 服务商名称
          */
         private SmsProvider provider;
+
+        /**
+         * 服务地址
+         */
+        private String gateway;
+
         /**
          * 身份标志（例如：服务商分配的商户号，AppId等）
          */

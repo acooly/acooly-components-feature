@@ -8,7 +8,9 @@ package com.acooly.module.smsend.domain;
 
 
 import com.acooly.core.common.domain.AbstractEntity;
-import com.acooly.module.smsend.enums.StatusEnum;
+import com.acooly.core.utils.enums.SimpleStatus;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,11 +23,13 @@ import javax.validation.constraints.Size;
 /**
  * 短信黑名单 Entity
  *
- * @author shuijing
- * Date: 2017-08-01 17:28:24
+ * @author zhangpu
+ * Date: 2020-05-06
  */
 @Entity
 @Table(name = "sms_black_list")
+@Getter
+@Setter
 public class SmsBlackList extends AbstractEntity {
     /**
      * serialVersionUID
@@ -45,38 +49,12 @@ public class SmsBlackList extends AbstractEntity {
      */
     @Enumerated(EnumType.STRING)
     @NotNull
-    private StatusEnum status;
+    private SimpleStatus status;
 
     /**
      * description
      */
     @Size(max = 512)
     private String description;
-
-
-    public String getMobile() {
-        return this.mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public StatusEnum getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(StatusEnum status) {
-        this.status = status;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
 
 }

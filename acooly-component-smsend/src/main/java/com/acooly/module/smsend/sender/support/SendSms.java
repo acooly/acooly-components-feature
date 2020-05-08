@@ -6,7 +6,7 @@
  * @author zhangpu
  * @date 2020-04-12 18:14
  */
-package com.acooly.module.smsend.sender;
+package com.acooly.module.smsend.sender.support;
 
 import com.aliyuncs.CommonRequest;
 import com.aliyuncs.CommonResponse;
@@ -25,7 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SendSms {
     public static void main(String[] args) {
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "<accessKeyId>", "<accessSecret>");
+//        providerInfo.setContentSign("新希望服务");
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4Fdxf1Ch1Xk3sD6ocxRN", "TxWZhhFO9XdPHHutRdl7yaeanScGlM");
         IAcsClient client = new DefaultAcsClient(profile);
 
         CommonRequest request = new CommonRequest();
@@ -34,6 +35,9 @@ public class SendSms {
         request.setVersion("2017-05-25");
         request.setAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
+
+        request.putBodyParameter("PhoneNumbers","13896177630");
+
         try {
             CommonResponse response = client.getCommonResponse(request);
             System.out.println(response.getData());

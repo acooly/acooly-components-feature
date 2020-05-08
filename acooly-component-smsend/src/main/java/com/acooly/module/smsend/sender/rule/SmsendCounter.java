@@ -6,19 +6,17 @@
  * @author zhangpu
  * @date 2020-04-12 20:09
  */
-package com.acooly.module.smsend.sender;
+package com.acooly.module.smsend.sender.rule;
 
 import com.acooly.module.smsend.enums.SmsProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Component;
 
 /**
  * @author zhangpu
  * @date 2020-04-12 20:09
  */
-@Component
 public class SmsendCounter {
 
     @Autowired
@@ -29,7 +27,9 @@ public class SmsendCounter {
 
     public void incrementSendCount(String mobileNo, SmsProvider smsProvider) {
         ValueOperations<String, Integer> vp = redisTemplate.opsForValue();
-        vp.increment(getCountKey(mobileNo, smsProvider));
+        String key = getCountKey(mobileNo, smsProvider);
+        vp.increment(key);
+
     }
 
     public int getSendCount(String mobileNo, SmsProvider smsProvider) {

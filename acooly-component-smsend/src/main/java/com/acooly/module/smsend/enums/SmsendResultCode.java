@@ -21,8 +21,10 @@ import java.util.Map;
 
 public enum SmsendResultCode implements Messageable {
 
-    network_conn_error("network_conn_error", "通讯异常"),
-    all_provider_quota_full("all_provider_quota_full", "号码发送配额不足");
+    NOT_SUPPORT_OPERATE("NOT_SUPPORT_OPERATE", "Provider不支持该操作"),
+    NO_PROVIDER_AVAILABLE("NO_PROVIDER_AVAILABLE", "没有可用的发送提供者"),
+    NETWORK_CONN_ERROR("NETWORK_CONN_ERROR", "通讯异常"),
+    ALL_PROVIDER_QUOTA_FULL("ALL_PROVIDER_QUOTA_FULL", "号码发送配额不足");
 
     private final String code;
     private final String message;

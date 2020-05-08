@@ -4,13 +4,14 @@
 package com.acooly.module.smsend.service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author zhangpu
  */
 public interface SmsBlacklistService {
 
-    List<String> getAll();
+    Set<String> getAll();
 
     boolean inBlacklist(String mobileNo);
 }

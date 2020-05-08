@@ -49,11 +49,20 @@ public class ShortMessageSenderManager implements InitializingBean {
         return properties.getProviders().get(smsProvider);
     }
 
+    public ShortMessageSender getSender(SmsProvider provider){
+        for (ShortMessageSender sender:senders){
+            if(sender.getProvider() == provider){
+                return sender;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public void afterPropertiesSet() throws Exception {
         Map<SmsProvider, SmsendProperties.SmsProviderInfo> providers = properties.getProviders();
-        if (providers != null || providers.size() == 0) {
+        if (providers == null || providers.size() == 0) {
             log.warn("短信发送组件 为配置可用的提供商。");
             return;
         }
