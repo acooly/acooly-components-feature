@@ -8,7 +8,7 @@
  */
 package com.acooly.module.smsend.sender.rule;
 
-import com.acooly.module.smsend.SmsendProperties;
+import com.acooly.module.smsend.SmsSendProperties;
 import com.acooly.module.smsend.enums.SmsendResultCode;
 import com.acooly.module.smsend.exception.ShortMessageSendException;
 import com.acooly.module.smsend.sender.ShortMessageSender;
@@ -36,7 +36,7 @@ public class PriorityThresholdSenderRule implements MessageSenderRule {
         // 按配置文件的注册优先级
         List<ShortMessageSender> senders = shortMessageSenderManager.getAllSender();
         for (ShortMessageSender sender : senders) {
-            SmsendProperties.SmsProviderInfo providerInfo = shortMessageSenderManager.getProviderInfo(sender.getProvider());
+            SmsSendProperties.SmsProviderInfo providerInfo = shortMessageSenderManager.getProviderInfo(sender.getProvider());
             int max = providerInfo.getMaxCountOfDay();
             if (smsendCounter.getSendCount(key, sender.getProvider()) >= max) {
                 log.warn("短信发送 超过渠道日限额 mobileNo:{}, provider:{}, maxCountOfDay: {}", key, sender.getProvider().code(), max);

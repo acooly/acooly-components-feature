@@ -3,7 +3,7 @@ package com.acooly.module.smsend.domain;
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.module.smsend.enums.SmsProvider;
 import com.acooly.module.smsend.enums.SmsendStatus;
-import com.acooly.module.smsend.enums.SmsendType;
+import com.acooly.module.smsend.enums.SmsSendType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,7 +38,7 @@ public class SmsLog extends AbstractEntity {
     /**
      * 发送类型
      */
-    private SmsendType sendType;
+    private SmsSendType sendType;
 
     /**
      * 短信内容

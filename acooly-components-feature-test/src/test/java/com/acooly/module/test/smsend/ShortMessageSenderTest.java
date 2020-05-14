@@ -8,7 +8,7 @@
  */
 package com.acooly.module.test.smsend;
 
-import com.acooly.module.smsend.SmsendProperties;
+import com.acooly.module.smsend.SmsSendProperties;
 import com.acooly.module.smsend.enums.SmsProvider;
 import com.acooly.module.smsend.sender.ShortMessageSender;
 import com.acooly.module.smsend.sender.impl.AliyunMessageSender;
@@ -45,7 +45,7 @@ public class ShortMessageSenderTest {
 
 
     protected ShortMessageSender getSender() {
-        SmsendProperties properties = new SmsendProperties();
+        SmsSendProperties properties = new SmsSendProperties();
         properties.getProviders().put(SmsProvider.Aliyun, getAliyunProviderInfo());
         AliyunMessageSender messageSender = new AliyunMessageSender();
         messageSender.setProperties(properties);
@@ -53,15 +53,15 @@ public class ShortMessageSenderTest {
     }
 
     protected ShortMessageSender getAnyCmpSender() {
-        SmsendProperties properties = new SmsendProperties();
+        SmsSendProperties properties = new SmsSendProperties();
         properties.getProviders().put(SmsProvider.AnyCmp, getAnyCmpProviderInfo());
         AnyCmpMessageSender messageSender = new AnyCmpMessageSender();
         messageSender.setProperties(properties);
         return messageSender;
     }
 
-    protected SmsendProperties.SmsProviderInfo getAliyunProviderInfo() {
-        SmsendProperties.SmsProviderInfo providerInfo = new SmsendProperties.SmsProviderInfo();
+    protected SmsSendProperties.SmsProviderInfo getAliyunProviderInfo() {
+        SmsSendProperties.SmsProviderInfo providerInfo = new SmsSendProperties.SmsProviderInfo();
         providerInfo.setProvider(SmsProvider.Aliyun);
         providerInfo.setAppId("newseed");
         providerInfo.setAccessKey("LTAI4Fdxf1Ch1Xk3sD6ocxRN");
@@ -71,8 +71,8 @@ public class ShortMessageSenderTest {
         return providerInfo;
     }
 
-    protected SmsendProperties.SmsProviderInfo getAnyCmpProviderInfo() {
-        SmsendProperties.SmsProviderInfo providerInfo = new SmsendProperties.SmsProviderInfo();
+    protected SmsSendProperties.SmsProviderInfo getAnyCmpProviderInfo() {
+        SmsSendProperties.SmsProviderInfo providerInfo = new SmsSendProperties.SmsProviderInfo();
         providerInfo.setProvider(SmsProvider.AnyCmp);
         providerInfo.setAppId("cnvex");
         providerInfo.setAccessKey("52AQCwgE+tsFd6C4N4qJ6Q==");

@@ -20,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -31,8 +32,8 @@ import java.util.Map;
 @Slf4j
 @Data
 @Validated
-@ConfigurationProperties(prefix = SmsendProperties.PREFIX)
-public class SmsendProperties {
+@ConfigurationProperties(prefix = SmsSendProperties.PREFIX)
+public class SmsSendProperties {
     public static final String PREFIX = "acooly.smsend";
 
     public boolean enable = true;
@@ -46,14 +47,14 @@ public class SmsendProperties {
     private int connTimeout = 20 * 1000;
     private int readTimeout = 10 * 1000;
     /**
-     * IP最大频率(分钟)
+     * IP最大频率(秒)
      */
-    private int ipFreq = 200;
+    private int ipInterval = 200;
 
     /**
      * 单号码发送间隔（秒）
      */
-    private int sendInterval = 10;
+    private int mobileInterval = 10;
 
     /**
      * 黑名单
@@ -65,6 +66,29 @@ public class SmsendProperties {
     public void init() {
 
     }
+
+    /**
+     * 流控参数
+     */
+    @Data
+    public static class RateLimit {
+        /**
+         * 时间单位
+         */
+        private TimeUnit timeUnit = TimeUnit.MINUTES;
+
+        /**
+         * 单位时间的IP限流
+         */
+        private long ipInterval = 200;
+
+        /**
+         * 单位时间手机号码限流
+         */
+        private long mobileInterval = 2;
+
+    }
+
 
     /**
      * 短信服务商

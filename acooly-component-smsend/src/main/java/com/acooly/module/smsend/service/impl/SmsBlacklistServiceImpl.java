@@ -4,8 +4,8 @@
 package com.acooly.module.smsend.service.impl;
 
 
-import com.acooly.module.smsend.SmsendProperties;
-import com.acooly.module.smsend.domain.SmsBlackList;
+import com.acooly.module.smsend.SmsSendProperties;
+import com.acooly.module.smsend.entity.SmsBlackList;
 import com.acooly.module.smsend.service.BlackListService;
 import com.acooly.module.smsend.service.SmsBlacklistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class SmsBlacklistServiceImpl implements SmsBlacklistService {
     @Autowired
-    private SmsendProperties smsProperties;
+    private SmsSendProperties smsProperties;
     @Autowired
     private BlackListService blackListService;
 

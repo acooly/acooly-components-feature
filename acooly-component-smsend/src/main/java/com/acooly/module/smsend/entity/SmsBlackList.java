@@ -4,7 +4,7 @@
  * create by shuijing
  * date:2017-08-01
  */
-package com.acooly.module.smsend.domain;
+package com.acooly.module.smsend.entity;
 
 
 import com.acooly.core.common.domain.AbstractEntity;

@@ -2,7 +2,7 @@ package com.acooly.module.smsend.sender.impl;
 
 import com.acooly.core.utils.Asserts;
 import com.acooly.core.utils.Strings;
-import com.acooly.module.smsend.SmsendProperties;
+import com.acooly.module.smsend.SmsSendProperties;
 import com.acooly.module.smsend.enums.SmsProvider;
 import com.acooly.module.smsend.enums.SmsendResultCode;
 import com.acooly.module.smsend.sender.dto.SmsResult;
@@ -67,7 +67,7 @@ public class AnyCmpMessageSender extends AbstractShortMessageSender {
      */
     protected SmsResult doSendTemplate(String mobileNo, String templateCode, Map<String, String> templateParams, String contentSign) {
         Asserts.notEmpty(mobileNo, "手机号码");
-        SmsendProperties.SmsProviderInfo providerInfo = getProviderInfo();
+        SmsSendProperties.SmsProviderInfo providerInfo = getProviderInfo();
         DefaultProfile profile = DefaultProfile.getProfile("ydy", providerInfo.getAccessKey(), providerInfo.getSecretKey());
         IAcsClient client = new DefaultAcsClient(profile);
         //创建发送请求实体

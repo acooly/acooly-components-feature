@@ -6,10 +6,9 @@
  */
 package com.acooly.module.smsend.web;
 
-import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.core.common.web.AbstractJsonEntityController;
-import com.acooly.module.smsend.domain.SmsBlackList;
-import com.acooly.module.smsend.enums.StatusEnum;
+import com.acooly.module.smsend.entity.SmsBlackList;
+import com.acooly.module.smsend.enums.SmsendStatus;
 import com.acooly.module.smsend.service.BlackListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +37,7 @@ public class SmsBlackListManagerController extends AbstractJsonEntityController<
 
     @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
-        model.put("allStatuss", StatusEnum.mapping());
+        model.put("allStatuss", SmsendStatus.mapping());
     }
 
 }

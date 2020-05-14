@@ -10,7 +10,7 @@ import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
 import com.acooly.core.utils.enums.SimpleStatus;
 import com.acooly.module.smsend.dao.SmsBlackListDao;
-import com.acooly.module.smsend.domain.SmsBlackList;
+import com.acooly.module.smsend.entity.SmsBlackList;
 import com.acooly.module.smsend.service.BlackListService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

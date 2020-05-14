@@ -24,7 +24,7 @@ import java.util.Map;
  *
  * @author zhangpu
  */
-public enum SmsendType implements Messageable {
+public enum SmsSendType implements Messageable {
 
     /**
      * 直接内容发送
@@ -36,7 +36,7 @@ public enum SmsendType implements Messageable {
     private final String code;
     private final String message;
 
-    SmsendType(String code, String message) {
+    SmsSendType(String code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -61,7 +61,7 @@ public enum SmsendType implements Messageable {
 
     public static Map<String, String> mapping() {
         Map<String, String> map = new LinkedHashMap<String, String>();
-        for (SmsendType type : values()) {
+        for (SmsSendType type : values()) {
             map.put(type.getCode(), type.getMessage());
         }
         return map;
@@ -74,8 +74,8 @@ public enum SmsendType implements Messageable {
      * @return 枚举值码对应的枚举值。
      * @throws IllegalArgumentException 如果 code 没有对应的 Status 。
      */
-    public static SmsendType find(String code) {
-        for (SmsendType status : values()) {
+    public static SmsSendType find(String code) {
+        for (SmsSendType status : values()) {
             if (status.getCode().equals(code)) {
                 return status;
             }
@@ -88,9 +88,9 @@ public enum SmsendType implements Messageable {
      *
      * @return 全部枚举值。
      */
-    public static List<SmsendType> getAll() {
-        List<SmsendType> list = new ArrayList<SmsendType>();
-        for (SmsendType status : values()) {
+    public static List<SmsSendType> getAll() {
+        List<SmsSendType> list = new ArrayList<SmsSendType>();
+        for (SmsSendType status : values()) {
             list.add(status);
         }
         return list;
@@ -103,7 +103,7 @@ public enum SmsendType implements Messageable {
      */
     public static List<String> getAllCode() {
         List<String> list = new ArrayList<String>();
-        for (SmsendType status : values()) {
+        for (SmsSendType status : values()) {
             list.add(status.code());
         }
         return list;

@@ -1,7 +1,7 @@
 package com.acooly.module.smsend.sender.impl;
 
 import com.acooly.core.utils.Strings;
-import com.acooly.module.smsend.SmsendProperties;
+import com.acooly.module.smsend.SmsSendProperties;
 import com.acooly.module.smsend.enums.SmsProvider;
 import com.acooly.module.smsend.enums.SmsendResultCode;
 import com.acooly.module.smsend.exception.ShortMessageSendException;
@@ -72,7 +72,7 @@ public class AliyunMessageSender extends AbstractShortMessageSender {
         //已经更新为云 通信短信服务 新接口
         String mobileNo = Joiner.on(",").join(mobileNos);
         String gmt = getGMT(new Date());
-        SmsendProperties.SmsProviderInfo providerInfo = properties.getProviders().get(this.getProvider());
+        SmsSendProperties.SmsProviderInfo providerInfo = properties.getProviders().get(this.getProvider());
         String topicName = (String) providerInfo.getExt().get("topicName");
 
         Map<String, String> paras = new HashMap<>();

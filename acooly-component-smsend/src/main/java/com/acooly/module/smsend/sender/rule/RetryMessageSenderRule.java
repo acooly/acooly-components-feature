@@ -8,7 +8,7 @@
  */
 package com.acooly.module.smsend.sender.rule;
 
-import com.acooly.module.smsend.SmsendProperties;
+import com.acooly.module.smsend.SmsSendProperties;
 import com.acooly.module.smsend.enums.SmsendResultCode;
 import com.acooly.module.smsend.exception.ShortMessageSendException;
 import com.acooly.module.smsend.sender.ShortMessageSender;
@@ -35,7 +35,7 @@ public class RetryMessageSenderRule implements MessageSenderRule {
         // 按配置文件的注册优先级
         List<ShortMessageSender> senders = shortMessageSenderManager.getAllSender();
         for (ShortMessageSender sender : senders) {
-            SmsendProperties.SmsProviderInfo providerInfo = shortMessageSenderManager.getProviderInfo(sender.getProvider());
+            SmsSendProperties.SmsProviderInfo providerInfo = shortMessageSenderManager.getProviderInfo(sender.getProvider());
         }
 
         log.warn("短信发送 所有渠道发送配额用完 mobileNo:{}", key);

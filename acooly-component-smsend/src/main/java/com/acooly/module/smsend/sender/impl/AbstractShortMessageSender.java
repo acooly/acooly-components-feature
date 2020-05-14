@@ -9,7 +9,7 @@
  */
 package com.acooly.module.smsend.sender.impl;
 
-import com.acooly.module.smsend.SmsendProperties;
+import com.acooly.module.smsend.SmsSendProperties;
 import com.acooly.module.smsend.sender.ShortMessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,13 +21,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public abstract class AbstractShortMessageSender implements ShortMessageSender {
     @Autowired
-    protected SmsendProperties properties;
+    protected SmsSendProperties properties;
 
-    protected SmsendProperties.SmsProviderInfo getProviderInfo() {
+    protected SmsSendProperties.SmsProviderInfo getProviderInfo() {
         return properties.getProviders().get(getProvider());
     }
 
-    public void setProperties(SmsendProperties properties) {
+    public void setProperties(SmsSendProperties properties) {
         this.properties = properties;
     }
 }

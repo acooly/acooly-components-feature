@@ -8,7 +8,7 @@
  */
 package com.acooly.module.smsend.sender;
 
-import com.acooly.module.smsend.SmsendProperties;
+import com.acooly.module.smsend.SmsSendProperties;
 import com.acooly.module.smsend.enums.SmsProvider;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ import java.util.Map;
 public class ShortMessageSenderManager implements InitializingBean {
 
     @Autowired
-    private SmsendProperties properties;
+    private SmsSendProperties properties;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -45,7 +45,7 @@ public class ShortMessageSenderManager implements InitializingBean {
         return senders;
     }
 
-    public SmsendProperties.SmsProviderInfo getProviderInfo(SmsProvider smsProvider){
+    public SmsSendProperties.SmsProviderInfo getProviderInfo(SmsProvider smsProvider){
         return properties.getProviders().get(smsProvider);
     }
 
@@ -61,7 +61,7 @@ public class ShortMessageSenderManager implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Map<SmsProvider, SmsendProperties.SmsProviderInfo> providers = properties.getProviders();
+        Map<SmsProvider, SmsSendProperties.SmsProviderInfo> providers = properties.getProviders();
         if (providers == null || providers.size() == 0) {
             log.warn("短信发送组件 为配置可用的提供商。");
             return;

@@ -173,7 +173,6 @@
         <module>acooly-component-face</module>
         <module>acooly-component-ocr</module>
         <module>acooly-component-obs</module>
-        <module>acooly-components-shortmessage</module>
         <module>acooly-component-smsend</module>
     </modules>
 

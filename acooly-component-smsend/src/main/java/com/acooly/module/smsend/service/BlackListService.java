@@ -8,7 +8,7 @@
 package com.acooly.module.smsend.service;
 
 import com.acooly.core.common.service.EntityService;
-import com.acooly.module.smsend.domain.SmsBlackList;
+import com.acooly.module.smsend.entity.SmsBlackList;
 
 import java.util.List;
 

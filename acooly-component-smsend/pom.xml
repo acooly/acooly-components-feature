@@ -13,6 +13,10 @@
     <dependencies>
         <dependency>
             <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-filterchain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
             <artifactId>acooly-component-cache</artifactId>
         </dependency>
         <dependency>

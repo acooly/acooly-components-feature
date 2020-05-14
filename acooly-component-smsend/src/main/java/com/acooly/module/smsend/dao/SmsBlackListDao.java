@@ -8,7 +8,7 @@ package com.acooly.module.smsend.dao;
 
 import com.acooly.core.utils.enums.SimpleStatus;
 import com.acooly.module.mybatis.EntityMybatisDao;
-import com.acooly.module.smsend.domain.SmsBlackList;
+import com.acooly.module.smsend.entity.SmsBlackList;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 

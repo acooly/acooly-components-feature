@@ -21,14 +21,14 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-import static com.acooly.module.smsend.SmsendProperties.PREFIX;
+import static com.acooly.module.smsend.SmsSendProperties.PREFIX;
 
 
 /**
  * @author zhangpu@acooly.cn
  */
 @Configuration
-@EnableConfigurationProperties({SmsendProperties.class})
+@EnableConfigurationProperties({SmsSendProperties.class})
 @ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
 @AutoConfigureAfter(SecurityAutoConfig.class)
 @ComponentScan(basePackages = "com.acooly.module.smsend")
