@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +61,7 @@ public class UserSmsController {
         String username = request.getParameter("username");
         JsonResult result = new JsonResult();
         try {
-            if(!securityProperties.isEnableSmsAuth()){
+            if (!securityProperties.isEnableSmsAuth()) {
                 throw new RuntimeException("未开启短信验证");
             }
             User user = userService.findUserByUsername(username);
@@ -91,7 +90,7 @@ public class UserSmsController {
 
             sendProxy(mobileNo, code, user);
 
-            log.info("用户:{},登录验证码已发送:{}", user.getUsername(), code);
+            log.info("短信登录验证 [发送成功] 用户:{}, 手机号码:{}, 验证码:{}", user.getUsername(), mobileNo, code);
             Servlets.setSessionAttribute(SMS_VERIFY_CODE_KEY, code);
             Servlets.setSessionAttribute(SMS_VERIFY_CODE_KEY_ST, System.currentTimeMillis());
 
