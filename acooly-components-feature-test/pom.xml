@@ -18,6 +18,11 @@
 
         <dependency>
             <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-sms</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
             <artifactId>acooly-component-data-region</artifactId>
             <version>${project.version}</version>
         </dependency>

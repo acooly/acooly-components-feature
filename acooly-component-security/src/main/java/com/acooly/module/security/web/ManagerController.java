@@ -168,7 +168,8 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
             request.getSession(true).setAttribute("securityConfig", frameworkProperties);
             request.setAttribute("passwordRegex", frameworkProperties.getPasswordStrength().getRegexForJs());
             request.setAttribute("notFirstVerify", !securityCaptchaManager.isFirstVerify(request));
-            return "/manage/login";
+            request.setAttribute("loginSmsEnable", "true");
+                return "/manage/login";
         }
     }
 

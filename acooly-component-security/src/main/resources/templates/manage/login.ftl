@@ -68,7 +68,7 @@
                     </div>
                 </div>
 
-                <#if Application.loginSmsEnable?exists>
+                <#if Application.enableSmsAuth??>
                 <!-- sms -->
                 <div class="input-group mb-3">
                     <input id="validCode" name="validCode" type="text" value="" size="25" class="form-smscaptcha form-control" placeholder="短信验证码"/>
@@ -195,7 +195,7 @@
         }
 
 
-        <#if Application.loginSmsEnable?exists>
+        <#if Application.enableSmsAuth?exists>
         if (!checkCodee()) {
             return;
         }
@@ -232,7 +232,7 @@
                         window.location.href = "/manage/index.html";
                     }
                 } else {
-                    <#if Application.loginSmsEnable?exists>
+                    <#if Application.enableSmsAuth?exists>
                     <#else>
                     refreshCaptcha();
                     </#if>
@@ -294,12 +294,8 @@
             $('#message').html('用户名不能为空!');
             return;
         }
-//            if (!checkPhone()) {
-//                return;
-//            }
         btn.attr('disabled', 'disabled');
         validCode.val('');
-
         var jsonData = {
             username: $('#form-username').val(),
             //phoneNumber: inputPhone.val(),
@@ -333,10 +329,10 @@
         window.setTimeout(function () {
             if (timeLeft > 0) {
                 timeLeft -= 1;
-                btn.val(timeLeft + "秒后重发");
+                btn.html(timeLeft + "秒后重发");
                 timeCount();
             } else {
-                btn.val("重新发送");
+                btn.html("重新发送");
                 btn.removeAttr('disabled');
                 timeLeft = SEND_INTERVAL;
             }
@@ -344,9 +340,6 @@
     };
 
     function checkCodee() {
-//            if (!this.checkPhone()) {
-//                return false;
-//            }
         if (!this.validCode.val()) {
             $('#message').html('验证码不能为空!');
             return false;
