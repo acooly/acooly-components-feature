@@ -79,7 +79,7 @@ public class UserSmsController {
             Long lastCurrentTime = (Long) Servlets.getSessionAttribute(SMS_VERIFY_CODE_KEY_ST);
             if (lastCurrentTime != null) {
                 long sec = (System.currentTimeMillis() - lastCurrentTime);
-                int smsSendInterval = FrameworkPropertiesHolder.get().getSmsSendInterval();
+                int smsSendInterval = securityProperties.getSmsSendInterval();
                 if (sec < smsSendInterval * 1000) {
                     result.setMessage("发送太频繁，请等" + sec / 1000 + "秒后发送!");
                     result.setSuccess(false);
