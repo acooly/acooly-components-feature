@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <button id="getValidCodeaa" type="button" class="btn btn-secondary" style="margin-left: 5px;font-size: 14px;">获取验证码</button>
-                    <input style="display: none;" id="smsSendInterval" value="${Session.securityConfig.smsSendInterval}"/>
+                    <input style="display: none;" id="smsSendInterval" value="${securityProperties.smsSendInterval}"/>
                 </div>
                 <#else>
                 <!-- human验证码 -->

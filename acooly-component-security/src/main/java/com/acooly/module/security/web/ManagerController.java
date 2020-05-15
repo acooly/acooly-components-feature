@@ -66,6 +66,8 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
     @Autowired
     private FrameworkProperties frameworkProperties;
     @Autowired
+    private SecurityProperties securityProperties;
+    @Autowired
     private SecurityCaptchaManager securityCaptchaManager;
 
     @RequestMapping("")
@@ -166,6 +168,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。
             request.getSession(true).setAttribute("securityConfig", frameworkProperties);
+            request.setAttribute("securityProperties", securityProperties);
             request.setAttribute("passwordRegex", frameworkProperties.getPasswordStrength().getRegexForJs());
             request.setAttribute("notFirstVerify", !securityCaptchaManager.isFirstVerify(request));
             request.setAttribute("loginSmsEnable", "true");
