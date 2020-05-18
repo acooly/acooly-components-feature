@@ -18,9 +18,10 @@
 
         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-sms</artifactId>
+            <artifactId>acooly-component-smsend</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-data-region</artifactId>
@@ -64,17 +65,17 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-olog</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.acooly</groupId>-->
+        <!--<artifactId>acooly-component-olog</artifactId>-->
+        <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-ofile</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.acooly</groupId>-->
+        <!--<artifactId>acooly-component-ofile</artifactId>-->
+        <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>com.acooly</groupId>
@@ -110,11 +111,11 @@
             <artifactId>acooly-component-ocr</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-obs</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.acooly</groupId>-->
+<!--            <artifactId>acooly-component-obs</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.acooly</groupId>
@@ -124,7 +125,6 @@
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-coder</artifactId>
-            <version>4.2.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 

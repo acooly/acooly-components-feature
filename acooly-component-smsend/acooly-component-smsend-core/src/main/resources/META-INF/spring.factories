@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.acooly.module.smsend.SmsendAutoConfig
+com.acooly.core.common.boot.component.ComponentInitializer=\
+com.acooly.module.smsend.SmsendComponentInitializer
