@@ -2,7 +2,7 @@ package com.acooly.module.sms.web;
 
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Servlets;
-import com.acooly.module.security.config.FrameworkPropertiesHolder;
+import com.acooly.core.utils.Strings;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.service.UserService;
@@ -95,7 +95,7 @@ public class UserSmsController {
             Servlets.setSessionAttribute(SMS_VERIFY_CODE_KEY_ST, System.currentTimeMillis());
 
             result.setSuccess(true);
-            result.setMessage("发送短信验证码成功!");
+            result.setMessage("发送短信验证码成功（" + Strings.maskMobileNo(mobileNo) + "）!");
         } catch (Exception e) {
             result.setMessage(e.getMessage());
             result.setSuccess(false);
