@@ -96,7 +96,7 @@
                                 }
                             }
                             if (result.message) {
-                                $.acooly.messager("提示",result.message, result.success ? 'success' : 'danger');
+                                $.acooly.messager("提示", result.message, result.success ? 'success' : 'danger');
                             }
                         } catch (e) {
                             $.acooly.messager('错误', e, 'danger');
@@ -181,7 +181,8 @@
                             $('.select2bs4').select2({theme: 'bootstrap4',});
                             $('[data-mask]').inputmask();
                             //最后把坑爹的事件绑定解除
-                            $.parser.onComplete = function () { };
+                            $.parser.onComplete = function () {
+                            };
                         }
                     }
                 });
@@ -327,7 +328,8 @@
                             $('.select2bs4').select2({theme: 'bootstrap4',});
                             $('[data-mask]').inputmask();
                             // 最后把坑爹的事件绑定解除
-                            $.parser.onComplete = function () { };
+                            $.parser.onComplete = function () {
+                            };
                         }
                     }
                 });
@@ -404,8 +406,8 @@
 
             },
 
-            initPage: function(searchForm, datagride){
-                this.registerKeydown(searchForm,datagride);
+            initPage: function (searchForm, datagride) {
+                this.registerKeydown(searchForm, datagride);
                 this.extendCombobox(searchForm);
                 //Initialize Select2 and inputmask
                 $('.select2bs4').select2({theme: 'bootstrap4',});
@@ -634,7 +636,7 @@
                                     }
                                 }
                                 if (result.message) {
-                                    $.acooly.messager('提示', result.message,result.success?'success':'danger');
+                                    $.acooly.messager('提示', result.message, result.success ? 'success' : 'danger');
                                 }
                             }
                         });
@@ -663,7 +665,7 @@
                                     }
                                 }
                                 if (result.message) {
-                                    $.acooly.messager('提示', result.message,result.success?'success':'danger');
+                                    $.acooly.messager('提示', result.message, result.success ? 'success' : 'danger');
                                 }
                             }
                         });
@@ -693,7 +695,7 @@
                         }
                     }
                     if (result.message) {
-                        $.acooly.messager('提示', result.message,result.success?'success':'danger');
+                        $.acooly.messager('提示', result.message, result.success ? 'success' : 'danger');
                     }
                 });
             },
@@ -771,9 +773,9 @@
                                                     window.location.href = contextPath + '/manage/logout.html';
                                                 }
                                             );
-                                        }else{
+                                        } else {
                                             $.acooly.framework.changePasswordCaptcha();
-                                            $.acooly.messager('提示', result.message,"danger");
+                                            $.acooly.messager('提示', result.message, "danger");
                                         }
                                     } catch (e) {
                                         $.acooly.framework.changePasswordCaptcha();
@@ -795,7 +797,7 @@
                     }
                 });
             },
-            changePasswordCaptcha:function(){
+            changePasswordCaptcha: function () {
                 $('#user_changePassword_jcaptchaImage').show();
                 $('#user_changePassword_jcaptchaImage').attr("src", "/jcaptcha.jpg?" + new Date());
                 $('#user_changePassword_passwordCaptcha').val('');
@@ -871,7 +873,7 @@
                 if (!row) {
                     var msg = '请先选择操作的数据行';
                     if (errorMessage) msg = errorMessage;
-                    $.acooly.messager('提示', msg);
+                    $.acooly.messager('提示', msg, 'warning');
                     return null;
                 }
                 selectedCallBack.call(this, row);
@@ -1054,10 +1056,10 @@
             },
 
             extendCombobox: function (container) {
-                var obj = container && container.jquery?container:$('#'+container)
+                var obj = container && container.jquery ? container : $('#' + container)
                 $(obj).find('.easyui-combobox').combobox({
                     onLoadSuccess: function () {
-                        if($(this).attr('style').indexOf("width") != -1){
+                        if ($(this).attr('style').indexOf("width") != -1) {
                             return;
                         }
                         let originalWidth = $(this).next().css('width');
