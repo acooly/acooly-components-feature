@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.smsend.dao.SmsTemplateDao">
+
+    <resultMap id="smsTemplateResultMap" type="com.acooly.module.smsend.entity.SmsTemplate">
+        <id property="id" column="smsTemplate_id"/>
+        <result property="templateCode" column="smsTemplate_template_code"/>
+        <result property="templateName" column="smsTemplate_template_name"/>
+        <result property="templateContent" column="smsTemplate_template_content"/>
+        <result property="createTime" column="smsTemplate_create_time"/>
+        <result property="updateTime" column="smsTemplate_update_time"/>
+        <result property="comments" column="smsTemplate_comments"/>
+    </resultMap>
+
+    <sql id="smsTemplateSqlSelect">
+            smsTemplate.id as smsTemplate_id,
+            smsTemplate.template_code as smsTemplate_template_code,
+            smsTemplate.template_name as smsTemplate_template_name,
+            smsTemplate.template_content as smsTemplate_template_content,
+            smsTemplate.create_time as smsTemplate_create_time,
+            smsTemplate.update_time as smsTemplate_update_time,
+            smsTemplate.comments as smsTemplate_comments
+    </sql>
+
+</mapper>
