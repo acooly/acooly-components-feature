@@ -1,2 +1,0 @@
-#使用依赖包工具安装（推荐）
-dotnet add package aliyun-net-sdk-core

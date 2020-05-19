@@ -13,7 +13,7 @@ import com.acooly.coder.generate.CodeGenerateService;
  */
 public class AcoolyCoder {
     // 生成代码的目标模块
-    static String MODULE_NAME = "acooly-component-smsend";
+    static String MODULE_NAME = "acooly-component-smsend/acooly-component-smsend-core";
     // 生成代码的根包
     static String ROOT_PACKAGE = "com.acooly.module.smsend";
     // 生成代码的管理视图相对路径
@@ -21,7 +21,7 @@ public class AcoolyCoder {
     // 配置表名转换为实体名时，需要忽略的表前缀。例如配置：p_ 则表示p_customer(表名) -> Customer(实体类名)
     static String TABLE_IGNOR_PREFIX = "";
     // 生成代码的表
-    static String[] TABLES = {"sms_send_log"};
+    static String[] TABLES = {"sms_template","sms_app","sms_template_provider"};
 
     /**
      * 代码方式配置关键参数

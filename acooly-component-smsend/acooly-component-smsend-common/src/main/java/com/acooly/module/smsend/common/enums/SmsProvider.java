@@ -22,21 +22,12 @@ import java.util.Map;
 public enum SmsProvider implements Messageable {
 
     /**
-     * 漫道
-     */
-    MaiDao("MaiDao", "漫道"),
-
-    /**
-     * 亿美
-     */
-    EMay("EMay", "亿美"),
-    /**
      * 阿里云
      */
     Aliyun("Aliyun", "阿里云"),
 
 
-    AnyCmp("AnyCmp","多云"),
+    AnyCmp("AnyCmp", "多云"),
 
     /**
      * 容联.云通讯

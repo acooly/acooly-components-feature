@@ -75,8 +75,10 @@ public class AliyunMessageSender extends AbstractShortMessageSender {
         String mobileNo = Joiner.on(",").join(mobileNos);
         String gmt = getGMT(new Date());
         SmsSendProperties.SmsProviderInfo providerInfo = properties.getProviders().get(this.getProvider());
-        String topicName = (String) providerInfo.getExt().get("topicName");
-
+        String regionId = (String) providerInfo.getExt().get("regionId");
+        if(Strings.isBlank(regionId)){
+            regionId = "cn-hangzhou";
+        }
         Map<String, String> paras = new HashMap<>();
         paras.put("SignatureMethod", "HMAC-SHA1");
         paras.put("SignatureNonce", UUID.randomUUID().toString());
@@ -87,7 +89,7 @@ public class AliyunMessageSender extends AbstractShortMessageSender {
 
         paras.put("Action", "SendSms");
         paras.put("Version", "2017-05-25");
-        paras.put("RegionId", topicName.substring(topicName.indexOf("-") + 1));
+        paras.put("RegionId", regionId);
         paras.put("PhoneNumbers", mobileNo);
         paras.put("SignName", Strings.isNoneBlank(contentSign) ? contentSign : providerInfo.getContentSign());
         paras.put("TemplateCode", templateCode);

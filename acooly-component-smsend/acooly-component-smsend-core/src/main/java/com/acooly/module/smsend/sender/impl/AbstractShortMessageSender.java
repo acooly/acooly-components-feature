@@ -9,8 +9,11 @@
  */
 package com.acooly.module.smsend.sender.impl;
 
+import com.acooly.core.utils.Strings;
 import com.acooly.module.smsend.SmsSendProperties;
+import com.acooly.module.smsend.common.enums.SmsSendResultCode;
 import com.acooly.module.smsend.sender.ShortMessageSender;
+import com.acooly.module.smsend.sender.dto.SmsResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -29,5 +32,14 @@ public abstract class AbstractShortMessageSender implements ShortMessageSender {
 
     public void setProperties(SmsSendProperties properties) {
         this.properties = properties;
+    }
+
+    protected void handleSmsResult(SmsResult result) {
+        if (result.isSuccess()) {
+            if (Strings.isBlank(result.getCode()) && Strings.isBlank(result.getMessage())) {
+                result.setCode(SmsSendResultCode.SUCCESS.code());
+                result.setMessage(SmsSendResultCode.SUCCESS.message());
+            }
+        }
     }
 }

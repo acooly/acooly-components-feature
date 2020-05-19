@@ -3,28 +3,17 @@
 <c:if test="${initParam['ssoEnable']=='true'}">
     <%@ include file="/WEB-INF/jsp/manage/common/ssoInclude.jsp" %>
 </c:if>
-<script type="text/javascript">
-    $(function () {
-        $.acooly.framework.registerKeydown('manage_smsBlackList_searchform', 'manage_smsBlackList_datagrid');
-    });
-
-</script>
 <div class="easyui-layout" data-options="fit : true,border : false">
     <!-- 查询条件 -->
     <div data-options="region:'north',border:false" style="padding:5px; overflow: hidden;" align="left">
-        <form id="manage_smsBlackList_searchform" onsubmit="return false">
-            <table class="tableForm" width="100%">
-                <tr>
-                    <td align="left">
-                        <div>
-                            手机号: <input type="text" class="text" size="15" name="search_LIKE_mobile"/>
-                            <a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:false"
-                               onclick="$.acooly.framework.search('manage_smsBlackList_searchform','manage_smsBlackList_datagrid');"><i
-                                    class="fa fa-search fa-lg fa-fw fa-col"></i>查询</a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+        <form id="manage_smsBlackList_searchform" class="form-inline ac-form-search" onsubmit="return false">
+            <div class="form-group">
+                <label class="col-form-label">手机号码：</label>
+                <input type="text" class="form-control form-control-sm" name="search_LIKE_mobile"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_smsBlackList_searchform','manage_smsBlackList_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>
+            </div>
         </form>
     </div>
 
@@ -70,5 +59,9 @@
                     class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
         </div>
     </div>
-
+    <script type="text/javascript">
+        $(function () {
+            $.acooly.framework.initPage('manage_smsBlackList_searchform', 'manage_smsBlackList_datagrid');
+        });
+    </script>
 </div>

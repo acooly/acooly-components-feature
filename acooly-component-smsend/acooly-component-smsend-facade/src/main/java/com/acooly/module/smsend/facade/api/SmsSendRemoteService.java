@@ -18,7 +18,7 @@ import com.acooly.module.smsend.facade.result.SmsSendResult;
 public interface SmsSendRemoteService {
 
     /**
-     * 短信发送
+     * 通用短信发送
      *
      * @param smsSendOrder
      * @return

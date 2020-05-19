@@ -9,7 +9,7 @@
 package com.acooly.module.test.smsend;
 
 import com.acooly.module.smsend.SmsSendProperties;
-import com.acooly.module.smsend.enums.SmsProvider;
+import com.acooly.module.smsend.common.enums.SmsProvider;
 import com.acooly.module.smsend.sender.ShortMessageSender;
 import com.acooly.module.smsend.sender.impl.AliyunMessageSender;
 import com.acooly.module.smsend.sender.impl.AnyCmpMessageSender;

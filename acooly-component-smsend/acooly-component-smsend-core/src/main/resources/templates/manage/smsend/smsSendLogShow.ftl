@@ -11,7 +11,7 @@
 		<dt class="col-sm-3">短信内容:</dt>
 		<dd class="col-sm-9">${smsSendLog.content}</dd>
 		<dt class="col-sm-3">发送时间:</dt>
-		<dd class="col-sm-9">${smsSendLog.sendTime?string('yyyy-MM-dd HH:mm:ss')}</dd>
+		<dd class="col-sm-9">${smsSendLog.sendTime}</dd>
 		<dt class="col-sm-3">提供方:</dt>
 		<dd class="col-sm-9">${smsSendLog.provider.message()}</dd>
 		<dt class="col-sm-3">request_id:</dt>
@@ -25,7 +25,7 @@
 		<dt class="col-sm-3">客户IP:</dt>
 		<dd class="col-sm-9">${smsSendLog.clientIp}</dd>
 		<dt class="col-sm-3">状态:</dt>
-		<dd class="col-sm-9">${allStatuss?com.acooly.module.smsend.facade.api.get(smsSendLog.status)}</dd>
+		<dd class="col-sm-9">${allStatuss?api.get(smsSendLog.status)}</dd>
 		<dt class="col-sm-3">创建时间:</dt>
 		<dd class="col-sm-9">${smsSendLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</dd>
 		<dt class="col-sm-3">修改时间:</dt>

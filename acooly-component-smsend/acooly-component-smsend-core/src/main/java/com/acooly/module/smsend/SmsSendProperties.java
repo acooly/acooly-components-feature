@@ -60,7 +60,7 @@ public class SmsSendProperties {
     /**
      * 是否开启远程服务
      */
-    private boolean enableFacade = false;
+    private boolean facade = false;
 
 
     @PostConstruct

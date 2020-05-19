@@ -1,5 +1,0 @@
-#使用Glide安装GO SDK（推荐） 执行以下命令，安装Go SDK：
-glide get github.com/aliyun/alibaba-cloud-sdk-go
-
-#使用Govendor安装  执行以下命令，安装Go SDK：
-go get -u github.com/aliyun/alibaba-cloud-sdk-go/sdk

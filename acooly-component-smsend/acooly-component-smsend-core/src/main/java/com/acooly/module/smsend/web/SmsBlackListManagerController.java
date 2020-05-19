@@ -7,6 +7,7 @@
 package com.acooly.module.smsend.web;
 
 import com.acooly.core.common.web.AbstractJsonEntityController;
+import com.acooly.core.utils.enums.SimpleStatus;
 import com.acooly.module.smsend.entity.SmsBlackList;
 import com.acooly.module.smsend.common.enums.SmsSendStatus;
 import com.acooly.module.smsend.manage.BlackListService;
@@ -37,7 +38,7 @@ public class SmsBlackListManagerController extends AbstractJsonEntityController<
 
     @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
-        model.put("allStatuss", SmsSendStatus.mapping());
+        model.put("allStatuss", SimpleStatus.mapping());
     }
 
 }

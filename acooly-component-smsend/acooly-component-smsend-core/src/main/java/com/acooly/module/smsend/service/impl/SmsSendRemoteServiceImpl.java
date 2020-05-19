@@ -16,14 +16,18 @@ import com.acooly.module.smsend.facade.order.SmsSendOrder;
 import com.acooly.module.smsend.facade.result.SmsSendResult;
 import com.acooly.module.smsend.service.SmsSendService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author zhangpu
  * @date 2020-05-18 12:15
  */
 @Slf4j
+@Component
 public class SmsSendRemoteServiceImpl implements SmsSendRemoteService {
 
+    @Autowired
     private SmsSendService smsSendService;
 
     @Override

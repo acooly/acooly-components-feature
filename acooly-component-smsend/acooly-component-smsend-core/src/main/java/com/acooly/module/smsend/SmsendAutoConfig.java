@@ -61,10 +61,10 @@ public class SmsendAutoConfig {
     }
 
     @Bean
-    @ConditionalOnProperty(value = PREFIX + ".enable-facade", matchIfMissing = false, havingValue = "false")
+    @ConditionalOnProperty(value = PREFIX + ".facade", matchIfMissing = false, havingValue = "true")
     @ConditionalOnBean(ProtocolConfig.class)
     @DependsOn({"applicationConfig", "registryConfig", "protocolConfig"})
-    public static ServiceConfig<SmsSendRemoteService> feedbackFacadeConfig(ApplicationConfig applicationConfig, RegistryConfig registryConfig,
+    public static ServiceConfig<SmsSendRemoteService> smsSendRemoteServiceConfig(ApplicationConfig applicationConfig, RegistryConfig registryConfig,
                                                                            ProtocolConfig protocolConfig, SmsSendRemoteService smsSendRemoteService) {
         ServiceConfig<SmsSendRemoteService> service = new ServiceConfig<SmsSendRemoteService>();
         service.setApplication(applicationConfig);

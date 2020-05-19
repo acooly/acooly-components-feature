@@ -16,15 +16,15 @@ import com.acooly.core.utils.validate.Validators;
 import com.acooly.module.filterchain.FilterChain;
 import com.acooly.module.smsend.SmsSendProperties;
 import com.acooly.module.smsend.common.dto.SenderInfo;
-import com.acooly.module.smsend.entity.SmsSendLog;
 import com.acooly.module.smsend.common.enums.SmsSendStatus;
 import com.acooly.module.smsend.common.enums.SmsSendType;
 import com.acooly.module.smsend.common.exception.ShortMessageSendException;
+import com.acooly.module.smsend.entity.SmsSendLog;
 import com.acooly.module.smsend.filter.SmsSendContext;
 import com.acooly.module.smsend.filter.SmsSendFilterChain;
+import com.acooly.module.smsend.manage.SmsSendLogService;
 import com.acooly.module.smsend.sender.ShortMessageSender;
 import com.acooly.module.smsend.sender.dto.SmsResult;
-import com.acooly.module.smsend.manage.SmsSendLogService;
 import com.acooly.module.smsend.service.SmsSendService;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
@@ -34,6 +34,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -126,6 +127,7 @@ public class SmsSendServiceImpl implements SmsSendService {
         // 已发送
         if (smsResult != null) {
             BeanCopier.copy(smsResult, sendLog);
+            sendLog.setSendTime(new Date());
             sendLog.setStatus(smsResult.isSuccess() ? SmsSendStatus.SUCCESS : SmsSendStatus.FAIL);
         }
 

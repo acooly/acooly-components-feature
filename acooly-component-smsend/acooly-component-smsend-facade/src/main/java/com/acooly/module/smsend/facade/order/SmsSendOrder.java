@@ -23,6 +23,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -47,7 +48,8 @@ public class SmsSendOrder extends OrderBase {
      * 应用编码
      * 用于识别是那个系统或应用请求发送
      */
-    private String appId = "default";
+    @NotBlank
+    private String appId;
 
 
     /**
@@ -109,6 +111,66 @@ public class SmsSendOrder extends OrderBase {
      */
     @Size(max = 127)
     private String comments;
+
+    public SmsSendOrder(String appId, @NotEmpty Set<String> mobileNos, String templateCode, Map<String, String> templateParams, String contentSign, String clientIp) {
+        this.appId = appId;
+        this.mobileNos = mobileNos;
+        this.templateCode = templateCode;
+        this.templateParams = templateParams;
+        this.contentSign = contentSign;
+        this.clientIp = clientIp;
+    }
+
+    public SmsSendOrder(String appId, @NotEmpty Set<String> mobileNos, String templateCode, Map<String, String> templateParams) {
+        this.appId = appId;
+        this.mobileNos = mobileNos;
+        this.templateCode = templateCode;
+        this.templateParams = templateParams;
+        this.contentSign = contentSign;
+        this.clientIp = clientIp;
+    }
+
+    public SmsSendOrder(String appId, String mobileNo, String templateCode, Map<String, String> templateParams, String contentSign, String clientIp) {
+        this.appId = appId;
+        this.templateCode = templateCode;
+        this.templateParams = templateParams;
+        this.contentSign = contentSign;
+        this.clientIp = clientIp;
+        addMobileNo(mobileNo);
+    }
+
+    public SmsSendOrder(String appId, String mobileNo, String templateCode, Map<String, String> templateParams) {
+        this.appId = appId;
+        this.templateCode = templateCode;
+        this.templateParams = templateParams;
+        this.contentSign = contentSign;
+        this.clientIp = clientIp;
+        addMobileNo(mobileNo);
+    }
+
+    public SmsSendOrder(String appId, String templateCode, Map<String, String> templateParams, String contentSign) {
+        this.appId = appId;
+        this.templateCode = templateCode;
+        this.templateParams = templateParams;
+        this.contentSign = contentSign;
+        this.smsSendType = SmsSendType.template;
+    }
+
+    public SmsSendOrder(String appId, @Size(max = 255) String content, String contentSign) {
+        this.appId = appId;
+        this.content = content;
+        this.contentSign = contentSign;
+        this.smsSendType = SmsSendType.content;
+    }
+
+    public void addMobileNo(String mobileNo) {
+        this.mobileNos.add(mobileNo);
+    }
+
+    public void addMobileNo(Collection<String> mobileNos) {
+        this.mobileNos.addAll(mobileNos);
+    }
+
 
     @Override
     public void check() {

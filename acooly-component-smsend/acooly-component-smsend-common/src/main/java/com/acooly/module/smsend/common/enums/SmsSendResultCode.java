@@ -21,6 +21,9 @@ import java.util.Map;
 
 public enum SmsSendResultCode implements Messageable {
 
+    SUCCESS("SUCCESS","发送成功"),
+
+    DATA_PARSE_ERORR("DATA_PARSE_ERORR","数据解析错误"),
     RATE_LIMIT_MOBILE("RATE_LIMIT_MOBILE", "手机号码限流"),
     RATE_LIMIT_IP("RATE_LIMIT_IP", "发送IP限流"),
     BLACK_LIST_HIT("BLACK_LIST_HIT", "黑名单命中"),

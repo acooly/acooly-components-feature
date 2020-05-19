@@ -1,2 +1,0 @@
-#Node.js SDK依赖安装，运行此命令：
-npm install @alicloud/pop-core -S
