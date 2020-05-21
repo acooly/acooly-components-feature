@@ -39,7 +39,7 @@ import static com.acooly.module.smsend.SmsSendProperties.PREFIX;
 @ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
 @AutoConfigureAfter(SecurityAutoConfig.class)
 @ComponentScan(basePackages = "com.acooly.module.smsend")
-public class SmsendAutoConfig {
+public class SmsSendAutoConfig {
     @Bean
     public StandardDatabaseScriptIniter smsendScriptIniter() {
         return new StandardDatabaseScriptIniter() {
