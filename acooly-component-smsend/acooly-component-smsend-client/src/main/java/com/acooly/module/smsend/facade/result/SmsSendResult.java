@@ -9,6 +9,7 @@
 package com.acooly.module.smsend.facade.result;
 
 import com.acooly.core.common.facade.ResultBase;
+import com.acooly.core.utils.enums.Messageable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,12 @@ public class SmsSendResult extends ResultBase {
      * 应用编码
      * 用于识别是那个系统或应用请求发送
      */
-    private String appId = "default";
+    private String appId;
 
+    public SmsSendResult() {
+    }
+
+    public SmsSendResult(Messageable messageable) {
+        setStatus(messageable);
+    }
 }

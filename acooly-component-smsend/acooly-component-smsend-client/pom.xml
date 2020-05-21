@@ -9,13 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>acooly-component-smsend-facade</artifactId>
+    <artifactId>acooly-component-smsend-client</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-smsend-common</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-dubbo</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

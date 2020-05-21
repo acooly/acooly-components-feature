@@ -15,7 +15,7 @@
     <modules>
         <module>acooly-component-smsend-core</module>
         <module>acooly-component-smsend-common</module>
-        <module>acooly-component-smsend-facade</module>
+        <module>acooly-component-smsend-client</module>
     </modules>
 
 </project>

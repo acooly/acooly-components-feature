@@ -14,12 +14,12 @@ import com.acooly.core.utils.Ids;
 import com.acooly.core.utils.system.IPUtil;
 import com.acooly.module.smsend.common.dto.SenderInfo;
 import com.acooly.module.smsend.facade.api.SmsSendRemoteService;
+import com.acooly.module.smsend.facade.client.SmsSendClientService;
 import com.acooly.module.smsend.facade.order.SmsSendOrder;
 import com.acooly.module.smsend.service.SmsSendService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.map.ListOrderedMap;
-import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +42,8 @@ public class SmsSenderTestController {
     @Reference(version = "1.0")
     private SmsSendRemoteService smsSendRemoteService;
 
+    @Autowired
+    private SmsSendClientService smsSendClientService;
 
     @RequestMapping("facade/sendTemplate")
     public Object facadeSendTemplate(HttpServletRequest request) {
@@ -60,8 +62,7 @@ public class SmsSenderTestController {
         String gid = Ids.gid();
         smsSendOrder.setGid(gid);
         smsSendOrder.setPartnerId(appId);
-        MDC.put("gid", gid);
-        return smsSendRemoteService.send(smsSendOrder);
+        return smsSendClientService.send(smsSendOrder);
     }
 
 

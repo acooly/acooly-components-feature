@@ -86,7 +86,7 @@ public class SmsSendProperties {
         /**
          * 单位时间手机号码限流数量
          */
-        private long maxPerMobile = 3;
+        private long maxPerMobile = 5;
 
     }
 
