@@ -9,6 +9,7 @@ import java.util.Map;
 public class CloopenMessageResponseParser {
 
     public static final String STATUS_CODE = "statusCode";
+    public static final String STATUS_MSG = "statusMsg";
     public static final String SUCCESS_CODE = "000000";
 
     public static Map<String, String> codeMapping = new HashMap<>(256);

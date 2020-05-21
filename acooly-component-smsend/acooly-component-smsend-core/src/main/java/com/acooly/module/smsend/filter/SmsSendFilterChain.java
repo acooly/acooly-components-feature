@@ -8,9 +8,12 @@
  */
 package com.acooly.module.smsend.filter;
 
+import com.acooly.module.filterchain.Filter;
 import com.acooly.module.filterchain.FilterChainBase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.util.Iterator;
 
 /**
  * @author zhangpu
@@ -19,4 +22,16 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class SmsSendFilterChain extends FilterChainBase<SmsSendContext> {
+
+    @Override
+    public void doFilter(SmsSendContext context) {
+        if (context == null) {
+            return;
+        }
+        Iterator<Filter<SmsSendContext>> iterator = filters.iterator();
+        while (iterator.hasNext()) {
+            Filter nextFilter = iterator.next();
+            nextFilter.doFilter(context, this);
+        }
+    }
 }

@@ -52,10 +52,8 @@ public class SmsSendServiceImpl implements SmsSendService {
     private ShortMessageSender shortMessageSender;
     @Resource
     private SmsSendLogService smsSendLogService;
-
     @Resource
     private SmsSendFilterChain smsSendFilterChain;
-
     @Resource(name = "smsSendFilterChain")
     private FilterChain<SmsSendContext> filter;
 
@@ -73,7 +71,7 @@ public class SmsSendServiceImpl implements SmsSendService {
     }
 
     protected void doSend(SenderInfo senderInfo) {
-        SmsResult smsResult = null;
+        SmsResult smsResult = new SmsResult();
         try {
             doCheck(senderInfo);
             if (senderInfo.getMobileNos().size() == 1) {
@@ -100,9 +98,11 @@ public class SmsSendServiceImpl implements SmsSendService {
                 throw new ShortMessageSendException(smsResult);
             }
         } catch (ShortMessageSendException se) {
+            smsResult.setErrorCode(se);
             throw se;
         } catch (Exception e) {
             log.error("短信发送服务 [错误] 发送未知异常", e);
+            smsResult.setErrorCode(CommonErrorCodes.INTERNAL_ERROR);
             throw new ShortMessageSendException(CommonErrorCodes.INTERNAL_ERROR);
         } finally {
             saveLog(senderInfo, smsResult);
@@ -129,6 +129,8 @@ public class SmsSendServiceImpl implements SmsSendService {
             BeanCopier.copy(smsResult, sendLog);
             sendLog.setSendTime(new Date());
             sendLog.setStatus(smsResult.isSuccess() ? SmsSendStatus.SUCCESS : SmsSendStatus.FAIL);
+            sendLog.setResultCode(smsResult.getCode());
+            sendLog.setResultMessage(smsResult.getMessage());
         }
 
         if (senderInfo.getMobileNos().size() == 1) {
@@ -150,7 +152,6 @@ public class SmsSendServiceImpl implements SmsSendService {
             smsSendLogService.savesInNewTrans(sendlogs);
         }
     }
-
 
     /**
      * 参数合法性检查

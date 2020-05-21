@@ -7,7 +7,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">模板</label>
                     <div class="col-sm-9">
-                        <#if action=='create'>${RequestParameters.templateCode}<#else>${smsTemplateProvider.templateCode}</#if> : <#if action=='create'>${RequestParameters.templateName}<#else>${smsTemplateProvider.templateName}</#if>
+                        <#if action=='create'>${RequestParameters.templateCode}<#else>${smsTemplateProvider.templateCode}</#if>
                         <input type="hidden" name="templateCode" <#if RequestParameters.templateCode??>value="${RequestParameters.templateCode}"</#if> />
                         <input type="hidden" name="templateName" <#if RequestParameters.templateName??>value="${RequestParameters.templateName}"</#if> />
                     </div>

@@ -11,16 +11,23 @@
                 <input type="text" class="form-control form-control-sm" name="search_EQ_appId"/>
             </div>
             <div class="form-group">
+                <label class="col-form-label">状态：</label>
+                <select name="search_EQ_status" class="form-control input-sm select2bs4" data-options="required:true">
+                    <option value="">所有</option><#list allStatuss as k,v>
+                    <option value="${k}">${v}</option></#list>
+                </select>
+            </div>
+            <div class="form-group">
                 <label class="col-form-label">批次号：</label>
                 <input type="text" class="form-control form-control-sm" name="search_EQ_batchNo"/>
             </div>
-<#--            <div class="form-group">-->
-<#--                <label class="col-form-label">发送类型：</label>-->
-<#--                <select name="search_EQ_sendType" class="form-control input-sm select2bs4">-->
-<#--                    <option value="">所有</option><#list allSendTypes as k,v>-->
-<#--                    <option value="${k}">${v}</option></#list>-->
-<#--                </select>-->
-<#--            </div>-->
+            <#--            <div class="form-group">-->
+            <#--                <label class="col-form-label">发送类型：</label>-->
+            <#--                <select name="search_EQ_sendType" class="form-control input-sm select2bs4">-->
+            <#--                    <option value="">所有</option><#list allSendTypes as k,v>-->
+            <#--                    <option value="${k}">${v}</option></#list>-->
+            <#--                </select>-->
+            <#--            </div>-->
             <div class="form-group">
                 <label class="col-form-label">发送时间：</label>
                 <input type="text" class="form-control form-control-sm" id="search_GTE_sendTime" name="search_GTE_sendTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
@@ -33,10 +40,10 @@
                     <option value="${k}">${v}</option></#list>
                 </select>
             </div>
-<#--            <div class="form-group">-->
-<#--                <label class="col-form-label">客户IP：</label>-->
-<#--                <input type="text" class="form-control form-control-sm" name="search_EQ_clientIp"/>-->
-<#--            </div>-->
+            <#--            <div class="form-group">-->
+            <#--                <label class="col-form-label">客户IP：</label>-->
+            <#--                <input type="text" class="form-control form-control-sm" name="search_EQ_clientIp"/>-->
+            <#--            </div>-->
             <div class="form-group">
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_smsSendLog_searchform','manage_smsSendLog_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>
             </div>
@@ -56,9 +63,11 @@
                 <th field="provider" formatter="mappingFormatter">提供方</th>
                 <th field="sendType" formatter="mappingFormatter">发送类型</th>
                 <th field="templateCode">模板编码</th>
+                <th field="templateProvider">模板编码</th>
                 <th field="templateJsonParams">模板参数</th>
                 <th field="content" formatter="contentFormatter">短信内容</th>
-                <th field="clientIp">客户IP</th>
+                <th field="resultCode">渠道结果</th>
+                <th field="resultMessage">渠道结果</th>
                 <th field="sendTime" formatter="dateTimeFormatter">发送时间</th>
                 <th field="status" formatter="mappingFormatter">状态</th>
                 <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_smsSendLog_action',value,row)}">动作</th>
@@ -87,7 +96,7 @@
     </div>
     <script type="text/javascript">
         $(function () {
-            $.acooly.framework.initPage('manage_customer_searchform', 'manage_customer_datagrid');
+            $.acooly.framework.initPage('manage_smsSendLog_searchform', 'manage_smsSendLog_datagrid');
         });
     </script>
 </div>

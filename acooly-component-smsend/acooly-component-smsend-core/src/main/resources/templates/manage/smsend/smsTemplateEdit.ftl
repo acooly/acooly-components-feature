@@ -7,15 +7,22 @@
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label">应用</label>
 				<div class="col-sm-9">
+					<#if action=='create'>
 					<select name="appId" class="form-control select2bs4" >
 						<#list allApps as e><option value="${e.appId}">${e.appId}:${e.appName}</option></#list>
 					</select>
+					<#else>
+						<span style="line-height: 35px;">${smsTemplate.appId}</span>
+					</#if>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label">模板编码</label>
 				<div class="col-sm-9">
-					<input type="text" name="templateCode" placeholder="请输入模板编码..." class="easyui-validatebox form-control"  data-options="validType:['text','length[1,32]']" required="true"/>
+					<#if action=='create'><input type="text" name="templateCode" placeholder="模板编码, 例如: appName_login..." class="easyui-validatebox form-control"  data-options="validType:['text','length[1,32]']" required="true"/>
+					<#else>
+						<span style="line-height: 35px;">${smsTemplate.templateCode}</span>
+					</#if>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -27,7 +34,7 @@
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label">模板内容</label>
 				<div class="col-sm-9">
-					<input type="text" name="templateContent" placeholder="请输入模板内容..." class="easyui-validatebox form-control"  data-options="validType:['text','length[1,127]']"/>
+					<textarea rows="3" name="templateContent" placeholder="请输入模板内容..." class="easyui-validatebox form-control"  data-options="validType:['text','length[1,127]']"></textarea>
 				</div>
 			</div>
 			<div class="form-group row">

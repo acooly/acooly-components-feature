@@ -115,14 +115,15 @@ public class CloopenMessageSender extends AbstractShortMessageSender {
             if (StringUtils.isEmpty(body)) {
                 throw new BusinessException("返回数据为空");
             }
-            String statusCode = parseResponseCode(body);
-            result.setCode(statusCode);
-            result.setMessage(CloopenMessageResponseParser.codeMapping.get(statusCode));
-            if (CloopenMessageResponseParser.SUCCESS_CODE.equals(statusCode)) {
-                log.info("短信发送 [容联云] 成功, mobileNo:{}, templateCode:{} , templateParam:{}", mobileNo, templateCode, templateParams);
+            parseResponseCode(body, result);
+            if (Strings.isBlank(result.getMessage())) {
+                result.setMessage(CloopenMessageResponseParser.codeMapping.get(result.getCode()));
+            }
+            if (CloopenMessageResponseParser.SUCCESS_CODE.equals(result.getCode())) {
+                log.info("短信发送 [{}] 成功, mobileNo:{}, templateCode:{} , templateParam:{}", getProvider(), mobileNo, templateCode, templateParams);
                 result.setSuccess(true);
             } else {
-                log.info("短信发送 [容联云] 失败：{} ：{}, mobileNo:{}, templateCode:{} , templateParam:{}", result.getCode(), result.getMessage(),
+                log.info("短信发送 [{}] 失败 {}:{}, mobileNo:{}, templateCode:{} , templateParam:{}", getProvider(), result.getCode(), result.getMessage(),
                         mobileNo, templateCode, templateParams);
                 throw new BusinessException(result);
             }
@@ -153,16 +154,23 @@ public class CloopenMessageSender extends AbstractShortMessageSender {
     }
 
 
-    protected String parseResponseCode(String body) throws IOException, ParserConfigurationException, SAXException {
+    protected void parseResponseCode(String body, SmsResult result) throws IOException, ParserConfigurationException, SAXException {
         Document document = BaseMessageResponseParser.parse(body);
         NodeList statusCodeNode = document.getElementsByTagName(CloopenMessageResponseParser.STATUS_CODE);
         if (statusCodeNode.getLength() > 0) {
             Element esn = (Element) statusCodeNode.item(0);
             String statusCode = getCharacterDataFromElement(esn);
             if (Strings.isNoneBlank(statusCode)) {
-                return statusCode;
+                result.setCode(statusCode);
             }
         }
-        throw new BusinessException("返回数据解析失败");
+        NodeList statusMessageNode = document.getElementsByTagName(CloopenMessageResponseParser.STATUS_MSG);
+        if (statusMessageNode.getLength() > 0) {
+            Element esn = (Element) statusMessageNode.item(0);
+            String statusMsg = getCharacterDataFromElement(esn);
+            if (Strings.isNoneBlank(statusMsg)) {
+                result.setMessage(statusMsg);
+            }
+        }
     }
 }

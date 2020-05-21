@@ -29,6 +29,7 @@ public class SmsResult extends InfoBase implements Messageable {
     private String requestId;
     private boolean success = true;
     private SmsProvider provider;
+    private String templateProvider;
 
     public SmsResult() {
     }

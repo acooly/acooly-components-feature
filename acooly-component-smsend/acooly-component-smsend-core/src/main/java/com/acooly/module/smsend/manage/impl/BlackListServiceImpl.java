@@ -32,26 +32,26 @@ public class BlackListServiceImpl extends EntityServiceImpl<SmsBlackList, SmsBla
     public static final String ALL_SMS_BLACKLIST_CACHE_KEY = "SMSEND:ALL_BLACKLIST";
 
     @Override
-    @CacheEvict(ALL_SMS_BLACKLIST_CACHE_KEY)
+//    @CacheEvict(value = ALL_SMS_BLACKLIST_CACHE_KEY, allEntries = true)
     public void removeById(Serializable id) throws BusinessException {
         super.removeById(id);
     }
 
     @Override
-    @CacheEvict(ALL_SMS_BLACKLIST_CACHE_KEY)
+//    @CacheEvict(value = ALL_SMS_BLACKLIST_CACHE_KEY, allEntries = true)
     public void save(SmsBlackList o) throws BusinessException {
         super.save(o);
     }
 
     @Override
-    @CacheEvict(ALL_SMS_BLACKLIST_CACHE_KEY)
+//    @CacheEvict(value = ALL_SMS_BLACKLIST_CACHE_KEY, allEntries = true)
     public void update(SmsBlackList o) throws BusinessException {
         super.update(o);
     }
 
 
     @Override
-    @Cacheable(ALL_SMS_BLACKLIST_CACHE_KEY)
+//    @Cacheable(ALL_SMS_BLACKLIST_CACHE_KEY)
     public List<SmsBlackList> getEffective() {
         return getEntityDao().findByStatus(SimpleStatus.enable);
     }

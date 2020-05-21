@@ -5,6 +5,8 @@ import com.acooly.core.utils.Collections3;
 import com.acooly.module.smsend.common.enums.SmsProvider;
 import com.acooly.module.smsend.common.enums.SmsSendResultCode;
 import com.acooly.module.smsend.common.exception.ShortMessageSendException;
+import com.acooly.module.smsend.entity.SmsTemplateProvider;
+import com.acooly.module.smsend.manage.SmsTemplateProviderService;
 import com.acooly.module.smsend.sender.dto.SmsResult;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -12,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -22,15 +25,17 @@ public class ShortMessageSenderImpl implements ShortMessageSender {
 
     @Autowired
     private ShortMessageSenderManager shortMessageSenderManager;
+    @Resource
+    private SmsTemplateProviderService smsTemplateProviderService;
 
     @Override
     public SmsResult send(String mobileNo, String content, String contentSign) {
-        return null;
+        return new SmsResult(SmsSendResultCode.NOT_SUPPORT_OPERATE, getProvider());
     }
 
     @Override
     public SmsResult send(Set<String> mobileNos, String content, String contentSign) {
-        return null;
+        return new SmsResult(SmsSendResultCode.NOT_SUPPORT_OPERATE, getProvider());
     }
 
 
@@ -74,13 +79,27 @@ public class ShortMessageSenderImpl implements ShortMessageSender {
             log.warn("短信发送 [失败] {} mobileNo:{},template:{}", SmsSendResultCode.NO_PROVIDER_AVAILABLE, mobileNos, templateCode);
             throw new ShortMessageSendException(SmsSendResultCode.NO_PROVIDER_AVAILABLE);
         }
+        SmsResult result = null;
+        String providerTemplate = getProviderTemplateCode(templateCode, sender.getProvider());
         if (mobileNos.size() == 1) {
-            return sender.sendTemplate(Collections3.getFirst(mobileNos), templateCode, templateParams, contentSign);
+            result = sender.sendTemplate(Collections3.getFirst(mobileNos), providerTemplate, templateParams, contentSign);
         } else {
-            return sender.sendTemplate(mobileNos, templateCode, templateParams, contentSign);
+            result = sender.sendTemplate(mobileNos, providerTemplate, templateParams, contentSign);
         }
+        result.setTemplateProvider(providerTemplate);
+        return result;
     }
 
+    protected String getProviderTemplateCode(String templateCode, SmsProvider provider) {
+        String providerTemplateCode = templateCode;
+        SmsTemplateProvider smsTemplateProvider = smsTemplateProviderService.findUnique(templateCode, provider);
+        if (smsTemplateProvider != null) {
+            providerTemplateCode = smsTemplateProvider.getProviderTemplateCode();
+        } else {
+            log.warn("短信发送 [{}] 未配置模板编码({})对应的渠道模板编码，直接采用模板编码发送。", provider, templateCode);
+        }
+        return providerTemplateCode;
+    }
 
     @Override
     public SmsProvider getProvider() {

@@ -30,7 +30,7 @@ public interface SmsBlackListDao extends EntityMybatisDao<SmsBlackList> {
      * @param status
      * @return
      */
-    @Select("select * from sms_black_list where status = #status")
+    @Select("select * from sms_black_list where status = #{status}")
     List<SmsBlackList> findByStatus(@Param("status") SimpleStatus status);
 
 }

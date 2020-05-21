@@ -11,9 +11,9 @@
 		<dt class="col-sm-3">短信内容:</dt>
 		<dd class="col-sm-9">${smsSendLog.content}</dd>
 		<dt class="col-sm-3">发送时间:</dt>
-		<dd class="col-sm-9">${smsSendLog.sendTime}</dd>
+		<dd class="col-sm-9">${smsSendLog.sendTime?string('yyyy-MM-dd HH:mm:ss')}</dd>
 		<dt class="col-sm-3">提供方:</dt>
-		<dd class="col-sm-9">${smsSendLog.provider.message()}</dd>
+		<dd class="col-sm-9"><#if smsSendLog.provider??>${smsSendLog.provider.message()}</#if></dd>
 		<dt class="col-sm-3">request_id:</dt>
 		<dd class="col-sm-9">${smsSendLog.requestId}</dd>
 		<dt class="col-sm-3">重试次数:</dt>

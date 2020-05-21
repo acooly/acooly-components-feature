@@ -22,4 +22,6 @@ import com.acooly.module.smsend.entity.SmsTemplate;
 @Service("smsTemplateService")
 public class SmsTemplateServiceImpl extends EntityServiceImpl<SmsTemplate, SmsTemplateDao> implements SmsTemplateService {
 
+    
+
 }

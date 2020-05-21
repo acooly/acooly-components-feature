@@ -127,12 +127,6 @@ public class SmsSendProperties {
         private String contentSign;
 
         /**
-         * 每天没号码最大发送数量（渠道限制参数）
-         */
-        private int maxCountOfDay = 10;
-
-
-        /**
          * 扩展参数（每个渠道特别的扩展参数）
          */
         private Map<String, Object> ext = Maps.newHashMap();

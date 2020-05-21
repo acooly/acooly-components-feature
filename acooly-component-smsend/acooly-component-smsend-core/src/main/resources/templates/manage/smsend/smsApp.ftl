@@ -58,12 +58,12 @@
         <div id="manage_smsApp_toolbar">
             <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/smsend/smsApp/create.html',entity:'smsApp',width:500,height:500})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/smsend/smsApp/deleteJson.html','manage_smsApp_datagrid')"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a>
-            <a href="#" class="easyui-menubutton" data-options="menu:'#manage_smsApp_exports_menu'"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>批量导出</a>
-            <div id="manage_smsApp_exports_menu" style="width:150px;">
-                <div onclick="$.acooly.framework.exports('/manage/smsend/smsApp/exportXls.html','manage_smsApp_searchform','短信发送应用')"><i class="fa fa-file-excel-o fa-lg fa-fw fa-col"></i>Excel</div>
-                <div onclick="$.acooly.framework.exports('/manage/smsend/smsApp/exportCsv.html','manage_smsApp_searchform','短信发送应用')"><i class="fa fa-file-text-o fa-lg fa-fw fa-col"></i>CSV</div>
-            </div>
-            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.imports({url:'/manage/smsend/smsApp/importView.html',uploader:'manage_smsApp_import_uploader_file'});"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i>批量导入</a>
+<#--            <a href="#" class="easyui-menubutton" data-options="menu:'#manage_smsApp_exports_menu'"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>批量导出</a>-->
+<#--            <div id="manage_smsApp_exports_menu" style="width:150px;">-->
+<#--                <div onclick="$.acooly.framework.exports('/manage/smsend/smsApp/exportXls.html','manage_smsApp_searchform','短信发送应用')"><i class="fa fa-file-excel-o fa-lg fa-fw fa-col"></i>Excel</div>-->
+<#--                <div onclick="$.acooly.framework.exports('/manage/smsend/smsApp/exportCsv.html','manage_smsApp_searchform','短信发送应用')"><i class="fa fa-file-text-o fa-lg fa-fw fa-col"></i>CSV</div>-->
+<#--            </div>-->
+<#--            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.imports({url:'/manage/smsend/smsApp/importView.html',uploader:'manage_smsApp_import_uploader_file'});"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i>批量导入</a>-->
         </div>
     </div>
     <script type="text/javascript">

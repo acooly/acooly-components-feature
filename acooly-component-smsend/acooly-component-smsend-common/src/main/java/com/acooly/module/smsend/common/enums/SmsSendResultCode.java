@@ -22,7 +22,7 @@ import java.util.Map;
 public enum SmsSendResultCode implements Messageable {
 
     SUCCESS("SUCCESS","发送成功"),
-
+    APP_AUTH_ERROR("APP_AUTH_ERROR","AppId认证失败"),
     DATA_PARSE_ERORR("DATA_PARSE_ERORR","数据解析错误"),
     RATE_LIMIT_MOBILE("RATE_LIMIT_MOBILE", "手机号码限流"),
     RATE_LIMIT_IP("RATE_LIMIT_IP", "发送IP限流"),

@@ -36,6 +36,12 @@ import java.util.Date;
 public class SmsSendLog extends AbstractEntity implements Cloneable {
 
     /**
+     * 应用编码
+     * 用于识别是那个系统或应用请求发送
+     */
+    private String appId;
+
+    /**
      * request_id
      */
     @Size(max = 64)
@@ -128,6 +134,12 @@ public class SmsSendLog extends AbstractEntity implements Cloneable {
      */
     @Size(max = 256)
     private String comments;
+
+    /**
+     * 渠道模板编码
+     */
+    @Size(max = 32)
+    private String templateProvider;
 
     @Override
     public SmsSendLog clone() throws CloneNotSupportedException {

@@ -40,6 +40,7 @@ public class SmsSendOrder extends OrderBase {
 
     /**
      * 发送请求号
+     * （预留，暂无用）
      */
     @Size(max = 64)
     private String requestId;
@@ -70,6 +71,7 @@ public class SmsSendOrder extends OrderBase {
 
     /**
      * 模板编码
+     * 短信服务定义模板编码，需配合后转换为渠道模板编码
      * smsSendType = SmsSendType.template 时有效和必选
      */
     private String templateCode;
@@ -98,6 +100,7 @@ public class SmsSendOrder extends OrderBase {
 
     /**
      * 客户端IP
+     * 发送用户请求IP（注意，这里是终端客户IP）
      */
     @NotBlank
     @Size(max = 16)
@@ -105,9 +108,7 @@ public class SmsSendOrder extends OrderBase {
 
     /**
      * 备注
-     */
-    /**
-     * 备注
+     * 只存入数据库
      */
     @Size(max = 127)
     private String comments;
@@ -174,13 +175,13 @@ public class SmsSendOrder extends OrderBase {
 
     @Override
     public void check() {
-        if (smsSendType == null) {
-            Asserts.notNull(smsSendType, "smsSendType", "发送类型不能为空");
+        if (this.smsSendType == null) {
+            Asserts.notNull(this.smsSendType, "smsSendType", "发送类型不能为空");
         }
-        if (smsSendType == SmsSendType.template) {
+        if (this.smsSendType == SmsSendType.template) {
             Asserts.notEmpty(this.templateCode, "模板编码");
         }
-        if (smsSendType == SmsSendType.content) {
+        if (this.smsSendType == SmsSendType.content) {
             Asserts.notEmpty(this.content, "短信内容");
         }
         for (String mobileNo : this.mobileNos) {

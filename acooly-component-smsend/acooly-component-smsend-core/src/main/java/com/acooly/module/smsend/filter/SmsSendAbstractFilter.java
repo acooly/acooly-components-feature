@@ -8,11 +8,12 @@
  */
 package com.acooly.module.smsend.filter;
 
-import com.acooly.core.utils.enums.Messageable;
 import com.acooly.module.filterchain.Filter;
 import com.acooly.module.smsend.SmsSendProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Iterator;
 
 /**
  * @author zhangpu
