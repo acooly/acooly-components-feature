@@ -26,6 +26,7 @@ public enum SmsSendFilters implements Messageable {
 
     RateLimit("RateLimit", "流控"),
     AppAuth("AppAuth", "应用认证"),
+    TemplateCheck("TemplateCheck", "模板验证"),
     BlackList("BlackList", "黑名单");
 
     private final String code;

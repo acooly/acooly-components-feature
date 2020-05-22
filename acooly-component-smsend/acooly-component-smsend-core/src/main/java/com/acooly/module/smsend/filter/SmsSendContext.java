@@ -9,6 +9,7 @@
 package com.acooly.module.smsend.filter;
 
 import com.acooly.module.filterchain.Context;
+import com.acooly.module.smsend.common.enums.SmsProvider;
 import com.acooly.module.smsend.common.enums.SmsSendType;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -59,6 +60,13 @@ public class SmsSendContext extends Context {
      * smsSendType = SmsSendType.template 时有效和必选
      */
     private String templateCode;
+
+
+    /**
+     * context中间参数：templateCode与渠道模板的对应关系
+     */
+    private Map<SmsProvider,String> templateProviders = Maps.newHashMap();
+
 
     /**
      * 模板参数
