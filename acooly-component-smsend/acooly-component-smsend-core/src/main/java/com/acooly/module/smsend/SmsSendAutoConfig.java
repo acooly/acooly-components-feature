@@ -45,7 +45,7 @@ public class SmsSendAutoConfig {
         return new StandardDatabaseScriptIniter() {
             @Override
             public String getEvaluateTable() {
-                return "sms_log";
+                return "sms_send_log";
             }
 
             @Override
@@ -55,7 +55,7 @@ public class SmsSendAutoConfig {
 
             @Override
             public List<String> getInitSqlFile() {
-                return Lists.newArrayList("sms", "sms_urls");
+                return Lists.newArrayList("smsend", "smsend_urls");
             }
         };
     }
