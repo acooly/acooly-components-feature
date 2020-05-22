@@ -8,6 +8,11 @@
  */
 package com.acooly.module.smsend.facade.client.impl;
 
+import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.common.exception.CommonErrorCodes;
+import com.acooly.core.common.exception.OrderCheckException;
+import com.acooly.core.utils.Ids;
+import com.acooly.core.utils.Strings;
 import com.acooly.module.smsend.facade.api.SmsSendRemoteService;
 import com.acooly.module.smsend.facade.client.SmsSendClientService;
 import com.acooly.module.smsend.facade.order.SmsSendOrder;
@@ -29,6 +34,19 @@ public class DubboSmsSendClientServiceImpl implements SmsSendClientService {
 
     @Override
     public SmsSendResult send(SmsSendOrder smsSendOrder) {
+        if (Strings.isBlank(smsSendOrder.getGid())) {
+            smsSendOrder.setGid(Ids.gid());
+        }
+        if (Strings.isBlank(smsSendOrder.getPartnerId())) {
+            smsSendOrder.setPartnerId(smsSendOrder.getAppId());
+        }
+
+        try {
+            smsSendOrder.check();
+        } catch (OrderCheckException oce) {
+            throw new BusinessException(CommonErrorCodes.PARAMETER_ERROR, oce.getMessage());
+        }
+
         return smsSendRemoteService.send(smsSendOrder);
     }
 }
