@@ -88,7 +88,7 @@ public class AnyCmpMessageSender extends AbstractShortMessageSender {
             CommonResponse response = client.getCommonResponse(request);
             String body = response.getData();
             AliyunSmsResult aliyunSmsResult = JSON.parseObject(body, AliyunSmsResult.class);
-            boolean sendSuccess = AliyunSmsResult.SUCCESS_CODE.equalsIgnoreCase(aliyunSmsResult.Code);
+            boolean sendSuccess = AliyunSmsResult.SUCCESS_CODE.equalsIgnoreCase(AliyunSmsResult.SUCCESS_CODE);
             log.info("短信发送 [{}] {},template:{}, params:{}, result: {}", getProvider().code(),
                     sendSuccess ? "成功" : "失败", templateCode, templateParams, body);
             result.setSuccess(sendSuccess);
