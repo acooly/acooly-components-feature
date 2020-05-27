@@ -21,10 +21,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.*;
 
 import java.util.List;
 
@@ -41,6 +38,7 @@ import static com.acooly.module.smsend.SmsSendProperties.PREFIX;
 @ComponentScan(basePackages = "com.acooly.module.smsend")
 public class SmsSendAutoConfig {
     @Bean
+    @Profile("!online")
     public StandardDatabaseScriptIniter smsendScriptIniter() {
         return new StandardDatabaseScriptIniter() {
             @Override
@@ -65,7 +63,7 @@ public class SmsSendAutoConfig {
     @ConditionalOnBean(ProtocolConfig.class)
     @DependsOn({"applicationConfig", "registryConfig", "protocolConfig"})
     public static ServiceConfig<SmsSendRemoteService> smsSendRemoteServiceConfig(ApplicationConfig applicationConfig, RegistryConfig registryConfig,
-                                                                           ProtocolConfig protocolConfig, SmsSendRemoteService smsSendRemoteService) {
+                                                                                 ProtocolConfig protocolConfig, SmsSendRemoteService smsSendRemoteService) {
         ServiceConfig<SmsSendRemoteService> service = new ServiceConfig<SmsSendRemoteService>();
         service.setApplication(applicationConfig);
         service.setRegistry(registryConfig);
