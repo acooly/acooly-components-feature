@@ -14,7 +14,7 @@ import java.util.Date;
 public class OssUtils {
 
     public static String getUrlByKey(String protocol, String bucketName, String endpoint, String key) {
-        return protocol.concat(bucketName).concat(endpoint).concat("/").concat(key);
+        return protocol.concat(bucketName).concat(".").concat(endpoint).concat("/").concat(key);
     }
 
     public static String generateKey(String rootPackage, String filePath) {
