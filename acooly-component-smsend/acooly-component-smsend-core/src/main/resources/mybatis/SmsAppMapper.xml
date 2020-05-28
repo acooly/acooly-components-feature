@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.smsend.dao.SmsAppDao">
+
+    <resultMap id="smsAppResultMap" type="com.acooly.module.smsend.entity.SmsApp">
+        <id property="id" column="smsApp_id"/>
+        <result property="appId" column="smsApp_app_id"/>
+        <result property="appName" column="smsApp_app_name"/>
+        <result property="status" column="smsApp_status"/>
+        <result property="createTime" column="smsApp_create_time"/>
+        <result property="updateTime" column="smsApp_update_time"/>
+        <result property="comments" column="smsApp_comments"/>
+    </resultMap>
+
+    <sql id="smsAppSqlSelect">
+            smsApp.id as smsApp_id,
+            smsApp.app_id as smsApp_app_id,
+            smsApp.app_name as smsApp_app_name,
+            smsApp.status as smsApp_status,
+            smsApp.create_time as smsApp_create_time,
+            smsApp.update_time as smsApp_update_time,
+            smsApp.comments as smsApp_comments
+    </sql>
+
+</mapper>

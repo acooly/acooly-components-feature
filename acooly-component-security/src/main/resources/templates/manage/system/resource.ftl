@@ -72,27 +72,7 @@
                         <td colspan="5">
                             <input name="customIcon" type="text" class="easyui-validatebox"/> <small>可自定义填值定义其他class图标，请确保通过自定义样式加入到框架中，推荐从下面选择。</small>
                             <div id="iconContainer">
-<#--                                <div class="resource_icons">-->
-<#--                                    <a href="javascript:;" onclick="$('#resource_icons_old').toggle()">-->
-<#--                                    <div class="header">-->
-<#--                                        <span>图片图标（不推荐了...）</span>-->
-<#--                                        <div style="float: right;margin-right: 15px;"><i class="fa fa-chevron-down"></i></div>-->
-<#--                                    </div>-->
-<#--                                    </a>-->
-<#--                                    <div id="resource_icons_old" style="display: none;">-->
-<#--                                        <#list allIcons as e>-->
-<#--                                        <#if e?starts_with("icons")>-->
-<#--                                            <span style="width: 50px;">-->
-<#--                                                <input type="radio" name="icon" value="${e}"/>-->
-<#--                                                <i style='vertical-align:middle;display:inline-block; width:16px; height:16px;' class="${e}"></i>-->
-<#--                                            </span>-->
-<#--                                        </#if>-->
-<#--                                        </#list>-->
-<#--                                    </div>-->
-<#--                                </div>-->
-                                
                                 <div class="resource_icons">
-
                                     <a href="javascript:;" onclick="$('#resource_icons_font').toggle()">
                                         <div class="header">
                                             <span>Font图标（推荐）</span>

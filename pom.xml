@@ -140,6 +140,23 @@
                 <artifactId>acooly-component-obs</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-smsend-common</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-smsend-core</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-smsend-client</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -173,6 +190,7 @@
         <module>acooly-component-face</module>
         <module>acooly-component-ocr</module>
         <module>acooly-component-obs</module>
+        <module>acooly-component-smsend</module>
     </modules>
 
     <build>

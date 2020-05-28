@@ -54,9 +54,13 @@ public class SecurityProperties {
     private boolean shiroFilterAnon = DEFAULT_SHIRO_FILTER_ANON;
 
     /**
-     * 开启短信验证
+     * 开启登录短信验证
      */
     private boolean enableSmsAuth = DEFAULT_LOGIN_SMS;
+    /**
+     * 登录短信验证码重新发送时间间隔 s
+     */
+    public int smsSendInterval = 60;
 
     /**
      * 开启单点登录权限校验dubbo服务(主boss才开启，为防止非主boss应用提供此服务，同一个zk环境中仅仅允许一个应用为服务提供者)

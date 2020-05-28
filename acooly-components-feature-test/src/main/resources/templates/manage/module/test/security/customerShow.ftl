@@ -1,88 +1,64 @@
-<div style="padding: 5px;font-family:微软雅黑;">
-<table class="tableForm" width="100%">
-	<tr>
-		<th>ID:</th>
-		<td>${customer.id}</td>
-	</tr>					
-	<tr>
-		<th width="25%">用户名:</th>
-		<td>${customer.username}</td>
-	</tr>					
-	<tr>
-		<th>年龄:</th>
-		<td>${customer.age}</td>
-	</tr>					
-	<tr>
-		<th>生日:</th>
-		<td>${customer.birthday?string('yyyy-MM-dd HH:mm:ss')}</td>
-	</tr>					
-	<tr>
-		<th>性别:</th>
-		<td>${customer.gender.message()}</td>
-	</tr>					
-	<tr>
-		<th>姓名:</th>
-		<td>${customer.realName}</td>
-	</tr>					
-	<tr>
-		<th>证件类型:</th>
-		<td>${customer.idcardType.message()}</td>
-	</tr>					
-	<tr>
-		<th>身份证号码:</th>
-		<td>${customer.idcardNo}</td>
-	</tr>					
-	<tr>
-		<th>手机号码:</th>
-		<td>${customer.mobileNo}</td>
-	</tr>					
-	<tr>
-		<th>邮件:</th>
-		<td>${customer.mail}</td>
-	</tr>					
-	<tr>
-		<th>照片:</th>
-		<td>${customer.photo}</td>
-	</tr>					
-	<tr>
-		<th>照片缩略图:</th>
-		<td>${customer.photoThum}</td>
-	</tr>					
-	<tr>
-		<th>摘要:</th>
-		<td>${customer.subject}</td>
-	</tr>					
-	<tr>
-		<th>客户类型:</th>
-		<td>${customer.customerType.message()}</td>
-	</tr>					
-	<tr>
-		<th>手续费:</th>
-		<td>${customer.fee}</td>
-	</tr>					
-	<tr>
-		<th>测试Text类型:</th>
-		<td>${customer.content}</td>
-	</tr>					
-	<tr>
-		<th>薪水:</th>
-		<td>${customer.salary}</td>
-	</tr>					
-	<tr>
-		<th>状态:</th>
-		<td>${allStatuss?api.get(customer.status)}</td>
-	</tr>					
-	<tr>
-		<th>创建时间:</th>
-		<td>${customer.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-	</tr>					
-	<tr>
-		<th>update_time:</th>
-		<td>${customer.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-	</tr>					
-	<tr>
-		<th>备注:</th>
-		<td>${customer.comments}</td>
-	</tr>					
-</table>
+<div class="card-body">
+    <dl class="row">
+        <dt class="col-sm-3">ID:</dt>
+        <dd class="col-sm-9">${customer.id}</dd>
+
+        <dt class="col-sm-3">用户名:</dt>
+        <dd class="col-sm-9">${customer.username}</dd>
+
+        <dt class="col-sm-3">年龄:</dt>
+        <dd class="col-sm-9">${customer.age}</dd>
+
+        <dt class="col-sm-3">生日:</dt>
+        <dd class="col-sm-9">${customer.birthday?string('yyyy-MM-dd HH:mm:ss')}</dd>
+
+        <dt class="col-sm-3">性别:</dt>
+        <dd class="col-sm-9">${customer.gender.message()}</dd>
+
+        <dt class="col-sm-3">姓名:</dt>
+        <dd class="col-sm-9">${customer.realName}</dd>
+
+        <dt class="col-sm-3">证件类型:</dt>
+        <dd class="col-sm-9">${customer.idcardType.message()}</dd>
+
+        <dt class="col-sm-3">身份证号码:</dt>
+        <dd class="col-sm-9">${customer.idcardNo}</dd>
+
+        <dt class="col-sm-3">手机号码:</dt>
+        <dd class="col-sm-9">${customer.mobileNo}</dd>
+
+        <dt class="col-sm-3">邮件:</dt>
+        <dd class="col-sm-9">${customer.mail}</dd>
+
+        <dt class="col-sm-3">照片缩略图:</dt>
+        <dd class="col-sm-9">${customer.photoThum}</dd>
+
+        <dt class="col-sm-3">摘要:</dt>
+        <dd class="col-sm-9">${customer.subject}</dd>
+
+        <dt class="col-sm-3">客户类型:</dt>
+        <dd class="col-sm-9">${customer.customerType.message()}</dd>
+
+        <dt class="col-sm-3">手续费:</dt>
+        <dd class="col-sm-9">${customer.fee}</dd>
+
+        <dt class="col-sm-3">测试Text类型:</dt>
+        <dd class="col-sm-9">${customer.content}</dd>
+
+        <dt class="col-sm-3">薪水:</dt>
+        <dd class="col-sm-9">${customer.salary}</dd>
+
+        <dt class="col-sm-3">状态:</dt>
+        <dd class="col-sm-9">${allStatuss?api.get(customer.status)}</dd>
+
+        <dt class="col-sm-3">创建时间:</dt>
+        <dd class="col-sm-9">${customer.createTime?string('yyyy-MM-dd HH:mm:ss')}</dd>
+
+        <dt class="col-sm-3">update_time:</dt>
+        <dd class="col-sm-9">${customer.updateTime?string('yyyy-MM-dd HH:mm:ss')}</dd>
+
+        <dt class="col-sm-3">备注:</dt>
+        <dd class="col-sm-9">${customer.comments}</dd>
+    </dl>
 </div>
+

@@ -2,18 +2,19 @@ package com.acooly.module.sms.web;
 
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Servlets;
-import com.acooly.module.security.config.FrameworkPropertiesHolder;
+import com.acooly.core.utils.Strings;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.service.UserService;
 import com.acooly.module.sms.SmsProperties;
 import com.acooly.module.sms.SmsService;
+import com.acooly.module.sms.sender.support.AliyunSmsSendVo;
 import com.acooly.module.sms.sender.support.CloopenSmsSendVo;
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,25 +34,22 @@ import static com.acooly.module.security.shiro.filter.CaptchaFormAuthenticationF
 @Slf4j
 @Controller
 @RequestMapping(value = "/sms/user/login/")
-@ConditionalOnProperty(
-        value = SecurityProperties.PREFIX + ".enableSmsAuth",
-        matchIfMissing = false
-)
 public class UserSmsController {
     @Autowired
     private SmsProperties smsProperties;
     @Autowired
+    SecurityProperties securityProperties;
+    @Autowired
     private UserService userService;
     @Autowired
     private SmsService smsService;
-
+    static Pattern p = Pattern.compile("^[1][3,4,5,7,8][0-9]{9}$");
     /**
      * 登录短信验证码发送有效时间，以短信方式发送给用户
      */
     private String smsSendEffectiveTime = "5";
 
     public static boolean isMobileNO(String mobiles) {
-        Pattern p = Pattern.compile("^[1][3,4,5,7,8][0-9]{9}$");
         Matcher m = p.matcher(mobiles);
         return m.matches();
     }
@@ -62,7 +61,9 @@ public class UserSmsController {
         String username = request.getParameter("username");
         JsonResult result = new JsonResult();
         try {
-
+            if (!securityProperties.isEnableSmsAuth()) {
+                throw new RuntimeException("未开启短信验证");
+            }
             User user = userService.findUserByUsername(username);
             if (user == null) {
                 result.setMessage("用户不存在!");
@@ -78,7 +79,7 @@ public class UserSmsController {
             Long lastCurrentTime = (Long) Servlets.getSessionAttribute(SMS_VERIFY_CODE_KEY_ST);
             if (lastCurrentTime != null) {
                 long sec = (System.currentTimeMillis() - lastCurrentTime);
-                int smsSendInterval = FrameworkPropertiesHolder.get().getSmsSendInterval();
+                int smsSendInterval = securityProperties.getSmsSendInterval();
                 if (sec < smsSendInterval * 1000) {
                     result.setMessage("发送太频繁，请等" + sec / 1000 + "秒后发送!");
                     result.setSuccess(false);
@@ -89,12 +90,12 @@ public class UserSmsController {
 
             sendProxy(mobileNo, code, user);
 
-            log.info("用户:{},登录验证码已发送:{}", user.getUsername(), code);
+            log.info("短信登录验证 [发送成功] 用户:{}, 手机号码:{}, 验证码:{}", user.getUsername(), mobileNo, code);
             Servlets.setSessionAttribute(SMS_VERIFY_CODE_KEY, code);
             Servlets.setSessionAttribute(SMS_VERIFY_CODE_KEY_ST, System.currentTimeMillis());
 
             result.setSuccess(true);
-            result.setMessage("发送短信验证码成功!");
+            result.setMessage("发送短信验证码成功（" + Strings.maskMobileNo(mobileNo) + "）!");
         } catch (Exception e) {
             result.setMessage(e.getMessage());
             result.setSuccess(false);
@@ -106,6 +107,13 @@ public class UserSmsController {
         SmsProperties.Provider provider = smsProperties.getProvider();
 
         if (provider == SmsProperties.Provider.Aliyun) {
+            AliyunSmsSendVo aliyunSmsSendVo = new AliyunSmsSendVo();
+            aliyunSmsSendVo.setTemplateCode(smsProperties.getAliyun().getLoginCodeTemplate());
+            aliyunSmsSendVo.setFreeSignName(smsProperties.getAliyun().getContentSign());
+            Map<String, String> data = Maps.newHashMap();
+            data.put("captcha", code);
+            aliyunSmsSendVo.setSmsParamsMap(data);
+            smsService.send(mobileNo, aliyunSmsSendVo.toJson());
         }
 
         if (provider == SmsProperties.Provider.Cloopen) {

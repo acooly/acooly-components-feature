@@ -77,8 +77,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     private ShireLoginLogoutSubject shireLoginLogoutSubject;
 
     public static boolean isLoginSmsEnable() {
-        return EnvironmentHolder.get()
-                .getProperty("acooly.security.enableSmsAuth", Boolean.class, SecurityProperties.DEFAULT_LOGIN_SMS);
+        return EnvironmentHolder.get().getProperty("acooly.security.enable-sms-auth", Boolean.class, SecurityProperties.DEFAULT_LOGIN_SMS);
     }
 
     /**

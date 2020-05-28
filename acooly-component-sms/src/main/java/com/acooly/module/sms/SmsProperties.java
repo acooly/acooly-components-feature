@@ -271,6 +271,16 @@ public class SmsProperties {
          * 主题名称，如：sms.topic-cn-hangzhou
          */
         private String topicName;
+
+        /**
+         * 登录验证码模板id，仅当开启登录短信的时候配置
+         */
+        private String loginCodeTemplate;
+
+        /**
+         * 默认短信签名
+         */
+        private String contentSign;
     }
 
     /**

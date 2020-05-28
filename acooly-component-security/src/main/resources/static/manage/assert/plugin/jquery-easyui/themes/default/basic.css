@@ -327,18 +327,40 @@ img {
 .form-horizontal .form-control {
     font-size: inherit;
     height: calc(2rem + 2px);
-    border-radius: 0;
+    /*border-radius: 0;*/
 }
 
 .form-horizontal textarea.form-control{
     height:auto;
 }
 
-.form-horizontal .select2-container--bootstrap4 .select2-selection--single {
-    height: calc(2rem + 2px) !important;
-    border-radius: 0;
+.form-horizontal .select2-container--bootstrap4 .select2-selection--single{
+    height: calc(2rem + 2px) !important;;
+    line-height: calc(2rem + 2px) !important;
 }
+.form-horizontal .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered{
+    line-height: calc(2rem + 2px) !important;
+}
+
+.form-horizontal .input-group-append { height: calc(2rem + 2px);}
 
 .select2-dropdown {
     z-index: 10000;
 }
+
+/** acooly search form custom */
+.ac-form-search .form-group {margin-right: 0.5rem;margin-top: 0.5rem;}
+.ac-form-search .form-group select{min-width: 80px;}
+.ac-form-search .form-group input[type=text]{width: 100px;}
+.ac-form-search .form-group .select2-container--bootstrap4 .select2-selection--single{
+    height: calc(1.8125rem + 2px) !important;;
+    line-height: calc(1.8125rem + 2px) !important;
+}
+.ac-form-search .form-group .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered{
+    line-height: calc(1.8125rem + 2px) !important;
+}
+
+/** 弹出框圆角 */
+.window {border-radius: 5px;}
+.window-shadow {border-radius: 5px;}
+.dialog-button {padding: 10px 20px;}

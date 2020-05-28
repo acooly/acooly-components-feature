@@ -170,14 +170,18 @@ public class ResourceController extends AbstractJsonEntityController<Resource, R
         try {
             Resource source = resourceService.get(Long.valueOf(sourceId));
             Resource target = resourceService.get(Long.valueOf(targetId));
-            source.setParent(target);
-            //inner
-            if ("prev".equals(moveType)) {
-                source.setOrderTime(Dates.addDate(target.getOrderTime(), 1));
-            } else if ("next".equals(moveType)) {
-                source.setOrderTime(Dates.addDate(target.getOrderTime(), -1));
+//            source.setParent(target);
+
+            //上移
+            if ("prev".equals(moveType) || "next".equalsIgnoreCase(moveType)) {
+                source.setParent(target.getParent());
+                source.setOrderTime(Dates.addDate(target.getOrderTime(), "prev".equals(moveType) ? 1000 : -1000));
+                resourceService.save(source);
+            } else if ("inner".equals(moveType)) {
+                source.setParent(target);
+                resourceService.save(source);
             }
-            resourceService.save(source);
+
         } catch (Exception e) {
             handleException(result, "移动[" + moveType + "]", e);
         }

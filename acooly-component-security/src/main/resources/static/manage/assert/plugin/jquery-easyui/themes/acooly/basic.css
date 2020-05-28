@@ -583,9 +583,7 @@ div.datagrid-cell > div > label {
     line-height: calc(2rem + 2px) !important;
 }
 
-/*.form-horizontal .select2-container--bootstrap4 .select2-selection--single {*/
-/*    height: calc(2rem + 2px) !important;*/
-/*}*/
+.form-horizontal .input-group-append { height: calc(2rem + 2px);}
 
 .select2-dropdown {
     z-index: 10000;
@@ -606,3 +604,4 @@ div.datagrid-cell > div > label {
 /** 弹出框圆角 */
 .window {border-radius: 5px;}
 .window-shadow {border-radius: 5px;}
+.dialog-button {padding: 10px 20px;}

@@ -31,28 +31,47 @@ maven坐标
 
 
 
-## 3. FAQ
+## 3. FQA
 
-### 4.1 怎么开启登录短信验证码
+### 3.1 怎么开启登录短信验证码
 
-* 配置开启短信验证
-    `acooly.security.loginSmsEnable=true
-    `
+后台登录短信验证是通过用户的注册手机号码下发短信验证码方式验证。
+
 * 项目在引入security组件同时必须引入sms组件
-    `<dependency>
-          <groupId>com.acooly</groupId>
-          <artifactId>acooly-component-sms</artifactId>
-     </dependency>`
-     
-     短信验证码发送已经适配各个短信通道
-     特殊的通道，比如 容联云通讯 可以修改短信模板id
-     `acooly.sms.cloopen.loginVerifCodeTemplateId=183256
-     `
-* 可配置页面重新发送按钮间隔,单位秒，默认为30秒
-     `acooly.framework.smsSendInterval=60
-      `
-* 开启短信验证码功能后，在新增user的时候，填写手机号码
 
+```xml
+<dependency>
+   <groupId>com.acooly</groupId>
+   <artifactId>acooly-component-sms</artifactId>
+</dependency>
+```
+     
+
+* 配置开启登录短信验证
+
+```ini
+# 开启登录短信认证
+acooly.security.enable-sms-auth=true
+# 登录短信验证码重复时长(秒)
+acooly.security.sms-send-interval=60
+```
+
+短信验证码发送已经适配各个短信通道,特殊的通道，比如 阿里云，容联云通讯 可以修改短信模板id和内容签名.
+
+以下是阿里云短信的demo配置
+
+```ini
+## 短信渠道配置
+acooly.sms.provider=Aliyun
+acooly.sms.aliyun.accountId=aaaaa
+acooly.sms.aliyun.accessKeyId=AAAAAAAAAAAAAAAAAAAA
+acooly.sms.aliyun.accessKeySecret=XXXXXXXXXXXXXXX
+acooly.sms.aliyun.topicName=sms.topic-cn-hangzhou
+
+## 登录短信模板和签名
+acooly.sms.aliyun.loginCodeTemplate=SMS_187930527
+acooly.sms.aliyun.contentSign=我是签名
+```
 
 ### 4.2 怎么设置不需要需登录(授权、认证)访问所有boss页面
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.smsend.dao.SmsSendLogDao">
+
+    <resultMap id="smsSendLogResultMap" type="com.acooly.module.smsend.entity.SmsSendLog">
+        <id property="id" column="smsSendLog_id"/>
+        <result property="batchNo" column="smsSendLog_batch_no"/>
+        <result property="mobileNo" column="smsSendLog_mobile_no"/>
+        <result property="sendType" column="smsSendLog_send_type"/>
+        <result property="content" column="smsSendLog_content"/>
+        <result property="sendTime" column="smsSendLog_send_time"/>
+        <result property="provider" column="smsSendLog_provider"/>
+        <result property="requestId" column="smsSendLog_request_id"/>
+        <result property="retryCount" column="smsSendLog_retry_count"/>
+        <result property="resultCode" column="smsSendLog_result_code"/>
+        <result property="resultMessage" column="smsSendLog_result_message"/>
+        <result property="clientIp" column="smsSendLog_client_ip"/>
+        <result property="status" column="smsSendLog_status"/>
+        <result property="createTime" column="smsSendLog_create_time"/>
+        <result property="updateTime" column="smsSendLog_update_time"/>
+        <result property="comments" column="smsSendLog_comments"/>
+    </resultMap>
+
+    <sql id="smsSendLogSqlSelect">
+            smsSendLog.id as smsSendLog_id,
+            smsSendLog.batch_no as smsSendLog_batch_no,
+            smsSendLog.mobile_no as smsSendLog_mobile_no,
+            smsSendLog.send_type as smsSendLog_send_type,
+            smsSendLog.content as smsSendLog_content,
+            smsSendLog.send_time as smsSendLog_send_time,
+            smsSendLog.provider as smsSendLog_provider,
+            smsSendLog.request_id as smsSendLog_request_id,
+            smsSendLog.retry_count as smsSendLog_retry_count,
+            smsSendLog.result_code as smsSendLog_result_code,
+            smsSendLog.result_message as smsSendLog_result_message,
+            smsSendLog.client_ip as smsSendLog_client_ip,
+            smsSendLog.status as smsSendLog_status,
+            smsSendLog.create_time as smsSendLog_create_time,
+            smsSendLog.update_time as smsSendLog_update_time,
+            smsSendLog.comments as smsSendLog_comments
+    </sql>
+
+</mapper>

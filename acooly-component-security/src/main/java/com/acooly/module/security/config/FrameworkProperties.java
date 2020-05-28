@@ -36,10 +36,7 @@ public class FrameworkProperties implements Serializable {
     public Map<Integer, String> showModes = Maps.newLinkedHashMap();
     public Map<Integer, String> loadModes = Maps.newLinkedHashMap();
     public Map<String, String> resourceTypes = Maps.newLinkedHashMap();
-    /**
-     * 登录短信验证码重新发送时间间隔 s
-     */
-    public int smsSendInterval = 30;
+
     private String title = "Acooly Boss 5.x";
     private String shorttitle = "<b>B</b>oss";
     private String subtitle = "专注业务，最佳实践，代码生成，提高效率";
