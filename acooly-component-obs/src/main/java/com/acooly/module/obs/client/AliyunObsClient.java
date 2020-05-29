@@ -130,6 +130,7 @@ public class AliyunObsClient extends AbstractObsClient {
             ossFile.setKey(putObjectRequest.getKey());
             ossFile.setUrl(properties.getAliyun().getProtocol()
                     .concat(properties.getAliyun().getBucketName())
+                    .concat(".")
                     .concat(properties.getAliyun().getEndpoint())
                     .concat("/").concat(putObjectRequest.getKey()));
             client.shutdown();
