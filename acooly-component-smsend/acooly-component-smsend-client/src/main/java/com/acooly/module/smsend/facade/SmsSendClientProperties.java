@@ -32,11 +32,27 @@ public class SmsSendClientProperties {
 
     /**
      * 接口模式
+     * 1、如果选择dubbo，则需引入acooly-compoment-dubbo组件，配置dubbo客户端相关参数。
+     * 2、如果选择openApi，则需要配置getway，accessKey,secretKey三个参数
      */
     private Type type = Type.dubbo;
 
+    /**
+     * OpenApi网关地址
+     */
+    private String gateway;
+    /**
+     * OpenApi访问码
+     */
+    private String accessKey;
+    /**
+     * OpenApi安全码
+     */
+    private String secretKey;
+
     public static enum Type {
-        mock, dubbo
+        mock, dubbo, openApi
     }
+
 
 }

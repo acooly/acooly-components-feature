@@ -156,7 +156,11 @@
                 <artifactId>acooly-component-smsend-client</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-smsend-openapi</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

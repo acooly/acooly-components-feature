@@ -9,25 +9,21 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>acooly-component-smsend-client</artifactId>
+    <artifactId>acooly-component-smsend-openapi</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-smsend-common</artifactId>
+            <artifactId>openapi-framework-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>openapi-framework-common</artifactId>
+            <artifactId>acooly-component-smsend-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-dubbo</artifactId>
-            <scope>provided</scope>
+            <artifactId>acooly-component-smsend-client</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>

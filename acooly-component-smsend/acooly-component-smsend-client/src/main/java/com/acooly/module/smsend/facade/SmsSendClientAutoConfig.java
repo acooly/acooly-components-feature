@@ -12,6 +12,8 @@ package com.acooly.module.smsend.facade;
 import com.acooly.module.smsend.facade.client.SmsSendClientService;
 import com.acooly.module.smsend.facade.client.impl.DubboSmsSendClientServiceImpl;
 import com.acooly.module.smsend.facade.client.impl.MockSmsSendClientServiceImpl;
+import com.acooly.module.smsend.facade.client.impl.OpenApiSmsSendClientServiceImpl;
+import com.acooly.openapi.framework.common.OpenApiTools;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -37,6 +39,10 @@ public class SmsSendClientAutoConfig {
     public SmsSendClientService smsSendClientService() {
         if (properties.getType() == SmsSendClientProperties.Type.dubbo) {
             return new DubboSmsSendClientServiceImpl();
+        } else if (properties.getType() == SmsSendClientProperties.Type.openApi) {
+            OpenApiTools openApiTools = new OpenApiTools(properties.getGateway(),
+                    properties.getAccessKey(), properties.getSecretKey());
+            return new OpenApiSmsSendClientServiceImpl(openApiTools);
         } else {
             return new MockSmsSendClientServiceImpl();
         }

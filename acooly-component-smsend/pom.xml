@@ -16,6 +16,7 @@
         <module>acooly-component-smsend-core</module>
         <module>acooly-component-smsend-common</module>
         <module>acooly-component-smsend-client</module>
+        <module>acooly-component-smsend-openapi</module>
     </modules>
 
 </project>

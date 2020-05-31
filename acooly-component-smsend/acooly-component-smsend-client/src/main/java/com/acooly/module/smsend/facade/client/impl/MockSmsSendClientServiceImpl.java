@@ -9,7 +9,6 @@
 package com.acooly.module.smsend.facade.client.impl;
 
 import com.acooly.module.smsend.common.enums.SmsSendResultCode;
-import com.acooly.module.smsend.facade.client.SmsSendClientService;
 import com.acooly.module.smsend.facade.order.SmsSendOrder;
 import com.acooly.module.smsend.facade.result.SmsSendResult;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +22,13 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2020-05-21 19:39
  */
 @Slf4j
-public class MockSmsSendClientServiceImpl implements SmsSendClientService {
+public class MockSmsSendClientServiceImpl extends AbstractSmsSendClientService {
 
     @Override
-    public SmsSendResult send(SmsSendOrder smsSendOrder) {
+    protected SmsSendResult doSend(SmsSendOrder smsSendOrder) {
         log.info("短信客户端 MOCK. templateCode:{}, templateParams:{}, order:{}", smsSendOrder.getTemplateCode(),
                 smsSendOrder.getTemplateParams(), smsSendOrder);
         return new SmsSendResult(SmsSendResultCode.SUCCESS);
     }
+
 }

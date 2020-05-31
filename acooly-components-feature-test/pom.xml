@@ -20,7 +20,10 @@
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-smsend-core</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-smsend-openapi</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-data-region</artifactId>
