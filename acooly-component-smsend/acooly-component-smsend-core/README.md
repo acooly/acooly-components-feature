@@ -132,10 +132,36 @@ acooly.appservice.scanPackages.smsend=com.acooly.module.smsend
 
 默认情况是不用配置的，只有你需要在本地开发采用mock时，需要配置下：`acooly.smsend.client.type=mock`
 
+#### 4.2.1 开发时的MOCK
+
 ```ini
-## smsend client type: mock,dubbo
+## smsend client type: mock,dubbo,openApi
 acooly.smsend.client.type=mock
 ```
+
+#### 4.2.2 内外Dubbo方式发送
+
+如果你选择dubbo，则需要引入`acooly-component-dubbo`组件，并配置客户端参数
+
+```ini
+acooly.smsend.client.type=dubbo
+acooly.dubbo.provider.enable=false
+acooly.dubbo.owner=postmain-client
+acooly.dubbo.enableNacos=true
+acooly.dubbo.nacosUrl=127.0.0.1:8848
+```
+
+#### 4.2.3 公网OpenApi方式发送
+
+如果你选择openApi客户端，则需配置openapi网关相关参数
+
+```ini
+acooly.smsend.client.type=openapi
+acooly.smsend.client.gateway=http://127.0.0.1:9010/gateway.do
+acooly.smsend.client.access-key=test
+acooly.smsend.client.secret-key=06f7aab08aa2431e6dae6a156fc9e0b4
+```
+
 
 ### 4.3 接口
 
@@ -207,10 +233,21 @@ public class SmsSenderTestController {
         Map<String, String> smsParam = new ListOrderedMap<String, String>();
         smsParam.put("captcha", "121312");
         smsParam.put("effectiveMinute", "10");
-        SmsSendOrder smsSendOrder = new SmsSendOrder(appId, "189000000", templateCode, smsParam, contentSign, clientIp);
+        
+        // 构造函数方式
+        // SmsSendOrder smsSendOrder = new SmsSendOrder(appId, "189000000", templateCode, smsParam, contentSign, clientIp);
+        
+        // 快捷方式
+        SmsSendOrder smsSendOrder = SmsSendOrder.newOrder().appId(appId).addMobileNo(mobileNo).templateCode(templateCode)
+                .addTemplateParam("code", "121312").addTemplateParam("iphone", mobileNo).addTemplateParam("effectiveMinute", "5")
+                .contentSign(contentSign).clientIp(clientIp);
+        
+        // gid和partnerId可选，客户端会自动补全。
         String gid = Ids.gid();
         smsSendOrder.setGid(gid);
         smsSendOrder.setPartnerId(appId);
+        
+        // 客户端调用
         return smsSendClientService.send(smsSendOrder);
     }
 }
