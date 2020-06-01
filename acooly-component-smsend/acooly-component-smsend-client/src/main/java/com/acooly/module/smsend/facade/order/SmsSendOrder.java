@@ -102,7 +102,6 @@ public class SmsSendOrder extends OrderBase {
      * 客户端IP
      * 发送用户请求IP（注意，这里是终端客户IP）
      */
-    @NotBlank
     @Size(max = 16)
     private String clientIp;
 

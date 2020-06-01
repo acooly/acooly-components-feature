@@ -110,7 +110,6 @@ public class SmsSendApiRequest extends ApiRequest {
      * 客户端IP
      * 发送用户请求IP（注意，这里是终端客户IP）
      */
-    @NotBlank
     @Size(max = 16)
     @OpenApiField(desc = "请求IP", constraint = "终端方用户设备的IP", demo = "222.111.222.1", ordinal = 9)
     private String clientIp;
