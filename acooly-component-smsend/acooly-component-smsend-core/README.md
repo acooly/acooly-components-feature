@@ -22,16 +22,43 @@
 
 ### 3.1. 集成
 
+#### 3.1.1 本地组件集成
+
+本地组件集成可代替`acooly-componet-sms`组件使用。但可获得聚合发送的能力。
+
 maven坐标：
 
 ```xml
 <dependency>
     <groupId>com.acooly</groupId>
-    <artifactId>acooly-component-smsend</artifactId>
+    <artifactId>acooly-component-smsend-core</artifactId>
 </dependency>
 ```
 
 `${acooly-latest-version}`为框架最新版本(5.x)或者购买的版本，一般不用管理，在parent中已集中管理。
+
+#### 3.1.2 Dubbo服务
+
+在集成`acooly-component-smsend-core`后，通过参数`acooly.smsend.facade=true`开启dubbo服务。然后客户端可以集成`acooly-component-smsend-client`配置使用远程发送。
+
+一般在内外推荐使用Dubbo服务。
+
+#### 3.1.3 OpenApi服务
+
+在公网环境需要使用同一短信发送服务时，可采用OpenApi方式接入。
+
+服务器端需引入OpenApi的模块支持：
+
+```xml
+<dependency>
+    <groupId>com.acooly</groupId>
+    <artifactId>acooly-component-smsend-openapi</artifactId>
+</dependency>
+```
+
+OpenApi的接入权限配置在短信服务后端完成。
+
+同样的，客户端也只需集成`acooly-component-smsend-client`组件，配置使用OpenApi方式远程发送。
 
 ### 3.2. 参数配置
 
