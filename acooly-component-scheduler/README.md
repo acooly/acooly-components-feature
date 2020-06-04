@@ -34,3 +34,15 @@ maven坐标：
 * 当scheduler执行dubbo调度，此组件作为服务消费者，dubbo服务提供者和服务消费者必须配置同一个`acooly.dubbo.zkUrl`
 * dubbo服务提供者需要实现的接口`com.acooly.module.scheduler.api.ScheduleCallBackService`在`acooly-component-scheduler`此组件里面，引用此组件后，不需要定时任务相关功能，需要设置`acooly.scheduler.enable=false`关闭定时任务
 * 配置定时任务请在boss页面，切勿在数据库直接修改`QRTZ_`开头的表数据
+
+## 3 FQA
+
+### 3.1 关闭特殊节点的Job触发
+
+在Pre环境时，与生产环境的数据库是共用的，为避免定时任务的日志漂移到pre环境的节点上，需要关闭pre环境的job触发执行功能，但保留正常接口功能。
+
+通过在pre环境的配置文件中增加如下控制配置参数：
+
+```ini
+acooly.scheduler.enablejob=false
+```

@@ -3,7 +3,6 @@ package com.acooly.module.scheduler;
 import com.acooly.core.common.boot.ApplicationContextHolder;
 import com.acooly.core.common.dao.support.StandardDatabaseScriptIniter;
 import com.acooly.module.scheduler.job.AutowiringSpringBeanJobFactory;
-import com.google.common.collect.Lists;
 import org.quartz.spi.JobFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
@@ -18,7 +17,6 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 
 import static com.acooly.module.scheduler.SchedulerProperties.PREFIX;
@@ -40,15 +38,10 @@ public class SchedulerAutoConfig {
         return new DefaultStandardDatabaseScriptIniter();
     }
 
-    @Bean
-    public JobFactory jobFactory( ApplicationContext applicationContext ) {
-        AutowiringSpringBeanJobFactory jobFactory = new AutowiringSpringBeanJobFactory();
-        jobFactory.setApplicationContext(applicationContext);
-        return jobFactory;
-    }
 
+    @ConditionalOnProperty(value = PREFIX + ".enablejob", matchIfMissing = true)
     @Bean
-    public SchedulerFactoryBean schedulerFactoryBean( DataSource dataSource, JobFactory jobFactory )
+    public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, JobFactory jobFactory)
             throws IOException {
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
         //当配置文件修改后，启动的时候更新triggers
@@ -57,6 +50,13 @@ public class SchedulerAutoConfig {
         factory.setJobFactory(jobFactory);
         factory.setQuartzProperties(quartzProperties());
         return factory;
+    }
+
+    @Bean
+    public JobFactory jobFactory(ApplicationContext applicationContext) {
+        AutowiringSpringBeanJobFactory jobFactory = new AutowiringSpringBeanJobFactory();
+        jobFactory.setApplicationContext(applicationContext);
+        return jobFactory;
     }
 
     @Bean

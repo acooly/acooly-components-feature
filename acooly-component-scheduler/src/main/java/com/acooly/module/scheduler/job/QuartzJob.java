@@ -55,14 +55,14 @@ public class QuartzJob implements Job {
                 logger.error("任务执行失败,没有找到任务实体,context：{}", context.toString());
                 return;
             }
-            //yiji-boot 支持gid oid 不再重写就用gid了
+            //支持gid oid 不再重写就用gid了
             MDC.put("gid", getLogPrefix(schedulerRule.getId()));
 
             TaskExecutor taskExecutor =
                     TaskExecutorProvider.get(TaskTypeEnum.getEnumByCode(schedulerRule.getActionType()));
 
             logger.info(
-                    "开始执行,taskId={},,memo={},creater={}",
+                    "开始执行,taskId={}, memo={},creater={}",
                     schedulerRule.getId(),
                     schedulerRule.getMemo(),
                     schedulerRule.getCreater());

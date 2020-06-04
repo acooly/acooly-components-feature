@@ -1,8 +1,10 @@
 package com.acooly.module.scheduler.web;
 
-import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonResult;
+import com.acooly.module.scheduler.SchedulerProperties;
 import com.acooly.module.scheduler.domain.SchedulerRule;
 import com.acooly.module.scheduler.engine.ScheduleEngineImpl;
 import com.acooly.module.scheduler.exceptions.SchedulerExecuteException;
@@ -34,7 +36,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/manage/schedulerRule")
 public class SchedulerRuleManagerController
-        extends AbstractJQueryEntityController<SchedulerRule, SchedulerRuleService> {
+        extends AbstractJsonEntityController<SchedulerRule, SchedulerRuleService> {
 
     private static Logger logger = LoggerFactory.getLogger(SchedulerRuleManagerController.class);
 
@@ -42,6 +44,8 @@ public class SchedulerRuleManagerController
     private ScheduleEngineImpl scheduleEngine;
     @Resource
     private TaskExecutorProvider taskExecutorProvider;
+    @Resource
+    private SchedulerProperties schedulerProperties;
 
     {
         allowMapping = "*";
@@ -159,22 +163,24 @@ public class SchedulerRuleManagerController
             return result;
         }
         try {
-            TaskExecutor executor =
-                    taskExecutorProvider.get(TaskTypeEnum.getEnumByCode(rule.getActionType()));
+            doCheck();
+            TaskExecutor executor = TaskExecutorProvider.get(TaskTypeEnum.getEnumByCode(rule.getActionType()));
             if (executor == null) {
-                result.setSuccess(false);
-                result.setMessage("任务手动失败,不支持的任务类型:" + rule.getActionType());
-            } else {
-                executor.execute(rule);
-                result.setSuccess(true);
-                result.setMessage("任务手动执行成功！");
+                throw new BusinessException("任务手动失败,不支持的任务类型:" + rule.getActionType(), "SCHEDULER_UNSUPPORT_ACTION_TYPE");
             }
+            executor.execute(rule);
+            result.setMessage("任务手动执行成功！");
+            logger.info("手动执行任务 [成功] 任务 id:{}, name:{}", rule.getId(), rule.getMemo());
         } catch (Exception e) {
-            logger.info("任务手动执行失败!任务id：[task{" + rule.getId() + "}]");
-            result.setSuccess(false);
-            result.setMessage(e.getMessage());
+            logger.info("任务手动执行 [失败] 任务 id:{}, name:{}", rule.getId(), rule.getMemo());
+            handleException(result, "手动任务", e);
         }
-        logger.info("手动执行任务成功,任务id:[task{}]", rule.getId());
         return result;
+    }
+
+    private void doCheck() {
+        if (!schedulerProperties.enablejob) {
+            throw new BusinessException("该节点的调用任务已禁用", "SCHEDULER_JOB_NODE_DISABLE");
+        }
     }
 }

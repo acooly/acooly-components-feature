@@ -17,7 +17,13 @@ import static com.acooly.module.scheduler.SchedulerProperties.PREFIX;
 public class SchedulerProperties {
     public static final String PREFIX = "acooly.scheduler";
 
-    public boolean enable;
+    public boolean enable = true;
+
+    /**
+     * 是否开启job，用于pre环境不执行调度任务控制
+     */
+    public boolean enablejob = true;
+
 
     /**
      * quartz执行线程数
