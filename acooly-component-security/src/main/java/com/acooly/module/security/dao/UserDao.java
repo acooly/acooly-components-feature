@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface UserDao extends EntityJpaDao<User, Long>, UserDaoCustom {
     User findByUsername(String username);
 
-    @Query("from User where username = ?1 or email = ?1 or mobileNo = ?1")
+    @Query("from User where username = ?1")
     User getAuthenticateUser(String key);
 
     @Modifying
