@@ -93,7 +93,7 @@ CREATE TABLE `sys_user`
     `create_time`      timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`      timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`id`),
-    KEY (`username`)
+    UNIQUE KEY `uk_sys_username` (`username`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='操作员表';
 
