@@ -61,7 +61,7 @@
             });
 
             // adminlte3: 注册点击主菜单（.nav-link）的选中效果(.active)
-            $(document).on("click", '.nav .nav-link', function (e) {
+            $(document).on("click", '.sidebar .nav .nav-link', function (e) {
                 // 选择效果
                 $(".nav .nav-link").removeClass("active");
                 $(this).addClass("active");
