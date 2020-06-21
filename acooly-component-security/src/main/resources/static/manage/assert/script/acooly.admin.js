@@ -52,13 +52,13 @@
         initMenus: function () {
 
             // adminlte2: 注册点击主菜单（.treeview）的选中效果(.active)
-            $(document).on("click", '.sidebar-menu ul li', function (e) {
-                $(".sidebar-menu li").removeClass("active");
-                $(this).addClass("active");
-                if ($(this).parent() && $(this).parent().parent()) {
-                    $(this).parent().parent().addClass("active");
-                }
-            });
+            // $(document).on("click", '.sidebar-menu ul li', function (e) {
+            //     $(".sidebar-menu li").removeClass("active");
+            //     $(this).addClass("active");
+            //     if ($(this).parent() && $(this).parent().parent()) {
+            //         $(this).parent().parent().addClass("active");
+            //     }
+            // });
 
             // adminlte3: 注册点击主菜单（.nav-link）的选中效果(.active)
             $(document).on("click", '.sidebar .nav .nav-link', function (e) {
@@ -167,6 +167,15 @@
                         }
                     }]
             });
+
+            // 通过jquery-resize插件实现：父节点大小改变后，resize tabs
+            $('.content-wrapper').resize(function () {
+                $('#layout_center_tabs').tabs({
+                    width: $("#_tabs").parent().width(),
+                    height: $(window).height() - 52
+                }).tabs('resize');
+            });
+
         },
 
         /**
