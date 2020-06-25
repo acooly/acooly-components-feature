@@ -68,7 +68,7 @@
     </div>
     <script type="text/javascript">
         $(function () {
-            $.acooly.framework.initPage('manage_customer_searchform', 'manage_customer_datagrid');
+            $.acooly.framework.initPage('manage_smsApp_searchform', 'manage_smsApp_datagrid');
         });
     </script>
 </div>
