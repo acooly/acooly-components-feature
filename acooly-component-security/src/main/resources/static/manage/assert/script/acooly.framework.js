@@ -178,8 +178,9 @@
                             //要执行的操作
                             $.acooly.framework.extendCombobox($(that));
                             //Initialize Select2 and inputmask
-                            $('.select2bs4').select2({theme: 'bootstrap4',});
-                            $('[data-mask]').inputmask();
+                            $.acooly.framework.initSelect($(that));
+                            // $('.select2bs4').select2({theme: 'bootstrap4',});
+                            // $('[data-mask]').inputmask();
                             //最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () {
                             };
@@ -325,8 +326,9 @@
                             // 处理combobox的宽度
                             $.acooly.framework.extendCombobox($(that));
                             //Initialize Select2 and inputmask
-                            $('.select2bs4').select2({theme: 'bootstrap4',});
-                            $('[data-mask]').inputmask();
+                            $.acooly.framework.initSelect($(that));
+                            // $(that).find('.select2bs4').select2({theme: 'bootstrap4',});
+                            // $(that).find('[data-mask]').inputmask();
                             // 最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () {
                             };
@@ -409,9 +411,7 @@
             initPage: function (searchForm, datagride) {
                 this.registerKeydown(searchForm, datagride);
                 this.extendCombobox(searchForm);
-                //Initialize Select2 and inputmask
-                $('.select2bs4').select2({theme: 'bootstrap4',});
-                $('[data-mask]').inputmask();
+                this.initSelect(searchForm);
             },
 
             /**
@@ -1072,6 +1072,12 @@
                         }
                     }
                 });
+            },
+
+            initSelect: function (container) {
+                var obj = container && container.jquery ? container : $('#' + container)
+                $(obj).find('.select2bs4').select2({theme: 'bootstrap4'});
+                $(obj).find('[data-mask]').inputmask();
             }
 
         }
