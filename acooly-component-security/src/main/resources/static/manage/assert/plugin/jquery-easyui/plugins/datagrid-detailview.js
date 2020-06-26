@@ -97,7 +97,9 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
                     cc.push('<span class="datagrid-row-expander datagrid-row-expand" style="display:inline-block;width:16px;height:16px;cursor:pointer;" />');
                     //cc.push('</div>');
                 } else if (col.formatter) {
-                    cc.push(col.formatter(value, rowData, rowIndex));
+                    // cc.push(col.formatter(value, rowData, rowIndex));
+                    var orgdata = $.data(target, "datagrid").data;
+                    cc.push(col.formatter(value, rowData, rowIndex, orgdata, field));
                 } else {
                     cc.push(value);
                 }
