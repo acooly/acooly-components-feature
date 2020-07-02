@@ -27,7 +27,7 @@ import com.google.common.collect.Lists;
 public class WechatAutoConfig {
 
 	@Bean
-	public StandardDatabaseScriptIniter chartScriptIniter() {
+	public StandardDatabaseScriptIniter wechatScriptIniter() {
 		return new StandardDatabaseScriptIniter() {
 
 			@Override
