@@ -36,6 +36,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 短信发送服务
@@ -63,6 +64,7 @@ public class SmsSendServiceImpl implements SmsSendService {
 
     @Override
     public void send(SenderInfo senderInfo) {
+        doCheck(senderInfo);
         if (senderInfo.isAsync()) {
             taskExecutor.execute(() -> doSend(senderInfo));
         } else {
@@ -73,7 +75,6 @@ public class SmsSendServiceImpl implements SmsSendService {
     protected void doSend(SenderInfo senderInfo) {
         SmsResult smsResult = new SmsResult();
         try {
-            doCheck(senderInfo);
             if (senderInfo.getMobileNos().size() == 1) {
                 if (senderInfo.getSmsSendType() == SmsSendType.template) {
                     smsResult = shortMessageSender.sendTemplate(Collections3.getFirst(senderInfo.getMobileNos()),
@@ -109,6 +110,30 @@ public class SmsSendServiceImpl implements SmsSendService {
         }
     }
 
+    /**
+     * 参数合法性检查
+     *
+     * @param senderInfo
+     */
+    protected void doCheck(SenderInfo senderInfo) {
+        SmsResult smsResult = new SmsResult();
+        try {
+            Validators.assertJSR303(senderInfo);
+            senderInfo.check();
+            SmsSendContext content = new SmsSendContext();
+            BeanCopier.copy(senderInfo, content);
+            filter.doFilter(content);
+        } catch (ShortMessageSendException se) {
+            smsResult.setErrorCode(se);
+            throw se;
+        } catch (Exception e) {
+            log.error("短信发送服务 [错误] 发送未知异常", e);
+            smsResult.setErrorCode(CommonErrorCodes.INTERNAL_ERROR);
+            throw new ShortMessageSendException(CommonErrorCodes.INTERNAL_ERROR);
+        } finally {
+            saveLog(senderInfo, smsResult);
+        }
+    }
 
     /**
      * 保存发送日志
@@ -123,6 +148,7 @@ public class SmsSendServiceImpl implements SmsSendService {
         // 如果是模板模式，保存模板数据为JSON格式
         if (senderInfo.getSmsSendType() == SmsSendType.template) {
             sendLog.setTemplateJsonParams(JSON.toJSONString(senderInfo.getTemplateParams()));
+            sendLog.setContent(renderTemplate(senderInfo.getTemplateCode(), senderInfo.getTemplateParams()));
         }
         // 已发送
         if (smsResult != null) {
@@ -153,17 +179,9 @@ public class SmsSendServiceImpl implements SmsSendService {
         }
     }
 
-    /**
-     * 参数合法性检查
-     *
-     * @param senderInfo
-     */
-    protected void doCheck(SenderInfo senderInfo) {
-        Validators.assertJSR303(senderInfo);
-        senderInfo.check();
-        SmsSendContext content = new SmsSendContext();
-        BeanCopier.copy(senderInfo, content);
-        filter.doFilter(content);
+    protected String renderTemplate(String template, Map<String, String> templateParams) {
+        return null;
     }
+
 
 }

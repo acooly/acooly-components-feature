@@ -156,6 +156,7 @@
             </div>
             </@jodd.form>
     </form>
+
     <script>
         $(function () {
             // //Initialize Select2 and inputmask
