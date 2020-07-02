@@ -68,12 +68,23 @@ public class SmsSenderTestController {
 
     @RequestMapping("facade/sendTemplateSync")
     public Object facadeSendAsync() {
+        // 短信服务统一分配的发送应用的Id
         String appId = "youcheyun";
+        // 短信服务统一配置的模板编码，需要对需要的多个渠道配置对应的绑定渠道模板ID
+        String templateCode = "youcheyun_register";
+        String mobileNo = "13896177630";
+        // 如果渠道需预先注册签名，则请先在渠道方申请签名；如果不传入，则表示使用短信服务的渠道默认配置，建议都传入
+        String contentSign = "左师傅";
+        // 客户请求IP，如果需要IP流控，则传入，短信服务默认配置为：100/IP/分钟
+//        String clientIp = IPUtil.getIpAddr(request);
         Map<String, String> smsParam = new ListOrderedMap<String, String>();
-        smsParam.put("captcha", "121312");
-        smsParam.put("effectiveMinute", "10");
-        SmsSendOrder smsSendOrder = new SmsSendOrder(appId, "13896177630", "youcheyun_register", smsParam);
-        smsSendOrder.setAsync(false);
+        smsParam.put("code", "121312");
+        smsParam.put("effectiveMinute", "5");
+        SmsSendOrder smsSendOrder = SmsSendOrder.newOrder().appId(appId).addMobileNo(mobileNo).templateCode(templateCode)
+                .addTemplateParam("code", "121312").addTemplateParam("iphone", mobileNo).addTemplateParam("effectiveMinute", "5")
+                .contentSign(contentSign);
+        smsSendOrder.setGid(Ids.gid());
+        smsSendOrder.setPartnerId(appId);
         return smsSendRemoteService.send(smsSendOrder);
     }
 
