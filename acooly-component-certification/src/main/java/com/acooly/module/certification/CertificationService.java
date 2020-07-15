@@ -8,6 +8,7 @@ package com.acooly.module.certification;
 import com.acooly.module.certification.enums.BankCardResult;
 import com.acooly.module.certification.enums.CertResult;
 import com.acooly.module.certification.enums.EnterpriseBusinessInfoResult;
+import com.acooly.module.certification.enums.PhoneCertResult;
 
 /**
  * 修订记录：
@@ -61,4 +62,13 @@ public interface CertificationService {
      * @return
      */
     EnterpriseBusinessInfoResult enterpriseBusinessInfo(String comInfo);
+
+    /**
+     * 手机在网三要素
+     * @param realName
+     * @param certNo
+     * @param mobile
+     * @return
+     */
+    PhoneCertResult phoneCert(String realName, String certNo, String mobile);
 }

@@ -33,7 +33,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -296,36 +295,38 @@ public class OfilePortalController
     @ResponseBody
     public Object download(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        String path = request.getParameter("path");
-        if (isAbsoluteUrl(path)) {
-            path = new URL(path).getPath();
-        }
-
-        checkFilePathAttacks(path);
-
-        @SuppressWarnings("deprecation")
-        // 兼容servlet2.4环境
-                String filePath = request.getRealPath(path);
-        OnlineFile onlineFile = onlineFileService.findByFilePathAndBucket(filePath, null);
-        if (onlineFile == null) {
-            throw new RuntimeException("文件不存在");
-        }
-        if (onlineFile.getAccessType() == null || AccessTypeEnum.LOCAL_STORAGE.equals(onlineFile.getAccessType())) {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file = new File(oFileProperties.getStorageRoot() + path);
-            }
-            if (!file.exists()) {
-                response.setStatus(HttpStatus.NOT_FOUND.value());
-                return null;
-            }
-        }
-        return doDownload(
-                request,
-                response,
-                onlineFile.getOriginalName(),
-                onlineFile.getFilePath(),
-                onlineFile.getFileType(), onlineFile.getAccessType(), onlineFile.getBucketName(), null);
+        obsService.getObject(null,"test/20200528/960069987391651840.jpg",null);
+        return null;
+//        String path = request.getParameter("path");
+//        if (isAbsoluteUrl(path)) {
+//            path = new URL(path).getPath();
+//        }
+//
+//        checkFilePathAttacks(path);
+//
+//        @SuppressWarnings("deprecation")
+//        // 兼容servlet2.4环境
+//                String filePath = request.getRealPath(path);
+//        OnlineFile onlineFile = onlineFileService.findByFilePathAndBucket(filePath, null);
+//        if (onlineFile == null) {
+//            throw new RuntimeException("文件不存在");
+//        }
+//        if (onlineFile.getAccessType() == null || AccessTypeEnum.LOCAL_STORAGE.equals(onlineFile.getAccessType())) {
+//            File file = new File(filePath);
+//            if (!file.exists()) {
+//                file = new File(oFileProperties.getStorageRoot() + path);
+//            }
+//            if (!file.exists()) {
+//                response.setStatus(HttpStatus.NOT_FOUND.value());
+//                return null;
+//            }
+//        }
+//        return doDownload(
+//                request,
+//                response,
+//                onlineFile.getOriginalName(),
+//                onlineFile.getFilePath(),
+//                onlineFile.getFileType(), onlineFile.getAccessType(), onlineFile.getBucketName(), null);
     }
 
     private void checkFilePathAttacks(String absolutePath) {

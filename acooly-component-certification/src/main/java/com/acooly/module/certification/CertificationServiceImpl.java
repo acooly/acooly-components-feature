@@ -5,12 +5,10 @@
  */
 package com.acooly.module.certification;
 
+import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.enums.ResultStatus;
 import com.acooly.module.certification.cert.*;
-import com.acooly.module.certification.enums.BankCardResult;
-import com.acooly.module.certification.enums.CertResult;
-import com.acooly.module.certification.enums.CertTypeEnum;
-import com.acooly.module.certification.enums.EnterpriseBusinessInfoResult;
+import com.acooly.module.certification.enums.*;
 import com.acooly.module.certification.platform.entity.BankCertificationRecord;
 import com.acooly.module.certification.platform.entity.CertificationRecord;
 import com.acooly.module.certification.platform.service.BankCertificationRecordService;
@@ -46,6 +44,9 @@ public class CertificationServiceImpl implements CertificationService {
 
     @Resource
     private EnterpriseBusinessInfoService enterpriseBusinessInfoService;
+
+    @Resource
+    private PhoneCertService phoneCertService;
 
     @Override
     public CertResult certification(String realName, String idCardNo) {
@@ -134,6 +135,25 @@ public class CertificationServiceImpl implements CertificationService {
     @Override
     public EnterpriseBusinessInfoResult enterpriseBusinessInfo(String comInfo) {
         return enterpriseBusinessInfoService.enterpriseBusinessInfo(comInfo);
+    }
+
+    @Override
+    public PhoneCertResult phoneCert(String realName, String certNo, String mobile) {
+        Assert.hasText(realName);
+        Assert.hasText(certNo);
+        Assert.hasText(mobile);
+        long st = System.currentTimeMillis();
+        PhoneCertResult result = new PhoneCertResult();
+        try {
+            result = phoneCertService.phoneCert(realName, certNo, mobile);
+        } catch (BusinessException e) {
+            result.setCode(e.getCode());
+            result.setDetail(e.getMessage());
+            result.setStatus(ResultStatus.failure);
+        }
+        long et = System.currentTimeMillis();
+        log.info("手机在网三要素认证，花费时间: {} ms，结果result={}", (et - st), result.toString());
+        return result;
     }
 
     protected void saveRecord(CertResult result, CertificationRecord certificationRecord) {

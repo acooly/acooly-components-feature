@@ -49,6 +49,10 @@ public class CertificationProperties {
     private EnterpriseBsuiInfoProvider enterpriseBsuiInfoProvider;
 
     /**
+     * 手机在网三要素认证
+     */
+    private PhoneCertProvider phoneCertProvider;
+    /**
      * 实名认证url 当使用非阿里云时配置
      */
     private String realnameurl;
@@ -66,6 +70,10 @@ public class CertificationProperties {
      */
     private EnterpriseBsuiInfo enterpriseBsuiInfo;
 
+    /**
+     * 用阿里云手机在网三要素配置
+     */
+    private PhoneCert phoneCert;
 
     @PostConstruct
     public void init() {
@@ -81,6 +89,11 @@ public class CertificationProperties {
         if (this.enterpriseBsuiInfoProvider == EnterpriseBsuiInfoProvider.ALI) {
             Assert.notNull(enterpriseBsuiInfo, "企业信息查询渠道配置不能为空");
             Assert.hasText(enterpriseBsuiInfo.getAppCode(), "企业信息查询渠道配置不能为空");
+        }
+
+        if (this.phoneCertProvider != null) {
+            Assert.notNull(phoneCert, "手机在网认证配置不能为空");
+            Assert.hasText(phoneCert.getAppCode(), "手机在网认证配置不能为空");
         }
     }
 
@@ -157,6 +170,30 @@ public class CertificationProperties {
         }
     }
 
+    public enum PhoneCertProvider implements Messageable {
+        /**
+         * 阿里手机在网三要素认证
+         */
+        ALI("aliPhoneCertService", "阿里手机在网三要素认证");
+        private final String code;
+        private final String message;
+
+        PhoneCertProvider(String code, String message) {
+            this.code = code;
+            this.message = message;
+        }
+
+        @Override
+        public String code() {
+            return this.code;
+        }
+
+        @Override
+        public String message() {
+            return this.message;
+        }
+    }
+
     @Data
     public static class RealName {
         /**
@@ -181,6 +218,16 @@ public class CertificationProperties {
     public static class EnterpriseBsuiInfo {
         /**
          * 企业工商信息查询appCode
+         */
+        private String appCode;
+
+        private int timeout = 20000;
+    }
+
+    @Data
+    public static class PhoneCert {
+        /**
+         * 手机在网三要素appCode
          */
         private String appCode;
 
