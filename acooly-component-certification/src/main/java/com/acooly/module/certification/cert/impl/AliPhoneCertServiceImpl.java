@@ -73,12 +73,11 @@ public class AliPhoneCertServiceImpl implements PhoneCertService {
             if (throwable instanceof ConnectTimeoutException
                     || throwable instanceof java.net.SocketTimeoutException
                     || throwable instanceof ConnectException) {
-                throw new BusinessException(ResultStatus.failure.getCode(), "连接超时:" + e.getMessage());
+                throw new BusinessException(ResultStatus.failure, "连接超时:" + e.getMessage());
             } else if (throwable instanceof UnknownHostException) {
-                throw new BusinessException(
-                        ResultStatus.failure.getCode(), "UnknownHost:" + e.getMessage());
+                throw new BusinessException(ResultStatus.failure, "UnknownHost:" + e.getMessage());
             } else {
-                throw new BusinessException(ResultStatus.failure.getCode(), e.getMessage());
+                throw new BusinessException(ResultStatus.failure, e.getMessage());
             }
         }
         return result;
@@ -87,7 +86,7 @@ public class AliPhoneCertServiceImpl implements PhoneCertService {
     private PhoneCertResult unmashall(Response response) {
         log.info("调用手机在网三要素校验接口返回:{}", response.getBody());
         if (StringUtils.isEmpty(response.getBody())) {
-            throw new BusinessException(ResultStatus.failure.getCode(), "手机在网三要素校验返回空:" + response.getErrorMessage());
+            throw new BusinessException(ResultStatus.failure, "手机在网三要素校验返回空:" + response.getErrorMessage());
         }
         PhoneCertResult result = new PhoneCertResult();
         JSONObject jsonResult = JSON.parseObject(response.getBody());
@@ -95,7 +94,7 @@ public class AliPhoneCertServiceImpl implements PhoneCertService {
         String resError = jsonResult.getString("showapi_res_error");
 
         if (!SUCCESS_CODE.equals(resCode)) {
-            throw new BusinessException(ResultStatus.failure.getCode(), resError);
+            throw new BusinessException(ResultStatus.failure, resError);
         }
 
         if (SUCCESS_CODE.equals(resCode)) {
@@ -109,7 +108,7 @@ public class AliPhoneCertServiceImpl implements PhoneCertService {
 
             if (!SUCCESS_CODE.equals(code)) {
                 log.info("手机在网三要素校验失败，结果:{}", notNullmsg);
-                throw new BusinessException(ResultStatus.failure.getCode(), notNullmsg);
+                throw new BusinessException(ResultStatus.failure, notNullmsg);
             }
 
             JSONObject belongArea = resBody.getJSONObject("belongArea");
