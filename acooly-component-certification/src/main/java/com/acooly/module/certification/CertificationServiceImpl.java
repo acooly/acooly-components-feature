@@ -147,9 +147,9 @@ public class CertificationServiceImpl implements CertificationService {
         try {
             result = phoneCertService.phoneCert(realName, certNo, mobile);
         } catch (BusinessException e) {
+            result.setStatus(ResultStatus.failure);
             result.setCode(e.getCode());
             result.setDetail(e.getMessage());
-            result.setStatus(ResultStatus.failure);
         }
         long et = System.currentTimeMillis();
         log.info("手机在网三要素认证，花费时间: {} ms，结果result={}", (et - st), result.toString());
