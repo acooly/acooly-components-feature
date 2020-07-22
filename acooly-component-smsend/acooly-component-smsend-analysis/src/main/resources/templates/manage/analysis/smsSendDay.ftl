@@ -38,7 +38,7 @@
                 <th field="appId">应用ID</th>
                 <th field="provider" formatter="mappingFormatter">提供方</th>
                 <th field="count" sortable="true" sum="true">发送成功数</th>
-                <th field="amount" sortable="true" sum="true" formatter="moneyFormatter">费用</th>
+                <th field="amount" sortable="true" sum="true" formatter="centMoneyFormatter">费用</th>
                 <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
             </tr>
             </thead>

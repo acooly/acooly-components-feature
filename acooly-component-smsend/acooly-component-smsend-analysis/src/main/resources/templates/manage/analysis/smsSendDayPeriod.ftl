@@ -29,7 +29,7 @@
                 <th field="period" sortable="true">日期</th>
                 <th field="appId">应用ID</th>
                 <th field="count" sortable="true" sum="true">发送成功数</th>
-                <th field="amount" sortable="true" sum="true" formatter="moneyFormatter">费用</th>
+                <th field="amount" sortable="true" sum="true" formatter="centMoneyFormatter">费用</th>
             </tr>
             </thead>
         </table>
