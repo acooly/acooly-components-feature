@@ -22,16 +22,6 @@
             <artifactId>acooly-component-distributedlock</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-threadpool</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.acooly</groupId>
-            <artifactId>acooly-component-chart</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>
