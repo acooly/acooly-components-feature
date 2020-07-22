@@ -8,6 +8,7 @@
 package com.acooly.module.smsend.analysis.service;
 
 import com.acooly.core.common.service.EntityService;
+import com.acooly.core.utils.Dates;
 import com.acooly.module.smsend.analysis.dto.SmsSendPeriod;
 import com.acooly.module.smsend.analysis.entity.SmsSendDay;
 import com.acooly.module.smsend.analysis.enums.DateUnit;
@@ -33,6 +34,13 @@ public interface SmsSendDayService extends EntityService<SmsSendDay> {
 
     default void daySummary() {
         daySummary(new Date(), false);
+    }
+
+    /**
+     * 昨日汇总
+     */
+    default void yesterdaySummary() {
+        daySummary(Dates.addDay(new Date(), -1), false);
     }
 
     /**

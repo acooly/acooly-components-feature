@@ -41,8 +41,10 @@ public class SmsSendAnalysisScheduleManager implements SchedulingConfigurer {
                     if (lock.tryLock()) {
                         try {
                             log.info("短信发送分析 调度启动... ");
-                            smsSendDayService.daySummary();
+                            smsSendDayService.yesterdaySummary();
                             log.info("短信发送分析 调度执行完成. ");
+                        } catch (Exception e) {
+                            log.warn("短信发送分析 调度执行失败. {}", e.getMessage());
                         } finally {
                             lock.unlock();
                         }
