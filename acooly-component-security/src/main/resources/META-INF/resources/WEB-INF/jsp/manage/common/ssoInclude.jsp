@@ -20,6 +20,13 @@
     <!-- icons -->
     <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/manage/assert/plugin/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- adminlte -->
+    <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/manage/assert/plugin/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- pace-progress -->
     <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
     <!-- Google Font -->
@@ -79,6 +86,10 @@
     <!--kindEditor插件库 -->
     <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all-min.js"></script>
     <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
+    <!-- select2 -->
+    <script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
+    <!-- inputmask -->
+    <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 
     <!-- 自己定义的样式和JS扩展 -->
     <!-- acooly -->
@@ -94,6 +105,7 @@
     <script src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.inputmask.js"></script>
 
     <!-- 扩展script -->
     ${extendScripts}
