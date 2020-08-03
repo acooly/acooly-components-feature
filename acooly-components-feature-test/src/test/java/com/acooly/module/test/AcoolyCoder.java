@@ -37,7 +37,7 @@ public class AcoolyCoder {
         config.setManagePath(MANAGE_VIEW_PATH);
         config.setTableToEntityIgnorPrefix(TABLE_IGNOR_PREFIX);
         config.setRootPackage(ROOT_PACKAGE);
-        service.generateTable(config, TABLES);
+        service.generateTable(TABLES);
     }
 
     public static String getProjectPath() {

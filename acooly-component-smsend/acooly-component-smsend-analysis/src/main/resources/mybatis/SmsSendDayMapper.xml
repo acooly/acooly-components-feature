@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.smsend.analysis.dao.SmsSendDayDao">
+
+    <resultMap id="smsSendDayResultMap" type="com.acooly.module.smsend.analysis.entity.SmsSendDay">
+        <id property="id" column="smsSendDay_id"/>
+        <result property="appId" column="smsSendDay_app_id"/>
+        <result property="provider" column="smsSendDay_provider"/>
+        <result property="period" column="smsSendDay_period"/>
+        <result property="count" column="smsSendDay_count"/>
+        <result property="createTime" column="smsSendDay_create_time"/>
+        <result property="updateTime" column="smsSendDay_update_time"/>
+        <result property="comments" column="smsSendDay_comments"/>
+    </resultMap>
+
+    <sql id="smsSendDaySqlSelect">
+            smsSendDay.id as smsSendDay_id,
+            smsSendDay.app_id as smsSendDay_app_id,
+            smsSendDay.provider as smsSendDay_provider,
+            smsSendDay.period as smsSendDay_period,
+            smsSendDay.count as smsSendDay_count,
+            smsSendDay.create_time as smsSendDay_create_time,
+            smsSendDay.update_time as smsSendDay_update_time,
+            smsSendDay.comments as smsSendDay_comments
+    </sql>
+
+</mapper>
