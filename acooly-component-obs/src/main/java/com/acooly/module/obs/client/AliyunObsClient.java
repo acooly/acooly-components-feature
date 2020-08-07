@@ -143,7 +143,7 @@ public class AliyunObsClient extends AbstractObsClient {
 
     public String getAuthorization(SecurityTokenDto dto, HttpMethod method, String bucketName, String key, Date expireDate, String processStyle) {
         log.info("getAuthorization   start");
-        OSS oss = new OSSClientBuilder().build(properties.getAliyun().getEndpoint(),
+        OSS oss = new OSSClientBuilder().build(properties.getAliyun().getEndpoint().concat(properties.getAliyun().getEndpoint()),
                 dto.getAccessKeyId(), dto.getAccessKeySecret(), dto.getSecurityToken());
         GeneratePresignedUrlRequest req = new GeneratePresignedUrlRequest(bucketName, key, method);
         if (expireDate == null) {
