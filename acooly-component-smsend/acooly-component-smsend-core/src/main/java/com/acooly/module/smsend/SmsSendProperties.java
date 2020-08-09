@@ -127,6 +127,11 @@ public class SmsSendProperties {
         private String contentSign;
 
         /**
+         * 发送单价(厘：1000=1元，49厘表示：0.049元)
+         */
+        private long price;
+
+        /**
          * 扩展参数（每个渠道特别的扩展参数）
          */
         private Map<String, Object> ext = Maps.newHashMap();
