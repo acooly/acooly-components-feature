@@ -29,9 +29,14 @@ public class SmsSendAnalysisProperties {
     public static final String PREFIX = "acooly.smsend.analysis";
 
     public boolean enable = true;
+
     /**
-     * 汇总执行的cron,默认00:05分(0 5 0 ? * *)
+     * 启动定时仍无处理日终汇总
      */
-//    private String cron = "*/5 * * * * *";
+    public boolean summaryEnable = true;
+    /**
+     * 汇总执行的cron,默认00:05分(0 5 0 * * ?)
+     */
+    private String summaryCron = "0 5 0 * * ?";
 
 }

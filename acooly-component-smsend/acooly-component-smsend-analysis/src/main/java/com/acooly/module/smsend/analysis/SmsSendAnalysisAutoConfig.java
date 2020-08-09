@@ -23,7 +23,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.List;
 
-import static com.acooly.module.smsend.SmsSendProperties.PREFIX;
+import static com.acooly.module.smsend.analysis.SmsSendAnalysisProperties.PREFIX;
 
 
 /**
@@ -34,6 +34,7 @@ import static com.acooly.module.smsend.SmsSendProperties.PREFIX;
 @ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
 @AutoConfigureAfter(SmsSendAutoConfig.class)
 @ComponentScan(basePackages = "com.acooly.module.smsend.analysis")
+@EnableScheduling
 public class SmsSendAnalysisAutoConfig {
     @Bean
     @Profile("!online")
@@ -56,6 +57,11 @@ public class SmsSendAnalysisAutoConfig {
         };
     }
 
+    @Bean
+    @ConditionalOnProperty(value = PREFIX + ".summary-enable", matchIfMissing = true)
+    public SmsSendAnalysisScheduleManager smsSendAnalysisScheduleManager() {
+        return new SmsSendAnalysisScheduleManager();
+    }
 
 
 }

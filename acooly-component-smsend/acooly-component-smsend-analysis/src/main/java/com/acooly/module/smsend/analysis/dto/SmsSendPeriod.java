@@ -8,6 +8,7 @@
  */
 package com.acooly.module.smsend.analysis.dto;
 
+import com.acooly.core.utils.Money;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,5 +25,7 @@ public class SmsSendPeriod {
     private String appId;
 
     private int count;
+
+    private Money amount;
 
 }

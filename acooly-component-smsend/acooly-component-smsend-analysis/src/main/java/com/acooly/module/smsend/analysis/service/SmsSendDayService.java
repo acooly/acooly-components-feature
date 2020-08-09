@@ -29,11 +29,26 @@ public interface SmsSendDayService extends EntityService<SmsSendDay> {
      *
      * @param day
      */
-    void daySummary(Date day);
+    void daySummary(Date day, boolean redo);
 
     default void daySummary() {
-        daySummary(new Date());
+        daySummary(new Date(), false);
     }
+
+    /**
+     * 汇总数量
+     *
+     * @param day
+     */
+    void summaryCount(Date day);
+
+    /**
+     * 汇总计算价格
+     *
+     * @param day
+     */
+    void summaryPrice(Date day);
+
 
     /**
      * 分类统计

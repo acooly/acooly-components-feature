@@ -34,10 +34,11 @@
             <tr>
                 <th field="showCheckboxWithId" checkbox="true" formatter="idFormatter">编号</th>
                 <th field="id" sortable="true">ID</th>
+                <th field="period" sortable="true" formatter="dateFormatter">日期</th>
                 <th field="appId">应用ID</th>
                 <th field="provider" formatter="mappingFormatter">提供方</th>
-                <th field="period" sortable="true" formatter="dateFormatter">日期</th>
                 <th field="count" sortable="true" sum="true">发送成功数</th>
+                <th field="amount" sortable="true" sum="true" formatter="moneyFormatter">费用</th>
                 <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
             </tr>
             </thead>
@@ -48,11 +49,11 @@
         </div>
         <!-- 表格的工具栏 -->
         <div id="manage_smsSendDay_toolbar">
-            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.confirmRequest('/manage/analysis/smsSendDay/summary.html',null,'manage_smsSendDay_datagrid')"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>执行</a>
-            <a href="#" class="easyui-menubutton" data-options="menu:'#manage_smsSendDay_exports_menu'"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>批量导出</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/analysis/smsSendDay/summaryView.html',form:'manage_smsSendDaySummary_editform',datagrid:'manage_smsSendDay_datagrid',width:500,height:300,reload:true,addButton:'执行'})"><i class="fa fa-moon-o fa-lg fa-fw fa-col"></i>手动执行日终</a>
+            <a href="#" class="easyui-menubutton" data-options="menu:'#manage_smsSendDay_exports_menu'"><i class="fa fa-cloud-download fa-lg fa-fw fa-col"></i>批量导出</a>
             <div id="manage_smsSendDay_exports_menu" style="width:150px;">
-                <div onclick="$.acooly.framework.exports('/manage/analysis/smsSendDay/exportXls.html','manage_smsSendDay_searchform','发送统计')"><i class="fa fa-file-excel-o fa-lg fa-fw fa-col"></i>Excel</div>
-                <div onclick="$.acooly.framework.exports('/manage/analysis/smsSendDay/exportCsv.html','manage_smsSendDay_searchform','发送统计')"><i class="fa fa-file-text-o fa-lg fa-fw fa-col"></i>CSV</div>
+                <div onclick="$.acooly.framework.exports('/manage/analysis/smsSendDay/exportXls.html','manage_smsSendDay_searchform','发送统计')"><i class="fa fa-file-excel-o green"></i> Excel</div>
+                <div onclick="$.acooly.framework.exports('/manage/analysis/smsSendDay/exportCsv.html','manage_smsSendDay_searchform','发送统计')"><i class="fa fa-file-text-o"></i> CSV</div>
             </div>
         </div>
     </div>
