@@ -130,8 +130,6 @@ public class SmsSendServiceImpl implements SmsSendService {
             log.error("短信发送服务 [错误] 发送未知异常", e);
             smsResult.setErrorCode(CommonErrorCodes.INTERNAL_ERROR);
             throw new ShortMessageSendException(CommonErrorCodes.INTERNAL_ERROR);
-        } finally {
-            saveLog(senderInfo, smsResult);
         }
     }
 
