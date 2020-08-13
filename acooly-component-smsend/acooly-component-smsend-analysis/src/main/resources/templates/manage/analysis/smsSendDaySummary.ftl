@@ -6,7 +6,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">选择汇总日期</label>
                 <div class="col-sm-9">
-                    <input type="text" name="period" placeholder="请输入应用名称..." class="easyui-validatebox form-control" required="true" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
+                    <input type="text" name="period" placeholder="请选择汇总日期..." class="easyui-validatebox form-control" required="true" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
                 </div>
             </div>
             <div class="form-group row">
