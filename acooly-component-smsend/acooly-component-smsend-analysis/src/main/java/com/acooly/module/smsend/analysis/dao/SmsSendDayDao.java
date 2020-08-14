@@ -46,7 +46,7 @@ public interface SmsSendDayDao extends EntityMybatisDao<SmsSendDay> {
      * @return
      */
     @Select("select period, app_id as appId, sum(count) as count,sum(amount) as amount from sms_send_day " +
-            " where period > #{start} and period <= #{end} group by period,app_id")
+            " where period >= #{start} and period <= #{end} group by period,app_id")
     List<SmsSendPeriod> groupByDay(@Param("start") Date start, @Param("end") Date end);
 
 
@@ -58,7 +58,7 @@ public interface SmsSendDayDao extends EntityMybatisDao<SmsSendDay> {
      */
     @Update("insert into sms_send_day(app_id,provider,period,`count`) select t1.app_id,t1.provider,#{start},t1.sendCount from\n" +
             "(select app_id, provider,count(*) as sendCount from sms_send_log " +
-            "where send_time > #{start} and send_time < #{end} and status = 'SUCCESS' " +
+            "where send_time >= #{start} and send_time < #{end} and status = 'SUCCESS' " +
             "group by app_id, provider) t1")
     void daySummery(@Param("start") Date start, @Param("end") Date end);
 

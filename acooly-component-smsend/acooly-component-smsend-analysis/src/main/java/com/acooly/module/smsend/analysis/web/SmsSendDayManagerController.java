@@ -204,5 +204,13 @@ public class SmsSendDayManagerController extends AbstractJsonEntityController<Sm
         return sortMap;
     }
 
-
+    @Override
+    protected Map<String, Object> getSearchParams(HttpServletRequest request) {
+        Map<String, Object> map = super.getSearchParams(request);
+        String ltPeriod = (String) map.get("LT_period");
+        if (Strings.isNotBlank(ltPeriod)) {
+            map.put("LT_period", ltPeriod + " 23:59:59");
+        }
+        return map;
+    }
 }

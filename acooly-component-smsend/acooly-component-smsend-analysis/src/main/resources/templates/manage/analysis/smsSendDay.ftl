@@ -16,8 +16,8 @@
             </div>
             <div class="form-group">
                 <label class="col-form-label">日期：</label>
-                <input type="text" class="form-control form-control-sm" id="search_GTE_period" name="search_GTE_period" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
-                <span class="mr-1 ml-1">至</span> <input type="text" class="form-control form-control-sm" id="search_LTE_period" name="search_LTE_period" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
+                <input type="text" class="form-control form-control-sm" name="search_GTE_period" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
+                <span class="mr-1 ml-1">至</span> <input type="text" class="form-control form-control-sm" name="search_LT_period" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
             </div>
             <div class="form-group">
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_smsSendDay_searchform','manage_smsSendDay_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>
