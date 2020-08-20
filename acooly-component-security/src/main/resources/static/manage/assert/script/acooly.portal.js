@@ -5,13 +5,11 @@ function acooly_portal_init() {
         url: contextPath + '/manage/system/portallets.html',
         success: function (result) {
             panels = result;
-            //alert(dwr.util.toDescriptiveString(panels,2))
             $('#layout_portal_portal').portal({
                 border: false,
                 fit: true,
                 onStateChange: function () {
                     var portalState = getPortalState();
-                    console.info("portal-state: " + portalState);
                     $.cookie('portal-state', portalState, {
                         expires: 7
                     });
@@ -119,7 +117,7 @@ function addPortalPanels(portalState) {
                 } else {
                     //文本内容
                     options.href = '';
-                    options.content = '<div style="padding:5px;">' + options.content + '</div>'
+                    options.content = '<pre style="margin:5px;font-size:14px;">' + options.content + '</pre>'
                 }
                 p.panel(options);
                 $('#layout_portal_portal').portal('add', {
