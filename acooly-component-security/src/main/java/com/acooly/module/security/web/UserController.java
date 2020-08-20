@@ -13,7 +13,6 @@ import com.acooly.core.utils.enums.Messageable;
 import com.acooly.core.utils.mapper.BeanCopier;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.module.event.EventBus;
-import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.Org;
@@ -21,6 +20,7 @@ import com.acooly.module.security.domain.Role;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.dto.UserDto;
 import com.acooly.module.security.dto.UserRole;
+import com.acooly.module.security.enums.OrgStatus;
 import com.acooly.module.security.enums.SecurityErrorCode;
 import com.acooly.module.security.event.UserCreatedEvent;
 import com.acooly.module.security.service.OrgService;
@@ -93,6 +93,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
             // 密码强度验证
             String password = request.getParameter("password");
             FrameworkPropertiesHolder.get().getPasswordStrength().verify(password);
+
             result = super.saveJson(request, response);
             if (!result.isSuccess()) {
                 return result;
@@ -247,6 +248,9 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         entity.setLastModifyTime(new Date());
         if (entity.getOrgId() != null) {
             Org organize = orgService.get(entity.getOrgId());
+            if (organize.getStatus() == OrgStatus.invalid) {
+                throw new RuntimeException("选择的组织节点已无效：" + organize.getName());
+            }
             entity.setOrgName(organize.getName());
         }
         if (entity.getPinyin() == null) {
@@ -361,7 +365,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
     protected void handleException(JsonResult result, String action, Exception e) {
         result.setSuccess(false);
         if (e instanceof Messageable) {
-            Messageable be = (Messageable)e;
+            Messageable be = (Messageable) e;
             result.setCode(be.code());
             result.setMessage(be.message());
         } else {
