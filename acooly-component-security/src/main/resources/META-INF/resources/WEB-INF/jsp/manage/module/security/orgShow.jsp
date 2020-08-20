@@ -16,7 +16,7 @@
         </tr>
         <tr>
             <th>状态:</th>
-            <td>${org.status}</td>
+            <td>${org.status.message()}</td>
         </tr>
         <tr>
             <th>省:</th>
