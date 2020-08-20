@@ -12,11 +12,37 @@
     <artifactId>acooly-component-smsend</artifactId>
     <packaging>pom</packaging>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-smsend-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-smsend-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-smsend-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-smsend-analysis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <modules>
         <module>acooly-component-smsend-core</module>
         <module>acooly-component-smsend-common</module>
         <module>acooly-component-smsend-client</module>
         <module>acooly-component-smsend-openapi</module>
+        <module>acooly-component-smsend-analysis</module>
     </modules>
 
 </project>

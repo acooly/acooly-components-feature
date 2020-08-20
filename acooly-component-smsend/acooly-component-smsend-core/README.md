@@ -85,14 +85,18 @@ acooly.smsend.providers.aliyun.access-key=XXXXXXX
 acooly.smsend.providers.aliyun.secret-key=XXXXXXX
 acooly.smsend.providers.aliyun.content-sign=XXXXX
 acooly.smsend.providers.aliyun.ext.regionId=cn-hangzhou
+  # 短信渠道单条发送成本，单位：厘
+acooly.smsend.providers.aliyun.price=50
 ## 渠道2：容联云
 acooly.smsend.providers.cloopen.app-id=aaf98f89512446e2015142c111111111
 acooly.smsend.providers.cloopen.access-key=8a48b5514ecd7fa8014e1111111111
 acooly.smsend.providers.cloopen.secret-key=30cbffc2d17240e7be2a1111111111
+acooly.smsend.providers.cloopen.price=51
 ## 渠道3：其他
 acooly.smsend.providers.anycmp.access-key=52AQCwgE+111111111111111
 acooly.smsend.providers.anycmp.secret-key=t2BRy849l222222222222222
 acooly.smsend.providers.anycmp.content-sign=我是签名
+acooly.smsend.providers.anycmp.price=52
 ```
 
 #### 3.2.2. 线程池配置
@@ -140,6 +144,33 @@ acooly.appservice.scanPackages.smsend=com.acooly.module.smsend
 #### 3.3.4 短信发送记录
 
 提供全面详细的发送明细查询，包括失败的发送记录。任何发送短信未明的情况都可通过记录查询定位问题。
+
+#### 3.3.5 短信发送分析
+
+新增对短信发送记录的日志汇总和分析功能。
+
+```xml
+<dependency>
+    <groupId>com.acooly</groupId>
+    <artifactId>acooly-component-smsend-analysis</artifactId>
+</dependency>
+```
+
+
+参数配置：
+
+```ini
+# 分析模块开关，开启后集成并提供对应的服务和管理功能
+acooly.smsend.analysis.enable=true
+# 定时日终汇总开关：开启后根据`summary-cron`指定的表达式触发自动汇总，默认开启
+acooly.smsend.analysis.summary-enable=true
+# 定时日志汇总cron表达式，默认：每日凌晨过5分执行昨日数据汇总
+acooly.smsend.analysis.summary-cron=*/5 * * * * *
+```
+
+>注意：比可以选择使用`acooly-component-scheduler`分布式调度来执行每日汇总任务。你需要设置`acooly.smsend.analysis.summary-enable=false`关闭组件内置的定时任务，然后在你的工程中注入和调用：`SmsSendDayService.daySummary()`执行汇总任务。
+
+
 
 ## 4. 短信发送客户端
 

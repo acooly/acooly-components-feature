@@ -22,6 +22,10 @@
         </dependency>
         <dependency>
             <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-smsend-analysis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.acooly</groupId>
             <artifactId>acooly-component-smsend-openapi</artifactId>
         </dependency>
         <dependency>
