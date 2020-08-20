@@ -69,9 +69,10 @@ public class UserDaoImpl extends AbstractJdbcTemplateDao implements UserDaoCusto
         if (Strings.isNotBlank(orgId)) {
             sql += " and t1.org_id = " + orgId;
         }
-
-        sql += " order by t1.id desc";
-
+        sql += " order by t1.id";
+        if (orderMap != null && orderMap.get("id")) {
+            sql += " desc";
+        }
         return super.query(pageInfo, sql, UserDto.class);
     }
 
