@@ -128,6 +128,30 @@ acooly.ofile.watermarktext.y=10
 
 请求路径示例：`http://127.0.0.1:8081/ofile/upload?watermarkImage=true&watermarkText=true`
 
+#### 3.1.5 上传图片进行缩放操作
+
+为了节省存储空间，可以对用户上传的图片进行缩放，以减少图片的大小。
+
+* 相关配置如下
+
+```
+#开启图片缩放功能，默认为false
+acooly.ofile.resizePicture.enable=true
+
+#oversize=true，如果原始图片宽或高小于设定值，不进行操作，大于设定值则对图片进行缩小操作。
+#oversize=false，如果原始图片宽或高小于设定值，对图片进行放大操作，大于设定值则对图片进行缩小操作。
+#默认值为true
+acooly.ofile.resizePicture.oversize=true
+
+#图片最大宽度
+acooly.ofile.resizePicture.width=1500
+#图片最大高度
+acooly.ofile.resizePicture.height=1500
+```
+
+缩放规则：缩放操作是将图片的最长边 max(width,height) ，设定为指定值进行等比缩放。例如原始图片分辨率为3000x2000，按实例中的配置进行缩放操作后，图片分辨率为1500x1000，而不是1500x1500。
+
+
 ## 4. 集成obs能力
 ### 4.1 说明
 ofile组件内部集成了obs相关能力，通过配置开启acooly.ofile.storageType=OBS，则默认使用obs上传，同时也可以通过参数化进行控制如http://127.0.0.1:8081/ofile/upload.html?storageType=OBS
