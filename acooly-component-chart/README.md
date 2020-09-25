@@ -4,7 +4,7 @@
 <!-- date: 2019-11-04 -->
 ## 1. 组件介绍
 
-acooly-component-chart 以acooly框架为基础, 集成百度echarts图表；支持 折线图，柱状图，饼图；动态sql语法解析，动态转换为不同的图表展示；
+acooly-component-chart 以acooly框架为基础, 集成百度echarts图表；支持 折线图，柱状图，饼图，柱状-堆叠图；动态sql语法解析，动态转换为不同的图表展示；
 
 参考：[echartsjs](http://www.echartsjs.com);  网址：http://www.echartsjs.com
 
@@ -39,12 +39,13 @@ maven坐标：
 
 
 * 主题项试图访问：/manage/module/echarts/chartItem___{type}___{chartItemId}.html
-* type说明：line:折线图，bar:柱状图，pie:饼图
+* type说明：line:折线图，bar:柱状图，pie:饼图,bar___stack:柱状-堆叠图
 
 
 * 数据加载访问：
 * 折线图：/manage/module/echarts/charDatat___line___{chartItemId}.html
 * 柱状图：/manage/module/echarts/charDatat___bar___{chartItemId}.html
+* 柱状-堆叠图：/manage/module/echarts/charDatat___bar___stack___{chartItemId}.html
 * 饼图：/manage/module/echarts/charDatat___pie___{chartItemId}.html
 
 
@@ -56,7 +57,7 @@ maven坐标：
 
 #### 2019-03-21
 
-* 1.支持数据值显示在图形上：（支持：折线图，柱状图，饼图；默认关闭）
+* 1.支持数据值显示在图形上：（支持：折线图，柱状图，饼图,柱状-堆叠图；默认关闭）
 
 
 

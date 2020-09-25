@@ -25,8 +25,11 @@ public enum TypeEnum implements Messageable {
 	line("line", "折线图"),
 
 	bar("bar", "柱状图"),
+	
+	bar_stack("bar_stack", "柱状图-堆叠"),
 
 	pie("pie", "饼图"),
+	
 
 	;
 
