@@ -53,7 +53,7 @@
 						if(data.data.chartItemsParams.isShow=='YES'){
 							isShow={normal: {
 												show: true,
-												position: 'top'
+												position: 'insideRight'
 											}
 							};
 						};
