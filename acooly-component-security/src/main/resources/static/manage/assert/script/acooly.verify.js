@@ -10,6 +10,7 @@ var acooly_verify = {
         "phone": /^(^0\d{2}-?\d{8}$)|(^0\d{3}-?\d{7}$)|(^0\d2-?\d{8}$)|(^0\d3-?\d{7}$)$/,
         "mobile": /^1[2|3|4|5|6|7|8|9]\d{9}$/,
         "account": /^[a-zA-Z][\w]+$/,
+        "member": /^[a-zA-Z0-9]+$/,
         "chs": /^[\u0391-\uFFE5]+$/,
         "csv": /^[\w,\$,\{,\},_,\u4e00-\u9fa5]+(,[\w,\$,\{,\},_,\u4e00-\u9fa5]+)*$/,
         "money": /^-?(([1-9]\d{0,9})|0)(\.\d{1,2})?$/
@@ -56,6 +57,10 @@ var acooly_verify = {
         return this.pattens.account.test(value);
     },
 
+    member: function (value) {
+        return this.pattens.member.test(value);
+    },
+
     chs: function (value) {
         return this.pattens.chs.test(value);
     },
@@ -95,6 +100,19 @@ var acooly_verify = {
             return 1;
         } else {
             return 0;
+        }
+    },
+
+    /**
+     * 验证JSON格式
+     * @param jsonString
+     */
+    json: function (jsonString) {
+        try {
+            JSON.parse(str);
+            return true;
+        } catch (e) {
+            return false;
         }
     }
 

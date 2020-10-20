@@ -1,49 +1,62 @@
 /**
  * 扩展validatebox的验证规则
+ * @author zhangpu
  */
 $.extend($.fn.validatebox.defaults.rules, {
-    // changelog: by zhangpu on 2013-5-28
-    // byteLength validator for chinese-string
     /** byte长度验证 */
     byteLength: {
         validator: function (value, param) {
-            var minlen = param[0];
-            var maxlen = param[1];
+            let minlen = param[0];
+            let maxlen = param[1];
             return $.acooly.verify.byteLength(value, minlen, maxlen);
         },
         message: '输入的数据长度超出范围.'
     },
+    fixedLength: {
+        validator: function (value, param) {
+            let fixedLength = param[0];
+            return $.acooly.verify.byteLength(value, fixedLength, fixedLength);
+        },
+        message: '输入的数据长度只能为{0}.'
+    },
     number: {
         validator: function (value, param) {
-            var min = param[0] || 0;
-            var max = param[1] || 999999999;
+            let min = param[0] || 0;
+            let max = param[1] || 999999999;
             return $.acooly.verify.number(value) && value >= min && value <= max;
         },
         message: '输入的数字超出范围.'
     },
     integer: {
         validator: function (value, param) {
-            var min = param[0] || 0;
-            var max = param[1] || 999999999;
+            let min = param[0] || 0;
+            let max = param[1] || 999999999;
             return $.acooly.verify.number(value) && value >= min && value <= max;
         },
         message: '输入的数字超出范围.'
     },
     decimal: {
         validator: function (value, param) {
-            var min = param[0] || 0;
-            var max = param[1] || 999999999;
+            let min = param[0] || 0;
+            let max = param[1] || 999999999;
             return $.acooly.verify.decimal(value) && value >= min && value <= max;
         },
         message: '输入的数字超出范围.'
     },
-    money:this.decimal,
+    money: this.decimal,
     // 两个表单相等
     equals: {
         validator: function (value, param) {
             return value == $(param[0]).val();
         },
         message: '两次输入不相同.'
+    },
+    // 两个表单不相等
+    notEquals: {
+        validator: function (value, param) {
+            return value != $(param[0]).val();
+        },
+        message: '两次输入不能相同.'
     },
     // 验证汉子
     CHS: {
@@ -68,7 +81,7 @@ $.extend($.fn.validatebox.defaults.rules, {
     // 国内邮编验证
     zipcode: {
         validator: function (value) {
-            var reg = /^[1-9]\d{5}$/;
+            let reg = /^[1-9]\d{5}$/;
             return reg.test(value);
         },
         message: '邮编必须是非0开始的6位数字.'
@@ -85,10 +98,19 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: '用户名只能字母开头，数字、字母、下划线组成.'
     },
+    memberNo: {
+        validator: function (value, param) {
+            if (!$.acooly.verify.member(value)) {
+                return false;
+            }
+            return true;
+        },
+        message: '编码只能由字母和数字组成.'
+    },
     // 公共正则,param[0]为正则表达式,param[1]为错误提示消息
     commonRegExp: {
         validator: function (value, param) {
-            var re = new RegExp(param[0]);
+            let re = new RegExp(param[0]);
             return $.acooly.verify.regExp(value, re)
         },
         message: '{1}'
@@ -102,12 +124,12 @@ $.extend($.fn.validatebox.defaults.rules, {
     // param[0]为bmp,jpg,gif(用逗号隔开),param[1]为错误提示消息
     validImg: {
         validator: function (value, param) {
-            var param1 = param[0];// bmp,jpg,gif
-            var param1List = param1.split(',');
-            var extname = value.substring(value
+            let param1 = param[0];// bmp,jpg,gif
+            let param1List = param1.split(',');
+            let extname = value.substring(value
                 .lastIndexOf(".") + 1, value.length);
             extname = extname.toLowerCase();// 处理了大小写
-            for (var i = 0; i < param1List.length; i++) {
+            for (let i = 0; i < param1List.length; i++) {
                 if (param1List[i] == extname) {
                     return true;
                 }
@@ -150,6 +172,12 @@ $.extend($.fn.validatebox.defaults.rules, {
             return $.acooly.verify.cert(value);
         },
         message: '18位有效身份证号码'
+    },
+    json: {
+        validator: function (value) {
+            return $.acooly.verify.json(value);
+        },
+        message: 'JSON格式验证未通过'
     }
 
 });
@@ -159,139 +187,138 @@ $.extend($.fn.validatebox.defaults.rules, {
 /**
  * id formatter
  */
-var idFormatter = function (value, row) {
+let idFormatter = function (value, row) {
     return row.id;
 }
 
 /**
  * 金额元formatter
  */
-var moneyFormatter = function (value) {
+let moneyFormatter = function (value) {
     return $.acooly.format.money(value, true);
 }
 
 /**
  * 金额分格式化为2为小数的元
  */
-var centMoneyFormatter = function (value) {
+let centMoneyFormatter = function (value) {
     return $.acooly.format.money(value, false);
 }
 
 /**
  * 文件大小格式化
  */
-var fileSizeFormatter = function (value) {
+let fileSizeFormatter = function (value) {
     return $.acooly.format.fileSize(value);
 }
 
 /**
  * 日期格式化（yyyy-MM-dd）
  */
-var dateFormatter = function (datetime) {
+let dateFormatter = function (datetime) {
     return $.acooly.format.date(datetime, 'yyyy-MM-dd');
 }
 
-var dateTimeFormatter = function (datetime) {
+let dateTimeFormatter = function (datetime) {
     return $.acooly.format.date(datetime, 'yyyy-MM-dd HH:mm:ss');
 }
 
-var timeFormatter = function (datetime) {
+let timeFormatter = function (datetime) {
     return $.acooly.format.date(datetime, 'HH:mm:ss');
 }
 
 /**
  * 时长格式化 seconds：秒级时长
  */
-var secondFormatter = function (seconds) {
+let secondFormatter = function (seconds) {
     return $.acooly.format.timespan(seconds);
 }
 /**
  * 时长格式化 millisecond：毫秒级时长
  */
-var millisecondFormatter = function (millisecond) {
+let millisecondFormatter = function (millisecond) {
     return $.acooly.format.timespan(millisecond, 'ms');
 }
 
-var contentFormatter = function (value) {
+let contentFormatter = function (value) {
     return $.acooly.format.content(value);
 }
 
-var linkFormatter = function (value) {
+let linkFormatter = function (value) {
     return $.acooly.format.link(value);
 }
 
-var jsonFormatter = function (value) {
+let jsonFormatter = function (value) {
     return $.acooly.format.json(value);
 }
 
-var percentFormatter = function (value) {
+let percentFormatter = function (value) {
     return value + "%"
 }
 
-var mappingFormatter = function (value, row, index, data, field) {
+let mappingFormatter = function (value, row, index, data, field) {
     try {
-        var mapping = "all" + field.substring(0, 1).toUpperCase() + field.substring(1, field.length) + "s";
+        let mapping = "all" + field.substring(0, 1).toUpperCase() + field.substring(1, field.length) + "s";
         return data["data"][mapping][value];
     } catch (e) {
         return value;
     }
 }
 
-var actionFormatter = function (value, row, index, data, field) {
+let actionFormatter = function (value, row, index, data, field) {
     return formatString($('#' + actionContainer).html(), row.id);
 }
 
 
 // ******** formatter 兼容放方法 **************//
-var formatFileSize = function (value) {
+let formatFileSize = function (value) {
     return $.acooly.format.fileSize(value);
 }
 
-var formatCurrency = function (value) {
+let formatCurrency = function (value) {
     return $.acooly.format.money(value);
 }
 
-var formatDate = function (datetime) {
+let formatDate = function (datetime) {
     return $.acooly.format.date(datetime, 'yyyy-MM-dd');
 }
 
-var formatTime = function (seconds) {
+let formatTime = function (seconds) {
     return $.acooly.format.timespan(seconds);
 }
 
-var formatContent = function (value, maxSize) {
+let formatContent = function (value, maxSize) {
     return $.acooly.format.content(value, maxSize);
 }
 
-var formatLink = function (value, label) {
+let formatLink = function (value, label) {
     return $.acooly.format.link(value, label);
 }
 
-var formatPercent = function (value, label) {
+let formatPercent = function (value, label) {
     return value + "%"
 }
-
 
 
 /*
  * formatString功能 使用方法：formatString('字符串{0}字符串{0}字符串{1}','第一个变量','第二个变量');
  * @returns 格式化后的字符串
  */
-var formatString = function (str) {
-    for (var i = 0; i < arguments.length - 1; i++) {
-        eval("var re = /\\{" + i + "\\}/g;");
+let formatString = function (str) {
+    for (let i = 0; i < arguments.length - 1; i++) {
+        eval("let re = /\\{" + i + "\\}/g;");
         str = str.replace(re, arguments[i + 1]);
     }
     return str;
 };
 
 
-var formatIcon = function (value) {
+let formatIcon = function (value) {
     return "<span style='vertical-align:middle;display:inline-block; width:16px; height:16px;' class='"
         + value + "'></span>"
 }
 
-var formatRefrence = function (datagrid, filed, value) {
+let formatRefrence = function (datagrid, filed, value) {
     try {
         return $("#" + datagrid).datagrid('getData')['data'][filed][value];
     } catch (e) {
@@ -299,8 +326,8 @@ var formatRefrence = function (datagrid, filed, value) {
     }
 }
 
-var formatAction = function (actionContainer, value, row) {
-    if(row.showCheckboxWithId == ''){
+let formatAction = function (actionContainer, value, row) {
+    if (row.showCheckboxWithId == '') {
         return '';
     }
     return formatString($('#' + actionContainer).html(), row.id);
@@ -315,9 +342,9 @@ var formatAction = function (actionContainer, value, row) {
  */
 stringToList = function (value) {
     if (value != undefined && value != '') {
-        var values = [];
-        var t = value.split(',');
-        for (var i = 0; i < t.length; i++) {
+        let values = [];
+        let t = value.split(',');
+        for (let i = 0; i < t.length; i++) {
             values.push('' + t[i]);
             /* 避免他将ID当成数字 */
         }
@@ -328,12 +355,12 @@ stringToList = function (value) {
 };
 
 function mapToOptions(map, forSearch) {
-    var mapJson = "[";
+    let mapJson = "[";
     if (forSearch) {
         mapJson += "{id:'',text:'所有'}";
     }
-    var i = 0;
-    for (var key in map) {
+    let i = 0;
+    for (let key in map) {
         if (i == 0 && !forSearch) {
             mapJson += "{id:" + key + "," + "text:'" + map[key] + "'}";
         } else {
@@ -355,10 +382,10 @@ $.fn.datagrid.defaults.loadMsg = '加载中....';
  * @requires jQuery,EasyUI panel关闭时回收内存，主要用于layout使用iframe嵌入网页时的内存泄漏问题
  */
 $.fn.panel.defaults.onBeforeDestroy = function () {
-    var frame = $('iframe', this);
+    let frame = $('iframe', this);
     try {
         if (frame.length > 0) {
-            for (var i = 0; i < frame.length; i++) {
+            for (let i = 0; i < frame.length; i++) {
                 frame[i].contentWindow.document.write('');
                 frame[i].contentWindow.close();
             }
@@ -385,9 +412,9 @@ $.fn.datagrid.defaults.loadFilter = function (data, parent) {
 /**
  * 通用异常处理
  */
-var commonErrorFunction = function (XMLHttpRequest, e, x) {
+let commonErrorFunction = function (XMLHttpRequest, e, x) {
     $.messager.progress('close');
-    var message;
+    let message;
     switch (XMLHttpRequest.status) {
         case (500):
             message = "服务器系统内部错误";
@@ -431,21 +458,21 @@ $.ajaxSetup({
  * @param left
  * @param top
  */
-var easyuiPanelOnMove = function (left, top) {
-    var l = left;
-    var t = top;
+let easyuiPanelOnMove = function (left, top) {
+    let l = left;
+    let t = top;
     if (l < 1) {
         l = 1;
     }
     if (t < 1) {
         t = 1;
     }
-    var width = parseInt($(this).parent().css('width')) + 14;
-    var height = parseInt($(this).parent().css('height')) + 14;
-    var right = l + width;
-    var buttom = t + height;
-    var browserWidth = $(window).width();
-    var browserHeight = $(window).height();
+    let width = parseInt($(this).parent().css('width')) + 14;
+    let height = parseInt($(this).parent().css('height')) + 14;
+    let right = l + width;
+    let buttom = t + height;
+    let browserWidth = $(window).width();
+    let browserHeight = $(window).height();
     if (right > browserWidth) {
         l = browserWidth - width;
     }
@@ -468,7 +495,7 @@ $.fn.panel.defaults.onMove = easyuiPanelOnMove;
  * @returns object
  */
 serializeObject = function (form) {
-    var o = {};
+    let o = {};
     $.each(form.serializeArray(), function (index) {
         if (o[this['name']]) {
             o[this['name']] = o[this['name']] + "," + this['value'];
@@ -483,7 +510,7 @@ serializeObject = function (form) {
  * 从表单的父容器中序列化表单
  */
 serializeObjectFromContainer = function (container) {
-    var queryParams = {};
+    let queryParams = {};
     $("input[name^='search']", container).each(
         function () {
             if (queryParams[this['name']]) {
@@ -500,7 +527,7 @@ serializeObjectFromContainer = function (container) {
  * 判断对象是否为空对象
  */
 isEmptyObject = function (obj) {
-    for (var name in obj) {
+    for (let name in obj) {
         return false;
     }
     return true;
