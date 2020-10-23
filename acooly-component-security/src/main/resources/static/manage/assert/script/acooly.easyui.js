@@ -186,115 +186,115 @@ $.extend($.fn.validatebox.defaults.rules, {
 /**
  * id formatter
  */
-let idFormatter = function (value, row) {
+var idFormatter = function (value, row) {
     return row.id;
 }
 
 /**
  * 金额元formatter
  */
-let moneyFormatter = function (value) {
+var moneyFormatter = function (value) {
     return $.acooly.format.money(value, true);
 }
 
 /**
  * 金额分格式化为2为小数的元
  */
-let centMoneyFormatter = function (value) {
+var centMoneyFormatter = function (value) {
     return $.acooly.format.money(value, false);
 }
 
 /**
  * 文件大小格式化
  */
-let fileSizeFormatter = function (value) {
+var fileSizeFormatter = function (value) {
     return $.acooly.format.fileSize(value);
 }
 
 /**
  * 日期格式化（yyyy-MM-dd）
  */
-let dateFormatter = function (datetime) {
+var dateFormatter = function (datetime) {
     return $.acooly.format.date(datetime, 'yyyy-MM-dd');
 }
 
-let dateTimeFormatter = function (datetime) {
+var dateTimeFormatter = function (datetime) {
     return $.acooly.format.date(datetime, 'yyyy-MM-dd HH:mm:ss');
 }
 
-let timeFormatter = function (datetime) {
+var timeFormatter = function (datetime) {
     return $.acooly.format.date(datetime, 'HH:mm:ss');
 }
 
 /**
  * 时长格式化 seconds：秒级时长
  */
-let secondFormatter = function (seconds) {
+var secondFormatter = function (seconds) {
     return $.acooly.format.timespan(seconds);
 }
 /**
  * 时长格式化 millisecond：毫秒级时长
  */
-let millisecondFormatter = function (millisecond) {
+var millisecondFormatter = function (millisecond) {
     return $.acooly.format.timespan(millisecond, 'ms');
 }
 
-let contentFormatter = function (value) {
+var contentFormatter = function (value) {
     return $.acooly.format.content(value);
 }
 
-let linkFormatter = function (value) {
+var linkFormatter = function (value) {
     return $.acooly.format.link(value);
 }
 
-let jsonFormatter = function (value) {
+var jsonFormatter = function (value) {
     return $.acooly.format.json(value);
 }
 
-let percentFormatter = function (value) {
+var percentFormatter = function (value) {
     return value + "%"
 }
 
-let mappingFormatter = function (value, row, index, data, field) {
+var mappingFormatter = function (value, row, index, data, field) {
     try {
-        let mapping = "all" + field.substring(0, 1).toUpperCase() + field.substring(1, field.length) + "s";
+        var mapping = "all" + field.substring(0, 1).toUpperCase() + field.substring(1, field.length) + "s";
         return data["data"][mapping][value];
     } catch (e) {
         return value;
     }
 }
 
-let actionFormatter = function (value, row, index, data, field) {
+var actionFormatter = function (value, row, index, data, field) {
     return formatString($('#' + actionContainer).html(), row.id);
 }
 
 
 // ******** formatter 兼容放方法 **************//
-let formatFileSize = function (value) {
+var formatFileSize = function (value) {
     return $.acooly.format.fileSize(value);
 }
 
-let formatCurrency = function (value) {
+var formatCurrency = function (value) {
     return $.acooly.format.money(value);
 }
 
-let formatDate = function (datetime) {
+var formatDate = function (datetime) {
     return $.acooly.format.date(datetime, 'yyyy-MM-dd');
 }
 
-let formatTime = function (seconds) {
+var formatTime = function (seconds) {
     return $.acooly.format.timespan(seconds);
 }
 
-let formatContent = function (value, maxSize) {
+var formatContent = function (value, maxSize) {
     return $.acooly.format.content(value, maxSize);
 }
 
-let formatLink = function (value, label) {
+var formatLink = function (value, label) {
     return $.acooly.format.link(value, label);
 }
 
-let formatPercent = function (value, label) {
+var formatPercent = function (value, label) {
     return value + "%"
 }
 
@@ -303,21 +303,21 @@ let formatPercent = function (value, label) {
  * formatString功能 使用方法：formatString('字符串{0}字符串{0}字符串{1}','第一个变量','第二个变量');
  * @returns 格式化后的字符串
  */
-let formatString = function (str) {
-    for (let i = 0; i < arguments.length - 1; i++) {
-        eval("let re = /\\{" + i + "\\}/g;");
+var formatString = function (str) {
+    for (var i = 0; i < arguments.length - 1; i++) {
+        eval("var re = /\\{" + i + "\\}/g;");
         str = str.replace(re, arguments[i + 1]);
     }
     return str;
 };
 
 
-let formatIcon = function (value) {
+var formatIcon = function (value) {
     return "<span style='vertical-align:middle;display:inline-block; width:16px; height:16px;' class='"
         + value + "'></span>"
 }
 
-let formatRefrence = function (datagrid, filed, value) {
+var formatRefrence = function (datagrid, filed, value) {
     try {
         return $("#" + datagrid).datagrid('getData')['data'][filed][value];
     } catch (e) {
@@ -325,7 +325,7 @@ let formatRefrence = function (datagrid, filed, value) {
     }
 }
 
-let formatAction = function (actionContainer, value, row) {
+var formatAction = function (actionContainer, value, row) {
     if (row.showCheckboxWithId == '') {
         return '';
     }
@@ -341,9 +341,9 @@ let formatAction = function (actionContainer, value, row) {
  */
 stringToList = function (value) {
     if (value != undefined && value != '') {
-        let values = [];
-        let t = value.split(',');
-        for (let i = 0; i < t.length; i++) {
+        var values = [];
+        var t = value.split(',');
+        for (var i = 0; i < t.length; i++) {
             values.push('' + t[i]);
             /* 避免他将ID当成数字 */
         }
@@ -354,12 +354,12 @@ stringToList = function (value) {
 };
 
 function mapToOptions(map, forSearch) {
-    let mapJson = "[";
+    var mapJson = "[";
     if (forSearch) {
         mapJson += "{id:'',text:'所有'}";
     }
-    let i = 0;
-    for (let key in map) {
+    var i = 0;
+    for (var key in map) {
         if (i == 0 && !forSearch) {
             mapJson += "{id:" + key + "," + "text:'" + map[key] + "'}";
         } else {
@@ -381,10 +381,10 @@ $.fn.datagrid.defaults.loadMsg = '加载中....';
  * @requires jQuery,EasyUI panel关闭时回收内存，主要用于layout使用iframe嵌入网页时的内存泄漏问题
  */
 $.fn.panel.defaults.onBeforeDestroy = function () {
-    let frame = $('iframe', this);
+    var frame = $('iframe', this);
     try {
         if (frame.length > 0) {
-            for (let i = 0; i < frame.length; i++) {
+            for (var i = 0; i < frame.length; i++) {
                 frame[i].contentWindow.document.write('');
                 frame[i].contentWindow.close();
             }
@@ -411,9 +411,9 @@ $.fn.datagrid.defaults.loadFilter = function (data, parent) {
 /**
  * 通用异常处理
  */
-let commonErrorFunction = function (XMLHttpRequest, e, x) {
+var commonErrorFunction = function (XMLHttpRequest, e, x) {
     $.messager.progress('close');
-    let message;
+    var message;
     switch (XMLHttpRequest.status) {
         case (500):
             message = "服务器系统内部错误";
@@ -457,21 +457,21 @@ $.ajaxSetup({
  * @param left
  * @param top
  */
-let easyuiPanelOnMove = function (left, top) {
-    let l = left;
-    let t = top;
+var easyuiPanelOnMove = function (left, top) {
+    var l = left;
+    var t = top;
     if (l < 1) {
         l = 1;
     }
     if (t < 1) {
         t = 1;
     }
-    let width = parseInt($(this).parent().css('width')) + 14;
-    let height = parseInt($(this).parent().css('height')) + 14;
-    let right = l + width;
-    let buttom = t + height;
-    let browserWidth = $(window).width();
-    let browserHeight = $(window).height();
+    var width = parseInt($(this).parent().css('width')) + 14;
+    var height = parseInt($(this).parent().css('height')) + 14;
+    var right = l + width;
+    var buttom = t + height;
+    var browserWidth = $(window).width();
+    var browserHeight = $(window).height();
     if (right > browserWidth) {
         l = browserWidth - width;
     }
@@ -494,7 +494,7 @@ $.fn.panel.defaults.onMove = easyuiPanelOnMove;
  * @returns object
  */
 serializeObject = function (form) {
-    let o = {};
+    var o = {};
     $.each(form.serializeArray(), function (index) {
         if (o[this['name']]) {
             o[this['name']] = o[this['name']] + "," + this['value'];
@@ -509,7 +509,7 @@ serializeObject = function (form) {
  * 从表单的父容器中序列化表单
  */
 serializeObjectFromContainer = function (container) {
-    let queryParams = {};
+    var queryParams = {};
     $("input[name^='search']", container).each(
         function () {
             if (queryParams[this['name']]) {
@@ -526,7 +526,7 @@ serializeObjectFromContainer = function (container) {
  * 判断对象是否为空对象
  */
 isEmptyObject = function (obj) {
-    for (let name in obj) {
+    for (var name in obj) {
         return false;
     }
     return true;
