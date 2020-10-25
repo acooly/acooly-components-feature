@@ -605,3 +605,8 @@ div.datagrid-cell > div > label {
 .window {border-radius: 5px;}
 .window-shadow {border-radius: 5px;}
 .dialog-button {padding: 10px 20px;}
+
+/* select2的定制样式: 针对select2多选时的高度受到 .tableForm input的影响 */
+.select2-container .select2-search--inline .select2-search__field{
+    height: auto;
+}
