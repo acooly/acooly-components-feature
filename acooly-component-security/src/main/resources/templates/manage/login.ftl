@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" name="password" placeholder="密码..." class="form-control" id="form-password">
+                    <input type="password" name="password" placeholder="密码..." class="form-control" id="form-password" autocomplete="off">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fa fa-lock"></span>
