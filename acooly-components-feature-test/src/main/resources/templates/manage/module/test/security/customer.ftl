@@ -76,7 +76,9 @@
 
         <!-- 表格的工具栏 -->
         <div id="manage_customer_toolbar">
+            <@shiro.hasPermission name="customer:create">
             <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/test/security/customer/create.html',entity:'customer',width:500,height:500})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
+            </@shiro.hasPermission>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/module/test/security/customer/deleteJson.html','manage_customer_datagrid')"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a>
             <a href="#" class="easyui-menubutton" data-options="menu:'#manage_customer_exports_menu'"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>批量导出</a>
             <div id="manage_customer_exports_menu" style="width:150px;">
@@ -92,4 +94,3 @@
         });
     </script>
 </div>
-
