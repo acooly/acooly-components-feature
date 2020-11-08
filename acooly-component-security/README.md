@@ -140,6 +140,16 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 	```java
 	SecurityUtils.getSubject().checkPermission("customer:create");
 	```
+ 
+    或则：使用shiro的annotation
+    
+    ```java
+           @RequiresPermissions("customer:create")
+           @Override
+           public String create(HttpServletRequest request, HttpServletResponse response, Model model) {
+               return super.create(request, response, model);
+           }
+    ```
 	    
                
 ## 5.资源
