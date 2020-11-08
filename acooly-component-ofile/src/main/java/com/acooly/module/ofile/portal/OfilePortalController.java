@@ -5,7 +5,7 @@ package com.acooly.module.ofile.portal;
 
 import com.acooly.core.common.exception.AppConfigException;
 import com.acooly.core.common.exception.BusinessException;
-import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.*;
@@ -27,6 +27,7 @@ import com.google.common.collect.Maps;
 import com.google.common.io.Files;
 import com.google.common.net.HttpHeaders;
 import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -42,9 +43,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -61,16 +64,14 @@ import java.util.regex.Pattern;
 @Controller
 @RequestMapping("/ofile")
 public class OfilePortalController
-        extends AbstractJQueryEntityController<OnlineFile, OnlineFileService> {
-    private static final Pattern ABSOLUTE_URL = Pattern.compile("\\A[a-z0-9.+-]+://.*", 2);
+        extends AbstractJsonEntityController<OnlineFile, OnlineFileService> {
     public static final String WATERMARK_TEXT = "watermarkText";
     public static final String WATERMARK_IMAGE = "watermarkImage";
-
     /**
      * 单次上传时，动态指定的存储子路径（相对storageRoot的子路径）参数，请求方可动态传入，默认为空
      */
     public static final String STORAGE_SUB_PATH = "storageSubPath";
-
+    private static final Pattern ABSOLUTE_URL = Pattern.compile("\\A[a-z0-9.+-]+://.*", 2);
     @Resource
     private OnlineFileService onlineFileService;
     @Autowired
@@ -295,7 +296,7 @@ public class OfilePortalController
     @ResponseBody
     public Object download(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        obsService.getObject(null,"test/20200528/960069987391651840.jpg",null);
+        obsService.getObject(null, "test/20200528/960069987391651840.jpg", null);
         return null;
 //        String path = request.getParameter("path");
 //        if (isAbsoluteUrl(path)) {
@@ -367,7 +368,7 @@ public class OfilePortalController
             checkReferer(request);
             doHeader(fileName, response, fileType);
             if (accessType == null || AccessTypeEnum.LOCAL_STORAGE.equals(accessType)) {
-                File file = new File(getStorageRoot() +filePath);
+                File file = new File(getStorageRoot() + filePath);
                 in = FileUtils.openInputStream(file);
             } else {
                 OssFile ossFile = obsService.getObject(bucketName, filePath, processStyle);
@@ -555,5 +556,49 @@ public class OfilePortalController
             return storageSubPath;
         }
         return getStorageRoot();
+    }
+
+    /**
+     * 重写Transfer方法，用于对上传的图片进行压缩 liin 2020-08-24
+     *
+     * @param mfile
+     * @param request
+     * @return
+     * @throws IOException
+     */
+    @Override
+    protected File doTransfer(MultipartFile mfile, HttpServletRequest request) throws IOException {
+        // 转存到服务器，返回服务器文件
+        File destFile = new File(getUploadFileName(mfile.getOriginalFilename(), uploadConfig, request));
+        // modify by zhangpu on 20141026
+        // for：移动文件前，检查目标文件所在文件夹是否存在，不存在在创建. update to version: 2.2.4
+        File pathFile = destFile.getParentFile();
+        if (!pathFile.exists()) {
+            pathFile.mkdirs();
+        }
+
+        //非图片文件，或者未开启图片压缩功能 不进行后续处理
+        if (!Images.isImage(mfile.getOriginalFilename()) || !oFileProperties.getResizePicture().isEnable()) {
+            mfile.transferTo(destFile);
+            return destFile;
+        }
+
+        //读取原始图片的宽和高
+        BufferedImage bufferedImage = ImageIO.read(mfile.getInputStream());
+
+        // oversize = false 对图片进行放大或缩小操作
+        if (!oFileProperties.getResizePicture().isOversize()) {
+            Thumbnails.of(bufferedImage).size(oFileProperties.getResizePicture().getWidth(), oFileProperties.getResizePicture().getHeight()).toFile(destFile);
+            return destFile;
+        }
+
+        //oversize = true 需要判断原始图片的宽度和高度，只有大于与设定值的时候才进行缩小操作
+        if (bufferedImage.getWidth() > oFileProperties.getResizePicture().getWidth() || bufferedImage.getHeight() > oFileProperties.getResizePicture().getHeight()) {
+            Thumbnails.of(bufferedImage).size(oFileProperties.getResizePicture().getWidth(), oFileProperties.getResizePicture().getHeight()).toFile(destFile);
+        } else {
+            Thumbnails.of(bufferedImage).scale(1).toFile(destFile);
+            //mfile.transferTo(destFile);
+        }
+        return destFile;
     }
 }

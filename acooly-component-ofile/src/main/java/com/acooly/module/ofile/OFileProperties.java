@@ -81,6 +81,12 @@ public class OFileProperties implements InitializingBean {
      */
     private Watermarktext watermarktext = new Watermarktext();
 
+    /**
+     * 开启后，上传的图片自动进行缩放
+     */
+    private ResizePicture resizePicture = new ResizePicture();
+    
+
     public String getStorageRoot() {
         return storageRoot;
     }
@@ -211,6 +217,31 @@ public class OFileProperties implements InitializingBean {
          * 透明度 0-1
          */
         private float alpha = 1F;
+    }
+
+    @Data
+    public static class ResizePicture {
+        /**
+         * 开启图片缩放功能，默认为false
+         */
+        private boolean enable = false;
+
+        /**
+         * #oversize=true，如果原始图片宽或高小于设定值，不进行操作，大于设定值则对图片进行缩小操作。
+         * #oversize=false，如果原始图片宽或高小于设定值，对图片进行放大操作，大于设定值则对图片进行缩小操作。
+         * #默认值为true
+         */
+        private boolean oversize = true;
+
+
+        /**
+         * 图片宽X(px),默认2000
+         */
+        private int width = 2000;
+        /**
+         * 图片高X(px),默认2000
+         */
+        private int height = 2000;
     }
 
 }
