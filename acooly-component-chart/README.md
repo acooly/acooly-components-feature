@@ -51,6 +51,11 @@ maven坐标：
 
 ## 3.版本说明
 
+
+#### 2020-12-07
+
+* 1.新增页面动态数据倒计时显示，实时了解数据刷新频率
+
 #### 2019-06-13
 
 * 1.屏蔽sql中出现的insert,delete,update,create,drop,alter,lock,unlock
