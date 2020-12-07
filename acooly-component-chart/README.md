@@ -4,9 +4,9 @@
 <!-- date: 2019-11-04 -->
 ## 1. 组件介绍
 
-acooly-component-chart 以acooly框架为基础, 集成百度echarts图表；支持 折线图，柱状图，饼图，柱状-堆叠图；动态sql语法解析，动态转换为不同的图表展示；
+acooly-component-chart 以acooly框架为基础, 集成Apache ECharts(前身:百度echarts)图表；支持 折线图，柱状图，饼图，柱状-堆叠图；动态sql语法解析，动态转换为不同的图表展示；
 
-参考：[echartsjs](http://www.echartsjs.com);  网址：http://www.echartsjs.com
+参考：[echartsjs](https://echarts.apache.org/zh/index.html);  网址：https://echarts.apache.org/zh/index.html
 
 ### 1.1优势
 * 快速开发报表图形化，简化Java代码编程
@@ -16,7 +16,6 @@ acooly-component-chart 以acooly框架为基础, 集成百度echarts图表；支
 * 一个图形主题下，支持多个不同种类图表展示，并支持图表排序
 * 支持页面ajax定时访问主题，动态加载实时数据
 * 支持 折线图，柱状图 相互转化，并支持下载
-
 
 
 ## 2. 使用说明
