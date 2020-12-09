@@ -77,11 +77,11 @@
         <!--<version>${project.version}</version>-->
         <!--</dependency>-->
 
-        <!--<dependency>-->
-        <!--<groupId>com.acooly</groupId>-->
-        <!--<artifactId>acooly-component-ofile</artifactId>-->
-        <!--<version>${project.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-ofile</artifactId>
+        <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.acooly</groupId>
