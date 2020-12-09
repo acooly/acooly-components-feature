@@ -91,6 +91,9 @@
             <a onclick="$.acooly.framework.move('/manage/module/cms/content/moveUp.html','{0}','manage_content${RequestParameters.code}_datagrid');" href="#">
                 <i class="fa fa-arrow-circle-up fa-fw fa-col fa-lg" aria-hidden="true"></i>
             </a>
+            
+           <a href="/cms/portal/single_{0}.html" target="view_window" title="展示富文本"><i class="fa fa-share fa-lg fa-fw fa-col"></i></a>
+
         </div>
 
         <!-- 表格的工具栏 -->

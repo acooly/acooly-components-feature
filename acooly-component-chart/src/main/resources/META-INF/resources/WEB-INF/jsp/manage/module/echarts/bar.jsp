@@ -1,11 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html style="height: 95%; width: 95%">
 <body style="height: 100%; margin: 0">
+	
+	<div id="container_${chartItemId}_loopTime" style="font-size:8px;color:	#D3D3D3;position: absolute;left:90%;margin-top:35px; "></div>
 	<div id="container_${chartItemId}" style="height: 100%"></div>
 
-	<script type="text/javascript"
-		src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="/plugin/echarts/javascript/business.js"></script>
 
 	<script type="text/javascript">
 	//数据初始化
@@ -15,7 +17,8 @@
 	if(${loopTime}>=10000){
 		setInterval("ajaxRequest()",${loopTime});
 	}
-	
+
+
 	//ajax 数据请求
 	function ajaxRequest(){
 		var title;
@@ -67,7 +70,10 @@
 						yShafts.push(yShaftJson);
 					}
 //						console.log(yShafts);
-					
+					//倒计时刷新
+					refreshTimeValue(${chartItemId},${loopTime}/1000);
+
+					//动态数据解决					
 					barChartDraw(title,legendData,xShaft,yShafts);
 				}
 			}
