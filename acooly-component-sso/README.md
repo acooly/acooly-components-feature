@@ -54,6 +54,8 @@ maven坐标：
 	<%@ include file="/WEB-INF/jsp/manage/common/ssoInclude.jsp" %>
 </c:if>
 ```
+
+>推荐采用freemarker, jsp不支持按钮权限（tag）
    
 #### 资源菜单 
 
@@ -68,6 +70,37 @@ maven坐标：
 1. 域名支持二级域名，如登录服务器地址`acooly.sso.ssoServerUrl=http://boss.acooly.com/manage/login.html` 那么只有 .acooly.com 子域名才支持 sso 登录
 2. 只有子系统才需要添加此组件，主boss不用添加 比如：主boss为`boss.acooly.com` 子系统是`acooly.com`的子域名:`openapi.acooly.com,cms.acooly.com,scheduler.acooly.com,mail.acooly.com` 
 3. 本地测试可本机添加hosts
-4. 启用sso组件后，获取User两种方式 
-  1、`User user=ShiroUtils.getCurrentUser();` 
-  2、`User user = (User) request.getAttribute(JWTUtils.CLAIMS_KEY_SUB)`
+4. 启用sso组件后，获取User两种方式
+   1、`User user=ShiroUtils.getCurrentUser();`
+   2、`User user = (User) request.getAttribute(JWTUtils.CLAIMS_KEY_SUB)`
+   
+## 3. shiro freemarker tag
+
+acooly框架重构了shiro自带（目前升级到shiro1.7是自带有的）主要tag，支持SSO，重构的tag会自动根据你配置的SSO参数选择本地认证还是远程认证。现在你可以在子BOSS开发时，通过tag验证在主BOSS配置的按钮权限了
+
+>特别注意：SSO的shiro-tag只支持freemarker,我们需要逐步去jsp，所有本次重构不支持jsp。
+
+### 3.1. 当前登录用户信息
+
+* 默认：<@shiro.principal /> , 会显示如：admin [张浦]
+* 只显示用户名：<@shiro.principal property="username" />，会显示：admin
+
+### 3.2. 判断权限
+
+* 有选择判断：<@shiro.hasPermission name="remoteUser:create">有remoteUser:create权限则显示</@shiro.hasPermission>
+* 无选择判断：<@shiro.lacksPermission name="remoteUser:create">无remoteUser:create权限则显示</@shiro.lacksPermission>
+
+### 3.3 判断角色
+
+有角色判断：<@shiro.hasRole name="ROLE_SYSTEM">有ROLE_SYSTEM角色</@shiro.hasRole>
+无角色判断：<@shiro.lacksRole name="ROLE_SYSTEM">无ROLE_SYSTEM角色</@shiro.lacksRole>
+
+>支持多个角色同时的判断，多个角色请使用逗号`,`分隔
+
+### 3.4 判断是否登录认证
+
+<@shiro.authenticated>已认证</@shiro.authenticated>
+
+## 4.demo演示
+
+你可以在gitlab上找到 `acooly/showcase/acooly-sso-server-demo` 和 `acooly/showcase/acooly-sso-client-demo` 两个演示工程，获得完整的SSO演示。
