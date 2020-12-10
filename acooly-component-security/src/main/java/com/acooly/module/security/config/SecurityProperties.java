@@ -151,6 +151,7 @@ public class SecurityProperties {
             addUrlFilter("/manage/*.js", "anon");
             addUrlFilter("/manage/layout/*", "user");
             addUrlFilter("/manage/system/*", "user");
+            addUrlFilter("/manage/system/shiro/*", "user");
             addUrlFilter("/manage/druid/**", "user");
             addUrlFilter("/manage/**", "urlAuthr");
             addUrlFilter("/**", "anon");

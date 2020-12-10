@@ -19,9 +19,12 @@ import com.acooly.module.security.shiro.cache.ShiroCacheManager;
 import com.acooly.module.security.shiro.filter.CaptchaFormAuthenticationFilter;
 import com.acooly.module.security.shiro.filter.NotifyLogoutFilter;
 import com.acooly.module.security.shiro.filter.UrlResourceAuthorizationFilter;
+import com.acooly.module.security.shiro.freemarker.ShiroFreemarkerTags;
 import com.acooly.module.security.shiro.listener.ShireLoginLogoutSubject;
 import com.acooly.module.security.shiro.realm.PathMatchPermissionResolver;
 import com.acooly.module.security.shiro.realm.ShiroDbRealm;
+import com.acooly.module.web.WebAutoConfig;
+import com.acooly.module.web.freemarker.ShiroPrincipalTag;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -34,6 +37,7 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.WebSecurityManager;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -52,6 +56,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.DispatcherType;
@@ -69,12 +74,19 @@ import java.util.Map;
 @EnableConfigurationProperties({SecurityProperties.class, FrameworkProperties.class})
 @ConditionalOnProperty(value = SecurityProperties.PREFIX + ".enable", matchIfMissing = true)
 @ComponentScan(basePackages = {"com.acooly.module.security"})
+@AutoConfigureAfter(WebAutoConfig.class)
 public class SecurityAutoConfig {
 
     @Autowired
     private SecurityProperties securityProperties;
     @Autowired
     private ServletContext servletContext;
+
+    @Autowired
+    private freemarker.template.Configuration configuration;
+    @Autowired
+    private FreeMarkerConfigurer freeMarkerConfigurer;
+
 
     @Bean
     public StandardDatabaseScriptIniter securityScriptIniter() {
@@ -94,9 +106,15 @@ public class SecurityAutoConfig {
 
     @PostConstruct
     public void ssoContextInitializer() {
+        // sms login auth
         if (securityProperties.isEnableSmsAuth()) {
             servletContext.setAttribute("enableSmsAuth", true);
         }
+
+        // shiro freemarker tag
+        configuration.setSharedVariable("shiroPrincipal", new ShiroPrincipalTag());
+        configuration.setSharedVariable("shiro", new ShiroFreemarkerTags());
+        LoggerFactory.getLogger("Main").info("shiro freemarker tag initialized.");
     }
 
     @Configuration

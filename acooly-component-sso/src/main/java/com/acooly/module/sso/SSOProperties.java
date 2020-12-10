@@ -1,9 +1,12 @@
 package com.acooly.module.sso;
 
+import com.acooly.core.utils.Strings;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.validation.constraints.NotBlank;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * @author shuijing

@@ -36,4 +36,15 @@ public class RoleFacadeController {
             return false;
         }
     }
+
+    @RequestMapping("hasAnyRoles")
+    @ResponseBody
+    public Boolean hasAnyRoles(String roleNames, String username) {
+        try {
+            return ssoAuthzService.hasAnyRoles(roleNames, username);
+        } catch (Exception e) {
+            log.error("SSO 检查角色异常", e);
+            return false;
+        }
+    }
 }
