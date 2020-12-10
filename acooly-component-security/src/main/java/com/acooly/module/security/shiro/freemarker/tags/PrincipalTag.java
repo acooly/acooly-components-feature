@@ -9,14 +9,12 @@
  */
 package com.acooly.module.security.shiro.freemarker.tags;
 
-import com.acooly.module.web.freemarker.SecureTag;
+import com.acooly.module.security.shiro.freemarker.SecurityBaseTag;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModelException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -28,18 +26,14 @@ import java.util.Map;
  * @author shuijing
  */
 @Slf4j
-public class PrincipalTag extends SecureTag {
+public class PrincipalTag extends SecurityBaseTag {
 
     String getType(Map params) {
-        return getParam(params, "type");
+        return getParameter(params, "type");
     }
 
     String getProperty(Map params) {
-        return getParam(params, "property");
-    }
-
-    protected Subject getSubject() {
-        return SecurityUtils.getSubject();
+        return getParameter(params, "property");
     }
 
     @Override

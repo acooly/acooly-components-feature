@@ -1,7 +1,6 @@
 package com.acooly.module.security.shiro.freemarker;
 
 import com.acooly.module.security.shiro.freemarker.tags.*;
-import com.acooly.module.web.freemarker.ShiroPrincipalTag;
 import freemarker.template.SimpleHash;
 
 /**
@@ -21,8 +20,8 @@ public class ShiroFreemarkerTags extends SimpleHash {
         put("hasRole", new HasRoleTag());
         put("lacksRole", new LacksRoleTag());
         put("notAuthenticated", new NotAuthenticatedTag());
-        put("principal", new ShiroPrincipalTag());
+        put("principal", new PrincipalTag());
         // 兼容原有在acooly-component-web中声明的标签名称
-        put("shiroPrincipal", new ShiroPrincipalTag());
+        put("shiroPrincipal", new PrincipalTag());
     }
 }

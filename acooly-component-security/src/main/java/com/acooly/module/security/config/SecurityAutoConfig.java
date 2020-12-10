@@ -20,11 +20,11 @@ import com.acooly.module.security.shiro.filter.CaptchaFormAuthenticationFilter;
 import com.acooly.module.security.shiro.filter.NotifyLogoutFilter;
 import com.acooly.module.security.shiro.filter.UrlResourceAuthorizationFilter;
 import com.acooly.module.security.shiro.freemarker.ShiroFreemarkerTags;
+import com.acooly.module.security.shiro.freemarker.tags.PrincipalTag;
 import com.acooly.module.security.shiro.listener.ShireLoginLogoutSubject;
 import com.acooly.module.security.shiro.realm.PathMatchPermissionResolver;
 import com.acooly.module.security.shiro.realm.ShiroDbRealm;
 import com.acooly.module.web.WebAutoConfig;
-import com.acooly.module.web.freemarker.ShiroPrincipalTag;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -112,7 +112,7 @@ public class SecurityAutoConfig {
         }
 
         // shiro freemarker tag
-        configuration.setSharedVariable("shiroPrincipal", new ShiroPrincipalTag());
+        configuration.setSharedVariable("shiroPrincipal", new PrincipalTag());
         configuration.setSharedVariable("shiro", new ShiroFreemarkerTags());
         LoggerFactory.getLogger("Main").info("shiro freemarker tag initialized.");
     }
