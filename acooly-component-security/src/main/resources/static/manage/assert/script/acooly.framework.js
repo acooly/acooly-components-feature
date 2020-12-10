@@ -821,8 +821,8 @@
                     allowFlashUpload: false, // true时显示Flash上传按钮;默认值: true
                     items: ['fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat',
                         'lineheight', '|', 'justifyleft', 'justifycenter', 'justifyright', 'anchor', 'plainpaste', 'wordpaste', 'clearhtml',
-                        'quickformat', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'multiimage',
-                        'baidumap', 'link', 'unlink', 'source', 'preview'],
+                        'quickformat', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'multiimage','media','|',
+                        'baidumap', 'link', 'unlink', '|','hr','table','|','source', 'preview','fullscreen'],
                     // 上传的url
                     uploadJson: uploadUrl,
                     // 加载完成后改变皮肤
