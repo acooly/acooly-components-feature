@@ -47,8 +47,11 @@ public enum OFileType {
     }
 
     public static OFileType with(String fileExtention) {
+        if (Strings.isBlank(fileExtention)) {
+            return OFileType.other;
+        }
         for (OFileType type : values()) {
-            if (Strings.contains(type.getExtentions(), fileExtention)) {
+            if (Strings.contains(type.getExtentions(), fileExtention.toLowerCase())) {
                 return type;
             }
         }
