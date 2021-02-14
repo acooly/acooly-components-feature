@@ -21,24 +21,24 @@ $.extend($.fn.validatebox.defaults.rules, {
     },
     number: {
         validator: function (value, param) {
-            var min = (param && param[0])?param[0]:0;
-            var max = (param && param[1])?param[1]:999999999;
+            var min = (param && param[0]) ? param[0] : 0;
+            var max = (param && param[1]) ? param[1] : 999999999;
             return $.acooly.verify.number(value) && value >= min && value <= max;
         },
         message: '输入的数字超出范围.'
     },
     integer: {
         validator: function (value, param) {
-            var min = (param && param[0])?param[0]:0;
-            var max = (param && param[1])?param[1]:999999999;
+            var min = (param && param[0]) ? param[0] : 0;
+            var max = (param && param[1]) ? param[1] : 999999999;
             return $.acooly.verify.number(value) && value >= min && value <= max;
         },
         message: '输入的数字超出范围.'
     },
     decimal: {
         validator: function (value, param) {
-            var min = (param && param[0])?param[0]:0;
-            var max = (param && param[1])?param[1]:999999999;
+            var min = (param && param[0]) ? param[0] : 0;
+            var max = (param && param[1]) ? param[1] : 999999999;
             return $.acooly.verify.decimal(value) && value >= min && value <= max;
         },
         message: '输入的数字超出范围.'
@@ -252,6 +252,7 @@ var jsonFormatter = function (value) {
 }
 
 var percentFormatter = function (value) {
+    if (!value) return value;
     return value + "%"
 }
 
