@@ -368,3 +368,5 @@ img {
 .select2-container .select2-search--inline .select2-search__field{
     height: auto;
 }
+
+.col-form-content {padding-top: calc(.375rem + 1px);padding-bottom: calc(.375rem + 1px);margin-bottom: 0;font-size: inherit;line-height: 1.5;}
