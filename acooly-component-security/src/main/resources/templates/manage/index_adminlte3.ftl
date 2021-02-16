@@ -341,6 +341,8 @@
 <script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
 <!-- inputmask -->
 <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<!-- AdminLTE bs-custom-file-input -->
+<script src="/manage/assert/plugin/bs-custom-file-input/bs-custom-file-input.min"></script>
 
 <!-- 自己定义的样式和JS扩展 -->
 <!-- acooly -->

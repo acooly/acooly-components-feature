@@ -86,6 +86,12 @@
     <!--kindEditor插件库 -->
     <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all-min.js"></script>
     <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
+    <!-- select2 -->
+    <script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
+    <!-- inputmask -->
+    <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+    <!-- AdminLTE bs-custom-file-input -->
+    <script src="/manage/assert/plugin/bs-custom-file-input/bs-custom-file-input.min"></script>
 
     <!-- 自己定义的样式和JS扩展 -->
     <!-- acooly -->
@@ -94,9 +100,7 @@
     <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
-
     <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
-
     <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.layout.js" charset="utf-8"></script>
