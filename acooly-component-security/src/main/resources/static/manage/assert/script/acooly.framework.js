@@ -821,8 +821,8 @@
                     allowFlashUpload: false, // true时显示Flash上传按钮;默认值: true
                     items: ['fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat',
                         'lineheight', '|', 'justifyleft', 'justifycenter', 'justifyright', 'anchor', 'plainpaste', 'wordpaste', 'clearhtml',
-                        'quickformat', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'multiimage','media','|',
-                        'baidumap', 'link', 'unlink', '|','hr','table','|','source', 'preview','fullscreen'],
+                        'quickformat', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'multiimage', 'media', '|',
+                        'baidumap', 'link', 'unlink', '|', 'hr', 'table', '|', 'source', 'preview', 'fullscreen'],
                     // 上传的url
                     uploadJson: uploadUrl,
                     // 加载完成后改变皮肤
@@ -1078,6 +1078,51 @@
                 var obj = container && container.jquery ? container : $('#' + container)
                 $(obj).find('.select2bs4').select2({theme: 'bootstrap4'});
                 $(obj).find('[data-mask]').inputmask();
+            },
+
+            /**
+             * 播放媒体文件（弹出框）
+             * PDF,媒体文件
+             * @param resourceUrl
+             * @param opts
+             */
+            play: function (resourceUrl, opts) {
+                if (!resourceUrl) {
+                    return;
+                }
+                var url = resourceUrl;
+                if(resourceUrl.indexOf("?") != -1){
+                    url = resourceUrl.split("?")[0]
+                }
+                let urlArr = url.split("/");
+                let filename = urlArr[urlArr.length - 1];
+
+                let defOpts = {
+                    width: 800,
+                    height: 600,
+                    title: " <i class='fa fa-play' aria-hidden='true'></i> 播放：" + filename,
+                    showCloseBtn: true,
+                };
+                let options = $.extend(defOpts, opts);
+
+                if (options.showCloseBtn) {
+                    options.buttons = [
+                        {
+                            text: '<i class="fa fa-times-circle fa-lg fa-fw fa-col" ></i>关闭',
+                            handler: function () {
+                                d.dialog('close');
+                            }
+                        }
+                    ]
+                }
+                options.content = "<a class='media' href='" + resourceUrl + "'></a>";
+                options.onClose = function () {
+                    $(this).dialog('destroy');
+                };
+                options.onOpen = function () {
+                    $('.media').media({width: options.width, height: options.height});
+                }
+                var d = $('<div/>').dialog(options);
             }
 
         }
