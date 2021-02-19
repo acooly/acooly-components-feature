@@ -3,7 +3,7 @@ Inputmask.extendAliases({
     'money': {
         prefix: "",
         rightAlign: false,
-        groupSeparator:'',
+        groupSeparator:',',
         alias: "currency"
     },
     'integer': {
