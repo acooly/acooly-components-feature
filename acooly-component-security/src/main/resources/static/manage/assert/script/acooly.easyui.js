@@ -255,6 +255,9 @@ var percentFormatter = function (value) {
     if (!value) return value;
     return value + "%"
 }
+var centPercentFormatter = function (value) {
+    return $.acooly.format.money(value, false) + "%";
+}
 
 var mappingFormatter = function (value, row, index, data, field) {
     try {
