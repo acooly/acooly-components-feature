@@ -105,6 +105,11 @@ public class CertificationServiceImpl implements CertificationService {
         BankCertificationRecord record = bankCertificationRecordService.findEntityByCardNo(cardNo);
         try {
             if (record != null && record.getStatus() == 1) {
+                if (!record.getRealName().equals(realName) || !record.getCertId().equals(certId) ||
+                        !record.getPhoneNum().equals(phoneNum)) {
+                    log.info("四要素绑定入参realName={},cardNo={},certId={},phoneNum={},与已有绑定记录不一致", realName, cardNo, certId, phoneNum, record);
+                    throw new CertficationException(ResultStatus.failure.getCode(), "该卡已被绑定");
+                }
                 result.setBelongArea(record.getBelongArea());
                 result.setBankTel(record.getBankTel());
                 result.setBrand(record.getBrand());
