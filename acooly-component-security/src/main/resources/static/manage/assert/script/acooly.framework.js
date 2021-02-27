@@ -720,7 +720,7 @@
                     for (var i = 0; i < rows.length; i++) {
                         ids.push(rows[i].id);
                     }
-                    $.acooly.framework.remove(url, ids.join(','), datagrid, confirmTitle, confirmMessage);
+                    $.acooly.framework.remove(url, ids.join(','), datagrid, confirmTitle, confirmMessage, successCallBack);
                 } else {
                     $.acooly.messager('提示', "请勾选要删除的记录", 'warning');
                 }
@@ -1091,7 +1091,7 @@
                     return;
                 }
                 var url = resourceUrl;
-                if(resourceUrl.indexOf("?") != -1){
+                if (resourceUrl.indexOf("?") != -1) {
                     url = resourceUrl.split("?")[0]
                 }
                 let urlArr = url.split("/");
