@@ -28,7 +28,6 @@ import java.io.IOException;
  * @date 2021-03-01 13:22
  */
 @Slf4j
-@Component
 public class OFileAccessAuthFilter extends AcoolyPortalAuthenticateFilter {
 
     @Resource(name = "ofileUploadAuthenticateSpringProxy")

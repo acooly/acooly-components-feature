@@ -12,6 +12,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import java.util.Map;
  *
  * @author zhangpu
  */
+@Primary
 @Service("ofileUploadAuthenticateSpringProxy")
 public class OFileUploadAuthenticateSpringProxy
         implements OFileUploadAuthenticate, ApplicationContextAware, InitializingBean {
