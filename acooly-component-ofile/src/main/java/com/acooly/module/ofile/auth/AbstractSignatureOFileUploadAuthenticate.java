@@ -56,18 +56,18 @@ public abstract class AbstractSignatureOFileUploadAuthenticate implements OFileU
 
             String serverSign = DigestUtils.md5Hex(signWaiting + getSecretKey(accessKey));
             if (!Strings.equals(serverSign, sign)) {
-                log.warn("上传签名认证 [失败] 签名认证未通过。clientSign:{}, serverSign:{}, serverSignWaiting：{}", sign, serverSign, signWaiting);
+                log.warn("OFile签名认证 [失败] 签名认证未通过。clientSign:{}, serverSign:{}, serverSignWaiting：{}", sign, serverSign, signWaiting);
                 throw new HttpServerErrorException(HttpStatus.UNAUTHORIZED, "签名认证未通过");
             }
 
-            log.info("上传签名认证 [成功] fileName:{},accessKey:{} ", fileName, accessKey);
+            log.info("OFile签名认证 [成功] fileName:{},accessKey:{} ", fileName, accessKey);
         } catch (IllegalArgumentException ie) {
-            log.warn("上传签名认证 [失败] 参数格式错误。 detail：{}", ie.getMessage());
+            log.warn("OFile签名认证 [失败] 参数格式错误。 detail：{}", ie.getMessage());
             throw new HttpServerErrorException(HttpStatus.BAD_REQUEST, ie.getMessage());
         } catch (HttpServerErrorException be) {
             throw be;
         } catch (Exception e) {
-            log.warn("上传签名认证 [失败] 内部处理异常。原因：{}", e.getMessage());
+            log.warn("OFile签名认证 [失败] 内部处理异常。原因：{}", e.getMessage());
             throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "认证处理失败");
         }
     }

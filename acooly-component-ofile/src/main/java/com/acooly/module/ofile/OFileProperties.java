@@ -47,17 +47,18 @@ public class OFileProperties implements InitializingBean {
      * 存储命名空间，默认为空，如果填写，文件存储路径会变为：storageRoot/storageNameSpace，如：/data/media/taodai
      */
     private String storageNameSpace;
-
-
     private String allowExtentions = "txt,zip,csv,xls,word,jpg,jpeg,gif,png";
     private long maxSize = 5242880;
     private int thumbnailSize = 200;
+
+    /**
+     * 访问静态资源是否认证
+     * （如果开启，则与上传的认证验证方式一致：session,sign）
+     */
+    private boolean accessAuthEnable = false;
     private boolean checkSession = false;
     private String checkSessionKey =
             "sessionCustomer,sessionUser,org.apache.shiro.subject.support.DefaultSubjectContext_PRINCIPALS_SESSION_KEY";
-    private boolean checkReferer = true;
-    private boolean enableLocalMapping = true;
-
     /**
      * 可配置的内置文件上传签名认证器
      */
@@ -70,6 +71,10 @@ public class OFileProperties implements InitializingBean {
      * 可配置的内置文件上传签名认证器: 安全码（秘钥）
      */
     private String configuredSignAuthSecretKey = "configuredSignAuthSecretKey";
+
+    private boolean checkReferer = true;
+    private boolean enableLocalMapping = true;
+
 
     /**
      * 开启后，上传的图片自动加水印图片，上传请求参数需要传入 watermarkImage = true
@@ -85,7 +90,7 @@ public class OFileProperties implements InitializingBean {
      * 开启后，上传的图片自动进行缩放
      */
     private ResizePicture resizePicture = new ResizePicture();
-    
+
 
     public String getStorageRoot() {
         return storageRoot;
@@ -243,5 +248,6 @@ public class OFileProperties implements InitializingBean {
          */
         private int height = 2000;
     }
+
 
 }

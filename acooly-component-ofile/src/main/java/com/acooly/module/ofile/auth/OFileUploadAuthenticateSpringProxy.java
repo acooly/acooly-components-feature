@@ -66,7 +66,7 @@ public class OFileUploadAuthenticateSpringProxy
                 continue;
             }
             servicesMap.put(entry.getKey(), entry.getValue());
-            logger.info("加载ofile文件上传认证实现:{}", entry.getKey());
+            logger.info("加载OFile认证实现:{}", entry.getKey());
         }
     }
 
