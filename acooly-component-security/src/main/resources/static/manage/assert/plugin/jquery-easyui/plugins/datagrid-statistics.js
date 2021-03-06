@@ -141,7 +141,18 @@ $.extend($.fn.datagrid.methods, {
         }
 
         function isStatics(fieldName,statics) {
-            return $(jq).find("th[field='"+fieldName+"']").attr(statics);
+            if($(jq).find("th[field='"+fieldName+"']").attr(statics)){
+                return true;
+            }
+            let result = false;
+            $.each(opt[0],function(i,e){
+                console.info('element:',$(this));
+                if(e.field == fieldName && e[statics]){
+                    result= true;
+                    return;
+                }
+            });
+            return result;
         }
 
         function sum(filed) {
