@@ -146,7 +146,6 @@ $.extend($.fn.datagrid.methods, {
             }
             let result = false;
             $.each(opt[0],function(i,e){
-                console.info('element:',$(this));
                 if(e.field == fieldName && e[statics]){
                     result= true;
                     return;
