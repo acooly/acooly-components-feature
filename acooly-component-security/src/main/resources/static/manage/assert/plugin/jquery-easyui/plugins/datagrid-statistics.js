@@ -19,7 +19,7 @@
  *
  */
 $.extend($.fn.datagrid.methods, {
-    statistics: function (jq, columns, hideLabel) {
+    statistics: function (jq, columns) {
         var opt = $(jq).datagrid('options').columns;
         var rows = $(jq).datagrid("getRows");
 
@@ -35,8 +35,20 @@ $.extend($.fn.datagrid.methods, {
         footer['max'] = "";
         footer['min'] = "";
 
+        let excludes;
+        let hideLabel = false;
         if (undefined != columns) {
-            var resultV = columns.split(",");
+            if (typeof columns == "string") {
+                excludes = columns;
+            } else {
+                // 扩展为opts的逻辑
+                excludes = columns.columns;
+                hideLabel = columns.hideLabel ? true : false;
+            }
+        }
+        if (undefined != excludes) {
+            // 原有参数逻辑
+            var resultV = excludes.split(",");
             for (var i = 0; i < resultV.length; i++) {
                 footer['sum'] = footer['sum'] + '"' + resultV[i] + '":"",';
                 footer['avg'] = footer['avg'] + '"' + resultV[i] + '":"",';
@@ -44,6 +56,7 @@ $.extend($.fn.datagrid.methods, {
                 footer['min'] = footer['min'] + '"' + resultV[i] + '":"",';
             }
         }
+
 
         for (var i = 0; i < opt[0].length; i++) {
             var fieldName = opt[0][i].field;
@@ -73,68 +86,70 @@ $.extend($.fn.datagrid.methods, {
             } else {
                 footer['min'] = footer['min'] + '"' + fieldName + '":"",';
             }
-
-//			console.log(footer['sum']);
         }
 
-        if (!hideLabel) {
-
-
-            if (footer['sum'] != "") {
-                var tmp = '{' + footer['sum'].substring(0, footer['sum'].length - 1) + "}";
-                var obj = eval('(' + tmp + ')');
+        if (footer['sum'] != "") {
+            var tmp = '{' + footer['sum'].substring(0, footer['sum'].length - 1) + "}";
+            var obj = eval('(' + tmp + ')');
+            if (!hideLabel) {
                 if (obj[opt[0][0].field] == undefined) {
                     footer['sum'] += '"' + opt[0][1].field + '":"<b>当页合计:</b>"';
                     obj = eval('({' + footer['sum'] + '})');
                 } else {
                     obj[opt[0][1].field] = "<b>当页合计:</b>" + obj[opt[0][0].field];
                 }
-                if (sumShow) {
-                    footerObj.push(obj);
-                }
             }
+            if (sumShow) {
+                footerObj.push(obj);
+            }
+        }
 
-            if (footer['avg'] != "") {
-                var tmp = '{' + footer['avg'].substring(0, footer['avg'].length - 1) + "}";
-                var obj = eval('(' + tmp + ')');
+        if (footer['avg'] != "") {
+            var tmp = '{' + footer['avg'].substring(0, footer['avg'].length - 1) + "}";
+            var obj = eval('(' + tmp + ')');
+            if (!hideLabel) {
                 if (obj[opt[0][0].field] == undefined) {
                     footer['avg'] += '"' + opt[0][1].field + '":"<b>当页均值:</b>"';
                     obj = eval('({' + footer['avg'] + '})');
                 } else {
                     obj[opt[0][1].field] = "<b>当页均值:</b>" + obj[opt[0][0].field];
                 }
-                if (avgShow) {
-                    footerObj.push(obj);
-                }
             }
+            if (avgShow) {
+                footerObj.push(obj);
+            }
+        }
 
-            if (footer['max'] != "") {
-                var tmp = '{' + footer['max'].substring(0, footer['max'].length - 1) + "}";
-                var obj = eval('(' + tmp + ')');
+        if (footer['max'] != "") {
+            var tmp = '{' + footer['max'].substring(0, footer['max'].length - 1) + "}";
+            var obj = eval('(' + tmp + ')');
+            if (!hideLabel) {
                 if (obj[opt[0][0].field] == undefined) {
                     footer['max'] += '"' + opt[0][1].field + '":"<b>当页最大值:</b>"';
                     obj = eval('({' + footer['max'] + '})');
                 } else {
                     obj[opt[0][1].field] = "<b>当页最大值:</b>" + obj[opt[0][0].field];
                 }
-                if (maxShow) {
-                    footerObj.push(obj);
-                }
             }
+            if (maxShow) {
+                footerObj.push(obj);
+            }
+        }
 
 
-            if (footer['min'] != "") {
-                var tmp = '{' + footer['min'].substring(0, footer['min'].length - 1) + "}";
-                var obj = eval('(' + tmp + ')');
+        if (footer['min'] != "") {
+            var tmp = '{' + footer['min'].substring(0, footer['min'].length - 1) + "}";
+            var obj = eval('(' + tmp + ')');
+            if (!hideLabel) {
                 if (obj[opt[0][0].field] == undefined) {
                     footer['min'] += '"' + opt[0][1].field + '":"<b>当页最小值:</b>"';
                     obj = eval('({' + footer['min'] + '})');
                 } else {
                     obj[opt[0][1].field] = "<b>当页最小值:</b>" + obj[opt[0][0].field];
                 }
-                if (minShow) {
-                    footerObj.push(obj);
-                }
+            }
+            if (minShow) {
+                footerObj.push(obj);
             }
         }
 
