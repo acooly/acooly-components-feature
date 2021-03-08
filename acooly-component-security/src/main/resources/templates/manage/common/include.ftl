@@ -92,6 +92,10 @@
     <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <!-- AdminLTE bs-custom-file-input -->
     <script src="/manage/assert/plugin/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- jquery.media for pdf view -->
+    <script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
+    <!-- clipboard -->
+    <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
 
     <!-- 自己定义的样式和JS扩展 -->
     <!-- acooly -->
