@@ -592,7 +592,7 @@ div.datagrid-cell > div > label {
 /** acooly search form custom */
 .ac-form-search .form-group {margin-right: 0.5rem;margin-top: 0.5rem;}
 .ac-form-search .form-group select{min-width: 80px;}
-.ac-form-search .form-group input[type=text]{min-width: 100px;}
+.ac-form-search .form-group input[type=text] { width: 100px;}
 .ac-form-search .form-group .select2-container--bootstrap4 .select2-selection--single{
     height: calc(1.8125rem + 2px) !important;;
     line-height: calc(1.8125rem + 2px) !important;
