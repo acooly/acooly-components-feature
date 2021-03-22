@@ -344,9 +344,9 @@ img {
 
 .form-horizontal .input-group-append { height: calc(2rem + 2px);}
 
-.select2-dropdown {
-    z-index: 10000;
-}
+.select2-dropdown {z-index: 10000;}
+/* 自定义select2高度后，让内部文字的显示自适应高度居中显示 */
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__placeholder {line-height: normal;}
 
 /** acooly search form custom */
 .ac-form-search .form-group {margin-right: 0.5rem;margin-top: 0.5rem;}
@@ -369,4 +369,17 @@ img {
     height: auto;
 }
 
+/* 表单内显示文字字段样式 */
 .col-form-content {padding-top: calc(.375rem + 1px);padding-bottom: calc(.375rem + 1px);margin-bottom: 0;font-size: inherit;line-height: 1.5;}
+
+/* tooltip默认样式 */
+.tooltip {
+    opacity: 1 !important;
+    color: #fff !important; /*字体颜色*/
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    min-width: 200px;
+    max-width: 300px;
+}
