@@ -617,7 +617,7 @@ div.datagrid-cell > div > label {
 /* tooltip默认样式 */
 .tooltip {
     opacity: 1 !important;
-    color: #fff !important; /*字体颜色*/
+    color: #fff; /*字体颜色*/
     background-color: rgba(0, 0, 0, 0.7);
     padding: 10px;
     border-radius: 8px;
