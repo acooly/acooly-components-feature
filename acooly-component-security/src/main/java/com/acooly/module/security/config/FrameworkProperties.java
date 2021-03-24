@@ -4,6 +4,7 @@ import com.acooly.module.defence.password.PasswordStrength;
 import com.acooly.module.security.domain.User;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author qiubo
@@ -42,15 +44,23 @@ public class FrameworkProperties implements Serializable {
     private String subtitle = "专注业务，最佳实践，代码生成，提高效率";
     private String logo = "/manage/assert/image/logo.png";
     private String logoMini = "/manage/assert/plugin/adminlte3/img/AdminLTELogo.png";
-    private String copyright = "Copyright © 2016 acooly. All rights reserved";
+    private String copyright = "Copyright © 2012 acooly. All rights reserved";
+
     /**
      * 外部扩展css
      */
     private List<String> styles = new ArrayList<>();
+
     /**
      * 外部扩展js
      */
     private List<String> scripts = new ArrayList<>();
+    /**
+     * 模块级外部扩展JS，用于组件内植入JS，解决scripts下标配置冲突问题。
+     */
+    private Map<String, List<String>> customScripts = Maps.newHashMap();
+
+    private Map<String, List<String>> customStyles = Maps.newHashMap();
 
     /**
      * 是否开启同名用户登录互斥 开关 [未实现]
@@ -127,6 +137,25 @@ public class FrameworkProperties implements Serializable {
             this.title = title;
             this.logo = null;
         }
+    }
+
+
+    public Set<String> mergeScripts() {
+        Set<String> scriptList = Sets.newHashSet();
+        scriptList.addAll(this.scripts);
+        for (List<String> customScript : this.customScripts.values()) {
+            scriptList.addAll(customScript);
+        }
+        return scriptList;
+    }
+
+    public Set<String> mergeStyles() {
+        Set<String> styleList = Sets.newHashSet();
+        styleList.addAll(this.styles);
+        for (List<String> customStyle : this.customStyles.values()) {
+            styleList.addAll(customStyle);
+        }
+        return styleList;
     }
 
 }

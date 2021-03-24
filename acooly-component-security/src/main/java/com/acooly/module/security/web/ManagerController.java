@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import static com.acooly.core.utils.security.JWTUtils.SIGN_KEY;
 import static com.acooly.module.security.shiro.realm.ShiroDbRealm.SESSION_USER;
@@ -172,7 +173,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
             request.setAttribute("passwordRegex", frameworkProperties.getPasswordStrength().getRegexForJs());
             request.setAttribute("notFirstVerify", !securityCaptchaManager.isFirstVerify(request));
             request.setAttribute("loginSmsEnable", "true");
-                return "/manage/login";
+            return "/manage/login";
         }
     }
 
@@ -270,7 +271,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
     }
 
     private void doExtendResources(HttpServletRequest request, Model model) {
-        List<String> scripts = frameworkProperties.getScripts();
+        Set<String> scripts = frameworkProperties.mergeScripts();
         if (Collections3.isNotEmpty(scripts)) {
             StringBuilder sb = new StringBuilder();
             for (String script : scripts) {
@@ -278,7 +279,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
             }
             model.addAttribute("extendScripts", sb.toString());
         }
-        List<String> styles = frameworkProperties.getStyles();
+        Set<String> styles = frameworkProperties.mergeStyles();
         if (Collections3.isNotEmpty(styles)) {
             StringBuilder sb = new StringBuilder();
             for (String style : styles) {
