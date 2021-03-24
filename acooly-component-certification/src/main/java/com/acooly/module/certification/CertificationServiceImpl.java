@@ -6,6 +6,7 @@
 package com.acooly.module.certification;
 
 import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.enums.ResultStatus;
 import com.acooly.module.certification.cert.*;
 import com.acooly.module.certification.enums.*;
@@ -104,12 +105,10 @@ public class CertificationServiceImpl implements CertificationService {
         BankCardResult result = new BankCardResult();
         BankCertificationRecord record = bankCertificationRecordService.findEntityByCardNo(cardNo);
         try {
-            if (record != null && record.getStatus() == 1) {
-                if (!record.getRealName().equals(realName) || !record.getCertId().equals(certId) ||
-                        !record.getPhoneNum().equals(phoneNum)) {
-                    log.info("四要素绑定入参realName={},cardNo={},certId={},phoneNum={},与已有绑定记录不一致", realName, cardNo, certId, phoneNum, record);
-                    throw new CertficationException(ResultStatus.failure.getCode(), "该卡已被绑定");
-                }
+            // 保守处理，当银行卡绑定记录存在，且四要素信息均相同，则直接返回绑卡信息，否则则进行要素校验
+            if (record != null && record.getStatus() == 1 && Strings.equals(record.getRealName(), realName) && Strings.equals(record.getCertId(), certId)
+                    && Strings.equals(record.getPhoneNum(), phoneNum)) {
+                log.info("该卡已完成绑定，返回已绑定的银行卡信息");
                 result.setBelongArea(record.getBelongArea());
                 result.setBankTel(record.getBankTel());
                 result.setBrand(record.getBrand());
