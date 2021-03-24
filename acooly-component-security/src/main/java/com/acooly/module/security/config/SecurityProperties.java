@@ -118,6 +118,12 @@ public class SecurityProperties {
         private List<Map<String, String>> urls = Lists.newLinkedList();
 
         /**
+         * 扩展配置的URLs
+         * 格式：acooly.security.shiro.config-urls[0]=/manage/xxx/**,authc
+         */
+        private List<String> configUrls = Lists.newLinkedList();
+
+        /**
          * 自定义Filter列表，对应shiro.ini中的[filters]标签，格式如：
          *
          *
@@ -161,6 +167,17 @@ public class SecurityProperties {
             Map<String, String> url = Maps.newHashMap();
             url.put(key, value);
             urls.add(url);
+        }
+
+
+        public List<Map<String, String>> getMergeUrls() {
+            for (String s : this.configUrls) {
+                String[] sa = s.split(",");
+                if (sa != null && sa.length == 2) {
+                    addUrlFilter(sa[0], sa[1]);
+                }
+            }
+            return this.urls;
         }
     }
 

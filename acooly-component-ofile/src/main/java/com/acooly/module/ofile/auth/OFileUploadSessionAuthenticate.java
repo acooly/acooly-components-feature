@@ -36,7 +36,7 @@ public class OFileUploadSessionAuthenticate implements OFileUploadAuthenticate {
                 return;
             }
         }
-        throw new OFileUploadException(CommonErrorCodes.UNAUTHENTICATED_ERROR, "Session认证未通过");
+        throw new OFileUploadException(CommonErrorCodes.UNAUTHENTICATED_ERROR, "OFile认证未通过");
     }
 
 

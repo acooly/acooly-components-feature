@@ -177,10 +177,8 @@
                         $.parser.onComplete = function () {
                             //要执行的操作
                             $.acooly.framework.extendCombobox($(that));
-                            //Initialize Select2 and inputmask
-                            $.acooly.framework.initSelect($(that));
-                            // $('.select2bs4').select2({theme: 'bootstrap4',});
-                            // $('[data-mask]').inputmask();
+                            //Initialize
+                            $.acooly.framework.initPlugins($(that));
                             //最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () {
                             };
@@ -325,10 +323,8 @@
                         $.parser.onComplete = function () {
                             // 处理combobox的宽度
                             $.acooly.framework.extendCombobox($(that));
-                            //Initialize Select2 and inputmask
-                            $.acooly.framework.initSelect($(that));
-                            // $(that).find('.select2bs4').select2({theme: 'bootstrap4',});
-                            // $(that).find('[data-mask]').inputmask();
+                            //Initialize
+                            $.acooly.framework.initPlugins($(that));
                             // 最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () {
                             };
@@ -411,7 +407,7 @@
             initPage: function (searchForm, datagride) {
                 this.registerKeydown(searchForm, datagride);
                 this.extendCombobox(searchForm);
-                this.initSelect(searchForm);
+                this.initPlugins(searchForm);
             },
 
             /**
@@ -720,7 +716,7 @@
                     for (var i = 0; i < rows.length; i++) {
                         ids.push(rows[i].id);
                     }
-                    $.acooly.framework.remove(url, ids.join(','), datagrid, confirmTitle, confirmMessage);
+                    $.acooly.framework.remove(url, ids.join(','), datagrid, confirmTitle, confirmMessage, successCallBack);
                 } else {
                     $.acooly.messager('提示', "请勾选要删除的记录", 'warning');
                 }
@@ -1074,10 +1070,30 @@
                 });
             },
 
+            /**
+             * 初始化select2和data-mask
+             * 已废弃，参考：acooly.framework.initPlugins
+             * @param container
+             * @deprecated
+             */
             initSelect: function (container) {
                 var obj = container && container.jquery ? container : $('#' + container)
                 $(obj).find('.select2bs4').select2({theme: 'bootstrap4'});
                 $(obj).find('[data-mask]').inputmask();
+            },
+
+            /**
+             * 初始化编辑界面
+             * @param container
+             */
+            initPlugins: function (container) {
+                let obj = container && container.jquery ? container : $('#' + container)
+                // select2
+                $(obj).find('.select2bs4').select2({theme: 'bootstrap4'});
+                // data-mask
+                $(obj).find('[data-mask]').inputmask();
+                // bootstrap-tooltip
+                $('[data-toggle="tooltip"]').tooltip();
             },
 
             /**
@@ -1091,7 +1107,7 @@
                     return;
                 }
                 var url = resourceUrl;
-                if(resourceUrl.indexOf("?") != -1){
+                if (resourceUrl.indexOf("?") != -1) {
                     url = resourceUrl.split("?")[0]
                 }
                 let urlArr = url.split("/");

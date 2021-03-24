@@ -94,6 +94,9 @@
     <script src="/manage/assert/plugin/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- jquery.media for pdf view -->
     <script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
+    <!-- clipboard -->
+    <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
+
     <!-- 自己定义的样式和JS扩展 -->
     <!-- acooly -->
     <script src="/manage/assert/script/acooly.js" charset="utf-8"></script>

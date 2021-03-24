@@ -11,6 +11,8 @@ package com.acooly.module.ofile;
 
 import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.dao.support.StandardDatabaseScriptIniter;
+import com.acooly.module.ofile.auth.OFileAccessAuthFilter;
+import com.acooly.module.ofile.auth.OFileUploadAuthenticate;
 import com.acooly.module.ofile.support.DefaultOfileSupportService;
 import com.acooly.module.ofile.support.OfileSupportService;
 import com.acooly.module.security.config.SecurityAutoConfig;
@@ -21,6 +23,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -88,4 +91,28 @@ public class OFileAutoConfig extends WebMvcConfigurerAdapter {
             return new DefaultOfileSupportService();
         }
     }
+
+    @Configuration
+    @ConditionalOnProperty(value = "acooly.ofile.accessAuthEnable", matchIfMissing = true)
+    public static class OFileAccessAuthConfiguration {
+
+        @Autowired
+        private OFileProperties oFileProperties;
+
+        @Bean
+        public OFileAccessAuthFilter oFileAccessAuthFilter(OFileUploadAuthenticate oFileUploadAuthenticate) {
+            OFileAccessAuthFilter oFileAccessAuthFilter = new OFileAccessAuthFilter();
+            oFileAccessAuthFilter.setAuthIncludes(oFileProperties.getServerRoot() + "/**/*");
+            return oFileAccessAuthFilter;
+        }
+
+        @Bean
+        public FilterRegistrationBean ofileAccessAuthFilterRegistrationBean(OFileAccessAuthFilter oFileAccessAuthFilter) {
+            FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+            filterRegistrationBean.setFilter(oFileAccessAuthFilter);
+            return filterRegistrationBean;
+        }
+    }
+
+
 }

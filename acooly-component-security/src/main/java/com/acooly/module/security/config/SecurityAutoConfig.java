@@ -304,7 +304,7 @@ public class SecurityAutoConfig {
         }
 
         private String getFilterChainDefinitions(SecurityProperties securityProperties) {
-            List<Map<String, String>> urls = securityProperties.getShiro().getUrls();
+            List<Map<String, String>> urls = securityProperties.getShiro().getMergeUrls();
             if (CollectionUtils.isEmpty(urls)) {
                 return "";
             }
