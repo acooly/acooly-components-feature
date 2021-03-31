@@ -72,7 +72,7 @@
 //						console.log(yShafts);
 					//倒计时刷新
 					refreshTimeValue(${chartItemId},${loopTime}/1000);
-
+					
 					//动态数据解决					
 					barChartDraw(title,legendData,xShaft,yShafts);
 				}

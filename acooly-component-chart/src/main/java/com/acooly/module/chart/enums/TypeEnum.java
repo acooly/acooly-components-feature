@@ -30,7 +30,8 @@ public enum TypeEnum implements Messageable {
 
 	pie("pie", "饼图"),
 	
-
+	map_China("map_China", "中国地图"),
+	
 	;
 
 	private final String code;

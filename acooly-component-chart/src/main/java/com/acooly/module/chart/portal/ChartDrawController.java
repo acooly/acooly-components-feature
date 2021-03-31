@@ -116,7 +116,7 @@ public class ChartDrawController {
 	 * @return
 	 */
 	@RequestMapping(value = { "charData_line_{chartItemId}", "charData_bar_{chartItemId}", "charData_pie_{chartItemId}",
-			"charData_bar_stack_{chartItemId}" })
+			"charData_bar_stack_{chartItemId}", "charData_map_China_{chartItemId}" })
 	@ResponseBody
 	public JsonResult charData(@PathVariable("chartItemId") String chartItemId, HttpServletRequest request,
 			HttpServletResponse response, Model model) {

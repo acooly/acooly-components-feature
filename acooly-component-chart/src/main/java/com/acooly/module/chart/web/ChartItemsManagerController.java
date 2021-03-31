@@ -66,7 +66,7 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 	protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
 		model.put("allTypes", TypeEnum.mapping());
 		model.put("allStatuss", StatusEnum.mapping());
-		model.put("allChartItemsIsShows", ChartItemsIsShowEnum.mapping());
+		model.put("allIsShows", ChartItemsIsShowEnum.mapping());
 	}
 
 	@Override

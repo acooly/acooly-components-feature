@@ -84,7 +84,7 @@ public class ChartDataAnalyseService {
 		} catch (Exception e) {
 			throw new RuntimeException("数据解析错误,请检查数据查询结果" + e);
 		}
-		logger.info("图表数据:标题：[{}],数据库查询结果：{},数据解析后结果：{}", title, dbData, dto);
+		logger.debug("图表数据:标题：[{}],数据库查询结果：{},数据解析后结果：{}", title, dbData, dto);
 		return dto;
 	}
 }

@@ -4,7 +4,7 @@
 <!-- date: 2019-11-04 -->
 ## 1. 组件介绍
 
-acooly-component-chart 以acooly框架为基础, 集成Apache ECharts(前身:百度echarts)图表；支持 折线图，柱状图，饼图，柱状-堆叠图；动态sql语法解析，动态转换为不同的图表展示；
+acooly-component-chart 以acooly框架为基础, 集成Apache ECharts(前身:百度echarts)图表；支持 折线图，柱状图，饼图，柱状-堆叠图,中国地图；动态sql语法解析，动态转换为不同的图表展示；
 
 参考：[echartsjs](https://echarts.apache.org/zh/index.html);  网址：https://echarts.apache.org/zh/index.html
 
@@ -38,7 +38,7 @@ maven坐标：
 
 
 * 主题项试图访问：/manage/module/echarts/chartItem___{type}___{chartItemId}.html
-* type说明：line:折线图，bar:柱状图，pie:饼图,bar___stack:柱状-堆叠图
+* type说明：line:折线图，bar:柱状图，pie:饼图,bar___stack:柱状-堆叠图, map____China:中国地图
 
 
 * 数据加载访问：
@@ -46,10 +46,22 @@ maven坐标：
 * 柱状图：/manage/module/echarts/charDatat___bar___{chartItemId}.html
 * 柱状-堆叠图：/manage/module/echarts/charDatat___bar___stack___{chartItemId}.html
 * 饼图：/manage/module/echarts/charDatat___pie___{chartItemId}.html
+* 中国地图：/manage/module/echarts/charData____map______China______{chartItemId}.html
 
 
-## 3.版本说明
+## 3.版本更新说明
 
+#### 2021-03-31
+
+* 1.新增 中国地图 图表, 中国省名编码可以参考：组件：acooly-component-data    表(data_region);
+* 2.修复 动态数据倒计时bug;
+* 3.echarts升级到  5.0.2版本 (发布时间：2021/2/6);
+
+###### 中国地图 使用说明
+
+* 1. 目前支持中国省份，暂不支持地级市
+* 2. x轴 定义为 省份，y轴 定义统计值 
+* 3. 数据显示选项说明：选项是：鼠标离开图表后，随机展示各个省份统计数据；选项否：鼠标移到省份后显示统计数据
 
 #### 2020-12-07
 
@@ -62,8 +74,6 @@ maven坐标：
 #### 2019-03-21
 
 * 1.支持数据值显示在图形上：（支持：折线图，柱状图，饼图,柱状-堆叠图；默认关闭）
-
-
 
 #### 2018-10-10
 
