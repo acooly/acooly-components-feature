@@ -136,6 +136,8 @@
 	                  formatter:function(params, ticket, callback){
 	                    	 if(!isNaN(params.value)){
 	 	                        return params.name+' ：'+params.value;
+                             }else{
+ 	 	                        return params.name+' ：'+0;
                              }
 	                    }
 	                },
