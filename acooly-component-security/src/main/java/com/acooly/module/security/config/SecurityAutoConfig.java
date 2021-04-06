@@ -9,8 +9,10 @@
  */
 package com.acooly.module.security.config;
 
+import com.acooly.core.common.boot.ApplicationContextHolder;
 import com.acooly.core.common.boot.EnvironmentHolder;
 import com.acooly.core.common.dao.support.StandardDatabaseScriptIniter;
+import com.acooly.core.utils.security.JWTUtils;
 import com.acooly.module.jpa.JPAAutoConfig;
 import com.acooly.module.security.captche.CaptchaServlet;
 import com.acooly.module.security.captche.SecurityCaptchaManager;
@@ -115,6 +117,9 @@ public class SecurityAutoConfig {
         configuration.setSharedVariable("shiroPrincipal", new PrincipalTag());
         configuration.setSharedVariable("shiro", new ShiroFreemarkerTags());
         LoggerFactory.getLogger("Main").info("shiro freemarker tag initialized.");
+
+        //set redisTemplate
+        JWTUtils.setRedisTemplate(ApplicationContextHolder.get().getBean("redisTemplate", RedisTemplate.class));
     }
 
     @Configuration
