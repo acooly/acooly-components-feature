@@ -93,7 +93,7 @@ public class OFileAutoConfig extends WebMvcConfigurerAdapter {
     }
 
     @Configuration
-    @ConditionalOnProperty(value = "acooly.ofile.accessAuthEnable", matchIfMissing = true)
+    @ConditionalOnProperty(value = "acooly.ofile.accessAuthEnable", matchIfMissing = false)
     public static class OFileAccessAuthConfiguration {
 
         @Autowired
