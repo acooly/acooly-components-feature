@@ -364,10 +364,7 @@
 <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
-
 <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
-
 <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.layout.js" charset="utf-8"></script>

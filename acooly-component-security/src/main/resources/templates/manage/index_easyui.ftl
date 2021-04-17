@@ -25,12 +25,16 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- pace-progress -->
+    <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
     <!-- easyui控件 -->
     <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/default/easyui.css" type="text/css"/>
     <link id="easyuiThemeBasic" rel="stylesheet"  href="/manage/assert/plugin/jquery-easyui/themes/default/basic.css">
     <link rel="stylesheet" type="text/css" href="/manage/assert/style/icon.css">
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/icon.css" type="text/css"/>
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui-portal/portal.css" type="text/css"/>
+    <!-- videoJs -->
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/videojs/video-js.css" type="text/css"/>
     <!-- 扩展css -->
     ${extendStyles}
 </head>
@@ -77,12 +81,23 @@
 <script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
 <!-- inputmask -->
 <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<!-- AdminLTE bs-custom-file-input -->
+<script src="/manage/assert/plugin/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- jquery.media for pdf view -->
+<script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
+<!-- clipboard -->
+<script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
+<!-- videoJs -->
+<script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
+<script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
+
 
 <!-- 自己定义的样式和JS扩展 -->
 <script src="/manage/assert/script/acooly.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
+<script src="/manage/assert/script/acooly.file.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>

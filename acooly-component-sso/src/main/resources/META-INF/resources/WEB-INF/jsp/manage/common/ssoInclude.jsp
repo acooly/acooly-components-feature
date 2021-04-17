@@ -36,7 +36,8 @@
     <link id="easyuiThemeBasic" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.css">
     <link rel="stylesheet" type="text/css" href="/manage/assert/style/icon.css">
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/icon.css" type="text/css"/>
-
+    <!-- videoJs -->
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/videojs/video-js.css" type="text/css"/>
 
     <!-- 扩展css -->
     ${extendStyles}
@@ -96,6 +97,9 @@
     <script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
     <!-- clipboard -->
     <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
+    <!-- videoJs -->
+    <script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
+    <script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
 
     <!-- 自己定义的样式和JS扩展 -->
     <!-- acooly -->
@@ -103,7 +107,7 @@
     <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
-    <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.file.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
