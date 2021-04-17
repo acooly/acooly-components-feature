@@ -214,8 +214,8 @@ var fileSizeFormatter = function (value) {
 var fileFormatter = function (value, row, index, data) {
     let fileMeta = $.acooly.file.parse(value);
     let url = value;
-    if(data && data.serverRoot){
-        url = data.serverRoot + value;
+    if(data && data.data && data.data.serverRoot){
+        url = data.data.serverRoot + value;
     }
     let html = "<a href='javascript:;' onclick=\"$.acooly.file.play('"+url+"')\"><i class='fa " + fileMeta.icon + " fa-fw fa-col'></i> " + fileMeta.name + "</a>"
     return html;
