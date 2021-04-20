@@ -1094,6 +1094,8 @@
                 $(obj).find('[data-mask]').inputmask();
                 // bootstrap-tooltip
                 $('[data-toggle="tooltip"]').tooltip();
+                // init FileInput
+                bsCustomFileInput.init();
             },
 
             /**
