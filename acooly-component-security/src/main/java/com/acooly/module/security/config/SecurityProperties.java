@@ -26,10 +26,12 @@ import java.util.Map;
 // OK: 1.后台管理的资源管理功能待完善
 // OK: 2.新老版本切换的cookies保存功能
 // OK: 3.新版登录后的首个菜单自动展开;菜单的点击选中效果
-// todo: 4.开发新版的登录界面
+// todo: 4.开发新版的登录界面 for 5.1, 不急，换个心情而已
 // todo: 5.后台的notication功能（集成notice组件并扩展支持web后台）
 // OK: 6.新版：左边菜单缩放后，界面resize自适应
 // OK: 7.优化表单验证的错误提示样式，输入框应该有颜色提示。
+// OK: 8.文件自动浏览脚本acooly.file.在打开图片时，如果图片太高，会操作窗口界面，要根据当前窗口大小进行有效计算。
+// todo: 9.找回密码（主要考虑短信还是邮件文件）
 @ConfigurationProperties(SecurityProperties.PREFIX)
 @Getter
 @Setter

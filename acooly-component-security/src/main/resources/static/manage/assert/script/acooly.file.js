@@ -71,7 +71,6 @@ let acooly_file = {
     playImage: function (resourceUrl, opts) {
         let data = this.parse(resourceUrl);
         let defOpts = {
-            width: 800, height: 600,
             maximizable: false, modal: true,
             title: " <i class='fa " + data.icon + "' aria-hidden='true'></i> " + data.name,
             onClose: function () {
@@ -79,6 +78,12 @@ let acooly_file = {
             }
         };
         let options = $.extend(defOpts, opts);
+        if(!options.width){
+            options.width = (document.documentElement.clientWidth ||  document.body.clientWidth) - 100;
+        }
+        if(!options.height){
+            options.height = (document.documentElement.clientHeight || document.body.clientHeight) - 100;
+        }
         let realWidth, realHeight;
         $("<img/>").attr("src", resourceUrl).load(function () {
             realWidth = this.width;
@@ -88,6 +93,11 @@ let acooly_file = {
             if (realWidth > maxWidth) {
                 width = maxWidth;
                 height = (width * realHeight / realWidth);
+            }
+            realHeight = height;
+            if(height > maxHeight){
+                height = maxHeight
+                width = (height * width) / realHeight
             }
             options.width = width + 20;
             options.height = height + 55;
