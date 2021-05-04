@@ -14,6 +14,12 @@ Inputmask.extendAliases({
     },
     'percent': {
         alias: "percentage",
+        digits: 0,
+        rightAlign:false,
+        suffix: ''
+    },
+    'centPercent': {
+        alias: "percentage",
         rightAlign:false,
         suffix: ''
     },
