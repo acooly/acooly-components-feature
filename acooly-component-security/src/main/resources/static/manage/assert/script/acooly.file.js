@@ -102,6 +102,8 @@ let acooly_file = {
             }
             options.width = width + 20;
             options.height = height + 55;
+            options.width = options.width < 300 ? 300:options.width;
+            options.height = options.height < 200 ? 200:options.height;
             options.content = "<div style='text-align: center;'><a href='" + resourceUrl + "' target='_blank'>" +
                 "<img style='width: " + width + "px;height: " + height + "px' src='" + resourceUrl + "'></a></div>"
             $('<div/>').dialog(options);
