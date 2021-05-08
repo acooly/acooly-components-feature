@@ -212,6 +212,7 @@ var fileSizeFormatter = function (value) {
 }
 
 var fileFormatter = function (value, row, index, data) {
+    if(!value || value=='') return null;
     let fileMeta = $.acooly.file.parse(value);
     let url = value;
     if(data && data.data && data.data.serverRoot){

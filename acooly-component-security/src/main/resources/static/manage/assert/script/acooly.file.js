@@ -4,6 +4,7 @@
  */
 let acooly_file = {
     play: function (resourceUrl, opts) {
+        if(!resourceUrl || resourceUrl == '') return;
         if (this.SERVER_ROOT != '') {
             if (!resourceUrl.startsWith(this.SERVER_ROOT)) {
                 resourceUrl = this.SERVER_ROOT + resourceUrl;
