@@ -69,7 +69,7 @@
                 format = 'yyyy-MM-dd HH:mm:ss'
             }
             if (typeof (d) == 'string') {
-                d = d.replace(/-/g,"/");
+                d = d.replace(/-/g, "/");
                 d = new Date(d);
             }
             return this._dateFormat(d, format);
@@ -134,8 +134,7 @@
                 return '';
             if (!label)
                 label = '查看';
-            var html = '<a href="' + url + '" target="_blank">' + label
-                + '</a>';
+            let html = '<a href="' + url + '" title="' + url + '" target="_blank">' + label + '</a>';
             return html;
         },
 
