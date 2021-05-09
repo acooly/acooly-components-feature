@@ -625,3 +625,12 @@ div.datagrid-cell > div > label {
     min-width: 200px;
     max-width: 300px;
 }
+
+/* show界面的等行高样式 */
+.card-body dt,.card-body dd{
+    padding-top: calc(.375rem + 1px);
+    padding-bottom: calc(.375rem + 1px);
+    margin-bottom: 0;
+    font-size: inherit;
+    line-height: 1.5;
+}
