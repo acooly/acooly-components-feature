@@ -1,4 +1,5 @@
-<!-- title: 后台管理框架组件   -->
+<!-- title: 后台管理框架组件 -->
+<!-- name: acooly-component-security -->
 <!-- type: app -->
 <!-- author: zhangpu,qiubo,shuijing -->
 <!-- date: 2019-11-30 -->
