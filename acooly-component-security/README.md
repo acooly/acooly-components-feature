@@ -189,4 +189,5 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 * 2020-01-14 - fixed：PasswordStrength为低等级时，支持高等级的密码。例如：simple可支持：AA123!@#$模式的密码。
 
 
+
              
