@@ -183,6 +183,8 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 
 ### 5.0.0-SNAPSHOT-20200114
 
+2020-01-14
+
 * 2020-01-14 - fixed：资源权限管理中，从下层拖动到顶层时无法正确报错位置的问题。 - [zhangpu] 763906e
 * 2020-01-14 - fixed：PasswordStrength为低等级时，支持高等级的密码。例如：simple可支持：AA123!@#$模式的密码。
 
