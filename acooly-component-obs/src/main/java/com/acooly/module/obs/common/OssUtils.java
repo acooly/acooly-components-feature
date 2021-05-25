@@ -25,6 +25,6 @@ public class OssUtils {
         String basePath = Dates.format(new Date(), "yyyy/MM/dd");
         String randomId = Ids.oid();
         String fileExt = Files.getFileExtension(filePath);
-        return result.concat(basePath).concat(randomId).concat(".").concat(fileExt);
+        return result.concat(basePath).concat("/").concat(randomId).concat(".").concat(fileExt);
     }
 }
