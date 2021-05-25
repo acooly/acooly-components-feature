@@ -1,7 +1,9 @@
 <!-- title: 短信聚合组件  -->
+<!-- name:acooly-component-smsend -->
 <!-- type: app -->
 <!-- author: zhangpu -->
 <!-- date: 2020-05-21 -->
+
 ## 1. 简介
 
 此组件提供聚合多个短信通道的发送短信能力，可自动采用可用渠道重发，是作为短信微服务的基础。
@@ -29,6 +31,7 @@
 maven坐标：
 
 ```xml
+
 <dependency>
     <groupId>com.acooly</groupId>
     <artifactId>acooly-component-smsend-core</artifactId>
@@ -50,6 +53,7 @@ maven坐标：
 服务器端需引入OpenApi的模块支持：
 
 ```xml
+
 <dependency>
     <groupId>com.acooly</groupId>
     <artifactId>acooly-component-smsend-openapi</artifactId>
@@ -134,6 +138,7 @@ acooly.appservice.scanPackages.smsend=com.acooly.module.smsend
 短信服务提供统一的短信模板映射管理功能。在我们自己的短信服务中定义模板ID，然后配置不同短信渠道对应的渠道模板ID，当短信聚合发送服务自动选择发送渠道的时候，转换为对应的渠道模板ID。
 
 例如：
+
 * 短信服务自定义模板ID（app1-login-verify）-(aliyun)-> MS-121212
 * 短信服务自定义模板ID（app1-login-verify）-(容联云)-> 181212
 
@@ -150,12 +155,12 @@ acooly.appservice.scanPackages.smsend=com.acooly.module.smsend
 新增对短信发送记录的日志汇总和分析功能。
 
 ```xml
+
 <dependency>
     <groupId>com.acooly</groupId>
     <artifactId>acooly-component-smsend-analysis</artifactId>
 </dependency>
 ```
-
 
 参数配置：
 
@@ -168,9 +173,7 @@ acooly.smsend.analysis.summary-enable=true
 acooly.smsend.analysis.summary-cron=*/5 * * * * *
 ```
 
->注意：比可以选择使用`acooly-component-scheduler`分布式调度来执行每日汇总任务。你需要设置`acooly.smsend.analysis.summary-enable=false`关闭组件内置的定时任务，然后在你的工程中注入和调用：`SmsSendDayService.daySummary()`执行汇总任务。
-
-
+> 注意：比可以选择使用`acooly-component-scheduler`分布式调度来执行每日汇总任务。你需要设置`acooly.smsend.analysis.summary-enable=false`关闭组件内置的定时任务，然后在你的工程中注入和调用：`SmsSendDayService.daySummary()`执行汇总任务。
 
 ## 4. 短信发送客户端
 
@@ -179,11 +182,13 @@ acooly.smsend.analysis.summary-cron=*/5 * * * * *
 ### 4.1 集成
 
 ```xml
+
 <dependency>
     <groupId>com.acooly</groupId>
     <artifactId>acooly-component-smsend-client</artifactId>
 </dependency>
 ```
+
 `${acooly-latest-version}`为框架最新版本(5.x)或者购买的版本，一般不用管理，在parent中已集中管理。
 
 ### 4.2 配置
@@ -219,7 +224,6 @@ acooly.smsend.client.gateway=http://127.0.0.1:9010/gateway.do
 acooly.smsend.client.access-key=test
 acooly.smsend.client.secret-key=06f7aab08aa2431e6dae6a156fc9e0b4
 ```
-
 
 ### 4.3 接口
 
@@ -269,6 +273,7 @@ public interface SmsSendClientService {
 ### 4.3 Demo
 
 ```java
+
 @Slf4j
 @RestController
 @RequestMapping("/smssend/test/")
@@ -277,7 +282,7 @@ public class SmsSenderTestController {
 
     @Autowired
     private SmsSendClientService smsSendClientService;
-    
+
     @RequestMapping("sendTemplate")
     public Object facadeSendTemplate(HttpServletRequest request) {
         // 短信服务统一分配的发送应用的Id
@@ -291,20 +296,20 @@ public class SmsSenderTestController {
         Map<String, String> smsParam = new ListOrderedMap<String, String>();
         smsParam.put("captcha", "121312");
         smsParam.put("effectiveMinute", "10");
-        
+
         // 构造函数方式
         // SmsSendOrder smsSendOrder = new SmsSendOrder(appId, "189000000", templateCode, smsParam, contentSign, clientIp);
-        
+
         // 快捷方式
         SmsSendOrder smsSendOrder = SmsSendOrder.newOrder().appId(appId).addMobileNo(mobileNo).templateCode(templateCode)
                 .addTemplateParam("code", "121312").addTemplateParam("iphone", mobileNo).addTemplateParam("effectiveMinute", "5")
                 .contentSign(contentSign).clientIp(clientIp);
-        
+
         // gid和partnerId可选，客户端会自动补全。
         String gid = Ids.gid();
         smsSendOrder.setGid(gid);
         smsSendOrder.setPartnerId(appId);
-        
+
         // 客户端调用
         return smsSendClientService.send(smsSendOrder);
     }
