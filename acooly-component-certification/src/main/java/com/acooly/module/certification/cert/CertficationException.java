@@ -14,11 +14,13 @@ public class CertficationException extends BusinessException {
 
     private String resultCode;
     private String resultMessage;
+    private String detail;
 
     public CertficationException() {
         super();
     }
 
+    @Deprecated
     public CertficationException(String resultCode, String resultMessage) {
         super();
         this.resultCode = resultCode;
@@ -26,11 +28,11 @@ public class CertficationException extends BusinessException {
         this.resultMessage = resultMessage;
     }
 
-    public CertficationException(String resultCode, String resultMessage, String message) {
-        super(message);
+    public CertficationException(String resultCode, String resultMessage, String detail) {
+        super(detail);
         this.resultCode = resultCode;
-        this.setCode(resultCode);
         this.resultMessage = resultMessage;
+        this.detail = detail;
     }
 
     public String getResultCode() {

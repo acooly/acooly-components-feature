@@ -1,5 +1,6 @@
 package com.acooly.module.certification.cert.impl;
 
+import com.acooly.core.common.facade.ResultCode;
 import com.acooly.core.utils.enums.ResultStatus;
 import com.acooly.module.certification.CertificationProperties;
 import com.acooly.module.certification.cert.BankCardCertService;
@@ -101,12 +102,12 @@ public class AliBankCardCertServiceImpl implements BankCardCertService {
             if (throwable instanceof ConnectTimeoutException
                     || throwable instanceof java.net.SocketTimeoutException
                     || throwable instanceof ConnectException) {
-                throw new CertficationException(ResultStatus.failure.getCode(), "连接超时:" + e.getMessage());
+                throw new CertficationException(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMessage(), "连接超时:" + e.getMessage());
             } else if (throwable instanceof UnknownHostException) {
                 throw new CertficationException(
-                        ResultStatus.failure.getCode(), "UnknownHost:" + e.getMessage());
+                        ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMessage(), "UnknownHost:" + e.getMessage());
             } else {
-                throw new CertficationException(ResultStatus.failure.getCode(), e.getMessage());
+                throw new CertficationException(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMessage(), e.getMessage());
             }
         }
         return result;
@@ -116,8 +117,7 @@ public class AliBankCardCertServiceImpl implements BankCardCertService {
 
         log.info("调用银行卡二三四要素校验接口返回:{}", response.getBody());
         if (StringUtils.isEmpty(response.getBody())) {
-            throw new CertficationException(
-                    ResultStatus.failure.getCode(), "银行卡二三四要素校验返回空:" + response.getErrorMessage());
+            throw new CertficationException(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMessage(), "银行卡二三四要素校验返回空:" + response.getErrorMessage());
         }
 
         BankCardResult result = new BankCardResult();
@@ -127,7 +127,7 @@ public class AliBankCardCertServiceImpl implements BankCardCertService {
         String resError = total.getString("showapi_res_error");
 
         if (!SUCCESS_CODE.equals(resCode)) {
-            throw new CertficationException(ResultStatus.failure.getCode(), resError);
+            throw new CertficationException(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMessage(), resError);
         }
 
         if (SUCCESS_CODE.equals(resCode)) {
@@ -141,12 +141,12 @@ public class AliBankCardCertServiceImpl implements BankCardCertService {
 
             if (!SUCCESS_CODE.equals(retCode)) {
                 log.info("银行卡二三四要素校验调用接口失败");
-                throw new CertficationException(ResultStatus.failure.getCode(), "银行卡二三四要素校验失败，请间隔60秒以上再次核验！");
+                throw new CertficationException(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMessage(), "银行卡二三四要素校验失败，请间隔60秒以上再次核验！");
             }
 
             if (!SUCCESS_CODE.equals(code)) {
                 log.info("银行卡二三四要素校验失败，结果:{}", notNullmsg);
-                throw new CertficationException(ResultStatus.failure.getCode(), notNullmsg);
+                throw new CertficationException(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMessage(), notNullmsg);
             }
 
             JSONObject belong = resBody.getJSONObject("belong");

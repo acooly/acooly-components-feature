@@ -6,6 +6,7 @@
 package com.acooly.module.certification;
 
 import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.common.facade.ResultCode;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.enums.ResultStatus;
 import com.acooly.module.certification.cert.*;
@@ -120,7 +121,7 @@ public class CertificationServiceImpl implements CertificationService {
             } else {
                 result = bankCardCertService.bankCardCert(realName, cardNo, certId, phoneNum);
                 if (result.getStatus() == ResultStatus.failure) {
-                    throw new CertficationException(ResultStatus.failure.getCode(), result.getDetail());
+                    throw new CertficationException(ResultCode.FAILURE.code(), ResultCode.FAILURE.getMessage(), result.getDetail());
                 }
                 if (result.getStatus() == ResultStatus.success) {
                     saveBankCardCertRecord(result, record, realName, cardNo, certId, phoneNum);
