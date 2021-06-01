@@ -5,8 +5,8 @@ package com.acooly.module.ofile.portal;
 
 import com.acooly.core.common.exception.AppConfigException;
 import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.common.exception.FileOperateErrorCodes;
 import com.acooly.core.common.web.AbstractJsonEntityController;
-import com.acooly.core.common.web.support.FileUploadError;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.*;
@@ -572,8 +572,8 @@ public class OfilePortalController
         try {
             return doFileTransfer(mfile, request);
         } catch (Exception e) {
-            log.error("文件上传 失败: {}。from:{}", FileUploadError.FILE_UPLOAD_TRANSFER_ERROR, mfile.getName());
-            throw new BusinessException(FileUploadError.FILE_UPLOAD_TRANSFER_ERROR);
+            log.error("文件上传 失败: {}。from:{}", FileOperateErrorCodes.FILE_UPLOAD_TRANSFER_ERROR, mfile.getName());
+            throw new BusinessException(FileOperateErrorCodes.FILE_UPLOAD_TRANSFER_ERROR);
         }
     }
 
