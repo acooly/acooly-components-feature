@@ -141,7 +141,7 @@ public class AliBankCardCertServiceImpl implements BankCardCertService {
 
             if (!SUCCESS_CODE.equals(retCode)) {
                 log.info("银行卡二三四要素校验调用接口失败");
-                throw new CertficationException(ResultStatus.failure.getCode(), "银行卡二三四要素校验调用接口失败");
+                throw new CertficationException(ResultStatus.failure.getCode(), "银行卡二三四要素校验失败，请间隔60秒以上再次核验！");
             }
 
             if (!SUCCESS_CODE.equals(code)) {
