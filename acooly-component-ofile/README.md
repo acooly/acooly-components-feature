@@ -1,4 +1,5 @@
 <!-- title: 文件上传组件   -->
+<!-- name: acooly-component-ofile -->
 <!-- type: app -->
 <!-- author: zhangpu,qiubo -->
 <!-- date: 2019-11-26 -->
@@ -160,3 +161,11 @@ ofile组件内部集成了obs相关能力，通过配置开启acooly.ofile.stora
 OfileSupportService提供文件上传相关能力的扩展，
 例如一个应用有多个bucket的情况，需要由业务定制实现OfileSupportService接口，默认实现路径com.acooly.module.ofile.support.DefaultOfileSupportService，根据不同的业务请求返回不同的bucket。
  
+## 5. changelog
+
+### 5.0.0-SNAPSHOT-20210601
+
+2021-06-01
+
+* 2021-06-01 - 修正：因FileUploadError枚举更名为FileOperateErrorCodes后再次的ofile公共前端上传控制器编译错误问题 - [zhangpu] 809442e1
+* 2021-06-01 - 修正：ofile组件pom文件从acooly-core迁移到feature后，parent没有正确从acooly-components调整为acooly-components-feature的问题 - [zhangpu] 3ae1d39a

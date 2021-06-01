@@ -1,4 +1,5 @@
 <!-- title: 实名/卡认证组件  -->
+<!-- name: acooly-component-certification -->
 <!-- type: app -->
 <!-- author: qiubo -->
 <!-- date: 2019-11-14 -->
@@ -65,6 +66,11 @@ maven坐标：
         log.info("银行卡四要素验证结果:{}", result.toString());
     }
 
+## 3. changelog
 
-            
+### 5.0.0-SNAPSHOT-20210601
+
+2021-06-01
+
+* 2021-06-01 - 修正：因BusinessException异常体系调整为三元模式后，造成的认证组件编译错误。
               
