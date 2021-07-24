@@ -1,4 +1,5 @@
 <!-- title: 数据-全国区域 -->
+<!-- name: acooly-component-data-region -->
 <!-- type: app -->
 <!-- author: zhangpu -->
 <!-- date: 2019-11-02 -->
