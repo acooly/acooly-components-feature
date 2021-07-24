@@ -166,6 +166,11 @@
                 <artifactId>acooly-component-smsend-analysis</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-content-audit</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -200,6 +205,7 @@
         <module>acooly-component-ocr</module>
         <module>acooly-component-obs</module>
         <module>acooly-component-smsend</module>
+        <module>acooly-component-content-audit</module>
     </modules>
 
     <build>
