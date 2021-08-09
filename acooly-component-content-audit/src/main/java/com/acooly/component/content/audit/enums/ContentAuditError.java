@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 public enum ContentAuditError implements Messageable {
+	
+	AUDIT_OK("AUDIT_OK", "文件审计通过"),
+	 
     AUDIT_BLOCK("AUDIT_BLOCK", "文件审计未通过");
     private final String code;
     private final String message;

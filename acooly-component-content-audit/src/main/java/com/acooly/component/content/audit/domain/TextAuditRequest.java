@@ -39,8 +39,8 @@ public class TextAuditRequest {
         addTask(text);
     }
 
-    public void addTask(String taskId, String text) {
-        this.tasks.add(new TextAuditTask(taskId, text));
+    public void addTask(String dataId, String text) {
+        this.tasks.add(new TextAuditTask(dataId, text));
     }
 
     public void addTask(String text) {
