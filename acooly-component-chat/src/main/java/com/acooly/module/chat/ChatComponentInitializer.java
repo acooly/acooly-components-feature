@@ -7,11 +7,15 @@ import com.acooly.core.common.boot.component.ComponentInitializer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author kuli@yiji.com
+ * @author cuifuq
  */
 @Slf4j
 public class ChatComponentInitializer implements ComponentInitializer {
-    @Override
-    public void initialize(ConfigurableApplicationContext applicationContext) {
-    }
+	
+	@Override
+	public void initialize(ConfigurableApplicationContext applicationContext) {
+		log.info("加载组件-[acooly-component-chat]");
+        setPropertyIfMissing("acooly.security.xss.exclusions.im.chat[0]", "/portal/chat/im/**");
+        setPropertyIfMissing("acooly.security.csrf.exclusions.im.chat", "/portal/chat/im/**");
+	}
 }
