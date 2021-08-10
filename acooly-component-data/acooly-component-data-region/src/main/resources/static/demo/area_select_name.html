@@ -12,20 +12,21 @@
   
   <br/><br/>
   <div>
-	省-市-县-街道  四级联动(code模式)
+	省-市-县-街道  四级联动(name模式)
 
 	<br/> 数据结构："id":110000000000,"parentId":100000,"name":"北京市","sortTime":0,"children"
-	<br/>仅适用  json 数据结构中的 id解析
-		<br/>
+	<br/>仅适用  json 数据结构中的 name解析
+	
+	<br/>
 	《select》列表格式<br/>
-	《option value="110000000000">北京市《/option>
+	《option value="北京市">北京市《/option>
 	
 	
 	<hr/>
-	<a href="/demo/area_select_name.html">切换===省-市-县-街道  四级联动(name模式)</a>
-	
+	<a href="/demo/area_select.html">切换===省-市-县-街道  四级联动(code模式)</a>
 	<hr/>
-	<br/><br/>
+	
+	<br/>
 	初始化：
     <select id="s_province" name="province" style = "width:150px;" ></select>  
 	<select id="s_city" name="city"  style = "width:150px;"></select>  
@@ -47,6 +48,7 @@
 
 	<script type="text/javascript">
 	//初始化
+	var saveType="name";
 	initAreaData("");    
     </script>
 
@@ -84,6 +86,7 @@
   <hr>
   ##本方案引用方式：
 <br/>  《script type="text/javascript">
+<br/>   var saveType="name";
 <br/>	//初始化
 <br/>	initAreaData("");    
 <br/>   《/script>
