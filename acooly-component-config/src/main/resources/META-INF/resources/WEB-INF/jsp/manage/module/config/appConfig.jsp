@@ -18,6 +18,8 @@ $(function() {
           <td align="left">
           	<div>
                     配置项名称: <input type="text" class="text" size="15" name="search_LIKE_configName"/>
+                   	配置项值: <input type="text" class="text" size="15" name="search_LIKE_configValue"/>
+                   	配置项描述: <input type="text" class="text" size="15" name="search_LIKE_comments"/>
                 <a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:false" onclick="$.acooly.framework.search('manage_appConfig_searchform','manage_appConfig_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i>查询</a>
           	</div>
           </td>
