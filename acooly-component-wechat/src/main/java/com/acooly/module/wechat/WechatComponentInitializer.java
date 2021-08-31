@@ -11,7 +11,11 @@ public class WechatComponentInitializer implements ComponentInitializer {
 
 	@Override
 	public void initialize(ConfigurableApplicationContext applicationContext) {
-		setPropertyIfMissing("acooly.security.csrf.exclusions.wechat", "/wechat/webApi/*.html");
-		setPropertyIfMissing("acooly.security.xss.exclusions.wechat", "/wechat/webApi/*.html");
+		setPropertyIfMissing("acooly.security.csrf.exclusions.wechatWeb", "/wechat/webApi/*.html");
+		setPropertyIfMissing("acooly.security.xss.exclusions.wechatWeb", "/wechat/webApi/*.html");
+		
+		setPropertyIfMissing("acooly.security.csrf.exclusions.wechatWebLogin", "/wechat/webLogin/api/*.html");
+		setPropertyIfMissing("acooly.security.xss.exclusions.wechatWebLogin", "/wechat/webLogin/api/*.html");
+		
 	}
 }
