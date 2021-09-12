@@ -1,4 +1,5 @@
 <!-- title: 数据-全国区域 -->
+<!-- name: acooly-component-data-region -->
 <!-- type: app -->
 <!-- author: zhangpu -->
 <!-- date: 2019-11-02 -->
@@ -26,7 +27,50 @@ acooly-component-data-region组件是data组件的一个子组件，专用于提
 
 ## 3、使用方式
 
-   demo:  /demo/area_select.html
+   demo:  
+   
+   code模式 :
+      访问地址:/demo/area_select.html
+   
+	<select id="s_province" name="province" style="width:150px;">
+		<option value="110000">北京市</option>
+		<option value="120000">天津市</option>
+	</select>
+   
+   引用模式：
+   
+	<script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-3.3.1.min.js">
+	</script><script type="text/javascript" src="/area-1.0.1.js"></script>
+
+
+	<script type="text/javascript">
+		//初始化
+		initAreaData("");
+	</script>
+   
+<hr>
+
+
+name模式 :
+      访问地址:/demo/area___ select___ name.html
+   
+	<select id="s_province" name="province" style="width:150px;">
+		<option value="北京市">北京市</option>
+		<option value="北京市">天津市</option>
+	</select>
+   
+   引用模式：
+   
+	<script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-3.3.1.min.js">
+	</script><script type="text/javascript" src="/area-1.0.1.js"></script>
+
+
+	<script type="text/javascript">
+		//初始化
+		var saveType="name";
+		initAreaData("");
+	</script>
+
 
 ## 4、数据
 

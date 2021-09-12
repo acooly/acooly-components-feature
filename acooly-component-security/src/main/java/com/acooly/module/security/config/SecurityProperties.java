@@ -16,6 +16,7 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -146,6 +147,7 @@ public class SecurityProperties {
 
         public Shiro() {
             //添加默认url过滤器
+            addUrlFilter("/manage/test/index.html", "anon");
             addUrlFilter("/manage/index.html", "authc");
             addUrlFilter("/manage/login.html", "authc");
             addUrlFilter("/manage/logout.html", "logout");
@@ -176,11 +178,16 @@ public class SecurityProperties {
             for (String s : this.configUrls) {
                 String[] sa = s.split(",");
                 if (sa != null && sa.length == 2) {
-                    addUrlFilter(sa[0], sa[1]);
+                    Map<String, String> url = Maps.newHashMap();
+                    url.put(sa[0], sa[1]);
+                    ((LinkedList) urls).addFirst(url);
                 }
             }
             return this.urls;
         }
+
+
+
     }
 
     @Getter
