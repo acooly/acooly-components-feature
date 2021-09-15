@@ -49,7 +49,11 @@ public class OLogProperties implements InitializingBean {
     public static class Collector {
         static final String DEFAULT_IGNORE_PARAMETERS = "ec*,autoInc,submit,*password*,_csrf,";
         private boolean saveParameter = true;
+        // 全局忽略参数（支持前后*）
         private String ignoreParameters;
+        // 全局忽略方法（支持前后*），多个逗号分隔
+        private String ignoreMethods;
+
         /**
          * RequestURI 和模块名的映射信息。也可以通过{@link OlogModule}配置
          */

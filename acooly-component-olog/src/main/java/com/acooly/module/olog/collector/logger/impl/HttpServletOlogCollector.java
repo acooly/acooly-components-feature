@@ -122,7 +122,7 @@ public class HttpServletOlogCollector implements OlogCollector {
                     if (name.startsWith("com.acooly.module.")) {
                         name = name.substring("com.acooly.module.".length());
                         name = name.substring(0, name.indexOf('.'));
-                    }else{
+                    } else {
                         name = module;
                     }
                     olog.setModuleName(name);
@@ -318,7 +318,7 @@ public class HttpServletOlogCollector implements OlogCollector {
             return Strings.containsIgnoreCase(dest, Strings.substring(srcIncludeStar, 1));
         }
 
-        if (Strings.startsWithIgnoreCase(srcIncludeStar, "*")) {
+        if (Strings.endsWithIgnoreCase(srcIncludeStar, "*")) {
             return Strings.containsIgnoreCase(
                     dest, Strings.substring(srcIncludeStar, 0, srcIncludeStar.length() - 1));
         }
@@ -330,7 +330,20 @@ public class HttpServletOlogCollector implements OlogCollector {
     }
 
     private boolean isIgnoreMethod(OlogTarget target, HttpServletRequest request) {
-        return target.getMethod().getAnnotation(Olog.Ignore.class) != null;
+        boolean result = target.getMethod().getAnnotation(Olog.Ignore.class) != null;
+        if (result) {
+            return result;
+        }
+        if (!result) {
+            // Check是否有全局忽略方法
+            String[] ignores = StringUtils.split(oLogProperties.getCollector().getIgnoreMethods(), ",");
+            for (String ignoreStr : ignores) {
+                if (isLike(ignoreStr, target.getMethod().getName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
