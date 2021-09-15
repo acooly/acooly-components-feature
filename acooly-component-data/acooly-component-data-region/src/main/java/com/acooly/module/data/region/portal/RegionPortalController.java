@@ -13,6 +13,7 @@ import com.acooly.module.data.region.entity.Region;
 import com.acooly.module.data.region.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,6 +27,7 @@ import java.util.List;
  * @author zhangpu
  * Date: 2019-05-06 18:32:21
  */
+@CrossOrigin
 @Controller
 @RequestMapping(value = "/acooly/data/region")
 public class RegionPortalController extends AbstractJQueryEntityController<Region, RegionService> {
