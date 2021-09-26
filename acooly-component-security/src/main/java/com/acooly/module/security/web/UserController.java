@@ -8,6 +8,7 @@ import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Collections3;
+import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.enums.Messageable;
 import com.acooly.core.utils.mapper.BeanCopier;
@@ -75,7 +76,12 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         allow(request, response, MappingMethod.list);
         try {
             result.appendData(referenceData(request));
-            PageInfo<UserDto> pageInfo = getEntityService().queryDto(getPageInfo(request), getSearchParams(request), getSortMap(request));
+            Long orgId = Servlets.getLongParameter(request, "search_EQ_orgId");
+            Map<String, Object> params = getSearchParams(request);
+            if (orgId != null && orgId == 0) {
+                params.put("EQ_orgId", null);
+            }
+            PageInfo<UserDto> pageInfo = getEntityService().queryDto(getPageInfo(request), params, getSortMap(request));
             result.setTotal(pageInfo.getTotalCount());
             result.setRows(pageInfo.getPageResults());
         } catch (Exception e) {
@@ -246,6 +252,9 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
     protected User onSave(HttpServletRequest request, HttpServletResponse response, Model model, User entity, boolean isCreate) throws Exception {
         entity.setRoles(loadRoleFormRequest(request));
         entity.setLastModifyTime(new Date());
+        if (entity.getOrgId() == 0) {
+            entity.setOrgId(null);
+        }
         if (entity.getOrgId() != null) {
             Org organize = orgService.get(entity.getOrgId());
             if (organize.getStatus() == OrgStatus.invalid) {

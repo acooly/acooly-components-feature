@@ -1,7 +1,7 @@
 <div class="easyui-layout" data-options="fit : true,border : false">
     <!-- 查询条件 -->
     <div data-options="region:'north',border:false" style="overflow: hidden;" align="left">
-        <form id="manage_user_searchform" class="form-inline ac-form-search" onsubmit="return false">
+        <form id="manage_user_searchform" class="form-inline ac-form-search" onsubmit="return false" style="padding-left: 5px;">
             <div class="form-group">
                 <label class="col-form-label">登录名：</label>
                 <input type="text" class="form-control form-control-sm" name="search_LIKE_username"/>
@@ -72,7 +72,7 @@
             <a title="编辑" onclick="$.acooly.framework.edit({url:'/manage/system/user/edit.html',id:'{0}',entity:'user',height:500});"
                href="#"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
             <!--<a title="查看"  onclick="$.acooly.framework.show('/manage/system/user/show.html?id={0}',500,350);" href="#"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>-->
-            <a title="重置密码" onclick="manage_user_changePasswd('{0}');" href="#"><i class="fa fa-key fa-lg fa-fw fa-col"></i></a>
+            <a title="重置密码" onclick="$.acooly.system.user.changePasswd('{0}');" href="#"><i class="fa fa-key fa-lg fa-fw fa-col"></i></a>
             <a title="删除" onclick="$.acooly.framework.remove('/manage/system/user/deleteJson.html','{0}','manage_user_datagrid');" href="#"><i
                         class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
         </div>
@@ -87,176 +87,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    /**
-     * 修改密码
-     */
-    function manage_user_changePasswd(id) {
-        $('#manage_user_datagrid').datagrid('uncheckAll').datagrid('unselectAll').datagrid('clearSelections');
-        var d = $('<div/>').dialog({
-            href: '/manage/system/user/showChangePassword.html?id=' + id,
-            width: 400,
-            height: 300,
-            modal: true,
-            title: ' <i class="fa fa-lock fa-lg"></i> 重置密码',
-            buttons: [{
-                text: '<i class="fa fa-check fa-col"></i> 提 交',
-                handler: function () {
-                    $('#manage_user_changePassword_form').ajaxSubmit({
-                        beforeSubmit: function () {
-                            return $('#manage_user_changePassword_form').form('validate');
-                        },
-                        success: function (result) {
-                            $.acooly.messager('修改密码', result.message, result.success ? "success" : "danger");
-                            if (result.success) {
-                                d.dialog('destroy');
-                            }
-                        },
-                        error: function (XmlHttpRequest, textStatus, errorThrown) {
-                            $.acooly.messager('错误', errorThrown, 'danger');
-                        }
-                    });
-                }
-            }],
-            onClose: function () {
-                $(this).dialog('destroy');
-            }
-        });
-    }
-
-
-    var ztree_setting = {
-        view: {
-            dblClickExpand: false
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
-        }
-    };
-    var ztree_nodes = [
-        {
-            id: 1,
-            pId: 0,
-            name: "北京"
-        }, {
-            id: 2,
-            pId: 0,
-            name: "天津"
-        }, {
-            id: 3,
-            pId: 0,
-            name: "上海"
-        }, {
-            id: 6,
-            pId: 0,
-            name: "重庆"
-        }, {
-            id: 4,
-            pId: 0,
-            name: "河北省",
-            open: true
-        }, {
-            id: 41,
-            pId: 4,
-            name: "石家庄"
-        }, {
-            id: 42,
-            pId: 4,
-            name: "保定"
-        }, {
-            id: 43,
-            pId: 4,
-            name: "邯郸"
-        }, {
-            id: 44,
-            pId: 4,
-            name: "承德"
-        }, {
-            id: 5,
-            pId: 0,
-            name: "广东省",
-            open: true
-        }, {
-            id: 51,
-            pId: 5,
-            name: "广州"
-        }, {
-            id: 52,
-            pId: 5,
-            name: "深圳"
-        }, {
-            id: 53,
-            pId: 5,
-            name: "东莞"
-        }, {
-            id: 54,
-            pId: 5,
-            name: "佛山"
-        }, {
-            id: 6,
-            pId: 0,
-            name: "福建省",
-            open: true
-        }, {
-            id: 61,
-            pId: 6,
-            name: "福州"
-        }, {
-            id: 62,
-            pId: 6,
-            name: "厦门"
-        }, {
-            id: 63,
-            pId: 6,
-            name: "泉州"
-        }, {
-            id: 64,
-            pId: 6,
-            name: "三明"
-        }];
-
-    function manage_user_searchform_orgId_init() {
-        $.ajax({
-            url: '/manage/module/security/org/listJson.html',
-            method: 'post',
-            success: function (result) {
-                $('#manage_user_searchform_orgId').select2ztree({
-                    theme: 'bootstrap4',
-                    textField: 'name',
-                    valueField: 'id',
-                    ztree: {
-                        setting: {
-                            data: {
-                                simpleData: {
-                                    enable: true,
-                                    pIdKey: 'parentId',
-                                    rootPId: 0
-                                }
-                            }
-                        },
-                        zNodes: result.rows
-                    }
-                });
-            }
-        });
-
-        //初始化树形下拉框
-        // var select2ztree = $('#manage_user_searchform_orgId').select2ztree({
-        //     theme: 'bootstrap4',
-        //     allowClear: true,
-        //     placeholder: '请选择所属组织',
-        //     textField: 'name',
-        //     valueField: 'id',
-        //     ztree: {
-        //         setting: ztree_setting,
-        //         zNodes: ztree_nodes
-        //     }
-        // });
-        //注意，select2的赋值方式与jquery常规的val赋值不一样，必须使用下面的方式
-        // $('#manage_user_searchform_orgId').select2ztree('val', [4]);
-
-    }
 
     /**
      * 页面加载完成后执行
@@ -264,11 +94,7 @@
     $(function () {
         //注册按键回车直接提交查询
         $.acooly.framework.initPage('manage_user_searchform', 'manage_user_datagrid');
-        manage_user_searchform_orgId_init();
-        <#--//树初始化，设置默认值-->
-        <#--$('#orgId').combotree({-->
-        <#--    url: '${pageContext.request.contextPath}/manage/module/security/org/listOrganize.html',-->
-        <#--    required: false-->
-        <#--})-->
+        // 初始化组织结构下拉选择框
+        $.acooly.system.user.orgTreeBoxInit(true);
     });
 </script>

@@ -2,7 +2,7 @@
  * 后台管理（基于adminlte）
  */
 (function ($) {
-    var adminClass = {
+    let adminClass = {
 
         /**
          * 初始化
@@ -66,12 +66,13 @@
                 $(".nav .nav-link").removeClass("active");
                 $(this).addClass("active");
                 var e = $(this).parent();
-                while (e && e.parent() && e.attr('class').indexOf('nav-sidebar') == -1){
+                while (e && e.parent() && e.attr('class').indexOf('nav-sidebar') == -1) {
                     e.parent().prev().addClass("active");
                     e = e.parent();
                 }
             });
         },
+
         /**
          * 初始化中间内容区（基于easyui，保持兼容）
          */
@@ -181,7 +182,7 @@
         /**
          * 初始化第三方插件
          */
-        initPlugins: function(){
+        initPlugins: function () {
 
         },
 
@@ -207,8 +208,7 @@
         }
     };
 
-
-    var tabClass = {
+    let tabClass = {
         MAIN_TABS_ID: "layout_center_tabs",
 
         getTabs: function () {
@@ -301,15 +301,45 @@
 
     }
 
-
     /**
      * 主题
      * @type {{defaultExpires: number, acoolyThemeKey: string, getTheme: (function(*=): (*|String)), saveTheme: saveTheme}}
      */
-    var themeClass = {
+    let themeClass = {
 
         defaultExpires: 7,
         acoolyThemeKey: "acoolyTheme",
+
+        /**
+         * 从cookies加载主题并修改为对应的样式
+         */
+        loadTheme: function () {
+            var themeName = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
+            if (!themeName) {
+                themeName = 'acooly';
+            }
+            if (themeName == 'easyui') {
+                themeName = 'default';
+            }
+            this.changeThemeStyle(themeName);
+        },
+
+        /**
+         * 修改主题对应的样式
+         * @param themeName
+         */
+        changeThemeStyle: function (themeName) {
+            var $easyuiTheme = $('#easyuiTheme');
+            var url = $easyuiTheme.attr('href');
+            var href = url.substring(0, url.indexOf('themes')) + 'themes/' + themeName + '/easyui.css';
+            $easyuiTheme.attr('href', href);
+
+            var $easyuiThemeBasic = $('#easyuiThemeBasic');
+            var urlBasic = $easyuiThemeBasic.attr('href');
+            var hrefBasic = url.substring(0, urlBasic.indexOf('themes')) + 'themes/' + themeName + '/basic.css';
+            $easyuiThemeBasic.attr('href', hrefBasic);
+        },
+
 
         getTheme: function (key) {
             if (!key) {
@@ -363,7 +393,6 @@
 
 
     }
-
 
     if (!$.acooly) {
         $.acooly = {};

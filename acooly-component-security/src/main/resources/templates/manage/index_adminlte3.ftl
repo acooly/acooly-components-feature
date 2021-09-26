@@ -377,7 +377,8 @@ ${extendScripts}
     var contextPath = '';
     $(function () {
         $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "acooly");
-        loadTheme();
+        $.acooly.admin.theme.loadTheme();
+        // loadTheme();
         $.acooly.system.init();
     });
 </script>

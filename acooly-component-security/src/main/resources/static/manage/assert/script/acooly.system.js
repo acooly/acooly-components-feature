@@ -3,66 +3,154 @@
  *
  * zhangpu
  */
-(function ($) {
-    $.extend($.acooly, {
-        /**
-         * system module
-         */
-        system: {
-            config: {},
-            /** init */
-            init: function () {
-                //console.info("acooly framework init...")
-                // 全局基本配置
-                this.globalSetting();
-                // 加载全局配置
-                this.loadSecurityConfig();
-                //console.info("load security config:",$.acooly.system.config);
-            },
 
-            loadSecurityConfig: function () {
-                var That = this;
-                $.ajax({
-                    url: contextPath + "/security/config/index.html",
-                    success: function (data, textStatus) {
-                        if (typeof (data) == 'string') {
-                            data = eval('(' + data + ')');
-                        }
-                        That.config = data;
-                        var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
-                        if(acoolyTheme && acoolyTheme.indexOf('acooly') != -1){
-                            $.acooly.admin.init();
-                        }
+/**
+ * 会员管理
+ * @type {{}}
+ */
+let system_user_class = {
+
+    orgTreeBoxInit: function (isSearch) {
+        $.ajax({
+            url: '/manage/module/security/org/listJson.html',
+            method: 'post',
+            success: function (result) {
+                let nodes = result.rows;
+                if (isSearch) {
+                    nodes.push({id: 0, parentId: -1, name: '所有'});
+                }
+                $('#manage_user_searchform_orgId').select2ztree({
+                    theme: 'bootstrap4',
+                    textField: 'name',
+                    valueField: 'id',
+                    ztree: {
+                        setting: {
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    pIdKey: 'parentId',
+                                    rootPId: 0
+                                }
+                            }
+                        },
+                        zNodes: nodes
                     }
                 });
-            },
-
-            /** 全局配置 */
-            globalSetting: function () {
-                // 注册全局ajax错误处理：Session过期
-                $(document).ajaxComplete(function (event, xhr, settings) {
-                    var sessionState = xhr.getResponseHeader("SessionState");
-                    if (sessionState && sessionState == '1') {
-                        $.messager.alert('提示', '会话过期，请重新登录', 'info', function () {
-                            window.location.href = '/manage/logout.html';
-                        });
-                    }
-                });
-                var token = $("meta[name='X-CSRF-TOKEN']").attr("content");// 从meta中获取token
-                $(document).ajaxSend(function (e, xhr, options) {
-                    xhr.setRequestHeader("X-CSRF-TOKEN", token);// 每次ajax提交请求都会加入此token
-                });
-            },
-
-            /** 获取当前的csrf-token */
-            getCSRFToken: function () {
-                return $("meta[name='X-CSRF-TOKEN']").attr("content");
             }
+        });
+    },
 
-            // ~~~ end
-        }
-    });
+    /**
+     * 修改指定用户密码
+     * @param id
+     */
+    changePasswd: function (id) {
+        $('#manage_user_datagrid').datagrid('uncheckAll').datagrid('unselectAll').datagrid('clearSelections');
+        var d = $('<div/>').dialog({
+            href: '/manage/system/user/showChangePassword.html?id=' + id,
+            width: 450,
+            height: 350,
+            modal: true,
+            title: ' <i class="fa fa-lock fa-lg"></i> 重置用户密码',
+            buttons: [{
+                text: '<i class="fa fa-check fa-col"></i> 提 交',
+                handler: function () {
+                    $('#manage_user_changePassword_form').ajaxSubmit({
+                        beforeSubmit: function () {
+                            return $('#manage_user_changePassword_form').form('validate');
+                        },
+                        success: function (result) {
+                            $.acooly.messager('修改密码', result.message, result.success ? "success" : "danger");
+                            if (result.success) {
+                                d.dialog('destroy');
+                            }
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            $.acooly.messager('错误', errorThrown, 'danger');
+                        }
+                    });
+                }
+            }],
+            onClose: function () {
+                $(this).dialog('destroy');
+            }
+        });
+    }
+}
+
+/**
+ *
+ * $.acooly.system
+ * @type {{init: system_class.init, getCSRFToken: (function(): *), globalSetting: system_class.globalSetting, loadSecurityConfig: system_class.loadSecurityConfig, config: {}}}
+ */
+let system_class = {
+    user: system_user_class,
+    config: {},
+    /** init */
+    init: function () {
+        //console.info("acooly framework init...")
+        // 全局基本配置
+        this.globalSetting();
+        // 加载全局配置
+        this.loadSecurityConfig();
+        //console.info("load security config:",$.acooly.system.config);
+    },
+
+    loadSecurityConfig: function () {
+        var That = this;
+        $.ajax({
+            url: contextPath + "/security/config/index.html",
+            success: function (data, textStatus) {
+                if (typeof (data) == 'string') {
+                    data = eval('(' + data + ')');
+                }
+                That.config = data;
+                var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
+                if (acoolyTheme && acoolyTheme.indexOf('acooly') != -1) {
+                    $.acooly.admin.init();
+                }
+            }
+        });
+    },
+
+    /** 全局配置 */
+    globalSetting: function () {
+        // 注册全局ajax错误处理：Session过期
+        $(document).ajaxComplete(function (event, xhr, settings) {
+            var sessionState = xhr.getResponseHeader("SessionState");
+            if (sessionState && sessionState == '1') {
+                $.messager.alert('提示', '会话过期，请重新登录', 'info', function () {
+                    window.location.href = '/manage/logout.html';
+                });
+            }
+        });
+        var token = $("meta[name='X-CSRF-TOKEN']").attr("content");// 从meta中获取token
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader("X-CSRF-TOKEN", token);// 每次ajax提交请求都会加入此token
+        });
+    },
+
+    /** 获取当前的csrf-token */
+    getCSRFToken: function () {
+        return $("meta[name='X-CSRF-TOKEN']").attr("content");
+    }
+
+    // ~~~ end
+};
+
+
+/***
+ * JQuery静态类前缀处理
+ */
+(function ($) {
+    if (!$.acooly) {
+        $.acooly = {};
+    }
+    if (!$.acooly.system) {
+        $.extend($.acooly, {system: system_class});
+    }
 })(jQuery);
+
 
 var manage_resource_tree_setting = {
     view: {
@@ -242,21 +330,21 @@ function manage_resource_form_submit() {
     $('#manage_resource_editform').ajaxSubmit({
         beforeSubmit: function (formData, jqForm, options) {
             var result = $('#manage_resource_editform').form('validate');
-            if(!result){
+            if (!result) {
                 return result;
             }
             var type = null;
             var value = null;
-            for(var i;i<formData.length;i++){
+            for (var i; i < formData.length; i++) {
                 var e = formData[i];
-                if(e.name == 'type'){
+                if (e.name == 'type') {
                     type = e.value;
                 }
-                if(e.name == 'value'){
+                if (e.name == 'value') {
                     value = e.value;
                 }
             }
-            if(type != 'MENU' && value == ''){
+            if (type != 'MENU' && value == '') {
                 $.acooly.msgrb("非菜单资源，资源值不能为空", false);
                 return false;
             }
@@ -272,19 +360,19 @@ function manage_resource_form_submit() {
                 if (nodeId && nodeId != '') {
                     // 编辑
                     var node = zTree.getNodeByParam("id", result.entity.id, null);
-                    if (result.entity.icon){
-                        if(result.entity.icon.startsWith("icon")){
+                    if (result.entity.icon) {
+                        if (result.entity.icon.startsWith("icon")) {
                             node.icon = result.entity.icon;
                             node.iconSkin = null;
-                        }else{
+                        } else {
                             node.icon = null;
                             node.iconSkin = result.entity.icon;
                         }
                     }
-                    if (result.entity.name){
+                    if (result.entity.name) {
                         node.name = result.entity.name;
                     }
-                    if (result.entity.showState){
+                    if (result.entity.showState) {
                         node.showState = result.entity.showState;
                     }
                     zTree.updateNode(node);
@@ -292,11 +380,11 @@ function manage_resource_form_submit() {
                     // 新增
                     var pNode = manage_resource_tree_getSelectedNode();
                     var nNode = result.entity;
-                    if (nNode.icon){
-                        if(nNode.icon.startsWith("icon")){
+                    if (nNode.icon) {
+                        if (nNode.icon.startsWith("icon")) {
                             nNode = nNode.icon;
                             nNode.iconSkin = null;
-                        }else{
+                        } else {
                             nNode.iconSkin = nNode.icon;
                             nNode.icon = null;
 
@@ -344,61 +432,4 @@ function manage_resource_tree_delete(id) {
             }
         });
     })
-}
-
-/**
- *
- * 更换EasyUI主题的方法
- *
- * @param themeName
- *            主题名称
- */
-
-function loadTheme() {
-    var themeName = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
-    if (!themeName) {
-        themeName = 'acooly';
-    }
-    if(themeName == 'easyui'){
-        themeName = 'default';
-    }
-    changeThemeStyle(themeName);
-}
-
-function changeThemeStyle(themeName) {
-    var $easyuiTheme = $('#easyuiTheme');
-    var url = $easyuiTheme.attr('href');
-    var href = url.substring(0, url.indexOf('themes')) + 'themes/'+themeName+'/easyui.css';
-    $easyuiTheme.attr('href', href);
-
-    var $easyuiThemeBasic = $('#easyuiThemeBasic');
-    var urlBasic = $easyuiThemeBasic.attr('href');
-    var hrefBasic = url.substring(0, urlBasic.indexOf('themes')) + 'themes/'+themeName+'/basic.css';
-    $easyuiThemeBasic.attr('href', hrefBasic);
-}
-
-var changeTheme = function (themeName) {
-    changeThemeStyle(themeName)
-    saveTheme(themeName);
-    selectedThemeMenu("layout_menu_theme", themeName);
-};
-
-function selectedThemeMenu(parentId, themeName) {
-    $("#" + parentId).children("div.menu-item").each(function () {
-        $(this).children("div.menu-icon").remove();
-    });
-    $("#" + parentId).menu("setIcon", {
-        target: $('#theme_' + themeName)[0],
-        iconCls: 'icon-ok'
-    });
-}
-
-function saveTheme(themeName) {
-    $.cookie('easyuiThemeName', themeName, {
-        expires: 7
-    });
-}
-
-function getTheme() {
-    return $.cookie('easyuiThemeName')
 }
