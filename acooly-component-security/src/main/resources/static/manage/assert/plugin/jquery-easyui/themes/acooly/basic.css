@@ -224,15 +224,15 @@ img {
     border-right: 1px #CCCCCC dashed;
 }
 
-.ztree li span.button.switch.level0 {
-    visibility: hidden;
-    width: 1px;
-}
+/*.ztree li span.button.switch.level0 {*/
+/*    visibility: hidden;*/
+/*    width: 1px;*/
+/*}*/
 
-.ztree li ul.level0 {
-    padding: 0;
-    background: none;
-}
+/*.ztree li ul.level0 {*/
+/*    padding: 0;*/
+/*    background: none;*/
+/*}*/
 
 .tableForm .l-btn, .filebox .l-btn, .dialog-button .l-btn {
     color: #fff;
