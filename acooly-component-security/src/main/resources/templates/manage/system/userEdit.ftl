@@ -20,42 +20,21 @@
         return $(this).form('validate');
         </#if>
     }
-
-    //树初始化，设置默认值
-    <#--$('#orgEdit').combotree({-->
-    <#--    url: '${pageContext.request.contextPath}/manage/module/security/org/listOrganize.html',-->
-    <#--    required: true-->
-    <#--})-->
-    <#--$('#orgEdit').combotree('setValue', '${user.orgId}');-->
-
-
-    //检索
-    function searchOrgName() {
-        var orgName = $('#orgEdit').combobox('getText');
-        $('#orgEdit').combotree({
-            url: '${pageContext.request.contextPath}/manage/module/security/org/listOrganize.html?orgName=' + orgName,
-            required: true
-        })
-        $('#orgEdit').combobox('clear');
-        $('#orgEdit').combobox('showPanel');
-    }
 </script>
-
-
 <div>
     <form id="manage_user_editform" class="form-horizontal" action="/manage/system/user/<#if action == 'create'>save<#else>update</#if>Json.html" method="post">
         <@jodd.form bean="user" scope="request">
-            <input name="id" type="hidden"/>
-            <div class="card-body">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">用户名</label>
-                    <div class="col-sm-9<#if action != 'create'> col-form-content</#if>">
-                        <#if action == 'create'>
-                            <input name="username" type="text" placeholder="请输入用户名..." class="easyui-validatebox form-control" data-inputmask="'alias':'account'" data-mask data-options="validType:['account','length[1,32]']" required="true"/>
-                        <#else>${user.username}</#if>
-                    </div>
+        <input name="id" type="hidden"/>
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">用户名</label>
+                <div class="col-sm-9<#if action != 'create'> col-form-content</#if>">
+                    <#if action == 'create'>
+                        <input name="username" type="text" placeholder="请输入用户名..." class="easyui-validatebox form-control" data-inputmask="'alias':'account'" data-mask data-options="validType:['account','length[1,32]']" required="true"/>
+                    <#else>${user.username}</#if>
                 </div>
-                <#if action == 'create'>
+            </div>
+            <#if action == 'create'>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">密码</label>
                     <div class="col-sm-9">
@@ -71,68 +50,70 @@
                                type="password" class="easyui-validatebox form-control" data-options="required:true"/>
                     </div>
                 </div>
-                </#if>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">姓名</label>
-                    <div class="col-sm-9">
-                        <input type="text" name="realName" placeholder="请输入姓名..." class="easyui-validatebox form-control" data-options="validType:['length[1,16]']" required="true"/>
-                    </div>
+            </#if>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">姓名</label>
+                <div class="col-sm-9">
+                    <input type="text" name="realName" placeholder="请输入姓名..." class="easyui-validatebox form-control" data-options="validType:['length[1,16]']" required="true"/>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">邮件</label>
-                    <div class="col-sm-9">
-                        <input type="text" name="email" placeholder="请输入邮件..." class="easyui-validatebox form-control" data-inputmask="'alias':'email'" data-mask data-options="validType:['email','length[1,64]'],required:true"/>
-                    </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">邮件</label>
+                <div class="col-sm-9">
+                    <input type="text" name="email" placeholder="请输入邮件..." class="easyui-validatebox form-control" data-inputmask="'alias':'email'" data-mask data-options="validType:['email','length[1,64]'],required:true"/>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">手机号码</label>
-                    <div class="col-sm-9">
-                        <input type="text" name="mobileNo" placeholder="请输入手机号码..." class="easyui-validatebox form-control" data-inputmask="'alias':'mobile'" data-mask data-options="validType:['mobile','length[1,11]']"/>
-                    </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">手机号码</label>
+                <div class="col-sm-9">
+                    <input type="text" name="mobileNo" placeholder="请输入手机号码..." class="easyui-validatebox form-control" data-inputmask="'alias':'mobile'" data-mask data-options="validType:['mobile','length[1,11]']"/>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">类型</label>
-                    <div class="col-sm-9">
-                        <select id="userTypeTest" name="userType" class="form-control select2bs4">
-                            <#list allUserTypes as k,v><option value="${k}">${v}</option></#list>
-                        </select>
-                    </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">类型</label>
+                <div class="col-sm-9">
+                    <select id="userTypeTest" name="userType" class="form-control select2bs4">
+                        <#list allUserTypes as k,v>
+                            <option value="${k}">${v}</option></#list>
+                    </select>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">状态</label>
-                    <div class="col-sm-9">
-                        <select name="status" class="form-control select2bs4">
-                            <#list allStatuss as k,v>
-                                <option value="${k}">${v}</option></#list>
-                        </select>
-                    </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">状态</label>
+                <div class="col-sm-9">
+                    <select name="status" class="form-control select2bs4">
+                        <#list allStatuss as k,v>
+                            <option value="${k}">${v}</option></#list>
+                    </select>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">角色</label>
-                    <div class="col-sm-9">
-                        <select name="role" class="form-control input-sm select2bs4">
-                            <#list allRoles as e><option value="${e.id}">${e.name}</option></#list>
-                        </select>
-                    </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">角色</label>
+                <div class="col-sm-9">
+                    <select name="role" class="form-control input-sm select2bs4">
+                        <#list allRoles as e>
+                            <option value="${e.id}">${e.name}</option></#list>
+                    </select>
                 </div>
+            </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">组织机构</label>
-                    <div class="col-sm-9">
-                        <select name="orgId" id="manage_user_editform_orgId" class="form-control input-sm select2bs4"></select>
-                    </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">组织机构</label>
+                <div class="col-sm-9">
+                    <select name="orgId" id="manage_user_editform_orgId" class="form-control input-sm select2bs4"></select>
                 </div>
+            </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">备注</label>
-                    <div class="col-sm-9">
-                        <textarea rows="3" cols="40" placeholder="请输入备注..." name="descn" class="easyui-validatebox form-control"></textarea>
-                    </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">备注</label>
+                <div class="col-sm-9">
+                    <textarea rows="3" cols="40" placeholder="请输入备注..." name="descn" class="easyui-validatebox form-control"></textarea>
                 </div>
-        </@jodd.form>
+            </div>
+            </@jodd.form>
     </form>
     <script>
-        $(function (){
+        $(function () {
             $.acooly.system.user.orgTreeBoxInit("manage_user_editform_orgId", false);
         });
     </script>
