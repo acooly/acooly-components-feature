@@ -42,7 +42,7 @@
                     </div>
                     <label class="col-sm-1 col-form-label">加载方式</label>
                     <div class="col-sm-3">
-                        <select name="showMode" class="form-control select2bs4">
+                        <select name="showMode" id="manage_resource_form_showMode" class="form-control select2bs4">
                             <#list allShowModes as k,v><option value="${k}">${v}</option></#list>
                         </select>
                     </div>
@@ -77,7 +77,7 @@
                 <div class="form-group row">
                     <label class="col-sm-1 col-form-label">资源图标</label>
                     <div class="col-sm-11">
-                        <div id="iconContainer">
+                        <div id="manage_resource_form_icon_container">
                             <div class="resource_icons">
                                 <a href="javascript:;" onclick="$('#resource_icons_font').toggle()">
                                     <div class="header">
@@ -88,7 +88,7 @@
 
                                 <div id="resource_icons_font">
                                          <span class="iconSpan">
-                                            <input class="icon-elm" type="radio" name="icon" value="fa-circle-o">
+                                            <input class="icon-elm" type="radio" id="manage_resource_form_icon_first" name="icon" value="fa-circle-o">
                                             <i style="vertical-align:middle;display:inline-block;font-size: 16px;" class="fa fa-circle-o"></i>
                                             <span class="icon-elm">fa-circle-o</span>
                                         </span>
@@ -114,7 +114,7 @@
             display: inline-block;
             margin: 5px;
             padding: 5px;
-            width: 150px;
+            width: 180px;
             border: 1px dashed #ddd;
             border-radius: 3px;
         }

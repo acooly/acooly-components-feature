@@ -146,8 +146,10 @@ let system_resource_class = {
             $('#manage_resource_editform').form('load', resource);
         } catch (e) {
         }
-        $("#manage_resource_form_showState option[id='" + resource.showState + "']").attr("selected", true);
-        $("input", $('#iconContainer')).each(function () {
+        $('#manage_resource_form_showState').val(resource.showState).trigger("change");
+        $('#manage_resource_form_type').val(resource.type).trigger("change");
+        $('#manage_resource_form_showMode').val(resource.showMode).trigger("change");
+        $("input", $('#manage_resource_form_icon_container')).each(function () {
             if (this.value == resource.icon || this.value == resource.iconSkin) {
                 $(this).attr('checked', 'true');
                 return;

@@ -1141,6 +1141,15 @@
                     $('.media').media({width: options.width, height: options.height});
                 }
                 var d = $('<div/>').dialog(options);
+            },
+
+            /**
+             * 根据容器ID（formId）内的表单名称选择
+             * @param containerId
+             * @param inputName
+             */
+            getInputByName: function (containerId, inputName) {
+                return $('#' + containerId + ' input[name="' + inputName + '"]');
             }
 
         }
