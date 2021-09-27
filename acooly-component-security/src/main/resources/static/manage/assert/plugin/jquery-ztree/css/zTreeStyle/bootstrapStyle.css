@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     font-size: 14px;
-    font-family: Verdana,Arial,Helvetica,AppleGothic,sans-serif
+    font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei"
 }
 
 .ztree {
@@ -27,7 +27,7 @@
 }
 
 .ztree li ul.line {
-    background: url(./img/line_conn.png) 0 0 repeat-y
+    background: url(./img/bootstrap/line_conn.png) 0 0 repeat-y
 }
 
 .ztree li a {
@@ -108,8 +108,7 @@
     background-color: transparent;
     background-repeat: no-repeat;
     background-attachment: scroll;
-    background-image: url(./img/bootstrap.png);
-    *background-image: url("./img/bootstrap.gif")
+    background-image: url(./img/bootstrap/bootstrap.png);
 }
 
 .ztree li span.button.chk {
@@ -347,8 +346,7 @@ span.tmpzTreeMove_arrow {
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: -168px -84px;
-    background-image: url(./img/bootstrap.png);
-    *background-image: url("./img/bootstrap.gif")
+    background-image: url(./img/bootstrap/bootstrap.png);
 }
 
 ul.ztree.zTreeDragUL {

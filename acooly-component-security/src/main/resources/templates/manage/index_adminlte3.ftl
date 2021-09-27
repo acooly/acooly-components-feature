@@ -15,7 +15,8 @@
     <!-- layui -->
     <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
     <!-- zTree -->
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-ztree/css/zTreeStyle/zTreeStyle.css"/>
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-ztree/css/zTreeStyle/bootstrapStyle.css"/>
+<#--    <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/select2ztree/bootstrapStyle.css"/>-->
     <!-- icons -->
     <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
