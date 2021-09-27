@@ -1,30 +1,20 @@
-<script type="text/javascript">
-    /**
-     * 页面加载完成后执行
-     */
-    $(function () {
-        //注册按键回车直接提交查询
-        $.acooly.framework.registerKeydown('manage_role_searchform', 'manage_role_datagrid');
-    });
-</script>
 <div class="easyui-layout" data-options="fit : true,border : false">
     <!-- 查询条件 -->
-    <div data-options="region:'north',border:false" style="height: 40px; overflow: hidden;" align="left">
-        <form id="manage_role_searchform" onsubmit="return false">
-            <table class="tableForm" style="width: 100%;">
-                <tr>
-                    <td align="left">角色名称:<input type="text" size="10" name="search_LIKE_name"/>
-                        <a href="javascript:void(0);" class="easyui-linkbutton"
-                           onclick="$.acooly.framework.search('manage_role_searchform','manage_role_datagrid');"><i class="fa fa-search fa-fw fa-col"></i> 查询</a>
-                    </td>
-                </tr>
-            </table>
+    <div data-options="region:'north',border:false" style="overflow: hidden;" align="left">
+        <form id="manage_role_searchform" class="form-inline ac-form-search" onsubmit="return false" style="padding-left: 5px;">
+            <div class="form-group">
+                <label class="col-form-label">角色：</label>
+                <input type="text" style="width: 200px;" class="form-control form-control-sm" name="search_LIKE_name"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_role_searchform','manage_role_datagrid');"><i class="fa fa-search fa-fw fa-col"></i> 查询</button>
+            </div>
         </form>
     </div>
 
     <!-- 列表和工具栏 -->
     <div data-options="region:'center',border:false">
-        <table id="manage_role_datagrid" class="easyui-datagrid" url="${rc.contextPath}/manage/system/role/listJson.html"
+        <table id="manage_role_datagrid" class="easyui-datagrid" url="/manage/system/role/listJson.html"
                toolbar="#manage_role_toolbar" fit="true" border="false" fitColumns="true"
                pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc"
                checkOnSelect="true" selectOnCheck="true">
@@ -32,7 +22,7 @@
             <tr>
                 <th field="formatId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
                 <th field="id">编号</th>
-                <th field="name">名称</th>
+                <th field="name">角色</th>
                 <th field="descn" formatter="formatContent">说明</th>
                 <th field="action" data-options="formatter:function(value,row,index){return formatAction('manage_role_action',value,row);}">动作</th>
             </tr>
@@ -56,5 +46,9 @@
             </a>
         </div>
     </div>
-
+    <script type="text/javascript">
+        $(function () {
+            $.acooly.framework.initPage('manage_role_searchform', 'manage_role_datagrid');
+        });
+    </script>
 </div>

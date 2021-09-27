@@ -16,7 +16,8 @@
     };
 
     function manage_role_load_tree() {
-        var roleId = <#if role?? && role.id??>${role.id}<#else>"0"</#if>;
+        var roleId = <#if role?? && role.id??>${role.id}<#else>
+        "0"</#if>;
         $.ajax({
             url: "/manage/system/role/getAllResourceNode.html",
             data: {roleId: roleId},
@@ -44,23 +45,39 @@
 
 
 <div>
-    <form id="manage_role_editform" action="${rc.contextPath}/manage/system/role/<#if action == 'create'>save<#else>update</#if>Json.html"
-          method="post">
-      <@jodd.form bean="role" scope="request">
-          <input name="id" type="hidden"/>
-          <input id="manage_role_editform_resourceIds" name="resourceIds" type="hidden"/>
-          <table class="tableForm" width="98%" align="center">
-              <tr>
-                  <th style="width: 80px">角色名称：</th>
-                  <td><input name="name" type="text" class="easyui-validatebox" data-options="required:true"/></td>
-              </tr>
-              <tr>
-                  <th>备注</th>
-                  <td><textarea name="descn" rows="3" cols="40" class="easyui-validatebox"></textarea></td>
-              </tr>
-          </table>
-          <div id="manage_role_resource_tree" class="ztree"></div>
-      </@jodd.form>
+    <form id="manage_role_editform" class="form-horizontal" action="/manage/system/role/<#if action == 'create'>save<#else>update</#if>Json.html" method="post">
+        <@jodd.form bean="role" scope="request">
+            <input name="id" type="hidden"/>
+            <input id="manage_role_editform_resourceIds" name="resourceIds" type="hidden"/>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">角色：</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="name" placeholder="请输入角色，建议以`ROLE_`开头..." class="easyui-validatebox form-control" data-options="validType:['length[1,16]']" required="true"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">说明：</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="descn" placeholder="请输入角色说明，例如：系统管理..." class="easyui-validatebox form-control" data-options="validType:['length[1,16]']" required="true"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">权限/资源：</label>
+                    <div class="col-sm-9">
+<#--                        <div style="margin-bottom: 2px;">-->
+<#--                            <div class="icheck-primary d-inline">-->
+<#--                                <input type="checkbox" id="checkboxPrimary1" checked="">-->
+<#--                                <label for="checkboxPrimary1">全选</label>-->
+<#--                            </div>-->
+<#--                            <button type="button" class="btn btn-primary btn-xs"><i class="fa fa-minus-circle"></i> 全部折叠</button>-->
+<#--                        </div>-->
+                        <div id="manage_role_resource_tree" class="ztree"></div>
+                    </div>
+                </div>
+            </div>
+
+        </@jodd.form>
     </form>
 </div>
 

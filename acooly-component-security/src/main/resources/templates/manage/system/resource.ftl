@@ -11,10 +11,12 @@
 <div class="easyui-layout" data-options="fit : true,border : false">
     <div data-options="region:'north'" style="overflow: hidden; height: 33px; padding-left: 2px;">
         <div id="manage_resource_toolbar" style="margin-top: 1px;">
-            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.system.resource.treeToggle()">
-                <i class="fa fa-plus-square fa-lg fa-fw fa-col"></i>展开/收起菜单</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.system.resource.treeToggle(this)">
+                <i class="fa fa-minus-square-o fa-fw fa-col"></i> 全部折叠</a>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.system.resource.formCreate(true)">
-                <i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加顶级菜单</a>
+                <i class="fa fa-plus-circle fa-fw fa-col"></i>添加顶级</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.system.resource.loadTree()">
+                <i class="fa fa-refresh fa-fw fa-col"></i>刷新</a>
         </div>
     </div>
     <!-- 菜单树 -->

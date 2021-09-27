@@ -86,10 +86,15 @@ let system_resource_class = {
     /**
      * 资源树展开/收缩
      */
-    treeToggle: function () {
+    treeToggle: function (obj) {
         let zTree = $.fn.zTree.getZTreeObj("manage_resource_tree");
-        zTree.expandAll(!manage_resource_tree_expand_state);
-        manage_resource_tree_expand_state = !manage_resource_tree_expand_state;
+        zTree.expandAll(!this.manage_resource_tree_expand_state);
+        if (!this.manage_resource_tree_expand_state) {
+            $(obj).html("<i class=\"fa fa-minus-square-o fa-fw fa-col\"></i> 全部折叠");
+        } else {
+            $(obj).html("<i class=\"fa fa-plus-square-o fa-fw fa-col\"></i> 全部展开");
+        }
+        this.manage_resource_tree_expand_state = !this.manage_resource_tree_expand_state;
     },
 
     /**
@@ -124,7 +129,7 @@ let system_resource_class = {
         $('#manage_resource_editform').form('reset');
         let node = $.acooly.system.resource.getSelectedNode();
         if (isRoot || !node) {
-            var zTree = $.fn.zTree.getZTreeObj("manage_resource_tree");
+            let zTree = $.fn.zTree.getZTreeObj("manage_resource_tree");
             zTree.cancelSelectedNode();
             $('#manage_resource_node_parentId').val('');
             $('#manage_resource_node_parentName').html("根节点");
@@ -133,6 +138,13 @@ let system_resource_class = {
             $('#manage_resource_node_parentId').val(node.id);
         }
         $('#manage_resource_node_id').val('');
+
+        // reset
+        $('#resource_icons_font .icon-elm').removeAttr("checked");
+        $('#manage_resource_form_icon_first').prop("checked","checked");
+        $('#manage_resource_form_showState').val("0").trigger("change");
+        $('#manage_resource_form_type').val("URL").trigger("change");
+        $('#manage_resource_form_showMode').val("1").trigger("change");
     },
 
     /**
@@ -327,14 +339,14 @@ let system_resource_class = {
                 let aObj = $("#" + treeNode.tId + "_a");
                 // 添加子
                 if ($("#manage_resource_add_Btn_" + treeNode.id).length == 0) {
-                    let html = "<a id='manage_resource_add_Btn_" + treeNode.id + "' href='javascript:;' onclick='$.acooly.system.resource.formCreate();return false;' style='margin:0 0 0 5px;'>添加</a>"
+                    let html = "<a id='manage_resource_add_Btn_" + treeNode.id + "' href='javascript:;' onclick='$.acooly.system.resource.formCreate();return false;' style='margin:0 0 0 5px;padding-top: 2px;'><i class=\"fa fa-plus-circle\"></i></a>"
                     aObj.after(html)
                 }
                 // 删除
                 if (!treeNode.children || treeNode.children.length == 0) {
                     if ($("#manage_resource_delete_Btn_" + treeNode.id).length > 0)
                         return;
-                    let html = "<a id='manage_resource_delete_Btn_" + treeNode.id + "' href='javascript:;' onclick='$.acooly.system.resource.treeDelete(" + treeNode.id + ");return false;' style='margin:0 0 0 5px;'>删除</a>"
+                    let html = "<a id='manage_resource_delete_Btn_" + treeNode.id + "' href='javascript:;' onclick='$.acooly.system.resource.treeDelete(" + treeNode.id + ");return false;' style='margin:0 0 0 5px;padding-top: 2px;'><i class=\"fa fa-minus-circle\"></i></a>"
                     aObj.append(html)
                 }
             },

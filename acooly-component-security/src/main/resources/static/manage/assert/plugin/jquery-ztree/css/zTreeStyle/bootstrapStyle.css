@@ -43,7 +43,7 @@
 }
 
 .ztree li a:hover {
-    text-decoration: underline
+    /*text-decoration: underline*/
 }
 
 .ztree li a.curSelectedNode {
