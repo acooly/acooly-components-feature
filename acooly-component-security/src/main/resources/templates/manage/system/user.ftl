@@ -95,6 +95,6 @@
         //注册按键回车直接提交查询
         $.acooly.framework.initPage('manage_user_searchform', 'manage_user_datagrid');
         // 初始化组织结构下拉选择框
-        $.acooly.system.user.orgTreeBoxInit(true);
+        $.acooly.system.user.orgTreeBoxInit("manage_user_searchform_orgId", true);
     });
 </script>

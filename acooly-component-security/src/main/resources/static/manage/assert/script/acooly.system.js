@@ -10,7 +10,7 @@
  */
 let system_user_class = {
 
-    orgTreeBoxInit: function (isSearch) {
+    orgTreeBoxInit: function (treeboxId, isSearch) {
         $.ajax({
             url: '/manage/module/security/org/listJson.html',
             method: 'post',
@@ -19,7 +19,7 @@ let system_user_class = {
                 if (isSearch) {
                     nodes.push({id: 0, parentId: -1, name: '所有'});
                 }
-                $('#manage_user_searchform_orgId').select2ztree({
+                $('#' + treeboxId).select2ztree({
                     theme: 'bootstrap4',
                     textField: 'name',
                     valueField: 'id',
