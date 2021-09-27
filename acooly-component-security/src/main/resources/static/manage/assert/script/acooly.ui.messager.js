@@ -65,7 +65,7 @@ var acooly_layui = {
             data.title = title ? title : data.title;
             data.message = message ? message : data.defaultContent;
         }
-        var html = "<div role=\"alert\" class=\"ac-notification right\" style=\"top: 16px; z-index: 12150;display: none \">\n" +
+        var html = "<div role=\"alert\" class=\"ac-notification right\" style=\"top: 57px;right: 55px; z-index: 12150;display: none \">\n" +
             // "    <ion-icon class=\"ac-notification__icon text-" + ctype + "\" name=\"" + data.icon + "\"></ion-icon>\n" +
             "    <i class=\"" + data.icon + " ac-notification__icon text-" + ctype + "\"></i>\n" +
             "    <div class=\"ac-notification__group is-with-icon\">\n" +
