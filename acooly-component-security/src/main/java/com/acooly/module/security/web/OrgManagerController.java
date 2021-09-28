@@ -10,6 +10,7 @@ import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
+import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.module.security.domain.Org;
 import com.acooly.module.security.domain.User;
@@ -63,10 +64,15 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
         JsonListResult<Org> result = new JsonListResult<>();
         try {
             result.appendData(referenceData(request));
+            // 默认为根
             Long orgId = Long.valueOf(0);
+
+            // 如果不是管理员类型，则只能查询当前账号所属的组织下
             if (getSessionUser().getUserType() != 1) {
                 orgId = ShiroUtils.getCurrentUser().getOrgId();
             }
+
+
             List<Org> organizes = orgService.getTreeList(orgId);
             result.setTotal(Long.valueOf(organizes.size()));
             result.setRows(organizes);

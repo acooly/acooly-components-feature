@@ -617,13 +617,14 @@
                                 if (result.success) {
                                     var className = $('#' + datagrid).attr('class');
                                     if (className.indexOf('easyui-treegrid') != -1) {
-                                        var node = $('#' + datagrid).treegrid('getSelected');
-                                        var parent = $('#' + datagrid).treegrid('getParent', node.id);
-                                        if (parent) {
-                                            $('#' + datagrid).treegrid('reload', parent.id);
-                                        } else {
-                                            $('#' + datagrid).treegrid('reload');
-                                        }
+                                        $('#' + datagrid).treegrid('reload');
+                                        // var node = $('#' + datagrid).treegrid('getSelected');
+                                        // var parent = $('#' + datagrid).treegrid('getParent', node.id);
+                                        // if (parent) {
+                                        //     $('#' + datagrid).treegrid('reload', parent.id);
+                                        // } else {
+                                        //     $('#' + datagrid).treegrid('reload');
+                                        // }
                                     } else {
                                         $('#' + datagrid).datagrid('reload');
                                     }

@@ -16,6 +16,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @author qiubo@yiji.com
+ * @author zhangpu
  */
 public class SecurityComponentInitializer implements ComponentInitializer {
     public static final String DUBBO_CUMSTOM_CONFIG_PACKAGE = "acooly.dubbo.customPackagesToScan.sso";
