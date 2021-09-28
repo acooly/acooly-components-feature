@@ -1,5 +1,5 @@
 <#assign jodd=JspTaglibs["http://www.springside.org.cn/jodd_form"] />
-<div align="center">
+<div>
     <form id="manage_portallet_editform" class="form-horizontal"
           action="${rc.contextPath}/manage/system/portallet/<#if action == 'create'>save<#else>update</#if>Json.html" method="post">
         <@jodd.form bean="portallet" scope="request">
