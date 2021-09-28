@@ -51,7 +51,6 @@ public class UserDaoCustomImpl implements UserDaoCustom {
     @Override
     public PageInfo<User> customeQueryWithPagedJdbcTemplate(
             PageInfo<User> pageInfo, Map<String, String> map) {
-        // TODO Auto-generated method stub
         return null;
     }
 }
