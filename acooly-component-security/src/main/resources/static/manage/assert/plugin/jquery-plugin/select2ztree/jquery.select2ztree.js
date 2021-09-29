@@ -49,7 +49,8 @@
         ZtreeSelectAdapter.prototype.select = function (data) {
             var self = this;
             data.selected = true;
-            var val = data.id;
+            var valueField = self.options.options['valueField'];
+            var val = data[valueField];
             this.$element.val(val);
             this.$element.trigger('change');
         };
