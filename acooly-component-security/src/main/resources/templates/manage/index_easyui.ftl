@@ -70,15 +70,18 @@
 <script type="text/javascript" src="/manage/assert/plugin/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
 <script type="text/javascript" src="/manage/assert/plugin/uploadifive/jquery.uploadifive.js"></script>
 <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/uploadifive/uploadifive.css"/>
+<!-- select2 -->
+<script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
 <!-- ztree -->
 <script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.excheck-3.5.js"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.exedit-3.5.js"></script>
+<!-- select2ztree -->
+<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.search.js"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.js"></script>
 <!--kindEditor插件库 -->
 <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all-min.js"></script>
 <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
-<!-- select2 -->
-<script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
 <!-- inputmask -->
 <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 <!-- AdminLTE bs-custom-file-input -->
