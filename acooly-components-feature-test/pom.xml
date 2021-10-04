@@ -33,7 +33,11 @@
             <artifactId>acooly-component-data-region</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-data-ip</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-treetype</artifactId>
@@ -78,9 +82,9 @@
         </dependency>
 
         <dependency>
-        <groupId>com.acooly</groupId>
-        <artifactId>acooly-component-ofile</artifactId>
-        <version>${project.version}</version>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-ofile</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
