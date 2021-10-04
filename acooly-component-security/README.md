@@ -175,6 +175,12 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 
 ## 6. changelog
 
+### 5.0.0-SNAPSHOT(20211004)
+
+* 后台管理的系统管理所有功能都升级为ftl，包括：会员，角色，资源，组织结构等
+* 增加select2ztree的组件，并扩展支持在框架内应用下拉树形结构选择（目前支持单元）。
+* 优化重构系统样式管理和切换的代码为静态JS类方式。
+* 更新ssoinclude，包括sso组件。
 
 ### 5.0.0-SNAPSHOT(20200428)
 
