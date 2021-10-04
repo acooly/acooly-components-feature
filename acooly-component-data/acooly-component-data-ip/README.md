@@ -76,6 +76,7 @@ public void testIpSearch() {
 
 ### 5.0.0-SNAPSHOT.20211004
 
-* 首次发布版本，判断指定公网IP是否某个国家的IP（如：判断是否中国IP，`ipSearchService.isChinaIp(publicIp)`）
+* 首次发布版本
+* 判断指定公网IP是否某个国家的IP（如：判断是否中国IP，`ipSearchService.isChinaIp(publicIp)`）
 * IP段数据来源：http://www.ipdeny.com
 * 缓存策略：每天更新一次
