@@ -206,6 +206,7 @@
         <module>acooly-component-obs</module>
         <module>acooly-component-smsend</module>
         <module>acooly-component-content-audit</module>
+        <module>acooly-component-i18n</module>
     </modules>
 
     <build>
