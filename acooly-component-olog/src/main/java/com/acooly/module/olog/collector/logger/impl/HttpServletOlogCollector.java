@@ -337,9 +337,11 @@ public class HttpServletOlogCollector implements OlogCollector {
         if (!result) {
             // Check是否有全局忽略方法
             String[] ignores = StringUtils.split(oLogProperties.getCollector().getIgnoreMethods(), ",");
-            for (String ignoreStr : ignores) {
-                if (isLike(ignoreStr, target.getMethod().getName())) {
-                    return true;
+            if (ignores != null) {
+                for (String ignoreStr : ignores) {
+                    if (isLike(ignoreStr, target.getMethod().getName())) {
+                        return true;
+                    }
                 }
             }
         }
