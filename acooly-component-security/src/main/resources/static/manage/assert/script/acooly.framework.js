@@ -802,38 +802,11 @@
 
             /**
              * KingEditor富文本框编辑器
+             * @deprecated
+             * @see $.acooly.editor.kindEditor
              */
             kingEditor: function (opts) {
-                var uploadUrl = opts.uploadUrl;
-                if (!uploadUrl)
-                    uploadUrl = '/ofile/kindEditor.html';
-                var options = {
-                    // themeType : 'simple',
-                    // //指定主题风格，可设置”default”、”simple”，指定simple时需要引入simple.css;
-                    // 默认值: “default”
-                    minHeight: opts.minHeight + 'px',
-                    resizeType: 1, // 2或1或0，2时可以拖动改变宽度和高度，1时只能改变高度，0时不能拖动;默认值:2
-                    allowFileManager: true, // true时显示浏览远程服务器按钮 ;默认值: false
-                    allowMediaUpload: false, // true时显示视音频上传按钮。默认值: true
-                    allowFlashUpload: false, // true时显示Flash上传按钮;默认值: true
-                    items: ['fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat',
-                        'lineheight', '|', 'justifyleft', 'justifycenter', 'justifyright', 'anchor', 'plainpaste', 'wordpaste', 'clearhtml',
-                        'quickformat', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'multiimage', 'media', '|',
-                        'baidumap', 'link', 'unlink', '|', 'hr', 'table', '|', 'source', 'preview', 'fullscreen'],
-                    // 上传的url
-                    uploadJson: uploadUrl,
-                    // 加载完成后改变皮肤
-                    afterCreate: function () {
-                        var color = $('.panel-header').css('background-color');
-                        $('.ke-toolbar').css('background-color', color);
-                    },
-                    // 失去焦点时，保存
-                    afterBlur: function () {
-                        this.sync();
-                    }
-                };
-                KindEditor.options.filterMode = false;
-                return KindEditor.create('#' + opts.textareaId, options);
+                $.acooly.editor.kindEditor(opts);
             },
 
             /******************

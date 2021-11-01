@@ -227,9 +227,9 @@ vi.js
 ----------------
 vi.js
 
-zh-CN.js
+zh_CN.js
 ----------------
-zh-CN.js
+zh_CN.js
 
 zh-TW.js
 ----------------

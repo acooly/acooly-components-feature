@@ -341,7 +341,12 @@
 <script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.search.js"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.js"></script>
 <!--kindEditor插件库 -->
-<script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all-min.js"></script>
+<link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
+<link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/webuploader.html5only.min.js"></script>
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/diyUpload.js"></script>
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/htmlminifier.min.js"></script>
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all.js"></script>
 <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
 <!-- inputmask -->
 <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
@@ -362,6 +367,7 @@
 <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.file.js" charset="utf-8"></script>
+<script src="/manage/assert/script/acooly.editor.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
 <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
