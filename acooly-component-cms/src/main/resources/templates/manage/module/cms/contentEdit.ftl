@@ -1,174 +1,204 @@
 <#assign jodd=JspTaglibs["http://www.springside.org.cn/jodd_form"] />
-<head>
-    <style type="text/css">
-        th {
-            width: 20%;
-        }
-    </style>
-    <script type="text/javascript">
+<div>
+    <form id="manage_content${RequestParameters.code}_editform" class="form-horizontal" action="${rc.contextPath}/manage/module/cms/content/<#if action == 'create'>save<#else>update</#if>Json.html" method="post" enctype="multipart/form-data">
+        <@jodd.form bean="content" scope="request">
+            <input name="id" type="hidden"/>
+            <input type="hidden" name="code" value="${RequestParameters.code}"/>
+            <input type="hidden" name="pubDateStr" id="pubDateStr"/>
+            <!-- 文章 -->
+            <#if RequestParameters.cmsType != 'banner'>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">标题</label>
+                        <div class="col-sm-11">
+                            <div class="input-group">
+                                <input name="title" type="text" placeholder="请输入标题..." class="easyui-validatebox form-control" data-options="validType:['length[1,128]']" required="true"/>
+                                <div class="input-group-append">
+                                    <button type="button" onclick="manage_content${RequestParameters.code}_editform_meta_toggle(this);" class="btn btn-tool btn-flat"><i class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="manage_content${RequestParameters.code}_editform_meta" style="display: none;">
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">SEO标题</label>
+                            <div class="col-sm-5">
+                                <input name="webTitle" type="text" placeholder="请输入页面标题(SEO)..." class="easyui-validatebox form-control" data-options="validType:['length[1,128]']"/>
+                            </div>
+                            <label class="col-sm-1 col-form-label">SEO关键字</label>
+                            <div class="col-sm-5">
+                                <input name="keywords" type="text" placeholder="请输入关键字（SEO）..." class="easyui-validatebox form-control" data-options="validType:['length[1,128]']"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">简介</label>
+                            <div class="col-sm-11">
+                                <textarea class="easyui-validatebox form-control" placeholder="请输入简介(同时用于SEO)..." id="subject" name="subject" cols="80" rows="2" data-options="validType:['length[1,128]']"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">Web封面</label>
+                            <div class="col-sm-5">
+                                <#if content.cover?? && content.cover != ''>
+                                    <div class="row col-form-content">
+                                        <div class="col-sm-6"><a href="javascript:;" onclick="$.acooly.file.play('${mediaRoot}${content.cover}');">查看</a></div>
+                                        <div class="col-sm-6" style="text-align: right;"><a href="javascript:;" onclick="$('#manage_content${RequestParameters.code}_editform_cover_container').toggle();">重新上传</a></div>
+                                    </div>
+                                </#if>
+                                <div class="custom-file" id="manage_content${RequestParameters.code}_editform_cover_container" <#if content != null && content.cover != ''>style="display: none;"</#if>>
+                                    <input type="file" name="cover_f" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']"/>
+                                    <label class="custom-file-label">请选择上传的文件</label>
+                                </div>
+                            </div>
+                            <label class="col-sm-1 col-form-label">App封面</label>
+                            <div class="col-sm-5">
+                                <#if content.appcover?? && content.appcover != ''>
+                                    <div class="row col-form-content">
+                                        <div class="col-sm-6"><a href="javascript:;" onclick="$.acooly.file.play('${mediaRoot}${content.appcover}');">查看</a></div>
+                                        <div class="col-sm-6" style="text-align: right;"><a href="javascript:;" onclick="$('#manage_content${RequestParameters.code}_editform_appcover_container').toggle();">重新上传</a></div>
+                                    </div>
+                                </#if>
+                                <div class="custom-file" id="manage_content${RequestParameters.code}_editform_appcover_container" <#if content != null && content.appcover != ''>style="display: none;"</#if>>
+                                    <input type="file" name="cover_app" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']">
+                                    <label class="custom-file-label">请选择上传的文件</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">链接</label>
+                            <div class="col-sm-11">
+                                <input type="text" name="link" class="easyui-validatebox form-control" data-inputmask="'alias':'url'" data-mask data-options="validType:['url','length[1,128]']"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">发布日期</label>
+                            <div class="col-sm-5">
+                                <input size="20" class="easyui-validatebox form-control" id="manage_content${RequestParameters.code}_editform_pubData"
+                                       value="<#if content.pubDate??>${content.pubDate?string('yyyy-MM-dd HH:mm:ss')}</#if>"
+                                       name="pubDate" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                            </div>
+                            <label class="col-sm-1 col-form-label">是否推送</label>
+                            <div class="col-sm-5">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="checkboxPrimary1" name="isEventNotify" value="isEventNotify">
+                                    <label for="checkboxPrimary1"><small>注意：选中后每次提交则推送，不保持对应状态</small></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <textarea id="manage_content${RequestParameters.code}_editform_contentId" name="contents" data-options="required:true" style="width:100%;height:430px;">${content.contentBody.body}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </#if>
 
-        var pubdate = $("#pubDateStr").val();
-        var today;
-        if (pubdate) {
-            today = pubdate;
-        } else {
-            today = formateDate(new Date());
-        }
+            <!-- banner -->
+            <#if RequestParameters.cmsType == 'banner'>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">标题</label>
+                        <div class="col-sm-10">
+                            <input name="title" type="text" placeholder="请输入标题..." class="easyui-validatebox form-control" data-options="validType:['length[1,128]']" required="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">简介</label>
+                        <div class="col-sm-10">
+                            <textarea class="easyui-validatebox form-control" placeholder="请输入简介(同时用于SEO)..." id="subject" name="subject" cols="80" rows="2" data-options="validType:['length[1,128]']"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Web封面</label>
+                        <div class="col-sm-10">
+                            <#if content.cover?? && content.cover != ''>
+                                <div class="row col-form-content">
+                                    <div class="col-sm-6"><a href="javascript:;" onclick="$.acooly.file.play('${mediaRoot}${content.cover}');">查看</a></div>
+                                    <div class="col-sm-6" style="text-align: right;"><a href="javascript:;" onclick="$('#manage_content${RequestParameters.code}_editform_cover_container').toggle();">重新上传</a></div>
+                                </div>
+                            </#if>
+                            <div class="custom-file" id="manage_content${RequestParameters.code}_editform_cover_container" <#if content != null && content.cover != ''>style="display: none;"</#if>>
+                                <input type="file" name="cover_f" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']">
+                                <label class="custom-file-label">请选择上传的文件</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">App封面</label>
+                        <div class="col-sm-10">
+                            <#if content.appcover?? && content.appcover != ''>
+                                <div class="row col-form-content">
+                                    <div class="col-sm-6"><a href="javascript:;" onclick="$.acooly.file.play('${mediaRoot}${content.appcover}');">查看</a></div>
+                                    <div class="col-sm-6" style="text-align: right;"><a href="javascript:;" onclick="$('#manage_content${RequestParameters.code}_editform_appcover_container').toggle();">重新上传</a></div>
+                                </div>
+                            </#if>
+                            <div class="custom-file" id="manage_content${RequestParameters.code}_editform_appcover_container" <#if content != null && content.appcover != ''>style="display: none;"</#if>>
+                                <input type="file" name="cover_app" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']">
+                                <label class="custom-file-label">请选择上传的文件</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">链接</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="link" class="easyui-validatebox form-control" data-inputmask="'alias':'url'" data-mask data-options="validType:['url','length[1,128]']"/>
+                        </div>
+                    </div>
+                </div>
+            </#if>
+        </@jodd.form>
+    </form>
 
-        $(document).ready(function () {
-            $("#pubDate").val(today);
-        });
-
-
-        function formateDate(dateObject) {
-            var d = new Date(dateObject);
-            var day = d.getDate();
-            var month = d.getMonth() + 1;
-            var year = d.getFullYear();
-            var hours = d.getHours();
-            var minutes = d.getMinutes();
-            var sec = d.getSeconds();
-            if (day < 10) {
-                day = "0" + day;
+    <script>
+        $(function () {
+            // 添加时，初始化发布时间
+            let formPubDate = $('#manage_content${RequestParameters.code}_editform_pubData').val();
+            if (formPubDate == '') {
+                $('#manage_content${RequestParameters.code}_editform_pubData').val($.acooly.format.date(new Date()));
             }
-            if (month < 10) {
-                month = "0" + month;
-            }
-            //yyyy-MM-dd HH:mm:ss
-            var date = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + sec;
-            return date;
-        };
 
-        function manage_content${RequestParameters.code}_editform_onSubmit(){
-            var isPush = $("#isEventNotify").prop("checked");
-            if(!isPush){
+            // 初始化多媒体编辑器
+            $.acooly.editor.kindEditor({
+                minHeight: '310',
+                textareaId: 'manage_content${RequestParameters.code}_editform_contentId'
+            });
+
+
+            /**
+             * 表单提交前拦截验证
+             * @returns {boolean}
+             * @private
+             */
+            function manage_content${RequestParameters.code}_editform_onSubmit() {
+                var isPush = $("#isEventNotify").prop("checked");
+                if (!isPush) {
+                    return true;
+                }
+                if (!$('#title').val()) {
+                    $.messager.alert('提示', '事件通知时,标题不能为空');
+                    return false;
+                }
+                if (!$('#subject').val()) {
+                    $.messager.alert('提示', '事件通知时,简介(SEO)不能为空');
+                    return false;
+                }
                 return true;
             }
-            if(!$('#title').val()){
-                $.messager.alert('提示','事件通知时,标题不能为空');
-                return false;
+
+        });
+
+        function manage_content${RequestParameters.code}_editform_meta_toggle(obj) {
+            let mateContainer = $('#manage_content${RequestParameters.code}_editform_meta');
+            mateContainer.toggle();
+            var classes = $(obj).children().first().attr("class");
+            if (classes.indexOf("fa-plus") != -1) {
+                $(obj).html("<i class=\"fa fa-minus\"></i>");
+            } else {
+                $(obj).html("<i class=\"fa fa-plus\"></i>");
             }
-            if(!$('#subject').val()){
-                $.messager.alert('提示','事件通知时,简介(SEO)不能为空');
-                return false;
-            }
-            return true;
         }
+
     </script>
-</head>
-<div>
-    <form id="manage_content${RequestParameters.code}_editform"
-          action="${rc.contextPath}/manage/module/cms/content/<#if action == 'create'>save<#else>update</#if>Json.html"
-          method="post"
-          enctype="multipart/form-data">
-    <@jodd.form bean="content" scope="request">
-        <input name="id" type="hidden"/>
-        <input type="hidden" name="code" value="${RequestParameters.code}"/>
-        <input type="hidden" name="pubDateStr" id="pubDateStr"/>
 
-
-        <table class="tableForm" width="100%">
-            <tr>
-                <th width="30%">标题：</th>
-                <td>
-                    <input type="text" style="width: 300px;" class="text" name="title" size="128"
-                           class="easyui-validatebox"
-                           data-options="required:true" id="title" validType="byteLength[1,128]"/>
-                    <#if RequestParameters.cmsType != 'banner'>
-                    <span style="margin-left: 10px;">编码: <select name="keycode" editable="false" style="width: 120px;" panelHeight="auto" class="easyui-combobox"><option value="">选择编码</option>
-                                     <#list allCodes as k,v>
-                                         <option value="${k}">${v}</option></#list>
-                               </select></span>
-                    </#if>
-                </td>
-            </tr>
-            <#if RequestParameters.cmsType != 'banner'>
-            <tr>
-                <th>页面标题(SEO)：</th>
-                <td><input type="text" style="width: 300px;" name="webTitle"
-                           class="easyui-validatebox" class="text" validType="byteLength[1,128]"/>
-                    <span style="margin-left: 10px;">关键字（SEO）：<input type="text" style="width: 300px;" name="keywords" class="easyui-validatebox" validType="byteLength[1,128]"/></span>
-                </td>
-            </tr>
-            <tr>
-                <th>简介(SEO)：</th>
-                <td><textarea class="easyui-validatebox" id="subject" name="subject" cols="80" rows="2" style="width:721px;"></textarea></td>
-            </tr>
-            </#if>
-            <tr>
-                <th>Web封面：</th>
-                <td>
-                    <input name="cover_f" id="cover_f" class="easyui-filebox" style="width: 300px;"
-                           buttonText="<i class='fa fa-picture-o'></i> 选择文件" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']"/>
-                    <#if content.cover?? && content.cover != '' && action!='create'>
-                        <div><a href="${mediaRoot}/${content.cover}" target="_blank" data-lightbox="cover"><img
-                                src="${mediaRoot}/${content.cover}" width="200"></a></div>
-                    </#if>
-                </td>
-            </tr>
-            <tr>
-                <th>App封面：</th>
-                <td>
-                    <input name="cover_app" id="cover_app" class="easyui-filebox" style="width: 300px;"
-                           buttonText="<i class='fa fa-picture-o'></i> 选择文件" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']"/>
-                    <#if content.appcover?? && content.appcover != '' && action!='create'>
-                        <div><a href="${mediaRoot}/${content.appcover}" target="_blank" data-lightbox="cover"><img
-                                src="${mediaRoot}/${content.appcover}" width="200"></a></div>
-                    </#if>
-                </td>
-            </tr>
-            <#if RequestParameters.cmsType = 'banner'>
-            <tr>
-                <th width="20%">简介：</th>
-                <td><textarea name="subject" class="easyui-validatebox" cols="100" rows="2" style="width:300px;"></textarea></td>
-            </tr>
-            <tr>
-                <th>链接：</th>
-                <td><input type="text" style="width: 300px;" class="text" name="link" size="128"
-                           class="easyui-validatebox"
-                           data-options="required:true" class="text" validType="byteLength[1,128]"/></td>
-            </tr>
-            <#else>
-                <tr>
-                    <th>链接：</th>
-                    <td><input type="text" style="width: 300px;" name="link" size="128"
-                               class="easyui-validatebox"
-                               class="text" validType="byteLength[1,128]"/></td>
-                </tr>
-                <tr>
-                    <th>是否推送通知：</th>
-                    <td>
-                        <input type="checkbox" class="easyui-checkbox" id="isEventNotify" name="isEventNotify" value="isEventNotify"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>发布日期：</th>
-                    <td><input size="20" class="easyui-validatebox" id="pubDate" name="pubDate" style="width: 300px;"
-                               onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/></td>
-                </tr>
-            <tr>
-                <td colspan="2">
-                    <textarea id="contentId" name="contents" data-options="required:true"
-                              style="width:100%;height:430px;">${content.contentBody.body}</textarea>
-                </td>
-            </tr>
-                <script type="text/javascript">
-                    $(function () {
-                        var token = $("meta[name='X-CSRF-TOKEN']").attr("content");// 从meta中获取token
-                        var ke = $.acooly.framework.kingEditor({
-                            uploadUrl: '/ofile/kindEditor.html?_csrf=' + token,
-                            minHeight: '310',
-                            textareaId: 'contentId'
-                        });
-                    });
-                </script>
-            </#if>
-            <tr>
-                <th>备注：</th>
-                <td><textarea name="comments" rows="2" style="width:300px;"></textarea></td>
-            </tr>
-
-        </table>
-    </@jodd.form>
-    </form>
 </div>

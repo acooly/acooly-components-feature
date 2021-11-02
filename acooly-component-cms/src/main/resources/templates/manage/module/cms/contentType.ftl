@@ -9,13 +9,13 @@
             $.acooly.framework.create({
                 url: '/manage/module/cms/contentType/create.html',
                 entity: 'contentType',
-                height: 300
+                height: 350
             })
         } else {
             $.acooly.framework.create({
                 url: '/manage/module/cms/contentType/create.html?parentId=' + row.id,
                 entity: 'contentType',
-                height: 300
+                height: 350
             })
         }
     }
@@ -53,7 +53,7 @@
 
         <!-- 每行的Action动作模板 -->
         <div id="manage_contentType_action" style="display: none;">
-            <a onclick="$.acooly.framework.edit({url:'/manage/module/cms/contentType/edit.html',id:'{0}',entity:'contentType',height:300});"
+            <a onclick="$.acooly.framework.edit({url:'/manage/module/cms/contentType/edit.html',id:'{0}',entity:'contentType',height:350});"
                href="#"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.remove('/manage/module/cms/contentType/deleteJson.html','{0}','manage_contentType_datagrid');"
                href="#"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>

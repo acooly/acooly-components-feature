@@ -9,9 +9,9 @@
 
     function manage_content${RequestParameters.code}_size() {
         var cmsType = '${RequestParameters.cmsType}';
-        var scale = {w: 1000, h: 600};
+        var scale = {w: 1100, h: 600};
         if (cmsType == 'banner') {
-            scale.w = 500;
+            scale.w = 600;
             scale.h = 400;
         }
         return scale;
@@ -35,17 +35,18 @@
 <div class="easyui-layout" data-options="fit : true,border : false">
     <!-- 查询条件 -->
     <div data-options="region:'north',border:false" style="padding:5px; overflow: hidden;" align="left">
-        <form id="manage_content${RequestParameters.code}_searchform" onsubmit="return false">
-            <table class="tableForm" width="100%">
-                <tr>
-                    <td align="left">
-                         标题: <input type="text" class="text" name="search_LIKE_title"/>
-                         关键字: <input type="text" class="text" name="search_LIKE_keywords"/>
-                        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true"
-                           onclick="$.acooly.framework.search('manage_content${RequestParameters.code}_searchform', 'manage_content${RequestParameters.code}_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</a>
-                    </td>
-                </tr>
-            </table>
+        <form id="manage_content${RequestParameters.code}_searchform" class="form-inline ac-form-search" onsubmit="return false" style="padding-left: 5px;">
+            <div class="form-group">
+                <label class="col-form-label">标题：</label>
+                <input type="text" style="width: 150px" class="form-control form-control-sm" name="search_LIKE_title"/>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">关键字：</label>
+                <input type="text" style="width: 150px" class="form-control form-control-sm" name="search_LIKE_keywords"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_content${RequestParameters.code}_searchform', 'manage_content${RequestParameters.code}_datagrid');"><i class="fa fa-search fa-fw fa-col"></i> 查询</button>
+            </div>
         </form>
     </div>
 
