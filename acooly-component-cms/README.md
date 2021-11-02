@@ -31,11 +31,15 @@ maven坐标：
 
 ## 4. changelog
 
+### 5.0.0-SNAPSHOT.20211102
+
+2021-11-02
+
+* 2021-11-02 - 使用新的多媒体编辑器封装+boostrap风格升级cms - [zhangpu] ab4b82dc
+
 ### 5.0.0-SNAPSHOT-20200114
 
 * 2020-01-14 - fixed:Issue#14:V5的CMS在添加内容时报错JAP报错。原因：重复的自动生成外接和初始化脚本问题，目前已删除初始化脚本中的外键关系。 - [zhangpu] 480f366
 
-### 5.0.0-SNAPSHOT.20211102
 
-* 2021-11-02 - 使用新的多媒体编辑器封装+boostrap风格升级cms - [zhangpu] ab4b82dc
 
