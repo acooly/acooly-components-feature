@@ -1,4 +1,5 @@
 <!-- title: CMS组件  -->
+<!-- name: acooly-component-cms -->
 <!-- type: app -->
 <!-- author: zhangpu -->
 <!-- date: 2019-11-24 -->
