@@ -177,6 +177,8 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 
 ### 5.0.0-SNAPSHOT.20211102
 
+2021-11-02
+
 * 2021-11-01 - 多媒体编辑器kindEditor增强：H5多图片上传，剪切板图粘贴上传，视频分享，手机浏览 - [zhangpu] e4ba708a
 * 2021-11-02 - kindEditor相关封装代码迁移到`acooly.editor.js`，并保持原有代码的兼容性。
 
