@@ -175,6 +175,11 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 
 ## 6. changelog
 
+### 5.0.0-SNAPSHOT.20211102
+
+* 2021-11-01 - 多媒体编辑器kindEditor增强：H5多图片上传，剪切板图粘贴上传，视频分享，手机浏览 - [zhangpu] e4ba708a
+* 2021-11-02 - kindEditor相关封装代码迁移到`acooly.editor.js`，并保持原有代码的兼容性。
+
 ### 5.0.0-SNAPSHOT(20211004)
 
 * 后台管理的系统管理所有功能都升级为ftl，包括：会员，角色，资源，组织结构等
@@ -193,7 +198,5 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 
 * 2020-01-14 - fixed：资源权限管理中，从下层拖动到顶层时无法正确报错位置的问题。 - [zhangpu] 763906e
 * 2020-01-14 - fixed：PasswordStrength为低等级时，支持高等级的密码。例如：simple可支持：AA123!@#$模式的密码。
-
-
 
              
