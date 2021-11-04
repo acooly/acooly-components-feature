@@ -131,12 +131,6 @@ var acooly = {
     },
 
 
-    ajaxForm: function (form, onSuccess, onFailure, opts) {
-
-        var formObject = $(form);
-
-    },
-
     /**
      * ajax+模板渲染
      *
@@ -156,10 +150,6 @@ var acooly = {
         }, opts));
     },
 
-
-    ajaxPager: function (opts) {
-
-    },
 
 
     /**
@@ -227,6 +217,36 @@ var acooly = {
 
         });
     },
+
+
+    formObj: function (containerId, inputName) {
+        let obj = $('#' + containerId + ' input[name="' + inputName + '"]');
+        if (obj.length == 0) {
+            obj = $('#' + containerId + ' select[name="' + inputName + '"]');
+        }
+        return obj;
+    },
+
+    formVal: function (containerId, inputName, inputValue) {
+        let obj = this.formObj(containerId, inputName)
+        if (obj.length == 0) {
+            return;
+        }
+        // 读取
+        if (!inputValue) {
+            return $(obj).val();
+        }
+        // 设置
+        $(obj).val(inputValue)
+        // 如果是下拉
+        if ($(obj).attr('class').indexOf('select2bs4')) {
+            if (inputValue.indexOf(",") != -1) {
+                $(obj).val(inputValue.split(","));
+            }
+            $(obj).trigger('change');
+        }
+
+    }
 
 };
 
