@@ -252,9 +252,8 @@ var acooly = {
 
 (function ($) {
     if (!$.acooly) {
-        $.acooly = {};
+        $.extend({acooly: acooly});
     }
-    $.extend($.acooly, {acooly: acooly});
 
     /**
      * 扩展jquery序列化表单为json
