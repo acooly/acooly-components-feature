@@ -238,7 +238,8 @@ var acooly = {
         // 设置
         $(obj).val(inputValue)
         // 如果是下拉
-        if ($(obj).attr('class').indexOf('select2bs4')) {
+        let classNames = $(obj).attr('class');
+        if (classNames && classNames.indexOf('select2bs4') != -1) {
             if (inputValue.indexOf(",") != -1) {
                 $(obj).val(inputValue.split(","));
             }
