@@ -151,7 +151,6 @@ var acooly = {
     },
 
 
-
     /**
      * 分页列表（内容递增方式）
      *
@@ -245,7 +244,61 @@ var acooly = {
             }
             $(obj).trigger('change');
         }
+    },
 
+    /**
+     * 表单序列化
+     * @param obj
+     * @returns {*}
+     */
+    formSerialize: function (obj) {
+        let tagName = $(obj).prop("tagName");
+        if (tagName == 'FORM') {
+            return $.acooly._doSerializeForm(obj);
+        } else {
+            return $.acooly._doSerializeContainer(obj);
+        }
+    },
+
+    _doSerializeForm: function (form) {
+        let o = {};
+        $.each(form.serializeArray(), function (index) {
+            if (o[this['name']]) {
+                o[this['name']] = o[this['name']] + "," + this['value'];
+            } else {
+                o[this['name']] = this['value'];
+            }
+        });
+        return o;
+    },
+
+    _doResetForm: function (form) {
+        let o = {};
+        $.each(form.serializeArray(), function (index) {
+            if (o[this['name']]) {
+                o[this['name']] = o[this['name']] + "," + this['value'];
+            } else {
+                o[this['name']] = this['value'];
+            }
+        });
+        return o;
+    },
+
+    /**
+     * 从表单的父容器中序列化表单
+     */
+    _doSerializeContainer: function (container) {
+        let queryParams = {};
+        $("input[name^='search']", container).each(
+            function () {
+                if (queryParams[this['name']]) {
+                    queryParams[this['name']] = queryParams[this['name']] + ","
+                        + this['value'];
+                } else {
+                    queryParams[this['name']] = this['value'];
+                }
+            });
+        return queryParams;
     }
 
 };
@@ -275,6 +328,7 @@ var acooly = {
         });
         return serializeObj;
     };
+
 
 })(jQuery);
 
