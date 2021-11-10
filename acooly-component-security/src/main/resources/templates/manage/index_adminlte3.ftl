@@ -89,12 +89,12 @@
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item<#if acoolyTheme='acooly'> active</#if>">
                         <i class="fa fa-pie-chart fa-lg mr-2"></i> 创新素雅
-                        <span class="float-right text-muted text-sm">AdminLte3</span>
+                        <span class="float-right text-sm">AdminLte3</span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="/manage/index.html?acoolyTheme=easyui" class="dropdown-item">
                         <i class="fa fa-bandcamp fa-lg mr-2"></i> 原滋原味
-                        <span class="float-right text-muted text-sm">EasyUI1.9</span>
+                        <span class="float-right text-sm">EasyUI1.9</span>
                     </a>
                     <div class="dropdown-divider"></div>
                 </div>
@@ -102,7 +102,7 @@
             <!-- 帮组文档按钮 -->
             <#if isOnline == false>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:;" onclick="$.acooly.admin.tab.addIframe('帮助文档','fa fa-question-circle fa-lg','https://acooly.cn/docs/core.html')" title="帮助" role="button"><i class="fa fa-question-circle fa-lg"></i></a>
+                    <a class="nav-link" href="https://acooly.cn/docs/core.html" target="_blank" title="帮助" role="button"><i class="fa fa-question-circle fa-lg"></i></a>
                 </li>
             </#if>
             <li class="nav-item">
@@ -248,7 +248,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="https://adminlte.io/" target="_blank">
+                            <a href="https://acooly.cn/resource/AdminLTE-3.0.4/" target="_blank">
                                 <i class="sidebar-menu-icon fa fa-user bg-yellow"></i>
 
                                 <div class="menu-info">
@@ -267,8 +267,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'Acooly文档',value:'https://acooly.cn/docs/core.html',
-                    showMode:'2',icon:'fa-home'})">
+                            <a href="https://acooly.cn/docs/core.html" target="_blank">
                                 <i class="sidebar-menu-icon fa fa-book bg-gradient-danger"></i>
                                 <div class="menu-info">
                                     <h4 class="control-sidebar-subheading">Acooly官方文档</h4>
@@ -280,8 +279,17 @@
                             <a href="https://bantikyan.github.io/icheck-bootstrap/" target="_blank">
                                 <i class="sidebar-menu-icon fa fa-file-code-o bg-gradient-blue"></i>
                                 <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">icheck-bootstrap</h4>
+                                    <h4 class="control-sidebar-subheading">复选框icheck-bootstrap</h4>
                                     <p>icheck-bootstrap的演示和文档</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://select2.org/" target="_blank">
+                                <i class="sidebar-menu-icon fa fa-list bg-gradient-blue"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">下拉框Select2</h4>
+                                    <p>Select2官方文档</p>
                                 </div>
                             </a>
                         </li>
