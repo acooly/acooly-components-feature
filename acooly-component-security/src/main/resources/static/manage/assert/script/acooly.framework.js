@@ -1070,6 +1070,23 @@
                 $('[data-toggle="tooltip"]').tooltip();
                 // init FileInput
                 bsCustomFileInput.init();
+                // init textarea的字数统计
+                $.acooly.framework.wordsCount(container);
+            },
+
+            wordsCount: function (container) {
+                let obj = container && container.jquery ? container : $('#' + container);
+                $.each(obj.find(".form-words"), function (index, e) {
+                    var count = $(e).data("words");
+                    if (count) {
+                        $(e).after("<div style='text-align: right;padding: 2px 5px;'>剩余字数：<span>" + count + "</span></div>");
+                        $(e).on("input focus keyup", function () {
+                            let length = $(this).val().length;
+                            let num = count - length;
+                            $(this).next().find('span').html(num);
+                        });
+                    }
+                });
             },
 
             /**
