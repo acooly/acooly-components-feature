@@ -4,6 +4,7 @@
  */
 package com.acooly.module.safety.support;
 
+import com.acooly.core.utils.io.Streams;
 import com.acooly.core.utils.security.RSA;
 import com.acooly.module.safety.exception.SafetyException;
 import com.acooly.module.safety.exception.SafetyResultCode;
@@ -31,6 +32,11 @@ public class KeyStoreInfo extends KeySupport {
     public static final String KEY_STORE_PKCS12 = "PKCS12";
 
     private String keyStoreType = KEY_STORE_PKCS12;
+
+    /**
+     * keyStore
+     */
+    private KeyStore keyStore;
 
     /**
      * keyStore路径，支持classpath:配置
@@ -91,7 +97,9 @@ public class KeyStoreInfo extends KeySupport {
     private void loadPrivateKey() {
         InputStream in = null;
         try {
-            KeyStore keyStore = KeyStore.getInstance(getKeyStoreType());
+            if (this.keyStore == null) {
+                this.keyStore = KeyStore.getInstance(getKeyStoreType());
+            }
             Resource resource = new DefaultResourceLoader().getResource(getKeyStoreUri());
             in = resource.getInputStream();
             keyStore.load(in, getKeyStorePassword().toCharArray());
@@ -108,7 +116,7 @@ public class KeyStoreInfo extends KeySupport {
             log.warn("加载keystore私钥 - [失败] , 原因: {}", e.getMessage());
             throw new SafetyException(SafetyResultCode.LOAD_KEYSTORE_PRIVATE_ERROR, e.getMessage());
         } finally {
-            IOUtils.closeQuietly(in);
+            Streams.close(in);
         }
     }
 
@@ -125,7 +133,7 @@ public class KeyStoreInfo extends KeySupport {
             log.warn("加载证书 - [失败] , 原因: {}", e.getMessage());
             throw new SafetyException(SafetyResultCode.LOAD_CERTIFICATE_ERROR, e.getMessage());
         } finally {
-            IOUtils.closeQuietly(in);
+            Streams.close(in);
         }
     }
 
