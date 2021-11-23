@@ -211,4 +211,12 @@ public class KeyStoreInfo extends KeySupport {
     public X509Certificate getCertificate() {
         return certificate;
     }
+
+    public KeyStore getKeyStore() {
+        return keyStore;
+    }
+
+    public void setKeyStore(KeyStore keyStore) {
+        this.keyStore = keyStore;
+    }
 }
