@@ -21,6 +21,24 @@
                     </div>
                     <div id="manage_content${RequestParameters.code}_editform_meta" style="display: none;">
                         <div class="form-group row">
+                            <label class="col-sm-1 col-form-label">发布日期</label>
+                            <div class="col-sm-5">
+                                <input size="20" class="easyui-validatebox form-control" id="manage_content${RequestParameters.code}_editform_pubData"
+                                       value="<#if content.pubDate??>${content.pubDate?string('yyyy-MM-dd HH:mm:ss')}</#if>"
+                                       name="pubDate" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                            </div>
+                            <label class="col-sm-1 col-form-label">编码</label>
+                            <div class="col-sm-5">
+                                <#if RequestParameters.cmsType != 'banner'>
+                                    <select name="keycode" editable="false" class="form-control input-sm select2bs4"><option value="">选择编码</option>
+                                        <#list allCodes as k,v>
+                                            <option value="${k}">${v}</option>
+                                        </#list>
+                                    </select>
+                                </#if>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-sm-1 col-form-label">SEO标题</label>
                             <div class="col-sm-5">
                                 <input name="webTitle" type="text" placeholder="请输入页面标题(SEO)..." class="easyui-validatebox form-control" data-options="validType:['length[1,128]']"/>
@@ -71,14 +89,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-1 col-form-label">发布日期</label>
-                            <div class="col-sm-5">
-                                <input size="20" class="easyui-validatebox form-control" id="manage_content${RequestParameters.code}_editform_pubData"
-                                       value="<#if content.pubDate??>${content.pubDate?string('yyyy-MM-dd HH:mm:ss')}</#if>"
-                                       name="pubDate" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
-                            </div>
                             <label class="col-sm-1 col-form-label">是否推送</label>
-                            <div class="col-sm-5">
+                            <div class="col-sm-11">
                                 <div class="icheck-primary">
                                     <input type="checkbox" id="checkboxPrimary1" name="isEventNotify" value="isEventNotify">
                                     <label for="checkboxPrimary1"><small>注意：选中后每次提交则推送，不保持对应状态</small></label>
