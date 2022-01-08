@@ -31094,3 +31094,120 @@ a.text-muted:hover {
   color: #ffffff;
 }
 /*# sourceMappingURL=adminlte.css.map */
+
+
+[class*='sidebar-blue-'] {
+  background-color: #007bff;
+}
+
+[class*='sidebar-blue-'] .user-panel a:hover {
+  color: #ffffff;
+}
+
+[class*='sidebar-blue-'] .user-panel .status {
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+[class*='sidebar-blue-'] .user-panel .status:hover, [class*='sidebar-blue-'] .user-panel .status:focus, [class*='sidebar-blue-'] .user-panel .status:active {
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+[class*='sidebar-blue-'] .user-panel .dropdown-menu {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+[class*='sidebar-blue-'] .user-panel .dropdown-item {
+  color: #ffffff;
+}
+
+[class*='sidebar-blue-'] .nav-sidebar > .nav-item > .nav-link:active, [class*='sidebar-blue-'] .nav-sidebar > .nav-item > .nav-link:focus {
+  color: #ffffff;
+}
+
+[class*='sidebar-blue-'] .nav-sidebar > .nav-item.menu-open > .nav-link,
+[class*='sidebar-blue-'] .nav-sidebar > .nav-item:hover > .nav-link {
+  background-color: rgba(0,0,0,.1);
+  color: #ffffff;
+}
+
+[class*='sidebar-blue-'] .nav-sidebar > .nav-item > .nav-link.active {
+  color: #000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+[class*='sidebar-blue-'] .nav-sidebar > .nav-item > .nav-treeview {
+  background: transparent;
+}
+
+[class*='sidebar-blue-'] .nav-header {
+  background: inherit;
+  color: #ffffff;
+}
+
+[class*='sidebar-blue-'] .sidebar a {
+  color: #ffffff;
+}
+
+[class*='sidebar-blue-'] .sidebar a:hover {
+  text-decoration: none;
+}
+
+[class*='sidebar-blue-'] .nav-treeview > .nav-item > .nav-link {
+  color: #ffffff;
+}
+
+[class*='sidebar-blue-'] .nav-treeview > .nav-item > .nav-link.active, [class*='sidebar-blue-'] .nav-treeview > .nav-item > .nav-link.active:hover {
+  background-color: rgba(255,255,255,.9);
+  color: #343a40;
+}
+
+[class*='sidebar-blue-'] .nav-treeview > .nav-item > .nav-link:hover {
+  background-color: rgba(255,255,255,.9);
+  color: #343a40;
+}
+
+[class*='sidebar-blue-'] .nav-flat .nav-item .nav-treeview .nav-treeview {
+  background-color: rgba(255,255,255,.9);
+}
+
+[class*='sidebar-blue-'] .nav-flat .nav-item .nav-treeview > .nav-item > .nav-link, [class*='sidebar-blue-'] .nav-flat .nav-item .nav-treeview > .nav-item > .nav-link.active {
+  background-color: rgba(255,255,255,.9);
+}
+
+.sidebar-blue-primary .brand-link { color: #ffffff; }
+
+.layout-navbar-fixed .wrapper .sidebar-blue-primary .brand-link:not([class*="navbar"]) {
+  background-color: #007bff;
+}
+
+.layout-navbar-fixed .wrapper .sidebar-blue-primary .brand-link:not([class*="navbar"]) {
+  background-color: #007bff;
+}
+
+.layout-sm-navbar-fixed .wrapper .sidebar-blue-primary .brand-link:not([class*="navbar"]) {
+  background-color: #007bff;
+}
+
+.layout-md-navbar-fixed .wrapper .sidebar-blue-primary .brand-link:not([class*="navbar"]) {
+  background-color: #007bff;
+}
+
+.layout-lg-navbar-fixed .wrapper .sidebar-blue-primary .brand-link:not([class*="navbar"]) {
+  background-color: #007bff;
+}
+
+.layout-xl-navbar-fixed .wrapper .sidebar-blue-primary .brand-link:not([class*="navbar"]) {
+  background-color: #007bff;
+}
+
+.sidebar-blue-primary .nav-sidebar > .nav-item > .nav-link.active {
+  background-color: #2744B2;
+  color: #ffffff;
+}
+
+.sidebar-blue-primary .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {
+  border-color: #2744B2;
+}

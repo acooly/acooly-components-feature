@@ -411,7 +411,7 @@ let system_class = {
                 }
                 That.config = data;
                 var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
-                if (acoolyTheme && acoolyTheme.indexOf('acooly') != -1) {
+                if (acoolyTheme && acoolyTheme.indexOf('easyui') == -1) {
                     $.acooly.admin.init();
                 }
             }

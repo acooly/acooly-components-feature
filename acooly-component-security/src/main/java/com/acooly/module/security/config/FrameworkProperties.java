@@ -47,6 +47,11 @@ public class FrameworkProperties implements Serializable {
     private String copyright = "Copyright © 2012 acooly. All rights reserved";
 
     /**
+     * 默认样式，acooly,easyui, paiggio
+     */
+    private String defaultTheme = "acooly";
+
+    /**
      * 外部扩展css
      */
     private List<String> styles = new ArrayList<>();
