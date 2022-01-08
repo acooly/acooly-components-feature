@@ -318,18 +318,18 @@ img {
 }
 
 .datagrid-header td, .datagrid-body td, .datagrid-footer td {
-    border-width: 0 0 1px 0;
+    border-width: 0 1px 1px 0;
     border-style: solid;
     margin: 0;
     padding: 0;
 }
 
 .datagrid-header td, .datagrid-body td, .datagrid-footer td {
-    border-color: #f4f6f9;
+    border-color: #f3f3f3;
 }
 
 .datagrid-toolbar, .datagrid-pager, .datagrid-footer-inner {
-    border-color: #f4f6f9;
+    border-color: #f3f3f3;
 }
 
 .datagrid-header {
@@ -351,10 +351,10 @@ div.datagrid-cell > div > label {
 
 /* 自定义datagrid的header背景和选中 */
 .tabs-header .tabs-pill li.tabs-selected a.tabs-inner {
-    background: #42b983;
+    background: #037bfe;
     color: #ffffff;
     filter: none;
-    border-color: #42b983;
+    border-color: #037bfe;
 }
 
 .tabs-header, .tabs-tool {
@@ -605,6 +605,7 @@ div.datagrid-cell > div > label {
     line-height: calc(1.8125rem + 2px) !important;
 }
 
+.ac-form-search .form-group .col-form-label { font-weight: normal; }
 /** 弹出框圆角 */
 .window {border-radius: 5px;}
 .window-shadow {border-radius: 5px;}
@@ -639,3 +640,17 @@ div.datagrid-cell > div > label {
     line-height: 1.5;
 }
 
+
+.datagrid-htable {
+    font-weight: 800;
+}
+
+.datagrid-row-over{
+    color: #666666;
+    background:#c4e2ff;border-color:#c4e2ff;
+}
+
+.datagrid-row-selected {
+    background:#c4e2ff;border-color:#c4e2ff;
+    color: #666666;
+}
