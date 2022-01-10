@@ -92,7 +92,7 @@
                         <span class="float-right text-sm">AdminLte3</span>
                     </a>
                     <a href="/manage/index.html?acoolyTheme=paiggio" class="dropdown-item<#if acoolyTheme='paiggio'> active</#if>">
-                        <i class="fa fa-product-hunt fa-lg mr-2"></i> 蓝色比亚乔
+                        <i class="fa fa-product-hunt fa-lg mr-2"></i> 蓝色天空
                         <span class="float-right text-sm">Paiggio</span>
                     </a>
                     <div class="dropdown-divider"></div>
@@ -402,8 +402,6 @@ ${extendScripts}
         $.acooly.admin.theme.loadTheme();
         $.acooly.system.init();
     });
-
-
 </script>
 </body>
 </html>

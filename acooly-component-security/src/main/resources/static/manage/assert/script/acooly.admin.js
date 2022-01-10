@@ -337,7 +337,6 @@
             if (themeName == 'easyui') {
                 themeName = 'default';
             }
-            console.info("themeName:", themeName);
             this.changeThemeStyle(themeName);
         },
 
