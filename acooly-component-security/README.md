@@ -175,6 +175,13 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 
 ## 6. changelog
 
+### 5.0.0-SNAPSHOT.20220110
+
+* 2022-01-10 - 完成蓝色天空（paiggo）主题的开发 - [zhangpu] c746ea02
+* 2022-01-08 - 为新增的主题paiggio调整easyui相关对应的样式，包括表格，查询条件等。具体项目可以使用参数来设置默认主题`acooly.framework.default-theme=paiggio` - [zhangpu] 87d8fee8
+* 2021-12-29 - CMS组件内容管理，开放keycode功能，为文章配置唯一编码。 - [xiyang] e33e9013
+
+
 ### 5.0.0-SNAPSHOT.20211102
 
 2021-11-02
@@ -201,4 +208,3 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 * 2020-01-14 - fixed：资源权限管理中，从下层拖动到顶层时无法正确报错位置的问题。 - [zhangpu] 763906e
 * 2020-01-14 - fixed：PasswordStrength为低等级时，支持高等级的密码。例如：simple可支持：AA123!@#$模式的密码。
 
-             
