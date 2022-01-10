@@ -177,6 +177,16 @@ $.extend($.fn.validatebox.defaults.rules, {
             return $.acooly.verify.json(value);
         },
         message: 'JSON格式验证未通过'
+    },
+    /**
+     * 角色名称规则
+     */
+    roleName: {
+        validator: function (value) {
+            const regex = /^ROLE_[A-Z,_]+$/;
+            return regex.test(value);
+        },
+        message: '角色名称必须以ROLE_开头的大写英文字母组成'
     }
 
 });
@@ -212,13 +222,13 @@ var fileSizeFormatter = function (value) {
 }
 
 var fileFormatter = function (value, row, index, data) {
-    if(!value || value=='') return null;
+    if (!value || value == '') return null;
     let fileMeta = $.acooly.file.parse(value);
     let url = value;
-    if(data && data.data && data.data.serverRoot){
+    if (data && data.data && data.data.serverRoot) {
         url = data.data.serverRoot + value;
     }
-    let html = "<a href='javascript:;' onclick=\"$.acooly.file.play('"+url+"')\"><i class='fa " + fileMeta.icon + " fa-fw fa-col'></i> " + fileMeta.name + "</a>"
+    let html = "<a href='javascript:;' onclick=\"$.acooly.file.play('" + url + "')\"><i class='fa " + fileMeta.icon + " fa-fw fa-col'></i> " + fileMeta.name + "</a>"
     return html;
 }
 
