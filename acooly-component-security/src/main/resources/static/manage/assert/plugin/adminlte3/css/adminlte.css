@@ -31097,7 +31097,7 @@ a.text-muted:hover {
 
 
 [class*='sidebar-blue-'] {
-  background-color: #007bff;
+  background-color: #00AEFF;
 }
 
 [class*='sidebar-blue-'] .user-panel a:hover {
@@ -31204,7 +31204,7 @@ a.text-muted:hover {
 }
 
 .sidebar-blue-primary .nav-sidebar > .nav-item > .nav-link.active {
-  background-color: #2744B2;
+  background-color: #007bff;
   color: #ffffff;
 }
 

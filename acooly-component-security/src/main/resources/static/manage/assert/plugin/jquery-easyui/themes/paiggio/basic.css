@@ -351,10 +351,10 @@ div.datagrid-cell > div > label {
 
 /* 自定义datagrid的header背景和选中 */
 .tabs-header .tabs-pill li.tabs-selected a.tabs-inner {
-    background: #037bfe;
+    background: #0089CF;
     color: #ffffff;
     filter: none;
-    border-color: #037bfe;
+    border-color: #0089CF;
 }
 
 .tabs-header, .tabs-tool {
