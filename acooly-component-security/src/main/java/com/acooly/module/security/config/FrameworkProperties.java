@@ -104,6 +104,12 @@ public class FrameworkProperties implements Serializable {
     private long loginLockSeconds = 43200;
 
     /**
+     * 登录页面背景色和图片
+     */
+    private String loginViewBackColor = "#007cd9";
+    private String loginViewBackImage = "/manage/assert/image/white-bg.png";
+
+    /**
      * 用户状态
      */
     private Map<Integer, String> userStatus = Maps.newLinkedHashMap();
