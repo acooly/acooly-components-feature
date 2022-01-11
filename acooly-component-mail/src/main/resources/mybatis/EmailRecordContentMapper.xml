@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.mail.dao.EmailRecordContentDao">
+
+    <resultMap id="emailRecordContentResultMap" type="com.acooly.module.mail.entity.EmailRecordContent">
+        <id property="id" column="emailRecordContent_id"/>
+        <result property="content" column="emailRecordContent_content"/>
+        <result property="createTime" column="emailRecordContent_create_time"/>
+        <result property="updateTime" column="emailRecordContent_update_time"/>
+    </resultMap>
+
+    <sql id="emailRecordContentSqlSelect">
+            emailRecordContent.id as emailRecordContent_id,
+            emailRecordContent.content as emailRecordContent_content,
+            emailRecordContent.create_time as emailRecordContent_create_time,
+            emailRecordContent.update_time as emailRecordContent_update_time
+    </sql>
+
+</mapper>

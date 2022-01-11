@@ -10,10 +10,13 @@
 package com.acooly.module.mail.service.impl;
 
 import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.validate.Validators;
 import com.acooly.module.mail.MailAttachmentDto;
 import com.acooly.module.mail.MailDto;
 import com.acooly.module.mail.MailProperties;
+import com.acooly.module.mail.entity.EmailRecord;
+import com.acooly.module.mail.service.EmailRecordService;
 import com.acooly.module.mail.service.MailService;
 import com.acooly.module.ofile.OFileProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -46,12 +49,15 @@ public class MailServiceImpl implements MailService {
     private TaskExecutor taskExecutor;
     @Autowired
     private OFileProperties ofileProperties;
+    @Autowired
+    private EmailRecordService emailRecordService;
 
     @Override
     public void send(MailDto dto) {
         log.info("发送邮件:{}", dto);
         String content = validateAndParse(dto);
         send0(dto, content);
+        saveRecord(dto, content);
     }
 
     @Override
@@ -61,6 +67,7 @@ public class MailServiceImpl implements MailService {
         taskExecutor.execute(() -> {
             try {
                 send0(dto, content);
+                saveRecord(dto, content);
             } catch (BusinessException e) {
                 //ignore
             }
@@ -72,6 +79,20 @@ public class MailServiceImpl implements MailService {
         dto.getTo().forEach(EmailValidator.getInstance()::isValid);
         return mailTemplateService.parse(dto.getTemplateName(), dto);
     }
+
+
+    protected void saveRecord(MailDto dto, String content) {
+        EmailRecord emailRecord = new EmailRecord();
+        emailRecord.setTemplateName(dto.getTemplateName());
+        emailRecord.setTemplateTitle(dto.getTemplateTile());
+        emailRecord.setSubject(dto.getSubject());
+        emailRecord.setContent(content);
+        emailRecord.setFromAddress(mailProperties.getFromAddress());
+        emailRecord.setFrom(mailProperties.getFromName());
+        emailRecord.setToAddressList(Strings.join(dto.getTo(), ","));
+        emailRecordService.save(emailRecord);
+    }
+
 
     private void send0(MailDto dto, String content) {
         try {
