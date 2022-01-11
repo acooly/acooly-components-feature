@@ -18,8 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * 邮件组件发送邮件单元测试
@@ -28,7 +31,9 @@ import org.springframework.core.env.Environment;
  * @date 2022-01-11 10:20
  */
 @Slf4j
-public class MailSenderTest extends NoWebTestBase {
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+public class MailSenderTest {
 
     static {
         Apps.setProfileIfNotExists("dev");
@@ -46,11 +51,10 @@ public class MailSenderTest extends NoWebTestBase {
     @Test
     public void testSendWithTemplate() {
         MailDto dto = new MailDto();
-        dto.to("qiuboboy@qq.com").subject("恭喜您注册成功").param("name", "x").param("message", "how are you!")
+        dto.to("15366632@qq.com").subject("恭喜您注册成功").param("name", "x").param("message", "how are you!")
                 .templateName(TEST_TEMPLATE);
         mailService.send(dto);
     }
-
 
     /**
      * 初始化
@@ -58,7 +62,11 @@ public class MailSenderTest extends NoWebTestBase {
      */
     @Before
     public void before() {
-        EmailTemplate emailTemplate = new EmailTemplate();
+        EmailTemplate emailTemplate = emailTemplateService.findByName(TEST_TEMPLATE);
+        if (emailTemplate != null) {
+            return;
+        }
+        emailTemplate = new EmailTemplate();
         emailTemplate.setName(TEST_TEMPLATE);
         emailTemplate.setTitle("用户注册成功通知");
         emailTemplate.setSubject("恭喜您注册成功");
@@ -73,12 +81,5 @@ public class MailSenderTest extends NoWebTestBase {
         emailTemplateService.save(emailTemplate);
         log.info("邮件模板 初始化 完成: {}", emailTemplate);
     }
-
-    @After
-    public void after() {
-        emailTemplateService.deleteByName(TEST_TEMPLATE);
-        log.info("邮件模板 清理 完成: {}", TEST_TEMPLATE);
-    }
-
 
 }

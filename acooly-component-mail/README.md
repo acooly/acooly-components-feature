@@ -2,9 +2,13 @@
 <!-- type: app -->
 <!-- author: qiubo -->
 <!-- date: 2019-11-19 -->
+
 ## 1. 组件介绍
 
 此组件给应用邮件服务能力
+
+* 通过模板方式发送
+* 发送记录并后台可查询
 
 ## 2. 使用说明
 
@@ -47,7 +51,16 @@ maven坐标：
 
 #### 2.2.2. 使用邮件模板
 
-    	MailDto dto = new MailDto();
-    	dto.to("qiuboboy@qq.com").subject("恭喜您注册成功").param("name", "x").param("message", "how are you!")
-    			.templateName("register_success");
-    		mailService.sendAsync(dto);
+```java
+    MailDto dto = new MailDto();
+    dto.to("qiuboboy@qq.com").subject("恭喜您注册成功").param("name", "x").param("message", "how are you!")
+            .templateName("register_success");
+    mailService.sendAsync(dto);
+```
+
+## 3. changelog
+
+### 5.0.0-SNAPSHOT.20220111
+
+
+

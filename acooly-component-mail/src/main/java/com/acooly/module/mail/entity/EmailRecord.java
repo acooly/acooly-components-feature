@@ -55,7 +55,6 @@ public class EmailRecord extends AbstractEntity {
     /**
      * 内容
      */
-    @NotBlank
     @Transient
     private String content;
 
@@ -70,7 +69,7 @@ public class EmailRecord extends AbstractEntity {
      * 发送人
      */
     @Size(max = 32)
-    private String from;
+    private String fromName;
 
     /**
      * 收件人地址列表

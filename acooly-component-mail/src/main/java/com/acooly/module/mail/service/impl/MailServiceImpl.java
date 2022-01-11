@@ -10,6 +10,7 @@
 package com.acooly.module.mail.service.impl;
 
 import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.common.exception.CommonErrorCodes;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.validate.Validators;
 import com.acooly.module.mail.MailAttachmentDto;
@@ -54,19 +55,25 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void send(MailDto dto) {
-        log.info("发送邮件:{}", dto);
         String content = validateAndParse(dto);
-        send0(dto, content);
+        if (!mailProperties.isMock()) {
+            send0(dto, content);
+        } else {
+            log.info("发送邮件 MOCK 成功: {}", dto);
+        }
         saveRecord(dto, content);
     }
 
     @Override
     public void sendAsync(MailDto dto) {
-        log.info("发送邮件:{}", dto);
         String content = validateAndParse(dto);
         taskExecutor.execute(() -> {
             try {
-                send0(dto, content);
+                if (!mailProperties.isMock()) {
+                    send0(dto, content);
+                } else {
+                    log.info("发送邮件 MOCK 成功: {}", dto);
+                }
                 saveRecord(dto, content);
             } catch (BusinessException e) {
                 //ignore
@@ -88,7 +95,7 @@ public class MailServiceImpl implements MailService {
         emailRecord.setSubject(dto.getSubject());
         emailRecord.setContent(content);
         emailRecord.setFromAddress(mailProperties.getFromAddress());
-        emailRecord.setFrom(mailProperties.getFromName());
+        emailRecord.setFromName(mailProperties.getFromName());
         emailRecord.setToAddressList(Strings.join(dto.getTo(), ","));
         emailRecordService.save(emailRecord);
     }
@@ -133,10 +140,10 @@ public class MailServiceImpl implements MailService {
             }
 
             email.send();
-            log.info("发送邮件成功,{}", dto.toString());
+            log.info("发送邮件成功,{}", dto);
         } catch (Exception e) {
-            log.error("发送邮件失败", e);
-            throw new BusinessException(e);
+            log.error("发送邮件失败, {}", dto, e);
+            throw new BusinessException("EMAIL_SEND_FAIL", "邮件发送失败", e.getMessage());
         }
     }
 

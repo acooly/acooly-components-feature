@@ -38,7 +38,7 @@ public class EmailRecordServiceImpl extends EntityServiceImpl<EmailRecord, Email
 
     @Override
     public EmailRecord get(Serializable id) throws BusinessException {
-        EmailRecord emailRecord = get(id);
+        EmailRecord emailRecord = super.get(id);
         EmailRecordContent emailRecordContent = emailRecordContentService.get(id);
         if (emailRecord != null && emailRecordContent != null) {
             emailRecord.setContent(emailRecordContent.getContent());
