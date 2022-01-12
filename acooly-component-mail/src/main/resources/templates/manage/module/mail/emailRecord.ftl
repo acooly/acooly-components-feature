@@ -47,8 +47,8 @@
         <!-- 每行的Action动作模板 -->
         <div id="manage_emailRecord_action" style="display: none;">
 <#--            <a onclick="$.acooly.framework.edit({url:'/manage/module/mail/emailRecord/edit.html',id:'{0}',entity:'emailRecord',width:500,height:500});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>-->
-            <button class="btn btn-xs btn-info" onclick="$.acooly.framework.show('/manage/module/mail/emailRecord/show.html?id={0}',500,500);"><i class="fa fa-file-o fa-fw fa-col"></i>查看信息</button>
-            <button class="btn btn-xs btn-info" onclick="$.acooly.framework.show('/manage/module/mail/emailRecord/showContent.html?id={0}',800,600);"><i class="fa fa-envelope-o fa-fw fa-col"></i>查看内容</button>
+<#--            <button class="btn btn-xs btn-info" onclick="$.acooly.framework.show('/manage/module/mail/emailRecord/show.html?id={0}',500,500);"><i class="fa fa-file-o fa-fw fa-col"></i>查看信息</button>-->
+            <button class="btn btn-xs btn-info" onclick="$.acooly.framework.show('/manage/module/mail/emailRecord/showContent.html?id={0}',800,600);"><i class="fa fa-envelope-o fa-fw fa-col"></i>查看邮件</button>
 <#--            <a onclick="$.acooly.framework.remove('/manage/module/mail/emailRecord/deleteJson.html','{0}','manage_emailRecord_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>-->
         </div>
 
