@@ -1,17 +1,4 @@
-CREATE TABLE `email_template`
-(
-    `id`          bigint(20)    NOT NULL AUTO_INCREMENT COMMENT '模板id',
-    `name`        varchar(45)            DEFAULT NULL COMMENT '模版名称',
-    `title`       varchar(45)            DEFAULT NULL COMMENT '模版标题',
-    `subject`     varchar(1024) NOT NULL COMMENT '模板邮件主题',
-    `content`     mediumtext    NOT NULL COMMENT '模板邮件内容',
-    `create_time` timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `unique_name` (`name`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = utf8mb4 COMMENT ='邮件模板表';
+ALTER TABLE `email_template` ADD COLUMN `title` VARCHAR(45) NULL COMMENT '模版标题';
 
 CREATE TABLE `email_record`
 (
@@ -39,3 +26,5 @@ CREATE TABLE `email_record_content`
 
 
 
+INSERT INTO `sys_resource` VALUES (201704272, 2019022201, '邮件记录', 'URL', 0, '2017-04-07 14:43:55', '/manage/module/mail/emailRecord/index.html', 1, 'fa-circle-o', NULL, '2022-01-11 12:44:07', '2022-01-11 12:44:10');
+INSERT INTO `sys_role_resc` (`ROLE_ID`, `RESC_ID`) VALUES ('1', '201704272');

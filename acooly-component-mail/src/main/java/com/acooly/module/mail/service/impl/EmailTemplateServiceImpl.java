@@ -25,4 +25,14 @@ public class EmailTemplateServiceImpl extends EntityServiceImpl<EmailTemplate, E
     public List<EmailTemplate> find(String property, Object value) {
         return getEntityDao().find(property, value);
     }
+
+    @Override
+    public EmailTemplate findByName(String templateName) {
+        return getEntityDao().findByName(templateName);
+    }
+
+    @Override
+    public void deleteByName(String templateName) {
+        getEntityDao().deleteByName(templateName);
+    }
 }
