@@ -47,6 +47,11 @@ public class FrameworkProperties implements Serializable {
     private String copyright = "Copyright © 2012 acooly. All rights reserved";
 
     /**
+     * 默认样式，acooly,easyui, paiggio
+     */
+    private String defaultTheme = "acooly";
+
+    /**
      * 外部扩展css
      */
     private List<String> styles = new ArrayList<>();
@@ -97,6 +102,12 @@ public class FrameworkProperties implements Serializable {
      * 密码锁定时长 秒
      */
     private long loginLockSeconds = 43200;
+
+    /**
+     * 登录页面背景色和图片
+     */
+    private String loginViewBackColor = "#007cd9";
+    private String loginViewBackImage = "/manage/assert/image/white-bg.png";
 
     /**
      * 用户状态

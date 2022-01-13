@@ -18,7 +18,7 @@
 
 </head>
 
-<body class="hold-transition login-page" style="height:80vh;background: #007cd9 url(/manage/assert/image/white-bg.png) no-repeat center bottom;">
+<body class="hold-transition login-page" style="height:80vh;background: ${securityConfig.loginViewBackColor} url(${securityConfig.loginViewBackImage}) no-repeat center bottom;">
 
 <div class="login-logo">
     <#if Session.securityConfig.logo?? && Session.securityConfig.logo != "">

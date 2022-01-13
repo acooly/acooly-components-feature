@@ -2,9 +2,13 @@
 <!-- type: app -->
 <!-- author: qiubo -->
 <!-- date: 2019-11-19 -->
+
 ## 1. 组件介绍
 
 此组件给应用邮件服务能力
+
+* 通过模板方式发送
+* 发送记录并后台可查询
 
 ## 2. 使用说明
 
@@ -47,7 +51,21 @@ maven坐标：
 
 #### 2.2.2. 使用邮件模板
 
-    	MailDto dto = new MailDto();
-    	dto.to("qiuboboy@qq.com").subject("恭喜您注册成功").param("name", "x").param("message", "how are you!")
-    			.templateName("register_success");
-    		mailService.sendAsync(dto);
+```java
+    MailDto dto = new MailDto();
+    dto.to("qiuboboy@qq.com").subject("恭喜您注册成功").param("name", "x").param("message", "how are you!")
+            .templateName("register_success");
+    mailService.sendAsync(dto);
+```
+
+## 3. changelog
+
+### 5.0.0-SNAPSHOT.20220111
+
+* 增强版本，非兼容，请手动升级更新数据库: `META-INF/database/mail/mysql/mail_update_20220111.sql`。
+* 对模板增加了模板标题字段属性，可用来为模板名称加入中文说明，或者用于邮件类型标注。
+* 使用新版本boss重写后台邮件模板功能。
+* 增加邮件发送记录，后台管理BOSS可查询发送记录和邮件内容详情
+* 增加邮件mock发送功能，只解析模板，并记录发送记录，但不真实发送.`acooly.mail.mock=true`
+* 添加单元测试`MailSenderTest`,提供完整的邮寄发送测试和demo
+

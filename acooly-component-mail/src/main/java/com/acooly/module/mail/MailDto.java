@@ -34,6 +34,8 @@ public class MailDto implements Serializable {
 
     private Map<String, Object> params = Maps.newHashMap();
 
+    private String templateTile;
+
     @NotBlank
     private String templateName;
 

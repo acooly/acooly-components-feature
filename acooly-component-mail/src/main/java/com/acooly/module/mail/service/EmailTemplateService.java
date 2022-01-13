@@ -16,5 +16,28 @@ import java.util.List;
  * @author shuijing
  */
 public interface EmailTemplateService extends EntityService<EmailTemplate> {
+
+
+    /**
+     * 根据指定属性查询
+     *
+     * @param property
+     * @param value
+     * @return
+     */
     List<EmailTemplate> find(String property, Object value);
+
+    /**
+     * 根据模板名称（KEY）查询
+     *
+     * @param templateName
+     */
+    EmailTemplate findByName(String templateName);
+
+    /**
+     * 根据模板名称（KEY）删除模板
+     *
+     * @param templateName
+     */
+    void deleteByName(String templateName);
 }

@@ -87,9 +87,13 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="font-size: 14px;">
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item<#if acoolyTheme='acooly'> active</#if>">
+                    <a href="/manage/index.html?acoolyTheme=acooly" class="dropdown-item<#if acoolyTheme='acooly'> active</#if>">
                         <i class="fa fa-pie-chart fa-lg mr-2"></i> 创新素雅
                         <span class="float-right text-sm">AdminLte3</span>
+                    </a>
+                    <a href="/manage/index.html?acoolyTheme=paiggio" class="dropdown-item<#if acoolyTheme='paiggio'> active</#if>">
+                        <i class="fa fa-product-hunt fa-lg mr-2"></i> 蓝色天空
+                        <span class="float-right text-sm">Paiggio</span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="/manage/index.html?acoolyTheme=easyui" class="dropdown-item">
@@ -112,8 +116,8 @@
     </nav>
     <!-- /.navbar -->
 
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Main Sidebar Container sidebar-blue-primary -->
+    <aside class="main-sidebar sidebar-<#if acoolyTheme == 'acooly'>dark<#else>blue</#if>-primary elevation-5">
         <!-- Brand Logo -->
         <a href="javascript:;" class="logo brand-link" style="display: none;">
             <span><img id="logo_image" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8;width: 33px;"></span>
@@ -390,9 +394,12 @@ ${extendScripts}
 <script type="text/javascript">
     var contextPath = '';
     $(function () {
-        $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "acooly");
+        var acoolyTheme = '${acoolyTheme}';
+        if (acoolyTheme == '') {
+            acoolyTheme = 'acooly';
+        }
+        $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);
         $.acooly.admin.theme.loadTheme();
-        // loadTheme();
         $.acooly.system.init();
     });
 </script>

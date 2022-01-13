@@ -12,6 +12,7 @@ package com.acooly.module.mail.service.impl;
 import com.acooly.core.common.boot.ApplicationContextHolder;
 import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.exception.AppConfigException;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.FreeMarkers;
 import com.acooly.module.mail.MailDto;
 import com.acooly.module.mail.MailProperties;
@@ -45,11 +46,13 @@ public class MailTemplateService {
     public String parse(String key, MailDto dto) {
         //兼容之前，先查数据库模板，如果没有从classpath:/mail/下查找
         String template = null;
-        List<EmailTemplate> emailTemplates = emailTemplateService.find("EQ_name", key);
-        if (!emailTemplates.isEmpty()) {
-            EmailTemplate emailTemplate = emailTemplates.get(0);
+        EmailTemplate emailTemplate = emailTemplateService.findByName(key);
+        if (emailTemplate != null) {
             template = emailTemplate.getContent();
-            dto.setSubject(emailTemplate.getSubject());
+            dto.setTemplateTile(emailTemplate.getTitle());
+            if (Strings.isNullOrEmpty(dto.getSubject())) {
+                dto.setSubject(emailTemplate.getSubject());
+            }
         }
         if (StringUtils.isEmpty(template)) {
             template = getTemplates(key);

@@ -325,6 +325,22 @@
         },
 
         /**
+         * 改变样式
+         * @param themeName
+         */
+        changeTheme: function (themeName) {
+            if (themeName) {
+                $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, themeName);
+            } else {
+                themeName = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
+            }
+            if (themeName == 'easyui') {
+                themeName = 'default';
+            }
+            this.changeThemeStyle(themeName);
+        },
+
+        /**
          * 修改主题对应的样式
          * @param themeName
          */

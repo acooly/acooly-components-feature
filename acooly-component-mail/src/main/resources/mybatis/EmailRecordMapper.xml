@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.mail.dao.EmailRecordDao">
+
+    <resultMap id="emailRecordResultMap" type="com.acooly.module.mail.entity.EmailRecord">
+        <id property="id" column="emailRecord_id"/>
+        <result property="templateName" column="emailRecord_template_name"/>
+        <result property="templateTitle" column="emailRecord_template_title"/>
+        <result property="title" column="emailRecord_title"/>
+        <result property="subject" column="emailRecord_subject"/>
+        <result property="content" column="emailRecord_content"/>
+        <result property="fromAddress" column="emailRecord_from_address"/>
+        <result property="from" column="emailRecord_from"/>
+        <result property="toAddressList" column="emailRecord_to_address_list"/>
+        <result property="createTime" column="emailRecord_create_time"/>
+        <result property="updateTime" column="emailRecord_update_time"/>
+        <result property="comments" column="emailRecord_comments"/>
+    </resultMap>
+
+    <sql id="emailRecordSqlSelect">
+            emailRecord.id as emailRecord_id,
+            emailRecord.template_name as emailRecord_template_name,
+            emailRecord.template_title as emailRecord_template_title,
+            emailRecord.title as emailRecord_title,
+            emailRecord.subject as emailRecord_subject,
+            emailRecord.content as emailRecord_content,
+            emailRecord.from_address as emailRecord_from_address,
+            emailRecord.from as emailRecord_from,
+            emailRecord.to_address_list as emailRecord_to_address_list,
+            emailRecord.create_time as emailRecord_create_time,
+            emailRecord.update_time as emailRecord_update_time,
+            emailRecord.comments as emailRecord_comments
+    </sql>
+
+</mapper>

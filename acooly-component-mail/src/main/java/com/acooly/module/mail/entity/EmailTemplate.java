@@ -34,13 +34,18 @@ public class EmailTemplate extends AbstractEntity {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private String title;
+
     /**
      * 模板邮件主题
      */
+    @NotBlank
     private String subject;
 
     /**
      * 模板邮件内容
      */
+    @NotBlank
     private String content;
 }

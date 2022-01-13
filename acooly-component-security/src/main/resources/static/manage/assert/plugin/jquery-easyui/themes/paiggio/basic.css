@@ -1,0 +1,656 @@
+body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /*font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;*/
+    font-size: 14px;
+}
+
+.tableForm select {
+    height: 30px;
+    line-height: 1.3;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    font-size: 14px;
+    /*border-radius: 2px;*/
+}
+
+.tableForm .item {
+    display: inline-block;
+    margin-left: 2px;
+}
+
+/*.tableForm .combo-text {*/
+/*    !*width: 235px;*!*/
+/*}*/
+
+
+.tableForm input {
+    height: 30px;
+    /*width: 260px;*/
+    padding-left: 10px;
+    line-height: 1.3;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    font-size: 14px;
+    /*border-radius: 2px;*/
+    margin: 5px 0;
+}
+
+.tableForm textarea {
+    /*width: 260px;*/
+    padding: 2px 0 2px 10px;
+    line-height: 1.3;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    font-size: 14px;
+    /*border-radius: 2px;*/
+    margin: 5px 0;
+}
+
+.tableForm input[type='radio'], .tableForm input[type='checkbox'], .tableForm input[type='file'] {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.tableForm .tooltip-f {
+    border-color: #dd4b39;
+    box-shadow: none;
+}
+
+
+input:hover, textarea:hover {
+    border-color: #007aff !important;
+    box-shadow: none;
+}
+
+
+.editForm select {
+    height: 30px;
+    line-height: 1.3;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    font-size: 14px;
+    /*border-radius: 2px;*/
+}
+
+.editForm .combo-text {
+    width: 235px;
+}
+
+
+.editForm input {
+    height: 30px;
+    width: 260px;
+    padding-left: 10px;
+    line-height: 1.3;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    font-size: 14px;
+    /*border-radius: 2px;*/
+    margin: 5px 0;
+}
+
+.editForm textarea {
+    width: 260px;
+    padding: 2px 0 2px 10px;
+    line-height: 1.3;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    font-size: 14px;
+    /*border-radius: 2px;*/
+    margin: 5px 0;
+}
+
+.editForm input[type='radio'], .editForm input[type='checkbox'], .editForm input[type='file'] {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.editForm .tooltip-f {
+    border-color: #dd4b39;
+    box-shadow: none;
+}
+
+
+input:focus, textarea:focus {
+    border-color: #007aff !important;
+    box-shadow: none;
+    outline-offset: 0;
+    outline: none;
+}
+
+.nohighlight:focus {
+    outline: none;
+}
+
+
+.acooly-comment {
+    color: #ff5722c2;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+
+.combo input[type='text'] {
+    height: 30px;
+    padding-left: 10px;
+    line-height: 1.3em;
+    font-size: 14px;
+    /*border-right: 0;*/
+}
+
+.combo-arrow {
+    width: 25px;
+    height: 30px;
+    margin-left: 0;
+    vertical-align: middle;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px;
+}
+
+.combo-arrow:hover {
+    border-color: #D2D2D2 !important;
+}
+
+
+.tableForm .select .editForm .select {
+    height: 33px;
+    min-width: 80px;
+}
+
+
+.tableForm .combo .editForm .combo {
+    margin-top: -2px;
+}
+
+
+.tableForm, .editForm {
+    background-color: white;
+    width: 100%;
+}
+
+.tableForm th, .editForm th {
+    text-align: right;
+    padding: 5px 15px;
+    font-weight: normal;
+}
+
+.tableForm td, .editForm td {
+    text-align: left;
+    padding: 5px 15px;
+}
+
+.tableForm .item {
+    display: inline-block;
+    margin-left: 2px;
+}
+
+
+.info {
+    color: #8F5700;
+    padding: 5px 0px 5px 5px;
+}
+
+.tip {
+    width: 24px;
+    height: 16px;
+    float: left;
+}
+
+img {
+    cursor: pointer;
+}
+
+.manage_distribute_th th {
+    padding-left: 5px;
+    text-align: left;
+    background: #F3F3F3;
+    font-weight: normal;
+    line-height: 25px;
+    border-bottom: 1px #CCCCCC solid;
+    border-right: 1px #CCCCCC dashed;
+}
+
+.manage_distribute_td td {
+    padding-left: 5px;
+    line-height: 25px;
+    border-bottom: 1px #CCCCCC dashed;
+    border-right: 1px #CCCCCC dashed;
+}
+
+/*.ztree li span.button.switch.level0 {*/
+/*    visibility: hidden;*/
+/*    width: 1px;*/
+/*}*/
+
+/*.ztree li ul.level0 {*/
+/*    padding: 0;*/
+/*    background: none;*/
+/*}*/
+
+.tableForm .l-btn, .filebox .l-btn, .dialog-button .l-btn {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    box-shadow: none;
+}
+
+.tableForm .l-btn:hover, .tableForm .l-btn:active, .tableForm .l-btn:focus,
+.filebox .l-btn:hover, .filebox .l-btn:active, .filebox .l-btn:focus,
+.dialog-button .l-btn:hover, .dialog-button .l-btn:active, .dialog-button .l-btn:focus {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    box-shadow: none, 0 0 0 0 rgba(38, 143, 255, .5);
+}
+
+.l-btn-left .l-btn-text .fa-lg {
+    vertical-align: -10%;
+}
+
+.panel-header .panel-title .fa-lg {
+    vertical-align: -10%;
+}
+
+/*.easyui-combobox-ext {*/
+/*    height: 30px;*/
+/*    min-width: 100px;*/
+/*}*/
+
+.centerHeader {
+    border: 0;
+}
+
+.uploadfive-queue {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: #FFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+    height: 57px;
+    margin-bottom: 5px;
+    overflow: auto;
+    padding: 3px;
+}
+
+#layout_center_tabs > .tabs-panels > .panel {
+    background-color: #f4f6f9;
+    padding: 15px;
+}
+
+#layout_center_tabs > .tabs-panels > .panel > .panel-body {
+    background-color: #f4f6f9;
+}
+
+/*#layout_center_tabs > .tabs-panels > .panel > .panel-body > .easyui-layout >.layout-panel-center {margin-top: 15px;}*/
+
+/*#layout_center_tabs .tabs-selected {border-top: 2px solid #007aff}*/
+
+/*.datagrid-header, .datagrid-td-rownumber {    background-color: #ffffff;}*/
+
+.control-sidebar-menu .sidebar-menu-icon {
+    float: left;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    position: inherit;
+}
+
+.datagrid-toolbar {
+    background: #f4f6f9;
+}
+
+.datagrid-pager {
+    background: #ffffff;
+}
+
+.datagrid-header, .datagrid-td-rownumber {
+    background-color: #fff;
+}
+
+.datagrid-header td, .datagrid-body td, .datagrid-footer td {
+    border-width: 0 1px 1px 0;
+    border-style: solid;
+    margin: 0;
+    padding: 0;
+}
+
+.datagrid-header td, .datagrid-body td, .datagrid-footer td {
+    border-color: #f3f3f3;
+}
+
+.datagrid-toolbar, .datagrid-pager, .datagrid-footer-inner {
+    border-color: #f3f3f3;
+}
+
+.datagrid-header {
+    overflow: hidden;
+    cursor: default;
+    border-width: 1px 0 1px 0;
+    border-style: solid;
+    /*border-top: 3px solid #d2d6de;*/
+}
+
+.main-tree li ul {
+    padding-left: 15px;
+}
+
+/*bootstrap中定义label的样式为font-weight: bold;，会导致easyui-datagrid中超长的数据以粗体显示，在此修改为normal*/
+div.datagrid-cell > div > label {
+    font-weight: normal;
+}
+
+/* 自定义datagrid的header背景和选中 */
+.tabs-header .tabs-pill li.tabs-selected a.tabs-inner {
+    background: #0089CF;
+    color: #ffffff;
+    filter: none;
+    border-color: #0089CF;
+}
+
+.tabs-header, .tabs-tool {
+    background-color: #ffffff;
+}
+
+.panel-header-noborder {
+    border-width: 0;
+}
+
+.dialog-button {
+    border-top: 0;
+}
+
+/* 自定义alert */
+.ac-notification {
+    display: flex;
+    width: 330px;
+    box-sizing: border-box;
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
+    padding: 14px 26px 14px 13px;
+    border-radius: 8px;
+    border: 1px solid #E6EBF5;
+    border-image: initial;
+    transition: opacity 0.3s ease 0s, transform 0.3s ease 0s, left 0.3s ease 0s, right 0.3s ease 0s, top 0.4s ease 0s, bottom 0.3s ease 0s, -webkit-transform 0.3s ease 0s;
+    overflow: hidden;
+}
+
+.ac-notification.right {
+    right: 16px;
+}
+
+.ac-notification__icon {
+    font-size: 36px;
+}
+
+.ac-notification__group {
+    margin-left: 13px;
+    margin-right: 8px;
+}
+
+.ac-notification__title {
+    font-weight: 700;
+    font-size: 16px;
+    color: rgb(45, 47, 51);
+    margin: 0px;
+}
+
+.ac-notification__content {
+    font-size: 14px;
+    line-height: 21px;
+    color: rgb(90, 94, 102);
+    text-align: justify;
+    margin: 6px 0px 0px;
+}
+
+.ac-notification__closeBtn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    color: rgb(135, 141, 153);
+    font-size: 18px;
+}
+
+.ac-notification__closeBtn:hover {
+    color: rgb(90, 94, 102);
+}
+
+.ac-notification__content p {
+    margin: 0px;
+}
+
+
+.ac-logo-title {
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: -webkit-box;
+}
+
+.control-sidebar {
+    bottom: 0;
+}
+
+.control-sidebar-dark .nav-tabs.control-sidebar-tabs {
+    border-bottom: #1c2529;
+}
+
+.control-sidebar-dark .nav-tabs.control-sidebar-tabs > li.active > a, .control-sidebar-dark .nav-tabs.control-sidebar-tabs > li.active > a:hover, .control-sidebar-dark .nav-tabs.control-sidebar-tabs > li.active > a:focus, .control-sidebar-dark .nav-tabs.control-sidebar-tabs > li.active > a:active {
+    background: #343a40;
+    color: #fff;
+}
+
+.control-sidebar-dark .nav-tabs.control-sidebar-tabs > li > a, .control-sidebar-dark .nav-tabs.control-sidebar-tabs > li > a:hover, .control-sidebar-dark .nav-tabs.control-sidebar-tabs > li > a:focus {
+    border-left-color: #141a1d;
+    border-bottom-color: #141a1d;
+}
+
+.nav-tabs.control-sidebar-tabs > li:first-of-type > a, .nav-tabs.control-sidebar-tabs > li:first-of-type > a:hover, .nav-tabs.control-sidebar-tabs > li:first-of-type > a:focus {
+    border-left-width: 0;
+}
+
+.control-sidebar .nav {
+    display: block;
+}
+
+.control-sidebar .nav-justified > li {
+    text-align: center;
+    display: table-cell;
+    width: 1%;
+    background-color: #222d32;
+}
+
+.control-sidebar .nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.control-sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0 -15px;
+}
+
+.control-sidebar-menu > li > a {
+    display: block;
+    padding: 10px 15px;
+}
+
+.control-sidebar-dark .control-sidebar-heading, .control-sidebar-dark .control-sidebar-subheading {
+    color: #fff;
+}
+
+.control-sidebar-heading {
+    font-weight: 400;
+    font-size: 16px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.control-sidebar-menu .sidebar-menu-icon {
+    float: left;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    position: inherit;
+}
+
+.control-sidebar-menu .menu-info {
+    margin-left: 45px;
+}
+
+.control-sidebar-menu .menu-info > .control-sidebar-subheading {
+    margin: 0;
+}
+
+.control-sidebar-dark .control-sidebar-heading, .control-sidebar-dark .control-sidebar-subheading {
+    color: #fff;
+}
+
+.control-sidebar-subheading {
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.control-sidebar-dark .control-sidebar-menu > li > a .menu-info > p {
+    color: #b8c7ce;
+}
+
+.control-sidebar-menu .menu-info > p {
+    margin: 0;
+    font-size: 11px;
+}
+
+.nav-link {
+    padding: 0.5rem 0.5rem;
+}
+
+.toast {
+    width: 350px;
+}
+
+.checkbox {
+    border: 2px solid #e6e6e6;
+}
+
+.checkbox-checked {
+    background: #007aff;
+    border: 0;
+}
+
+
+/* adminlte bootstrap form  */
+.form-horizontal .validatebox-invalid {
+    border-color: #dc3545;
+    padding-right: 2.25rem;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+
+.form-horizontal .form-control {
+    font-size: inherit;
+    height: calc(2rem + 2px);
+    /*border-radius: 0;*/
+}
+
+.form-horizontal textarea.form-control{
+    height:auto;
+}
+
+.form-horizontal .select2-container--bootstrap4 .select2-selection--single{
+    height: calc(2rem + 2px) !important;;
+    line-height: calc(2rem + 2px) !important;
+}
+.form-horizontal .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered{
+    line-height: calc(2rem + 2px) !important;
+}
+
+.select2-container--bootstrap4 .select2-selection--multiple {
+    min-height: calc(2rem + 2px) !important;
+}
+
+.form-horizontal .input-group-append { height: calc(2rem + 2px);}
+
+.select2-dropdown { z-index: 10000;}
+/* 自定义select2高度后，让内部文字的显示自适应高度居中显示 */
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__placeholder {line-height: normal;}
+
+/** acooly search form custom */
+.ac-form-search .form-group {margin-right: 0.5rem;margin-top: 0.5rem;}
+.ac-form-search .form-group select{min-width: 80px;}
+.ac-form-search .form-group input[type=text] { width: 100px;}
+.ac-form-search .form-group .select2-container--bootstrap4 .select2-selection--single{
+    height: calc(1.8125rem + 2px) !important;;
+    line-height: calc(1.8125rem + 2px) !important;
+}
+.ac-form-search .form-group .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered{
+    line-height: calc(1.8125rem + 2px) !important;
+}
+
+.ac-form-search .form-group .col-form-label { font-weight: normal; }
+/** 弹出框圆角 */
+.window {border-radius: 5px;}
+.window-shadow {border-radius: 5px;}
+.dialog-button {padding: 10px 20px;}
+
+/* select2的定制样式: 针对select2多选时的高度受到 .tableForm input的影响 */
+.select2-container .select2-search--inline .select2-search__field{
+    height: auto;
+}
+
+/* 表单内显示文字字段样式 */
+.col-form-content {padding-top: calc(.375rem + 1px);padding-bottom: calc(.375rem + 1px);margin-bottom: 0;font-size: inherit;line-height: 1.5;}
+
+/* tooltip默认样式 */
+.tooltip {
+    opacity: 1 !important;
+    color: #fff; /*字体颜色*/
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+/* show界面的等行高样式 */
+.card-body dt,.card-body dd{
+    padding-top: calc(.375rem + 1px);
+    padding-bottom: calc(.375rem + 1px);
+    margin-bottom: 0;
+    font-size: inherit;
+    line-height: 1.5;
+}
+
+
+.datagrid-htable {
+    font-weight: 800;
+}
+
+.datagrid-row-over{
+    color: #666666;
+    background:#c4e2ff;border-color:#c4e2ff;
+}
+
+.datagrid-row-selected {
+    background:#c4e2ff;border-color:#c4e2ff;
+    color: #666666;
+}

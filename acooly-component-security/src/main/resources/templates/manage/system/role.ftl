@@ -17,7 +17,7 @@
         <table id="manage_role_datagrid" class="easyui-datagrid" url="/manage/system/role/listJson.html"
                toolbar="#manage_role_toolbar" fit="true" border="false" fitColumns="true"
                pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc"
-               checkOnSelect="true" selectOnCheck="true">
+               checkOnSelect="true" selectOnCheck="true" singleSelect="true">
             <thead>
             <tr>
                 <th field="formatId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>

@@ -98,7 +98,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
                 acoolyTheme = refreshTheme;
             }
             if (Strings.isBlank(acoolyTheme)) {
-                acoolyTheme = "acooly";
+                acoolyTheme = frameworkProperties.getDefaultTheme();
             }
             request.getSession().setAttribute("acoolyTheme", acoolyTheme);
             boolean isOnline = (Lists.newArrayList(Apps.getEnvironment().getActiveProfiles()).contains(Env.online.name()));

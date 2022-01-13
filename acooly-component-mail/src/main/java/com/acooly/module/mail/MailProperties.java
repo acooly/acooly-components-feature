@@ -38,6 +38,10 @@ public class MailProperties implements InitializingBean {
     private boolean enable = true;
     private boolean debug = false;
     /**
+     * Mock表示只记录，不发送
+     */
+    private boolean mock = false;
+    /**
      * 邮件服务器地址
      */
     @NotBlank
