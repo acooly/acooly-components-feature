@@ -57,7 +57,7 @@ public abstract class AppAbstractManageController<T extends Entityable, M extend
         config.setStorageRoot(storageRoot);
         config.setStorageNameSpace(oFileProperties.getStorageNameSpace());
         config.setUseMemery(false);
-        config.setAllowExtentions("jpg,gif,png");
+        config.setAllowExtentions("jpg,jpeg,gif,png");
         return config;
     }
 

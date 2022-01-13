@@ -62,7 +62,7 @@
                                     </div>
                                 </#if>
                                 <div class="custom-file" id="manage_content${RequestParameters.code}_editform_cover_container" <#if content != null && content.cover != ''>style="display: none;"</#if>>
-                                    <input type="file" name="cover_f" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']"/>
+                                    <input type="file" name="cover_f" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,jpeg,gif,png','只能上传jpg,jpeg,gif,png格式的图片']"/>
                                     <label class="custom-file-label">请选择上传的文件</label>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                     </div>
                                 </#if>
                                 <div class="custom-file" id="manage_content${RequestParameters.code}_editform_appcover_container" <#if content != null && content.appcover != ''>style="display: none;"</#if>>
-                                    <input type="file" name="cover_app" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']">
+                                    <input type="file" name="cover_app" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,jpeg,gif,png','只能上传jpg,jpeg,gif,png格式的图片']">
                                     <label class="custom-file-label">请选择上传的文件</label>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                                 </div>
                             </#if>
                             <div class="custom-file" id="manage_content${RequestParameters.code}_editform_cover_container" <#if content != null && content.cover != ''>style="display: none;"</#if>>
-                                <input type="file" name="cover_f" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']">
+                                <input type="file" name="cover_f" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,jpeg,gif,png','只能上传jpg,jpeg,gif,png格式的图片']">
                                 <label class="custom-file-label">请选择上传的文件</label>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
                                 </div>
                             </#if>
                             <div class="custom-file" id="manage_content${RequestParameters.code}_editform_appcover_container" <#if content != null && content.appcover != ''>style="display: none;"</#if>>
-                                <input type="file" name="cover_app" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,gif,png','只能上传jpg,gif,png格式的图片']">
+                                <input type="file" name="cover_app" class="easyui-validatebox custom-file-input" accept="image/*" validType="validImg['jpg,jpeg,gif,png','只能上传jpg,jpeg,gif,png格式的图片']">
                                 <label class="custom-file-label">请选择上传的文件</label>
                             </div>
                         </div>
