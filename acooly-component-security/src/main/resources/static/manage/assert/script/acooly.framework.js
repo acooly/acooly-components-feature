@@ -927,6 +927,22 @@
                 return url;
             },
 
+
+            /**
+             * 动态渲染组件
+             * @param rowId
+             * @private
+             */
+            renderDynamic: function (container) {
+                let obj = container && container.jquery ? container : $('#' + container);
+                // select2渲染（下拉选项）
+                $(obj).find('.select2bs4').select2({theme: 'bootstrap4'});
+                // input-mask and easyui 初始化渲染
+                $(obj).find('[data-mask]').inputmask();
+                // easyui组件动态渲染
+                $.parser.parse($('#' + $(obj).attr('id')));
+            },
+
             /**
              * 根据变动名称获取表单对象
              * @param form form表单的Id
