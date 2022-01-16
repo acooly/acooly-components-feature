@@ -933,7 +933,6 @@
              * @param formItemName form表单下字段的name
              */
             getFormItem: function (form, formItemName) {
-                var itemObj;
                 var itemObj = $("#" + form + " input[name='" + formItemName + "']");
                 if (itemObj.length == 0) {
                     itemObj = $("#" + form + " select[name='" + formItemName + "']");
@@ -942,10 +941,10 @@
                     itemObj = $("#" + form + " textarea[name='" + formItemName + "']");
                 }
 
-                if (!itemObj.attr('class') && $(itemObj).prev().attr('class').indexOf("easyui-numberbox") >= 0) {
+                if (!itemObj.attr('class') && $(itemObj).prev() && $(itemObj).prev().attr('class') && $(itemObj).prev().attr('class').indexOf("easyui-numberbox") >= 0) {
                     itemObj = $(itemObj).prev();
                 }
-                if (itemObj.attr('class').indexOf("combo-value") >= 0 && $(itemObj).parent().prev().attr('class').indexOf("easyui-combobox") >= 0) {
+                if (itemObj.attr('class') && itemObj.attr('class').indexOf("combo-value") >= 0 && $(itemObj).parent() && $(itemObj).parent().prev() && $(itemObj).parent().prev().attr('class') && $(itemObj).parent().prev().attr('class').indexOf("easyui-combobox") >= 0) {
                     itemObj = $(itemObj).parent().prev();
                 }
                 return itemObj;
