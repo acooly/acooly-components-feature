@@ -5,7 +5,7 @@
 	<div id="container_${chartItemId}_loopTime" style="font-size:8px;color:	#D3D3D3;position: absolute;left:90%;margin-top:35px; "></div>
 	<div id="container_${chartItemId}" style="height: 100%"></div>
 
-	<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/echarts.min.js"></script>
 	<script type="text/javascript" src="/plugin/echarts/javascript/business.js"></script>
 

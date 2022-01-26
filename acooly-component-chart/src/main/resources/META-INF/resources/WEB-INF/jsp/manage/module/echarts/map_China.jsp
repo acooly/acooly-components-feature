@@ -8,7 +8,7 @@
 	
 	<div id="container_${chartItemId}" style="height: 98%; margin: 20px auto; margin-left:25px; border: 0px solid #ddd;"></div>
 		
-	<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/echarts.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/javascript/business.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/ext/map/echarts-map-China.js" charset="utf-8"></script>
