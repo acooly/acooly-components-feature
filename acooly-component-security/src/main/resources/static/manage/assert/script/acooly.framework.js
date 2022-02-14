@@ -1100,6 +1100,7 @@
                             let num = count - length;
                             $(this).next().find('span').html(num);
                         });
+                        $(e).trigger('keyup');
                     }
                 });
             },
