@@ -60,7 +60,7 @@ public class JPushAppNotifyServiceImpl implements AppNotifyService {
 	@Override
 	public void group(NotifyMessage notifyMessage, List<String> alias, List<String> tags, String sender, boolean save) {
 		// 极光默认，别名单次-发送 1000
-		long defaultSize = 2L;
+		long defaultSize = 1000L;
 		long aliasSize = alias.size();
 		if (aliasSize > defaultSize) {
 			List<String> aliasSub = Lists.newArrayList();
