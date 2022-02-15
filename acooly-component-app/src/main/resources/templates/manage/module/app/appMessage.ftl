@@ -81,8 +81,13 @@
 
         <!-- 表格的工具栏 -->
         <div id="manage_appMessage_toolbar">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"
-               onclick="$.acooly.framework.create({url:'/manage/module/app/appMessage/create.html',entity:'appMessage',width:500,height:400,reload:true,title:'系统推送',addButton:'确定推送'})">发送Push</a>
+        
+        	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"
+               onclick="$.acooly.framework.create({url:'/manage/module/app/appMessage/create.html',entity:'appMessage',width:750,height:650,reload:true,title:'系统推送',addButton:'确定推送'})">发送Push</a>
+
+        	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"
+               onclick="$.acooly.framework.create({url:'/manage/module/app/appMessage/customCreate.html',entity:'appMessage',width:750,height:650,reload:true,title:'定制推送',addButton:'确定推送'})">定制推送</a>
+
         </div>
     </div>
 

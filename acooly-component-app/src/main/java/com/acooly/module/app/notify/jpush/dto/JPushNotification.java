@@ -3,10 +3,11 @@
  */
 package com.acooly.module.app.notify.jpush.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.NotBlank;
-
 import java.util.Map;
+
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author zhangpu
@@ -14,182 +15,215 @@ import java.util.Map;
  */
 public class JPushNotification {
 
-    private Android android;
+	private Android android;
 
-    private IOS ios;
+	private IOS ios;
 
-    public Android getAndroid() {
-        return android;
-    }
+	public Android getAndroid() {
+		return android;
+	}
 
-    public void setAndroid(Android android) {
-        this.android = android;
-    }
+	public void setAndroid(Android android) {
+		this.android = android;
+	}
 
-    public IOS getIos() {
-        return ios;
-    }
+	public IOS getIos() {
+		return ios;
+	}
 
-    public void setIos(IOS ios) {
-        this.ios = ios;
-    }
+	public void setIos(IOS ios) {
+		this.ios = ios;
+	}
 
-    public static class Android {
-        /**
-         * 通知内容
-         *
-         * <p>这里指定了，则会覆盖上级统一指定的 alert 信息；内容可以为空字符串，则表示不展示到通知栏。
-         */
-        @NotBlank
-        private String alert;
+	public static class Android {
+		/**
+		 * 通知内容
+		 *
+		 * <p>
+		 * 这里指定了，则会覆盖上级统一指定的 alert 信息；内容可以为空字符串，则表示不展示到通知栏。
+		 */
+		@NotBlank
+		private String alert;
 
-        /**
-         * 通知标题
-         *
-         * <p>如果指定了，则通知里原来展示 App名称的地方，将展示成这个字段。
-         */
-        private String title;
+		/**
+		 * 通知标题
+		 *
+		 * <p>
+		 * 如果指定了，则通知里原来展示 App名称的地方，将展示成这个字段。
+		 */
+		private String title;
 
-        /**
-         * 通知栏样式ID
-         *
-         * <p>Android SDK 可设置通知栏样式，这里根据样式 ID 来指定该使用哪套样式。
-         */
-        @JsonProperty("builder_id")
-        private Integer builderId;
+		/**
+		 * <li>1. 跳转到目标页: intent:#Intent;action=action路径;component=包名/Activity全名;end
+		 * （OPPO 和 FCM 通道必须传"action路径", 其他厂商必须传"Activity全名", 否则将出现对应厂商无法跳转问题）
+		 * <li>2. 跳转到deeplink地址: scheme://test?key1=val1&key2=val2
+		 * <li>3. 应用首页: intent:#Intent;action=android.intent.action.MAIN;end
+		 */
+		private Map<String, Object> intent;
 
-        /**
-         * 扩展字段
-         *
-         * <p>这里自定义 JSON 格式的 Key/Value 信息，以供业务使用。
-         */
-        private Map<String, Object> extras;
+		/**
+		 * 通知栏样式ID
+		 *
+		 * <p>
+		 * Android SDK 可设置通知栏样式，这里根据样式 ID 来指定该使用哪套样式。
+		 */
+		@JsonProperty("builder_id")
+		private Integer builderId;
 
-        public String getAlert() {
-            return alert;
-        }
+		/**
+		 * 扩展字段
+		 *
+		 * <p>
+		 * 这里自定义 JSON 格式的 Key/Value 信息，以供业务使用。
+		 */
+		private Map<String, Object> extras;
 
-        public void setAlert(String alert) {
-            this.alert = alert;
-        }
+		public String getAlert() {
+			return alert;
+		}
 
-        public String getTitle() {
-            return title;
-        }
+		public void setAlert(String alert) {
+			this.alert = alert;
+		}
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
+		public String getTitle() {
+			return title;
+		}
 
-        public Integer getBuilderId() {
-            return builderId;
-        }
+		public void setTitle(String title) {
+			this.title = title;
+		}
 
-        public void setBuilderId(Integer builderId) {
-            this.builderId = builderId;
-        }
+		public Integer getBuilderId() {
+			return builderId;
+		}
 
-        public Map<String, Object> getExtras() {
-            return extras;
-        }
+		public void setBuilderId(Integer builderId) {
+			this.builderId = builderId;
+		}
 
-        public void setExtras(Map<String, Object> extras) {
-            this.extras = extras;
-        }
-    }
+		public Map<String, Object> getExtras() {
+			return extras;
+		}
 
-    public static class IOS {
-        /**
-         * 通知内容
-         *
-         * <p>这里指定了，则会覆盖上级统一指定的 alert 信息；内容可以为空字符串，则表示不展示到通知栏。
-         */
-        @NotBlank
-        private String alert;
+		public void setExtras(Map<String, Object> extras) {
+			this.extras = extras;
+		}
 
-        /**
-         * 通知提示声音
-         *
-         * <p>如果无此字段，则此消息无声音提示；有此字段，如果找到了指定的声音就播放该声音，否则播放默认声音,如果此字段为空字符串，iOS 7 为默认声音，iOS 8 为无声音。(消息)
-         * 说明：JPush 官方 API Library (SDK) 会默认填充声音字段。提供另外的方法关闭声音。
-         */
-        private String sound = "default";
+		public Map<String, Object> getIntent() {
+			return intent;
+		}
 
-        /**
-         * 应用角标
-         *
-         * <p>如果不填，表示不改变角标数字；否则把角标数字改为指定的数字；为 0 表示清除。JPush 官方 API Library(SDK)
-         * 会默认填充badge值为"+1",详情参考：badge +1。
-         */
-        private Integer badge;
+		public void setIntent(Map<String, Object> intent) {
+			this.intent = intent;
+		}
+	}
 
-        /**
-         * 推送唤醒
-         *
-         * <p>推送的时候携带"content-available":true 说明是 Background Remote Notification，如果不携带此字段则是普通的Remote
-         * Notification。
-         */
-        @JsonProperty("content-available")
-        private String contentAvailable;
+	public static class IOS {
+		/**
+		 * 通知内容
+		 *
+		 * <p>
+		 * 这里指定了，则会覆盖上级统一指定的 alert 信息；内容可以为空字符串，则表示不展示到通知栏。
+		 */
+		@NotBlank
+		private String alert;
 
-        /**
-         * IOS8才支持。设置APNs payload中的"category"字段值
-         */
-        private String category;
+		/**
+		 * 通知提示声音
+		 *
+		 * <p>
+		 * 如果无此字段，则此消息无声音提示；有此字段，如果找到了指定的声音就播放该声音，否则播放默认声音,如果此字段为空字符串，iOS 7 为默认声音，iOS 8
+		 * 为无声音。(消息) 说明：JPush 官方 API Library (SDK) 会默认填充声音字段。提供另外的方法关闭声音。
+		 */
+		private String sound = "default";
 
-        /**
-         * 扩展字段
-         *
-         * <p>这里自定义 JSON 格式的 Key/Value 信息，以供业务使用。
-         */
-        private Map<String, Object> extras;
+		/**
+		 * 应用角标
+		 *
+		 * <p>
+		 * 如果不填，表示不改变角标数字；否则把角标数字改为指定的数字；为 0 表示清除。JPush 官方 API Library(SDK)
+		 * 会默认填充badge值为"+1",详情参考：badge +1。
+		 */
+		private Integer badge;
 
-        public String getAlert() {
-            return alert;
-        }
+		/**
+		 * 推送唤醒
+		 *
+		 * <p>
+		 * 推送的时候携带"content-available":true 说明是 Background Remote
+		 * Notification，如果不携带此字段则是普通的Remote Notification。
+		 */
+		@JsonProperty("content-available")
+		private String contentAvailable;
+		
+		/**
+		 * 推送的时候携带 ”mutable-content":true 
+		 * 说明是支持iOS10的UNNotificationServiceExtension，如果不携带此字段则是普通的 Remote Notification。详情参考：UNNotificationServiceExtension
+		 */
+		@JsonProperty("mutable-content")
+		private boolean mutableContent=true;
+		
 
-        public void setAlert(String alert) {
-            this.alert = alert;
-        }
+		/**
+		 * IOS8才支持。设置APNs payload中的"category"字段值
+		 */
+		private String category;
 
-        public String getSound() {
-            return sound;
-        }
+		/**
+		 * 扩展字段
+		 *
+		 * <p>
+		 * 这里自定义 JSON 格式的 Key/Value 信息，以供业务使用。
+		 */
+		private Map<String, Object> extras;
 
-        public void setSound(String sound) {
-            this.sound = sound;
-        }
+		public String getAlert() {
+			return alert;
+		}
 
-        public Integer getBadge() {
-            return badge;
-        }
+		public void setAlert(String alert) {
+			this.alert = alert;
+		}
 
-        public void setBadge(Integer badge) {
-            this.badge = badge;
-        }
+		public String getSound() {
+			return sound;
+		}
 
-        public String getContentAvailable() {
-            return contentAvailable;
-        }
+		public void setSound(String sound) {
+			this.sound = sound;
+		}
 
-        public void setContentAvailable(String contentAvailable) {
-            this.contentAvailable = contentAvailable;
-        }
+		public Integer getBadge() {
+			return badge;
+		}
 
-        public String getCategory() {
-            return category;
-        }
+		public void setBadge(Integer badge) {
+			this.badge = badge;
+		}
 
-        public void setCategory(String category) {
-            this.category = category;
-        }
+		public String getContentAvailable() {
+			return contentAvailable;
+		}
 
-        public Map<String, Object> getExtras() {
-            return extras;
-        }
+		public void setContentAvailable(String contentAvailable) {
+			this.contentAvailable = contentAvailable;
+		}
 
-        public void setExtras(Map<String, Object> extras) {
-            this.extras = extras;
-        }
-    }
+		public String getCategory() {
+			return category;
+		}
+
+		public void setCategory(String category) {
+			this.category = category;
+		}
+
+		public Map<String, Object> getExtras() {
+			return extras;
+		}
+
+		public void setExtras(Map<String, Object> extras) {
+			this.extras = extras;
+		}
+	}
 }

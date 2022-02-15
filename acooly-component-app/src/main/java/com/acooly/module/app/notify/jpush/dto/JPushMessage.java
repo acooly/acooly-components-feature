@@ -5,9 +5,10 @@ package com.acooly.module.app.notify.jpush.dto;
 
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Map;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author zhangpu
