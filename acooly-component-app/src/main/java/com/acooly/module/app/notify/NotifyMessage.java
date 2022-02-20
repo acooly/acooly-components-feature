@@ -4,9 +4,10 @@
 package com.acooly.module.app.notify;
 
 import com.acooly.module.app.enums.AppMessageContentType;
-import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Map;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * 推送消息

@@ -3,7 +3,7 @@
         <table class="tableForm" width="100%">
             <tr>
                 <th width="25%">标题：</th>
-                <td><input type="text" name="title" class="easyui-validatebox" data-options="required:true" validType="byteLength[1,32]"/>
+                <td><input type="text" name="title" class="easyui-validatebox" data-options="required:true" validType="byteLength[1,32]" style="width: 200px;" />
                 </td>
             </tr>
             <th>内容分类：</th>
