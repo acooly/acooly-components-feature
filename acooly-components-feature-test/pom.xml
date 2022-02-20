@@ -99,6 +99,14 @@
             <version>${project.version}</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-chart</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
         <!---->
         <!--<dependency>-->
         <!--<groupId>com.acooly</groupId>-->
