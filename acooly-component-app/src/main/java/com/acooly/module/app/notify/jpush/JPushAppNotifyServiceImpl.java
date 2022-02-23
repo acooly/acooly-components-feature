@@ -27,7 +27,11 @@ import com.acooly.module.app.notify.jpush.dto.JPushMessage;
 import com.acooly.module.app.notify.jpush.dto.JPushNotification;
 import com.acooly.module.app.notify.jpush.dto.JPushOptions;
 import com.acooly.module.app.service.AppMessageService;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.jsonschema.JsonSchema;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 /**
  * 系统通知 JPush实现
@@ -127,7 +131,14 @@ public class JPushAppNotifyServiceImpl implements AppNotifyService {
 
 			// 苹果手机
 			JPushNotification.IOS ios = new JPushNotification.IOS();
-			ios.setAlert(content);
+			
+			//这里指定内容将会覆盖上级统一指定的 alert 信息；内容为空则不展示到通知栏。支持字符串形式也支持官方定义的 alert payload 结构，在该结构中包含 title 和 subtitle 等官方支持的 key
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("title", notifyMessage.getTitle());
+//			jsonObject.put("subtitle"," ");
+			jsonObject.put("body",content);
+			ios.setAlert(jsonObject);
+			
 			ios.setExtras(extras);
 			jPushNotification.setIos(ios);
 			order.setNotification(jPushNotification);

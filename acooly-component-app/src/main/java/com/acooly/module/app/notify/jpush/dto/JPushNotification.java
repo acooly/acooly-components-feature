@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.validation.constraints.NotBlank;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -124,10 +125,9 @@ public class JPushNotification {
 		 * 通知内容
 		 *
 		 * <p>
-		 * 这里指定了，则会覆盖上级统一指定的 alert 信息；内容可以为空字符串，则表示不展示到通知栏。
+		 * 这里指定内容将会覆盖上级统一指定的 alert 信息；内容为空则不展示到通知栏。支持字符串形式也支持官方定义的 alert payload 结构，在该结构中包含 title 和 subtitle 等官方支持的 key
 		 */
-		@NotBlank
-		private String alert;
+		private JSONObject alert;
 
 		/**
 		 * 通知提示声音
@@ -178,11 +178,11 @@ public class JPushNotification {
 		 */
 		private Map<String, Object> extras;
 
-		public String getAlert() {
+		public JSONObject getAlert() {
 			return alert;
 		}
 
-		public void setAlert(String alert) {
+		public void setAlert(JSONObject alert) {
 			this.alert = alert;
 		}
 
