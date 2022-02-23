@@ -26,10 +26,17 @@
                     <option value="">所有</option><#list allCustomerTypes as k,v><option value="${k}">${v}</option></#list>
                 </select>
             </div>
+<#--            <div class="form-group mr-2">-->
+<#--                <label class="col-form-label">创建时间：</label>-->
+<#--                <input type="text" class="form-control form-control-sm" id="search_GTE_createTime" name="search_GTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>-->
+<#--                <span class="mr-1 ml-1">至</span> <input type="text" class="form-control form-control-sm" id="search_LTE_createTime" name="search_LTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>-->
+<#--            </div>-->
             <div class="form-group mr-2">
-                <label class="col-form-label">创建时间：</label>
-                <input type="text" class="form-control form-control-sm" id="search_GTE_createTime" name="search_GTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
-                <span class="mr-1 ml-1">至</span> <input type="text" class="form-control form-control-sm" id="search_LTE_createTime" name="search_LTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
+                <label class="col-form-label">创建日期：</label>
+                <button type="button" class="btn btn-sm btn-default float-right acooly-daterangepicker" style="width: 275px;"
+                        data-start-name="search_GTE_createTime" data-end-name="search_LTE_createTime">
+                    <i class="fa fa-calendar"></i> <span>选择日期段 </span> <i class="fa fa-caret-down"></i>
+                </button>
             </div>
             <div class="form-group">
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_customer_searchform','manage_customer_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>
@@ -41,7 +48,7 @@
     <div data-options="region:'center',border:false">
         <table id="manage_customer_datagrid" class="easyui-datagrid icheck-primary" url="/manage/module/test/security/customer/listJson.html" toolbar="#manage_customer_toolbar" fit="true" border="false" fitColumns="false"
                pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc" checkOnSelect="true" selectOnCheck="true" singleSelect="true"
-               data-options="showFooter:true, onLoadSuccess: function (data) {console.info(data);$('#manage_customer_datagrid').datagrid('statistics','salary');}"
+               data-options="showFooter:true, onLoadSuccess: function (data) {$('#manage_customer_datagrid').datagrid('statistics','salary');}"
         >
             <thead>
             <tr>

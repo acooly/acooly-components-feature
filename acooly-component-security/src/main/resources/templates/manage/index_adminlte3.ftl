@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/icon.css" type="text/css"/>
     <!-- videoJs -->
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/videojs/video-js.css" type="text/css"/>
+    <!-- daterangepicker -->
+    <link rel="stylesheet" href="/manage/assert/plugin/daterangepicker/daterangepicker.css" type="text/css"/>
     <!-- 扩展css -->
     ${extendStyles}
 
@@ -371,6 +373,9 @@
 <!-- videoJs -->
 <script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
 <script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
+<!-- daterangepicker -->
+<script src="/manage/assert/plugin/daterangepicker/moment.min.js"></script>
+<script src="/manage/assert/plugin/daterangepicker/daterangepicker.js"></script>
 
 <!-- 自己定义的样式和JS扩展 -->
 <!-- acooly -->

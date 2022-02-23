@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui-portal/portal.css" type="text/css"/>
     <!-- videoJs -->
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/videojs/video-js.css" type="text/css"/>
+    <!-- daterangepicker -->
+    <link rel="stylesheet" href="/manage/assert/plugin/daterangepicker/daterangepicker.css" type="text/css"/>
     <!-- 扩展css -->
     ${extendStyles}
 </head>
@@ -80,7 +82,12 @@
 <script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.search.js"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.js"></script>
 <!--kindEditor插件库 -->
-<script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all-min.js"></script>
+<link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
+<link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/webuploader.html5only.min.js"></script>
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/diyUpload.js"></script>
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/htmlminifier.min.js"></script>
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all.js"></script>
 <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
 <!-- inputmask -->
 <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
@@ -93,7 +100,9 @@
 <!-- videoJs -->
 <script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
 <script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
-
+<!-- daterangepicker -->
+<script src="/manage/assert/plugin/daterangepicker/moment.min.js"></script>
+<script src="/manage/assert/plugin/daterangepicker/daterangepicker.js"></script>
 
 <!-- 自己定义的样式和JS扩展 -->
 <script src="/manage/assert/script/acooly.js" charset="utf-8"></script>
