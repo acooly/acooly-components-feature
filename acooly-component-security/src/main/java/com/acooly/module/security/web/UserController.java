@@ -306,7 +306,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         Set<Role> roles = new HashSet<>();
         String[] roleArray = request.getParameterValues("role");
         if (roleArray == null) {
-            throw new BusinessException("用户角色必选，请选择对应用户角色");
+            throw new BusinessException("USER_ROLE_REQUIRED", "用户角色必选，请选择对应用户角色", "");
         }
         List<String> rolelist = new ArrayList<>();
         rolelist.addAll(Arrays.asList(roleArray));

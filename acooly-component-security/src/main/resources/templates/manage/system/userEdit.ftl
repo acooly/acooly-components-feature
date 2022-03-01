@@ -91,8 +91,7 @@
                 <label class="col-sm-3 col-form-label">角色</label>
                 <div class="col-sm-9">
                     <select name="role" class="form-control input-sm select2bs4">
-                        <#list allRoles as e>
-                            <option value="${e.id}">${e.name}</option></#list>
+                        <#list allRoles as e><option value="${e.id}">${e.name}</option></#list>
                     </select>
                 </div>
             </div>
