@@ -300,6 +300,11 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         model.put("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordStrength().getDetail());
         String id = request.getParameter(getEntityIdName());
         model.put("roleIds", id == null ? "[]" : getRoleIds(Long.valueOf(id)));
+        List<UserRole> roleIds = getEntityService().getRoleIdsByUserId(Long.valueOf(id));
+        if (Collections3.isNotEmpty(roleIds)) {
+            model.put("role", Collections3.getFirst(roleIds).getRoleId());
+        }
+
     }
 
     private Set<Role> loadRoleFormRequest(HttpServletRequest request) {
