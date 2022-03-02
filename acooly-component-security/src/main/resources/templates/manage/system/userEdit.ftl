@@ -113,7 +113,7 @@
     </form>
     <script>
         $(function () {
-            $.acooly.system.user.orgTreeBoxInit("manage_user_editform_orgId", false);
+            $.acooly.system.user.orgTreeBoxInit("manage_user_editform_orgId", false,'${user.orgId}');
         });
     </script>
 </div>

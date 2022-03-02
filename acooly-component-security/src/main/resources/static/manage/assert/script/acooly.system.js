@@ -10,7 +10,7 @@
  */
 let system_user_class = {
 
-    orgTreeBoxInit: function (treeboxId, isSearch) {
+    orgTreeBoxInit: function (treeboxId, isSearch, defVal) {
         $.ajax({
             url: '/manage/module/security/org/listJson.html',
             method: 'post',
@@ -36,6 +36,9 @@ let system_user_class = {
                         zNodes: nodes
                     }
                 });
+                if(defVal){
+                    $('#' + treeboxId).val(defVal).trigger('change');
+                }
             }
         });
     },
@@ -141,7 +144,7 @@ let system_resource_class = {
 
         // reset
         $('#resource_icons_font .icon-elm').removeAttr("checked");
-        $('#manage_resource_form_icon_first').prop("checked","checked");
+        $('#manage_resource_form_icon_first').prop("checked", "checked");
         $('#manage_resource_form_showState').val("0").trigger("change");
         $('#manage_resource_form_type').val("URL").trigger("change");
         $('#manage_resource_form_showMode').val("1").trigger("change");
