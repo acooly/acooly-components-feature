@@ -262,7 +262,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
             }
             entity.setOrgName(organize.getName());
         }
-        if (entity.getPinyin() == null) {
+        if (Strings.isNotBlank(entity.getRealName())) {
             entity.setPinyin(Strings.toPinyinFistWord(entity.getRealName()));
         }
         return entity;
