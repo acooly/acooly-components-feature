@@ -180,6 +180,15 @@ acooly.framework.default-theme=acooly
 
 ## 5. changelog
 
+### 5.0.0-SNAPSHOT.20220302
+
+* 2022-03-02 - 修正：操作员管理自动生成姓名拼音修改时没更新的问题 - [zhangpu] 629b4c7f
+* 2022-03-02 - 修正：系统操作员管理编辑界面中角色和组织结构的正确回显 - [zhangpu] ad3e1ef6
+* 2022-02-14 - 修正：textarea的word倒计时功能在初始界面时未根据当前已有内容计算剩余计数的问题。 - [zhangpu] 68b70846
+* 2022-02-12 - acooly.format.content方法中省略号和按钮图片间去除空格，解决按钮图标换行问题 - [zhangpu] de010d43
+* 2022-01-16 - 新增动态渲染工具方法：renderDynamic - [zhangpu] d6b37a1a
+* 2022-01-16 - 修正 $.acooly.framework.getFormItem的选择判断BUG - [zhangpu] 7d1e51bc
+
 ### 5.0.0-SNAPSHOT.20220110
 
 * 2022-01-10 - 完成蓝色天空（paiggo）主题的开发 - [zhangpu] c746ea02
