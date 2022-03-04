@@ -52,6 +52,7 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
     private PortalletService portalletService;
     @Autowired
     private SecurityCaptchaManager securityCaptchaManager;
+
     /**
      * 授权功能顶级菜单
      *
@@ -106,7 +107,7 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
             Model model, HttpServletRequest request, HttpServletResponse response) {
         User user = ShiroUtils.getCurrentUser();
         model.addAttribute("user", user);
-        model.addAttribute("PASSWORD_REGEX",FrameworkPropertiesHolder.get().getPasswordStrength().getRegexForJs());
+        model.addAttribute("PASSWORD_REGEX", FrameworkPropertiesHolder.get().getPasswordStrength().getRegexForJs());
         model.addAttribute("PASSWORD_ERROR", FrameworkPropertiesHolder.get().getPasswordStrength().getDetail());
 
         return "/manage/system/changePassword";
@@ -133,6 +134,8 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
                 if (!checkResult) {
                     throw new RuntimeException("原始密码错误");
                 }
+                // 重新加载一次，防止子对象在redis的缓存未失效造成级联验证失败
+                user = userService.get(user.getId());
                 userService.changePassword(user, newPassword);
             } else {
                 throw new RuntimeException("当前用户会话过期，未找到对应用户");
