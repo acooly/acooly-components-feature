@@ -44,6 +44,10 @@ public class FrameworkProperties implements Serializable {
     private String subtitle = "专注业务，最佳实践，代码生成，提高效率";
     private String logo = "/manage/assert/image/logo.png";
     private String logoMini = "/manage/assert/plugin/adminlte3/img/AdminLTELogo.png";
+    /**
+     * 网站图标
+     */
+    private String icon;
     private String copyright = "Copyright © 2012 acooly. All rights reserved";
 
     /**

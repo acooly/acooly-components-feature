@@ -11,6 +11,7 @@
     <meta name="X-CSRF-TOKEN" content="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <#if Session.securityConfig.icon??><link rel="shortcut icon" href="${Session.securityConfig.icon}" /></#if>
 
     <!-- layui -->
     <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
