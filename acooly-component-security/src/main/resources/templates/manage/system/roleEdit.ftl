@@ -84,13 +84,13 @@
                         <a title="注意：角色名称必须以`ROLE_`开头的大写英文组成" class="easyui-tooltip"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                     </label>
                     <div class="col-sm-9">
-                        <input type="text" name="name" placeholder="角色名称必须以`ROLE_`开头的大写英文组成..." class="easyui-validatebox form-control" data-options="validType:['length[1,16]','roleName']" required="true"/>
+                        <input type="text" name="name" placeholder="角色名称必须以`ROLE_`开头的大写英文组成..." class="easyui-validatebox form-control" data-options="validType:['length[1,32]','roleName']" required="true"/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">角色</label>
+                    <label class="col-sm-3 col-form-label">说明</label>
                     <div class="col-sm-9">
-                        <input type="text" name="descn" placeholder="请输入角色说明，例如：系统管理..." class="easyui-validatebox form-control" data-options="validType:['length[1,16]']" required="true"/>
+                        <input type="text" name="descn" placeholder="请输入角色说明，例如：系统管理..." class="easyui-validatebox form-control" data-options="validType:['length[1,32]']" required="true"/>
                     </div>
                 </div>
                 <div class="form-group row">
