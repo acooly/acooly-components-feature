@@ -36,7 +36,7 @@ let system_user_class = {
                         zNodes: nodes
                     }
                 });
-                if(defVal){
+                if (defVal) {
                     $('#' + treeboxId).val(defVal).trigger('change');
                 }
             }
@@ -147,6 +147,7 @@ let system_resource_class = {
         $('#manage_resource_form_icon_first').prop("checked", "checked");
         $('#manage_resource_form_showState').val("0").trigger("change");
         $('#manage_resource_form_type').val("URL").trigger("change");
+        this._resourceTypeChange("URL");
         $('#manage_resource_form_showMode').val("1").trigger("change");
     },
 
@@ -163,6 +164,7 @@ let system_resource_class = {
         }
         $('#manage_resource_form_showState').val(resource.showState).trigger("change");
         $('#manage_resource_form_type').val(resource.type).trigger("change");
+        this._resourceTypeChange(resource.type);
         $('#manage_resource_form_showMode').val(resource.showMode).trigger("change");
         $("input", $('#manage_resource_form_icon_container')).each(function () {
             if (this.value == resource.icon || this.value == resource.iconSkin) {
@@ -231,6 +233,8 @@ let system_resource_class = {
                         if (result.entity.showState) {
                             node.showState = result.entity.showState;
                         }
+                        // 20220307 fixed: 增加对value的回显
+                        node.value = result.entity.value;
                         zTree.updateNode(node);
                     } else {
                         // 新增
@@ -327,7 +331,27 @@ let system_resource_class = {
      * 界面初始化
      */
     init: function () {
+        var that  = this;
         $.acooly.framework.initPlugins("manage_resource_editform");
+        $('#manage_resource_form_type').on("select2:select", function (evt) {
+            if (!evt) {
+                return;
+            }
+            let id = evt.params.data.id;
+            that._resourceTypeChange(id);
+        });
+    },
+
+    _resourceTypeChange: function (resourceType) {
+        if(!resourceType){
+            resourceType = $('#manage_resource_form_type').val();
+        }
+        if(!resourceType){
+            return;
+        }
+        var isRequired = (resourceType != 'MENU');
+        $("#manage_resource_form_value").validatebox('options').required = isRequired;
+        $("#manage_resource_form_value").validatebox('validate');
     },
 
 
