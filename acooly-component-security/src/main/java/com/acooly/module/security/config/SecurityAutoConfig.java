@@ -19,6 +19,7 @@ import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.health.HealthCheckServlet;
 import com.acooly.module.security.shiro.cache.ShiroCacheManager;
 import com.acooly.module.security.shiro.filter.CaptchaFormAuthenticationFilter;
+import com.acooly.module.security.shiro.filter.KickoutSessionFilter;
 import com.acooly.module.security.shiro.filter.NotifyLogoutFilter;
 import com.acooly.module.security.shiro.filter.UrlResourceAuthorizationFilter;
 import com.acooly.module.security.shiro.freemarker.ShiroFreemarkerTags;
@@ -34,11 +35,19 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.config.ReflectionBuilder;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.SessionListener;
+import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.WebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -56,6 +65,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
@@ -64,9 +74,8 @@ import javax.annotation.PostConstruct;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.ServletContext;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author qiubo
@@ -90,6 +99,11 @@ public class SecurityAutoConfig {
     private FreeMarkerConfigurer freeMarkerConfigurer;
 
 
+    /**
+     * 数据库脚本初始化
+     *
+     * @return
+     */
     @Bean
     public StandardDatabaseScriptIniter securityScriptIniter() {
         return new SecurityDatabaseScriptIniter();
@@ -122,30 +136,147 @@ public class SecurityAutoConfig {
         JWTUtils.setRedisTemplate(ApplicationContextHolder.get().getBean("redisTemplate", RedisTemplate.class));
     }
 
+
+    /**
+     * Shiro配置
+     * 1、采用Shiro-redis-session方案
+     * 2、升级增加支持URL+FUNCTION权限，增强PATH匹配原则
+     */
     @Configuration
     @ConditionalOnWebApplication
     @ConditionalOnProperty(value = SecurityProperties.PREFIX + ".shiro.enable", matchIfMissing = true)
     @AutoConfigureAfter({JPAAutoConfig.class, DataSourceTransactionManagerAutoConfiguration.class})
     public static class ShiroAutoConfigration {
+
         public static boolean isShiroFilterAnon() {
             return EnvironmentHolder.get().getProperty("acooly.security.shiroFilterAnon",
                     Boolean.class, SecurityProperties.DEFAULT_SHIRO_FILTER_ANON);
         }
 
+
+        /**
+         * Shiro专用的RedisTemplate，
+         * 保持默认的序列化实现（JdkSerializationRedisSerializer），以支持Shiro的SimpleSession类可以正常序列化保持到redis
+         * （注意：我们框架统一使用的是acooly-component-cache组件中的`RedisTemplate`配置，序列化采用：Kryo）
+         *
+         * @param factory
+         * @return
+         */
         @Bean
-        public CacheManager shiroCacheManager(RedisTemplate redisTemplate) {
+        public RedisTemplate<Object, Object> defaultRedisTemplate(RedisConnectionFactory factory) {
+            RedisTemplate<Object, Object> template = new RedisTemplate<Object, Object>();
+            template.setConnectionFactory(factory);
+            return template;
+        }
+
+
+        /**
+         * 基于Redis CacheManager
+         * 包括RedisCache实现
+         *
+         * @param defaultRedisTemplate
+         * @return
+         */
+        @Bean
+        public CacheManager shiroCacheManager(RedisTemplate defaultRedisTemplate, SecurityProperties securityProperties) {
             ShiroCacheManager shiroCacheManager = new ShiroCacheManager();
-            shiroCacheManager.setRedisTemplate(redisTemplate);
+            shiroCacheManager.setDefaultTimeout(securityProperties.getSession().getRedisTimeout());
+            shiroCacheManager.setRedisTemplate(defaultRedisTemplate);
             return shiroCacheManager;
         }
 
+
+        /**
+         * 配置会话ID生成器
+         *
+         * @return
+         */
+        @Bean
+        public SessionIdGenerator sessionIdGenerator() {
+            return new JavaUuidSessionIdGenerator();
+        }
+
+        /**
+         * SessionDAO的作用是为Session提供CRUD并进行持久化的一个shiro组件
+         * MemorySessionDAO 直接在内存中进行会话维护
+         * EnterpriseCacheSessionDAO  提供了缓存功能的会话维护，默认情况下使用MapCache实现，内部使用ConcurrentHashMap保存缓存的会话。
+         *
+         * @return
+         */
+        @Bean
+        public SessionDAO sessionDAO(CacheManager shiroCacheManager) {
+            EnterpriseCacheSessionDAO enterpriseCacheSessionDAO = new EnterpriseCacheSessionDAO();
+            //使用ehCacheManager
+            enterpriseCacheSessionDAO.setCacheManager(shiroCacheManager);
+            //设置session缓存的名字 默认为 shiro-activeSessionCache
+            enterpriseCacheSessionDAO.setActiveSessionsCacheName("shiro-activeSessionCache");
+            //sessionId生成器
+            enterpriseCacheSessionDAO.setSessionIdGenerator(sessionIdGenerator());
+            return enterpriseCacheSessionDAO;
+        }
+
+
+        /**
+         * 配置保存sessionId的cookie
+         * 注意：这里的cookie 不是上面的记住我 cookie 记住我需要一个cookie session管理 也需要自己的cookie
+         *
+         * @return
+         */
+        @Bean("sessionIdCookie")
+        public SimpleCookie sessionIdCookie() {
+            //这个参数是cookie的名称
+            SimpleCookie simpleCookie = new SimpleCookie("acooly");
+            //setcookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。它有以下特点：
+
+            //setcookie()的第七个参数
+            //设为true后，只能通过http访问，javascript无法访问
+            //防止xss读取cookie
+            simpleCookie.setHttpOnly(true);
+            simpleCookie.setPath("/");
+            //maxAge=-1表示浏览器关闭时失效此Cookie
+            simpleCookie.setMaxAge(-1);
+            return simpleCookie;
+        }
+
+
+        /**
+         * 配置会话管理器，设定会话超时及保存
+         *
+         * @return
+         */
+        @Bean("sessionManager")
+        public SessionManager sessionManager(SessionDAO sessionDAO, CacheManager shiroCacheManager, SecurityProperties securityProperties) {
+
+            DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+//            Collection<SessionListener> listeners = new ArrayList<SessionListener>();
+            //配置监听
+//            listeners.add(sessionListener());
+//            sessionManager.setSessionListeners(listeners);
+            sessionManager.setSessionIdCookie(sessionIdCookie());
+            sessionManager.setSessionDAO(sessionDAO);
+            sessionManager.setCacheManager(shiroCacheManager);
+
+            //全局会话超时时间（单位毫秒），默认30分钟
+            sessionManager.setGlobalSessionTimeout(TimeUnit.SECONDS.toMillis(securityProperties.getSession().getTimeout()));
+            //是否开启删除无效的session对象  默认为true
+            sessionManager.setDeleteInvalidSessions(true);
+            //是否开启定时调度器进行检测过期session 默认为true
+            sessionManager.setSessionValidationSchedulerEnabled(true);
+            //设置session失效的扫描时间, 清理用户直接关闭浏览器造成的孤立会话 默认为 1分钟
+            //设置该属性 就不需要设置 ExecutorServiceSessionValidationScheduler 底层也是默认自动调用ExecutorServiceSessionValidationScheduler
+            sessionManager.setSessionValidationInterval(TimeUnit.SECONDS.toMillis(securityProperties.getSession().getCheckInterval()));
+            return sessionManager;
+        }
+
+
         @Bean
         public WebSecurityManager shiroSecurityManager(
-                CacheManager shiroCacheManager, Realm shiroRealm) {
+                CacheManager shiroCacheManager, Realm shiroRealm, SessionManager sessionManager) {
 
             DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
             securityManager.setCacheManager(shiroCacheManager);
             securityManager.setRealm(shiroRealm);
+            securityManager.setSessionManager(sessionManager);
             return securityManager;
         }
 
@@ -181,12 +312,11 @@ public class SecurityAutoConfig {
             shiroFilter.setSuccessUrl(securityProperties.getShiro().getSuccessUrl());
             shiroFilter.setFilters(buildFiltersMap(securityProperties));
             shiroFilter.setFilterChainDefinitions(getFilterChainDefinitions(securityProperties));
-
             return shiroFilter;
         }
 
         @Bean
-        @DependsOn({"logout", "urlAuthr", "authc"})
+        @DependsOn({"logout", "urlAuthr", "authc", "kickout"})
         @ConditionalOnProperty(
                 value = SecurityProperties.PREFIX + ".shiro.auth.enable",
                 matchIfMissing = true
@@ -292,6 +422,17 @@ public class SecurityAutoConfig {
             filter.setSuccessUrl(securityProperties.getShiro().getSuccessUrl());
             return filter;
         }
+
+        @Bean
+        public KickoutSessionFilter kickout(SessionManager sessionManager,
+                                            CacheManager shiroCacheManager, SecurityProperties securityProperties) {
+            KickoutSessionFilter filter = new KickoutSessionFilter();
+            filter.setSessionManager(sessionManager);
+            filter.setKickoutUrl(securityProperties.getShiro().getFailedUrl());
+            filter.setCacheManager(shiroCacheManager);
+            return filter;
+        }
+
 
         @Bean
         public FilterRegistrationBean disableAuthcForSpringMVC(CaptchaFormAuthenticationFilter filter) {

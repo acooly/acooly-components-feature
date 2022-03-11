@@ -38,7 +38,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 import static com.acooly.core.utils.security.JWTUtils.SIGN_KEY;
@@ -173,6 +172,11 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
             request.setAttribute("passwordRegex", frameworkProperties.getPasswordStrength().getRegexForJs());
             request.setAttribute("notFirstVerify", !securityCaptchaManager.isFirstVerify(request));
             request.setAttribute("loginSmsEnable", "true");
+            // 单用户登录提出后的错误消息提示
+            String errorKey = Servlets.getParameter("errorKey");
+            if (Strings.equals(errorKey, "kickout")) {
+                model.addAttribute("message", "已有相同用户登录，强制注销。");
+            }
             return "/manage/login";
         }
     }

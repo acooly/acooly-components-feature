@@ -27,7 +27,15 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
 
     private RedisTemplate<K, V> redisTemplate;
 
+    private int defaultTimeout = 2 * 60;
+
     public ShiroRedisCache() {
+    }
+
+
+    public ShiroRedisCache(K cacheName, RedisTemplate redisTemplate, int defaultTimeout) {
+        this.cachaName = cacheName;
+        this.redisTemplate = redisTemplate;
     }
 
     public ShiroRedisCache(K cacheName, RedisTemplate redisTemplate) {
@@ -45,7 +53,7 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
     public V put(K key, V value) throws CacheException {
         HashOperations<K, K, V> hashOperations = redisTemplate.opsForHash();
         hashOperations.put(cachaName, key, value);
-        redisTemplate.expire(cachaName, 2, TimeUnit.HOURS);
+        redisTemplate.expire(cachaName, defaultTimeout, TimeUnit.MINUTES);
         return hashOperations.get(cachaName, key);
     }
 

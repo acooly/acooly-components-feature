@@ -42,5 +42,8 @@ public class SecurityComponentInitializer implements ComponentInitializer {
         if (Env.isOnline()) {
             setPropertyIfMissing("acooly.framework.password-strength", "usually");
         }
+
+        // 设置Shiro会话监控的日志不打印
+        setPropertyIfMissing("acooly.log.level.org.apache.shiro.session.mgt.AbstractValidatingSessionManager", "OFF");
     }
 }

@@ -331,7 +331,7 @@ let system_resource_class = {
      * 界面初始化
      */
     init: function () {
-        var that  = this;
+        var that = this;
         $.acooly.framework.initPlugins("manage_resource_editform");
         $('#manage_resource_form_type').on("select2:select", function (evt) {
             if (!evt) {
@@ -343,10 +343,10 @@ let system_resource_class = {
     },
 
     _resourceTypeChange: function (resourceType) {
-        if(!resourceType){
+        if (!resourceType) {
             resourceType = $('#manage_resource_form_type').val();
         }
-        if(!resourceType){
+        if (!resourceType) {
             return;
         }
         var isRequired = (resourceType != 'MENU');
@@ -450,8 +450,9 @@ let system_class = {
         // 注册全局ajax错误处理：Session过期
         $(document).ajaxComplete(function (event, xhr, settings) {
             var sessionState = xhr.getResponseHeader("SessionState");
-            if (sessionState && sessionState == '1') {
-                $.messager.alert('提示', '会话过期，请重新登录', 'info', function () {
+            if (sessionState) {
+                let msg = sessionState == '1' ? "会话过期，请重新登录" : "已有相同用户登录，强制注销";
+                $.messager.alert('提示', msg, 'info', function () {
                     window.location.href = '/manage/logout.html';
                 });
             }

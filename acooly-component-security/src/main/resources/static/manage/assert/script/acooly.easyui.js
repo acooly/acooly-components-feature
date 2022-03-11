@@ -458,8 +458,9 @@ var commonErrorFunction = function (XMLHttpRequest, e, x) {
         default:
             message = XMLHttpRequest.responseText;
     }
-    $.acooly.alert('错误', message);
-    // $.messager.alert('错误', message);
+    if (message && message != '') {
+        $.messager.alert('错误', message, 'warning');
+    }
 };
 
 $.fn.datagrid.defaults.onLoadError = commonErrorFunction;

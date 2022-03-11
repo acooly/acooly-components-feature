@@ -11,6 +11,7 @@ package com.acooly.module.security.config;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author qiubo
@@ -50,6 +52,11 @@ public class SecurityProperties {
     private Shiro shiro = new Shiro();
 
     private Captcha captcha = new Captcha();
+
+    /**
+     * Shiro会话相关配置
+     */
+    private Session session = new Session();
 
     /**
      * 开启后shiro filter链都会设为不拦截，可在系统不需要任何授权、认证时开启
@@ -110,9 +117,6 @@ public class SecurityProperties {
         private String failedUrl = "/manage/onLoginFailure.html";
         /**
          * 对应shiro.ini中的[urls]标签，注意顺序，格式如：
-         *
-         *
-         *
          * <pre>
          * acooly.shiro.urls[0]./shiro/** = authc
          * acooly.shiro.urls[1]./** = anon
@@ -128,42 +132,29 @@ public class SecurityProperties {
 
         /**
          * 自定义Filter列表，对应shiro.ini中的[filters]标签，格式如：
-         *
-         *
-         *
-         * <pre>
-         *  yiji.shiro.filters.authc=com.yiji.neverstopfront.web.shiro.CaptchaFormAuthenticationFilter
-         *  yiji.shiro.filters.admin=com.yiji.neverstopfront.web.shiro.AdminAuthorizationFilter
-         *  houseProperty=com.yiji.neverstopfront.web.shiro.ServiceTypeAuthorizationFilter
-         *  houseProperty.serviceType=HOUSE_PROPERTY
-         *  installment=com.yiji.neverstopfront.web.shiro.ServiceTypeAuthorizationFilter
-         *  installment.serviceType=INSTALLMENT
-         *  </pre>
-         *
-         *
-         * </ul>
          */
         private LinkedHashMap<String, String> filters = Maps.newLinkedHashMap();
 
         public Shiro() {
             //添加默认url过滤器
-            addUrlFilter("/manage/test/index.html", "anon");
             addUrlFilter("/manage/index.html", "authc");
             addUrlFilter("/manage/login.html", "authc");
             addUrlFilter("/manage/logout.html", "logout");
+
             addUrlFilter("/manage/error/**", "anon");
             addUrlFilter("/manage/assert/**", "anon");
             addUrlFilter("/manage/asset/**", "anon");
-
             addUrlFilter("/manage/*.html", "anon");
-            addUrlFilter("/manage/*.jsp", "user");
             addUrlFilter("/manage/*.css", "anon");
             addUrlFilter("/manage/*.js", "anon");
+
+            addUrlFilter("/manage/*.jsp", "user");
             addUrlFilter("/manage/layout/*", "user");
             addUrlFilter("/manage/system/*", "user");
             addUrlFilter("/manage/system/shiro/*", "user");
             addUrlFilter("/manage/druid/**", "user");
-            addUrlFilter("/manage/**", "urlAuthr");
+
+            addUrlFilter("/manage/**", "urlAuthr,kickout");
             addUrlFilter("/**", "anon");
         }
 
@@ -185,7 +176,6 @@ public class SecurityProperties {
             }
             return this.urls;
         }
-
 
 
     }
@@ -222,5 +212,28 @@ public class SecurityProperties {
              */
             private int charCount = 4;
         }
+    }
+
+    /**
+     * ShiroSession配置
+     */
+    @Data
+    public static class Session {
+
+        /**
+         * 会话存储到redis的过期时间（单位：分钟），默认8小时
+         */
+        private int redisTimeout = 8 * 60;
+
+        /**
+         * 会话超时时间（单位：秒），默认30分钟
+         */
+        private int timeout = 30 * 60;
+
+        /**
+         * 会话过期检查时间间隔（单位：秒），默认30分钟
+         */
+        private int checkInterval = 30 * 60;
+
     }
 }
