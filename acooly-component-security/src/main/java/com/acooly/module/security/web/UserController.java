@@ -31,6 +31,8 @@ import com.acooly.module.security.utils.ShiroUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
@@ -67,6 +69,26 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
     private OrgService orgService;
     @Autowired
     private EventBus eventBus;
+
+    @Autowired
+    private SessionDAO sessionDAO;
+
+//    @RequestMapping(value = {"listOnlineUser"})
+//    @ResponseBody
+//    public JsonListResult<Object> listOnlineUser(
+//            HttpServletRequest request, HttpServletResponse response) {
+//        JsonListResult<Object> result = new JsonListResult<>();
+//        try {
+//            result.appendData(referenceData(request));
+//            Collection<Session> sessions = sessionDAO.getActiveSessions();
+//            List<Object> sessionList = Lists.newArrayList(sessions);
+//            result.setTotal(Long.valueOf(sessions.size()));
+//            result.setRows(sessionList);
+//        } catch (Exception e) {
+//            handleException(result, "分页查询", e);
+//        }
+//        return result;
+//    }
 
     @RequestMapping(value = {"listUser"})
     @ResponseBody

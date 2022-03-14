@@ -10,8 +10,10 @@
 package com.acooly.module.security.config;
 
 import com.acooly.core.common.boot.ApplicationContextHolder;
+import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.boot.EnvironmentHolder;
 import com.acooly.core.common.dao.support.StandardDatabaseScriptIniter;
+import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.security.JWTUtils;
 import com.acooly.module.jpa.JPAAutoConfig;
 import com.acooly.module.security.captche.CaptchaServlet;
@@ -224,15 +226,19 @@ public class SecurityAutoConfig {
          */
         @Bean("sessionIdCookie")
         public SimpleCookie sessionIdCookie() {
+            String appName = Apps.getAppName();
+            if (Strings.isBlank(appName)) {
+                appName = "acooly";
+            }
             //这个参数是cookie的名称
-            SimpleCookie simpleCookie = new SimpleCookie("acooly");
+            SimpleCookie simpleCookie = new SimpleCookie(appName + "-sid");
             //setcookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。它有以下特点：
 
             //setcookie()的第七个参数
             //设为true后，只能通过http访问，javascript无法访问
             //防止xss读取cookie
             simpleCookie.setHttpOnly(true);
-            simpleCookie.setPath("/");
+            simpleCookie.setPath("/manage");
             //maxAge=-1表示浏览器关闭时失效此Cookie
             simpleCookie.setMaxAge(-1);
             return simpleCookie;

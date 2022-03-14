@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>acooly-component-security</artifactId>
+    <!-- 5.0.1：shiro-session版本，支持单用户登录，踢人。 -->
+    <version>5.0.1-SNAPSHOT</version>
 
     <dependencies>
         <!-- shiro -->
@@ -21,26 +23,6 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>net.mingsoft</groupId>-->
-<!--            <artifactId>shiro-freemarker-tags</artifactId>-->
-<!--            <version>0.1</version>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>log4j</groupId>-->
-<!--                    <artifactId>log4j</artifactId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.quartz-scheduler</groupId>-->
-<!--                    <artifactId>quartz</artifactId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.apache.shiro</groupId>-->
-<!--                    <artifactId>shiro-all</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
 
         <!-- 验证码 -->
         <dependency>
