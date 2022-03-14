@@ -105,11 +105,12 @@
                 <artifactId>acooly-component-scheduler</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>com.acooly</groupId>
                 <artifactId>acooly-component-security</artifactId>
-                <version>5.0.1-SNAPSHOT</version>
+                <version>${project.parent.version}</version>
+<!--                <version>5.0.1-SNAPSHOT</version>-->
             </dependency>
 
             <dependency>
