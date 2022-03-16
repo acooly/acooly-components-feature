@@ -8,6 +8,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @author qiubo
+ * @author zhangpu
  */
 public class AppConfigComponentInitializer implements ComponentInitializer {
 
@@ -15,5 +16,13 @@ public class AppConfigComponentInitializer implements ComponentInitializer {
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
+
+        // 升级数据库，增加两个字段。
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_app_config[0].columnName", "title");
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_app_config[0].patchSql", "ALTER TABLE `sys_app_config` ADD COLUMN `title` VARCHAR(45) NULL COMMENT '标题' AFTER `id`;");
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_app_config[1].columnName", "title");
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_app_config[1].patchSql", "ALTER TABLE `sys_app_config` ADD COLUMN `title` VARCHAR(45) NULL COMMENT '标题' AFTER `id`;");
+
+
     }
 }

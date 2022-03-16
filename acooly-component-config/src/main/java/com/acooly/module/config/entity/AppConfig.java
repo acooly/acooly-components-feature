@@ -32,6 +32,21 @@ import java.util.concurrent.TimeUnit;
 @Setter
 public class AppConfig extends AbstractEntity {
 
+
+    /**
+     * 标题(中文名称)
+     * 升级代替comments
+     */
+    @NotBlank
+    @Size(max = 32)
+    private String title;
+
+    /**
+     * 配置数据类型
+     * 管理界面处理方式不同
+     */
+    private String configType;
+
     /**
      * 配置项名称
      */
