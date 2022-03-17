@@ -7,6 +7,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.DefaultSessionKey;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
@@ -103,8 +104,10 @@ public class KickoutSessionFilter extends AccessControlFilter {
                     // 设置会话的kickout属性表示踢出了
                     kickoutSession.setAttribute("kickout", true);
                 }
+            } catch (UnknownSessionException use) {
+                log.warn("Kickout 会话过期或已被踢出。SessionId: {}", kickoutSessionId);
             } catch (Exception e) {
-                log.warn("Kickout 获取被提出会话失败。sessionId: {}", kickoutSessionId, e);
+                log.warn("Kickout 获取被提出会话失败。SessionId: {}", kickoutSessionId, e);
             }
         }
         cache.put(user.getUsername(), deque);
