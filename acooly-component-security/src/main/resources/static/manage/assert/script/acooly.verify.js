@@ -109,7 +109,7 @@ var acooly_verify = {
      */
     json: function (jsonString) {
         try {
-            JSON.parse(str);
+            JSON.parse(jsonString);
             return true;
         } catch (e) {
             return false;
