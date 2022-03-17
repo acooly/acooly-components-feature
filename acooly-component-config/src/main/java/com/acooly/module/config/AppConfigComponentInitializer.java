@@ -20,8 +20,8 @@ public class AppConfigComponentInitializer implements ComponentInitializer {
         // 升级数据库，增加两个字段。
         setPropertyIfMissing("acooly.ds.dbPatchs.sys_app_config[0].columnName", "title");
         setPropertyIfMissing("acooly.ds.dbPatchs.sys_app_config[0].patchSql", "ALTER TABLE `sys_app_config` ADD COLUMN `title` VARCHAR(45) NULL COMMENT '标题' AFTER `id`;");
-        setPropertyIfMissing("acooly.ds.dbPatchs.sys_app_config[1].columnName", "title");
-        setPropertyIfMissing("acooly.ds.dbPatchs.sys_app_config[1].patchSql", "ALTER TABLE `sys_app_config` ADD COLUMN `title` VARCHAR(45) NULL COMMENT '标题' AFTER `id`;");
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_app_config[1].columnName", "config_type");
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_app_config[1].patchSql", "ALTER TABLE `sys_app_config` ADD COLUMN `config_type` VARCHAR(16) NULL COMMENT '配置类型{text:文本,option:选项,json:JSON}' AFTER `config_value`;");
 
 
     }
