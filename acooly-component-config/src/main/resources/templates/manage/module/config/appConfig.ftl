@@ -28,8 +28,8 @@
                 <th field="title">标题</th>
                 <th field="configName">配置名称</th>
                 <th field="configValue" width="200px">配置值</th>
-                <th field="localCacheExpire" >本地缓存过期时长(毫秒)</th>
-                <th field="redisCacheExpire">Redis缓存过期时长（毫秒）</th>
+                <th field="localCacheExpire" formatter="millisecondFormatter">本地缓存过期时长</th>
+                <th field="redisCacheExpire" formatter="millisecondFormatter">Redis缓存过期时长</th>
                 <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
                 <th field="updateTime" formatter="dateTimeFormatter">修改时间</th>
                 <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_appConfig_action',value,row)}">动作</th>

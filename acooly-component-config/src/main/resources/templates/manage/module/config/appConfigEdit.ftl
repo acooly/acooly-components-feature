@@ -34,13 +34,23 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">本地缓存过期时间</label>
                     <div class="col-sm-9">
-                        <input name="localCacheExpire" type="text" placeholder="单位毫秒,默认0..." class="easyui-validatebox form-control" data-options="validType:['length[1,10]']" required="true"/>
+                        <div class="input-group">
+                            <input type="text" name="localCacheExpire" placeholder="单位毫秒,默认0..." class="easyui-validatebox form-control" data-inputmask="'alias':'integer'" data-mask data-options="validType:['length[1,10]']"/>
+                            <div class="input-group-append">
+                                <div class="input-group-text">毫秒</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Redis缓存过期时间</label>
                     <div class="col-sm-9">
-                        <input name="redisCacheExpire" type="text" placeholder="单位毫秒,默认600000..." class="easyui-validatebox form-control" data-options="validType:['length[1,10]']" required="true"/>
+                        <div class="input-group">
+                            <input type="text" name="redisCacheExpire" placeholder="单位毫秒,默认600000..." class="easyui-validatebox form-control" data-inputmask="'alias':'integer'" data-mask data-options="validType:['length[1,10]']"/>
+                            <div class="input-group-append">
+                                <div class="input-group-text">毫秒</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">

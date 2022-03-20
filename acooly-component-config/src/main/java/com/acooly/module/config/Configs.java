@@ -2,10 +2,15 @@ package com.acooly.module.config;
 
 import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.exception.AppConfigException;
+import com.acooly.core.utils.Strings;
 import com.acooly.module.config.service.impl.AppConfigManager;
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -60,6 +65,31 @@ public class Configs {
         return get(name, Boolean::parseBoolean);
     }
 
+    /**
+     * 获取Maping结构
+     * KEY/VAL的json结构：{key1:val1,key2:val2}
+     *
+     * @param name
+     * @return
+     */
+    public static Map<String, String> getJsonMapping(String name) {
+        return get(name, value -> {
+            return JSON.parseObject(value, Map.class);
+        });
+    }
+
+    /**
+     * 获取逗号分隔的列表值
+     *
+     * @param name
+     * @return
+     */
+    public static List<String> getCsvList(String name) {
+        return get(name, value -> {
+            return Lists.newArrayList(Strings.split(value, ","));
+        });
+    }
+
 
     /**
      * 读取配置，并转换为指定的类型
@@ -107,6 +137,7 @@ public class Configs {
             }
         });
     }
+
 
     private static void init() {
         if (configManager == null) {

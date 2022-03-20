@@ -13,6 +13,7 @@
     <properties>
         <caffeine.version>2.6.2</caffeine.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.acooly</groupId>
@@ -29,6 +30,13 @@
             <artifactId>acooly-component-threadpool</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>

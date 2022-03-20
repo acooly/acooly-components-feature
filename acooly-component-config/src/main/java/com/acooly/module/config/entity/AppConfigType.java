@@ -16,8 +16,6 @@ public enum AppConfigType implements Messageable {
 
     text("text", "文本"),
 
-    option("option", "选项"),
-
     json("json", "JSON");
 
     private final String code;
