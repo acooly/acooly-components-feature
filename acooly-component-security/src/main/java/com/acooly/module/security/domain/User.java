@@ -1,13 +1,17 @@
 package com.acooly.module.security.domain;
 
 import com.acooly.core.common.domain.AbstractEntity;
+import com.acooly.core.utils.Collections3;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.util.Strings;
 import org.hibernate.annotations.OrderBy;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -162,6 +166,17 @@ public class User extends AbstractEntity {
     public boolean isEnabled() {
         return (this.status == STATUS_ENABLE);
     }
+
+    @Transient
+    public String getRoleName() {
+        if (Collections3.isEmpty(this.roles)) {
+            return null;
+        }
+        List<String> roleNames = Lists.newArrayList();
+        this.roles.forEach(e -> roleNames.add(e.getName()));
+        return Strings.join(roleNames.iterator(), ',');
+    }
+
 
     @Override
     public String toString() {

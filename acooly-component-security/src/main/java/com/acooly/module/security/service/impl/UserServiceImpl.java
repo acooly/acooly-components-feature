@@ -72,7 +72,7 @@ public class UserServiceImpl extends EntityServiceImpl<User, UserDao> implements
 
             super.save(user);
         } catch (Exception e) {
-            throw new BusinessException(e.getMessage());
+            throw new BusinessException("USER_CREATE_ERROR", "用户创建失败", e.getMessage());
         }
     }
 
@@ -89,7 +89,7 @@ public class UserServiceImpl extends EntityServiceImpl<User, UserDao> implements
             user.setUsername(oUsername);
             update(user);
         } catch (Exception e) {
-            throw new BusinessException(e.getMessage());
+            throw new BusinessException("USER_UPDATE_ERROR", "用户修改失败", e.getMessage());
         }
     }
 
@@ -197,7 +197,7 @@ public class UserServiceImpl extends EntityServiceImpl<User, UserDao> implements
     public PageInfo<UserDto> queryDto(PageInfo<UserDto> pageInfo, Map<String, Object> map,
                                       Map<String, Boolean> orderMap) {
         PageInfo<UserDto> userDtoPageInfo = getEntityDao().queryDto(pageInfo, map, orderMap);
-//		removedDuplicateUser(userDtoPageInfo);
+//        removedDuplicateUser(userDtoPageInfo);
         return userDtoPageInfo;
     }
 

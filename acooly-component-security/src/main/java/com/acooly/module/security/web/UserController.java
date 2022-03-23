@@ -70,9 +70,9 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
 
     @RequestMapping(value = {"listUser"})
     @ResponseBody
-    public JsonListResult<UserDto> listUser(
+    public JsonListResult<Object> listUser(
             HttpServletRequest request, HttpServletResponse response) {
-        JsonListResult<UserDto> result = new JsonListResult<UserDto>();
+        JsonListResult<Object> result = new JsonListResult<>();
         allow(request, response, MappingMethod.list);
         try {
             result.appendData(referenceData(request));
@@ -81,7 +81,16 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
             if (orgId != null && orgId == 0) {
                 params.put("EQ_orgId", null);
             }
-            PageInfo<UserDto> pageInfo = getEntityService().queryDto(getPageInfo(request), params, getSortMap(request));
+
+            PageInfo<Object> pageInfo = null;
+            String role = Servlets.getParameter(request, "search_EQ_role");
+            if (Strings.isBlank(role)) {
+                // User主实体查询
+                pageInfo = getEntityService().query(getPageInfo(request), params, getSortMap(request));
+            } else {
+                // User - UserRole - Role 多对多关联查询
+                pageInfo = getEntityService().queryDto(getPageInfo(request), params, getSortMap(request));
+            }
             result.setTotal(pageInfo.getTotalCount());
             result.setRows(pageInfo.getPageResults());
         } catch (Exception e) {
@@ -105,7 +114,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
                 return result;
             }
             User entity = result.getEntity();
-            entity.setRoleName(getRoleNames(entity.getId()));
+//            entity.setRoleName(getRoleNames(entity.getId()));
             result.setEntity(entity);
             result.setMessage("保存成功！");
             UserCreatedEvent userCreatedEvent = new UserCreatedEvent();
@@ -129,7 +138,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
                 return result;
             }
             User entity = result.getEntity();
-            entity.setRoleName(getRoleNames(entity.getId()));
+//            entity.setRoleName(getRoleNames(entity.getId()));
             result.setEntity(entity);
             result.setMessage("更新成功！");
         } catch (Exception e) {
@@ -138,20 +147,6 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         return result;
     }
 
-    @Override
-    protected PageInfo getPageInfo(HttpServletRequest request) {
-        PageInfo pageinfo = new PageInfo();
-        pageinfo.setCountOfCurrentPage(getDefaultPageSize());
-        String page = request.getParameter("page");
-        if (StringUtils.isNotBlank(page)) {
-            pageinfo.setCurrentPage(Integer.parseInt(page));
-        }
-        String rows = request.getParameter("rows");
-        if (StringUtils.isNotBlank(rows)) {
-            pageinfo.setCountOfCurrentPage(Integer.parseInt(rows));
-        }
-        return pageinfo;
-    }
 
     @RequestMapping(value = "alreadyExists")
     @ResponseBody
@@ -301,10 +296,13 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
         String id = request.getParameter(getEntityIdName());
         model.put("roleIds", id == null ? "[]" : getRoleIds(Long.valueOf(id)));
         if (Strings.isNotBlank(id)) {
-            List<UserRole> roleIds = getEntityService().getRoleIdsByUserId(Long.valueOf(id));
-            if (Collections3.isNotEmpty(roleIds)) {
-                model.put("role", Collections3.getFirst(roleIds).getRoleId());
+            List<UserRole> userRoles = getEntityService().getRoleIdsByUserId(Long.valueOf(id));
+            if (Collections3.isNotEmpty(userRoles)) {
+                model.put("role", Collections3.getFirst(userRoles).getRoleId());
             }
+            List<Long> userRoleIds = Lists.newArrayList();
+            userRoles.forEach(e -> userRoleIds.add(e.getRoleId()));
+            model.put("userRoleIds", userRoleIds);
         }
     }
 
@@ -321,6 +319,11 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
             roles.add(role);
         }
         return roles;
+    }
+
+    @Override
+    protected PageInfo getPageInfo(HttpServletRequest request) {
+        return (PageInfo) super.getPageInfo(request);
     }
 
     /**

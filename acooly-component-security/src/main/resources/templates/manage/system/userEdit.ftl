@@ -90,8 +90,9 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">角色</label>
                 <div class="col-sm-9">
-                    <select name="role" class="form-control input-sm select2bs4">
-                        <#list allRoles as e><option value="${e.id}"<#if role == e.id> selected</#if>>${e.name}</option></#list>
+                    <select name="role" class="form-control input-sm select2bs4" data-placeholder="请对应的角色..." multiple="true">
+                        <#list allRoles as e>
+                            <option value="${e.id}"<#if userRoleIds?? && userRoleIds?seq_contains(e.id)> selected</#if>>${e.name}</option></#list>
                     </select>
                 </div>
             </div>
@@ -113,7 +114,7 @@
     </form>
     <script>
         $(function () {
-            $.acooly.system.user.orgTreeBoxInit("manage_user_editform_orgId", false,'${user.orgId}');
+            $.acooly.system.user.orgTreeBoxInit("manage_user_editform_orgId", false, '${user.orgId}');
         });
     </script>
 </div>
