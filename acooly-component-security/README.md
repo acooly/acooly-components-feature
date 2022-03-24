@@ -184,27 +184,41 @@ acooly.framework.default-theme=acooly
 
 ### 3.8 单人登录
 
+支持同用户单人登录，其他人登录后，先进先出的方式踢出已登录会话。
 
+```ini
+# 是否开启单用户登录和踢人功能（默认是开启的）
+acooly.security.session.enableKickOut=true
+# 开启单用户登录和踢人功能后，允许一个用户名同时登录的会话数量（默认为：1）
+acooly.security.session.maxSessionPerUser=1
+```
 
 
 ## 4.资源
 
 ### 4.1 开发
 
-1. **easyui文档**：http://www.jeasyui.com/
+1. **EasyUI文档**：http://www.jeasyui.com/
 1. **图标库**： boss后台的开发可以使用：fontawesome字体图标库，已引入到框架中。 图标地址：http://www.fontawesome.com.cn/faicons/
    案例：
     ```html
     <i class="fa fa-flask fa-fw fa-lg fa-col" aria-hidden="true"></i>
     ```
-2. **layui库**：已经引入，可以直接使用其组件。文档：https://www.layui.com/
-
+    
 ### 4.2 风格
 
-* acooly：v3标准/easyui标准风格
-* acooly4：AdminLTE风格
+* Acooly3：v3标准/easyui标准风格
+* Acooly4：AdminLTE风格
 
 ## 5. changelog
+
+
+### 5.0.0-SNAPSHOT.20220324
+
+* 完成从spring-session-redis到shiro-session-redis方案的变更。
+* 增加kickout单人登录限制功能（踢人）,同一用户名重复登录，会自动踢出前面登录的会话。
+* 支持用户选择多个角色，调整现有权限管理配置的组为角色模式
+
 
 ### 5.0.0-SNAPSHOT.20220302
 
