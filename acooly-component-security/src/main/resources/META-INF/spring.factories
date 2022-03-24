@@ -2,3 +2,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.acooly.module.security.config.SecurityAutoConfig
 com.acooly.core.common.boot.component.ComponentInitializer=\
 com.acooly.module.security.config.SecurityComponentInitializer
+com.acooly.core.common.boot.log.initializer.LogInitializer=\
+com.acooly.module.security.shiro.log.ShiroSessionCheckLogInitializer  
