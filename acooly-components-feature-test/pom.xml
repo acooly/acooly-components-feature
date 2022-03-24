@@ -96,7 +96,6 @@
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-security</artifactId>
-            <version>5.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
