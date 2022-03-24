@@ -19,6 +19,27 @@
 * 可扩展JS和CSS库
 * 支持EASYUI,LAYUI和AdminLTE三种UI风格开发。
 
+### 2.1 Session模式
+
+从5.0.0-SNAPSHOT.20220324开始，后台管理的session模式从spring-session(`acooly-component-web`组件内配置的redis-session模式)调整为Shiro-Redis-Session模式，Cookies只针对/manage有效。并提供了对Session有效期的参数控制。
+
+```
+# 会话存储到redis的过期时间（单位：分钟），默认8小时
+acooly.security.session.redisTimeout=480
+# 会话超时时间（单位：秒），默认30分钟
+acooly.security.session.timeout=1800
+# 会话过期检查时间间隔（单位：秒），默认30分钟
+acooly.security.session.checkInterval=1800
+```
+
+> 会话有效期控制方法：
+> 
+1. 参数`acooly.security.session.timeout`为真实有效期。
+2. `acooly.security.session.timeout`的时间（注意单位）必须小于等于`acooly.security.session.redisTimeout`；
+3. 如非特殊情况，建议无效会话检测时间间隔参数`acooly.security.session.checkInterval`应该与`acooly.security.session.timeout`一致。
+
+
+
 ## 3. 使用说明
 
 maven坐标
@@ -160,6 +181,11 @@ acooly.framework.scripts[1]=/manage/assert/script/acooly.portal.js
 ## 默认为acooly
 acooly.framework.default-theme=acooly
 ```
+
+### 3.8 单人登录
+
+
+
 
 ## 4.资源
 
