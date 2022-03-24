@@ -235,5 +235,15 @@ public class SecurityProperties {
          */
         private int checkInterval = 30 * 60;
 
+        /**
+         * 是否开启同用户登录踢人模式
+         */
+        private boolean enableKickOut = true;
+
+        /**
+         * 每个用户允许的同时登录个人，默认为1，表示只支持单用户登录
+         */
+        private int maxSessionPerUser = 1;
+
     }
 }

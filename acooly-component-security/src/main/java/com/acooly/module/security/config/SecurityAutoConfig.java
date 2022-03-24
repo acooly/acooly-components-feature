@@ -12,6 +12,7 @@ package com.acooly.module.security.config;
 import com.acooly.core.common.boot.ApplicationContextHolder;
 import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.boot.EnvironmentHolder;
+import com.acooly.core.common.boot.listener.AcoolyApplicationRunListener;
 import com.acooly.core.common.dao.support.StandardDatabaseScriptIniter;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.security.JWTUtils;
@@ -46,8 +47,10 @@ import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.WebSecurityManager;
+import org.apache.shiro.web.servlet.AdviceFilter;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.LoggerFactory;
@@ -73,9 +76,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.DispatcherType;
-import javax.servlet.Filter;
-import javax.servlet.ServletContext;
+import javax.servlet.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -430,12 +431,28 @@ public class SecurityAutoConfig {
         }
 
         @Bean
-        public KickoutSessionFilter kickout(SessionManager sessionManager,
-                                            CacheManager shiroCacheManager, SecurityProperties securityProperties) {
+        public AccessControlFilter kickout(SessionManager sessionManager,
+                                           CacheManager shiroCacheManager, SecurityProperties securityProperties) {
+            // 如果为开启，则提供空的实现
+            if (!securityProperties.getSession().isEnableKickOut()) {
+                return new AccessControlFilter() {
+                    @Override
+                    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+                        return false;
+                    }
+
+                    @Override
+                    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+                        return true;
+                    }
+                };
+            }
             KickoutSessionFilter filter = new KickoutSessionFilter();
             filter.setSessionManager(sessionManager);
+            filter.setMaxSession(securityProperties.getSession().getMaxSessionPerUser());
             filter.setKickoutUrl(securityProperties.getShiro().getFailedUrl());
             filter.setCacheManager(shiroCacheManager);
+            LoggerFactory.getLogger(SecurityAutoConfig.class).info("开启用户登录踢人，单用户允许同时登录会话数: {}", securityProperties.getSession().getMaxSessionPerUser());
             return filter;
         }
 
