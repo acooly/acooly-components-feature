@@ -14,9 +14,7 @@
                         文件类型:<select name="search_EQ_fileType" editable="false" style="width: 80px;" panelHeight="auto"
                                      class="easyui-combobox">
                         <option value="">所有</option>
-                        <#list allFileTypes as k,v>
-                            <option value="${k}">${v}</option></#list>
-                    </select>
+                        <#list allFileTypes as k,v><option value="${k}">${v}</option></#list></select>
                         文件名:<input type="text" size="15" name="search_LIKE_originalName"/>
                         上传时间:<input id="search_GTE_createTime" name="search_GTE_createTime" size="10"
                                     onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
