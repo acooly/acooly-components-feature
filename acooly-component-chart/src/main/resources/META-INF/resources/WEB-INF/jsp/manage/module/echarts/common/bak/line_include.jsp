@@ -1,18 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html style="height: 95%; width: 95%">
- 	
+<link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.css" type="text/css"/>
+
 <body style="height: 100%; margin: 0">
 
-	<!-- 查询条件 -->
-	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/where_search.jsp" %>
-
+	<!-- 查询条件  -->
+	<jsp:include page="/manage/module/echarts/chartSearch_${chartItemId}.html" flush="true"/>
+	
 	<div id="container_${chartItemId}_loopTime" style="font-size:8px;color:	#D3D3D3;position: absolute;left:90%;margin-top:35px; "></div>
 	<div id="container_${chartItemId}" style="height: 100%"></div>
-
-	<!-- 数据列表 -->
-	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/data_list.jsp" %>
 
 	<script type="text/javascript" src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/echarts.min.js"></script>
@@ -38,13 +36,11 @@
 		
 		//ajax 数据请求
 		function ajaxRequest(){
+// 			alert();
 			var title;
 			var legendData = new Array();
 			var xShaft = new Array();
 			var yShafts = new Array();	
-			
-			//列名
-			var columnName = new Array();	
 			
 			jQuery.ajax({
 				url : "/manage/module/echarts/charData_line_${chartItemId}.html",
@@ -60,7 +56,6 @@
 	
 						//x轴
 						for ( var x in xShaftJson) {
-							columnName.push(x);
 							xShaft = xShaftJson[x].split(",");
 						}
 // 						console.log(xShaft);
@@ -68,7 +63,6 @@
 						//y轴
 						var yShaftJsonList = yShaftJsons[0];
 						for ( var y in yShaftJsonList) {
-							columnName.push(y);
 							legendData.push(y);
 							var yShaft = new Array();
 							yShaft = yShaftJsonList[y].split(",");
@@ -100,9 +94,6 @@
 
 						//动态数据解决
 						lineChartDraw(title,legendData,xShaft,yShafts);
-						
-						//动态数据列表					
-						showChartDataList(${chartItemId},columnName,xShaft,yShafts);
 					}
 				}
 			});

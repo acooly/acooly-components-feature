@@ -1,9 +1,19 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html style="height: 95%; width: 95%">
+
 <body style="height: 100%; margin: 0">
+
+	<!-- 查询条件 -->
+	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/where_search.jsp" %>
 
 	<div id="container_${chartItemId}_loopTime" style="font-size:8px;color:	#D3D3D3;position: absolute;left:90%;margin-top:35px; "></div>
 	<div id="container_${chartItemId}" style="height: 100%"></div>
+
+	<!-- 数据列表 -->
+	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/data_list.jsp" %>
+	
 
 	<script type="text/javascript" src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/echarts.min.js"></script>
@@ -24,10 +34,12 @@
 		var legendData = new Array();
 		var xShaft = new Array();
 		var yShafts = new Array();	
+		//列名
+		var columnName = new Array();	
 		
 		jQuery.ajax({
 			url : "/manage/module/echarts/charData_pie_${chartItemId}.html",
-			data : {dateTime:(new Date()).getTime()},
+			data : $("#container_${chartItemId}_searchform").serialize(),
 			cache : false,
 			success : function(data) {
 				console.log(data);
@@ -39,6 +51,7 @@
 
 					//x轴
 					for ( var x in xShaftJson) {
+						columnName.push(x);
 						xShaft = xShaftJson[x].split(",");
 					}
 //						console.log(xShaft);
@@ -46,6 +59,7 @@
 					//y轴
 					var yShaftJsonList = yShaftJsons[0];
 					for ( var y in yShaftJsonList) {
+						columnName.push(y);
 						legendData.push(y);
 						var yShaft = new Array();
 						yShaft = yShaftJsonList[y].split(",")[0];
@@ -65,10 +79,58 @@
 
 					//动态数据解决					
 					pieChartDraw(title,legendData,xShaft,yShafts,chartItemsParams);
+				
+					//动态数据列表					
+					showPieChartDataList(${chartItemId},columnName,xShaft,yShafts);
+					
 				}
 			}
 		});
 	}
+	
+	
+	
+	
+	/**
+	 * 显示数据格式
+	 * @param chartItemId
+	 * @param columnName
+	 * @param xShaft
+	 * @param yShafts
+	 * @returns
+	 */
+	function  showPieChartDataList(chartItemId,columnName,xShaft,yShafts) {
+		
+		console.log(yShafts);
+		
+		$("#container_"+chartItemId+"_dataList_table").empty();
+		//表HTML
+		var tableHtml="";
+		//列名
+		var columnNameHtml = "";
+		//列数据
+		var columnValueHtml = "";
+		
+		//列名--组装
+		columnNameHtml="<tr style='font-size: 18px; height: 30px;'>";
+		for ( var i in columnName) {
+			columnNameHtml=columnNameHtml+"<th>"+columnName[i]+"</th>";
+		}
+		columnNameHtml=columnNameHtml+"</tr>";
+		
+		//列数据--组装
+		columnValueHtml=columnValueHtml+"<tr style='font-size: 16px; height: 30px;'>";
+		for(var y in yShafts){
+			columnValueHtml=columnValueHtml+"<th>"+yShafts[y].value+"</th>";
+		}		
+		columnValueHtml=columnValueHtml+"</tr>";
+
+		//动态模板html
+		tableHtml=tableHtml+columnNameHtml+columnValueHtml;
+		
+		$("#container_"+chartItemId+"_dataList_table").append(tableHtml);
+	}
+	
 	
 	//动态数据解决
 	function pieChartDraw(title,legendData,xShaft,yShafts,chartItemsParams) {

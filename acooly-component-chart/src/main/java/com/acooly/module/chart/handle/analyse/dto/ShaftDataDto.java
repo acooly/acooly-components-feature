@@ -3,6 +3,7 @@ package com.acooly.module.chart.handle.analyse.dto;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -25,7 +26,7 @@ public class ShaftDataDto implements Serializable {
 	private Map<String, Object> xShaft;
 
 	private List<Map<String, Object>> yShafts;
-
+	
 	public String getTitle() {
 		return title;
 	}
@@ -49,6 +50,7 @@ public class ShaftDataDto implements Serializable {
 	public void setyShafts(List<Map<String, Object>> yShafts) {
 		this.yShafts = yShafts;
 	}
+
 
 	@Override
 	public String toString() {

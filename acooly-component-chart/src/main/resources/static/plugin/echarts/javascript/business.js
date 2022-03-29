@@ -15,3 +15,4 @@ function refreshTimeValueShow(chartItemId,loopTime){
 		}
 	}
 }
+

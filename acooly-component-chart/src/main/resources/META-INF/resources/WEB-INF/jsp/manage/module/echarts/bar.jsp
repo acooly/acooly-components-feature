@@ -1,9 +1,26 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html style="height: 95%; width: 95%">
+
 <body style="height: 100%; margin: 0">
+
+	<!-- 查询条件 -->
+	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/where_search.jsp" %>
 	
 	<div id="container_${chartItemId}_loopTime" style="font-size:8px;color:	#D3D3D3;position: absolute;left:90%;margin-top:35px; "></div>
 	<div id="container_${chartItemId}" style="height: 100%"></div>
+	
+	<!-- 数据列表 -->
+	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/data_list.jsp" %>
+	
+	<c:if test="${chartItem.isDataListShow=='YES'}">
+		<div  style="margin-left:8%;margin-top:5px; ">
+		    <table id="container_${chartItemId}_dataList_table"  class="easyui-datagrid" border="1" width="90%">
+		    </table>
+		</div>
+	</c:if>
+	
 
 	<script type="text/javascript" src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/plugin/echarts/echarts.min.js"></script>
@@ -26,12 +43,15 @@
 		var xShaft = new Array();
 		var yShafts = new Array();	
 		
+		//列名
+		var columnName = new Array();	
+		
 		jQuery.ajax({
 			url : "/manage/module/echarts/charData_bar_${chartItemId}.html",
-			data : {dateTime:(new Date()).getTime()},
+			data : $("#container_${chartItemId}_searchform").serialize(),
 			cache : false,
 			success : function(data) {
-				console.log(data);
+// 				console.log(data);
 				if (data.success) {
 
 					title=data.data.shaftData.title;
@@ -40,14 +60,20 @@
 
 					//x轴
 					for ( var x in xShaftJson) {
+						columnName.push(x);
 						xShaft = xShaftJson[x].split(",");
 					}
-//						console.log(xShaft);
+
+					console.log(xShaft);
 
 					//y轴
 					var yShaftJsonList = yShaftJsons[0];
 					for ( var y in yShaftJsonList) {
+						
+						columnName.push(y);
+						
 						legendData.push(y);
+						
 						var yShaft = new Array();
 						yShaft = yShaftJsonList[y].split(",");
 
@@ -69,16 +95,22 @@
 						};
 						yShafts.push(yShaftJson);
 					}
-//						console.log(yShafts);
+// 						console.log(yShafts);
 					//倒计时刷新
 					refreshTimeValue(${chartItemId},${loopTime}/1000);
 					
 					//动态数据解决					
 					barChartDraw(title,legendData,xShaft,yShafts);
+					
+					//动态数据列表					
+					showChartDataList(${chartItemId},columnName,xShaft,yShafts);
+					
 				}
 			}
 		});
 	}
+	
+	
 	
 	//动态数据解决
 	function barChartDraw(title,legendData,xShaft,yShafts) {
