@@ -81,7 +81,7 @@
 			</tr>
 			
 			<tr>
-				<th>显示图表数据值：</th>
+				<th>图表数据值：</th>
 				<td><select name="isShow" editable="false" style="height:27px;" panelHeight="auto" class="easyui-combobox" >
 					<c:forEach items="${allIsShows}" var="e">
 						<option value="${e.key}">${e.value}</option>
@@ -90,7 +90,7 @@
 			</tr>
 			
 			<tr>
-				<th>显示数据列表：</th>
+				<th>数据列表下载：</th>
 				<td><select name="isDataListShow" editable="false" style="height:27px;" panelHeight="auto" class="easyui-combobox" >
 					<c:forEach items="${allIsShows}" var="e">
 						<option value="${e.key}">${e.value}</option>
