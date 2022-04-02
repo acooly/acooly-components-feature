@@ -79,6 +79,7 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 			onCreate(request, response, model);
 			model.addAttribute("action", ACTION_CREATE);
 			model.addAttribute("chartId", chartId);
+			model.addAttribute("chartData", chartDataService.findChartDataByItemsId(Long.parseLong(chartId)));
 		} catch (Exception e) {
 			handleException("新建", e, request);
 		}
@@ -170,8 +171,8 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 			dto.setDefaultValue(request.getParameter("whereDataDefaultValue_" + i));
 			whereDataDtoList.add(dto);
 		}
-		entity.setWhereDataJson(""+JSON.toJSON(whereDataDtoList));
-		
+		entity.setWhereDataJson("" + JSON.toJSON(whereDataDtoList));
+
 		if (isCreate) {
 			chartItemsService.saveOrUpdateChartItemsAndChartData(entity, true);
 		} else {
