@@ -36,6 +36,10 @@ function  showChartDataList(chartItemId,columnName,xShaft,yShafts) {
 	var columnNameHtml = "";
 	//列数据
 	var columnValueHtml = "";
+	//合计
+	var columnTotalValueHtml="";
+	var totalValue = new Array();
+
 	
 	//列名--组装
 	columnNameHtml="<tr style='font-size: 18px; height: 30px; background:SkyBlue;'>";
@@ -50,14 +54,31 @@ function  showChartDataList(chartItemId,columnName,xShaft,yShafts) {
 		columnValueHtml=columnValueHtml+"<tr style='font-size: 16px; height: 30px;'>";
 		columnValueHtml=columnValueHtml+"<th style='padding-left:10px;'>"+xShaft[x]+"</th>";
 		for(var y in yShafts){
-			columnValueHtml=columnValueHtml+"<th style='padding-left:10px;'>"+yShafts[y].data[z]+"</th>";
+			//行数据（z:行；y:列）
+			var yShaftsValue=yShafts[y].data[z];
+			columnValueHtml=columnValueHtml+"<th style='padding-left:10px;'>"+yShaftsValue+"</th>";
+			
+			//合计-行数据
+			if(z==0){
+				totalValue.push(parseInt(yShaftsValue));
+			}else{
+				totalValue[y]=totalValue[y]+parseInt(yShaftsValue);
+			}
 		}
 		columnValueHtml=columnValueHtml+"</tr>";
 		z=z+1;
 	}
 	
+	//合计
+	columnTotalValueHtml=columnTotalValueHtml+"<tr style='font-size: 18px; height: 30px;'><th style='padding-left:20px;'>合计：</th>";
+	for ( var t in totalValue) {
+		columnTotalValueHtml=columnTotalValueHtml+"<th style='padding-left:10px;'>"+totalValue[t]+"</th>";
+	}
+	columnTotalValueHtml=columnTotalValueHtml+"</tr>";
+
+	
 	//动态模板html
-	tableHtml=tableHtml+columnNameHtml+columnValueHtml;
+	tableHtml=tableHtml+columnNameHtml+columnValueHtml+columnTotalValueHtml;
 	
 	$("#container_"+chartItemId+"_dataList_table").append(tableHtml);
 }

@@ -100,9 +100,6 @@
 	 * @returns
 	 */
 	function  showPieChartDataList(chartItemId,columnName,xShaft,yShafts) {
-		
-		console.log(yShafts);
-		
 		$("#container_"+chartItemId+"_dataList_table").empty();
 		//表HTML
 		var tableHtml="";
