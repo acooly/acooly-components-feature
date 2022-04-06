@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<script type="text/javascript" src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/plugin/echarts/javascript/jquery.table2excel.js" charset="utf-8"></script>
 <script type="text/javascript" src="/plugin/echarts/javascript/download.js" charset="utf-8"></script>
 
