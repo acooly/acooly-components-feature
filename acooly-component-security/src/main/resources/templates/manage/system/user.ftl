@@ -44,7 +44,7 @@
     <div data-options="region:'center',border:false">
         <table id="manage_user_datagrid" class="easyui-datagrid" url="${rc.getContextPath()}/manage/system/user/listUser.html"
                toolbar="#manage_user_toolbar" fit="true" fitColumns="false"
-               pagination="true" idField="id" pageSize="5" pageList="[5, 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc"
+               pagination="true" idField="id" pageSize="20" pageList="[5, 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc"
                checkOnSelect="true" selectOnCheck="true" singleSelect="false">
             <thead>
             <tr>
