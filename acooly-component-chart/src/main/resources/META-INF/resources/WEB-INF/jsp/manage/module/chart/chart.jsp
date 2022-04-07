@@ -132,7 +132,7 @@ function manage_chartItems_remove(chartItemsId){
         <tr>
           <td align="left">
           	<div>
-					标题: <input type="text" class="text" size="15" name="search_LIKE_title"/>
+				标题: <input type="text" class="text" size="15" name="search_LIKE_title"/>
 				状态: <select style="width:80px;height:27px;" name="search_EQ_status" editable="false" panelHeight="auto" class="easyui-combobox"><option value="">所有</option><c:forEach var="e" items="${allStatuss}"><option value="${e.key}" ${param.search_EQ_status == e.key?'selected':''}>${e.value}</option></c:forEach></select>
           	<a href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:false" onclick="$.acooly.framework.search('manage_chart_searchform','manage_chart_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i>查询</a>
           	</div>
@@ -200,8 +200,9 @@ function manage_chartItems_remove(chartItemsId){
                         <th field="status" formatter="mappingFormatter">状态</th>
                         <th field="loopTime" sum="true" data-options="formatter:function(value,row){ return value/1000}">刷新时间</th>
                         <th field="isShow" formatter="mappingFormatter">显示数据值</th>
-                        <th field="xShaft">x轴</th>
-                        <th field="yShaft">y轴</th>
+                        <th field="isDataListShow" formatter="mappingFormatter">显示数据列表</th>
+                        <th field="xShaft" formatter="contentFormatter">x轴</th>
+                        <th field="yShaft" formatter="contentFormatter">y轴</th>
                         <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
                         <th field="updateTime" formatter="dateTimeFormatter">更新时间</th>
                         <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_chartItems_action',value,row)}">动作</th>
@@ -212,7 +213,7 @@ function manage_chartItems_remove(chartItemsId){
                 <!-- 每行的Action动作模板 -->
                 <div id="manage_chartItems_action" style="display: none;">
                     <%--<a href="#" class="easyui-linkbutton" plain="true" onclick="manage_chartData_create('{0}')" title="添加/修改sql"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i></a>--%>
-                    <a onclick="$.acooly.framework.edit({url:'/manage/module/chart/chartItems/edit.html',id:'{0}',entity:'chartItems',width:1100,height:600,hideSaveBtn:true,
+                    <a onclick="$.acooly.framework.edit({url:'/manage/module/chart/chartItems/edit.html',id:'{0}',entity:'chartItems',width:1000,height:650,hideSaveBtn:true,
 		             buttons:[{
 		             id:'manage_chartItems_btn_create',
 		                    text:'<i class=\'fa fa-plus-circle fa-lg fa-fw fa-col\'></i>修改',
@@ -226,9 +227,10 @@ function manage_chartItems_remove(chartItemsId){
 
 		                    }
 		                    }]});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
-                    <a onclick="$.acooly.framework.show('/manage/module/chart/chartItems/show.html?id={0}',900,600);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
+                    <a onclick="$.acooly.framework.show('/manage/module/chart/chartItems/show.html?id={0}',900,700);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
                     <a onclick="manage_chartItems_remove({0})" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
                     <a onclick="moveUp('{0}')" href="#" title="上移"><i class="<%--line-action icon-movetop--%>line-action icon-moveup"></i></a>
+                    <a href="/manage/module/echarts/chartItemOne_{0}.html" target="_blank" title="生成图表"><i class="fa fa-adjust fa-lg fa-fw fa-col"></i></a>
                 </div>
 
                 <!-- 表格的工具栏 -->

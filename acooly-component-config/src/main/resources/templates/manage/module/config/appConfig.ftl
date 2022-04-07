@@ -4,6 +4,10 @@
     <div data-options="region:'north',border:false" style="padding:5px; overflow: hidden;" align="left">
 
         <form id="manage_appConfig_searchform" class="form-inline ac-form-search" onsubmit="return false" style="padding-left: 5px;">
+         <div class="form-group">
+                <label class="col-form-label">标题：</label>
+                <input type="text" class="form-control form-control-sm" name="search_LIKE_title"/>
+            </div>
             <div class="form-group">
                 <label class="col-form-label">配置名称：</label>
                 <input type="text" class="form-control form-control-sm" name="search_LIKE_configName"/>

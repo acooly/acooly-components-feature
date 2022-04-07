@@ -42,13 +42,14 @@ CREATE TABLE `c_chart_data` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `chart_id` bigint(20) NOT NULL COMMENT '主题id',
   `items_id` bigint(20) NOT NULL COMMENT '图表选项id',
+  `where_data` varchar(4096) DEFAULT NULL COMMENT 'where条件数据',
   `sql_data` varchar(4096) NOT NULL COMMENT 'sql表达式',
   `field_mapped` varchar(1024) NOT NULL COMMENT '数据字段',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='图表-数据项';
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='图表-数据项';
 
 -- ----------------------------
 -- Records of c_chart_data
@@ -65,20 +66,21 @@ CREATE TABLE `c_chart_items` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `chart_id` bigint(20) NOT NULL COMMENT '主题id',
   `is_show` varchar(40) DEFAULT 'NO' COMMENT '是否显示数据',
+  `is_data_list_show` varchar(40) DEFAULT 'NO' COMMENT '是否显示列表数据和下载',
   `title` varchar(64) NOT NULL COMMENT '标题',
   `type` varchar(64) NOT NULL COMMENT '图表类型{line:折线图,bar:柱状图,pie:饼图}',
   `status` varchar(32) NOT NULL COMMENT '状态{enable:正常,disable:禁用}',
   `loop_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '循环时间',
   `height` bigint(20) NOT NULL DEFAULT '50' COMMENT '高',
   `width` bigint(20) NOT NULL DEFAULT '50' COMMENT '宽',
-  `x_shaft` varchar(1024) DEFAULT NULL COMMENT 'x轴',
-  `y_shaft` varchar(1024) NOT NULL COMMENT 'y轴',
+  `x_shaft` varchar(2048) DEFAULT NULL COMMENT 'x轴',
+  `y_shaft` varchar(2048) NOT NULL COMMENT 'y轴',
   `order_time` datetime NOT NULL COMMENT '排序',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `comments` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='图表-图表选项';
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='图表-图表选项';
 
 -- ----------------------------
 -- Records of c_chart_items

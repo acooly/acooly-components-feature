@@ -21,7 +21,6 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Map;
 
-
 /**
  * 图表-图表选项 Entity
  *
@@ -33,107 +32,116 @@ import java.util.Map;
 @Setter
 public class ChartItems extends AbstractEntity {
 
-    /**
-     * 主题id
-     */
-    @NotNull
-    private Long chartId;
+	/**
+	 * 主题id
+	 */
+	@NotNull
+	private Long chartId;
 
-    /**
-     * 标题
-     */
-    @NotBlank
-    @Size(max = 64)
-    private String title;
+	/**
+	 * 标题
+	 */
+	@NotBlank
+	@Size(max = 64)
+	private String title;
 
-    /**
-     * 图表类型
-     */
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private TypeEnum type;
+	/**
+	 * 图表类型
+	 */
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private TypeEnum type;
 
-    /**
-     * 状态
-     */
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private StatusEnum status;
+	/**
+	 * 状态
+	 */
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private StatusEnum status;
 
-    /**
-     * 状态
-     */
-    @Enumerated(EnumType.STRING)
-    private ChartItemsIsShowEnum isShow;
+	/**
+	 * 是否显示数据值
+	 */
+	@Enumerated(EnumType.STRING)
+	private ChartItemsIsShowEnum isShow;
 
-    /**
-     * 高
-     */
-    @NotNull
-    private Long height = 50L;
+	/**
+	 * 列表数据和下载
+	 */
+	@Enumerated(EnumType.STRING)
+	private ChartItemsIsShowEnum isDataListShow;
 
-    /**
-     * 宽
-     */
-    @NotNull
-    private Long width = 50L;
+	/**
+	 * 高
+	 */
+	@NotNull
+	private Long height = 50L;
 
-    /**
-     * 循环时间
-     */
-    @NotNull
-    private Long loopTime = 0L;
+	/**
+	 * 宽
+	 */
+	@NotNull
+	private Long width = 50L;
 
-    /**
-     * x轴
-     */
-    @NotBlank
-    @Size(max = 128)
-    private String xShaft;
+	/**
+	 * 循环时间
+	 */
+	@NotNull
+	private Long loopTime = 0L;
 
-    /**
-     * y轴
-     */
-    @NotBlank
-    @Size(max = 128)
-    private String yShaft;
+	/**
+	 * x轴
+	 */
+	@NotBlank
+	private String xShaft;
 
-    /**
-     * 排序
-     */
-    private Date orderTime;
+	/**
+	 * y轴
+	 */
+	@NotBlank
+	private String yShaft;
 
-    /**
-     * 备注
-     */
-    @Size(max = 255)
-    private String comments;
+	/**
+	 * 排序
+	 */
+	private Date orderTime;
 
-    @Transient
-    private String sqlData;
+	/**
+	 * 备注
+	 */
+	private String comments;
 
-    @Transient
-    private String fieldMapped;
+	@Transient
+	private String sqlData;
 
-    @Transient
-    private JSONObject fieldMappedJson;
+	@Transient
+	private String fieldMapped;
 
-    @Transient
-    private Map<String, Object> fieldMappedMap;
+	@Transient
+	private JSONObject fieldMappedJson;
 
-    public String getxShaft() {
-        return xShaft;
-    }
+	@Transient
+	private Map<String, Object> fieldMappedMap;
 
-    public void setxShaft(String xShaft) {
-        this.xShaft = xShaft;
-    }
+	/**
+	 * 查询条件-json to String
+	 */
+	@Transient
+	private String whereDataJson;
 
-    public String getyShaft() {
-        return yShaft;
-    }
+	public String getxShaft() {
+		return xShaft;
+	}
 
-    public void setyShaft(String yShaft) {
-        this.yShaft = yShaft;
-    }
+	public void setxShaft(String xShaft) {
+		this.xShaft = xShaft;
+	}
+
+	public String getyShaft() {
+		return yShaft;
+	}
+
+	public void setyShaft(String yShaft) {
+		this.yShaft = yShaft;
+	}
 }

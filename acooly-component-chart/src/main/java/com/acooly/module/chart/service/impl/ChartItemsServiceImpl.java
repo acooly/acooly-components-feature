@@ -6,22 +6,21 @@
  */
 package com.acooly.module.chart.service.impl;
 
-import com.acooly.module.chart.entity.ChartData;
-import com.acooly.module.chart.service.ChartDataService;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.acooly.core.common.exception.BusinessException;
-import com.acooly.core.common.service.EntityServiceImpl;
-import com.acooly.module.chart.service.ChartItemsService;
-import com.acooly.module.chart.dao.ChartItemsDao;
-import com.acooly.module.chart.entity.ChartItems;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import com.acooly.core.common.service.EntityServiceImpl;
+import com.acooly.module.chart.dao.ChartItemsDao;
+import com.acooly.module.chart.entity.ChartData;
+import com.acooly.module.chart.entity.ChartItems;
 import com.acooly.module.chart.enums.StatusEnum;
+import com.acooly.module.chart.handle.ChartUtils;
+import com.acooly.module.chart.service.ChartDataService;
+import com.acooly.module.chart.service.ChartItemsService;
 
 /**
  * 图表-图表选项 Service实现
@@ -43,18 +42,14 @@ public class ChartItemsServiceImpl extends EntityServiceImpl<ChartItems, ChartIt
 		String sqlData = entity.getSqlData();
 		String sqlDataUpperCase = sqlData.toUpperCase();
 
-		if (sqlDataUpperCase.contains("INSERT ") || sqlDataUpperCase.contains("DELETE ")
-				|| sqlDataUpperCase.contains("UPDATE ") || sqlDataUpperCase.contains("CREATE ")
-				|| sqlDataUpperCase.contains("DROP ") || sqlDataUpperCase.contains("ALTER ")
-				|| sqlDataUpperCase.contains("LOCK ") || sqlDataUpperCase.contains("UNLOCK ")) {
-			throw new BusinessException(
-					"sql语句中不能出现 <br/>insert,<br/>delete,<br/>update,<br/>create,<br/>drop,<br/>alter,<br/>lock,<br/>unlock");
-		}
+		ChartUtils.checkSql(entity.getWhereDataJson().toUpperCase());
+		ChartUtils.checkSql(sqlDataUpperCase);
 
 		if (isSave) {
 			entity.setOrderTime(new Date());
 			this.getEntityDao().create(entity);
 			ChartData chartData = new ChartData();
+			chartData.setWhereData(entity.getWhereDataJson());
 			chartData.setSqlData(sqlData);
 			chartData.setFieldMapped(entity.getFieldMapped());
 			chartData.setItemsId(entity.getId());
@@ -64,6 +59,7 @@ public class ChartItemsServiceImpl extends EntityServiceImpl<ChartItems, ChartIt
 		} else {
 			this.getEntityDao().update(entity);
 			ChartData chartData = chartDataService.findChartDataByItemsId(entity.getId());
+			chartData.setWhereData(entity.getWhereDataJson());
 			chartData.setSqlData(sqlData);
 			chartData.setFieldMapped(entity.getFieldMapped());
 			chartDataService.update(chartData);

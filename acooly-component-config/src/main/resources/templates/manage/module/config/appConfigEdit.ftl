@@ -5,15 +5,15 @@
             <input name="id" type="hidden"/>
             <div class="card-body">
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">配置标题</label>
+                    <label class="col-sm-3 col-form-label">标题</label>
                     <div class="col-sm-9">
-                        <input name="title" type="text" placeholder="配置参数名称或简称..." class="easyui-validatebox form-control" data-options="validType:['length[1,32]']" required="true"/>
+                        <input name="title" type="text" placeholder="配置参数名称或简称..." class="easyui-validatebox form-control" data-options="validType:['length[1,2048]']" required="true"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">配置名称</label>
                     <div class="col-sm-9">
-                        <input name="configName" type="text" placeholder="建议英文字母，多个下划线分割，注意唯一..." class="easyui-validatebox form-control" data-options="validType:['length[1,32]']" required="true"/>
+                        <input name="configName" type="text" placeholder="建议英文字母，多个下划线分割，注意唯一..." class="easyui-validatebox form-control" data-options="validType:['length[1,2048]']" required="true"/>
                     </div>
                 </div>
                 <div class="form-group row">

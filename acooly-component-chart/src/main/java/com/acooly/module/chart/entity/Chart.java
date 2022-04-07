@@ -11,14 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.*;
-import javax.validation.constraints.*;
-import lombok.Getter;
-import lombok.Setter;
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.module.chart.enums.StatusEnum;
-import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 图表-主题 Entity
@@ -41,7 +40,6 @@ public class Chart extends AbstractEntity {
     private StatusEnum status;
 
 	/** 备注 */
-	@Size(max=255)
     private String comments;
 
 }

@@ -3,12 +3,13 @@
 <div>
     <form id="manage_chartItems_editform" action="${pageContext.request.contextPath}/manage/module/chart/chartItems/${action=='create'?'saveJson':'updateJson'}.html" method="post">
       <jodd:form bean="chartItems" scope="request">
-        <input name="id" type="hidden" />
+          <input name="id" type="hidden" />
 		  <input id="operationIndex"  type="hidden"/>
 		  <input id="listNum"  type="hidden" value="0"/>
 		  <input id="fieldMapped" name="fieldMapped"  type="hidden" />
 		  <input id="xShaft" name="xShaft" type="hidden"/>
 		  <input id="yShaft"  name="yShaft" type="hidden" />
+		  
 		  <c:choose>
 			  <c:when test="${action=='create'}">
 				  <input  name="chartId" type="hidden" value="${chartId}"/>
@@ -54,9 +55,11 @@
                 </td>
 			</tr>
 			<tr>
-				<th>高：</th>
+				<th>高/宽 设置：</th>
 				<td>
-					<c:choose>
+
+
+					高度：<c:choose>
 						<c:when test="${action=='create'}">
 							<input value="50" type="number" name="height" size="20" placeholder="图表高度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>   单位“%”
 						</c:when>
@@ -65,13 +68,8 @@
 						</c:otherwise>
 					</c:choose>
 
-				</td>
-			</tr>
-			<tr>
-				<th>宽：</th>
-				<td>
 
-					<c:choose>
+					宽度：<c:choose>
 						<c:when test="${action=='create'}">
 							<input type="number" value="50" name="width" size="20" placeholder="图表宽度默认50" style="height: 27px;line-height: 27px;" class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>   单位“%”
 						</c:when>
@@ -83,13 +81,62 @@
 			</tr>
 			
 			<tr>
-				<th>是否显示数据值：</th>
+				<th>图表数据值：</th>
 				<td><select name="isShow" editable="false" style="height:27px;" panelHeight="auto" class="easyui-combobox" >
 					<c:forEach items="${allIsShows}" var="e">
 						<option value="${e.key}">${e.value}</option>
 					</c:forEach>
 				</select></td>
 			</tr>
+			
+			<tr>
+				<th>数据列表下载：</th>
+				<td><select name="isDataListShow" editable="false" style="height:27px;" panelHeight="auto" class="easyui-combobox" >
+					<c:forEach items="${allIsShows}" var="e">
+						<option value="${e.key}">${e.value}</option>
+					</c:forEach>
+				</select></td>
+			</tr>
+			
+			<tr>
+				<th>查询条件示例：</th>
+				<td>
+					<a href="/img/where_data.png"  target="_blank"><i class="fa fa-cogs fa-lg fa-fw fa-col"></i>查看示例说明</a>
+					<br/>
+					1. 占位符：支持sql语句查询，使用$$作为占位符，如 name like '%$name$%'
+					<br/>
+					2. 类型=下拉 ； 支持json格式：如 {"经纪人": "agent","vip": "vip","游客": "visitor"}
+				</td>
+			</tr>	
+			
+			<tr>
+				<th>查询条件：</th>
+				<td>
+					<div id="whereDataStandard">
+						<c:forEach items="${chartData.whereDataList}" var="item" varStatus="status">
+							<div id="whereDataStandard_${status.index+1}">
+								名称: <input type='text' id='whereDataName_${status.index+1}' name='whereDataName_${status.index+1}'  value="${item.name }" class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='前端显示名称' data-options='required:true'/>
+								&emsp;
+								占位符: <input type='text' id='whereDataConditParam_${status.index+1}' name='whereDataConditParam_${status.index+1}' value="${item.conditParam }" class='easyui-validatebox text' style='width: 170px' precision='2' placeholder='where条件占位符' data-options='required:true'/>
+								&emsp;
+								类型:
+									<select id="whereDataDataType_${status.index+1}" name="whereDataDataType_${status.index+1}"  editable="false" style="height:27px;width: 100px" panelHeight="auto" class="easyui-combobox" >
+										<c:forEach items="${allWhereTypes}" var="e">
+											<option value="${e.key}"  <c:if test="${item.dataType eq e.key }">selected </c:if>>   ${e.value}</option>
+										</c:forEach>
+									</select>
+								&emsp;
+								默认值: <input type='text' id='whereDataDefaultValue_${status.index+1}'  name='whereDataDefaultValue_${status.index+1}' value='${item.defaultValue }'  class='easyui-validatebox text' style='width: 180px' precision='2' placeholder='选填' />
+								
+								&emsp;<button type="button" onclick="deleteWhereData(${status.index+1})">删除</button>
+							</div>
+						</c:forEach>	
+					</div>
+
+						<button type="button" onclick="addWhereDataMapping()">添加查询条件</button>
+				</td>
+			</tr>
+			
 
 			<tr>
 				<th>sql表达式：</th>
@@ -99,7 +146,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>数据字段：</th>
+				<th>前端映射字段：</th>
 				<td>
 					<%--<textarea rows="3" cols="40" placeholder="请输入数据字段..." style="width:850px;" name="fieldMapped" class="easyui-validatebox" data-options="validType:['length[1,512]'],required:true"></textarea>--%>
 						<div id="standard">
@@ -140,8 +187,47 @@
       </jodd:form>
     </form>
 </div>
+
+
+<!-- where 条件数据处理-->
 <script>
-    fieldMapping = {};
+var whereOperationIndex=${chartData.whereDataList}.length+1;
+console.log("初始化whereData-length:"+whereOperationIndex);
+
+function  addWhereDataMapping() {
+	var whereDataMappingHtml = 
+		"<div id='whereDataStandard_"+whereOperationIndex+"'>"+
+			"名称: <input type='text' id='whereDataName_"+whereOperationIndex+"'  name='whereDataName_"+whereOperationIndex+"'  value=''  class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='查询字段名称'  data-options='required:true'/>&emsp;"+
+			"  占位符: <input type='text' id='whereDataConditParam_"+whereOperationIndex+"' name='whereDataConditParam_"+whereOperationIndex+"' value=''  class='easyui-validatebox text' style='width: 180px' precision='2' placeholder='where条件占位符'  data-options='required:true'/>&emsp;"+
+			"类型:<select id='whereDataDataType_"+whereOperationIndex+"' name='whereDataDataType_"+whereOperationIndex+"' editable='false' style='height:27px; width: 110px' panelHeight='auto' class='easyui-combobox' >"+
+			"	<c:forEach items='${allWhereTypes}' var='e'><option value='${e.key}'>${e.value}</option></c:forEach></select> &emsp;"+
+			"默认值: <input type='text' id='whereDataDefaultValue_"+whereOperationIndex+"' name='whereDataDefaultValue_"+whereOperationIndex+"' value=''  class='easyui-validatebox text' style='width: 180px' precision='2' placeholder='选填' />&emsp;"+
+			"<button type=\"button\" onclick=\"deleteWhereData("+whereOperationIndex+")\"> 删除</button>"+
+		" </div>";
+	$("#whereDataStandard").append(whereDataMappingHtml);
+    whereOperationIndex++;
+    $.parser.parse($("#whereDataStandard"));
+    //     console.log("增加前：whereData-length:"+whereOperationIndex);
+}
+
+
+function deleteWhereData(index) {
+    whereOperationIndex--;
+    if(whereOperationIndex<=0){
+    	whereOperationIndex=0;	
+    }
+    $("#whereDataStandard_"+index).remove();
+    console.log("删除节点：:whereDataStandard_"+index);
+//     console.log("增加后：whereData-length:"+whereOperationIndex);
+}
+
+
+</script>
+
+
+<!--X轴，Y轴 数据处理-->
+<script>
+	fieldMapping = {};
     xShaft = {};
     yShaft = {};
     count = 0;
@@ -284,7 +370,6 @@
 
 
 	function  addFieldMapping() {
-        
 		var FieldMappingHtml = "<div id='standards_"+operationIndex+"'>" +
 			"  sql字段:" +"<input type='text'  id='sqlField_"+operationIndex+"'"+" class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='sql字段名' data-options='required:true'/>" +
 			"  &emsp;sql中文:"+"<input type='text'  id='chinese_"+operationIndex+"'"+" class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='字段中文名' data-options='required:true'/>" +
