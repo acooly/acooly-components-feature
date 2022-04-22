@@ -87,6 +87,13 @@
             <version>${project.version}</version>
         </dependency>
 
+		<dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-config</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-config</artifactId>

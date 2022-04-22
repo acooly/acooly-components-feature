@@ -19,7 +19,7 @@
 	
 	
 <script type="text/javascript">
-	
+
 /**
  * 显示数据格式
  * @param chartItemId
@@ -50,19 +50,42 @@ function  showChartDataList(chartItemId,columnName,xShaft,yShafts) {
 	
 	//列数据--组装
 	var z=0;
+	//小数位（位数）
+	var fixedNum=0;
 	for ( var x in xShaft) {
 		columnValueHtml=columnValueHtml+"<tr style='font-size: 16px; height: 30px;'>";
 		columnValueHtml=columnValueHtml+"<th style='padding-left:10px;'>"+xShaft[x]+"</th>";
 		for(var y in yShafts){
+			//数字类型			
+			var yShaftsValueNumber=0;
 			//行数据（z:行；y:列）
 			var yShaftsValue=yShafts[y].data[z];
-			columnValueHtml=columnValueHtml+"<th style='padding-left:10px;'>"+yShaftsValue+"</th>";
+			
+			// 测试小数
+			//yShaftsValue=yShaftsValue+".01231";
+			
+			//小数判断（最大小数位数）
+			if(yShaftsValue.indexOf(".")!=-1){
+				var fixedNumLength=yShaftsValue.split(".")[1].length;
+				if(fixedNumLength>fixedNum){
+					fixedNum=fixedNumLength;
+				}
+			}
+			
+			//倍数
+			var multiple=multipleCount(fixedNum);
+			//数据类型转换
+			yShaftsValueNumber=(Math.round(yShaftsValue*multiple)/multiple);
+			
+			columnValueHtml=columnValueHtml+"<th style='padding-left:10px;'>"+yShaftsValueNumber+"</th>";
 			
 			//合计-行数据
 			if(z==0){
-				totalValue.push(parseInt(yShaftsValue));
+				totalValue.push(yShaftsValueNumber);
 			}else{
-				totalValue[y]=totalValue[y]+parseInt(yShaftsValue);
+				var currentValue=Math.round(totalValue[y]*multiple)/multiple ;
+				totalValue[y]=(currentValue + yShaftsValueNumber).toFixed(fixedNum);
+				//console.log("----累加值:"+totalValue[y]);
 			}
 		}
 		columnValueHtml=columnValueHtml+"</tr>";
@@ -82,6 +105,20 @@ function  showChartDataList(chartItemId,columnName,xShaft,yShafts) {
 	
 	$("#container_"+chartItemId+"_dataList_table").append(tableHtml);
 }
+
+
+
+/**
+ * 计算倍数
+ */
+function multipleCount(num){
+	var multiple=1;
+	if(num>0){
+		multiple=Math.pow(10,num);
+	}
+	return multiple;
+}
+
 </script>	
 	
 </html>
