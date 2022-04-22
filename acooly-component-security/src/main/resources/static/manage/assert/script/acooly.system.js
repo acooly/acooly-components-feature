@@ -13,6 +13,7 @@ let system_user_class = {
     orgTreeBoxInit: function (treeboxId, isSearch, defVal) {
         $.ajax({
             url: '/manage/module/security/org/listJson.html',
+            data: {sort: 'id', order: 'asc'},
             method: 'post',
             success: function (result) {
                 let nodes = result.rows;
