@@ -112,11 +112,10 @@ public class AuthorizationFilter implements Filter {
         long et = System.currentTimeMillis();
         if (!StringUtils.isEmpty(body) && (body.contains("true") || body.contains("false"))) {
             Boolean permitted = Boolean.valueOf(body);
-            logger.info(
-                    "sso 用户:{}权限校验结果:{},耗时:{} ms, url:{} ", username, permitted, (et - st), requestURI);
+            logger.debug("sso 用户:{}权限校验结果:{},耗时:{} ms, url:{} ", username, permitted, (et - st), requestURI);
             return Boolean.valueOf(body);
         }
-        logger.info("sso 用户:{}权限校验结果:{},耗时:{} ms, url:{} ", username, false, (et - st), requestURI);
+        logger.debug("sso 用户:{}权限校验结果:{},耗时:{} ms, url:{} ", username, false, (et - st), requestURI);
         return false;
     }
 
@@ -129,7 +128,7 @@ public class AuthorizationFilter implements Filter {
                     dubboFactory.getProxy(
                             SSOAuthzService.class, "com.acooly.module.security.service", "1.0", TIME_OUT);
             boolean permitted = authzService.permitted(requestURI, username);
-            logger.info("sso 用户:{}权限校验结果:{}, url:{} ", username, permitted, requestURI);
+            logger.debug("sso 用户:{}权限校验结果:{}, url:{} ", username, permitted, requestURI);
             return permitted;
         } catch (Exception e) {
             logger.error("权限校验出错 uri is {}", requestURI, e);
