@@ -1084,7 +1084,9 @@
                 // bootstrap-tooltip
                 $('[data-toggle="tooltip"]').tooltip();
                 // init FileInput
-                bsCustomFileInput.init();
+                if (bsCustomFileInput) {
+                    bsCustomFileInput.init();
+                }
                 // init textarea的字数统计
                 $.acooly.framework.wordsCount(container);
                 // 初始化日期端选择
