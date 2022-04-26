@@ -4,7 +4,7 @@
  */
 let acooly_file = {
     play: function (resourceUrl, opts) {
-        if(!resourceUrl || resourceUrl == '') return;
+        if (!resourceUrl || resourceUrl == '') return;
         if (this.SERVER_ROOT != '') {
             if (!resourceUrl.startsWith(this.SERVER_ROOT)) {
                 resourceUrl = this.SERVER_ROOT + resourceUrl;
@@ -79,10 +79,10 @@ let acooly_file = {
             }
         };
         let options = $.extend(defOpts, opts);
-        if(!options.width){
-            options.width = (document.documentElement.clientWidth ||  document.body.clientWidth) - 100;
+        if (!options.width) {
+            options.width = (document.documentElement.clientWidth || document.body.clientWidth) - 100;
         }
-        if(!options.height){
+        if (!options.height) {
             options.height = (document.documentElement.clientHeight || document.body.clientHeight) - 100;
         }
         let realWidth, realHeight;
@@ -96,14 +96,14 @@ let acooly_file = {
                 height = (width * realHeight / realWidth);
             }
             realHeight = height;
-            if(height > maxHeight){
+            if (height > maxHeight) {
                 height = maxHeight
                 width = (height * width) / realHeight
             }
             options.width = width + 20;
             options.height = height + 55;
-            options.width = options.width < 300 ? 300:options.width;
-            options.height = options.height < 200 ? 200:options.height;
+            options.width = options.width < 300 ? 300 : options.width;
+            options.height = options.height < 200 ? 200 : options.height;
             options.content = "<div style='text-align: center;'><a href='" + resourceUrl + "' target='_blank'>" +
                 "<img style='width: " + width + "px;height: " + height + "px' src='" + resourceUrl + "'></a></div>"
             $('<div/>').dialog(options);
@@ -148,6 +148,9 @@ let acooly_file = {
             data.name = resourceUrl;
         } else {
             data.name = resourceUrl.split('/').pop();
+        }
+        if (data.name) {
+            data.name = decodeURI(data.name);
         }
         return data;
     },
