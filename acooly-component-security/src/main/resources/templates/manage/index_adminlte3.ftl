@@ -377,6 +377,8 @@
 <!-- daterangepicker -->
 <script src="/manage/assert/plugin/daterangepicker/moment.min.js"></script>
 <script src="/manage/assert/plugin/daterangepicker/daterangepicker.js"></script>
+<!-- js xss -->
+<script src="/manage/assert/plugin/jquery-plugin/xss.min.js"></script>
 
 <!-- 自己定义的样式和JS扩展 -->
 <!-- acooly -->

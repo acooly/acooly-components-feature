@@ -438,7 +438,7 @@
                 form.append($('<input type="hidden" name="_csrf" value="' + token + '">'));
                 for (var key in inputObjects) {
                     if (inputObjects[key] != '') {
-                        var inputForm = $('<input type="hidden" name="' + key + '" value="' + inputObjects[key] + '" />');
+                        var inputForm = $('<input type="hidden" name="' + key + '" value="' + filterXSS(inputObjects[key]) + '" />');
                         form.append(inputForm);
                     }
                 }
