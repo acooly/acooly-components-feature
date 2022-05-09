@@ -115,7 +115,7 @@
 					<div id="whereDataStandard">
 						<c:forEach items="${chartData.whereDataList}" var="item" varStatus="status">
 							<div id="whereDataStandard_${status.index+1}">
-								名称: <input type='text' id='whereDataName_${status.index+1}' name='whereDataName_${status.index+1}'  value="${item.name }" class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='前端显示名称' data-options='required:true'/>
+								名称: <input type='text' id='whereDataName_${status.index+1}' name='whereDataName_${status.index+1}'  value="${item.name }" class='easyui-validatebox text' style='width: 80px' precision='2' placeholder='前端显示名称' data-options='required:true'/>
 								&emsp;
 								占位符: <input type='text' id='whereDataConditParam_${status.index+1}' name='whereDataConditParam_${status.index+1}' value="${item.conditParam }" class='easyui-validatebox text' style='width: 170px' precision='2' placeholder='where条件占位符' data-options='required:true'/>
 								&emsp;
@@ -126,7 +126,7 @@
 										</c:forEach>
 									</select>
 								&emsp;
-								默认值: <input type='text' id='whereDataDefaultValue_${status.index+1}'  name='whereDataDefaultValue_${status.index+1}' value='${item.defaultValue }'  class='easyui-validatebox text' style='width: 180px' precision='2' placeholder='选填' />
+								默认值: <input type='text' id='whereDataDefaultValue_${status.index+1}'  name='whereDataDefaultValue_${status.index+1}' value='${item.defaultValue }'  class='easyui-validatebox text' style='width: 150px' precision='2' placeholder='选填' />
 								
 								&emsp;<button type="button" onclick="deleteWhereData(${status.index+1})">删除</button>
 							</div>
@@ -142,7 +142,7 @@
 				<th>sql表达式：</th>
 				<td>
 					<%--<input  type="text" />--%>
-					<textarea rows="10" cols="100" placeholder="请输入sql表达式..."  style="width:850px;" name="sqlData" class="easyui-validatebox" data-options="validType:['length[1,2048]'],required:true"></textarea>
+					<textarea rows="10" cols="100" placeholder="请输入sql表达式..."  style="width:800px;" name="sqlData" class="easyui-validatebox" data-options="validType:['length[1,10000]'],required:true"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -167,14 +167,14 @@
 
 			<tr id="xShaftTr" style="display: none;">
 				<th>x轴：</th>
-				<td id="xShaftTd">
+				<td id="xShaftTd"  style="width: 700px;">
 					<%--<input name="Fruit" type="checkbox" value="" />--%>
 					<%--<input type="text" id="xShaft" name="xShaft" size="48" placeholder="举个栗子{account_period:日期} json格式..." class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true" />--%>
 				</td>
 			</tr>
 			<tr id="yShaftTr" style="display: none;">
 				<th>y轴：</th>
-				<td id="yShaftTd">
+				<td id="yShaftTd" style="width: 700px;">
 					<%--<input type="text" id="yShaft" name="yShaft" size="48" placeholder="举个栗子{withdraw_account:提现金额} json格式..." class="easyui-validatebox text" data-options="validType:['length[1,128]'],required:true"/>--%>
 				</td>
 			</tr>
@@ -197,11 +197,11 @@ console.log("初始化whereData-length:"+whereOperationIndex);
 function  addWhereDataMapping() {
 	var whereDataMappingHtml = 
 		"<div id='whereDataStandard_"+whereOperationIndex+"'>"+
-			"名称: <input type='text' id='whereDataName_"+whereOperationIndex+"'  name='whereDataName_"+whereOperationIndex+"'  value=''  class='easyui-validatebox text' style='width: 100px' precision='2' placeholder='查询字段名称'  data-options='required:true'/>&emsp;"+
+			"名称: <input type='text' id='whereDataName_"+whereOperationIndex+"'  name='whereDataName_"+whereOperationIndex+"'  value=''  class='easyui-validatebox text' style='width: 80px' precision='2' placeholder='查询字段名称'  data-options='required:true'/>&emsp;"+
 			"  占位符: <input type='text' id='whereDataConditParam_"+whereOperationIndex+"' name='whereDataConditParam_"+whereOperationIndex+"' value=''  class='easyui-validatebox text' style='width: 180px' precision='2' placeholder='where条件占位符'  data-options='required:true'/>&emsp;"+
 			"类型:<select id='whereDataDataType_"+whereOperationIndex+"' name='whereDataDataType_"+whereOperationIndex+"' editable='false' style='height:27px; width: 110px' panelHeight='auto' class='easyui-combobox' >"+
 			"	<c:forEach items='${allWhereTypes}' var='e'><option value='${e.key}'>${e.value}</option></c:forEach></select> &emsp;"+
-			"默认值: <input type='text' id='whereDataDefaultValue_"+whereOperationIndex+"' name='whereDataDefaultValue_"+whereOperationIndex+"' value=''  class='easyui-validatebox text' style='width: 180px' precision='2' placeholder='选填' />&emsp;"+
+			"默认值: <input type='text' id='whereDataDefaultValue_"+whereOperationIndex+"' name='whereDataDefaultValue_"+whereOperationIndex+"' value=''  class='easyui-validatebox text' style='width: 150px' precision='2' placeholder='选填' />&emsp;"+
 			"<button type=\"button\" onclick=\"deleteWhereData("+whereOperationIndex+")\"> 删除</button>"+
 		" </div>";
 	$("#whereDataStandard").append(whereDataMappingHtml);
