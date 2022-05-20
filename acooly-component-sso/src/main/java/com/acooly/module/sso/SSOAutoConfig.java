@@ -1,5 +1,7 @@
 package com.acooly.module.sso;
 
+import com.acooly.core.utils.Collections3;
+import com.acooly.module.security.config.FrameworkProperties;
 import com.acooly.module.sso.filter.AuthenticationFilter;
 import com.acooly.module.sso.filter.AuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.ServletContext;
 import java.util.EnumSet;
+import java.util.Set;
 
 import static com.acooly.module.sso.SSOProperties.PREFIX;
 
@@ -26,6 +30,8 @@ public class SSOAutoConfig {
 
     @Autowired
     private SSOProperties ssoProperties;
+    @Autowired
+    private FrameworkProperties frameworkProperties;
 
     @Bean
     public AuthenticationFilter ssoFilter() {
@@ -70,6 +76,26 @@ public class SSOAutoConfig {
     public ServletContextInitializer ssoContextInitializer() {
         return (servletContext) -> {
             servletContext.setInitParameter("ssoEnable", "true");
+            doExtendResources(servletContext);
         };
+    }
+
+    private void doExtendResources(ServletContext servletContext) {
+        Set<String> scripts = frameworkProperties.mergeScripts();
+        if (Collections3.isNotEmpty(scripts)) {
+            StringBuilder sb = new StringBuilder();
+            for (String script : scripts) {
+                sb.append("<script type=\"text/javascript\" src=\"" + script + "\" charset=\"utf-8\"></script>\n");
+            }
+            servletContext.setAttribute("extendScripts", sb.toString());
+        }
+        Set<String> styles = frameworkProperties.mergeStyles();
+        if (Collections3.isNotEmpty(styles)) {
+            StringBuilder sb = new StringBuilder();
+            for (String style : styles) {
+                sb.append("<link rel=\"stylesheet\" href=\"" + style + "\">\n");
+            }
+            servletContext.setAttribute("extendStyles", sb.toString());
+        }
     }
 }
