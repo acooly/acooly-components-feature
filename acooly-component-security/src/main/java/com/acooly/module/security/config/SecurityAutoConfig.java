@@ -12,7 +12,6 @@ package com.acooly.module.security.config;
 import com.acooly.core.common.boot.ApplicationContextHolder;
 import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.boot.EnvironmentHolder;
-import com.acooly.core.common.boot.listener.AcoolyApplicationRunListener;
 import com.acooly.core.common.dao.support.StandardDatabaseScriptIniter;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.security.JWTUtils;
@@ -38,7 +37,6 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.config.ReflectionBuilder;
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
@@ -50,7 +48,6 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.mgt.WebSecurityManager;
-import org.apache.shiro.web.servlet.AdviceFilter;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.LoggerFactory;
@@ -77,7 +74,9 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.*;
-import java.util.*;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -108,6 +107,7 @@ public class SecurityAutoConfig {
      * @return
      */
     @Bean
+    @Order(Ordered.HIGHEST_PRECEDENCE)
     public StandardDatabaseScriptIniter securityScriptIniter() {
         return new SecurityDatabaseScriptIniter();
     }

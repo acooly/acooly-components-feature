@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -30,6 +32,7 @@ public class AppConfigAutoConfig {
     public static final String CACHE_PREFIX = Apps.getAppName() + ".appConfig.";
 
     @Bean
+    @Order(Ordered.HIGHEST_PRECEDENCE + 1)
     public StandardDatabaseScriptIniter appConfigScriptIniter() {
         return new StandardDatabaseScriptIniter() {
             @Override
@@ -39,7 +42,7 @@ public class AppConfigAutoConfig {
 
             @Override
             public String getComponentName() {
-                return "config";
+                return "acooly-component-config";
             }
 
             @Override
