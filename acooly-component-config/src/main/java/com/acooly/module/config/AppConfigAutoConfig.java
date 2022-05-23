@@ -42,7 +42,7 @@ public class AppConfigAutoConfig {
 
             @Override
             public String getComponentName() {
-                return "acooly-component-config";
+                return "config";
             }
 
             @Override
