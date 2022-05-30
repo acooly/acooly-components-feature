@@ -31,7 +31,6 @@
                     $.acooly.framework.doCreate(opts.url, opts.form, opts.datagrid, opts.title, opts.top, opts.width, opts.height, opts.addButton, opts.reload, opts.maximizable, opts.onSubmit, opts.onSuccess, (opts.onFail || opts.onFailure), (opts.onCloseWindow || opts.onClose), opts.ajaxData, opts.buttons, opts.hideSaveBtn);
                 }
             },
-
             /**
              * 提交表单处理
              * @param type

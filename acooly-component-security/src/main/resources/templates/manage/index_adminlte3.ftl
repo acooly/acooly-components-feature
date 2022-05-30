@@ -382,20 +382,20 @@
 
 <!-- 自己定义的样式和JS扩展 -->
 <!-- acooly -->
-<script src="/manage/assert/script/acooly.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.file.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.editor.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.layout.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
-<script src="/manage/assert/script/acooly.inputmask.js"></script>
+<script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+<#--<script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.file.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.editor.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.layout.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>-->
+<#--<script src="/manage/assert/script/acooly.inputmask.js"></script>-->
 
 <!-- 扩展script -->
 ${extendScripts}

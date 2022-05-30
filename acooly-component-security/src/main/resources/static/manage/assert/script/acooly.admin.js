@@ -3,7 +3,6 @@
  */
 (function ($) {
     let adminClass = {
-
         /**
          * 初始化
          */

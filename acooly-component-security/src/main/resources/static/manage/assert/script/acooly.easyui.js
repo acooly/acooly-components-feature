@@ -547,7 +547,6 @@ serializeObjectFromContainer = function (container) {
         });
     return queryParams;
 };
-
 /**
  * 判断对象是否为空对象
  */

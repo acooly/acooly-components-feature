@@ -1,5 +1,4 @@
 let acooly_editor = {
-
     /**
      * KindEditor富文本框编辑器初始化
      */
