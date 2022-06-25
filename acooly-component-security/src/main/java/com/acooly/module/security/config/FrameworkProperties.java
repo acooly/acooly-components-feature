@@ -156,7 +156,7 @@ public class FrameworkProperties implements Serializable {
 
 
     public Set<String> mergeScripts() {
-        Set<String> scriptList = Sets.newHashSet();
+        Set<String> scriptList = Sets.newLinkedHashSet();
         scriptList.addAll(this.scripts);
         for (List<String> customScript : this.customScripts.values()) {
             scriptList.addAll(customScript);
@@ -165,7 +165,7 @@ public class FrameworkProperties implements Serializable {
     }
 
     public Set<String> mergeStyles() {
-        Set<String> styleList = Sets.newHashSet();
+        Set<String> styleList = Sets.newLinkedHashSet();
         styleList.addAll(this.styles);
         for (List<String> customStyle : this.customStyles.values()) {
             styleList.addAll(customStyle);
