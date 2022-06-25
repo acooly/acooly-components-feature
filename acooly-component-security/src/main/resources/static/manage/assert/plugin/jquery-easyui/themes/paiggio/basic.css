@@ -694,7 +694,11 @@ div.datagrid-cell > div > label {
 }
 
 /* datagrid右侧行按钮锁定 */
-.datagrid-view1, .datagrid-view2 {
+.datagrid-view1 {
     left: auto;
     right: 0;
+}
+.datagrid-view2 {
+    left: 0;
+    right: auto;
 }
