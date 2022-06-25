@@ -1,14 +1,3 @@
-<style>
-    .datagrid-view1 {
-        left: auto;
-        right: 0;
-    }
-
-    .datagrid-view2 {
-        left: 0;
-        right: auto;
-    }
-</style>
 <div class="easyui-layout" data-options="fit : true,border : false">
     <!-- 查询条件 -->
     <div data-options="region:'north',border:false" style="padding:5px; overflow: hidden;" align="left">
@@ -86,9 +75,9 @@
             </tr>
             </thead>
             <thead frozen="true">
-            <tr>
-                <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_customer_action',value,row)}">动作</th>
-            </tr>
+                <tr>
+                    <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_customer_action',value,row)}">动作</th>
+                </tr>
             </thead>
         </table>
 
