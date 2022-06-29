@@ -26,14 +26,12 @@ public class OlogFacadeImpl implements OlogFacade {
         try {
             order.check();
             List<OlogEntity> entityList = Lists.newArrayListWithCapacity(order.getList().size());
-            order
-                    .getList()
-                    .forEach(
-                            ologDTO -> {
-                                OlogEntity ologEntity = new OlogEntity();
-                                ologEntity.from(ologDTO);
-                                entityList.add(ologEntity);
-                            });
+            order.getList().forEach(
+                    ologDTO -> {
+                        OlogEntity ologEntity = new OlogEntity();
+                        ologEntity.from(ologDTO);
+                        entityList.add(ologEntity);
+                    });
             ologService.saves(entityList);
         } catch (Exception e) {
             result.setStatus(ResultStatus.failure);

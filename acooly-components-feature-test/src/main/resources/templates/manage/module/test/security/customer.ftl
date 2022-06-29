@@ -50,7 +50,7 @@
     <div data-options="region:'center',border:false">
         <table id="manage_customer_datagrid" class="easyui-datagrid icheck-primary" url="/manage/module/test/security/customer/listJson.html" toolbar="#manage_customer_toolbar" fit="true" border="false" fitColumns="false"
                pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc" checkOnSelect="true" selectOnCheck="true" singleSelect="true"
-               data-options="showFooter:true, onLoadSuccess: function (data) {$('#manage_customer_datagrid').datagrid('statistics','salary');}"
+               data-options="showFooter:true, onLoadSuccess: function (data) {$('#manage_customer_datagrid').datagrid('statistics','salary');},onHeaderContextMenu:manage_customer_onHeaderContextMenu"
         >
             <thead>
             <tr>
@@ -75,9 +75,9 @@
             </tr>
             </thead>
             <thead frozen="true">
-                <tr>
-                    <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_customer_action',value,row)}">动作</th>
-                </tr>
+            <tr>
+                <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_customer_action',value,row)}">动作</th>
+            </tr>
             </thead>
         </table>
 
@@ -105,7 +105,59 @@
         </div>
     </div>
     <script type="text/javascript">
+
+        function manage_customer_onHeaderContextMenu(e, field) {
+            e.preventDefault();
+            $(this).datagrid('columnMenu').menu('show', {
+                left: e.pageX,
+                top: e.pageY
+            });
+        }
+
+
         $(function () {
+
+            function buildMenu(target) {
+                var state = $(target).data('datagrid');
+                if (!state.columnMenu) {
+                    state.columnMenu = $('<div></div>').appendTo('body');
+                    state.columnMenu.menu({
+                        onClick: function (item) {
+                            if (item.iconCls == 'tree-checkbox1') {
+                                $(target).datagrid('hideColumn', item.name);
+                                $(this).menu('setIcon', {
+                                    target: item.target,
+                                    iconCls: 'tree-checkbox0'
+                                });
+                            } else {
+                                $(target).datagrid('showColumn', item.name);
+                                $(this).menu('setIcon', {
+                                    target: item.target,
+                                    iconCls: 'tree-checkbox1'
+                                });
+                            }
+                        }
+                    })
+                    var fields = $(target).datagrid('getColumnFields', true).concat($(target).datagrid('getColumnFields', false));
+                    for (var i = 0; i < fields.length; i++) {
+                        var field = fields[i];
+                        var col = $(target).datagrid('getColumnOption', field);
+                        state.columnMenu.menu('appendItem', {
+                            text: col.title,
+                            name: field,
+                            iconCls: 'tree-checkbox1'
+                        });
+                    }
+                }
+                return state.columnMenu;
+            }
+
+            $.extend($.fn.datagrid.methods, {
+                columnMenu: function (jq) {
+                    return buildMenu(jq[0]);
+                }
+            });
+
             $.acooly.framework.initPage('manage_customer_searchform', 'manage_customer_datagrid');
         });
     </script>

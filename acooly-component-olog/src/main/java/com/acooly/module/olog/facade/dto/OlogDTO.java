@@ -4,7 +4,6 @@ import com.acooly.core.common.facade.InfoBase;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotBlank;
 
@@ -61,9 +60,9 @@ public class OlogDTO extends InfoBase {
     /**
      * 操作结果.1:成功,2:失败
      */
-    private Boolean operateResult = Boolean.TRUE;
+    private Boolean operateResult;
 
-    @Length(max = 512)
+    @Length(max = 4096)
     private String operateMessage;
 
     /**
@@ -87,5 +86,5 @@ public class OlogDTO extends InfoBase {
     /**
      * 执行时间
      */
-    private long executeMilliseconds = 0;
+    private long executeMilliseconds;
 }

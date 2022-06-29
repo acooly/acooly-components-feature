@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface OperatorUserCollector {
 
+    /**
+     * 从请求收集操作员信息
+     *
+     * @param request
+     * @return
+     */
     OlogOperator getOperatorUser(HttpServletRequest request);
-
 }

@@ -41,7 +41,7 @@ public class ResponseBodyFilter extends OncePerRequestFilter {
                 String body = new String(responseBodyWrapper.toByteArray(), "UTF-8");
                 OlogDTO ologOrder = (OlogDTO) request.getAttribute(OLOG_DTO_KEY);
                 if (ologOrder != null) {
-                    ologOrder.setOperateMessage(Strings.abbreviate(body, 256));
+                    ologOrder.setOperateMessage(Strings.abbreviate(body, 4096));
                     ologClient.logger(ologOrder);
                 }
             }
@@ -103,6 +103,7 @@ public class ResponseBodyFilter extends OncePerRequestFilter {
             this.branch = branch;
         }
 
+        @Override
         public void write(char buf[], int off, int len) {
             super.write(buf, off, len);
             super.flush();
@@ -110,6 +111,7 @@ public class ResponseBodyFilter extends OncePerRequestFilter {
             branch.flush();
         }
 
+        @Override
         public void write(String s, int off, int len) {
             super.write(s, off, len);
             super.flush();
@@ -117,6 +119,7 @@ public class ResponseBodyFilter extends OncePerRequestFilter {
             branch.flush();
         }
 
+        @Override
         public void write(int c) {
             super.write(c);
             super.flush();

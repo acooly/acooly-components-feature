@@ -13,8 +13,25 @@ import java.util.Map;
  */
 public interface OlogCollector {
 
+    /**
+     * 收集日志
+     *
+     * @param request
+     * @param response
+     * @param target
+     * @param context
+     * @return
+     */
     OlogDTO collect(HttpServletRequest request, HttpServletResponse response, OlogTarget target,
                     Map<String, Object> context);
 
+    /**
+     * 收集日志
+     *
+     * @param request
+     * @param response
+     * @param target
+     * @return
+     */
     OlogDTO collect(HttpServletRequest request, HttpServletResponse response, OlogTarget target);
 }

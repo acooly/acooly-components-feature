@@ -135,7 +135,7 @@ public class Customer extends AbstractEntity {
     @Size(max = 100000)
     private String content;
 
-    
+
     /**
      * 状态
      */

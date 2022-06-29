@@ -230,7 +230,7 @@ public class HttpServletOlogCollector implements OlogCollector {
     }
 
     private String getOperateMessage(String originalMessage) {
-        return Strings.abbreviate(originalMessage, 256);
+        return Strings.abbreviate(originalMessage, 4096);
     }
 
     private String getParametersMessage(String originalMessage) {

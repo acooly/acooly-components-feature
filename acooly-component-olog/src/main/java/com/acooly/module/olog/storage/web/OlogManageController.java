@@ -4,7 +4,7 @@ import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.olog.annotation.Olog;
 import com.acooly.core.common.olog.annotation.OlogAction;
 import com.acooly.core.common.olog.annotation.OlogParameterMapping;
-import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.module.olog.storage.domain.OlogEntity;
 import com.acooly.module.olog.storage.service.OlogService;
@@ -22,7 +22,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/manage/component/olog/olog")
 @Olog.Ignore
-public class OlogManageController extends AbstractJQueryEntityController<OlogEntity, OlogService> {
+public class OlogManageController extends AbstractJsonEntityController<OlogEntity, OlogService> {
 
     private static Map<Integer, String> allOperateResults = Maps.newTreeMap();
 

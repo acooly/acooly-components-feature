@@ -114,7 +114,7 @@ public class OlogEntity extends AbstractEntity {
     @Column(
             name = "operate_message",
             nullable = true,
-            length = 512,
+            length = 4096,
             columnDefinition = "varchar(512) COMMENT '操作结果消息'"
     )
     private String operateMessage;

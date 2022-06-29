@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
@@ -45,7 +45,8 @@ public class OLogAutoConfig {
 
     @Configuration
     @ComponentScan("com.acooly.module.olog.collector")
-    public static class CollectorConfig extends WebMvcConfigurerAdapter {
+    public static class CollectorConfig implements WebMvcConfigurer {
+
         @Override
         public void addInterceptors(InterceptorRegistry registry) {
             InterceptorRegistration registration = registry.addInterceptor(ologHandleInterceptor());

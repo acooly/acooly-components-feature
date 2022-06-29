@@ -11,7 +11,7 @@ CREATE TABLE `sys_olog` (
   `operate_user_id` bigint(20) DEFAULT NULL COMMENT '操作员ID',
   `request_parameters` varchar(512) DEFAULT NULL COMMENT '请求参数',
   `operate_result` int(11) NOT NULL DEFAULT '1' COMMENT '操作结果{1:成功,2:失败}',
-  `operate_message` varchar(512) DEFAULT NULL COMMENT '消息',
+  `operate_message` varchar(4096) DEFAULT NULL COMMENT '消息',
   `client_informations` varchar(256) DEFAULT NULL COMMENT '客户端信息',
   `descn` varchar(256) DEFAULT NULL COMMENT '备注',
   `create_time` timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

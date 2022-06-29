@@ -4,6 +4,7 @@ import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.dubbo.DubboFactory;
 import com.acooly.core.common.exception.AppConfigException;
 import com.acooly.core.utils.Assert;
+import com.acooly.core.utils.Asserts;
 import com.acooly.core.utils.Ids;
 import com.acooly.core.utils.validate.Validators;
 import com.acooly.module.olog.facade.api.OlogFacade;
@@ -67,7 +68,7 @@ public class OlogForwarder implements ApplicationListener<ContextRefreshedEvent>
                 throw new AppConfigException(e);
             }
         }
-        Assert.notNull(ologFacade);
+        Asserts.notNull(ologFacade);
         log.info("ologFacade->{}", ologFacade);
         blockingQueue = new LinkedBlockingQueue<>(1000);
         new OlogBatchConsumer(blockingQueue, ologFacade).start();

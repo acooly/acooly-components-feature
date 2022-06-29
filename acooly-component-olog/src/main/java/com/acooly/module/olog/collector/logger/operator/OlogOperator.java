@@ -10,6 +10,8 @@
 package com.acooly.module.olog.collector.logger.operator;
 
 /**
+ * 日志操作员信息接口
+ *
  * @author acooly
  */
 public interface OlogOperator {
