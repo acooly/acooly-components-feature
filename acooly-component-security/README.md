@@ -75,6 +75,8 @@ acooly.framework.plugin.xss=false
 * 全局开启，首页加载对应的资源文件，这种情况一般是你的项目大范围使用。
 * 局部加载，在你使用的具体功能界面，通过`script`段引用加载对应的资源, 如果你选择这种方式，可以打开`acooly-component-security`组件的jar包内`resources/templates/manage/index_adminlte3.ftl`文件，搜索定义的参数名称（例如：`media`）,找到对应的资源文件，手动加载。
 
+>注意：该版本特性的增加，调整了session中对象的结构，会照常已存在的redis缓存对账反序列化失败，如遇该清理，请清理本地浏览器缓存刷新即可。
+
 ## 3. 使用说明
 
 maven坐标
