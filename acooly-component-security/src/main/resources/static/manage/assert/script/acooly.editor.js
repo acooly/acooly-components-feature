@@ -3,6 +3,10 @@ let acooly_editor = {
      * KindEditor富文本框编辑器初始化
      */
     kindEditor: function (opts) {
+        if(!KindEditor){
+            console.log("KindEditor为加载，请配置加载插件。");
+            return;
+        }
         let uploadUrl = opts.uploadUrl;
         if (!uploadUrl) {
             let token = $("meta[name='X-CSRF-TOKEN']").attr("content");// 从meta中获取token

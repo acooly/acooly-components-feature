@@ -1563,3 +1563,4 @@
     return DateRangePicker;
 
 }));
+

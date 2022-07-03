@@ -128,6 +128,7 @@ public class FrameworkProperties implements Serializable {
      */
     private PasswordStrength passwordStrength = PasswordStrength.simple;
 
+    private Plugin plugin = new Plugin();
 
     public FrameworkProperties() {
         userStatus.put(User.STATUS_ENABLE, "正常");
@@ -172,5 +173,64 @@ public class FrameworkProperties implements Serializable {
         }
         return styleList;
     }
+
+
+    /**
+     * 前端插件库加载管理（JS和CSS插件库）
+     */
+    @Getter
+    @Setter
+    public static class Plugin implements Serializable {
+
+        /**
+         * LayUI插件
+         */
+        private boolean layui = true;
+        /**
+         * 多媒体编辑器
+         */
+        private boolean kindEditor = true;
+        /**
+         * EasyUI扩展
+         */
+        private boolean easyuiExtension = true;
+
+        /**
+         * 页面加载进度条，单点登录客户端建议关闭
+         */
+        private boolean pace = false;
+
+        /**
+         * 视频播放插件
+         */
+        private boolean videoJs = false;
+
+
+        /**
+         * bootstrip日期段选择
+         */
+        private boolean dateRangePicker = false;
+
+        /**
+         * bootstrip效果的check
+         */
+        private boolean icheck = false;
+
+        /**
+         * 客户端xss防御，除了等保三需要，没说明实际效果
+         */
+        private boolean xss = false;
+
+        /**
+         * 需要使用剪贴板时加载
+         */
+        private boolean clipboard = false;
+
+        /**
+         * PDF在线浏览支持
+         */
+        private boolean media = false;
+    }
+
 
 }

@@ -42,6 +42,21 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_customer_searchform','manage_customer_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.tips('这是一个tips',this,2)">tips</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.msg('这是一个msg')">msg</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.msgrb('这是一个msgrb')">msgrb</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.alert('标题','alert提示的内容','error')">alert</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.toast('标题','toast的内容')">toast</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.loading('正在处理中...')">loading</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.loaded()">loaded</button>
+
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('messager.info','info')">messager.info</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('success','success')">messager.success</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('warning','warning')">messager.warning</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('danger','danger')">messager.danger</button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('primary','primary')">messager.primary</button>
+
+
             </div>
         </form>
     </div>

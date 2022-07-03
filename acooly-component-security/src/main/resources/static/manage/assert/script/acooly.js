@@ -124,7 +124,7 @@ var acooly = {
         } else if (msgType == 'toast') {
             $.acooly.toast(message, "cancel");
         } else if (msgType == 'alert') {
-            $.acooly.alert(message, '错误');
+            $.acooly.alert(message, 'error');
         } else if (msgType == 'msg') {
             $.acooly.msg(message);
         }

@@ -64,7 +64,7 @@
             <div class="form-group row">
                 <label id="manage_customer_edit_idcardNo_label" class="col-sm-2 col-form-label">网站地址</label>
                 <div class="col-sm-10">
-                    <input type="text" name="website" placeholder="请输入URL..." class="form-control easyui-validatebox" data-inputmask="'alias':'url'" data-mask data-options="validType:'url',required:true"/>
+                    <input type="text" name="website" placeholder="请输入URL..." class="form-control easyui-validatebox" data-inputmask="'alias':'url'" data-mask data-options="validType:'url'"/>
                 </div>
             </div>
 

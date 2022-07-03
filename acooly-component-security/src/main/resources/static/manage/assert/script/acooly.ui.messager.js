@@ -1,8 +1,7 @@
 /**
- * acooly 对 layui的扩展和封装使用
- * @type {{loading: acooly_layui.loading, loaded: acooly_layui.loaded, msg: acooly_layui.msg}}
+ * acooly messager扩展和封装使用
  */
-var acooly_layui = {
+var acooly_msg = {
 
     loadingId: '',
     /**
@@ -11,10 +10,10 @@ var acooly_layui = {
      * @returns {string} loadingId
      */
     loading: function (msg) {
-        if (!msg)
-            msg = '加载中…';
-        this.loadingId = layer.msg(msg, {icon: 16, shade: 0.01});
-        return this.loadingId;
+        // if (!msg)
+        //     msg = '加载中…';
+        // this.loadingId = layer.msg(msg, {icon: 16, shade: 0.01});
+        // return this.loadingId;
     },
 
     /**
@@ -22,24 +21,24 @@ var acooly_layui = {
      * @param id
      */
     loaded: function (id) {
-        if (id) {
-            layer.close(id);
-            return;
-        }
-        if (this.loadingId) {
-            layer.close(this.loadingId);
-            return;
-        }
-        layer.closeAll();
+        // if (id) {
+        //     layer.close(id);
+        //     return;
+        // }
+        // if (this.loadingId) {
+        //     layer.close(this.loadingId);
+        //     return;
+        // }
+        // layer.closeAll();
     },
 
     msg_data: {
-        "default": {title: '信息', defaultContent: '', icon: 'ion ion-ios-information'},
-        "success": {title: '成功', defaultContent: '处理成功', icon: 'ion ion-ios-checkmark'},
-        "info": {title: '提示', defaultContent: '', icon: 'ion ion-ios-information'},
-        "warning": {title: '警告', defaultContent: '', icon: 'ion ion-android-alert'},
-        "primary": {title: '信息', defaultContent: '', icon: 'ion ion-ios-information'},
-        "danger": {title: '失败', defaultContent: '处理失败', icon: 'ion ion-ios-close'}
+        "default": {title: '信息', defaultContent: '', icon: 'fa fa-info-circle'},
+        "success": {title: '成功', defaultContent: '处理成功', icon: 'fa fa-check-circle'},
+        "info": {title: '提示', defaultContent: '', icon: 'fa fa-info-circle'},
+        "warning": {title: '警告', defaultContent: '', icon: 'fa fa-exclamation-circle'},
+        "primary": {title: '信息', defaultContent: '', icon: 'fa fa-info-circle'},
+        "danger": {title: '失败', defaultContent: '处理失败', icon: 'fa fa-times-circle'}
     },
 
     /**
@@ -83,44 +82,24 @@ var acooly_layui = {
 
 
     msg: function (message, icon) {
-        if (!icon) {
-            icon = 0;
-        }
-        layer.msg(message, {icon: icon, closeBtn: 1});
+        $.messager.alert('消息', message);
     },
 
     msgrb: function (message, success, title) {
-        layer.msg(message, {
-            icon: (success ? 1 : 5),
+        $.messager.show({
             title: (title == null ? '提示' : title),
-            offset: 'rb',
-            time: 4000,
-            anim: 2,
-            area: '260px'
+            msg: message,
+            timeout: 4000,
+            showType: 'slide'
         });
     },
 
     alert: function (title, message, opts) {
-        var os = {title: title, anim: -1};
-        if (opts) {
-            os = $.extend(os, opts);
-        }
-        layer.alert(message, os);
+        $.messager.alert(title, message, opts);
     },
 
     tips: function (content, objectId, position) {
-        if (!position) {
-            position = 2;
-        }
-        // if (objectId.indexOf('#') != 0) {
-        //     objectId = '#' + objectId;
-        // }
-        layer.tips(content, objectId, {
-            tips: position,
-            style: ['background-color:#81af43; color:#fff', '#81af43'],
-            maxWidth: 200,
-            closeBtn: [1, true] //显示关闭按钮
-        });
+
     },
 
     toast: function (title, message, type, position) {
@@ -144,7 +123,7 @@ var acooly_layui = {
         $.extend({acooly: {}});
     }
 
-    $.extend($.acooly, acooly_layui);
+    $.extend($.acooly, acooly_msg);
 
 })(jQuery);
 

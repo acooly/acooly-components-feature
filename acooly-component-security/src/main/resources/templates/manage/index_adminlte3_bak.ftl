@@ -11,38 +11,45 @@
     <meta name="X-CSRF-TOKEN" content="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <#if Session.securityConfig.icon??>
-        <link rel="shortcut icon" href="${Session.securityConfig.icon}"/>
-    </#if>
-    <#if Session.securityConfig.plugin.layui>
-        <!-- layui -->
-        <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
+    <#if Session.securityConfig.icon??><link rel="shortcut icon" href="${Session.securityConfig.icon}" /></#if>
+    <#if Session.securityConfig.plugin.layui??>
+    <!-- layui -->
+    <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
     </#if>
     <!-- zTree -->
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-ztree/css/zTreeStyle/zTreeStyle_bootstrip.min.css"/>
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-ztree/css/zTreeStyle/bootstrapStyle.css"/>
     <!-- icons -->
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
     <!-- adminlte -->
     <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/manage/assert/plugin/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
+    <!-- pace-progress -->
+    <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
+
     <!-- easyui及自定义 -->
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.min.css" id="easyuiTheme" type="text/css"/>
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.min.css" id="easyuiThemeBasic">
-    <#if Session.securityConfig.plugin.pace>
-        <!-- pace-progress -->
-        <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
-    </#if>
-    <#if Session.securityConfig.plugin.icheck>
-        <!-- icheck bootstrap -->
-        <link rel="stylesheet" href="/manage/assert/plugin/icheck-bootstrap/icheck-bootstrap.min.css">
-    </#if>
-    <#if Session.securityConfig.plugin.videoJs>
-        <!-- videoJs -->
-        <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/videojs/video-js.css" type="text/css"/>
-    </#if>
+    <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.css" type="text/css"/>
+    <link id="easyuiThemeBasic" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.css">
+    <link rel="stylesheet" type="text/css" href="/manage/assert/style/icon.css">
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/icon.css" type="text/css"/>
+
+    <!-- videoJs -->
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/videojs/video-js.css" type="text/css"/>
+    <!-- daterangepicker -->
+    <link rel="stylesheet" href="/manage/assert/plugin/daterangepicker/daterangepicker.css" type="text/css"/>
     <!-- 扩展css -->
     ${extendStyles}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -124,6 +131,16 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <#--            <div class="user-panel mt-3 pb-3 mb-3 d-flex">-->
+            <#--                <div class="image">-->
+            <#--                    <img src="/manage/assert/plugin/adminlte3/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">-->
+            <#--                </div>-->
+            <#--                <div class="info">-->
+            <#--                    <a href="#" class="d-block"><@shiroPrincipal/></a>-->
+            <#--                </div>-->
+            <#--            </div>-->
+
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
@@ -221,6 +238,15 @@
                             </a>
                         </li>
                         <li>
+                            <a href="https://ionicons.com/v2/" target="_blank">
+                                <i class="sidebar-menu-icon ico ion-ionic bg-gradient-lightblue"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Ionicons图标库</h4>
+                                    <p>推荐使用的文字图标库查询</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
                             <a href="http://www.jeasyui.com/" target="_blank">
                                 <i class="sidebar-menu-icon fa fa-etsy bg-purple"></i>
 
@@ -289,75 +315,74 @@
 </div>
 <!-- ./wrapper -->
 
+
 <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
-<script src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE -->
-<script src="/manage/assert/plugin/adminlte3/js/adminlte.min.js"></script>
-<script src="/manage/assert/plugin/adminlte3/js/adminlte_acooly.min.js"></script>
-<!-- select2 -->
-<script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
-<#if Session.securityConfig.plugin.pace>
-    <!-- pace-progress -->
-    <script src="/manage/assert/plugin/pace-progress/pace.min.js"></script>
-</#if>
-<!-- Jquery plugins  -->
+<!-- pace-progress -->
+<script src="/manage/assert/plugin/pace-progress/pace.min.js"></script>
+<!-- Slimscroll -->
+<script src="/manage/assert/plugin/jquery-plugin/jquery.slimscroll-1.3.8.min.js"></script>
+<!-- FastClick -->
+<script src="/manage/assert/plugin/jquery-plugin/fastclick-1.0.6.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/manage/assert/plugin/adminlte3/js/adminlte.js"></script>
+<!-- 模板引擎：baidu -->
 <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
-<script src="/manage/assert/plugin/jquery-plugin/jquery.form.cookie.resize.min.js" type="text/javascript" charset="utf-8"></script>
-<#if Session.securityConfig.plugin.clipboard>
-    <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
-</#if>
-<#if Session.securityConfig.plugin.media>
-    <script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
-</#if>
-<#if Session.securityConfig.plugin.xss>
-    <script src="/manage/assert/plugin/jquery-plugin/xss.min.js" type="text/javascript" charset="utf-8"></script>
-</#if>
-<!-- easyui -->
+<!-- AdminLTE for -->
+<script src="/manage/assert/plugin/adminlte3/js/adminlte_acooly.js"></script>
+<script src="/manage/assert/plugin/jquery-plugin/jquery.resize.js"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui-portal/jquery.portal.min.js" charset="utf-8"></script>
-<#if Session.securityConfig.plugin.easyuiExtension>
-    <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-extensions.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-detailview.js" charset="utf-8"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-groupview.js" charset="utf-8"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-statistics.js" charset="utf-8"></script>
+<!-- easyui portal插件 -->
+<link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui-portal/portal.css" type="text/css"/>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui-portal/jquery.portal.js" charset="utf-8"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/jquery.cookie.js" charset="utf-8"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/jquery.form.min.js" charset="utf-8"></script>
+<#if Session.securityConfig.plugin.layui??>
+<script type="text/javascript" src="/manage/assert/plugin/layui/layui.all.js"></script>
 </#if>
 <!-- my97日期控件 -->
 <script type="text/javascript" src="/manage/assert/plugin/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
-<!-- uploadifive -->
+<script type="text/javascript" src="/manage/assert/plugin/uploadifive/jquery.uploadifive.js"></script>
 <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/uploadifive/uploadifive.css"/>
-<script type="text/javascript" src="/manage/assert/plugin/uploadifive/jquery.uploadifive.min.js"></script>
+<!-- select2 -->
+<script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
+<!-- ztree -->
+<script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.exedit-3.5.js"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.exhide-3.5.js"></script>
+<!-- select2ztree -->
+<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.search.js"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.js"></script>
+<!--kindEditor插件库 -->
+<link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
+<link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/webuploader.html5only.min.js"></script>
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/diyUpload.js"></script>
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/htmlminifier.min.js"></script>
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all.js"></script>
+<script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
 <!-- inputmask -->
 <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 <!-- AdminLTE bs-custom-file-input -->
 <script src="/manage/assert/plugin/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-<!-- ztree -->
-<script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.allinone.min.js"></script>
-<!-- select2ztree -->
-<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.min.js"></script>
-<#if Session.securityConfig.plugin.layui>
-    <script type="text/javascript" src="/manage/assert/plugin/layui/layui.all.js"></script>
-</#if>
-<#if Session.securityConfig.plugin.kindEditor>
-    <!--kindEditor插件库 -->
-    <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
-    <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
-    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/webuploader.html5only.min.js"></script>
-    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/diyUpload.js"></script>
-    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/htmlminifier.min.js"></script>
-    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all.js"></script>
-    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
-</#if>
-<#if Session.securityConfig.plugin.videoJs>
-    <!-- videoJs -->
-    <script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
-    <script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
-</#if>
-<#if Session.securityConfig.plugin.dateRangePicker>
-    <!-- daterangepicker -->
-    <link rel="stylesheet" href="/manage/assert/plugin/daterangepicker/daterangepicker.css" type="text/css"/>
-    <script src="/manage/assert/plugin/daterangepicker/moment.min.js"></script>
-    <script src="/manage/assert/plugin/daterangepicker/daterangepicker.min.js"></script>
-    <script src="/manage/assert/plugin/daterangepicker/daterangepicker_acooly.min.js"></script>
-</#if>
-
+<!-- jquery.media for pdf view -->
+<script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
+<!-- clipboard -->
+<script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
+<!-- videoJs -->
+<script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
+<script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
+<!-- daterangepicker -->
+<script src="/manage/assert/plugin/daterangepicker/moment.min.js"></script>
+<script src="/manage/assert/plugin/daterangepicker/daterangepicker.js"></script>
+<!-- js xss -->
+<script src="/manage/assert/plugin/jquery-plugin/xss.min.js"></script>
 
 <!-- 自己定义的样式和JS扩展 -->
 <!-- acooly -->

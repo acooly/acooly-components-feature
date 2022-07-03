@@ -33,12 +33,47 @@ acooly.security.session.checkInterval=1800
 ```
 
 > 会话有效期控制方法：
-> 
+>
+
 1. 参数`acooly.security.session.timeout`为真实有效期。
 2. `acooly.security.session.timeout`的时间（注意单位）必须小于等于`acooly.security.session.redisTimeout`；
 3. 如非特殊情况，建议无效会话检测时间间隔参数`acooly.security.session.checkInterval`应该与`acooly.security.session.timeout`一致。
 
+### 2.2 资源加载优化控制
 
+针对后台管理框架基础JS和CSS资源的不断增大，现优化所有非必选特性的前端插件可通过参数配置是否加载，以实现人工方式控制资源加载数量。
+
+> 目前测试效果：如果关闭所有可选插件，首页加载时间从1500ms降低到850ms，大致提升一倍性能。
+
+默认情况下，本次优化的大多（部分参数使用场景固定可控的设置为false）参数都为true，特性表现为与以前兼容一致。
+
+```ini
+## layui，框架优化后，已提出了对layui框架的依赖，如果你的功能界面中有使用layui，建议打开，默认也是打开的。
+acooly.framework.plugin.layui=true
+## easyui的扩展功能，包括：datagrid-detailview，datagrid-dnd，datagrid-groupview，datagrid-statistics,
+acooly.framework.plugin.easyuiExtension=true
+## kingEdit的全功能，包括多图片上传
+acooly.framework.plugin.kindEditor=true
+## 首页顶部加载的进度条（看你喜好，SSO场景关闭）
+acooly.framework.plugin.pace=false
+## JS方式调用的剪贴板控制复制粘贴（建议按需加载，不全局加载）
+acooly.framework.plugin.clipboard=false
+## bootstrip提供的日期时间段，非目前模式使用插件
+acooly.framework.plugin.dateRangePicker=false
+## bootstrip风格的checkbox，按需使用
+acooly.framework.plugin.icheck=false
+## PDF在线浏览，调用方法: `$.acooly.file.play(...)`
+acooly.framework.plugin.media=false
+## 视频播放器支持 `$.acooly.file.play(...)`
+acooly.framework.plugin.videoJs=false
+## 等保要求的前端xss防御，没多少实际意义，平时关闭。
+acooly.framework.plugin.xss=false
+```
+
+以上参数控制的是你当前服务的全局设置，同时支持SSO单点登录(`单点登录的客户端系统内设置参数控制`)。从该版本后，当你需要对应的功能支持时，你可用有两种方式获取插件支持。
+
+* 全局开启，首页加载对应的资源文件，这种情况一般是你的项目大范围使用。
+* 局部加载，在你使用的具体功能界面，通过`script`段引用加载对应的资源, 如果你选择这种方式，可以打开`acooly-component-security`组件的jar包内`resources/templates/manage/index_adminlte3.ftl`文件，搜索定义的参数名称（例如：`media`）,找到对应的资源文件，手动加载。
 
 ## 3. 使用说明
 
@@ -193,7 +228,6 @@ acooly.security.session.enableKickOut=true
 acooly.security.session.maxSessionPerUser=1
 ```
 
-
 ## 4.资源
 
 ### 4.1 开发
@@ -204,7 +238,7 @@ acooly.security.session.maxSessionPerUser=1
     ```html
     <i class="fa fa-flask fa-fw fa-lg fa-col" aria-hidden="true"></i>
     ```
-    
+
 ### 4.2 风格
 
 * Acooly3：v3标准/easyui标准风格
@@ -212,13 +246,11 @@ acooly.security.session.maxSessionPerUser=1
 
 ## 5. changelog
 
-
 ### 5.0.0-SNAPSHOT.20220324
 
 * 完成从spring-session-redis到shiro-session-redis方案的变更。
 * 增加kickout单人登录限制功能（踢人）,同一用户名重复登录，会自动踢出前面登录的会话。
 * 支持用户选择多个角色，调整现有权限管理配置的组为角色模式
-
 
 ### 5.0.0-SNAPSHOT.20220302
 
