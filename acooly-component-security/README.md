@@ -248,6 +248,12 @@ acooly.security.session.maxSessionPerUser=1
 
 ## 5. changelog
 
+### 5.0.0-SNAPSHOT.20220703
+
+* 完成security的资源优化，包括对应的SSO，可以根据本文档中的`2.2 资源加载优化控制`说明对后台管理的资源进行精细化管理。 资源默认加载：`easyui扩展`,`layUI`和`kingEdit`，其他默认为不加载，但可以根据上面文档说明开启。
+* 优化清除了框架中对`layui`的依赖，但保留应该程序支持layui能力
+* 优化清除了框架对部分不必须要的资源依赖（如：`ionicons`）
+
 ### 5.0.0-SNAPSHOT.20220324
 
 * 完成从spring-session-redis到shiro-session-redis方案的变更。
