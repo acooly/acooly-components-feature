@@ -435,9 +435,22 @@
                 var form = $('<form action="' + contextPath + url + '" method="POST"></form>');
                 var token = $("meta[name='X-CSRF-TOKEN']").attr("content")
                 form.append($('<input type="hidden" name="_csrf" value="' + token + '">'));
+
+                var xss = false;
+                try {
+                    if (typeof (eval("filterXSS")) == "function") {
+                        xss = true;
+                    }
+                } catch (e) {
+                }
+
                 for (var key in inputObjects) {
                     if (inputObjects[key] != '') {
-                        var inputForm = $('<input type="hidden" name="' + key + '" value="' + filterXSS(inputObjects[key]) + '" />');
+                        var val = inputObjects[key];
+                        if (xss) {
+                            val = filterXSS(val);
+                        }
+                        var inputForm = $('<input type="hidden" name="' + key + '" value="' + val + '" />');
                         form.append(inputForm);
                     }
                 }
