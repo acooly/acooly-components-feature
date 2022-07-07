@@ -81,9 +81,9 @@
 
         <!-- 每行的Action动作模板 -->
         <div id="manage_schedulerRule_action" style="display: none;">
-            <a class="line-action icon-resume"
-               onclick="$.acooly.framework.confirmSubmit('/manage/schedulerRule/runjob.html','{0}','manage_schedulerRule_datagrid');"
-               href="#" title="立即执行"></a>
+            <a onclick="$.acooly.framework.confirmSubmit('/manage/schedulerRule/runjob.html','{0}','manage_schedulerRule_datagrid');"
+               href="#" title="立即执行"><i class="fa fa-play fa-lg fa-fw fa-col"></i></a>
+
             <a onclick="$.acooly.framework.edit({url:'/manage/schedulerRule/edit.html',id:'{0}',entity:'schedulerRule',width:620,height:520});"
                href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.show('/manage/schedulerRule/show.html?id={0}',580,600);" href="#" title="查看"><i
