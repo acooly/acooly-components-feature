@@ -56,6 +56,15 @@ public class FrameworkProperties implements Serializable {
     private String defaultTheme = "acooly";
 
     /**
+     * 字体大小
+     */
+    private int fontSize = 14;
+    /**
+     * 左侧菜单宽度
+     */
+    private int mainSidebarWidth = 250;
+
+    /**
      * 外部扩展css
      */
     private List<String> styles = new ArrayList<>();
