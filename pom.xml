@@ -129,11 +129,6 @@
             </dependency>
             <dependency>
                 <groupId>com.acooly</groupId>
-                <artifactId>acooly-component-wechat</artifactId>
-                <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.acooly</groupId>
                 <artifactId>acooly-component-face</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
@@ -173,6 +168,11 @@
                 <artifactId>acooly-component-content-audit</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-websocket</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -200,7 +200,6 @@
         <module>acooly-component-cms</module>
         <module>acooly-component-cms-facade</module>
         <module>acooly-component-security</module>
-        <module>acooly-component-wechat</module>
         <module>acooly-component-data</module>
         <module>acooly-component-treetype</module>
         <module>acooly-component-face</module>
@@ -209,6 +208,7 @@
         <module>acooly-component-smsend</module>
         <module>acooly-component-content-audit</module>
         <module>acooly-component-i18n</module>
+        <module>acooly-component-websocket</module>
     </modules>
 
     <build>
