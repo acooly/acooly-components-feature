@@ -12,7 +12,6 @@ package com.acooly.module.sms.sender.impl;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Ids;
 import com.acooly.core.utils.net.HttpResult;
-import com.acooly.core.utils.net.Https;
 import com.acooly.module.sms.SmsProperties;
 import com.acooly.module.sms.sender.ShortMessageSendException;
 import com.github.kevinsawicki.http.HttpRequest;
@@ -139,8 +138,7 @@ public class EmayShortMessageSender extends AbstractShortMessageSender {
     public void register(String cdkey, String password) {
         logger.info("亿美短信帐号注册");
         HttpRequest request =
-                HttpRequest.get(
-                        "http://sdk999in.eucp.b2m.cn:8080/sdkproxy/regist.action?cdkey="
+                HttpRequest.get("http://sdk999in.eucp.b2m.cn:8080/sdkproxy/regist.action?cdkey="
                                 + cdkey
                                 + "&password="
                                 + password)
@@ -153,25 +151,23 @@ public class EmayShortMessageSender extends AbstractShortMessageSender {
     public String send(List<String> mobileNos, String content) {
         String mobileNo = Joiner.on(",").join(mobileNos);
         content = getContent(content);
-
         String sn = properties.getEmay().getSn();
         String passwd = properties.getEmay().getPassword();
         Map<String, String> dataMap = Maps.newHashMap();
         dataMap.put("cdkey", sn);
         dataMap.put("password", passwd);
-
         dataMap.put("seqid", Ids.getDid());
-
         dataMap.put("phone", mobileNo);
-
         dataMap.put("addserial", "");
         dataMap.put("smspriority", "1");
         dataMap.put("message", content);
-        Https instance = Https.getInstance();
-        instance.connectTimeout(timeout / 2);
-        instance.readTimeout(timeout / 2);
         try {
-            HttpResult httpResult = instance.post(SEND_URL999, dataMap);
+            HttpRequest request = HttpRequest.post(SEND_URL999).
+                    connectTimeout(timeout / 2).readTimeout(timeout / 2)
+                    .headers(dataMap);
+            HttpResult httpResult = new HttpResult();
+            httpResult.setStatus(request.code());
+            httpResult.setBody(request.body());
             String result = unmashall(httpResult);
             logger.info("发送短信完成 {mobile:{},content:{},result:{}}", mobileNo, content, result);
             return result;

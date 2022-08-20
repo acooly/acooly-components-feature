@@ -5,13 +5,12 @@
     <parent>
         <groupId>com.acooly</groupId>
         <artifactId>acooly-app-parent</artifactId>
-        <version>5.0.0-SNAPSHOT</version>
+        <version>5.2.0</version>
     </parent>
     <artifactId>acooly-components-feature</artifactId>
     <name>acooly-components-feature</name>
+    <version>5.2.0</version>
     <packaging>pom</packaging>
-
-    <properties></properties>
 
     <dependencyManagement>
         <dependencies>
@@ -58,11 +57,6 @@
             <dependency>
                 <groupId>com.acooly</groupId>
                 <artifactId>acooly-component-data-region</artifactId>
-                <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.acooly</groupId>
-                <artifactId>acooly-component-distributedlock</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
             <dependency>
@@ -189,7 +183,6 @@
         <module>acooly-component-mail</module>
         <module>acooly-component-captcha</module>
         <module>acooly-component-config</module>
-        <module>acooly-component-distributedlock</module>
         <module>acooly-component-certification</module>
         <module>acooly-component-eav</module>
         <module>acooly-component-pdf</module>

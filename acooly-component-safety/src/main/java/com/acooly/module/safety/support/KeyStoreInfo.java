@@ -116,7 +116,7 @@ public class KeyStoreInfo extends KeySupport {
             log.warn("加载keystore私钥 - [失败] , 原因: {}", e.getMessage());
             throw new SafetyException(SafetyResultCode.LOAD_KEYSTORE_PRIVATE_ERROR, e.getMessage());
         } finally {
-            Streams.close(in);
+            Streams.closeQuietly(in);
         }
     }
 
@@ -133,7 +133,7 @@ public class KeyStoreInfo extends KeySupport {
             log.warn("加载证书 - [失败] , 原因: {}", e.getMessage());
             throw new SafetyException(SafetyResultCode.LOAD_CERTIFICATE_ERROR, e.getMessage());
         } finally {
-            Streams.close(in);
+            Streams.closeQuietly(in);
         }
     }
 

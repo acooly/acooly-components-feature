@@ -3,7 +3,6 @@ package com.acooly.module.sms.sender.impl;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.net.HttpResult;
-import com.acooly.core.utils.net.Https;
 import com.acooly.module.sms.SmsProperties;
 import com.acooly.module.sms.sender.ShortMessageSendException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,14 +12,11 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
-
-import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
 /**
  * 创蓝253 Json接口
@@ -94,11 +90,14 @@ public class CL253JsonShortMessageSender extends AbstractShortMessageSender {
         } catch (JsonProcessingException e) {
             throw new ShortMessageSendException("-2", "请求数据解析失败", e.getMessage());
         }
-        Https instance = Https.getInstance();
-        instance.connectTimeout(timeout / 2);
-        instance.readTimeout(timeout / 2);
         try {
-            HttpResult httpResult = instance.post(url, paraJson, null, false, APPLICATION_JSON);
+            HttpRequest request = HttpRequest.post(url).
+                    connectTimeout(timeout / 2).readTimeout(timeout / 2)
+                    .headers(dataMap)
+                    .contentType(HttpRequest.CONTENT_TYPE_JSON).send(paraJson);
+            HttpResult httpResult = new HttpResult();
+            httpResult.setStatus(request.code());
+            httpResult.setBody(request.body());
             String result = handleResult(httpResult);
             logger.info("发送短信成功  {mobile:{},content:{},result:{}}", mobileNo, pcontent, result);
             return result;

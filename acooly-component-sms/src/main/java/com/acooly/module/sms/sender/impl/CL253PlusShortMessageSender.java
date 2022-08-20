@@ -3,9 +3,9 @@ package com.acooly.module.sms.sender.impl;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.net.HttpResult;
-import com.acooly.core.utils.net.Https;
 import com.acooly.module.sms.SmsProperties;
 import com.acooly.module.sms.sender.ShortMessageSendException;
+import com.github.kevinsawicki.http.HttpRequest;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -70,12 +70,13 @@ public class CL253PlusShortMessageSender extends AbstractShortMessageSender {
         dataMap.put("needstatus", "false");
         dataMap.put("msg", content);
         //dataMap.put("rd", "1");
-
-        Https instance = Https.getInstance();
-        instance.connectTimeout(timeout / 2);
-        instance.readTimeout(timeout / 2);
         try {
-            HttpResult httpResult = instance.post(SEND_URL253PLUS, dataMap);
+            HttpRequest request = HttpRequest.post(SEND_URL253PLUS).
+                    connectTimeout(timeout / 2).readTimeout(timeout / 2)
+                    .headers(dataMap);
+            HttpResult httpResult = new HttpResult();
+            httpResult.setStatus(request.code());
+            httpResult.setBody(request.body());
             String result = handleResult(httpResult);
             logger.info("发送短信成功  {mobile:{},content:{},result:{}}", mobileNo, content, result);
             return result;

@@ -2,13 +2,13 @@ package com.acooly.module.sms.sender.impl;
 
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.net.HttpResult;
-import com.acooly.core.utils.net.Https;
 import com.acooly.module.sms.SmsProperties;
 import com.acooly.module.sms.sender.ShortMessageSendException;
 import com.acooly.module.sms.sender.support.CloopenSmsSendVo;
 import com.acooly.module.sms.sender.support.parser.BaseMessageResponseParser;
 import com.acooly.module.sms.sender.support.parser.CloopenMessageResponseParser;
 import com.acooly.module.sms.sender.support.serializer.CloopenMessageSendSerializer;
+import com.github.kevinsawicki.http.HttpRequest;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -16,10 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.DateUtils;
-import org.apache.http.entity.BasicHttpEntity;
-import org.apache.http.entity.InputStreamEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -86,30 +83,22 @@ public class CloopenMessageSender extends AbstractShortMessageSender {
         params.put(APP_ID, appId);
         params.put(TEMPLATE_ID, templateId);
         params.put(DATAS, datas);
-
-        Https instance = Https.getInstance();
-        instance.connectTimeout(timeout / 2);
-        instance.readTimeout(timeout / 2);
         try {
             String xml = CloopenMessageSendSerializer.getInstance().serialize(params, ENCODING);
             InputStream xmlSerialize = new ByteArrayInputStream(xml.getBytes(ENCODING));
             //2013-12-26/Accounts/{accountSid}/SMS/TemplateSMS?sig={SigParameter}
-            HttpPost httppost =
-                    new HttpPost(
-                            SEND_URL_CLO + "2013-12-26/Accounts/" + accountId + "/SMS/TemplateSMS?sig=" + sign);
-
-            InputStreamEntity inputStreamEntity = new InputStreamEntity(xmlSerialize);
-            httppost.setEntity(inputStreamEntity);
-            BasicHttpEntity basicHttpEntity = new BasicHttpEntity();
-            basicHttpEntity.setContent(xmlSerialize);
-            basicHttpEntity.setContentLength(xml.getBytes(ENCODING).length);
-
+            String url = SEND_URL_CLO + "2013-12-26/Accounts/" + accountId + "/SMS/TemplateSMS?sig=" + sign;
             Map<String, String> headers = Maps.newHashMap();
             headers.put("Authorization", base64Sign);
             headers.put("Accept", "application/xml");
             headers.put("Content-Type", "text/xml;charset=utf-8");
-
-            HttpResult result = instance.execute(null, httppost, headers, false, "utf-8");
+            HttpRequest httpRequest = HttpRequest.post(url).readTimeout(timeout / 2).connectTimeout(timeout / 2)
+                    .headers(headers)
+                    .contentLength(xml.getBytes(ENCODING).length)
+                    .send(xmlSerialize);
+            HttpResult result = new HttpResult();
+            result.setBody(httpRequest.body());
+            result.setStatus(httpRequest.code());
             return handleResult(result, CloopenSmsSendVo.getGson().toJson(params));
         } catch (Exception e) {
             logger.warn("发送短信失败 {号码:" + mobileNo + ",内容:" + content + "}, 原因:" + e.getMessage());
@@ -140,12 +129,12 @@ public class CloopenMessageSender extends AbstractShortMessageSender {
             throws IOException, ParserConfigurationException, SAXException {
 
         if (result.getStatus() != 200) {
-            throw new BusinessException("http StatusCode=" + result.getStatus());
+            throw new BusinessException("CLOOPEN_SERVER_SEND_ERROR", "服务器提供方发送失败", "http StatusCode = " + result.getStatus());
         }
 
         String body = result.getBody();
         if (StringUtils.isEmpty(body)) {
-            throw new BusinessException("返回数据为空");
+            throw new BusinessException("CLOOPEN_SERVER_SEND_ERROR", "服务器提供方发送失败", "返回数据为空");
         }
         Document document = BaseMessageResponseParser.parse(body);
         NodeList statusCodeNode =
@@ -162,12 +151,11 @@ public class CloopenMessageSender extends AbstractShortMessageSender {
                             "SMS cloopen send fail {},reason is {}",
                             paramString,
                             CloopenMessageResponseParser.codeMapping.get(statusCode));
-                    throw new BusinessException(
-                            CloopenMessageResponseParser.codeMapping.get(statusCode), statusCode);
+                    throw new BusinessException(statusCode, CloopenMessageResponseParser.codeMapping.get(statusCode), "");
                 }
             }
         }
-        throw new BusinessException("发送失败,返回数据为：{}", body);
+        throw new BusinessException("CLOOPEN_SERVER_SEND_ERROR", "服务器提供方发送失败", "发送失败,返回数据为：" + body);
     }
 
     @Override
