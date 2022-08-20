@@ -119,9 +119,9 @@ public class ITextRendererObjectFactory extends BasePooledObjectFactory<ITextRen
             throws DocumentException, IOException {
         //添加默认中文字体
         ITextFontResolver fontResolver = iTextRenderer.getFontResolver();
-        //在jar中的文件不能获取绝对路径，拷贝到临时文件夹中加载
-        addFonts("classpath:META-INF/fonts/SourceHanSerifSC-Regular.otf", fontResolver);
-        addFonts("classpath:META-INF/fonts/SourceHanSerifSC-SemiBold.otf", fontResolver);
+        //在jar中的文件不能获取绝对路径，拷贝到临时文件夹中加载 (字体太大，不提供组件默认字体，如有需要，请采用配置自定义字体：classpath:/pdf/fonts/)
+//        addFonts("classpath:META-INF/fonts/SourceHanSerifSC-Regular.otf", fontResolver);
+//        addFonts("classpath:META-INF/fonts/SourceHanSerifSC-SemiBold.otf", fontResolver);
         //添加自定义字体
         Resource customFontsResource =
                 pdfProperties.getResourceLoader().getResource(pdfProperties.getFontsPath());
