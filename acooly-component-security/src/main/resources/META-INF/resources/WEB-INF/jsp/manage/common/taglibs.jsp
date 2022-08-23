@@ -3,4 +3,3 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="jodd" uri="http://www.springside.org.cn/jodd_form" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<%@ taglib prefix="ap" uri="http://www.acooly.com/tags" %>
