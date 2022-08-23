@@ -19,7 +19,6 @@ import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.Org;
 import com.acooly.module.security.domain.Role;
 import com.acooly.module.security.domain.User;
-import com.acooly.module.security.dto.UserDto;
 import com.acooly.module.security.dto.UserRole;
 import com.acooly.module.security.enums.OrgStatus;
 import com.acooly.module.security.enums.SecurityErrorCode;
@@ -30,8 +29,6 @@ import com.acooly.module.security.service.UserService;
 import com.acooly.module.security.utils.ShiroUtils;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -269,7 +266,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
     protected User onSave(HttpServletRequest request, HttpServletResponse response, Model model, User entity, boolean isCreate) throws Exception {
         entity.setRoles(loadRoleFormRequest(request));
         entity.setLastModifyTime(new Date());
-        if (entity.getOrgId() == 0) {
+        if (entity.getOrgId() != null && entity.getOrgId() == 0) {
             entity.setOrgId(null);
         }
         if (entity.getOrgId() != null) {
