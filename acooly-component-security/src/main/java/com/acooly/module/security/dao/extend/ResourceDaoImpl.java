@@ -9,6 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,7 +43,7 @@ public class ResourceDaoImpl extends JapDynamicQueryDao<Resource> implements Res
             node.setParentId(rs.getLong("PARENTID"));
             node.setIcon(rs.getString("ICON"));
             node.setName(rs.getString("NAME"));
-            node.setOrderTime(rs.getDate("ORDER_TIME"));
+            node.setOrderTime(getDate(rs,"ORDER_TIME"));
             node.setShowMode(rs.getInt("SHOW_MODE"));
             node.setType(rs.getString("TYPE"));
             node.setValue(rs.getString("VALUE"));
@@ -83,7 +86,7 @@ public class ResourceDaoImpl extends JapDynamicQueryDao<Resource> implements Res
             node.setParentId(rs.getLong("PARENTID"));
             node.setIcon(rs.getString("ICON"));
             node.setName(rs.getString("NAME"));
-            node.setOrderTime(rs.getDate("ORDER_TIME"));
+            node.setOrderTime(getDate(rs,"ORDER_TIME"));
             node.setShowMode(rs.getInt("SHOW_MODE"));
             node.setType(rs.getString("TYPE"));
             node.setValue(rs.getString("VALUE"));
@@ -108,7 +111,7 @@ public class ResourceDaoImpl extends JapDynamicQueryDao<Resource> implements Res
             node.setParentId(rs.getLong("PARENTID"));
             node.setIcon(rs.getString("ICON"));
             node.setName(rs.getString("NAME"));
-            node.setOrderTime(rs.getDate("ORDER_TIME"));
+            node.setOrderTime(getDate(rs,"ORDER_TIME"));
             node.setShowMode(rs.getInt("SHOW_MODE"));
             node.setType(rs.getString("TYPE"));
             node.setValue(rs.getString("VALUE"));
@@ -117,5 +120,18 @@ public class ResourceDaoImpl extends JapDynamicQueryDao<Resource> implements Res
             resourceNodes.add(node);
         }
         return resourceNodes;
+    }
+
+    private Date getDate(SqlRowSet rs, String columnLabel) {
+        Object object = rs.getObject(columnLabel);
+        Date date = null;
+        if (object != null) {
+            if (LocalDateTime.class.isAssignableFrom(object.getClass())) {
+                date = Date.from(((LocalDateTime) object).atZone(ZoneId.systemDefault()).toInstant());
+            } else {
+                date = (Date) object;
+            }
+        }
+        return date;
     }
 }
