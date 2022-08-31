@@ -120,10 +120,10 @@ public class CertificationServiceImpl implements CertificationService {
                 result.setStatus(ResultStatus.success);
             } else {
                 result = bankCardCertService.bankCardCert(realName, cardNo, certId, phoneNum);
-                if (result.getStatus() == ResultStatus.failure) {
+                if (result.failure()) {
                     throw new CertficationException(ResultCode.FAILURE.code(), ResultCode.FAILURE.getMessage(), result.getDetail());
                 }
-                if (result.getStatus() == ResultStatus.success) {
+                if (result.success()) {
                     saveBankCardCertRecord(result, record, realName, cardNo, certId, phoneNum);
                 }
             }
@@ -202,10 +202,10 @@ public class CertificationServiceImpl implements CertificationService {
         if (!StringUtils.isEmpty(phoneNum)) {
             entity.setPhoneNum(phoneNum);
         }
-        if (ResultStatus.success == result.getStatus()) {
+        if (result.success()) {
             entity.setStatus(1);
         }
-        if (ResultStatus.failure == result.getStatus()) {
+        if (result.failure()) {
             entity.setStatus(0);
         }
         bankCertificationRecordService.save(entity);

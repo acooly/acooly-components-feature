@@ -5,11 +5,11 @@
     <parent>
         <groupId>com.acooly</groupId>
         <artifactId>acooly-app-parent</artifactId>
-        <version>5.2.0</version>
+        <version>5.2.0-SNAPSHOT</version>
     </parent>
     <artifactId>acooly-components-feature</artifactId>
     <name>acooly-components-feature</name>
-    <version>5.2.0</version>
+    <version>5.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <dependencyManagement>
@@ -169,7 +169,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 
     <modules>
         <module>acooly-component-app</module>
