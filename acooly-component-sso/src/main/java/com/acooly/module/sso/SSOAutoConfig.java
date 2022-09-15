@@ -24,7 +24,7 @@ import static com.acooly.module.sso.SSOProperties.PREFIX;
  * @author shuijing
  */
 @Configuration
-@EnableConfigurationProperties({SSOProperties.class})
+@EnableConfigurationProperties({SSOProperties.class, FrameworkProperties.class})
 @ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
 public class SSOAutoConfig {
 
@@ -76,6 +76,8 @@ public class SSOAutoConfig {
     public ServletContextInitializer ssoContextInitializer() {
         return (servletContext) -> {
             servletContext.setInitParameter("ssoEnable", "true");
+            // 设置全局Application变量
+            servletContext.setAttribute("securityConfig", frameworkProperties);
             doExtendResources(servletContext);
         };
     }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${Session.securityConfig.title}</title>
+    <title>${securityConfig.title}</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta http-equiv="cache-control" content="max-age=86400">
     <meta http-equiv="expires" content="1440">
@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <#if Session.securityConfig.plugin.layui>
+    <#if securityConfig.plugin.layui>
         <!-- layui -->
         <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
     </#if>
@@ -26,11 +26,11 @@
     <!-- easyui及自定义 -->
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.min.css" id="easyuiTheme" type="text/css"/>
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.min.css" id="easyuiThemeBasic">
-    <#if Session.securityConfig.plugin.icheck>
+    <#if securityConfig.plugin.icheck>
         <!-- icheck bootstrap -->
         <link rel="stylesheet" href="/manage/assert/plugin/icheck-bootstrap/icheck-bootstrap.min.css">
     </#if>
-    <#if Session.securityConfig.plugin.videoJs>
+    <#if securityConfig.plugin.videoJs>
         <!-- videoJs -->
         <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/videojs/video-js.css" type="text/css"/>
     </#if>
@@ -49,19 +49,19 @@
     <!-- Jquery plugins  -->
     <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
     <script src="/manage/assert/plugin/jquery-plugin/jquery.form.cookie.resize.min.js" type="text/javascript" charset="utf-8"></script>
-    <#if Session.securityConfig.plugin.clipboard>
+    <#if securityConfig.plugin.clipboard>
         <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
     </#if>
-    <#if Session.securityConfig.plugin.media>
+    <#if securityConfig.plugin.media>
         <script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
     </#if>
-    <#if Session.securityConfig.plugin.xss>
+    <#if securityConfig.plugin.xss>
         <script src="/manage/assert/plugin/jquery-plugin/xss.min.js" type="text/javascript" charset="utf-8"></script>
     </#if>
     <!-- easyui -->
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui-portal/jquery.portal.min.js" charset="utf-8"></script>
-    <#if Session.securityConfig.plugin.easyuiExtension>
+    <#if securityConfig.plugin.easyuiExtension>
         <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-extensions.min.js" charset="utf-8"></script>
     </#if>
     <!-- my97日期控件 -->
@@ -77,10 +77,10 @@
     <script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.allinone.min.js"></script>
     <!-- select2ztree -->
     <script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.min.js"></script>
-    <#if Session.securityConfig.plugin.layui>
+    <#if securityConfig.plugin.layui>
         <script type="text/javascript" src="/manage/assert/plugin/layui/layui.all.js"></script>
     </#if>
-    <#if Session.securityConfig.plugin.kindEditor>
+    <#if securityConfig.plugin.kindEditor>
         <!--kindEditor插件库 -->
         <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
         <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
@@ -90,12 +90,12 @@
         <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all.js"></script>
         <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
     </#if>
-    <#if Session.securityConfig.plugin.videoJs>
+    <#if securityConfig.plugin.videoJs>
         <!-- videoJs -->
         <script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
         <script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
     </#if>
-    <#if Session.securityConfig.plugin.dateRangePicker>
+    <#if securityConfig.plugin.dateRangePicker>
         <!-- daterangepicker -->
         <link rel="stylesheet" href="/manage/assert/plugin/daterangepicker/daterangepicker.css" type="text/css"/>
         <script src="/manage/assert/plugin/daterangepicker/moment.min.js"></script>
