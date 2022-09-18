@@ -29,7 +29,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">性别</label>
                 <div class="col-sm-10">
-                    <select name="gender" class="form-control select2bs4" data-options="required:true">
+                    <select name="gender" data- ="选择性别" class="form-control select2bs4">
                         <#list allGenders as k,v><option value="${k}">${v}</option></#list>
                     </select>
                 </div>
@@ -169,12 +169,7 @@
 
 
         function manage_customer_edit_idcardType_onchange() {
-            var idcardTypes = {<#list allIdcardTypes as k,v><#if k?index gt 0>, </#if>"${k}"
-        :
-            "${v}"
-            </#list>
-        }
-            ;
+            var idcardTypes = {<#list allIdcardTypes as k,v><#if k?index gt 0>, </#if>"${k}":"${v}"</#list>};
             var idcardType = $('#manage_customer_edit_idcardType').val();
             $('#manage_customer_edit_idcardNo_label').html(idcardTypes[idcardType] + "号码");
         }

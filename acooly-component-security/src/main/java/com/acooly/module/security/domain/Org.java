@@ -12,7 +12,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,72 +30,74 @@ public class Org extends AbstractEntity {
     /**
      * 父类id
      */
+    @Column(name = "parent_id", nullable = false)
     private Long parentId;
 
     /**
      * 组织名称
      */
+    @Column(name = "name", length = 64)
     private String name;
 
     /**
      * 状态
      */
+    @Column(name = "status", length = 16)
     @Enumerated(EnumType.STRING)
     private OrgStatus status;
 
     /**
      * 省
      */
+    @Column(name = "province", length = 32)
     private String province;
 
     /**
      * 市
      */
+    @Column(name = "city", length = 32)
     private String city;
 
     /**
      * 县
      */
+    @Column(name = "county", length = 32)
     private String county;
 
     /**
      * 手机号
      */
+    @Column(name = "mobile_no", length = 20)
     private String mobileNo;
 
     /**
      * 邮箱
      */
+    @Column(name = "email", length = 128)
     private String email;
 
     /**
      * 地址
      */
+    @Column(name = "address", length = 255)
     private String address;
 
     /**
      * 联系人
      */
+    @Column(name = "contacts", length = 64)
     private String contacts;
 
     /**
      * 固定电话
      */
+    @Column(name = "telephone", length = 20)
     private String telephone;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 修改时间
-     */
-    private Date updateTime;
 
     /**
      * 备注
      */
+    @Column(name = "memo", length = 255)
     private String memo;
 
     /**

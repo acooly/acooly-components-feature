@@ -19,7 +19,7 @@ import javax.persistence.Table;
  * @author Acooly Code Generator
  */
 @Entity
-@Table(name = "SYS_PORTALLET")
+@Table(name = "sys_portallet")
 @Getter
 @Setter
 public class Portallet extends AbstractEntity {

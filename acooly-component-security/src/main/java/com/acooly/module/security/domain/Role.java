@@ -9,6 +9,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OrderBy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
@@ -17,7 +19,7 @@ import java.util.Set;
  * @author zhangpu
  */
 @Entity
-@Table(name = "SYS_ROLE")
+@Table(name = "sys_role")
 @JsonIgnoreProperties(value = "users", ignoreUnknown = true)
 @Getter
 @Setter
@@ -31,44 +33,42 @@ public class Role extends AbstractEntity {
     /**
      * 名称
      */
-    @Column(name = "NAME")
+    @Column(name = "name", nullable = false, length = 64)
+    @NotBlank
+    @Size(max = 64)
     private String name;
 
+    /**
+     * 所述组织ID
+     */
+    @Column(name = "org_id")
     private Long orgId;
 
     /**
      * 描述
      */
-    @Column(name = "DESCN")
+    @NotBlank
+    @Size(max = 255)
+    @Column(name = "descn", nullable = false, length = 255)
     private String descn;
 
     /**
      * 包含的用户
      */
-    @ManyToMany(
-            mappedBy = "roles",
-            targetEntity = User.class,
-            cascade = CascadeType.REFRESH,
-            fetch = FetchType.EAGER
-    )
+    @ManyToMany(mappedBy = "roles", targetEntity = User.class, cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @LazyCollection(value = LazyCollectionOption.EXTRA)
     private Set<User> users;
 
     /**
      * 包含的资源
      */
-    @ManyToMany(
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            fetch = FetchType.EAGER,
-            targetEntity = com.acooly.module.security.domain.Resource.class
-    )
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, targetEntity = com.acooly.module.security.domain.Resource.class)
     @JoinTable(
-            name = "SYS_ROLE_RESC",
-            joinColumns = {@JoinColumn(name = "ROLE_ID")},
-            inverseJoinColumns = @JoinColumn(name = "RESC_ID")
+            name = "sys_role_resc",
+            joinColumns = {@JoinColumn(name = "role_id")},
+            inverseJoinColumns = @JoinColumn(name = "resc_id")
     )
     @OrderBy(clause = "resc_id")
-    //	@LazyCollection(value = LazyCollectionOption.EXTRA)
     private Set<Resource> rescs;
 
     public Role() {

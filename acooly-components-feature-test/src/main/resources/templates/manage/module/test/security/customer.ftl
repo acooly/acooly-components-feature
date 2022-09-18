@@ -99,8 +99,8 @@
         <!-- 每行的Action动作模板 -->
         <div id="manage_customer_action" style="display: none;">
             <div class="btn-group btn-group-xs">
-                <a onclick="$.acooly.framework.show('/manage/module/test/security/customer/show.html?id={0}',500,500);" class="btn btn-outline-primary btn-xs" href="#" title="查看"><i class="fa fa-file-o"></i> 查看</a>
-                <a onclick="$.acooly.framework.edit({url:'/manage/module/test/security/customer/edit.html',id:'{0}',entity:'customer',width:500,height:500});" class="btn btn-outline-primary btn-xs" href="#" title="编辑"><i class="fa fa-pencil"></i> 编辑</a>
+                <a onclick="$.acooly.framework.show('/manage/module/test/security/customer/show.html?id={0}',800,600);" class="btn btn-outline-primary btn-xs" href="#" title="查看"><i class="fa fa-file-o"></i> 查看</a>
+                <a onclick="$.acooly.framework.edit({url:'/manage/module/test/security/customer/edit.html',id:'{0}',entity:'customer',width:800,height:600});" class="btn btn-outline-primary btn-xs" href="#" title="编辑"><i class="fa fa-pencil"></i> 编辑</a>
                 <a onclick="$.acooly.framework.remove('/manage/module/test/security/customer/deleteJson.html','{0}','manage_customer_datagrid');" class="btn btn-outline-primary btn-xs" href="#" title="删除"><i class="fa fa-trash-o"></i> 删除</a>
             </div>
         </div>
@@ -108,7 +108,7 @@
         <!-- 表格的工具栏 -->
         <div id="manage_customer_toolbar">
             <@shiro.hasPermission name="customer:create">
-                <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/test/security/customer/create.html',entity:'customer',width:500,height:500})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
+                <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/test/security/customer/create.html',entity:'customer',width:800,height:600})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
             </@shiro.hasPermission>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/module/test/security/customer/deleteJson.html','manage_customer_datagrid')"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a>
             <a href="#" class="easyui-menubutton" data-options="menu:'#manage_customer_exports_menu'"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>批量导出</a>
@@ -129,9 +129,7 @@
             });
         }
 
-
         $(function () {
-
             function buildMenu(target) {
                 var state = $(target).data('datagrid');
                 if (!state.columnMenu) {

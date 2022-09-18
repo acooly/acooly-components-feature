@@ -97,8 +97,6 @@ public class SecurityAutoConfig {
 
     @Autowired
     private freemarker.template.Configuration configuration;
-    @Autowired
-    private FreeMarkerConfigurer freeMarkerConfigurer;
 
 
     /**
