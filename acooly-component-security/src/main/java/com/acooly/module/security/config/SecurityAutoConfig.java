@@ -70,7 +70,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.*;
@@ -80,7 +79,10 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * todo：security安全体系增加分类，以区别后台和前台的认证和权限管理
+ * todo: 组织结构的树形结构显示不完整，无法进行排序处理。
  * @author qiubo
+ * @author zhangpu
  */
 @Configuration
 @ConditionalOnWebApplication
