@@ -1,0 +1,36 @@
+/*
+ * acooly.cn Inc.
+ * Copyright (c) 2022 All Rights Reserved.
+ * create by zhangpu
+ * date:2022-10-05
+ */
+package cn.acooly.component.rbac.dao;
+
+import cn.acooly.component.rbac.entity.RbacResource;
+import com.acooly.module.mybatis.EntityMybatisDao;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+
+/**
+ * 权限资源表 Mybatis Dao
+ *
+ * @author zhangpu
+ * @date 2022-10-05 23:03:16
+ */
+public interface RbacResourceDao extends EntityMybatisDao<RbacResource> {
+
+
+    /**
+     * 根据RoleId查询对应的权限资源
+     *
+     * @param roleId
+     * @return
+     */
+    @Select("select t1.* from rbac_resource t1, rbac_role_resc t2  where t1.id = t2.resc_id and " +
+            "t2.role_id = #{roleId} order by t1.order_time desc")
+    List<RbacResource> findByRoleId(@Param("roleId") Long roleId);
+
+
+}

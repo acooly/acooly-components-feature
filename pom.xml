@@ -201,6 +201,7 @@
         <module>acooly-component-smsend</module>
         <module>acooly-component-content-audit</module>
         <module>acooly-component-i18n</module>
+        <module>acooly-component-rbac</module>
     </modules>
 
     <build>

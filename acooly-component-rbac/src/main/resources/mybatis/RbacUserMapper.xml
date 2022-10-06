@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.acooly.component.rbac.dao.RbacUserDao">
+
+    <resultMap id="userResultMap" type="cn.acooly.component.rbac.entity.RbacUser">
+        <id property="id" column="user_id"/>
+        <result property="username" column="user_username"/>
+        <result property="realName" column="user_real_name"/>
+        <result property="pinyin" column="user_pinyin"/>
+        <result property="password" column="user_password"/>
+        <result property="salt" column="user_salt"/>
+        <result property="userType" column="user_user_type"/>
+        <result property="email" column="user_email"/>
+        <result property="mobileNo" column="user_mobile_no"/>
+        <result property="orgId" column="user_org_id"/>
+        <result property="orgName" column="user_org_name"/>
+        <result property="expireTime" column="user_expire_time"/>
+        <result property="unlockTime" column="user_unlock_time"/>
+        <result property="loginFailCount" column="user_login_fail_count"/>
+        <result property="loginTime" column="user_login_time"/>
+        <result property="status" column="user_status"/>
+        <result property="memo" column="user_memo"/>
+        <result property="createTime" column="user_create_time"/>
+        <result property="updateTime" column="user_update_time"/>
+    </resultMap>
+
+    <sql id="userSqlSelect">
+            rbacUser.id as user_id,
+            rbacUser.username as user_username,
+            rbacUser.real_name as user_real_name,
+            rbacUser.pinyin as user_pinyin,
+            rbacUser.password as user_password,
+            rbacUser.salt as user_salt,
+            rbacUser.user_type as user_user_type,
+            rbacUser.email as user_email,
+            rbacUser.mobile_no as user_mobile_no,
+            rbacUser.org_id as user_org_id,
+            rbacUser.org_name as user_org_name,
+            rbacUser.expire_time as user_expire_time,
+            rbacUser.unlock_time as user_unlock_time,
+            rbacUser.login_fail_count as user_login_fail_count,
+            rbacUser.login_time as user_login_time,
+            rbacUser.status as user_status,
+            rbacUser.memo as user_memo,
+            rbacUser.create_time as user_create_time,
+            rbacUser.update_time as user_update_time
+    </sql>
+
+</mapper>

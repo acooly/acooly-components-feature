@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.acooly.component.rbac.dao.RbacResourceDao">
+
+    <resultMap id="resourceResultMap" type="cn.acooly.component.rbac.entity.RbacResource">
+        <id property="id" column="resource_id"/>
+        <result property="parentId" column="resource_parent_id"/>
+        <result property="name" column="resource_name"/>
+        <result property="value" column="resource_value"/>
+        <result property="type" column="resource_type"/>
+        <result property="showStatus" column="resource_show_status"/>
+        <result property="showMode" column="resource_show_mode"/>
+        <result property="orderTime" column="resource_order_time"/>
+        <result property="icon" column="resource_icon"/>
+        <result property="memo" column="resource_memo"/>
+        <result property="createTime" column="resource_create_time"/>
+        <result property="updateTime" column="resource_update_time"/>
+    </resultMap>
+
+    <sql id="resourceSqlSelect">
+            rbacResource.id as resource_id,
+            rbacResource.parent_id as resource_parent_id,
+            rbacResource.name as resource_name,
+            rbacResource.value as resource_value,
+            rbacResource.type as resource_type,
+            rbacResource.show_status as resource_show_status,
+            rbacResource.show_mode as resource_show_mode,
+            rbacResource.order_time as resource_order_time,
+            rbacResource.icon as resource_icon,
+            rbacResource.memo as resource_memo,
+            rbacResource.create_time as resource_create_time,
+            rbacResource.update_time as resource_update_time
+    </sql>
+
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.acooly.component.rbac.dao.RbacOrgDao">
+
+    <resultMap id="orgResultMap" type="cn.acooly.component.rbac.entity.RbacOrg">
+        <id property="id" column="org_id"/>
+        <result property="parentId" column="org_parent_id"/>
+        <result property="code" column="org_code"/>
+        <result property="name" column="org_name"/>
+        <result property="path" column="org_path"/>
+        <result property="orderTime" column="org_order_time"/>
+        <result property="province" column="org_province"/>
+        <result property="city" column="org_city"/>
+        <result property="district" column="org_district"/>
+        <result property="mobileNo" column="org_mobile_no"/>
+        <result property="address" column="org_address"/>
+        <result property="contacts" column="org_contacts"/>
+        <result property="telephone" column="org_telephone"/>
+        <result property="email" column="org_email"/>
+        <result property="status" column="org_status"/>
+        <result property="memo" column="org_memo"/>
+        <result property="createTime" column="org_create_time"/>
+        <result property="updateTime" column="org_update_time"/>
+    </resultMap>
+
+    <sql id="orgSqlSelect">
+            org.id as org_id,
+            org.parent_id as org_parent_id,
+            org.code as org_code,
+            org.name as org_name,
+            org.path as org_path,
+            org.order_time as org_order_time,
+            org.province as org_province,
+            org.city as org_city,
+            org.district as org_district,
+            org.mobile_no as org_mobile_no,
+            org.address as org_address,
+            org.contacts as org_contacts,
+            org.telephone as org_telephone,
+            org.email as org_email,
+            org.status as org_status,
+            org.memo as org_memo,
+            org.create_time as org_create_time,
+            org.update_time as org_update_time
+    </sql>
+
+</mapper>

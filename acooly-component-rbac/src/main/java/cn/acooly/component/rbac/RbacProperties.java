@@ -1,0 +1,41 @@
+/**
+ * acooly-components-feature
+ * <p>
+ * Copyright 2014 Acooly.cn, Inc. All rights reserved.
+ *
+ * @author zhangpu
+ * @date 2022-10-05 23:09
+ */
+package cn.acooly.component.rbac;
+
+import com.google.common.collect.Maps;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.Map;
+
+/**
+ * @author zhangpu
+ * @date 2022-10-05 23:09
+ */
+@Getter
+@Setter
+@ConfigurationProperties(RbacProperties.PREFIX)
+public class RbacProperties {
+
+    public static final String PREFIX = "acooly.rbac";
+    public static final Integer USER_TYPE_ADMIN = 1;
+    public static final Integer USER_TYPE_OPERATOR = 2;
+    private boolean enable = true;
+    /**
+     * 扩展用户类型
+     */
+    private Map<Integer, String> userTypes = Maps.newLinkedHashMap();
+
+    public RbacProperties() {
+        userTypes.put(USER_TYPE_ADMIN, "管理员");
+        userTypes.put(USER_TYPE_OPERATOR, "操作员");
+    }
+}
+
