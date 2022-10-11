@@ -32,6 +32,10 @@ public class RbacProperties {
      * 扩展用户类型
      */
     private Map<Integer, String> userTypes = Maps.newLinkedHashMap();
+    /**
+     * 资源权限没有受控管理的情况下权限判断结果默认值：false
+     */
+    private boolean NoResourcePermitted = false;
 
     public RbacProperties() {
         userTypes.put(USER_TYPE_ADMIN, "管理员");

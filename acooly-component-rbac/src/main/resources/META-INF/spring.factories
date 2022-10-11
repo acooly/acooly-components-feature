@@ -1,4 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 cn.acooly.component.rbac.RbacAutoConfig
-com.acooly.core.common.boot.component.ComponentInitializer=\
-cn.acooly.component.rbac.RbacComponentInitializer

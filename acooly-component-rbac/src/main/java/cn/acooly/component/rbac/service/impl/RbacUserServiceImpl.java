@@ -26,4 +26,10 @@ public class RbacUserServiceImpl extends EntityServiceImpl<RbacUser, RbacUserDao
     public RbacUser findUserByUsername(String username) {
         return getEntityDao().findByUsername(username);
     }
+
+
+    @Override
+    public RbacUser findUserByMemberNo(String memberNo) {
+        return getEntityDao().findByMemberNo(memberNo);
+    }
 }

@@ -24,21 +24,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FeatureAutoConfig {
 
-    @Bean
-    public Realm rbacShiroRealm() {
-        RbacShiroRealm rbacShiroRealm = new RbacShiroRealm();
-        return rbacShiroRealm;
-    }
-
-    @Bean
-    public DefaultSecurityManager rbacShiroSecurityManager(Realm rbacShiroRealm) {
-        DefaultSecurityManager securityManager = new DefaultSecurityManager();
-        securityManager.setCacheManager(new MemoryConstrainedCacheManager());
-        securityManager.setRealm(rbacShiroRealm);
-        // 将安全工具类中设置默认安全管理器
-        // 如果要与后台的shiro公用，则需要另外写个ThreadContextHolder
-//        SecurityUtils.setSecurityManager(securityManager);
-        return securityManager;
-    }
+//    @Bean
+//    public Realm rbacShiroRealm() {
+//        RbacShiroRealm rbacShiroRealm = new RbacShiroRealm();
+//        return rbacShiroRealm;
+//    }
+//
+//    @Bean
+//    public DefaultSecurityManager rbacShiroSecurityManager(Realm rbacShiroRealm) {
+//        DefaultSecurityManager securityManager = new DefaultSecurityManager();
+//        securityManager.setCacheManager(new MemoryConstrainedCacheManager());
+//        securityManager.setRealm(rbacShiroRealm);
+//        // 将安全工具类中设置默认安全管理器
+//        // 如果要与后台的shiro公用，则需要另外写个ThreadContextHolder
+////        SecurityUtils.setSecurityManager(securityManager);
+//        return securityManager;
+//    }
 
 }

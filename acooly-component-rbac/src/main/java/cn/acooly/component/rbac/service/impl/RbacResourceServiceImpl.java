@@ -7,11 +7,14 @@
 package cn.acooly.component.rbac.service.impl;
 
 import cn.acooly.component.rbac.dao.RbacResourceDao;
+import cn.acooly.component.rbac.dto.RbacResourceNode;
 import cn.acooly.component.rbac.entity.RbacResource;
 import cn.acooly.component.rbac.service.RbacResourceService;
 import com.acooly.core.common.service.EntityServiceImpl;
+import com.acooly.core.utils.arithmetic.tree.QuickTree;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -27,4 +30,12 @@ public class RbacResourceServiceImpl extends EntityServiceImpl<RbacResource, Rba
     public List<RbacResource> findByRole(Long roleId) {
         return getEntityDao().findByRoleId(roleId);
     }
+
+    @Override
+    public List<RbacResourceNode> getAuthorizedResourceNode(Long userId) {
+        List<RbacResourceNode> resources = getEntityDao().getAuthorizedResourceNodeWithUserId(userId);
+        return QuickTree.quickTree(resources, null,
+                Comparator.nullsLast(Comparator.comparing(RbacResourceNode::getOrderTime).reversed()));
+    }
+
 }

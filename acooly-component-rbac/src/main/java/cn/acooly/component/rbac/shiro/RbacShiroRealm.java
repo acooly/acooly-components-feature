@@ -8,19 +8,22 @@
  */
 package cn.acooly.component.rbac.shiro;
 
-import cn.acooly.component.rbac.entity.RbacUser;
+import cn.acooly.component.rbac.RbacProperties;
 import cn.acooly.component.rbac.entity.RbacResource;
 import cn.acooly.component.rbac.entity.RbacRole;
+import cn.acooly.component.rbac.entity.RbacUser;
 import cn.acooly.component.rbac.enums.ResourceType;
+import cn.acooly.component.rbac.service.RbacResourceService;
 import cn.acooly.component.rbac.service.RbacRoleService;
 import cn.acooly.component.rbac.service.RbacUserService;
-import com.google.common.base.Strings;
+import com.acooly.core.utils.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -37,16 +40,21 @@ import java.util.Set;
 @Slf4j
 public class RbacShiroRealm extends AuthorizingRealm {
 
-    @Autowired
-    protected RbacUserService rbacUserService;
+    private static final String URL_RESOURCE_PREFIX = "*:";
 
     @Autowired
+    protected RbacUserService rbacUserService;
+    @Autowired
     protected RbacRoleService rbacRoleService;
+    @Autowired
+    protected RbacResourceService rbacResourceService;
+    @Autowired
+    private RbacProperties rbacProperties;
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        String username = (String) token.getPrincipal();
-        RbacUser rbacUser = rbacUserService.findUserByUsername(username);
+        String memberNo = (String) token.getPrincipal();
+        RbacUser rbacUser = rbacUserService.findUserByMemberNo(memberNo);
         if (rbacUser == null) {
             return null;
         }
@@ -65,11 +73,11 @@ public class RbacShiroRealm extends AuthorizingRealm {
             info.addRole(rbacRole.getName());
             Set<String> urls = new HashSet<String>();
             for (RbacResource rbacResource : rbacRole.getRbacResources()) {
-                if (rbacResource.getType() != ResourceType.MENU && Strings.isNullOrEmpty(rbacResource.getValue())) {
+                if (rbacResource.getType() == ResourceType.MENU || Strings.isBlank(rbacResource.getValue())) {
                     continue;
                 }
                 if (rbacResource.getType() == ResourceType.URL) {
-                    urls.add("*:" + rbacResource.getValue());
+                    urls.add(URL_RESOURCE_PREFIX + rbacResource.getValue());
                 } else if (rbacResource.getType() == ResourceType.FUNC) {
                     urls.add(rbacResource.getValue());
                 }
@@ -79,4 +87,39 @@ public class RbacShiroRealm extends AuthorizingRealm {
         return info;
     }
 
+
+    /**
+     * 权限认证实现
+     * <p>
+     * 扩展：根据配置开关，针对未被受控的资源是否放行（true）。
+     *
+     * @param permission
+     * @param info
+     * @return
+     */
+    @Override
+    protected boolean isPermitted(Permission permission, AuthorizationInfo info) {
+
+        boolean permitted = super.isPermitted(permission, info);
+        // 授权判断通过，则直接返回
+        if (permitted) {
+            return true;
+        }
+
+        // 未通过的情况，判断是否全局不存在该资源的权限
+        if (rbacProperties.isNoResourcePermitted()) {
+            String resourceStr = permission.toString();
+            if (Strings.startsWith(resourceStr, URL_RESOURCE_PREFIX)) {
+                resourceStr = Strings.removeStart(resourceStr, URL_RESOURCE_PREFIX);
+            }
+            final String permissionValue = resourceStr;
+            List<RbacResource> resources = rbacResourceService.getAll();
+            boolean exists = resources.stream().anyMatch(e -> Strings.equals(e.getValue(), permissionValue));
+            // 不存在该资源
+            if (!exists) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

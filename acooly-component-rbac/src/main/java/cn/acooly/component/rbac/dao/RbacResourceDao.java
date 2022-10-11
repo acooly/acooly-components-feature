@@ -6,6 +6,7 @@
  */
 package cn.acooly.component.rbac.dao;
 
+import cn.acooly.component.rbac.dto.RbacResourceNode;
 import cn.acooly.component.rbac.entity.RbacResource;
 import com.acooly.module.mybatis.EntityMybatisDao;
 import org.apache.ibatis.annotations.Param;
@@ -32,5 +33,16 @@ public interface RbacResourceDao extends EntityMybatisDao<RbacResource> {
             "t2.role_id = #{roleId} order by t1.order_time desc")
     List<RbacResource> findByRoleId(@Param("roleId") Long roleId);
 
+
+    /**
+     * 根据用户ID查询所有已授权的资源列表
+     *
+     * @param userId
+     * @return
+     */
+    @Select("select t1.* from rbac_resource t1, rbac_role_resc t2, rbac_user_role t3 "
+            + "where t1.id = t2.resc_id and t2.role_id = t3.role_id and "
+            + "t3.user_id = #{userId} order by t1.order_time desc")
+    List<RbacResourceNode> getAuthorizedResourceNodeWithUserId(@Param("userId") Long userId);
 
 }

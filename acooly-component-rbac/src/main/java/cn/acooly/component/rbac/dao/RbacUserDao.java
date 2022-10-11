@@ -27,4 +27,15 @@ public interface RbacUserDao extends EntityMybatisDao<RbacUser> {
      */
     @Select("select * from rbac_user where username=#{username}")
     RbacUser findByUsername(@Param("username") String username);
+
+
+    /**
+     * 会员编码查询
+     *
+     * @param memberNo
+     * @return
+     */
+    @Select("select * from rbac_user where member_no=#{memberNo}")
+    RbacUser findByMemberNo(@Param("memberNo") String memberNo);
 }
+

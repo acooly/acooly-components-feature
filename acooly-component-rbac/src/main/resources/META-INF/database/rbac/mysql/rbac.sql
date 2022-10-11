@@ -43,6 +43,7 @@ CREATE TABLE `rbac_user`
 (
     `id`               BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键',
     `username`         VARCHAR(16)  NOT NULL COMMENT '用户名',
+    `member_no`        VARCHAR(64)  COMMENT '会员编码',
     `real_name`        VARCHAR(32) COMMENT '{title:’姓名’,type:’chinese’}',
     `pinyin`           varchar(32) COMMENT '姓名拼音',
     `password`         VARCHAR(128) NOT NULL COMMENT '登录密码',

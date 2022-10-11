@@ -18,11 +18,19 @@ import com.acooly.core.common.service.EntityService;
  */
 public interface RbacUserService extends EntityService<RbacUser> {
 
-
     /**
-     * 根据登录名获取用户
+     * 据登录名获取用户
      *
+     * @param username
      * @return
      */
     RbacUser findUserByUsername(String username);
+
+    /**
+     * 根据会员编码获取用户
+     *
+     * @param memberNo
+     * @return
+     */
+    RbacUser findUserByMemberNo(String memberNo);
 }
