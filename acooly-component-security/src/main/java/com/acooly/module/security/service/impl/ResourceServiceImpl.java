@@ -14,7 +14,6 @@ import com.acooly.module.security.shiro.realm.ShiroDbRealm;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +32,7 @@ import java.util.Map;
 public class ResourceServiceImpl extends EntityServiceImpl<Resource, ResourceDao>
         implements ResourceService {
 
-    @Autowired
+    @javax.annotation.Resource(name = "shiroDbRealm")
     private ShiroDbRealm shiroDbRealm;
 
     @Override

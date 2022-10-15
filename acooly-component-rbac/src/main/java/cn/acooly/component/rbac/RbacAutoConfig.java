@@ -56,7 +56,7 @@ public class RbacAutoConfig {
      * @return
      */
     @Bean
-    public Realm rbacShiroRealm() {
+    public RbacShiroRealm rbacShiroRealm() {
         RbacShiroRealm rbacShiroRealm = new RbacShiroRealm();
         return rbacShiroRealm;
     }
@@ -69,7 +69,7 @@ public class RbacAutoConfig {
      * @return
      */
     @Bean
-    public DefaultSecurityManager rbacShiroSecurityManager(Realm rbacShiroRealm) {
+    public DefaultSecurityManager rbacShiroSecurityManager(RbacShiroRealm rbacShiroRealm) {
         DefaultSecurityManager securityManager = new DefaultSecurityManager();
 //        securityManager.setCacheManager(new MemoryConstrainedCacheManager());
         securityManager.setRealm(rbacShiroRealm);

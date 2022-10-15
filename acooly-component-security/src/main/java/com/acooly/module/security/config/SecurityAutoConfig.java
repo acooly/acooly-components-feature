@@ -36,7 +36,6 @@ import com.google.common.collect.Maps;
 import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.config.ReflectionBuilder;
-import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
@@ -79,8 +78,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * todo：security安全体系增加分类，以区别后台和前台的认证和权限管理
  * todo: 组织结构的树形结构显示不完整，无法进行排序处理。
+ * todo: 组织结构增加业务管理字段？
  * @author qiubo
  * @author zhangpu
  */
@@ -278,18 +277,17 @@ public class SecurityAutoConfig {
 
         @Bean
         public WebSecurityManager shiroSecurityManager(
-                CacheManager shiroCacheManager, Realm shiroRealm, SessionManager sessionManager) {
+                CacheManager shiroCacheManager, ShiroDbRealm shiroDbRealm, SessionManager sessionManager) {
 
             DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
             securityManager.setCacheManager(shiroCacheManager);
-            securityManager.setRealm(shiroRealm);
+            securityManager.setRealm(shiroDbRealm);
             securityManager.setSessionManager(sessionManager);
             return securityManager;
         }
 
         @Bean
-//        @ConditionalOnMissingBean
-        public Realm shiroRealm(PathMatchPermissionResolver pathMatchPermissionResolver) {
+        public ShiroDbRealm shiroDbRealm(PathMatchPermissionResolver pathMatchPermissionResolver) {
             ShiroDbRealm shiroDbRealm = new ShiroDbRealm();
             shiroDbRealm.setPermissionResolver(pathMatchPermissionResolver);
             shiroDbRealm.setAuthenticationCachingEnabled(false);
@@ -324,14 +322,10 @@ public class SecurityAutoConfig {
 
         @Bean
         @DependsOn({"logout", "urlAuthr", "authc", "kickout"})
-        @ConditionalOnProperty(
-                value = SecurityProperties.PREFIX + ".shiro.auth.enable",
-                matchIfMissing = true
-        )
-        public Filter shiroFilter(ShiroFilterFactoryBean shiroFilterFactoryBean, Realm shiroRealm)
+        @ConditionalOnProperty(value = SecurityProperties.PREFIX + ".shiro.auth.enable", matchIfMissing = true)
+        public Filter shiroFilter(ShiroFilterFactoryBean shiroFilterFactoryBean, ShiroDbRealm shiroDbRealm)
                 throws Exception {
-            ((DefaultWebSecurityManager) shiroFilterFactoryBean.getSecurityManager())
-                    .setRealm(shiroRealm);
+            ((DefaultWebSecurityManager) shiroFilterFactoryBean.getSecurityManager()).setRealm(shiroDbRealm);
             return (Filter) shiroFilterFactoryBean.getObject();
         }
 
@@ -367,8 +361,7 @@ public class SecurityAutoConfig {
         }
 
         @Bean
-        public AuthorizationAttributeSourceAdvisor shiroAuthorizationAttributeSourceAdvisor(
-                WebSecurityManager shiroSecurityManager, Realm shiroRealm) {
+        public AuthorizationAttributeSourceAdvisor shiroAuthorizationAttributeSourceAdvisor(WebSecurityManager shiroSecurityManager, ShiroDbRealm shiroDbRealm) {
             AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
             advisor.setSecurityManager(shiroSecurityManager);
             return advisor;
