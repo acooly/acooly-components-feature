@@ -105,7 +105,7 @@ public class RbacShiroController {
     @RequestMapping("clear")
     public Object clearCache() {
         String memberNo = "12345678901234567890";
-        RbacShiroUtils.clearCatch(memberNo);
+        RbacShiroUtils.clearCache(memberNo);
         return "OK";
     }
 

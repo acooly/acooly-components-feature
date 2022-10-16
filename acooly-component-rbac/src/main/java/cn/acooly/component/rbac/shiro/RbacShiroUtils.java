@@ -53,25 +53,43 @@ public class RbacShiroUtils {
 
 
     /**
-     * 清除当前用户所有的缓存（认证+授权）
+     * 清除当前用户所有的缓存（新增用户，删除用户和修改用户角色）
      */
-    public static void clearCatch(Object principal) {
-        clearAutheCatch(principal);
-        clearAuthoCatch(principal);
+    public static void clearCache(Object principal) {
+        clearAutheCache(principal);
+        clearAuthoCache(principal);
+    }
+
+    /**
+     * 情况全局缓存（管理配置修改了Resource和Role的权限定义）
+     *
+     * @param principal
+     */
+    public static void clearAllCache(Object principal) {
+        clearAllAutheCache();
+        clearAllAuthoCache();
     }
 
     /**
      * 清除当前用户认证缓存
      */
-    public static void clearAutheCatch(Object principal) {
+    public static void clearAutheCache(Object principal) {
         getRealm().clearCachedAuthenticationInfo(getPrincipals(principal));
+    }
+
+    public static void clearAllAutheCache() {
+        getRealm().getAuthenticationCache().clear();
     }
 
     /**
      * 清除当前用户授权缓存
      */
-    public static void clearAuthoCatch(Object principal) {
+    public static void clearAuthoCache(Object principal) {
         getRealm().clearCachedAuthorizationInfo(getPrincipals(principal));
+    }
+
+    public static void clearAllAuthoCache() {
+        getRealm().getAuthorizationCache().clear();
     }
 
     protected static RbacShiroRealm getRealm() {
