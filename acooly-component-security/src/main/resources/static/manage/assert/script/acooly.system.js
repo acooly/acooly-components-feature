@@ -432,7 +432,7 @@ let system_class = {
     loadSecurityConfig: function () {
         var That = this;
         $.ajax({
-            url: contextPath + "/security/config/index.html",
+            url: "/security/config/index.html",
             success: function (data, textStatus) {
                 if (typeof (data) == 'string') {
                     data = eval('(' + data + ')');
