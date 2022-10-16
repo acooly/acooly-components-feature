@@ -8,11 +8,14 @@
  */
 package cn.acooly.component.rbac.shiro;
 
-import cn.acooly.component.rbac.entity.RbacUser;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
 /**
@@ -25,36 +28,61 @@ public class RbacShiroUtils {
     private static final String URL_CHECK_PREFIX = "https://acooly.cn";
 
     /**
-     * 判断用户对资源的权限
+     * 不认证直接判断用户对资源的权限
+     * (未登录认证，直接判断权限，没有subject.login)
      *
      * @param memberNo
      * @param resource
      * @return
      */
-    public static boolean isPermitted(String memberNo, String resource) {
-        return getSubject(memberNo).isPermitted(normalizeResource(resource));
+    public static boolean isPermittedUnAuthe(Object principal, String resource) {
+        return RbacSecurityUtils.getSecurityManager().isPermitted(getPrincipals(principal), normalizeResource(resource));
     }
 
     /**
-     * 判断用户是否有对应的角色
+     * 不认证直接判断用户是否有对应的角色
+     * (未登录认证，直接判断权限，没有subject.login)
      *
      * @param memberNo
      * @param roleName
      * @return
      */
-    public static boolean hasRole(String memberNo, String roleName) {
-        return getSubject(memberNo).hasRole(roleName);
+    public static boolean hasRoleUnAuthe(Object principal, String roleName) {
+        return RbacSecurityUtils.getSecurityManager().hasRole(getPrincipals(principal), roleName);
     }
 
 
     /**
-     * 获取会话User对象
-     * 线程绑定的Scope
-     *
-     * @return
+     * 清除当前用户所有的缓存（认证+授权）
      */
-    public static RbacUser getSessionUser() {
-        return (RbacUser) RbacSecurityUtils.getSubject().getPrincipal();
+    public static void clearCatch(Object principal) {
+        clearAutheCatch(principal);
+        clearAuthoCatch(principal);
+    }
+
+    /**
+     * 清除当前用户认证缓存
+     */
+    public static void clearAutheCatch(Object principal) {
+        getRealm().clearCachedAuthenticationInfo(getPrincipals(principal));
+    }
+
+    /**
+     * 清除当前用户授权缓存
+     */
+    public static void clearAuthoCatch(Object principal) {
+        getRealm().clearCachedAuthorizationInfo(getPrincipals(principal));
+    }
+
+    protected static RbacShiroRealm getRealm() {
+        DefaultSecurityManager defaultSecurityManager = (DefaultSecurityManager) RbacSecurityUtils.getSecurityManager();
+        RbacShiroRealm realm = (RbacShiroRealm) Collections3.getFirst(defaultSecurityManager.getRealms());
+        return realm;
+    }
+
+    protected static PrincipalCollection getPrincipals(Object principal) {
+        PrincipalCollection principalCollection = new SimplePrincipalCollection(principal, getRealm().getName());
+        return principalCollection;
     }
 
     /**

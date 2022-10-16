@@ -30,6 +30,7 @@ public class RoleServiceImpl extends EntityServiceImpl<Role, RoleDao> implements
     public void save(Role o) throws BusinessException {
         super.save(o);
         try {
+            // todo: 这里有问题？角色的更新，应该是更新所有跟角色相关的人的权限，或者全部，而不是本人？？
             shiroDbRealm.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
         } catch (Exception e) {
             // ig

@@ -83,10 +83,10 @@ public class RbacShiroController {
 //        boolean admin = RbacShiros.hasRole(memberNo, "ROLE_ADMIN");
 //        log.info("角色认证(ROLE_ADMIN): {}", admin);
 //         基于URL权限的判断
-        boolean urlPermitted = RbacShiroUtils.isPermitted(memberNo, "/manage/rbac/role/index.html");
+        boolean urlPermitted = RbacShiroUtils.isPermittedUnAuthe(memberNo, "/manage/rbac/role/index.html");
         log.info("URL权限认证(/portal/seller/order/index1.html): {}", urlPermitted);
-        urlPermitted = RbacShiroUtils.isPermitted(memberNo, "/portal/seller/order/index8.html");
-        log.info("URL权限认证(/portal/seller/order/index8.html): {}", urlPermitted);
+//        urlPermitted = RbacShiroUtils.isPermitted(memberNo, "/portal/seller/order/index8.html");
+//        log.info("URL权限认证(/portal/seller/order/index8.html): {}", urlPermitted);
         // 基于功能权限的判断
 //        boolean funcPermitted = RbacShiros.isPermitted(memberNo, "resource:create");
 //        log.info("功能权限认证(resource:create): {}", funcPermitted);
@@ -100,6 +100,13 @@ public class RbacShiroController {
         RbacUser rbacUser = rbacUserService.findUserByMemberNo(memberNo);
         List<RbacResourceNode> tree = rbacResourceService.getAuthorizedResourceNode(rbacUser.getId());
         return tree;
+    }
+
+    @RequestMapping("clear")
+    public Object clearCache() {
+        String memberNo = "12345678901234567890";
+        RbacShiroUtils.clearCatch(memberNo);
+        return "OK";
     }
 
 }

@@ -53,21 +53,23 @@ public class RbacShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        // 不认证直接授权判断模式，该部分实现代码无效，永不执行
         String memberNo = (String) token.getPrincipal();
-        RbacUser rbacUser = rbacUserService.findUserByMemberNo(memberNo);
-        if (rbacUser == null) {
-            return null;
-        }
-        // 这里可以查询数据库，是否有该用户注册,找不到就返回null
-        // 这里是永远认证通过
-        return new SimpleAuthenticationInfo(rbacUser, token.getCredentials(), null, getName());
+        return new SimpleAuthenticationInfo(memberNo, token.getCredentials(), null, memberNo);
     }
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        RbacUser rbacUser = (RbacUser) principals.getPrimaryPrincipal();
-        List<RbacRole> rbacRoles = rbacRoleService.getRolesCascadeResources(rbacUser.getId());
+        String memberNo = (String) principals.getPrimaryPrincipal();
+        RbacUser rbacUser = rbacUserService.findUserByMemberNo(memberNo);
+        if (rbacUser == null) {
+            log.warn("RBAC Principal: {} 用户不存在，直接返回没权限", memberNo);
+            // 这里返回null，则会判断为没有权限
+            return null;
+//            throw new RbacAuthException(RbacErrors.USER_NOT_EXISTS, memberNo);
+        }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        List<RbacRole> rbacRoles = rbacRoleService.getRolesCascadeResources(rbacUser.getId());
         for (RbacRole rbacRole : rbacRoles) {
             // 基于Role的权限信息
             info.addRole(rbacRole.getName());
@@ -121,5 +123,17 @@ public class RbacShiroRealm extends AuthorizingRealm {
             }
         }
         return false;
+    }
+
+
+
+    @Override
+    public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
+        super.clearCachedAuthenticationInfo(principals);
+    }
+
+    @Override
+    public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
+        super.clearCachedAuthorizationInfo(principals);
     }
 }

@@ -37,6 +37,11 @@ public class RbacProperties {
      */
     private boolean NoResourcePermitted = false;
 
+    /**
+     * 是否开启对认证信息的缓存（默认关闭），一般情况下，除非你采用外部认证，否则保持关闭
+     */
+    private boolean autheCachingEnabled = false;
+
     public RbacProperties() {
         userTypes.put(USER_TYPE_ADMIN, "管理员");
         userTypes.put(USER_TYPE_OPERATOR, "操作员");
