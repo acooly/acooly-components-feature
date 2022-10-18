@@ -39,4 +39,9 @@ public class RbacRoleServiceImpl extends EntityServiceImpl<RbacRole, RbacRoleDao
         }
         return rbacRoles;
     }
+
+    @Override
+    public RbacRole findByName(String roleName) {
+        return getEntityDao().findByName(roleName);
+    }
 }

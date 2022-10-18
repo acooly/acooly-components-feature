@@ -30,4 +30,7 @@ public interface RbacRoleDao extends EntityMybatisDao<RbacRole> {
     @Select(" select t1.* from rbac_role t1, rbac_user_role t2  where t1.id = t2.role_id and t2.user_id = #{userId}")
     List<RbacRole> findByUserId(@Param("userId") Long userId);
 
+
+    @Select(" select t1.* from rbac_role t1 where t1.name= #{roleName}")
+    RbacRole findByName(@Param("roleName") String roleName);
 }

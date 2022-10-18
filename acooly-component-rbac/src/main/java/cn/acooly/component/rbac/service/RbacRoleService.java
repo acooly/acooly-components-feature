@@ -28,4 +28,5 @@ public interface RbacRoleService extends EntityService<RbacRole> {
      */
     List<RbacRole> getRolesCascadeResources(Long userId);
 
+    RbacRole findByName(String roleName);
 }

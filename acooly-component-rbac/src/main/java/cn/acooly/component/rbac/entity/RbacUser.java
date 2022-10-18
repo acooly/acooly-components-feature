@@ -1,9 +1,9 @@
 /*
-* acooly.cn Inc.
-* Copyright (c) 2022 All Rights Reserved.
-* create by zhangpu
-* date:2022-10-05
-*/
+ * acooly.cn Inc.
+ * Copyright (c) 2022 All Rights Reserved.
+ * create by zhangpu
+ * date:2022-10-05
+ */
 package cn.acooly.component.rbac.entity;
 
 
@@ -12,14 +12,12 @@ import com.acooly.core.common.domain.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户表 Entity
@@ -36,8 +34,8 @@ public class RbacUser extends AbstractEntity {
     /**
      * 用户名
      */
-	@NotBlank
-	@Size(max = 16)
+    @NotBlank
+    @Size(max = 32)
     private String username;
 
     /**
@@ -50,44 +48,44 @@ public class RbacUser extends AbstractEntity {
     /**
      * 姓名
      */
-	@Size(max = 32)
+    @Size(max = 32)
     private String realName;
 
     /**
      * 姓名拼音
      */
-	@Size(max = 32)
+    @Size(max = 32)
     private String pinyin;
 
     /**
      * 登录密码
      */
-	@NotBlank
-	@Size(max = 128)
+    @NotBlank
+    @Size(max = 128)
     private String password;
 
     /**
      * 密码加盐
      */
-	@Size(max = 32)
+    @Size(max = 32)
     private String salt;
 
     /**
      * 用户类型
      */
-	@NotNull
+    @NotNull
     private Integer userType;
 
     /**
      * 邮件
      */
-	@Size(max = 64)
+    @Size(max = 64)
     private String email;
 
     /**
      * 手机号码
      */
-	@Size(max = 20)
+    @Size(max = 20)
     private String mobileNo;
 
     /**
@@ -98,7 +96,7 @@ public class RbacUser extends AbstractEntity {
     /**
      * 组织名称
      */
-	@Size(max = 128)
+    @Size(max = 128)
     private String orgName;
 
     /**
@@ -125,13 +123,20 @@ public class RbacUser extends AbstractEntity {
      * 状态
      */
     @Enumerated(EnumType.STRING)
-	@NotNull
+    @NotNull
     private UserStatus status;
 
     /**
      * 描述
      */
-	@Size(max = 256)
+    @Size(max = 256)
     private String memo;
+
+
+    /**
+     * 用户绑定的角色
+     */
+    @Transient
+    private List<String> roleNames;
 
 }

@@ -10,6 +10,8 @@ package cn.acooly.component.rbac.service;
 import cn.acooly.component.rbac.entity.RbacUser;
 import com.acooly.core.common.service.EntityService;
 
+import java.util.List;
+
 /**
  * 用户表 Service接口
  *
@@ -33,4 +35,20 @@ public interface RbacUserService extends EntityService<RbacUser> {
      * @return
      */
     RbacUser findUserByMemberNo(String memberNo);
+
+    /**
+     * 保存用户信息
+     *
+     * @param rbacUser
+     */
+    RbacUser saveUser(RbacUser rbacUser);
+
+
+    /**
+     * 变更用户角色
+     * @param memberNo
+     * @param roleNames
+     */
+    void updateUserRoles(String memberNo, List<String> roleNames);
+
 }

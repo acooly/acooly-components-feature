@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.acooly.component.rbac.dao.RbacUserRoleDao">
+
+    <resultMap id="rbacUserRoleResultMap" type="cn.acooly.component.rbac.entity.RbacUserRole">
+        <id property="id" column="rbacUserRole_id"/>
+        <result property="roleId" column="rbacUserRole_role_id"/>
+        <result property="userId" column="rbacUserRole_user_id"/>
+    </resultMap>
+
+    <sql id="rbacUserRoleSqlSelect">
+            rbacUserRole.role_id as rbacUserRole_role_id,
+            rbacUserRole.user_id as rbacUserRole_user_id
+    </sql>
+
+</mapper>
