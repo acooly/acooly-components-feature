@@ -320,6 +320,4 @@ public class SmsSenderTestController {
 
 ### 5.2.0-SNAPSHOT.20221023
 
-2022-10-23 - 完成smsBlack从JSP迁移为FTL，并对整个短信发送组件的管理界面全部添加对SSO的支持 - [zhangpu] 72cc944d
-
-
+2022-10-23 - Issue#32: 完成smsBlack从JSP迁移为FTL，并对整个短信发送组件的管理界面全部添加对SSO的支持 - [zhangpu] 72cc944d
