@@ -1,3 +1,4 @@
+<#if ssoEnable><#include "/manage/common/ssoInclude.ftl"></#if>
 <div class="easyui-layout" data-options="fit : true,border : false">
   <!-- 查询条件 -->
   <div data-options="region:'north',border:false" style="padding:5px; overflow: hidden;" align="left">

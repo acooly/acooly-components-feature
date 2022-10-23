@@ -9,7 +9,6 @@ package com.acooly.module.smsend.web;
 import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.utils.enums.SimpleStatus;
 import com.acooly.module.smsend.entity.SmsBlackList;
-import com.acooly.module.smsend.common.enums.SmsSendStatus;
 import com.acooly.module.smsend.manage.BlackListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,7 @@ import java.util.Map;
  * Date: 2017-08-01 17:28:24
  */
 @Controller
-@RequestMapping(value = "/manage/module/sms/smsBlackList")
+@RequestMapping(value = "/manage/smsend/smsBlackList")
 public class SmsBlackListManagerController extends AbstractJsonEntityController<SmsBlackList, BlackListService> {
 
     @SuppressWarnings("unused")
