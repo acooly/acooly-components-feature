@@ -31,6 +31,16 @@ public class RbacResourceServiceImpl extends EntityServiceImpl<RbacResource, Rba
         return getEntityDao().findByRoleId(roleId);
     }
 
+    /***
+     * 根据资源值获取一条有效数据
+     * @param resourceValue
+     * @return
+     */
+    @Override
+    public RbacResource findOneByResourceValue(String resourceValue) {
+        return getEntityDao().findOneByResourceValue(resourceValue);
+    }
+
     @Override
     public List<RbacResourceNode> getAuthorizedResourceNode(Long userId) {
         List<RbacResourceNode> resources = getEntityDao().getAuthorizedResourceNodeWithUserId(userId);

@@ -45,4 +45,6 @@ public interface RbacResourceDao extends EntityMybatisDao<RbacResource> {
             + "t3.user_id = #{userId} order by t1.order_time desc")
     List<RbacResourceNode> getAuthorizedResourceNodeWithUserId(@Param("userId") Long userId);
 
+    @Select("select t1.* from rbac_resource t1 where t1.`value`=#{resourceValue} limit 1")
+    RbacResource findOneByResourceValue(@Param("resourceValue")String resourceValue);
 }
