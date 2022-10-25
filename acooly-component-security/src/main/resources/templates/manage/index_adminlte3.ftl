@@ -221,10 +221,7 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div id="main_content_wrapper" class="content-wrapper">
-        <div style="background-color: red;">
-            <button type="button" onclick="$('#layout_center_tabs').tabs('resize')">测试</button>
-        </div>
+    <div class="content-wrapper">
         <div id="layout_center_tabs" style="overflow: hidden;background-color: #ecf0f5;" data-options="tabHeight:32">
             <div title="首页" data-options="href:'/manage/layout/portal.html'"></div>
         </div>
@@ -343,10 +340,9 @@
     <!-- pace-progress -->
     <script src="/manage/assert/plugin/pace-progress/pace.min.js"></script>
 </#if>
-<!-- Jquery plugins  -->
+<!-- Jquery plugins: baiduTemplate,form,cookie,resize  -->
 <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
 <script src="/manage/assert/plugin/jquery-plugin/jquery.form.cookie.resize.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="/manage/assert/plugin/jquery-plugin/jquery.resize.min.js"></script>
 <#if Session.securityConfig.plugin.clipboard>
     <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
 </#if>
@@ -404,7 +400,23 @@
 
 <!-- 自己定义的样式和JS扩展 -->
 <!-- acooly -->
-<script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+<#if Session.securityConfig.plugin.acoolyDebug>
+    <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.file.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.editor.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.layout.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.inputmask.js"></script>
+<#else>
+    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+</#if>
 <!-- 扩展script -->
 ${extendScripts}
 <script type="text/javascript">
@@ -417,10 +429,6 @@ ${extendScripts}
         $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);
         $.acooly.admin.theme.loadTheme();
         $.acooly.system.init();
-
-        // test
-        // $('#layout_center_tabs').tabs('resize')
-        $('#main_content_wrapper').resize();
     });
 </script>
 </body>

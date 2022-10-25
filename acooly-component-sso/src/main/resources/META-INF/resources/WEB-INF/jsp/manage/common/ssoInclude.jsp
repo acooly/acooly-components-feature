@@ -104,30 +104,12 @@
     </c:if>
     <!-- acooly -->
     <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
-    <!-- 扩展script -->
+    <!-- extendtion scripts -->
     ${extendScripts}
     <script type="text/javascript">
-        var contextPath = '';
-        $.acooly.system.init();
+        $(function () {
+            var contextPath = "";
+            $.acooly.system.init();
+        });
     </script>
 </head>
-
-<div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">
-    <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span></h1>
-</div>
-
-<script>
-    var pc;
-    //不要放在$(function(){});中
-    $.parser.onComplete = function () {
-        if (pc) clearTimeout(pc);
-        pc = setTimeout(closes, 1000);
-    }
-
-    function closes() {
-        $.acooly.admin.theme.loadTheme();
-        $('#loading').fadeOut('normal', function () {
-            $(this).remove();
-        });
-    }
-</script>
