@@ -221,7 +221,10 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div id="main_content_wrapper" class="content-wrapper">
+        <div style="background-color: red;">
+            <button type="button" onclick="$('#layout_center_tabs').tabs('resize')">测试</button>
+        </div>
         <div id="layout_center_tabs" style="overflow: hidden;background-color: #ecf0f5;" data-options="tabHeight:32">
             <div title="首页" data-options="href:'/manage/layout/portal.html'"></div>
         </div>
@@ -343,6 +346,7 @@
 <!-- Jquery plugins  -->
 <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
 <script src="/manage/assert/plugin/jquery-plugin/jquery.form.cookie.resize.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/manage/assert/plugin/jquery-plugin/jquery.resize.min.js"></script>
 <#if Session.securityConfig.plugin.clipboard>
     <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
 </#if>
@@ -413,6 +417,10 @@ ${extendScripts}
         $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);
         $.acooly.admin.theme.loadTheme();
         $.acooly.system.init();
+
+        // test
+        // $('#layout_center_tabs').tabs('resize')
+        $('#main_content_wrapper').resize();
     });
 </script>
 </body>
