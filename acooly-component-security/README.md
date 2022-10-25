@@ -230,6 +230,13 @@ acooly.security.session.enableKickOut=true
 acooly.security.session.maxSessionPerUser=1
 ```
 
+### 3.9 AcoolyJs的debug
+
+```ini
+## 设置acoolyJS位debug模式，加载源代码，便于开发调试
+acooly.framework.plugin.acooly-debug=true
+```
+
 ## 4.资源
 
 ### 4.1 开发
@@ -247,6 +254,11 @@ acooly.security.session.maxSessionPerUser=1
 * Acooly4：AdminLTE风格
 
 ## 5. changelog
+
+### 5.2.0-SNAPSHOT.20221025
+
+* 2022-10-25 - 修正收缩左边主菜单时候，右边主空间为resize的问题。 - [zhangpu] 856cd66e
+* 2022-10-25 - security组件增加配置参数`acooly.framework.plugin.acooly-debug=false`以控制acooly.xxx.js是源代码加载还是编译压缩的`acooly.min.js`加载，以适应开发环境JS调试需求 - [zhangpu] 679bee30
 
 ### 5.0.0-SNAPSHOT.20220703
 
