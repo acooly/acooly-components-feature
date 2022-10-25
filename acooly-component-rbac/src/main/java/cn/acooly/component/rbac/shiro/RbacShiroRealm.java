@@ -102,12 +102,6 @@ public class RbacShiroRealm extends AuthorizingRealm {
     @Override
     protected boolean isPermitted(Permission permission, AuthorizationInfo info) {
 
-        boolean permitted = super.isPermitted(permission, info);
-        // 授权判断通过，则直接返回
-        if (permitted) {
-            return true;
-        }
-
         // 未通过的情况，判断是否全局不存在该资源的权限
         if (rbacProperties.isNoResourcePermitted()) {
             String resourceStr = permission.toString();
@@ -122,9 +116,9 @@ public class RbacShiroRealm extends AuthorizingRealm {
                 return true;
             }
         }
-        return false;
-    }
 
+        return super.isPermitted(permission, info);
+    }
 
 
     @Override
