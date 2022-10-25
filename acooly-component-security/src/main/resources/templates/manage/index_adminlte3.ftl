@@ -397,11 +397,26 @@
     <script src="/manage/assert/plugin/daterangepicker/daterangepicker_acooly.min.js"></script>
 </#if>
 
-
-<!-- 自己定义的样式和JS扩展 -->
 <!-- acooly -->
-<script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
-<!-- 扩展script -->
+<#if Session.securityConfig.plugin.acoolyDebug>
+    <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.file.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.editor.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.layout.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.inputmask.js"></script>
+<#else>
+    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+</#if>
+
+<!-- 通过配置扩展script -->
 ${extendScripts}
 <script type="text/javascript">
     var contextPath = '';
