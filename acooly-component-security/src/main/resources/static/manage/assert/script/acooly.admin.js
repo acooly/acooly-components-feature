@@ -167,15 +167,10 @@
                         }
                     }]
             });
-
-            // 通过jquery-resize插件实现：父节点大小改变后，resize tabs
-            // $('.content-wrapper').resize(function () {
-            //     $('#layout_center_tabs').tabs({
-            //         width: $("#_tabs").parent().width(),
-            //         height: $(window).height() - 52
-            //     }).tabs('resize');
-            // });
-
+            // 注册：通过jquery-resize插件实现：父节点大小改变后，resize tabs
+            $('.content-wrapper').resize(function () {
+                $('#layout_center_tabs').tabs('resize');
+            });
         },
 
         /**
