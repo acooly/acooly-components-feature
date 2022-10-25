@@ -248,6 +248,12 @@ acooly.security.session.maxSessionPerUser=1
 
 ## 5. changelog
 
+
+### 5.0.0-SNAPSHOT.20221025
+
+* 2022-10-25 - security组件增加配置参数`acooly.framework.plugin.acooly-debug=false`以控制acooly.xxx.js是源代码加载还是编译压缩的`acooly.min.js`加载，以适应开发环境JS调试需求。 
+* 2022-10-25 - 修正收缩左边主菜单时候，右边主空间为resize的问题。 - [zhangpu] 0b6041d2
+
 ### 5.0.0-SNAPSHOT.20220703
 
 * 完成security的资源优化，包括对应的SSO，可以根据本文档中的`2.2 资源加载优化控制`说明对后台管理的资源进行精细化管理。 资源默认加载：`easyui扩展`,`layUI`和`kingEdit`，其他默认为不加载，但可以根据上面文档说明开启。
