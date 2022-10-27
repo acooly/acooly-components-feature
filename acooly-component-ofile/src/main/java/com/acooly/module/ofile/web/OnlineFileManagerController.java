@@ -1,6 +1,6 @@
 package com.acooly.module.ofile.web;
 
-import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.utils.Strings;
 import com.acooly.module.ofile.OFileProperties;
 import com.acooly.module.ofile.domain.OnlineFile;
@@ -21,8 +21,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/manage/module/ofile/onlineFile")
-public class OnlineFileManagerController
-        extends AbstractJQueryEntityController<OnlineFile, OnlineFileService> {
+public class OnlineFileManagerController extends AbstractJsonEntityController<OnlineFile, OnlineFileService> {
 
     private static final Logger logger = LoggerFactory.getLogger(OnlineFileManagerController.class);
 
