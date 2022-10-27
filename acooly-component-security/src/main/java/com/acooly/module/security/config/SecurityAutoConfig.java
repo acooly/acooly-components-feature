@@ -239,7 +239,7 @@ public class SecurityAutoConfig {
             //设为true后，只能通过http访问，javascript无法访问
             //防止xss读取cookie
             simpleCookie.setHttpOnly(true);
-            simpleCookie.setPath("/manage");
+            simpleCookie.setPath("/");
             //maxAge=-1表示浏览器关闭时失效此Cookie
             simpleCookie.setMaxAge(-1);
             return simpleCookie;
