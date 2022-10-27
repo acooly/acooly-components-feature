@@ -3,14 +3,14 @@ let acooly_editor = {
      * KindEditor富文本框编辑器初始化
      */
     kindEditor: function (opts) {
-        if(!KindEditor){
+        if (!KindEditor) {
             console.log("KindEditor为加载，请配置加载插件。");
             return;
         }
         let uploadUrl = opts.uploadUrl;
         if (!uploadUrl) {
             let token = $("meta[name='X-CSRF-TOKEN']").attr("content");// 从meta中获取token
-            uploadUrl = '/ofile/kindEditor.htm?_csrf=' + token;
+            uploadUrl = '/manage/ofile/kindEditor.html?_csrf=' + token;
         }
         opts.uploadUrl = uploadUrl;
         let options = {
@@ -26,16 +26,16 @@ let acooly_editor = {
                 'lineheight', '|', 'justifyleft', 'justifycenter', 'justifyright', 'anchor', 'plainpaste', 'wordpaste', 'clearhtml',
                 'quickformat', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', "multi_image",
                 'diy_video', '|',
-                'baidumap', 'link', 'unlink', '|', 'hr', 'table', '|', 'source', 'preview','mobile', 'fullscreen'],
+                'baidumap', 'link', 'unlink', '|', 'hr', 'table', '|', 'source', 'preview', 'mobile', 'fullscreen'],
             // 单个上传上传的url
             uploadJson: uploadUrl,
             // 批量上传URL
             uploadApi: uploadUrl,
+            formatUploadUrl: false,
             afterCreate: function () {
                 // 加载完成后改变皮肤
                 var color = $('.panel-header').css('background-color');
                 $('.ke-toolbar').css('background-color', color);
-
                 $.acooly.editor.pasteToUpload(this, opts);
             },
             // 失去焦点时，保存
