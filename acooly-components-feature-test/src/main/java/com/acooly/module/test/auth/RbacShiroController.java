@@ -75,16 +75,36 @@ public class RbacShiroController {
     }
 
 
+    /**
+     * http://127.0.0.1:8090/rbac/auth2.html
+     *
+     * @return
+     */
     @RequestMapping("auth2")
     public Object testAuth2() {
         log.info("RBAC Auth with RbacShiros: ");
-        String memberNo = "12345678901234567890";
+        String memberNo = "1001230123013q";
         //基于角色权限管理
 //        boolean admin = RbacShiros.hasRole(memberNo, "ROLE_ADMIN");
 //        log.info("角色认证(ROLE_ADMIN): {}", admin);
 //         基于URL权限的判断
-        boolean urlPermitted = RbacShiroUtils.isPermittedUnAuthe(memberNo, "/manage/rbac/role/index.html");
-        log.info("URL权限认证(/portal/seller/order/index1.html): {}", urlPermitted);
+
+        String resourceStr = "info_examine";
+        boolean urlPermitted = RbacShiroUtils.isPermittedUnAuthe(memberNo, resourceStr);
+        log.info("URL权限认证({}): {}", resourceStr, urlPermitted);
+
+
+         resourceStr = "login";
+         urlPermitted = RbacShiroUtils.isPermittedUnAuthe(memberNo, resourceStr);
+        log.info("URL权限认证({}): {}", resourceStr, urlPermitted);
+
+        resourceStr = "login2";
+        urlPermitted = RbacShiroUtils.isPermittedUnAuthe(memberNo, resourceStr);
+        log.info("URL权限认证({}): {}", resourceStr, urlPermitted);
+
+//        RbacShiroUtils.clearAllAutheCache();
+//        RbacShiroUtils.clearAllAuthoCache();
+
 //        urlPermitted = RbacShiroUtils.isPermitted(memberNo, "/portal/seller/order/index8.html");
 //        log.info("URL权限认证(/portal/seller/order/index8.html): {}", urlPermitted);
         // 基于功能权限的判断

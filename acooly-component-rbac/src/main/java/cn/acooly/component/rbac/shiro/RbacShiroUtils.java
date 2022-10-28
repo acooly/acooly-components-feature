@@ -31,6 +31,10 @@ public class RbacShiroUtils {
      * 不认证直接判断用户对资源的权限
      * (未登录认证，直接判断权限，没有subject.login)
      *
+     * <li>存在资源，不存在角色：false</li>
+     * <li>不存在资源：true</li>
+     * <li>存在资源，存在角色：true</li>
+     *
      * @param memberNo
      * @param resource
      * @return
