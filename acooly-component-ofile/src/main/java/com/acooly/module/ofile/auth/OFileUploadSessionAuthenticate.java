@@ -25,8 +25,7 @@ public class OFileUploadSessionAuthenticate implements OFileUploadAuthenticate {
 
     @Override
     public void authenticate(HttpServletRequest request) {
-        if (!oFileProperties.isCheckSession()
-                || Strings.isBlank(oFileProperties.getCheckSessionKey())) {
+        if (!oFileProperties.isCheckSession() || Strings.isBlank(oFileProperties.getCheckSessionKey())) {
             return;
         }
         List<String> sessionKeys =
@@ -36,7 +35,7 @@ public class OFileUploadSessionAuthenticate implements OFileUploadAuthenticate {
                 return;
             }
         }
-        throw new OFileUploadException(CommonErrorCodes.UNAUTHENTICATED_ERROR, "OFile认证未通过");
+        throw new OFileUploadException(CommonErrorCodes.UNAUTHENTICATED_ERROR, "OFile文件上传Session认证未通过");
     }
 
 
