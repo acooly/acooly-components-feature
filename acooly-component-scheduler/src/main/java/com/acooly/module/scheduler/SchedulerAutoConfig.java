@@ -23,6 +23,7 @@ import static com.acooly.module.scheduler.SchedulerProperties.PREFIX;
 
 /**
  * @author shuijing
+ * @author zhangpu 升级改造
  */
 @Configuration
 @EnableConfigurationProperties({SchedulerProperties.class})

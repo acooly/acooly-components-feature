@@ -59,24 +59,17 @@
 
         <!-- 每行的Action动作模板 -->
         <div id="manage_schedulerRule_action" style="display: none;">
-
             <div class="btn-group btn-group-xs">
                 <a onclick="$.acooly.framework.confirmSubmit('/manage/schedulerRule/runjob.html','{0}','manage_schedulerRule_datagrid');" class="btn btn-outline-primary btn-xs" href="#" title="立即执行"><i class="fa fa-play"></i> 立即执行</a>
                 <a onclick="$.acooly.framework.edit({url:'/manage/schedulerRule/edit.html',id:'{0}',entity:'schedulerRule',width:620,height:520});" class="btn btn-outline-primary btn-xs" href="#" title="编辑"><i class="fa fa-pencil"></i> 编辑</a>
                 <a onclick="$.acooly.framework.show('/manage/schedulerRule/show.html?id={0}',580,600);" class="btn btn-outline-primary btn-xs" href="#" title="查看"><i class="fa fa-file-o"></i> 查看</a>
                 <a onclick="$.acooly.framework.remove('/manage/schedulerRule/deleteJson.html','{0}','manage_schedulerRule_datagrid');" class="btn btn-outline-primary btn-xs" href="#" title="删除"><i class="fa fa-trash-o"></i> 删除</a>
             </div>
-
-
-
-
         </div>
 
         <!-- 表格的工具栏 -->
         <div id="manage_schedulerRule_toolbar">
-            <a href="#" class="easyui-linkbutton" plain="true"
-               onclick="$.acooly.framework.create({url:'/manage/schedulerRule/create.html',entity:'schedulerRule',width:620,height:520})"><i
-                    class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/schedulerRule/create.html',entity:'schedulerRule',width:620,height:520})"><i class="fa fa-plus-circle"></i> 添加</a>
         </div>
     </div>
     <script type="text/javascript">
