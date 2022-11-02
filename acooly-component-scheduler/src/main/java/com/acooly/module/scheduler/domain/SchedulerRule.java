@@ -62,13 +62,13 @@ public class SchedulerRule extends AbstractEntity {
     private String methodName;
 
     @Column(name = "d_group")
-    private String dGroup;
+    private String dubboGroup;
 
     @Column(name = "d_version")
-    private String dVersion;
+    private String dubboVersion;
 
     @Column(name = "d_param")
-    private String dParam;
+    private String dubboParam;
 
     @Column(name = "exceptionAtLastExecute")
     private String exceptionAtLastExecute;
