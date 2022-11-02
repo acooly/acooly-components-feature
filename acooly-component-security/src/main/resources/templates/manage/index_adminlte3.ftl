@@ -399,6 +399,7 @@
 
 <!-- acooly -->
 <#if Session.securityConfig.plugin.acoolyDebug>
+    <script src="/manage/assert/script/acooly.js"></script>
     <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
