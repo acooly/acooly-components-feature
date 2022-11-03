@@ -35,7 +35,8 @@
                 <div class="form-group row" id="manage_schedulerRule_properties_row">
                     <label class="col-sm-3 col-form-label">HTTP地址</label>
                     <div class="col-sm-9">
-                        <input type="text" name="properties" placeholder="请输入通知的HTTP地址..." class="easyui-validatebox form-control" data-options="validType:['text','length[1,255]']"/>
+                        <input type="text" name="properties" placeholder="请输入通知的HTTP地址..." class="easyui-validatebox form-control"
+                               data-inputmask="'alias':'url'" data-mask data-options="validType:['url','length[1,255]']"/>
                     </div>
                 </div>
                 <div class="form-group row" id="manage_schedulerRule_className_row">
@@ -106,48 +107,62 @@
     </form>
     <script type="text/javascript">
 
-        var properties = $('#manage_schedulerRule_properties_row');
-        var className = $('#manage_schedulerRule_className_row');
-        var methodName = $('#manage_schedulerRule_methodName_row');
-        var DGroup = $('#manage_schedulerRule_dubboGroup_row');
-        var DVersion = $('#manage_schedulerRule_dubboVersion_row');
-        var DParam = $('#manage_schedulerRule_dubboParam_row');
+        function manage_schedulerRule_selectRow(name) {
+            return $('#manage_schedulerRule_' + name + '_row');
+        }
+        function manage_schedulerRule_selectForm(name) {
+            return $.acooly.framework.getFormItem("manage_schedulerRule_editform", name);
+        }
+
+        var propertiesRow = manage_schedulerRule_selectRow('properties');
+        var classNameRow = manage_schedulerRule_selectRow("className");
+        var methodNameRow = manage_schedulerRule_selectRow("methodName");
+        var dubboGroupRow = manage_schedulerRule_selectRow("dubboGroup");
+        var dubboVersionRow = manage_schedulerRule_selectRow("dubboVersion");
+        var dubboParamRow = manage_schedulerRule_selectRow("dubboParam");
+
+        var properties = manage_schedulerRule_selectForm('properties');
+        var className = manage_schedulerRule_selectForm("className");
+        var methodName = manage_schedulerRule_selectForm("methodName");
+        var dubboGroup = manage_schedulerRule_selectForm("dubboGroup");
+        var dubboVersion = manage_schedulerRule_selectForm("dubboVersion");
+        var dubboParam = manage_schedulerRule_selectForm("dubboParam");
+
+        function manage_schedulerRule_hideAll(){
+            propertiesRow.hide();
+            classNameRow.hide();
+            methodNameRow.hide();
+            dubboGroupRow.hide();
+            dubboVersionRow.hide();
+            dubboParamRow.hide();
+            properties.validatebox('options').required = false;
+            dubboGroup.validatebox('options').required = false;
+            dubboVersion.validatebox('options').required = false;
+            className.validatebox('options').required = false;
+            methodName.validatebox('options').required = false;
+        }
 
         function manage_schedulerRule_changeInputText(code) {
+            manage_schedulerRule_hideAll();
             if (code == "HTTP") {
-                properties.show();
-                className.hide();
-                methodName.hide();
-                DGroup.hide();
-                DVersion.hide();
-                DParam.hide();
+                propertiesRow.show();
+                properties.validatebox('options').required = true;
             }
             if (code == "DUBBO") {
-                properties.hide();
-                className.hide();
-                methodName.hide();
-                DGroup.show();
-                DVersion.show();
-                DParam.show();
+                dubboGroupRow.show();
+                dubboVersionRow.show();
+                dubboParamRow.show();
+                dubboGroup.validatebox('options').required = true;
+                dubboVersion.validatebox('options').required = true;
             }
             if (code == "LOCAL") {
-                properties.hide();
-                className.show();
-                methodName.show();
-                DGroup.hide();
-                DVersion.hide();
-                DParam.hide();
-            }
-
-            function httpShow() {
-                properties.show();
-                className.hide();
-                methodName.hide();
-                DGroup.hide();
-                DVersion.hide();
-                DParam.hide();
+                className.validatebox('options').required = true;
+                methodName.validatebox('options').required = true;
+                classNameRow.show();
+                methodNameRow.show();
             }
         }
+
 
         $(function () {
             $.acooly.formObj("manage_schedulerRule_editform", "actionType").on('select2:select', function (e) {

@@ -48,8 +48,7 @@ public class QuartzJob implements Job {
         try {
             JobDataMap dataMap = context.getJobDetail().getJobDataMap();
 
-            schedulerRule =
-                    objectMapper.readValue((String) dataMap.get(SCHEDULER_RULE_DO_KEY), SchedulerRule.class);
+            schedulerRule = objectMapper.readValue((String) dataMap.get(SCHEDULER_RULE_DO_KEY), SchedulerRule.class);
 
             if (schedulerRule == null) {
                 logger.error("任务执行失败,没有找到任务实体,context：{}", context.toString());
@@ -61,8 +60,7 @@ public class QuartzJob implements Job {
             TaskExecutor taskExecutor =
                     TaskExecutorProvider.get(TaskTypeEnum.getEnumByCode(schedulerRule.getActionType()));
 
-            logger.info(
-                    "开始执行,taskId={}, memo={},creater={}",
+            logger.info("开始执行,taskId:{}, memo:{},creater:{}",
                     schedulerRule.getId(),
                     schedulerRule.getMemo(),
                     schedulerRule.getCreater());

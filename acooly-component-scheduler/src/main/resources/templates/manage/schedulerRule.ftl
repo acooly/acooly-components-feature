@@ -37,7 +37,7 @@
                 <th field="id" sum="true">id</th>
                 <th field="memo">任务名</th>
                 <th field="status" formatter="mappingFormatter">状态</th>
-                <th field="cronString">cron_string</th>
+                <th field="cronString">cron表达式</th>
                 <th field="actionType" formatter="mappingFormatter">任务类型</th>
                 <th field="properties">HTTP地址</th>
                 <th field="className">类名</th>

@@ -19,4 +19,6 @@ import com.acooly.module.test.security.entity.Customer;
  */
 public interface CustomerService extends EntityService<Customer> {
 
+    void justDoIt();
+
 }
