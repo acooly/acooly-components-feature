@@ -5,12 +5,14 @@ import com.acooly.core.utils.Strings;
 import com.acooly.module.ofile.OFileProperties;
 import com.acooly.module.ofile.domain.OnlineFile;
 import com.acooly.module.ofile.enums.OFileType;
+import com.acooly.module.ofile.portal.OfilePortalController;
 import com.acooly.module.ofile.service.OnlineFileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,4 +65,26 @@ public class OnlineFileManagerController extends AbstractJsonEntityController<On
             logger.warn("删除文件失败:{}", e.getMessage());
         }
     }
+
+
+    /**
+     * 文件上传
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping({"/uploadFilePage{type}"})
+    public String uploadFilePage(@PathVariable("type") String type, HttpServletRequest request, HttpServletResponse response, Model model) {
+        try {
+            model.addAllAttributes(this.referenceData(request));
+        } catch (Exception var5) {
+            logger.warn(this.getExceptionMessage("index", var5), var5);
+            this.handleException("文件上传", var5, request);
+        }
+        return "/manage/module/ofile/onlineFileUpload"+type;
+    }
+
+
+
 }
