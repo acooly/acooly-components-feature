@@ -1,9 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="/WEB-INF/jsp/manage/common/taglibs.jsp" %>
-<div style="padding: 5px;font-family:微软雅黑;">
-    <table class="tableForm" width="100%">
+<div>
+    <table class="tableForm">
         <tr>
-            <th>id:</th>
+            <th width="20%">id:</th>
             <td>${schedulerRule.id}</td>
         </tr>
         <tr>
@@ -47,12 +45,12 @@
             <td>${schedulerRule.DParam}</td>
         </tr>
         <tr>
-            <th width="25%">创建时间:</th>
-            <td><fmt:formatDate value="${schedulerRule.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <th>创建时间:</th>
+            <td>${schedulerRule.createTime?string("yyyy-MM-dd HH:mm:ss")!}</td>
         </tr>
         <tr>
             <th>修改时间:</th>
-            <td><fmt:formatDate value="${schedulerRule.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td>${schedulerRule.updateTime?string("yyyy-MM-dd HH:mm:ss")!}</td>
         </tr>
         <tr>
             <th>创建人:</th>
@@ -72,7 +70,7 @@
         </tr>
         <tr>
             <th>上次执行时间:</th>
-            <td><fmt:formatDate value="${schedulerRule.lastExecuteTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td>${schedulerRule.lastExecuteTime?string("yyyy-MM-dd HH:mm:ss")!}</td>
         </tr>
         <tr>
             <th>失败重试次数:</th>
@@ -80,11 +78,11 @@
         </tr>
         <tr>
             <th>开始时间:</th>
-            <td><fmt:formatDate value="${schedulerRule.validityStart}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td>${schedulerRule.validityStart?string("yyyy-MM-dd HH:mm:ss")!}</td>
         </tr>
         <tr>
             <th>结束时间:</th>
-            <td><fmt:formatDate value="${schedulerRule.validityEnd}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td>${schedulerRule.validityEnd?string("yyyy-MM-dd HH:mm:ss")!}</td>
         </tr>
     </table>
 </div>

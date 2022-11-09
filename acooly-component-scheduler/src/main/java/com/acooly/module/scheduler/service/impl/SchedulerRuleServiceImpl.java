@@ -22,7 +22,7 @@ public class SchedulerRuleServiceImpl extends EntityServiceImpl<SchedulerRule, S
 
     @Override
     public SchedulerRule getUniqueDubbo(String group, String version) {
-        return getFirst(getEntityDao().findByActionTypeAndDGroupAndDVersion(TaskTypeEnum.DUBBO_TASK.getCode(), group, version));
+        return getFirst(getEntityDao().findByActionTypeAndDubboGroupAndDubboVersion(TaskTypeEnum.DUBBO_TASK.getCode(), group, version));
     }
 
     @Override

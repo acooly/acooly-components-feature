@@ -76,6 +76,14 @@
                 <i class="fa fa-blind fa-fw fa-col"></i>签名认证测试</a>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/module/ofile/onlineFile/deleteJson.html','manage_onlineFile_datagrid')">
                 <i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a>
+
+
+            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage.html',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(拖拽)</a>
+
+            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage_multiple.html',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(多文件)</a>
+
+
+
         </div>
     </div>
 

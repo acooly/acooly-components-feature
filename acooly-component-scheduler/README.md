@@ -22,7 +22,7 @@ maven坐标：
 
 目前支持 本地任务、http、dubbo:
 
-* 本地任务只需要填全路径类名、方法名，并把此类标注@Component;
+* 本地任务只需要填全路径类名（注意是spring容器托管的接口全路径）、方法名，并把此类标注@Component;
 * http任务只需要填http地址
 * dubbo任务需要实现`com.acooly.module.scheduler.api.ScheduleCallBackService`接口。参数：dubbo group(必填),dubbo version(必填),dubbo param(可选，获取参数`Map<String, String> attachments = RpcContext.getContext().getAttachments();` 测试用例参考`com.acooly.core.test.scheduler.DemoScheduleCallBackService`
   
@@ -46,3 +46,11 @@ maven坐标：
 ```ini
 acooly.scheduler.enablejob=false
 ```
+
+## 4 changelogs
+
+### 5.2.0-SNAPSHOT.20221103
+
+* 2022-11-03 - 优化管理界面，对各种类型的通知编辑界面进行表单验证；删除JSP视图 - [zhangpu] 67749097
+* 2022-11-02 - 完成显示界面的升级ftl - [zhangpu] b214948b
+* 2022-11-02 - 升级JPA版本后，解决驼峰格式字段名称不规范则不兼容的问题，通过修改实体属性名称解决；同时重构管理界面的列表和编辑为FTL - [zhangpu] dbb4cab1

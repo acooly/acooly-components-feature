@@ -24,14 +24,14 @@ public class DubboTaskExecutor implements TaskExecutor {
     @Override
     public Boolean execute(SchedulerRule schedulerRule) {
         Assert.notNull(dubboFactory, "dubbo定时任务必须要依赖dubbo组件");
-        Map<String, String> map = splitDubboParam(schedulerRule.getDParam());
+        Map<String, String> map = splitDubboParam(schedulerRule.getDubboParam());
         RpcContext.getContext().setAttachments(map);
 
         ScheduleCallBackService scheduleCallBackService =
                 dubboFactory.getProxy(
                         ScheduleCallBackService.class,
-                        schedulerRule.getDGroup(),
-                        schedulerRule.getDVersion(),
+                        schedulerRule.getDubboGroup(),
+                        schedulerRule.getDubboVersion(),
                         TIME_OUT);
         scheduleCallBackService.justDoIT();
         return true;
