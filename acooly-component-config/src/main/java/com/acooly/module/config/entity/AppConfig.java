@@ -8,7 +8,7 @@ package com.acooly.module.config.entity;
 
 
 import com.acooly.core.common.domain.AbstractEntity;
-import com.acooly.module.config.AppConfigAutoConfig;
+import com.acooly.module.config.ConfigProperties;
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.Getter;
 import lombok.Setter;
@@ -78,7 +78,6 @@ public class AppConfig extends AbstractEntity {
      */
     private Integer redisCacheExpire = 600000;
 
-
     public void initLocalCache(Cache<String, AppConfig> cache) {
         if (localCacheExpire != 0) {
             cache.put(key(), this);
@@ -97,6 +96,6 @@ public class AppConfig extends AbstractEntity {
     }
 
     public static String key(String name) {
-        return AppConfigAutoConfig.CACHE_PREFIX + name;
+        return ConfigProperties.CACHE_PREFIX + name;
     }
 }

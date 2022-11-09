@@ -31,3 +31,10 @@ maven坐标：
        
     AppConfig config=new AppConfig();
     configManager.create(config);
+
+### 3. changelog
+    2022-11-08 by xiyang
+    增加configTopic配置项，用于多个不同系统需要共用config配置的场景，
+    如appNmae=boss为管理后台，appName=app为真实app应用，
+    而app应用需要使用管理后台的config配置，则app应用配置configTopic为boss
+    bugfix:当监听redis值更新事件时，仅更新本地缓存，不再删除redis缓存

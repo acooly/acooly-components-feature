@@ -9,6 +9,7 @@ package com.acooly.module.config.service.impl;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
 import com.acooly.core.utils.Strings;
+import com.acooly.module.config.ConfigProperties;
 import com.acooly.module.config.dao.AppConfigDao;
 import com.acooly.module.config.entity.AppConfig;
 import com.acooly.module.config.service.AppConfigService;
@@ -17,8 +18,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-
-import static com.acooly.module.config.AppConfigAutoConfig.CONFIG_REDIS_TOPIC;
 
 /**
  * sys_app_config Service实现
@@ -49,20 +48,20 @@ public class AppConfigServiceImpl extends EntityServiceImpl<AppConfig, AppConfig
     public void saveOrUpdate(AppConfig appConfig) throws BusinessException {
         super.saveOrUpdate(appConfig);
         appConfigCache.invalidate(appConfig);
-        redisTemplate.convertAndSend(CONFIG_REDIS_TOPIC, appConfig.key());
+        redisTemplate.convertAndSend(ConfigProperties.CONFIG_REDIS_TOPIC, appConfig.key());
     }
 
     @Override
     public void save(AppConfig appConfig) throws BusinessException {
         super.save(appConfig);
         appConfigCache.invalidate(appConfig);
-        redisTemplate.convertAndSend(CONFIG_REDIS_TOPIC, appConfig.key());
+        redisTemplate.convertAndSend(ConfigProperties.CONFIG_REDIS_TOPIC, appConfig.key());
     }
 
     @Override
     public void update(AppConfig appConfig) throws BusinessException {
         super.update(appConfig);
         appConfigCache.invalidate(appConfig);
-        redisTemplate.convertAndSend(CONFIG_REDIS_TOPIC, appConfig.key());
+        redisTemplate.convertAndSend(ConfigProperties.CONFIG_REDIS_TOPIC, appConfig.key());
     }
 }

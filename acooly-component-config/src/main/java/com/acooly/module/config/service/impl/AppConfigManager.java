@@ -104,10 +104,16 @@ public class AppConfigManager implements InitializingBean {
         redisTemplate.delete(key);
     }
 
+    public void invalidateLocal(String name) {
+        String key = key(name);
+        configCache.invalidate(key);
+    }
+
     public void delete(String name) {
         appConfigDao.deleteByName(name);
         invalidate(name);
     }
+
 
 
     @Override
