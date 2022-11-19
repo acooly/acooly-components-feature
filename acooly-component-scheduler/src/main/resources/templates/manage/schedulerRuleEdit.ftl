@@ -165,7 +165,7 @@
 
 
         $(function () {
-            $.acooly.formObj("manage_schedulerRule_editform", "actionType").on('select2:select', function (e) {
+            $.acooly.framework.getFormItem("manage_schedulerRule_editform", "actionType").on('select2:select', function (e) {
                 manage_schedulerRule_changeInputText(e.params.data.id);
             });
 
