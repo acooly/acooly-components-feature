@@ -36,7 +36,19 @@
     </#if>
     <!-- 扩展css -->
     ${extendStyles}
-
+    <!-- 根据配置设置全局样式 -->
+    <style>
+        .datagrid-header .datagrid-cell span { font-size: ${Session.securityConfig.fontSize}px;}
+        .input-group-text,.tabs-title {font-size: ${Session.securityConfig.fontSize}px;}
+        .datagrid-header-row, .datagrid-row {height: <#if Session.securityConfig.fontSize lt 14>35<#else>40</#if>px;}
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {font-size: ${Session.securityConfig.fontSize}px;}
+        .l-btn-text {font-size: ${Session.securityConfig.fontSize}px;}
+        .panel-body {font-size: ${Session.securityConfig.fontSize}px;}
+        body {font-size: ${Session.securityConfig.fontSize}px;}
+        .main-sidebar, .main-sidebar::before {width: ${Session.securityConfig.mainSidebarWidth}px;}
+        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${Session.securityConfig.mainSidebarWidth}px;}
+        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${Session.securityConfig.mainSidebarWidth}px;}
+    </style>
 
     <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
     <script src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
