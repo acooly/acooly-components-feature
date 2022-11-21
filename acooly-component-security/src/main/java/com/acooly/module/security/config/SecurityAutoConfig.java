@@ -75,12 +75,12 @@ import javax.servlet.*;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
  * todo: 组织结构的树形结构显示不完整，无法进行排序处理。
  * todo: 组织结构增加业务管理字段？
+ *
  * @author qiubo
  * @author zhangpu
  */
@@ -232,7 +232,7 @@ public class SecurityAutoConfig {
                 appName = "acooly";
             }
             //这个参数是cookie的名称
-            SimpleCookie simpleCookie = new SimpleCookie(appName + "-sid");
+            SimpleCookie simpleCookie = new SimpleCookie(appName + "-sessionid");
             //setcookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。它有以下特点：
 
             //setcookie()的第七个参数
