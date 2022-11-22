@@ -164,18 +164,24 @@ public class TreeTypeServiceImpl extends EntityServiceImpl<TreeType, TreeTypeDao
     }
 
     @Override
-    public List<TreeType> tree(@NotNull String theme, String rootPath) {
+    public List<TreeType> tree(String theme, String rootPath, Comparator comparator) {
         Map<String, Object> params = Maps.newHashMap();
         theme = Strings.isBlankDefault(theme, TreeType.DEFAULT_THEME);
         rootPath = Strings.isBlankDefault(rootPath, TreeType.TOP_PARENT_PATH);
         params.put("EQ_theme", theme);
         params.put("RLIKE_path", rootPath);
         List<TreeType> treeTypes = query(params, null);
-        return doTree(treeTypes);
+        return doTree(treeTypes, comparator);
     }
 
     @Override
-    public List<TreeType> tree(@NotNull String theme, Long rootId) {
+    public List<TreeType> tree(@NotNull String theme, String rootPath) {
+        return tree(theme, rootPath, null);
+    }
+
+
+    @Override
+    public List<TreeType> tree(String theme, Long rootId, Comparator comparator) {
         String path = null;
         if (rootId != null && !rootId.equals(TreeType.TOP_PARENT_ID)) {
             TreeType rootTreeType = get(rootId);
@@ -183,19 +189,33 @@ public class TreeTypeServiceImpl extends EntityServiceImpl<TreeType, TreeTypeDao
                 path = rootTreeType.getPath();
             }
         }
-        return tree(theme, path);
+        return tree(theme, path, comparator);
+    }
+
+    @Override
+    public List<TreeType> tree(@NotNull String theme, Long rootId) {
+        return tree(theme, rootId, null);
     }
 
     @Override
     public List<TreeType> tree(String rootPath) {
-        return tree(TreeType.DEFAULT_THEME, rootPath);
+        return tree(TreeType.DEFAULT_THEME, rootPath, null);
+    }
+
+    @Override
+    public List<TreeType> tree(String rootPath, Comparator comparator) {
+        return tree(TreeType.DEFAULT_THEME, rootPath, comparator);
     }
 
     @Override
     public List<TreeType> tree(Long rootId) {
-        return tree(TreeType.DEFAULT_THEME, rootId);
+        return tree(TreeType.DEFAULT_THEME, rootId, null);
     }
 
+    @Override
+    public List<TreeType> tree(Long rootId, Comparator comparator) {
+        return tree(TreeType.DEFAULT_THEME, rootId, comparator);
+    }
 
     @Override
     public TreeType findByCode(String typeCode) {
@@ -215,9 +235,15 @@ public class TreeTypeServiceImpl extends EntityServiceImpl<TreeType, TreeTypeDao
      * 每层内排序规则：sortTime desc, id desc
      */
     protected List<TreeType> doTree(List<TreeType> treeTypeLists) {
-        return QuickTree.quickTree(treeTypeLists, TreeType.TOP_PARENT_ID,
-                Comparator.nullsLast(Comparator.comparing((TreeType t) -> -t.getSortTime())
-                        .thenComparing(t -> -t.getId())));
+        return doTree(treeTypeLists, null);
+    }
+
+    protected List<TreeType> doTree(List<TreeType> treeTypeLists, Comparator comparator) {
+        if (comparator == null) {
+            comparator = Comparator.nullsLast(Comparator.comparing((TreeType t) -> -t.getSortTime())
+                    .thenComparing(t -> -t.getId()));
+        }
+        return QuickTree.quickTree(treeTypeLists, TreeType.TOP_PARENT_ID, comparator);
     }
 
 }

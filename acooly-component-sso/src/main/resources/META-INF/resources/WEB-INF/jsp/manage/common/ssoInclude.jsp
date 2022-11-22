@@ -10,7 +10,6 @@
     <meta name="X-CSRF-TOKEN" content="${requestScope["org.springframework.security.web.csrf.CsrfToken"].token}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
     <c:if test="sessionScope.securityConfig.plugin.layui">
         <!-- layui -->
         <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
@@ -36,7 +35,20 @@
     </c:if>
     <!-- 扩展css -->
     ${extendStyles}
-
+    <!-- 根据配置设置全局样式 -->
+    <style>
+        .datagrid-header .datagrid-cell span { font-size: ${sessionScope.securityConfig.fontSize}px;}
+        .combobox-item, .combobox-group, .combobox-stick,.combo input[type='text'],.tableForm input,.tableForm textarea,
+        .input-group-text,.tabs-title {font-size: ${sessionScope.securityConfig.fontSize}px;}
+        .datagrid-header-row, .datagrid-row {height:${sessionScope.securityConfig.fontSize < 14?35:40}px;}
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {font-size: ${sessionScope.securityConfig.fontSize}px;}
+        .l-btn-text {font-size: ${sessionScope.securityConfig.fontSize}px;}
+        .panel-body {font-size: ${sessionScope.securityConfig.fontSize}px;}
+        body {font-size: ${sessionScope.securityConfig.fontSize}px;}
+        .main-sidebar, .main-sidebar::before {width: ${sessionScope.securityConfig.mainSidebarWidth}px;}
+        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${sessionScope.securityConfig.mainSidebarWidth}px;}
+        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${sessionScope.securityConfig.mainSidebarWidth}px;}
+    </style>
 
     <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
     <script src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
@@ -49,19 +61,19 @@
     <!-- Jquery plugins  -->
     <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
     <script src="/manage/assert/plugin/jquery-plugin/jquery.form.cookie.resize.min.js" type="text/javascript" charset="utf-8"></script>
-    <c:if test="Session.securityConfig.plugin.clipboard">
+    <c:if test="sessionScope.securityConfig.plugin.clipboard">
         <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
     </c:if>
-    <c:if test="Session.securityConfig.plugin.media">
+    <c:if test="sessionScope.securityConfig.plugin.media">
         <script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
     </c:if>
-    <c:if test="Session.securityConfig.plugin.xss">
+    <c:if test="sessionScope.securityConfig.plugin.xss">
         <script src="/manage/assert/plugin/jquery-plugin/xss.min.js" type="text/javascript" charset="utf-8"></script>
     </c:if>
     <!-- easyui -->
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui-portal/jquery.portal.min.js" charset="utf-8"></script>
-    <c:if test="Session.securityConfig.plugin.easyuiExtension">
+    <c:if test="sessionScope.securityConfig.plugin.easyuiExtension">
         <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-extensions.min.js" charset="utf-8"></script>
     </c:if>
     <!-- my97日期控件 -->
@@ -77,10 +89,10 @@
     <script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.allinone.min.js"></script>
     <!-- select2ztree -->
     <script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.min.js"></script>
-    <c:if test="Session.securityConfig.plugin.layui">
+    <c:if test="sessionScope.securityConfig.plugin.layui">
         <script type="text/javascript" src="/manage/assert/plugin/layui/layui.all.js"></script>
     </c:if>
-    <c:if test="Session.securityConfig.plugin.kindEditor">
+    <c:if test="sessionScope.securityConfig.plugin.kindEditor">
         <!--kindEditor插件库 -->
         <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
         <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
@@ -90,12 +102,12 @@
         <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all.js"></script>
         <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
     </c:if>
-    <c:if test="Session.securityConfig.plugin.videoJs">
+    <c:if test="sessionScope.securityConfig.plugin.videoJs">
         <!-- videoJs -->
         <script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
         <script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
     </c:if>
-    <c:if test="Session.securityConfig.plugin.dateRangePicker">
+    <c:if test="sessionScope.securityConfig.plugin.dateRangePicker">
         <!-- daterangepicker -->
         <link rel="stylesheet" href="/manage/assert/plugin/daterangepicker/daterangepicker.css" type="text/css"/>
         <script src="/manage/assert/plugin/daterangepicker/moment.min.js"></script>

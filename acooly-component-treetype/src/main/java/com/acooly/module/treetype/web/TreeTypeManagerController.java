@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,13 +35,12 @@ import java.util.Map;
 public class TreeTypeManagerController extends AbstractJsonEntityController<TreeType, TreeTypeService> {
 
 
-    {
-        allowMapping = "*";
-    }
-
     @Autowired
     private TreeTypeService treeTypeService;
 
+    {
+        allowMapping = "*";
+    }
 
     @RequestMapping(value = "queryTree")
     @ResponseBody
@@ -66,9 +66,15 @@ public class TreeTypeManagerController extends AbstractJsonEntityController<Tree
         try {
             String theme = Servlets.getParameter(request, "theme");
             Long parentId = Servlets.getLongParameter(request, "parentId");
+            // 排序只支持id的升序(sort=asc)和降序(sort=desc)，默认降序
+            String sort = Servlets.getParameter(request, "sort");
+            Comparator comparator = null;
+            if (Strings.isNotBlank(sort)) {
+                comparator = Comparator.nullsLast(Comparator.comparing((TreeType t) -> (sort.equals("asc") ? t.getId() : -t.getId())));
+            }
             result.appendData(referenceData(request));
-            List<TreeType> entities = Strings.isBlank(theme) ? treeTypeService.tree(parentId) :
-                    treeTypeService.tree(theme, parentId);
+            List<TreeType> entities = Strings.isBlank(theme) ? treeTypeService.tree(parentId, comparator) :
+                    treeTypeService.tree(theme, parentId, comparator);
             result.setTotal((long) entities.size());
             result.setRows(entities);
         } catch (Exception e) {

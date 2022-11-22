@@ -10,6 +10,7 @@ package com.acooly.module.treetype.service;
 import com.acooly.core.common.service.EntityService;
 import com.acooly.module.treetype.entity.TreeType;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -31,6 +32,8 @@ public interface TreeTypeService extends EntityService<TreeType> {
      */
     List<TreeType> tree(String rootPath);
 
+    List<TreeType> tree(String rootPath, Comparator comparator);
+
     /**
      * 树形结构
      * 默认主题为：theme
@@ -39,6 +42,8 @@ public interface TreeTypeService extends EntityService<TreeType> {
      * @return
      */
     List<TreeType> tree(Long rootId);
+
+    List<TreeType> tree(Long rootId, Comparator comparator);
 
     /**
      * 树形结构
@@ -49,6 +54,8 @@ public interface TreeTypeService extends EntityService<TreeType> {
      */
     List<TreeType> tree(String theme, String rootPath);
 
+    List<TreeType> tree(String theme, String rootPath, Comparator comparator);
+
     /**
      * 树形结构
      *
@@ -57,6 +64,8 @@ public interface TreeTypeService extends EntityService<TreeType> {
      * @return
      */
     List<TreeType> tree(String theme, Long rootId);
+
+    List<TreeType> tree(String theme, Long rootId, Comparator comparator);
 
     /**
      * 单层查询
