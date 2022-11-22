@@ -51,7 +51,6 @@ public class ContractServiceTestController {
         pageInfos.add("6");
         pageInfos.add("7");
 
-        vo.setPageInfos(pageInfos);
         List<Saler> list = Lists.newArrayList();
         list.add(new Saler("gz0001"));
         list.add(new Saler("gz0002"));
