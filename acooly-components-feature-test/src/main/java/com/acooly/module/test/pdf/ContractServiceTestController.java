@@ -4,17 +4,21 @@ import com.acooly.core.utils.Money;
 import com.acooly.module.pdf.PdfGeneratorService;
 import com.acooly.module.test.pdf.vo.*;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xiyang@acooly.cn
@@ -38,13 +42,22 @@ public class ContractServiceTestController {
         AssetManagementRulesVo vo = new AssetManagementRulesVo();
         vo.setContractNo("JD-LJWPYY20181022001");
 
+        List<String> pageInfos = Lists.newArrayList();
+        pageInfos.add("1");
+        pageInfos.add("2");
+        pageInfos.add("3");
+        pageInfos.add("4");
+        pageInfos.add("5");
+        pageInfos.add("6");
+        pageInfos.add("7");
+
         List<Saler> list = Lists.newArrayList();
         list.add(new Saler("gz0001"));
         list.add(new Saler("gz0002"));
         list.add(new Saler("gz0003"));
         list.add(new Saler("gz0004"));
         vo.setSalers(list);
-        vo.setHoldingPersonId("10001");
+        vo.setHoldingPersonId("LJXJ1230092344dd2123");
         vo.setHoldingPerson("枭洪");
         vo.setLegalPerson("小小洪");
         vo.setLegalPersonAddress("重庆市渝北区鸳鸯街道美利山公园城市189-1-1");
@@ -66,7 +79,7 @@ public class ContractServiceTestController {
     @ResponseBody
     @RequestMapping("/purchase")
     public String purchasePdf(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        File file = new File("C:\\Users\\xiaohong\\purchase.pdf");
+        File file = new File("/Users/lscoder/Downloads/purchase.pdf");
         AssetSalesContractVo vo = new AssetSalesContractVo();
         vo.setContractNo("JD-LJWPFW20181022001");
         vo.setSalerId("CSR20019DWEEEE02");
@@ -80,7 +93,7 @@ public class ContractServiceTestController {
 
         Long totalHoldSumShares = 0L;
         Long totalHoldSumAmount = 0L;
-        for (Purchaser p : list){
+        for (Purchaser p : list) {
             totalHoldSumShares += p.getHoldShares();
             totalHoldSumAmount += p.getHoldSumAmount();
         }
@@ -149,7 +162,7 @@ public class ContractServiceTestController {
 
     @ResponseBody
     @RequestMapping("/trade")
-    public String trade(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public String trade(HttpServletRequest request, HttpServletResponse response) throws IOException {
         File file = new File("C:\\Users\\xiaohong\\p-trade.pdf");
         AtomTradeVo vo = new AtomTradeVo();
         vo.setContractNo("JD-LJWPFW20181022001");
@@ -198,5 +211,46 @@ public class ContractServiceTestController {
 
         pdfGeneratorService.generate("atomTrade.docx", vo, file);
         return "ok";
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        /** 初始化配置文件 **/
+        Configuration configuration = new Configuration();
+        String fileDirectory = "/Users/lscoder/coding/acooly/acooly-components-feature/acooly-components-feature-test/src/main/resources/pdf/templates";
+        /** 加载文件 **/
+        configuration.setDirectoryForTemplateLoading(new File(fileDirectory));
+        /** 加载模板 **/
+        Template template = configuration.getTemplate("test.ftl");
+        File outFile = new File("/Users/lscoder/Downloads/test.doc");
+        Writer out = new BufferedWriter((new OutputStreamWriter(new FileOutputStream(outFile))));
+        Map map = Maps.newHashMap();
+        map.put("code", "1235523452345");
+        map.put("name", "2022年 贵州茅台酒 飞天 53%vol 800ml");
+        map.put("url", getImageBase("/Users/lscoder/coding/acooly/acooly-components-feature/acooly-components-feature-test/src/main/resources/pdf/templates/test.jpg"));
+        template.process(map, out);
+    }
+
+
+    public static String getImageBase(String src) throws Exception {
+        if (src == null || src == "") {
+            return "";
+        }
+        File file = new File(src);
+        if (!file.exists()) {
+            return "";
+        }
+        InputStream in = null;
+        byte[] data = null;
+        try {
+            in = new FileInputStream(file);
+            data = new byte[in.available()];
+            in.read(data);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encode(data);
     }
 }
