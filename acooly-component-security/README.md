@@ -255,6 +255,12 @@ acooly.framework.plugin.acooly-debug=true
 
 ## 5. changelog
 
+### 5.2.0-SNAPSHOT.20221123
+
+* 2022-11-23 - security或SSO中，针对`acooly.framework.font-size`兼容ztree - [zhangpu] 1eb5669c
+* 2022-11-23 - 在Security组件和SSO组件中替换JWTUtils实现为本地的jwts实现，去除redis白名单特性，直接使用jwt的过期时间为准，解决SSO场景认证服务和子服务不使用同一个redis造成认证授权失败的问题。 - [zhangpu] 6488185d
+* 2022-11-21 - 优化后台的linkButton的disabled样式 - [zhangpu] 1185af89
+
 ### 5.2.0-SNAPSHOT.20221025
 
 * 2022-10-25 - 修正收缩左边主菜单时候，右边主空间为resize的问题。 - [zhangpu] 856cd66e
