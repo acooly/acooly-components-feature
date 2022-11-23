@@ -6,7 +6,6 @@ import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.Encodes;
 import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.Strings;
-import com.acooly.core.utils.security.JWTUtils;
 import com.acooly.module.defence.password.PasswordStrength;
 import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.config.FrameworkProperties;
@@ -16,6 +15,7 @@ import com.acooly.module.security.domain.User;
 import com.acooly.module.security.service.UserService;
 import com.acooly.module.security.shiro.exception.InvaildCaptchaException;
 import com.acooly.module.security.shiro.listener.ShireLoginLogoutSubject;
+import com.acooly.module.security.utils.jwts;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -178,10 +178,10 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
      * @return
      */
     private String setTargetUrlToSession() {
-        String targetUrl = Servlets.getRequestParameter(JWTUtils.KEY_TARGETURL);
+        String targetUrl = Servlets.getRequestParameter(jwts.KEY_TARGETURL);
         targetUrl = Encodes.urlDecode(targetUrl);
         if (StringUtils.isNotBlank(targetUrl)) {
-            Servlets.setSessionAttribute(JWTUtils.KEY_TARGETURL, targetUrl);
+            Servlets.setSessionAttribute(jwts.KEY_TARGETURL, targetUrl);
         }
         return targetUrl;
     }

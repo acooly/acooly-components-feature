@@ -2,9 +2,9 @@ package com.acooly.module.sso.support;
 
 import com.acooly.core.common.boot.ApplicationContextHolder;
 import com.acooly.core.utils.mapper.JsonMapper;
-import com.acooly.core.utils.security.JWTUtils;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.shiro.cache.ShiroCacheManager;
+import com.acooly.module.security.utils.jwts;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwt;
@@ -65,12 +65,12 @@ public abstract class AbstractLoginJwtAuthProcessor<T> implements LoginAuthProce
         if (securityManager == null) {
             ThreadContext.bind(getSecurityManager());
         }
-        String userStr = (String) jwt.getBody().get(JWTUtils.CLAIMS_KEY_SUBJECT);
+        String userStr = (String) jwt.getBody().get(jwts.CLAIMS_KEY_SUBJECT);
         User user = JsonMapper.nonEmptyMapper().getMapper().readValue(userStr, User.class);
         SimplePrincipalCollection simplePrincipal =
                 new SimplePrincipalCollection(user, ShiroCacheManager.KEY_AUTHC);
         // set user to request
-        request.setAttribute(JWTUtils.CLAIMS_KEY_SUB, user);
+        request.setAttribute(jwts.CLAIMS_KEY_SUB, user);
 
         HttpSession httpSession = request.getSession(true);
         HttpServletSession shiroSession = null;
@@ -92,11 +92,11 @@ public abstract class AbstractLoginJwtAuthProcessor<T> implements LoginAuthProce
      */
     protected void setRequestAttributes(HttpServletRequest request, Jwt<Header, Claims> jwt) {
         Claims claims = jwt.getBody();
-        request.setAttribute(JWTUtils.KEY_ISS, claims.get(JWTUtils.CLAIMS_KEY_ISS));
-        request.setAttribute(JWTUtils.KEY_SUB_NAME, claims.get(JWTUtils.CLAIMS_KEY_SUB));
-        request.setAttribute(JWTUtils.KEY_AUD, claims.get(JWTUtils.CLAIMS_KEY_AUD));
-        request.setAttribute(JWTUtils.KEY_IAT, claims.get(JWTUtils.CLAIMS_KEY_IAT));
-        request.setAttribute(JWTUtils.KEY_EXP, claims.get(JWTUtils.CLAIMS_KEY_EXP));
+        request.setAttribute(jwts.KEY_ISS, claims.get(jwts.CLAIMS_KEY_ISS));
+        request.setAttribute(jwts.KEY_SUB_NAME, claims.get(jwts.CLAIMS_KEY_SUB));
+        request.setAttribute(jwts.KEY_AUD, claims.get(jwts.CLAIMS_KEY_AUD));
+        request.setAttribute(jwts.KEY_IAT, claims.get(jwts.CLAIMS_KEY_IAT));
+        request.setAttribute(jwts.KEY_EXP, claims.get(jwts.CLAIMS_KEY_EXP));
     }
 
     /**

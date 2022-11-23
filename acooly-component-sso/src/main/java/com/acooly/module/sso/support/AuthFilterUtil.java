@@ -1,7 +1,7 @@
 package com.acooly.module.sso.support;
 
 import com.acooly.core.utils.Encodes;
-import com.acooly.core.utils.security.JWTUtils;
+import com.acooly.module.security.utils.jwts;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 
@@ -63,10 +63,10 @@ public class AuthFilterUtil {
         /** 获取jwt顺序 1、header 2、request 3、cookie */
         String compactJws = httpServletRequest.getHeader("Authorization");
         if (StringUtils.isEmpty(compactJws)) {
-            compactJws = httpServletRequest.getParameter(JWTUtils.TYPE_JWT);
+            compactJws = httpServletRequest.getParameter(jwts.TYPE_JWT);
             if (StringUtils.isEmpty(compactJws)) {
                 Cookie[] cookies = httpServletRequest.getCookies();
-                compactJws = JWTUtils.getJwtFromCookie(cookies);
+                compactJws = jwts.getJwtFromCookie(cookies);
             }
         }
         return compactJws;
@@ -77,9 +77,9 @@ public class AuthFilterUtil {
      */
     public static void parameterAccessAddJwt2Cookie(
             HttpServletRequest request, HttpServletResponse response) {
-        String compactJws = request.getParameter(JWTUtils.TYPE_JWT);
+        String compactJws = request.getParameter(jwts.TYPE_JWT);
         if (StringUtils.isNotEmpty(compactJws)) {
-            JWTUtils.addJwtCookie(response, compactJws, JWTUtils.getDomainName());
+            jwts.addJwtCookie(response, compactJws, jwts.getDomainName());
         }
     }
 }

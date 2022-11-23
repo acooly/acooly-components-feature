@@ -1,8 +1,8 @@
 package com.acooly.module.sso.filter;
 
 import com.acooly.core.common.dubbo.DubboFactory;
-import com.acooly.core.utils.security.JWTUtils;
 import com.acooly.module.security.service.SSOAuthzService;
+import com.acooly.module.security.utils.jwts;
 import com.acooly.module.sso.SSOProperties;
 import com.acooly.module.sso.support.DefaultRequestMatcher;
 import com.acooly.module.sso.support.RequestMatcher;
@@ -93,7 +93,7 @@ public class AuthorizationFilter implements Filter {
         }
         String requestURI = request.getRequestURI();
         String permittedPath = rootPath + "/role/facade/isPermitted";
-        String username = (String) request.getAttribute(JWTUtils.KEY_SUB_NAME);
+        String username = (String) request.getAttribute(jwts.KEY_SUB_NAME);
         String body;
         try {
             body =
@@ -121,7 +121,7 @@ public class AuthorizationFilter implements Filter {
 
     private boolean isPermittedByDubbo(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        String username = (String) request.getAttribute(JWTUtils.KEY_SUB_NAME);
+        String username = (String) request.getAttribute(jwts.KEY_SUB_NAME);
         Assert.notNull(dubboFactory, "dubboFactory为空，请增加dubbo依赖，并配置dubbo参数");
         try {
             SSOAuthzService authzService =
@@ -173,7 +173,7 @@ public class AuthorizationFilter implements Filter {
 
     private String getCacheKey(HttpServletRequest request) {
         String url = request.getRequestURI();
-        String username = (String) request.getAttribute(JWTUtils.KEY_SUB_NAME);
+        String username = (String) request.getAttribute(jwts.KEY_SUB_NAME);
         return username + "," + url;
     }
 

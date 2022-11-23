@@ -1,6 +1,6 @@
 package com.acooly.module.sso.support;
 
-import com.acooly.core.utils.security.JWTUtils;
+import com.acooly.module.security.utils.jwts;
 import com.acooly.module.sso.dic.AuthResult;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
@@ -40,9 +40,9 @@ public class DefaultLoginAuth extends AbstractLoginJwtAuthProcessor<AuthResult> 
     private AuthResult validateAuthentication(HttpServletRequest request, String authentication) {
         try {
             // 验证jwt是否被篡改
-            Jwt<Header, Claims> jwt = JWTUtils.parseAuthentication(authentication);
+            Jwt<Header, Claims> jwt = jwts.parseAuthentication(authentication);
             // 验证 jwt 是否过期
-            if (!JWTUtils.validateTimeout(jwt)) {
+            if (!jwts.validateTimeout(jwt)) {
                 // 将解析后的信息存入 request 属性中
                 setRequestAttributes(request, jwt);
                 //将subject绑定到线程
