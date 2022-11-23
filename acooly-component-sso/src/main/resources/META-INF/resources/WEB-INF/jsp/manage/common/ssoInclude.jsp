@@ -38,7 +38,7 @@
     <!-- 根据配置设置全局样式 -->
     <style>
         .datagrid-header .datagrid-cell span { font-size: ${sessionScope.securityConfig.fontSize}px;}
-        .combobox-item, .combobox-group, .combobox-stick,.combo input[type='text'],.tableForm input,.tableForm textarea,
+        .combobox-item, .combobox-group, .combobox-stick,.combo input[type='text'],.tableForm input,.tableForm textarea,.ztree *,
         .input-group-text,.tabs-title {font-size: ${sessionScope.securityConfig.fontSize}px;}
         .datagrid-header-row, .datagrid-row {height:${sessionScope.securityConfig.fontSize < 14?35:40}px;}
         .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {font-size: ${sessionScope.securityConfig.fontSize}px;}

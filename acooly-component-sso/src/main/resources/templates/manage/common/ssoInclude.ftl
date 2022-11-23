@@ -39,7 +39,7 @@
     <!-- 根据配置设置全局样式 -->
     <style>
         .datagrid-header .datagrid-cell span { font-size: ${securityConfig.fontSize}px;}
-        .combobox-item, .combobox-group, .combobox-stick,.combo input[type='text'],.tableForm input,.tableForm textarea,
+        .combobox-item, .combobox-group, .combobox-stick,.combo input[type='text'],.tableForm input,.tableForm textarea,.ztree *,
         .input-group-text,.tabs-title {font-size: ${securityConfig.fontSize}px;}
         .datagrid-header-row, .datagrid-row {height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;}
         .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {font-size: ${securityConfig.fontSize}px;}
