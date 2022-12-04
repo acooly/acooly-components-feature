@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <head>
     <title>${securityConfig.title}</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -38,17 +36,46 @@
     ${extendStyles}
     <!-- 根据配置设置全局样式 -->
     <style>
-        .datagrid-header .datagrid-cell span { font-size: ${securityConfig.fontSize}px;}
-        .combobox-item, .combobox-group, .combobox-stick,.combo input[type='text'],.tableForm input,.tableForm textarea,.ztree *,
-        .input-group-text,.tabs-title {font-size: ${securityConfig.fontSize}px;}
-        .datagrid-header-row, .datagrid-row {height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;}
-        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {font-size: ${securityConfig.fontSize}px;}
-        .l-btn-text {font-size: ${securityConfig.fontSize}px;}
-        .panel-body {font-size: ${securityConfig.fontSize}px;}
-        body {font-size: ${securityConfig.fontSize}px;}
-        .main-sidebar, .main-sidebar::before {width: ${securityConfig.mainSidebarWidth}px;}
-        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${securityConfig.mainSidebarWidth}px;}
-        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${securityConfig.mainSidebarWidth}px;}
+        .datagrid-header .datagrid-cell span {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,
+        .input-group-text, .tabs-title {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .datagrid-header-row, .datagrid-row {
+            height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;
+        }
+
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .l-btn-text {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .panel-body {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        body {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .main-sidebar, .main-sidebar::before {
+            width: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+            margin-left: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+            margin-left: ${securityConfig.mainSidebarWidth}px;
+        }
     </style>
 
     <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
@@ -124,23 +151,18 @@
         $.acooly.system.init();
     </script>
 </head>
-<body>
 <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">
-    <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i>
-<span class="sr-only">Loading...</span>单点登录远程加载中....</span></h1>
+    <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i><span class="sr-only">Loading...</span>单点登录远程加载中....</span></h1>
 </div>
 <script>
     var pc;
-    //不要放在$(function(){});中
     $.parser.onComplete = function () {
         if (pc) clearTimeout(pc);
-        pc = setTimeout(closes, 1000);
-    }
-
-    function closes() {
-        $.acooly.admin.theme.loadTheme();
-        $('#loading').fadeOut('normal', function () {
-            $(this).remove();
-        });
+        pc = setTimeout(function () {
+            $.acooly.admin.theme.loadTheme();
+            $('#loading').fadeOut('normal', function () {
+                $(this).remove();
+            });
+        }, 500);
     }
 </script>

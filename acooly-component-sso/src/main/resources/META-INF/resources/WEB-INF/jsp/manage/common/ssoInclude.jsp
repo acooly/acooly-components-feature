@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -37,17 +35,46 @@
     ${extendStyles}
     <!-- 根据配置设置全局样式 -->
     <style>
-        .datagrid-header .datagrid-cell span { font-size: ${sessionScope.securityConfig.fontSize}px;}
-        .combobox-item, .combobox-group, .combobox-stick,.combo input[type='text'],.tableForm input,.tableForm textarea,.ztree *,
-        .input-group-text,.tabs-title {font-size: ${sessionScope.securityConfig.fontSize}px;}
-        .datagrid-header-row, .datagrid-row {height:${sessionScope.securityConfig.fontSize < 14?35:40}px;}
-        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {font-size: ${sessionScope.securityConfig.fontSize}px;}
-        .l-btn-text {font-size: ${sessionScope.securityConfig.fontSize}px;}
-        .panel-body {font-size: ${sessionScope.securityConfig.fontSize}px;}
-        body {font-size: ${sessionScope.securityConfig.fontSize}px;}
-        .main-sidebar, .main-sidebar::before {width: ${sessionScope.securityConfig.mainSidebarWidth}px;}
-        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${sessionScope.securityConfig.mainSidebarWidth}px;}
-        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${sessionScope.securityConfig.mainSidebarWidth}px;}
+        .datagrid-header .datagrid-cell span {
+            font-size: ${sessionScope.securityConfig.fontSize}px;
+        }
+
+        .combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,
+        .input-group-text, .tabs-title {
+            font-size: ${sessionScope.securityConfig.fontSize}px;
+        }
+
+        .datagrid-header-row, .datagrid-row {
+            height: ${sessionScope.securityConfig.fontSize < 14?35:40}px;
+        }
+
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+            font-size: ${sessionScope.securityConfig.fontSize}px;
+        }
+
+        .l-btn-text {
+            font-size: ${sessionScope.securityConfig.fontSize}px;
+        }
+
+        .panel-body {
+            font-size: ${sessionScope.securityConfig.fontSize}px;
+        }
+
+        body {
+            font-size: ${sessionScope.securityConfig.fontSize}px;
+        }
+
+        .main-sidebar, .main-sidebar::before {
+            width: ${sessionScope.securityConfig.mainSidebarWidth}px;
+        }
+
+        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+            margin-left: ${sessionScope.securityConfig.mainSidebarWidth}px;
+        }
+
+        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+            margin-left: ${sessionScope.securityConfig.mainSidebarWidth}px;
+        }
     </style>
 
     <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
@@ -123,23 +150,19 @@
         $.acooly.system.init();
     </script>
 </head>
-
 <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">
     <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span></h1>
 </div>
-
 <script>
     var pc;
     //不要放在$(function(){});中
     $.parser.onComplete = function () {
         if (pc) clearTimeout(pc);
-        pc = setTimeout(closes, 1000);
-    }
-
-    function closes() {
-        $.acooly.admin.theme.loadTheme();
-        $('#loading').fadeOut('normal', function () {
-            $(this).remove();
-        });
+        pc = setTimeout(function () {
+            $.acooly.admin.theme.loadTheme();
+            $('#loading').fadeOut('normal', function () {
+                $(this).remove();
+            });
+        }, 500);
     }
 </script>
