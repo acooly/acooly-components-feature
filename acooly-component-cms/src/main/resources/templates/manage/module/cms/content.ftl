@@ -64,12 +64,12 @@
                 <th field="contentType" data-options="formatter:function(e){return e.name;}">类型</th>
                 <th field="title">标题</th>
                 <#if RequestParameters.cmsType = 'banner'>
-                <th field="cover" data-options="formatter:function(v,r,i){ if(v){return '<img src=\'${mediaRoot}/'+v+'\' width=\'100\'>';}else{return '';} }">Web封面</th>
-                <th field="appcover" data-options="formatter:function(v,r,i){ if(v){return '<img src=\'${mediaRoot}/'+v+'\' width=\'100\'>';}else{return '';} }">App封面</th>
-                <th field="link" formatter="linkFormatter">链接</th>
+                    <th field="cover" data-options="formatter:function(v,r,i){ if(v){return '<img src=\'${mediaRoot}/'+v+'\' width=\'100\'>';}else{return '';} }">Web封面</th>
+                    <th field="appcover" data-options="formatter:function(v,r,i){ if(v){return '<img src=\'${mediaRoot}/'+v+'\' width=\'100\'>';}else{return '';} }">App封面</th>
+                    <th field="link" formatter="linkFormatter">链接</th>
                 <#else >
-                <th field="keywords">关键字</th>
-                <th field="keycode">编码</th>
+                    <th field="keywords">关键字</th>
+                    <th field="keycode">编码</th>
                 </#if>
                 <th field="pubDate" formatter="dateTimeFormatter">发布时间</th>
                 <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_content${RequestParameters.code}_action',value,row)}">动作</th>
@@ -79,22 +79,14 @@
 
         <!-- 每行的Action动作模板 -->
         <div id="manage_content${RequestParameters.code}_action" style="display: none;">
-            <a onclick="$.acooly.framework.edit({url:'/manage/module/cms/content/edit.html?code=${RequestParameters.code}&cmsType=${RequestParameters.cmsType}',id:{0},entity:'content${RequestParameters.code}',width:manage_content${RequestParameters.code}_size().w,height:manage_content${RequestParameters.code}_size().h,maximizable:true});"
-               href="#"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
-            <a onclick="$.acooly.framework.remove('/manage/module/cms/content/deleteJson.html','{0}','manage_content${RequestParameters.code}_datagrid');"
-               href="#"><i class="fa fa-trash fa-lg fa-fw fa-col"></i></a>
-            <a onclick="$.acooly.framework.move('/manage/module/cms/content/moveTop.html','{0}','manage_content${RequestParameters.code}_datagrid');" href="#">
-                <span class="fa-stack fa-fw fa-col fa-lg">
-                  <i class="fa fa-circle fa-stack-1x"></i>
-                  <i class="fa fa-angle-double-up fa-stack-1x fa-inverse" style="font-size: 10px;"></i>
-                </span>
-            </a>
-            <a onclick="$.acooly.framework.move('/manage/module/cms/content/moveUp.html','{0}','manage_content${RequestParameters.code}_datagrid');" href="#">
-                <i class="fa fa-arrow-circle-up fa-fw fa-col fa-lg" aria-hidden="true"></i>
-            </a>
-            
-           <a href="/cms/portal/single_{0}.html" target="view_window" title="展示富文本"><i class="fa fa-share fa-lg fa-fw fa-col"></i></a>
-
+            <div class="btn-group btn-group-xs">
+                <button onclick="$.acooly.framework.edit({url:'/manage/module/cms/content/edit.html?code=${RequestParameters.code}&cmsType=${RequestParameters.cmsType}',id:{0},entity:'content${RequestParameters.code}',width:manage_content${RequestParameters.code}_size().w,height:manage_content${RequestParameters.code}_size().h,maximizable:true});" class="btn btn-outline-primary btn-xs" type="button"><i
+                            class="fa fa-pencil fa-lg fa-fw fa-col"></i>编辑</button>
+                <button onclick="$.acooly.framework.remove('/manage/module/cms/content/deleteJson.html','{0}','manage_content${RequestParameters.code}_datagrid');" class="btn btn-outline-primary btn-xs" type="button"><i class="fa fa-trash fa-lg fa-fw fa-col"></i></button>
+                <button onclick="$.acooly.framework.move('/manage/module/cms/content/moveUp.html','{0}','manage_content${RequestParameters.code}_datagrid');" class="btn btn-outline-primary btn-xs" type="button"><i class="fa fa-arrow-up fa-fw fa-col"></i>上移</button>
+                <button onclick="$.acooly.framework.move('/manage/module/cms/content/moveTop.html','{0}','manage_content${RequestParameters.code}_datagrid');" class="btn btn-outline-primary btn-xs" type="button"><i class="fa fa-step-forward fa-rotate-270 fa-fw fa-col"></i>置顶</button>
+                <button onclick="window.open('/manage/module/cms/content/preview_{0}.html')" class="btn btn-outline-primary btn-xs" type="button"><i class="fa fa-eye fa-lg fa-fw fa-col"></i>预览</button>
+            </div>
         </div>
 
         <!-- 表格的工具栏 -->

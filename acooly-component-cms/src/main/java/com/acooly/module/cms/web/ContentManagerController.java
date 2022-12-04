@@ -1,7 +1,7 @@
 package com.acooly.module.cms.web;
 
 import com.acooly.core.common.exception.BusinessException;
-import com.acooly.core.common.web.AbstractJQueryEntityController;
+import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.Servlets;
@@ -26,6 +26,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,8 +40,7 @@ import java.util.Map.Entry;
 @Controller
 @RequestMapping(value = "/manage/module/cms/content")
 @Slf4j
-public class ContentManagerController
-        extends AbstractJQueryEntityController<Content, ContentService> {
+public class ContentManagerController extends AbstractJsonEntityController<Content, ContentService> {
 
     public static Map<Integer, String> allStatuss = Maps.newTreeMap();
 
@@ -61,6 +61,20 @@ public class ContentManagerController
     private OFileProperties oFileProperties;
     @Autowired
     private EventBus eventBus;
+
+    /**
+     * 预览
+     */
+    @RequestMapping(value = "preview_{id}")
+    public String index(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") String id) {
+        try {
+            Content content = contentService.get(Long.parseLong(id));
+            model.addAttribute("content", content);
+        } catch (Exception e) {
+            handleException("获取内容失败", e, request);
+        }
+        return "/portal/content_single";
+    }
 
     @RequestMapping(value = "removeAttachment")
     @ResponseBody
@@ -119,7 +133,7 @@ public class ContentManagerController
             UploadResult uploadResult = uploadResults.get("cover_f");
             if (uploadResult != null) {
                 if (uploadResult.getSize() > 0) {
-                   entity.setCover(uploadResult.getRelativeFile());
+                    entity.setCover(uploadResult.getRelativeFile());
                 }
             }
             UploadResult appUploadResult = uploadResults.get("cover_app");
@@ -201,6 +215,7 @@ public class ContentManagerController
      * @param ids
      * @throws Exception
      */
+    @Override
     protected void onRemove(HttpServletRequest request, HttpServletResponse response, Model model, Serializable... ids) throws Exception {
 
         if (ids == null || ids.length == 0) {
@@ -252,6 +267,7 @@ public class ContentManagerController
         FileUtils.deleteQuietly(thumb);
     }
 
+    @Override
     protected Content doSave(
             HttpServletRequest request, HttpServletResponse response, Model model, boolean isCreate)
             throws Exception {
@@ -341,6 +357,7 @@ public class ContentManagerController
         return result;
     }
 
+    @Override
     protected UploadConfig getUploadConfig() {
         super.uploadConfig.setUseMemery(false);
         super.uploadConfig.setNeedTimePartPath(false);
