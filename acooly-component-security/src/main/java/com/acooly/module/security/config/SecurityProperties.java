@@ -20,7 +20,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author qiubo
@@ -153,6 +152,8 @@ public class SecurityProperties {
             addUrlFilter("/manage/system/*", "user");
             addUrlFilter("/manage/system/shiro/*", "user");
             addUrlFilter("/manage/druid/**", "user");
+            // ofile的后台上传地址默认需要认证才能访问
+            addUrlFilter("/manage/ofile/*", "user");
 
             addUrlFilter("/manage/**", "urlAuthr,kickout");
             addUrlFilter("/**", "anon");

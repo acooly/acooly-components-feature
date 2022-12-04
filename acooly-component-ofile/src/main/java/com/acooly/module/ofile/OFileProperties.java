@@ -57,8 +57,7 @@ public class OFileProperties implements InitializingBean {
      */
     private boolean accessAuthEnable = false;
     private boolean checkSession = false;
-    private String checkSessionKey =
-            "sessionCustomer,sessionUser,org.apache.shiro.subject.support.DefaultSubjectContext_PRINCIPALS_SESSION_KEY";
+    private String checkSessionKey = "sessionCustomer,sessionUser,org.apache.shiro.subject.support.DefaultSubjectContext_PRINCIPALS_SESSION_KEY";
     /**
      * 可配置的内置文件上传签名认证器
      */
