@@ -22,6 +22,9 @@ let acooly_editor = {
             allowFileManager: true, // true时显示浏览远程服务器按钮 ;默认值: false
             allowMediaUpload: true, // true时显示视音频上传按钮。默认值: true
             allowFlashUpload: true, // true时显示Flash上传按钮;默认值: true
+            newlineTag: 'br',
+            fontSizeTable: ['8px', '9px', '11px', '10px', '12px', '14px', '16px', '18px', '24px', '32px'],
+            cssData: 'body {font-family: "微软雅黑"; font-size: 14px}',
             items: ['fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat',
                 'lineheight', '|', 'justifyleft', 'justifycenter', 'justifyright', 'anchor', 'plainpaste', 'wordpaste', 'clearhtml',
                 'quickformat', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', "multi_image",
