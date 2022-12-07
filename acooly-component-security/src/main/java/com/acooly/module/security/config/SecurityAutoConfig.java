@@ -80,9 +80,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * todo: 组织结构的树形结构显示不完整，无法进行排序处理。
- * todo: 组织结构增加业务管理字段？
- *
+ * OK: 组织结构的树形结构显示不完整，无法进行排序处理。
+ * TODO: 增加对Session全局的监控功能。
  * @author qiubo
  * @author zhangpu
  */
