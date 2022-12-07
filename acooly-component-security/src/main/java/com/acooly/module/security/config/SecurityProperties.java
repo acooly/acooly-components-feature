@@ -222,9 +222,14 @@ public class SecurityProperties {
     public static class Session {
 
         /**
-         * 会话存储到redis的过期时间（单位：分钟），默认8小时
+         * redis-session的值的序列化模式，默认JDK。
          */
-        private int redisTimeout = 8 * 60;
+        private SerializeType redisSerializeType = SerializeType.Jdk;
+
+        /**
+         * 会话存储到redis的过期时间（单位：分），默认8小时
+         */
+        private int redisTimeout = 2 * 60;
 
         /**
          * 会话超时时间（单位：秒），默认30分钟
@@ -234,7 +239,7 @@ public class SecurityProperties {
         /**
          * 会话过期检查时间间隔（单位：秒），默认30分钟
          */
-        private int checkInterval = 30 * 60;
+        private int checkInterval = 5 * 60;
 
         /**
          * 是否开启同用户登录踢人模式
@@ -245,6 +250,10 @@ public class SecurityProperties {
          * 每个用户允许的同时登录个人，默认为1，表示只支持单用户登录
          */
         private int maxSessionPerUser = 1;
+    }
 
+    public static enum SerializeType{
+        Jdk,
+        Kryo
     }
 }

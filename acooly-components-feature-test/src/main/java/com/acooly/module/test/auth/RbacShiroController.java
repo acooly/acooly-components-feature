@@ -126,6 +126,7 @@ public class RbacShiroController {
     public Object clearCache() {
         String memberNo = "12345678901234567890";
         RbacShiroUtils.clearCache(memberNo);
+
         return "OK";
     }
 

@@ -12,6 +12,12 @@
     <artifactId>acooly-component-security</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
         <!-- shiro -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
@@ -80,5 +86,6 @@
             <artifactId>acooly-component-event</artifactId>
         </dependency>
     </dependencies>
+
 
 </project>

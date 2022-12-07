@@ -17,6 +17,9 @@ import com.acooly.module.jpa.JPAAutoConfig;
 import com.acooly.module.security.captche.CaptchaServlet;
 import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.health.HealthCheckServlet;
+import com.acooly.module.security.shiro.cache.AcoolyCacheSessionDAO;
+import com.acooly.module.security.shiro.cache.AcoolySessionFactory;
+import com.acooly.module.security.shiro.cache.KryoRedisSerializer;
 import com.acooly.module.security.shiro.cache.ShiroCacheManager;
 import com.acooly.module.security.shiro.filter.CaptchaFormAuthenticationFilter;
 import com.acooly.module.security.shiro.filter.KickoutSessionFilter;
@@ -66,6 +69,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
@@ -154,7 +158,6 @@ public class SecurityAutoConfig {
                     Boolean.class, SecurityProperties.DEFAULT_SHIRO_FILTER_ANON);
         }
 
-
         /**
          * Shiro专用的RedisTemplate，
          * 保持默认的序列化实现（JdkSerializationRedisSerializer），以支持Shiro的SimpleSession类可以正常序列化保持到redis
@@ -164,8 +167,15 @@ public class SecurityAutoConfig {
          * @return
          */
         @Bean
-        public RedisTemplate<Object, Object> defaultRedisTemplate(RedisConnectionFactory factory) {
+        public RedisTemplate<Object, Object> defaultRedisTemplate(RedisConnectionFactory factory, SecurityProperties securityProperties) {
             RedisTemplate<Object, Object> template = new RedisTemplate<Object, Object>();
+            // 设置key和hashKey的序列化为字符串模式，便于直接从Redis监控
+            template.setKeySerializer(new StringRedisSerializer());
+            template.setHashKeySerializer(new StringRedisSerializer());
+            // 开启 Kryo序列化，注意：kryo模式不支持原生的SimpleSession,需要配置对应的自定义AcoolySession
+            if (securityProperties.getSession().getRedisSerializeType() == SecurityProperties.SerializeType.Kryo) {
+                template.setHashValueSerializer(new KryoRedisSerializer());
+            }
             template.setConnectionFactory(factory);
             return template;
         }
@@ -205,15 +215,15 @@ public class SecurityAutoConfig {
          * @return
          */
         @Bean
-        public SessionDAO sessionDAO(CacheManager shiroCacheManager) {
-            EnterpriseCacheSessionDAO enterpriseCacheSessionDAO = new EnterpriseCacheSessionDAO();
-            //使用ehCacheManager
-            enterpriseCacheSessionDAO.setCacheManager(shiroCacheManager);
+        public SessionDAO sessionDAO(CacheManager shiroCacheManager, SecurityProperties securityProperties) {
+            boolean isKryo = securityProperties.getSession().getRedisSerializeType() == SecurityProperties.SerializeType.Kryo;
+            EnterpriseCacheSessionDAO cacheSessionDAO = isKryo ? new AcoolyCacheSessionDAO() : new EnterpriseCacheSessionDAO();
+            cacheSessionDAO.setCacheManager(shiroCacheManager);
             //设置session缓存的名字 默认为 shiro-activeSessionCache
-            enterpriseCacheSessionDAO.setActiveSessionsCacheName("shiro-activeSessionCache");
+            cacheSessionDAO.setActiveSessionsCacheName("shiro-activeSessionCache");
             //sessionId生成器
-            enterpriseCacheSessionDAO.setSessionIdGenerator(sessionIdGenerator());
-            return enterpriseCacheSessionDAO;
+            cacheSessionDAO.setSessionIdGenerator(sessionIdGenerator());
+            return cacheSessionDAO;
         }
 
 
@@ -260,7 +270,10 @@ public class SecurityAutoConfig {
             sessionManager.setSessionIdCookie(sessionIdCookie());
             sessionManager.setSessionDAO(sessionDAO);
             sessionManager.setCacheManager(shiroCacheManager);
-
+            boolean isKryo = securityProperties.getSession().getRedisSerializeType() == SecurityProperties.SerializeType.Kryo;
+            if (isKryo) {
+                sessionManager.setSessionFactory(new AcoolySessionFactory());
+            }
             //全局会话超时时间（单位毫秒），默认30分钟
             sessionManager.setGlobalSessionTimeout(TimeUnit.SECONDS.toMillis(securityProperties.getSession().getTimeout()));
             //是否开启删除无效的session对象  默认为true
@@ -277,7 +290,6 @@ public class SecurityAutoConfig {
         @Bean
         public WebSecurityManager shiroSecurityManager(
                 CacheManager shiroCacheManager, ShiroDbRealm shiroDbRealm, SessionManager sessionManager) {
-
             DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
             securityManager.setCacheManager(shiroCacheManager);
             securityManager.setRealm(shiroDbRealm);
@@ -567,7 +579,6 @@ public class SecurityAutoConfig {
         public List<String> getInitSqlFile() {
             return Lists.newArrayList("security");
         }
-
     }
 
 }

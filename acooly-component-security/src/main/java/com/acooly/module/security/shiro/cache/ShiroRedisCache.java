@@ -13,6 +13,8 @@ import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.Collection;
 import java.util.Set;
@@ -36,6 +38,7 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
     public ShiroRedisCache(K cacheName, RedisTemplate redisTemplate, int defaultTimeout) {
         this.cachaName = cacheName;
         this.redisTemplate = redisTemplate;
+        this.defaultTimeout = defaultTimeout;
     }
 
     public ShiroRedisCache(K cacheName, RedisTemplate redisTemplate) {
