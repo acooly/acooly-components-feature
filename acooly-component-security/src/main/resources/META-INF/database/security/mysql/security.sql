@@ -164,7 +164,10 @@ VALUES ('2016093009', '1', '机构管理', 'URL', '0', '2014-01-09 02:39:40', '/
 insert into `sys_resource` (id, `parentid`, `name`, `type`, `value`, `show_state`, `show_mode`, `order_time`, `icon`, `descn`)
 values (7, 1, '桌面管理', 'URL', '/manage/system/portallet/index.html', 0, 1, '2014-01-08 02:39:40', 'fa-dashboard', null);
 insert into `sys_resource` (id, `parentid`, `name`, `type`, `value`, `show_state`, `show_mode`, `order_time`, `icon`, `descn`)
-values (8, 1, '连接池监控', 'URL', '/manage/druid/index.html', 0, 2, '2014-01-08 02:39:40', 'fa-eye', null);
+values (8, 1, '数据库监控', 'URL', '/manage/druid/index.html', 0, 2, '2014-01-08 02:39:40', 'fa-eye', null);
+INSERT INTO `sys_resource` (`id`, `parentid`, `name`, `type`, `show_state`, `order_time`, `value`, `show_mode`, `icon`, `descn`, `create_time`, `update_time`)
+VALUES (9, 1, '会话监控', 'URL', 0, '2014-01-08 02:39:39', '/manage/session/index.html', 1, 'fa-circle-o', NULL, '2022-12-08 22:58:59', '2022-12-09 23:42:54');
+
 INSERT INTO `sys_resource`(`id`, `parentid`, `name`, `type`, `show_state`, `order_time`, `value`, `show_mode`, `icon`, `descn`, `create_time`, `update_time`)
 VALUES (2019022201, NULL, '通用功能', 'MENU', 0, '2015-10-23 18:32:04', '', 1, 'fa-th', NULL, '2019-02-22 16:39:49', '2019-02-22 16:40:00');
 
@@ -176,6 +179,7 @@ insert into `sys_role_resc` (`role_id`, `resc_id`) values (1, 3);
 insert into `sys_role_resc` (`role_id`, `resc_id`) values (1, 4);
 insert into `sys_role_resc` (`role_id`, `resc_id`) values (1, 7);
 insert into `sys_role_resc` (`role_id`, `resc_id`) values (1, 8);
+insert into `sys_role_resc` (`role_id`, `resc_id`) values (1, 9);
 insert into `sys_role_resc` (`role_id`, `resc_id`) values (1, 2016093009);
 insert into `sys_role_resc` (`role_id`, `resc_id`) values (1, 2019022201);
 
