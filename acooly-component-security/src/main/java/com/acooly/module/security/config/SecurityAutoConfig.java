@@ -82,6 +82,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * OK: 组织结构的树形结构显示不完整，无法进行排序处理。
  * TODO: 增加对Session全局的监控功能。
+ *
  * @author qiubo
  * @author zhangpu
  */
@@ -262,11 +263,13 @@ public class SecurityAutoConfig {
         public SessionManager sessionManager(SessionDAO sessionDAO, CacheManager shiroCacheManager, SecurityProperties securityProperties) {
 
             DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+//            // 配置监听
 //            Collection<SessionListener> listeners = new ArrayList<SessionListener>();
-            //配置监听
-//            listeners.add(sessionListener());
+//            listeners.add(new AcoolySessionListener());
 //            sessionManager.setSessionListeners(listeners);
+            // 配置cookie
             sessionManager.setSessionIdCookie(sessionIdCookie());
+            // 配置DAO和redis缓存
             sessionManager.setSessionDAO(sessionDAO);
             sessionManager.setCacheManager(shiroCacheManager);
             boolean isKryo = securityProperties.getSession().getRedisSerializeType() == SecurityProperties.SerializeType.Kryo;
