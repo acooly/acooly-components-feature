@@ -255,6 +255,25 @@ acooly.framework.plugin.acooly-debug=true
 
 ## 5. changelog
 
+### 5.2.0-SNAPSHOT.20221210
+
+* 2022-12-09 - 设置后台druid数据库监控功能，自动忽略CSRF防御 - [zhangpu] 6009a7fd
+* 2022-12-09 - 增加Shiro的Session在线管理和查询功能，同时配置自动集成到默认的系统功能菜单中：`系统管理 -> 会话监控`` - [zhangpu] 99cf79c8
+* 2022-12-07 - 清楚login控制方法内遗留的session创建代码 - [zhangpu] be066ef2
+* 2022-12-07 - shiro-session优化。主要包括： 
+  * 一、明确划分Session领域为`/manage/`下采用ShiroSession,其他采用spring-session(redis) 
+  * 二、Shiro的Session内容优化精简，不考虑序列化（原有是JDK）情况下，默认登录后端情况下，从41K/session降低到1.2K/session。 
+    * 1、session中的User对象从持久化状态调整为无状态（bean Copy）。 
+    * 2、去除重复设置的session变量user，直接使用ShiroUtils.getSessionUser,也就是Shiro的subject.getSession。 
+    * 3、从session中去除securityConfig,调整为Request Scope. 
+  * 三、Session的redis序列化，增加看kryo模式，可通过配置`acooly.security.session.redis-serialize-type=Kryo`切换，为保持兼容性默认仍然jdk，切换序列化模式后，前端浏览器需要清理cookies缓存或重启浏览器。 
+- [zhangpu] b61cce48
+* 2022-12-05 - 优化：kindeditor的初始化参数：默认字体14px，字体列表增加8px和11px,默认换行为br - [zhangpu] cc6a1dc5
+* 2022-12-04 - fixed: 白板问题。单点登录时，如果打开多个tab时，非当前tab的页面渲染高度为0，造成白板问题。初步解决方案是调整include业务的HTML布局结构和HTML标签错误解决，MOCK服务器端慢（3-5秒返回）的情况验证通过，
+  待其他项目组验证。 - [zhangpu] dd64422d
+* 2022-12-04 - fieed：CMS的预览功能无法正常显示。迁移到/manage/下，如果需要原来的/cms/路径下的预览，需要配置JPA的openSessionView地址。 - [zhangpu] ba046ed0
+* 2022-12-04 - fixed：为控制ofile的上传为可控session验证，调整后台上传地址为:/manage/ofile/..., 并对权限及session认证逻辑进行对应的优化调整。兼容原有逻辑的情况下，保证基础文件上传的安全。 - [zhangpu] d602cb89
+
 ### 5.2.0-SNAPSHOT.20221123
 
 * 2022-11-23 - security或SSO中，针对`acooly.framework.font-size`兼容ztree - [zhangpu] 1eb5669c
