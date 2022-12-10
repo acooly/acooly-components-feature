@@ -36,6 +36,7 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
     public ShiroRedisCache(K cacheName, RedisTemplate redisTemplate, int defaultTimeout) {
         this.cachaName = cacheName;
         this.redisTemplate = redisTemplate;
+        this.defaultTimeout = defaultTimeout;
     }
 
     public ShiroRedisCache(K cacheName, RedisTemplate redisTemplate) {

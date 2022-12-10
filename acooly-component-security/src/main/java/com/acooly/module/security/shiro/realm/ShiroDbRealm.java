@@ -68,14 +68,25 @@ public class ShiroDbRealm extends AuthorizingRealm {
         UsernamePasswordToken captchaToken = (UsernamePasswordToken) token;
         User user = getUserService().getAndCheckUser(captchaToken.getUsername());
         if (user != null) {
+            User sessionUser = new User();
+            sessionUser.setUsername(user.getUsername());
+            sessionUser.setRealName(user.getRealName());
+            sessionUser.setPinyin(user.getPinyin());
+            sessionUser.setUserType(user.getUserType());
+            sessionUser.setEmail(user.getEmail());
+            sessionUser.setMobileNo(user.getMobileNo());
+            sessionUser.setOrgId(user.getOrgId());
+            sessionUser.setOrgName(user.getOrgName());
+            sessionUser.setStatus(user.getStatus());
+            sessionUser.setId(user.getId());
+            sessionUser.setCreateTime(user.getCreateTime());
+            sessionUser.setUpdateTime(user.getUpdateTime());
             // 设置用户
-            SecurityUtils.getSubject().getSession().setAttribute(SESSION_USER, user);
             if (Strings.isNullOrEmpty(user.getSalt())) {
-                return new SimpleAuthenticationInfo(user, user.getPassword(), null, getName());
+                return new SimpleAuthenticationInfo(sessionUser, user.getPassword(), null, getName());
             } else {
                 byte[] salt = Encodes.decodeHex(user.getSalt());
-                return new SimpleAuthenticationInfo(
-                        user, user.getPassword(), ByteSource.Util.bytes(salt), getName());
+                return new SimpleAuthenticationInfo(sessionUser, user.getPassword(), ByteSource.Util.bytes(salt), getName());
             }
         } else {
             return null;

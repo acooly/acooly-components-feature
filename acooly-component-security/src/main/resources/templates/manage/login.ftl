@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${Session.securityConfig.title }</title>
+    <title>${securityConfig.title }</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <#if Session.securityConfig.icon??><link rel="shortcut icon" href="${Session.securityConfig.icon}" /></#if>
+    <#if securityConfig.icon??><link rel="shortcut icon" href="${securityConfig.icon}" /></#if>
     <!-- icons -->
     <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
@@ -21,12 +21,12 @@
 <body class="hold-transition login-page" style="height:80vh;background: ${securityConfig.loginViewBackColor} url(${securityConfig.loginViewBackImage}) no-repeat center bottom;">
 
 <div class="login-logo">
-    <#if Session.securityConfig.logo?? && Session.securityConfig.logo != "">
-        <img alt="logo" width="200" src="${Session.securityConfig.logo}">
+    <#if securityConfig.logo?? && securityConfig.logo != "">
+        <img alt="logo" width="200" src="${securityConfig.logo}">
     <#else>
-        <a href="javascript:;" class="text-white">${Session.securityConfig.title}</a>
+        <a href="javascript:;" class="text-white">${securityConfig.title}</a>
     </#if>
-    <div class="text-center text-white" style="font-size: 14px;margin-top: 10px;">${Session.securityConfig.subtitle}</div>
+    <div class="text-center text-white" style="font-size: 14px;margin-top: 10px;">${securityConfig.subtitle}</div>
 </div>
 <div class="login-box">
 
@@ -43,10 +43,10 @@
 
             <form role="form" action="" method="post" autocomplete="off">
                 <input type="hidden" id="_csrf" name="_csrf" value="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
-                <#if Session.TENANT_FLAG?exists>
+                <#if TENANT_FLAG?exists>
                     <div class="input-group mb-3">
                         <select id="tenant_id" name="tenantId" placeholder="租户号..."  class="form-control" style="width: 100%">
-                            <#list Session.TENANT_FLAG?keys as k><option value="${k}">${Session.TENANT_FLAG[k]}</option></#list>
+                            <#list TENANT_FLAG?keys as k><option value="${k}">${TENANT_FLAG[k]}</option></#list>
                         </select>
                     </div>
                 </#if>
@@ -121,10 +121,10 @@
         </div>
         <!-- /.login-card-body -->
     </div>
-    <#if Session.securityConfig.copyright?? && Session.securityConfig.copyright != "">
+    <#if securityConfig.copyright?? && securityConfig.copyright != "">
     <!-- footer -->
     <div class="row">
-        <div class="col-12 login-footer text-center text-white" style="font-size: 14px;">${Session.securityConfig.copyright}</div>
+        <div class="col-12 login-footer text-center text-white" style="font-size: 14px;">${securityConfig.copyright}</div>
     </div>
     </#if>
 </div>
@@ -171,7 +171,7 @@
             $('#message').html("用户名和密码不能为空");
             return;
         }
-        <#if Session.TENANT_FLAG?exists>
+        <#if TENANT_FLAG?exists>
 
         var tenantId = $('#tenant_id').val();
         if (tenantId == "" ) {
@@ -209,7 +209,7 @@
         var jsonData = {
             username: $('#form-username').val(),
             password: $('#form-password').val(),
-            <#if Session.TENANT_FLAG?exists>
+            <#if TENANT_FLAG?exists>
             tenantId: $('#tenant_id').val(),
             </#if>
             captcha: captcha,
