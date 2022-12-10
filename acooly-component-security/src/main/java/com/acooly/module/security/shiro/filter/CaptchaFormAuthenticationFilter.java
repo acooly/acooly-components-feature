@@ -142,6 +142,10 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         }
         Date now = new Date();
         if (user.getStatus() == User.STATUS_LOCK) {
+            if(user.getUnlockTime()==null){
+                log.error("Shiro认证 [失败] 用户状态冻结。username: {}", username);
+                throw new AuthenticationException("用户被冻结，请联系管理员");
+            }
             if (now.getTime() >= user.getUnlockTime().getTime()) {
                 log.error("Shiro认证 [失败] 用户已到解锁时间 {}，登录时自动解锁定", Dates.format(user.getUnlockTime()));
                 user.setStatus(User.STATUS_ENABLE);
