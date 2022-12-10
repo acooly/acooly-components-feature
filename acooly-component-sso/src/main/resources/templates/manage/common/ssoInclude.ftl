@@ -53,15 +53,7 @@
             font-size: ${securityConfig.fontSize}px;
         }
 
-        .l-btn-text {
-            font-size: ${securityConfig.fontSize}px;
-        }
-
-        .panel-body {
-            font-size: ${securityConfig.fontSize}px;
-        }
-
-        body {
+        body, .l-btn-text,.panel-body, .tableForm, .editForm {
             font-size: ${securityConfig.fontSize}px;
         }
 
