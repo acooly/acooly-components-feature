@@ -18,7 +18,6 @@ import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,6 +26,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.List;
 
@@ -51,6 +51,8 @@ public class RbacAutoConfig {
     private RbacProperties rbacProperties;
 
 
+
+
     /**
      * Shiro专用的RedisTemplate，
      * 1、保持默认的序列化实现（JdkSerializationRedisSerializer），以支持Shiro的SimpleSession类可以正常序列化保持到redis
@@ -60,26 +62,28 @@ public class RbacAutoConfig {
      * @param factory
      * @return
      */
-    @ConditionalOnMissingBean
-    public RedisTemplate<Object, Object> defaultRedisTemplate(RedisConnectionFactory factory) {
+    @Bean
+    public RedisTemplate<Object, Object> defaultRbacRedisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<Object, Object>();
         template.setConnectionFactory(factory);
         return template;
     }
 
-
     /**
-     * RBAC基于Redis的CacheManager
-     * 如果加载了`acooly-component-security`组件，优先使用security组件内的实现
+     * RBAC-Shiro的SecurityManager实现
      *
-     * @param defaultRedisTemplate
-     * @return
+     * @param rbacShiroRealm
+     * @return shiroRbacCacheManager
      */
-    @ConditionalOnMissingBean
-    public CacheManager shiroCacheManager(RedisTemplate defaultRedisTemplate, SecurityProperties securityProperties) {
+    @Bean
+    public DefaultSecurityManager rbacShiroSecurityManager(RbacShiroRealm rbacShiroRealm,RedisTemplate defaultRbacRedisTemplate) {
+        DefaultSecurityManager securityManager = new DefaultSecurityManager();
         RbacShiroCacheManager rbacShiroCacheManager = new RbacShiroCacheManager();
-        rbacShiroCacheManager.setRedisTemplate(defaultRedisTemplate);
-        return rbacShiroCacheManager;
+        rbacShiroCacheManager.setRedisTemplate(defaultRbacRedisTemplate);
+        securityManager.setCacheManager(rbacShiroCacheManager);
+        securityManager.setRealm(rbacShiroRealm);
+        RbacSecurityUtils.setSecurityManager(securityManager);
+        return securityManager;
     }
 
 
@@ -91,26 +95,13 @@ public class RbacAutoConfig {
      * @return
      */
     @Bean
-    public RbacShiroRealm rbacShiroRealm() {
+    public RbacShiroRealm rbacShiroRealm(RedisTemplate defaultRbacRedisTemplate) {
         RbacShiroRealm rbacShiroRealm = new RbacShiroRealm();
+        RbacShiroCacheManager rbacShiroCacheManager = new RbacShiroCacheManager();
+        rbacShiroCacheManager.setRedisTemplate(defaultRbacRedisTemplate);
+        rbacShiroRealm.setCacheManager(rbacShiroCacheManager);
         rbacShiroRealm.setAuthenticationCachingEnabled(rbacProperties.isAutheCachingEnabled());
         return rbacShiroRealm;
-    }
-
-
-    /**
-     * RBAC-Shiro的SecurityManager实现
-     *
-     * @param rbacShiroRealm
-     * @return
-     */
-    @Bean
-    public DefaultSecurityManager rbacShiroSecurityManager(RbacShiroRealm rbacShiroRealm, CacheManager shiroCacheManager) {
-        DefaultSecurityManager securityManager = new DefaultSecurityManager();
-        securityManager.setCacheManager(shiroCacheManager);
-        securityManager.setRealm(rbacShiroRealm);
-        RbacSecurityUtils.setSecurityManager(securityManager);
-        return securityManager;
     }
 
     /**
