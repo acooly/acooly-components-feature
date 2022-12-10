@@ -55,6 +55,12 @@ public class AcoolySession implements ValidatingSession, Serializable {
         return (bitMask & fieldBitMask) != 0;
     }
 
+    public static AcoolySession newWithId(Serializable sessionId) {
+        AcoolySession session = new AcoolySession();
+        session.setId(sessionId);
+        return session;
+    }
+
     @Override
     public Serializable getId() {
         return this.id;

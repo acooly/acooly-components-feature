@@ -13,8 +13,9 @@ import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Servlets;
 import com.acooly.module.security.config.SecurityProperties;
+import com.acooly.module.security.shiro.cache.AcoolySession;
+import com.acooly.module.security.shiro.cache.ShiroRedisCache;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.cache.Cache;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.SimpleSession;
 import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
@@ -28,6 +29,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author zhangpu
@@ -37,6 +41,11 @@ import java.io.Serializable;
 @Controller
 @RequestMapping("/manage/session")
 public class SessionManagerController extends AbstractJsonEntityController {
+
+    /**
+     * 列表最大显示的会话数
+     */
+    private static final int MAX_SESSION_COUNT = 1000;
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -62,6 +71,8 @@ public class SessionManagerController extends AbstractJsonEntityController {
             String sessionId = Servlets.getParameter(request, "sessionId");
             Session session = sessionDAO.readSession(sessionId);
             model.addAttribute("session", session);
+            model.addAttribute("sessionLength", getCache().length(sessionId));
+
         } catch (Exception e) {
             handleException("查看", e, request);
         }
@@ -87,12 +98,22 @@ public class SessionManagerController extends AbstractJsonEntityController {
     @ResponseBody
     public JsonListResult<Session> actives() {
         JsonListResult<Session> result = new JsonListResult<>();
-        result.getRows().addAll(sessionDAO.getActiveSessions());
+        Set<Serializable> sessionIds = getCache().keys();
+        int max = sessionIds.size();
+        if (sessionIds.size() > MAX_SESSION_COUNT) {
+            max = MAX_SESSION_COUNT;
+        }
+        List<Session> sessions = new ArrayList(max);
+        for (Serializable sessionId : sessionIds) {
+            sessions.add(AcoolySession.newWithId(sessionId));
+        }
+
+        result.getRows().addAll(sessions);
         return result;
     }
 
-    protected Cache<Serializable, Session> getCache() {
-        return ((CachingSessionDAO) sessionDAO).getActiveSessionsCache();
+    protected ShiroRedisCache<Serializable, Session> getCache() {
+        return (ShiroRedisCache) ((CachingSessionDAO) sessionDAO).getActiveSessionsCache();
     }
 
 }

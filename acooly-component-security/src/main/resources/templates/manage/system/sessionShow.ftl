@@ -12,6 +12,8 @@
         <dd class="col-sm-9">${session.host}</dd>
         <dt class="col-sm-3">结束时间:</dt>
         <dd class="col-sm-9">${(session.stopTimestamp?string('yyyy-MM-dd HH:mm:ss'))!}</dd>
+        <dt class="col-sm-3">占用空间大小(K):</dt>
+        <dd class="col-sm-9">${(sessionLength/1024)?string('#.##')}</dd>
     </dl>
 
     <h6>Attributes：</h6>

@@ -17,6 +17,8 @@
                 <dd class="col-sm-3">${config.enableKickOut}</dd>
                 <dt class="col-sm-9">单用户最大登录数：</dt>
                 <dd class="col-sm-3">${config.maxSessionPerUser}</dd>
+                <dt class="col-sm-9">列表显示最大会话数：</dt>
+                <dd class="col-sm-3">1000</dd>
             </dl>
         </div>
 

@@ -88,6 +88,16 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
         return hashOperations.values(cachaName);
     }
 
+    /**
+     * 缓存大小
+     * @param key
+     * @return
+     */
+    public Long length(K key) {
+        HashOperations<K, K, V> hashOperations = redisTemplate.opsForHash();
+        return hashOperations.lengthOfValue(cachaName, key);
+    }
+
     public RedisTemplate<K, V> getRedisTemplate() {
         return redisTemplate;
     }
