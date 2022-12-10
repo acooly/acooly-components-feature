@@ -81,8 +81,21 @@ public class SSOAuthzServiceImpl implements SSOAuthzService {
     protected Subject buildUserSubject(String username) {
         User user = userService.getAndCheckUser(username);
         if (user != null) {
+            User sessionUser = new User();
+            sessionUser.setUsername(user.getUsername());
+            sessionUser.setRealName(user.getRealName());
+            sessionUser.setPinyin(user.getPinyin());
+            sessionUser.setUserType(user.getUserType());
+            sessionUser.setEmail(user.getEmail());
+            sessionUser.setMobileNo(user.getMobileNo());
+            sessionUser.setOrgId(user.getOrgId());
+            sessionUser.setOrgName(user.getOrgName());
+            sessionUser.setStatus(user.getStatus());
+            sessionUser.setId(user.getId());
+            sessionUser.setCreateTime(user.getCreateTime());
+            sessionUser.setUpdateTime(user.getUpdateTime());
             ThreadContext.bind(shiroSecurityManager);
-            SimplePrincipalCollection simplePrincipal = new SimplePrincipalCollection(user, ShiroCacheManager.KEY_AUTHC);
+            SimplePrincipalCollection simplePrincipal = new SimplePrincipalCollection(sessionUser, ShiroCacheManager.KEY_AUTHC);
             Subject subject = new Subject.Builder().principals(simplePrincipal).authenticated(true).buildSubject();
             ThreadContext.bind(subject);
             return subject;
