@@ -26,6 +26,14 @@ public interface UserService extends EntityService<User> {
     User getAndCheckUser(String username);
 
     /**
+     * 获取简单用户对象，不含延迟加载的级联对象
+     *
+     * @param username
+     * @return
+     */
+    User getSimpleUser(String username);
+
+    /**
      * 创建用户
      *
      * @param user

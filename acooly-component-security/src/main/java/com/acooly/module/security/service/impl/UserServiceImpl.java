@@ -58,6 +58,26 @@ public class UserServiceImpl extends EntityServiceImpl<User, UserDao> implements
         return user;
     }
 
+
+    @Override
+    public User getSimpleUser(String username) {
+        User user = getAndCheckUser(username);
+        User sessionUser = new User();
+        sessionUser.setUsername(user.getUsername());
+        sessionUser.setRealName(user.getRealName());
+        sessionUser.setPinyin(user.getPinyin());
+        sessionUser.setUserType(user.getUserType());
+        sessionUser.setEmail(user.getEmail());
+        sessionUser.setMobileNo(user.getMobileNo());
+        sessionUser.setOrgId(user.getOrgId());
+        sessionUser.setOrgName(user.getOrgName());
+        sessionUser.setStatus(user.getStatus());
+        sessionUser.setId(user.getId());
+        sessionUser.setCreateTime(user.getCreateTime());
+        sessionUser.setUpdateTime(user.getUpdateTime());
+        return sessionUser;
+    }
+
     @Override
     public void createUser(User user) throws BusinessException {
         checkUnique(user);

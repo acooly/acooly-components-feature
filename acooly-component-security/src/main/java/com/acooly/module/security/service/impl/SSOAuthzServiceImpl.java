@@ -79,7 +79,7 @@ public class SSOAuthzServiceImpl implements SSOAuthzService {
     }
 
     protected Subject buildUserSubject(String username) {
-        User user = userService.getAndCheckUser(username);
+        User user = userService.getSimpleUser(username);
         if (user != null) {
             ThreadContext.bind(shiroSecurityManager);
             SimplePrincipalCollection simplePrincipal = new SimplePrincipalCollection(user, ShiroCacheManager.KEY_AUTHC);
