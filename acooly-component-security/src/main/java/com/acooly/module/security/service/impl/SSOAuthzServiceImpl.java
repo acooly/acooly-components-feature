@@ -8,6 +8,7 @@ import com.acooly.module.security.service.UserService;
 import com.acooly.module.security.shiro.cache.ShiroCacheManager;
 import com.acooly.module.security.shiro.realm.PathMatchPermission;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
@@ -15,6 +16,8 @@ import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+
+import java.util.Set;
 
 import static com.acooly.module.security.config.SecurityComponentInitializer.DUBBO_SSO_CONFIG_PACKAGE;
 
@@ -79,6 +82,10 @@ public class SSOAuthzServiceImpl implements SSOAuthzService {
 
     @Override
     public boolean hasAnyRoles(String roleNames, String username) {
+        return doHasRoleUnAuth(roleNames, username);
+    }
+
+    protected boolean doHasRole(String roleNames, String username) {
         boolean result = false;
         if (Strings.isBlank(username)) {
             log.warn("SSO远程角色认证 失败 用户名为空");
@@ -95,6 +102,19 @@ public class SSOAuthzServiceImpl implements SSOAuthzService {
                 break;
             }
         }
+        return result;
+    }
+
+    protected boolean doHasRoleUnAuth(String roleNames, String username) {
+        boolean result = false;
+        if (Strings.isBlank(username)) {
+            log.warn("SSO远程角色认证 失败 用户名为空");
+            return false;
+        }
+        User user = userService.getSimpleUser(username);
+        SimplePrincipalCollection simplePrincipal = new SimplePrincipalCollection(user, ShiroCacheManager.KEY_AUTHC);
+        Set<String> roleNameSet = Sets.newHashSet(Strings.split(roleNames, PathMatchPermission.PART_DIVIDER_TOKEN));
+        result = shiroSecurityManager.hasAllRoles(simplePrincipal, roleNameSet);
         return result;
     }
 
