@@ -67,7 +67,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
         UsernamePasswordToken captchaToken = (UsernamePasswordToken) token;
-        User user = getUserService().getSimpleUser(captchaToken.getUsername());
+        User user = getUserService().getAndCheckUser(captchaToken.getUsername());
         if (user != null) {
             User sessionUser = new User();
             sessionUser.setUsername(user.getUsername());

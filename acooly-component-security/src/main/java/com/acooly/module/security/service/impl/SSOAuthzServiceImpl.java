@@ -40,6 +40,10 @@ public class SSOAuthzServiceImpl implements SSOAuthzService {
 
     @Override
     public boolean permitted(String permission, String username) {
+        return doPermittedUnAuth(permission, username);
+    }
+
+    protected boolean doPermitted(String permission, String username) {
         boolean result = false;
         if (Strings.isBlank(username)) {
             log.warn("SSO远程权限认证 失败 用户名为空");
@@ -54,6 +58,22 @@ public class SSOAuthzServiceImpl implements SSOAuthzService {
             p = "do" + PathMatchPermission.PART_DIVIDER_TOKEN + permission;
         }
         result = subject.isPermitted(p);
+        return result;
+    }
+
+    protected boolean doPermittedUnAuth(String permission, String username) {
+        boolean result = false;
+        if (Strings.isBlank(username)) {
+            log.warn("SSO远程权限认证 失败 用户名为空");
+            return false;
+        }
+        String p = permission;
+        if (Strings.startsWith(permission, "/")) {
+            p = "do" + PathMatchPermission.PART_DIVIDER_TOKEN + permission;
+        }
+        User user = userService.getSimpleUser(username);
+        SimplePrincipalCollection simplePrincipal = new SimplePrincipalCollection(user, ShiroCacheManager.KEY_AUTHC);
+        result = shiroSecurityManager.isPermitted(simplePrincipal, p);
         return result;
     }
 
