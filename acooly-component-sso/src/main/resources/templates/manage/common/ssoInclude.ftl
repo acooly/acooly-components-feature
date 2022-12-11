@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <head>
     <title>${securityConfig.title}</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -36,7 +34,6 @@
     </#if>
     <!-- 扩展css -->
     ${extendStyles}
-
 
     <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
     <script src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
@@ -103,13 +100,45 @@
         <script src="/manage/assert/plugin/daterangepicker/daterangepicker_acooly.min.js"></script>
     </#if>
     <!-- acooly -->
-    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+    <#if securityConfig.plugin.acoolyDebug>
+        <script src="/manage/assert/script/acooly.js"></script>
+        <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.file.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.editor.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.layout.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
+        <script src="/manage/assert/script/acooly.inputmask.js"></script>
+    <#else>
+        <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+    </#if>
     <!-- extendtion scripts -->
     ${extendScripts}
     <script type="text/javascript">
+        var contextPath = "";
         $(function () {
-            var contextPath = "";
             $.acooly.system.init();
         });
     </script>
 </head>
+<div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">
+    <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i><span class="sr-only">Loading...</span>单点登录远程加载中....</span></h1>
+</div>
+<script>
+    var pc;
+    $.parser.onComplete = function () {
+        if (pc) clearTimeout(pc);
+        pc = setTimeout(function () {
+            $.acooly.admin.theme.loadTheme();
+            $('#loading').fadeOut('normal', function () {
+                $(this).remove();
+            });
+        }, 500);
+    }
+</script>
