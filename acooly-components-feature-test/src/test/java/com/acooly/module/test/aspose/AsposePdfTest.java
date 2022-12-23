@@ -143,6 +143,21 @@ public class AsposePdfTest {
         });
     }
 
+    /**
+     * 设置字体资源
+     * 不设置会导致word转pdf的时候字体丢失
+     */
+    public static void setFontsSources() {
+        String fontsDir = "/usr/share/fonts";
+//        fontsDir = "/System/Library/Fonts";
+
+        //将用户目录字体添加到字体源中
+        FontSourceBase[] originalFontSources = FontSettings.getDefaultInstance().getFontsSources();
+        FolderFontSource folderFontSource = new FolderFontSource(fontsDir, true);
+
+        FontSourceBase[] updatedFontSources = {originalFontSources[0], folderFontSource};
+        FontSettings.getDefaultInstance().setFontsSources(updatedFontSources);
+    }
 
     @Test
     public void doc2Pdf() {
@@ -168,39 +183,13 @@ public class AsposePdfTest {
         }
     }
 
-
-
-    /**
-     * 设置字体资源
-     * 不设置会导致word转pdf的时候字体丢失
-     */
-    public static void setFontsSources() {
-        String fontsDir = "/usr/share/fonts";
-        fontsDir = "/System/Library/Fonts";
-
-        //将用户目录字体添加到字体源中
-        FontSourceBase[] originalFontSources = FontSettings.getDefaultInstance().getFontsSources();
-        FolderFontSource folderFontSource = new FolderFontSource(fontsDir, true);
-
-        FontSourceBase[] updatedFontSources = {originalFontSources[0], folderFontSource};
-        FontSettings.getDefaultInstance().setFontsSources(updatedFontSources);
-    }
-
     @Test
     public void testWordToPdf() {
         FileOutputStream os = null;
         try {
-            //凭证 不然切换后有水印
-//            InputStream is = new ClassPathResource("/license.xml").getInputStream();
-//            License aposeLic = new License();
-//            aposeLic.setLicense(is);
-//            boolean license = true;
-//            if (!license) {
-//                System.out.println("License验证不通过...");
-//            }
 
             AsposeWordCrack.crack21_6();
-//            setFontsSources();
+            setFontsSources();
 
             //生成一个空的PDF文件
             File file = new File(pdfFile);
