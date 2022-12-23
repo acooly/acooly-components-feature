@@ -209,7 +209,7 @@ public class UserController extends AbstractJsonEntityController<User, UserServi
             // 密码强度验证
             FrameworkPropertiesHolder.get().getPasswordStrength().verify(newPassword);
             // 验证当前操作员的密码
-            User admin = ShiroUtils.getCurrentUser();
+            User admin = userService.get(ShiroUtils.getCurrentUser().getId());
             if (!getEntityService().validatePassword(admin, adminPassword)) {
                 log.warn("管理员修改密码 认证失败 operator: {}", admin.getUsername());
                 throw new BusinessException(SecurityErrorCode.ADMIN_PASSWORD_AUTH_FAIL, "当前用户密码错误");
