@@ -44,6 +44,12 @@ public class RbacResourceNode implements TreeNode<RbacResourceNode> {
     private String name;
 
     /**
+     * 资源CODE
+     */
+    @Size(max = 128)
+    private String code;
+    
+    /**
      * 资源值
      */
     @Size(max = 256)

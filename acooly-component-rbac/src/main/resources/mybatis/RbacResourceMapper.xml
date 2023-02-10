@@ -6,6 +6,8 @@
     <resultMap id="resourceResultMap" type="cn.acooly.component.rbac.entity.RbacResource">
         <id property="id" column="resource_id"/>
         <result property="parentId" column="resource_parent_id"/>
+        
+        <result property="code" column="resource_code"/>
         <result property="name" column="resource_name"/>
         <result property="value" column="resource_value"/>
         <result property="type" column="resource_type"/>
@@ -21,6 +23,7 @@
     <sql id="resourceSqlSelect">
             rbacResource.id as resource_id,
             rbacResource.parent_id as resource_parent_id,
+            rbacResource.code as resource_code,
             rbacResource.name as resource_name,
             rbacResource.value as resource_value,
             rbacResource.type as resource_type,
