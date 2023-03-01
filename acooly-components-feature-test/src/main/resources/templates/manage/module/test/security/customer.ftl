@@ -83,7 +83,7 @@
                 <th field="fee" sum="true">手续费</th>
                 <th field="salary" sortable="true" sum="true">薪水</th>
                 <th field="status" formatter="mappingFormatter">状态</th>
-                <th field="subject">摘要</th>
+                <th field="subject" formatter="contentFormatter">摘要</th>
                 <th field="comments">备注</th>
                 <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
                 <th field="updateTime" formatter="dateTimeFormatter">更新时间</th>

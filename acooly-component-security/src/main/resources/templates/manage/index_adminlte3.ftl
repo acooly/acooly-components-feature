@@ -56,6 +56,7 @@
         .main-sidebar, .main-sidebar::before {width: ${securityConfig.mainSidebarWidth}px;}
         .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${securityConfig.mainSidebarWidth}px;}
         body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${securityConfig.mainSidebarWidth}px;}
+        .tree-title { font-size: ${securityConfig.fontSize}px;}
     </style>
 </head>
 
