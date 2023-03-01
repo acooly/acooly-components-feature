@@ -35,6 +35,7 @@ CREATE TABLE `rbac_resource`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `parent_id`   bigint(20) DEFAULT NULL COMMENT '父主键',
+	`code`        varchar(128) NOT NULL COMMENT '资源code',
     `name`        varchar(64) NOT NULL COMMENT '资源名称',
     `value`       varchar(256)         DEFAULT NULL COMMENT '资源值',
     `type`        varchar(64) NOT NULL COMMENT '资源类型{MENU:‘菜单’,FUNC:‘功能’, URL:‘链接’}',
@@ -57,6 +58,8 @@ CREATE TABLE `rbac_role`
     `name`        varchar(64) NOT NULL COMMENT '角色名称',
     `title`       varchar(64) NOT NULL COMMENT '角色标题',
     `memo`        varchar(256)         DEFAULT NULL COMMENT '角色说明',
+	`role_type`        varchar(256)         DEFAULT NULL COMMENT '角色类型 {BPULIC:‘共有’,PRIVATE:‘私有’}',
+	`belong_code`        varchar(256)         DEFAULT NULL COMMENT '角色所属三方用户code（当role_type是私有时有效）',
     `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`id`)

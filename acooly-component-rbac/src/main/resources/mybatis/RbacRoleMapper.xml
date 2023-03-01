@@ -8,6 +8,8 @@
         <result property="name" column="role_name"/>
         <result property="title" column="role_title"/>
         <result property="memo" column="role_memo"/>
+        <result property="roleType" column="role_role_type"/>
+        <result property="belongCode" column="role_belong_code"/>
         <result property="createTime" column="role_create_time"/>
         <result property="updateTime" column="role_update_time"/>
     </resultMap>
@@ -17,6 +19,8 @@
             rbacRole.name as role_name,
             rbacRole.title as role_title,
             rbacRole.memo as role_memo,
+            rbacRole.role_type as role_role_type,
+            rbacRole.belong_code as role_belong_code,
             rbacRole.create_time as role_create_time,
             rbacRole.update_time as role_update_time
     </sql>

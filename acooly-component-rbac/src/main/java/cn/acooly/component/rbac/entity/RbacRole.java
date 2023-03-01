@@ -8,13 +8,18 @@ package cn.acooly.component.rbac.entity;
 
 
 import com.acooly.core.common.domain.AbstractEntity;
+
+import cn.acooly.component.rbac.enums.RoleType;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -49,6 +54,17 @@ public class RbacRole extends AbstractEntity {
      */
     @Size(max = 256)
     private String memo;
+    
+    /**
+     * 角色类型
+     */
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+    
+    /**
+     * 当角色类型为私有时，归属三方会员的编码
+     */
+    private String belongCode;
 
     /**
      * 角色所属的资源权限

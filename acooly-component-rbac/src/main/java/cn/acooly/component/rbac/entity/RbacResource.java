@@ -37,6 +37,12 @@ public class RbacResource extends AbstractEntity {
      * 父主键
      */
     private Long parentId;
+    
+    /**
+     * 唯一编码
+     */
+    @Size(max = 128)
+    private String code;
 
     /**
      * 资源名称
