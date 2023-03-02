@@ -57,6 +57,8 @@
         .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${securityConfig.mainSidebarWidth}px;}
         body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${securityConfig.mainSidebarWidth}px;}
         .tree-title { font-size: ${securityConfig.fontSize}px;}
+        .layout-fixed .brand-link { width: ${securityConfig.mainSidebarWidth}px;}
+        .ac-logo-title { font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;}
     </style>
 </head>
 

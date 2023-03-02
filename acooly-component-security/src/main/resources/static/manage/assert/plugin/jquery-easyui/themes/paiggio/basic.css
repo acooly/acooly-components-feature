@@ -749,3 +749,6 @@ div.datagrid-cell > div > label {
 }
 
 /* end jquery-easyui-portal */
+.tabs-icon {
+    margin-top: -5px;
+}

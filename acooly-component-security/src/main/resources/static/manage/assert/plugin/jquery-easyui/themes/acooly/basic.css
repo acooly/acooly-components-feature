@@ -351,10 +351,11 @@ div.datagrid-cell > div > label {
 
 /* 自定义datagrid的header背景和选中 */
 .tabs-header .tabs-pill li.tabs-selected a.tabs-inner {
-    background: #42b983;
+    background: #007bff!important;
+    opacity: .65;
     color: #ffffff;
     filter: none;
-    border-color: #42b983;
+    border-color: #007bff!important;
 }
 
 .tabs-header, .tabs-tool {
@@ -728,3 +729,6 @@ div.datagrid-cell > div > label {
 }
 
 /* end jquery-easyui-portal */
+.tabs-icon {
+    margin-top: -5px;
+}
