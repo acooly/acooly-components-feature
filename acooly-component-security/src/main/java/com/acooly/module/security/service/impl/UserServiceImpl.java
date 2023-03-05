@@ -131,7 +131,8 @@ public class UserServiceImpl extends EntityServiceImpl<User, UserDao> implements
 
     @Override
     public boolean validatePassword(User user, String plaintPassword) throws BusinessException {
-        return entryptPassword(plaintPassword, user.getSalt()).equals(user.getPassword());
+        User savedUser = get(user.getId());
+        return entryptPassword(plaintPassword, savedUser.getSalt()).equals(savedUser.getPassword());
     }
 
     /**

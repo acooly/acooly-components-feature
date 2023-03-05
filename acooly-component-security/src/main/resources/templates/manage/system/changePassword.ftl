@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="system_confirmNewPassword" class="col-sm-2 col-form-label">新密码</label>
+                <label for="system_confirmNewPassword" class="col-sm-2 col-form-label">确认新密码</label>
                 <div class="col-sm-10">
                     <input name="confirmNewPassword" id="system_confirmNewPassword" type="password" placeholder="请再次输入新密码..."
                            validType="equals['#system_newPassword']" class="form-control easyui-validatebox"

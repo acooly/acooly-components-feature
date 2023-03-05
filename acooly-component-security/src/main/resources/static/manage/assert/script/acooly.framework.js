@@ -761,7 +761,7 @@
             changePassword: function () {
                 var d = $('<div/>').dialog({
                     href: contextPath + '/manage/system/changePasswordView.html',
-                    width: 400,
+                    width: 500,
                     height: 400,
                     modal: true,
                     title: ' <i class="fa fa-lock fa-lg"></i> 修改密码',
