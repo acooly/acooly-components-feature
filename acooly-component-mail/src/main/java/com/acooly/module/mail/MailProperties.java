@@ -49,12 +49,10 @@ public class MailProperties implements InitializingBean {
     /**
      * 邮件服务器用户名
      */
-    @NotBlank
     private String username;
     /**
      * 邮件服务器密码
      */
-    @NotBlank
     private String password;
     /**
      * 邮件发送者名称：比如 xx客服
