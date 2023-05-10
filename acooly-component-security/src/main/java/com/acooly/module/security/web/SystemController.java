@@ -4,7 +4,6 @@ import com.acooly.core.common.olog.annotation.Olog;
 import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Strings;
-import com.acooly.module.security.captche.Captchas;
 import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
@@ -129,7 +128,8 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
             FrameworkPropertiesHolder.get().getPasswordStrength().verify(newPassword);
             User user = ShiroUtils.getCurrentUser();
             if (user != null) {
-                // 验证原密码
+                // reload user for salt.验证原密码
+                user = userService.get(user.getId());
                 boolean checkResult = userService.validatePassword(user, orginalPassword);
                 if (!checkResult) {
                     throw new RuntimeException("原始密码错误");
