@@ -9,13 +9,12 @@
 package com.acooly.module.test.contentaduit;
 
 import com.acooly.component.content.audit.domain.ImageAuditRequest;
-import com.acooly.component.content.audit.domain.TextAuditRequest;
+import com.acooly.component.content.audit.domain.TextAuditExtRequest;
+import com.acooly.component.content.audit.domain.TextAuditExtResponse;
 import com.acooly.component.content.audit.enums.ImageScenes;
 import com.acooly.component.content.audit.service.ContentAuditService;
 import com.acooly.component.content.audit.service.impl.ContentAuditServiceSdkImpl;
-import com.acooly.core.common.boot.Apps;
 import com.acooly.core.common.exception.BusinessException;
-import com.acooly.module.test.NoWebTestBase;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.profile.DefaultProfile;
@@ -30,26 +29,30 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date 2021-07-23 22:53
  */
 @Slf4j
-public class ContentAuditServiceTest extends NoWebTestBase {
+public class ContentAuditServiceTest {
 
     @Autowired
     ContentAuditService contentAuditService;
 
-//    @Before
-//    public void init() {
-//        IClientProfile profile = DefaultProfile
-//                .getProfile("cn-shanghai", "LTAI5tDnH6yThdqqbEsYvT9s", "iyFJMgfGF44MWp3q2OkwRIEndjZXT1");
-//        IAcsClient acsClient = new DefaultAcsClient(profile);
-//        contentAuditService = new ContentAuditServiceSdkImpl(acsClient);
-//    }
+    String accessKey = "";
+    String secretKey = "";
+
+    @Before
+    public void init() {
+        IClientProfile profile = DefaultProfile
+                .getProfile("cn-shanghai", accessKey, secretKey);
+        IAcsClient acsClient = new DefaultAcsClient(profile);
+        contentAuditService = new ContentAuditServiceSdkImpl(acsClient);
+    }
 
 
     @Test
     public void testTextScan() {
         try {
-            TextAuditRequest request = new TextAuditRequest("我爱中国共产党，下载有车云App");
+            TextAuditExtRequest request = new TextAuditExtRequest("我爱中国共产党，下载有车云App");
             request.addTask("汽车炸弹，自杀攻击");
-            contentAuditService.textScan(request);
+            TextAuditExtResponse response = contentAuditService.textScanExt(request);
+            log.info("Response: {}", response);
         } catch (BusinessException be) {
             log.warn("异常：{}", be.toString());
         } catch (Exception e) {

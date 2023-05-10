@@ -4,13 +4,18 @@
 <!-- author: zhangpu -->
 <!-- date: 2021-07-24 -->          
 ## 1. 组件介绍
+
 提供文字，图片和视频的内容合规审计，防止软件或平台政策和政治风险。
+
+* 产品：https://help.aliyun.com/product/28415.html?spm=a2c4g.477720.0.0.11d44c93pvRmWG
+* 调试：https://next.api.aliyun.com/api/Green/2018-05-09/TextScan?lang=JAVA
 
 ## 2. 特性
 
 * 文字（批量）的合规审计
 * 图片（批量）的合规审计
 * 审计调用，异常则表示未通过，异常中code为原因label，message为中文说明。
+
 
 ## 3. 集成使用
 
