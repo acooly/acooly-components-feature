@@ -114,6 +114,11 @@ public class ObsProperties {
         public String bucketName;
 
         /**
+         * 浏览器直接访问domain，如：https://hb-oss.jcddo.com
+         */
+        private String ossHost;
+
+        /**
          * 是否使用sts，当使用sts时，bucket内容应设置为公网不可访问
          */
         private boolean stsEnable;

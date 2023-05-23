@@ -36,7 +36,9 @@ maven坐标：
     acooly.obs.aliyun.endpointExternal=oss-cn-hangzhou.aliyuncs.com
     #项目默认使用的桶名称
     acooly.obs.aliyun.bucketName=xxxx
-   
+    #可直接浏览的oss域名host
+    acooly.obs.aliyun.ossHost=https://hb-jcddo.com
+
     #sts需要使用的配置
     #是否使用sts，当使用sts时，bucket内容应设置为公网不可访问
     acooly.obs.aliyun.stsEnable=true

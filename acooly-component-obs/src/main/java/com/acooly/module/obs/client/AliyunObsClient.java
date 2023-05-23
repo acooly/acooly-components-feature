@@ -133,6 +133,10 @@ public class AliyunObsClient extends AbstractObsClient {
                     .concat(".")
                     .concat(properties.getAliyun().getEndpoint())
                     .concat("/").concat(putObjectRequest.getKey()));
+            if (Strings.isNotBlank(properties.getAliyun().getOssHost())) {
+                ossFile.setViewUrl(properties.getAliyun().getOssHost()
+                        .concat("/").concat(putObjectRequest.getKey()));
+            }
             client.shutdown();
         } catch (OSSException e) {
             client.shutdown();
