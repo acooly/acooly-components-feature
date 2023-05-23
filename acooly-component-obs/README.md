@@ -56,4 +56,11 @@ maven坐标：
 
     com.acooly.module.obs.ObsService
 
+
+# changelog
+
+## 2023-05-23
+增加acooly.obs.aliyun.ossHost配置，
+oss上传完成的OssFile实体中viewUrl=ossHost+key组成的完整访问路径，
+主要适用于pdf等文件需要浏览器直接预览等场景
    
