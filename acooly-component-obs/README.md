@@ -36,7 +36,7 @@ maven坐标：
     acooly.obs.aliyun.endpointExternal=oss-cn-hangzhou.aliyuncs.com
     #项目默认使用的桶名称
     acooly.obs.aliyun.bucketName=xxxx
-    #可直接浏览的oss域名host
+    #可直接浏览的oss域名host（仅支持默认bucket）
     acooly.obs.aliyun.ossHost=https://hb-jcddo.com
 
     #sts需要使用的配置
@@ -62,5 +62,5 @@ maven坐标：
 ## 2023-05-23
 增加acooly.obs.aliyun.ossHost配置，
 oss上传完成的OssFile实体中viewUrl=ossHost+key组成的完整访问路径，
-主要适用于pdf等文件需要浏览器直接预览等场景
-   
+主要适用于pdf等文件需要浏览器直接预览等场景。
+注：仅支持默认bucket，如需要不同bucket使用，则需自行封装访问路径。
