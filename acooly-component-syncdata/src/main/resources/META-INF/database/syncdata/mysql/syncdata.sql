@@ -27,6 +27,7 @@ CREATE TABLE `table_async_data`
     `id`                 bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
     `type`               varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '类型',
     `table_name`         varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '表名',
+    `primary_column_name` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '主键字段名称',
     `query_type`         varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '查询类型{EQ:等于,GTE:大于等于,LTE:小于等于}\n',
     `query_column_type`  varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '字段类型{type_long:long类型,type_date:时间类型}\n',
     `query_column_name`  varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '字段名称',

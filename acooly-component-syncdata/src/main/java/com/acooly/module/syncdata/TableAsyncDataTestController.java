@@ -53,7 +53,7 @@ public class TableAsyncDataTestController extends AbstractJsonEntityController<T
 	@ResponseBody
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
 		try {
-			asyncDataClientService.doAsyncTableData("goods");
+			asyncDataClientService.doAsyncTableData();
 
 			model.addAllAttributes(this.referenceData(request));
 		} catch (Exception var5) {

@@ -40,13 +40,15 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
      * @return
      */
     @Override
-    public boolean findData(String tableName, JSONObject rowsDataJson) {
-        long tableId = Long.parseLong(rowsDataJson.get(getTableIdKey(rowsDataJson)).toString());
-        String sql = "select * from " + tableName + "  where id =" + tableId;
+    public boolean findData(String tableName, String primaryColumnName, JSONObject rowsDataJson) {
+        String primaryColumnValue = rowsDataJson.get(primaryColumnName).toString();
+        String sql = "select * from " + tableName + "  where " + primaryColumnName + " =" + primaryColumnValue;
+        if (!primaryColumnValue.toLowerCase().equals("id")) {
+            sql = "select * from " + tableName + "  where " + primaryColumnName + " = '" + primaryColumnValue + "'";
+        }
         List<Map<String, Object>> lists = jdbcTemplate.queryForList(sql);
         return (lists.size() > 0) ? true : false;
     }
-
 
 
     /**
@@ -56,8 +58,8 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
      * @param rowsDataJson
      */
     @Override
-    public void updateData(String tableName, JSONObject rowsDataJson) {
-        long tableId = Long.parseLong(rowsDataJson.get(getTableIdKey(rowsDataJson)).toString());
+    public void updateData(String tableName, String primaryColumnName, JSONObject rowsDataJson) {
+        String primaryColumnValue = rowsDataJson.get(primaryColumnName).toString();
         StringBuffer sbSql = new StringBuffer();
         sbSql.append("update  " + tableName + " set ");
         Set<String> rowsDataKeySet = rowsDataJson.keySet();
@@ -70,7 +72,11 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
             }
             i = i + 1;
         }
-        sbSql.append(" where id =" + tableId);
+        String whereSql = "where" + primaryColumnName + " = " + primaryColumnValue;
+        if (!primaryColumnValue.toLowerCase().equals("id")) {
+            whereSql = "where" + primaryColumnName + " = '" + primaryColumnValue + "'";
+        }
+        sbSql.append(whereSql);
         log.info("数据同步[更新数据],执行sql：{}", sbSql.toString());
         jdbcTemplate.execute(sbSql.toString());
     }
@@ -82,8 +88,9 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
      * @param rowsDataJson
      */
     @Override
-    public void insertData(String tableName, JSONObject rowsDataJson) {
-        long tableId = Long.parseLong(rowsDataJson.get(getTableIdKey(rowsDataJson)).toString());
+    public void insertData(String tableName, String primaryColumnName, JSONObject rowsDataJson) {
+        //主键为表
+        String primaryKey = primaryColumnName.toLowerCase();
         StringBuffer sbKeySql = new StringBuffer();
         sbKeySql.append("insert into " + tableName + " ( ");
         StringBuffer sbValuesSql = new StringBuffer();
@@ -92,15 +99,27 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
         int size = rowsDataKeySet.size();
         int i = 1;
         for (String rowsKey : rowsDataKeySet) {
-            sbKeySql.append("`" + rowsKey + "`");
-            sbValuesSql.append("'" + rowsDataJson.get(rowsKey) + "'");
-            if (i < size) {
-                sbKeySql.append(",");
-                sbValuesSql.append(",");
+            String rowsKeyLowerCase = rowsKey.toLowerCase();
+            //表的主键为ID
+            if (rowsKeyLowerCase.equals(primaryKey) && "id".equals(rowsKeyLowerCase)) {
+                sbKeySql.append("`" + rowsKey + "`");
+                sbValuesSql.append("'" + rowsDataJson.get(rowsKey) + "'");
+                if (i < size) {
+                    sbKeySql.append(",");
+                    sbValuesSql.append(",");
+                }
+            } else {
+                //表的主键 不是ID
+                sbKeySql.append("`" + rowsKey + "`");
+                sbValuesSql.append("'" + rowsDataJson.get(rowsKey) + "'");
+                if (i < size) {
+                    sbKeySql.append(",");
+                    sbValuesSql.append(",");
+                }
             }
             i = i + 1;
         }
-        sbKeySql.append(")value( ");
+        sbKeySql.append(" )value( ");
         sbKeySql.append(sbValuesSql.toString());
         sbKeySql.append(" )");
         log.info("数据同步[新增数据],执行sql：{}", sbKeySql.toString());
@@ -137,13 +156,14 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
 
     /**
      * 获取json 表Id
-      * @param rowsDataJson
+     *
+     * @param rowsDataJson
      * @return
      */
     private String getTableIdKey(JSONObject rowsDataJson) {
-        String idStr="id";
-        if(rowsDataJson.get(idStr)==null){
-            idStr="ID";
+        String idStr = "id";
+        if (rowsDataJson.get(idStr) == null) {
+            idStr = "ID";
         }
         return idStr;
     }

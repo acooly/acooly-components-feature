@@ -19,7 +19,13 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-sm-3 col-form-label">查询类型</label>
+				<label class="col-sm-3 col-form-label">主键字段</label>
+				<div class="col-sm-9">
+					<input type="text" name="primaryColumnName" placeholder="请输入主键字段..." class="easyui-validatebox form-control"  data-options="validType:['text','length[1,64]']"/>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label">查询方式</label>
 				<div class="col-sm-9">
 					<select name="queryType" class="form-control select2bs4" >
 						<#list allQueryTypes as k,v><option value="${k}">${v}</option></#list>
@@ -27,7 +33,7 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-sm-3 col-form-label">字段类型</label>
+				<label class="col-sm-3 col-form-label">查询字段类型</label>
 				<div class="col-sm-9">
 					<select name="queryColumnType" class="form-control select2bs4" >
 						<#list allQueryColumnTypes as k,v><option value="${k}">${v}</option></#list>
@@ -35,7 +41,7 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-sm-3 col-form-label">字段名称</label>
+				<label class="col-sm-3 col-form-label">查询字段名称</label>
 				<div class="col-sm-9">
 					<input type="text" name="queryColumnName" placeholder="请输入字段名称..." class="easyui-validatebox form-control"  data-options="validType:['text','length[1,64]']"/>
 				</div>

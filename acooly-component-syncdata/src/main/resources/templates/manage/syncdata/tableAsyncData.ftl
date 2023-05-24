@@ -14,23 +14,23 @@
                         <input type="text" class="form-control form-control-sm" name="search_EQ_tableName"/>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">查询类型：</label>
+                        <label class="col-form-label">查询方式：</label>
                         <select name="search_EQ_queryType" class="form-control input-sm select2bs4">
                             <option value="">所有</option><#list allQueryTypes as k,v><option value="${k}">${v}</option></#list>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">字段类型：</label>
+                        <label class="col-form-label">查询字段类型：</label>
                         <select name="search_EQ_queryColumnType" class="form-control input-sm select2bs4">
                             <option value="">所有</option><#list allQueryColumnTypes as k,v><option value="${k}">${v}</option></#list>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">字段名称：</label>
+                        <label class="col-form-label">查询字段名称：</label>
                         <input type="text" class="form-control form-control-sm" name="search_EQ_queryColumnName"/>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">字段值：</label>
+                        <label class="col-form-label">查询字段值：</label>
                         <input type="text" class="form-control form-control-sm" name="search_EQ_queryColumnValue"/>
                     </div>
 
@@ -55,10 +55,11 @@
         	<th field="showCheckboxWithId" checkbox="true" formatter="idFormatter">编号</th>
             <th field="id" sortable="true" >ID</th>
 			<th field="type" sortable="true" formatter="mappingFormatter">业务类型</th>
-			<th field="tableName">表名</th>
-			<th field="queryType" formatter="mappingFormatter">查询类型</th>
-			<th field="queryColumnType" formatter="mappingFormatter">字段类型</th>
-			<th field="queryColumnName">字段名称</th>
+            <th field="tableName">表名</th>
+            <th field="primaryColumnName">主键字段</th>
+			<th field="queryType" formatter="mappingFormatter">查询方式</th>
+			<th field="queryColumnType" formatter="mappingFormatter">查询字段类型</th>
+			<th field="queryColumnName">查询字段名称</th>
 			<th field="queryColumnValue">最后字段值</th>
             <th field="queryRows" sortable="true" sum="true">查询条数</th>
 <#--		    <th field="sortTime" formatter="dateTimeFormatter">排序时间</th>-->

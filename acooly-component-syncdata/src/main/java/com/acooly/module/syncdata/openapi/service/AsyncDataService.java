@@ -21,24 +21,27 @@ public interface AsyncDataService {
 
     /**
      * 查询单表记录
+     *
      * @param tableName
      * @return
      */
-    boolean findData(String tableName, JSONObject rowsDataJson);
+    boolean findData(String tableName, String primaryColumnName, JSONObject rowsDataJson);
 
 
     /**
      * 更新数据
+     *
      * @param tableName
      * @param rowsDataJson
      */
-    void updateData(String tableName, JSONObject rowsDataJson);
+    void updateData(String tableName, String primaryColumnName, JSONObject rowsDataJson);
 
     /**
      * 新增数据
+     *
      * @param tableName
      * @param rowsDataJson
      */
-    void insertData(String tableName, JSONObject rowsDataJson);
+    void insertData(String tableName, String primaryColumnName, JSONObject rowsDataJson);
 
 }

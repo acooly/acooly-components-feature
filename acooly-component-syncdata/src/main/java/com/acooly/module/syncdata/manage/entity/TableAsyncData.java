@@ -46,19 +46,24 @@ public class TableAsyncData extends AbstractEntity {
     private String tableName;
 
     /**
+     * 主键字段名
+     */
+    private String primaryColumnName="id";
+
+    /**
      * 查询类型
      */
     @Enumerated(EnumType.STRING)
     private QueryTypeEnum queryType;
 
     /**
-     * 字段类型
+     * 查询字段类型
      */
     @Enumerated(EnumType.STRING)
     private QueryColumnTypeEnum queryColumnType;
 
     /**
-     * 字段名称
+     * 查询字段名称
      */
 	@Size(max = 64)
     private String queryColumnName;

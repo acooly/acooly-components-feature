@@ -109,11 +109,12 @@ public class AsyncDataClientService {
                 JSONObject rowsDataJson = JSON.parseObject(rowsData.toString());
 
                 String tableName = tableAsyncData.getTableName();
-                boolean isData = asyncDataService.findData(tableName, rowsDataJson);
+                String primaryColumnName = tableAsyncData.getPrimaryColumnName();
+                boolean isData = asyncDataService.findData(tableName, primaryColumnName, rowsDataJson);
                 if (isData) {
-                    asyncDataService.updateData(tableName, rowsDataJson);
+                    asyncDataService.updateData(tableName, primaryColumnName, rowsDataJson);
                 } else {
-                    asyncDataService.insertData(tableName, rowsDataJson);
+                    asyncDataService.insertData(tableName, primaryColumnName, rowsDataJson);
                 }
                 lastColumnValue = rowsDataJson.get(tableAsyncData.getQueryColumnName()).toString();
             }
