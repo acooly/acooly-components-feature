@@ -86,7 +86,12 @@
             <i class="fa fa-arrow-circle-up fa-fw fa-col fa-lg" aria-hidden="true"></i>
         </a>
 
-      <a onclick="$.acooly.framework.remove('/manage/syncdata/tableAsyncData/deleteJson.html','{0}','manage_tableAsyncData_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
+<#--      <a onclick="$.acooly.framework.remove('/manage/syncdata/tableAsyncData/deleteJson.html','{0}','manage_tableAsyncData_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>-->
+
+
+      <a onclick="$.acooly.framework.confirmSubmit('/manage/syncdata/tableAsyncData/doAsyncDataJson.html','{0}','manage_tableAsyncData_datagrid','立即执行数据同步')" href="#" title="数据同步">
+          <i class="fa fa-asl-interpreting fa-lg fa-fw fa-col"></i>
+      </a>
     </div>
 
     <!-- 表格的工具栏 -->

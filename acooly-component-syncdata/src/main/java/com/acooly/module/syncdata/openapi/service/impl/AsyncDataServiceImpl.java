@@ -42,11 +42,12 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
     @Override
     public boolean findData(String tableName, String primaryColumnName, JSONObject rowsDataJson) {
         String primaryColumnValue = rowsDataJson.get(primaryColumnName).toString();
-        String sql = "select * from " + tableName + "  where " + primaryColumnName + " =" + primaryColumnValue;
+        String sql = "select * from " + tableName + "  where " + primaryColumnName + " =";
+        String whereSql = primaryColumnValue;
         if (!primaryColumnValue.toLowerCase().equals("id")) {
-            sql = "select * from " + tableName + "  where " + primaryColumnName + " = '" + primaryColumnValue + "'";
+            whereSql = " '" + primaryColumnValue + "'";
         }
-        List<Map<String, Object>> lists = jdbcTemplate.queryForList(sql);
+        List<Map<String, Object>> lists = jdbcTemplate.queryForList(sql + whereSql);
         return (lists.size() > 0) ? true : false;
     }
 
@@ -72,9 +73,10 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
             }
             i = i + 1;
         }
-        String whereSql = "where" + primaryColumnName + " = " + primaryColumnValue;
+        sbSql.append(" where " + primaryColumnName + " = ");
+        String whereSql = primaryColumnValue;
         if (!primaryColumnValue.toLowerCase().equals("id")) {
-            whereSql = "where" + primaryColumnName + " = '" + primaryColumnValue + "'";
+            whereSql = "'" + primaryColumnValue + "'";
         }
         sbSql.append(whereSql);
         log.info("数据同步[更新数据],执行sql：{}", sbSql.toString());

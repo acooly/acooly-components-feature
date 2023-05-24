@@ -78,7 +78,7 @@ public class AsyncDataClientService {
      * @param tableAsyncData
      * @param start
      */
-    private void doAsyncTableDataByPage(TableAsyncData tableAsyncData, int start) {
+    public void doAsyncTableDataByPage(TableAsyncData tableAsyncData, int start) {
         try {
             //请求对象
             AsyncDataApiRequest request = new AsyncDataApiRequest();
