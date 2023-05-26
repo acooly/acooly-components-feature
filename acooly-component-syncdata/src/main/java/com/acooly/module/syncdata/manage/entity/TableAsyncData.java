@@ -45,6 +45,13 @@ public class TableAsyncData extends AbstractEntity {
 	@Size(max = 64)
     private String tableName;
 
+
+    /**
+     * 表名描述
+     */
+    @Size(max = 64)
+    private String tableTitle;
+
     /**
      * 主键字段名
      */

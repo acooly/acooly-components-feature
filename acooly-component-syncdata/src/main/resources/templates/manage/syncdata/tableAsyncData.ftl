@@ -11,7 +11,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">表名：</label>
-                        <input type="text" class="form-control form-control-sm" name="search_EQ_tableName"/>
+                        <input type="text" class="form-control form-control-sm" name="search_LIKE_tableName"/>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">查询方式：</label>
@@ -56,6 +56,7 @@
             <th field="id" sortable="true" >ID</th>
 			<th field="type" sortable="true" formatter="mappingFormatter">业务类型</th>
             <th field="tableName">表名</th>
+            <th field="tableTitle">表名描述</th>
             <th field="primaryColumnName">主键字段</th>
 			<th field="queryType" formatter="mappingFormatter">查询方式</th>
 			<th field="queryColumnType" formatter="mappingFormatter">查询字段类型</th>

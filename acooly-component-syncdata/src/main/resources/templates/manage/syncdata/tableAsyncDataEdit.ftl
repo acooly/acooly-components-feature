@@ -13,13 +13,19 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-sm-3 col-form-label">表名</label>
+				<label class="col-sm-3 col-form-label">表名（英文）</label>
 				<div class="col-sm-9">
 					<input type="text" name="tableName" placeholder="请输入表名..." class="easyui-validatebox form-control"  data-options="validType:['text','length[1,64]']"/>
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-sm-3 col-form-label">主键字段</label>
+				<label class="col-sm-3 col-form-label">表名描述</label>
+				<div class="col-sm-9">
+					<input type="text" name="tableTitle" placeholder="请输入表名描述..." class="easyui-validatebox form-control"  data-options="validType:['text','length[1,64]']"/>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label">主键字段（英文）</label>
 				<div class="col-sm-9">
 					<input type="text" name="primaryColumnName" placeholder="请输入主键字段..." class="easyui-validatebox form-control"  data-options="validType:['text','length[1,64]']"/>
 				</div>
@@ -41,7 +47,7 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-sm-3 col-form-label">查询字段名称</label>
+				<label class="col-sm-3 col-form-label">查询字段名称（英文）</label>
 				<div class="col-sm-9">
 					<input type="text" name="queryColumnName" placeholder="请输入字段名称..." class="easyui-validatebox form-control"  data-options="validType:['text','length[1,64]']"/>
 				</div>
