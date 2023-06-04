@@ -122,9 +122,10 @@
     ${extendScripts}
     <script type="text/javascript">
         var contextPath = "";
-        $(function () {
+        // 调整为根据document加载顺序实时加载，以实现优先于下面集成的easyui的组件加载
+        // $(function () {
             $.acooly.system.init();
-        });
+        // });
     </script>
 </head>
 <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">
