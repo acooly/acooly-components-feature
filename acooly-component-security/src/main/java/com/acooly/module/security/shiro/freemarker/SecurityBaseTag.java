@@ -57,6 +57,7 @@ public abstract class SecurityBaseTag implements TemplateDirectiveModel {
 
     /**
      * 获取本地Subject
+     *
      * @return
      */
     protected Subject getSubject() {
@@ -80,7 +81,7 @@ public abstract class SecurityBaseTag implements TemplateDirectiveModel {
      */
     protected boolean ssoEnable() {
         String ssoEnable = System.getProperty("acooly.sso.freemarker.include");
-        return Strings.isNoneEmpty(ssoEnable);
+        return Strings.equalsIgnoreCase(ssoEnable, "true");
     }
 
     protected String getSsoRoot() {
