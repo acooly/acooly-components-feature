@@ -28,6 +28,11 @@ public class OssFile implements Serializable {
     private String url;
 
     /**
+     * 可浏览器展示的访问url，需要oss配合配置域名（仅阿里云支持）
+     */
+    private String viewUrl;
+
+    /**
      * 文件流
      */
     private InputStream fileInputStream;
