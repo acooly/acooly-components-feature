@@ -209,6 +209,7 @@
         <module>acooly-component-content-audit</module>
         <module>acooly-component-i18n</module>
         <module>acooly-component-websocket</module>
+        <module>acooly-component-syncdata</module>
     </modules>
 
     <build>
