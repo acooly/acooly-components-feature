@@ -39,8 +39,6 @@
                 <th field="appId">应用ID</th>
                 <th field="appName">应用名称</th>
                 <th field="status" formatter="mappingFormatter">状态</th>
-                <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
-                <th field="updateTime" formatter="dateTimeFormatter">更新时间</th>
                 <th field="comments">备注</th>
                 <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_smsApp_action',value,row)}">动作</th>
             </tr>
