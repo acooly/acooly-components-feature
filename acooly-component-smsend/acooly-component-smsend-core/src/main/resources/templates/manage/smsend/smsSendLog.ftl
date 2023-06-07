@@ -68,7 +68,7 @@
                 <th field="content" formatter="contentFormatter">短信内容</th>
                 <th field="resultCode">渠道结果</th>
                 <th field="resultMessage">渠道结果</th>
-                <th field="sendTime" formatter="dateTimeFormatter">发送时间</th>
+<#--                <th field="sendTime" formatter="dateTimeFormatter">发送时间</th>-->
                 <th field="status" formatter="mappingFormatter">状态</th>
                 <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_smsSendLog_action',value,row)}">动作</th>
             </tr>
