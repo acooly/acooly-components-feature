@@ -80,7 +80,7 @@
 
             <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage.html',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(拖拽)</a>
 
-            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage_multiple.html',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(多文件)</a>
+<#--            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage_multiple.html',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(多文件)</a>-->
 
 
 
@@ -88,3 +88,36 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    /**
+     * 文件回显需要的id
+     * @param callBack
+     */
+    // function oFileUploadShow(){
+    //     // 1是id  2是objectId
+    //     let showFiles = {1: '301,302,303,304'};
+    //     //let showFiles = {2: 'd6745e6ed6a037771ee1f4a903cf2ff7145ffa64,2fddc049922b113a02fa9d39671e037580f9cc61,fd0e43440e45c63fbe9d86b8fafaf5669a7d5bb3,2dedccdedff819e5b968e9c69861177274356014'};
+    //     oFileinit.call(this,showFiles);
+    //
+    // }
+    //
+    // /**
+    //  * 文件delete结果
+    //  * @param callBack
+    //  */
+    // function oFileDeleteSuccess(id,objId){
+    //     console.log("manage_onlineFile_searchform-回调函数",id,objId);
+    //
+    // }
+    //
+    // /**
+    //  * 文件success结果
+    //  * @param callBack
+    //  */
+    // function oFileUploadSuccess(oFile){
+    //     console.log("manage_onlineFile_searchform-回调函数",oFile);
+    // }
+
+
+</script>

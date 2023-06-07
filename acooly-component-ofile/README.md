@@ -152,6 +152,49 @@ acooly.ofile.resizePicture.height=1500
 
 缩放规则：缩放操作是将图片的最长边 max(width,height) ，设定为指定值进行等比缩放。例如原始图片分辨率为3000x2000，按实例中的配置进行缩放操作后，图片分辨率为1500x1000，而不是1500x1500。
 
+### 3.1.6 独立文件上传（直接引用即可），支持相关回调函数（zhanghao）
+#### 使用方式 
+            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage.html',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(拖拽)</a>
+
+
+```javascript
+
+
+<script type="text/javascript">
+    /**
+    * 文件回显需要的id
+    * @param callBack
+    */
+    function oFileUploadShow(){
+    // 1是id  2是objectId
+    //let showFiles = {1: '301,302,303,304'};
+    //let showFiles = {2: 'd6745e6ed6a037771ee1f4a903cf2ff7145ffa64,2fddc049922b113a02fa9d39671e037580f9cc61,fd0e43440e45c63fbe9d86b8fafaf5669a7d5bb3,2dedccdedff819e5b968e9c69861177274356014'};
+    oFileinit.call(this,showFiles);
+
+}
+
+    /**
+    * 文件删除成功-delete结果
+    * @param callBack
+    */
+    function oFileDeleteSuccess(id,objId){
+    console.log("回调函数",id,objId);
+
+}
+
+    /**
+    * 文件上传成功-success结果
+    * @param callBack
+    */
+    function oFileUploadSuccess(ofile){
+    console.log("回调函数",ofile);
+
+}
+
+
+</script>
+```
+
 
 ## 4. 集成obs能力
 ### 4.1 说明
@@ -160,7 +203,9 @@ ofile组件内部集成了obs相关能力，通过配置开启acooly.ofile.stora
 ### 4.2 能力扩展
 OfileSupportService提供文件上传相关能力的扩展，
 例如一个应用有多个bucket的情况，需要由业务定制实现OfileSupportService接口，默认实现路径com.acooly.module.ofile.support.DefaultOfileSupportService，根据不同的业务请求返回不同的bucket。
- 
+
+
+
 ## 5. changelog
 
 ### 5.0.0-SNAPSHOT-20210601

@@ -12,6 +12,8 @@
 <div>
     <input type="hidden" id="_csrf" name="_csrf"
            value="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
+    <input type="hidden" id="bussId" name="bussId"
+           value="${bussId}"/>
     <div id="dropzone-img-div" class="dropzone" style=""></div>
 
     <div style="text-align:center;padding-top: 10px;">
