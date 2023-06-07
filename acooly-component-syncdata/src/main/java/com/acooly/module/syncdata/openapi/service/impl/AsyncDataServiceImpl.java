@@ -61,23 +61,39 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
     @Override
     public void updateData(String tableName, String primaryColumnName, JSONObject rowsDataJson) {
         String primaryColumnValue = rowsDataJson.get(primaryColumnName).toString();
+
+        //判断 主键 是否为 id
+        boolean isId = primaryColumnValue.toLowerCase().equals("id");
+
         StringBuffer sbSql = new StringBuffer();
         sbSql.append("update  " + tableName + " set ");
         Set<String> rowsDataKeySet = rowsDataJson.keySet();
         int size = rowsDataKeySet.size();
         int i = 1;
         for (String rowsKey : rowsDataKeySet) {
+            //不是ID，不能更新ID字段
+            if (!isId) {
+                if (rowsKey.toLowerCase().equals("id")) {
+                    size = size - 1;
+                    continue;
+                }
+            }
+
             sbSql.append(rowsKey + " = '" + rowsDataJson.get(rowsKey) + "'");
             if (i < size) {
                 sbSql.append(",");
             }
             i = i + 1;
         }
+        //主键是id
         sbSql.append(" where " + primaryColumnName + " = ");
         String whereSql = primaryColumnValue;
-        if (!primaryColumnValue.toLowerCase().equals("id")) {
+
+        //主键不是id
+        if (!isId) {
             whereSql = "'" + primaryColumnValue + "'";
         }
+
         sbSql.append(whereSql);
         log.info("数据同步[更新数据],执行sql：{}", sbSql.toString());
         jdbcTemplate.execute(sbSql.toString());
@@ -112,6 +128,10 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
                 }
             } else {
                 //表的主键 不是ID
+                if (rowsKey.toLowerCase().equals("id")) {
+                    size = size - 1;
+                    continue;
+                }
                 sbKeySql.append("`" + rowsKey + "`");
                 sbValuesSql.append("'" + rowsDataJson.get(rowsKey) + "'");
                 if (i < size) {
