@@ -43,6 +43,7 @@ public class OnlineFileManagerController extends AbstractJsonEntityController<On
     @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
         model.put("allFileTypes", ofileTypes);
+        model.put("bussId", request.getParameter("bussId"));
     }
 
     @RequestMapping({"getInitFiles"})
