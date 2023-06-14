@@ -17,7 +17,7 @@ import java.util.Date;
 @Slf4j
 @ApiDocNote("数据同步")
 @ApiDocType(code = "asyncData", name = "数据同步")
-@OpenApiService(name = "asyncData", desc = "数据同步", owner = "cuifuq", busiType = ApiBusiType.Query)
+@OpenApiService(name = "asyncData", desc = "使用者：客户端；数据同步，客户端采用定时或者手动同步服务端的表数据", owner = "cuifuq", busiType = ApiBusiType.Query)
 public class AsyncDataApiService extends BaseApiService<AsyncDataApiRequest, AsyncDataApiResponse> {
 
 
