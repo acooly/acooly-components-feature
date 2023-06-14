@@ -55,7 +55,7 @@
                 <th field="createTime">上传时间</th>
                 <th field="rowActions"
                     data-options="formatter:function(value, row, index){return formatAction('manage_onlineFile_action',value,row)}">动作
-                </th>
+                </th>3ee
             </tr>
             </thead>
         </table>
@@ -78,7 +78,10 @@
                 <i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a>
 
 
-            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage.html?bussId=101',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(拖拽)</a>
+            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage.html?bussId=111',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(拖拽)</a>
+
+
+            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage.html?bussId=222',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(拖拽)</a>
 
 <#--            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage_multiple.html',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(多文件)</a>-->
 
@@ -91,31 +94,18 @@
 
 <script type="text/javascript">
     // /**
-    //  * 文件回显需要的id
-    //  * @param callBack
-    //  */
-    // function oFileUploadShow(){
-    //     // 1是id  2是objectId
-    //     let showFiles = {1: '331,332,333,334'};
-    //     //let showFiles = {2: 'd6745e6ed6a037771ee1f4a903cf2ff7145ffa64,2fddc049922b113a02fa9d39671e037580f9cc61,fd0e43440e45c63fbe9d86b8fafaf5669a7d5bb3,2dedccdedff819e5b968e9c69861177274356014'};
-    //     oFileinit.call(this,showFiles);
-    //
-    // }
-    //
-    // /**
     //  * 文件delete结果
     //  * @param callBack
     //  */
-    // function oFileDeleteSuccess(bussId, oFile){
+    // var oFileDeleteSuccess = function (bussId, oFile){
     //     console.log("manage_onlineFile_searchform-回调函数",bussId,oFile);
-    //
     // }
     //
     // /**
     //  * 文件success结果
     //  * @param callBack
     //  */
-    // function oFileUploadSuccess(bussId, oFile){
+    // var oFileUploadSuccess = function(bussId, oFile){
     //     console.log("manage_onlineFile_searchform-回调函数",bussId,oFile);
     // }
     //
@@ -123,9 +113,21 @@
     //  * 文件列表点击回调
     //  * @param callBack
     //  */
-    // function oFileClickItem(bussId, oFile){
+    // var oFileClickItem = function (bussId, oFile){
     //     console.log("manage_onlineFile_searchform-回调函数",bussId,oFile);
     // }
+    //
+    // /**
+    //  * 文件回显需要的id
+    //  * @param callBack
+    //  */
+    // function oFileUploadShow(){
+    //     // 1是id  2是objectId
+    //     let showFiles = {1: '331,332,333,334'};
+    //     //let showFiles = {2: 'd6745e6ed6a037771ee1f4a903cf2ff7145ffa64,2fddc049922b113a02fa9d39671e037580f9cc61,fd0e43440e45c63fbe9d86b8fafaf5669a7d5bb3,2dedccdedff819e5b968e9c69861177274356014'};
+    //     oFileinit.call(this,showFiles,oFileDeleteSuccess,oFileUploadSuccess,oFileClickItem);
+    // }
+
 
 
 </script>

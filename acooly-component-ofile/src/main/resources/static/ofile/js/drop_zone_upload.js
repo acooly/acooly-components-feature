@@ -20,10 +20,10 @@ if (typeof oFileUploadShow === 'function') {
     oFileUploadShow();
 } else {
     // oFileUploadShow doesn't exist
-    oFileinit([])
+    oFileinit([],function () {},function () {},function () {})
 }
 
-function oFileinit(ids) {
+function oFileinit(ids,oFileDeleteSuccess,oFileUploadSuccess,oFileClickItem){
 
 
     console.log("ids 文件：", ids);
@@ -59,7 +59,7 @@ function oFileinit(ids) {
                         uploadFile.push(file);
                     }
                     // 准备好数据后，去渲染ofile组件
-                    ofileInitResult();
+                    ofileInitResult(oFileDeleteSuccess,oFileUploadSuccess,oFileClickItem);
                 },
                 error: function (result) {
                     console.log("add ofile文件异常：", result.message);
@@ -67,6 +67,7 @@ function oFileinit(ids) {
             });
 
     }
+
 
 
 }
@@ -79,7 +80,7 @@ function ofileDownload() {
  * 文件处理结果
  * @param callBack
  */
-function ofileInitResult() {
+function ofileInitResult(oFileDeleteSuccess,oFileUploadSuccess,oFileClickItem) {
 
     var drop_zone = new Dropzone("#dropzone-img-div", {
         url: "/ofile/upload.html",
@@ -129,17 +130,24 @@ function ofileInitResult() {
                 // }
             });
 
-            //循环需要回显的文件 of需要判空 这里使用in
-            for (let uploadFileKey in uploadFile) {
-                // 添加文件
-                myDropzone.addFile(uploadFile[uploadFileKey]);
-                // 添加缩略图
-                myDropzone.options.thumbnail(uploadFile[uploadFileKey], uploadFile[uploadFileKey].url);
-                // 这里需要调用一次完成事件，否则图片显示的是未上传的样子
-                myDropzone.emit("complete", uploadFile[uploadFileKey]);
-                // 设置当前文件为 已上传成功
-                uploadFile[uploadFileKey].status = "success";
-            }
+            this.on("addedfile", function(file) {
+                let fileItemEvent = (e) => {
+                    if (typeof oFileClickItem === 'function') {
+                        /**
+                         * function oFileClickItem(bussId, serviceFile){  }
+                         */
+                        oFileClickItem(bussId, file);
+
+                    }
+                };
+                console.log("addedfile"+ file);
+
+                for (let itemLink of file.previewElement.querySelectorAll(
+                    "[data-dz-details]"
+                )) {
+                    itemLink.addEventListener("click", fileItemEvent);
+                }
+            });
 
             //文件删除成功
             this.on("removedfile", function (file) {
@@ -162,7 +170,7 @@ function ofileInitResult() {
                                         /**
                                          * function oFileDeleteSuccess(serviceFile){ }
                                          */
-                                        oFileDeleteSuccess.call(this, bussId, deleteFile);
+                                        oFileDeleteSuccess( bussId, deleteFile);
                                         console.log("删除ofile文件：", deleteFile.id, deleteFile.name, deleteFile.upload.uuid, result.message);
                                     }
                                 }
@@ -172,25 +180,6 @@ function ofileInitResult() {
                             }
                         });
                 }
-
-            });
-
-            this.on("addedfile", function(file) {
-                let fileItemEvent = (e) => {
-                    if (typeof oFileClickItem === 'function') {
-                        /**
-                         * function oFileClickItem(bussId, serviceFile){  }
-                         */
-                        oFileClickItem.call(this,bussId, file);
-                    }
-                };
-
-                for (let itemLink of file.previewElement.querySelectorAll(
-                    "[data-dz-details]"
-                )) {
-                    itemLink.addEventListener("click", fileItemEvent);
-                }
-
 
             });
 
@@ -211,11 +200,23 @@ function ofileInitResult() {
                             /**
                              * function oFileUploadSuccess(serviceFile){  }
                              */
-                            oFileUploadSuccess.call(this,bussId, serviceFile);
+                            oFileUploadSuccess(bussId, serviceFile);
                         }
                     }
                 }
             });
+
+            //当事件全部添加成功后 再循环需要回显的文件
+            for (let uploadFileKey in uploadFile) {
+                // 添加文件
+                myDropzone.addFile(uploadFile[uploadFileKey]);
+                // 添加缩略图
+                myDropzone.options.thumbnail(uploadFile[uploadFileKey], uploadFile[uploadFileKey].url);
+                // 这里需要调用一次完成事件，否则图片显示的是未上传的样子
+                myDropzone.emit("complete", uploadFile[uploadFileKey]);
+                // 设置当前文件为 已上传成功
+                uploadFile[uploadFileKey].status = "success";
+            }
 
 
         }
