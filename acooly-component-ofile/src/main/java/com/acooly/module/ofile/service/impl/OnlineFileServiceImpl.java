@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class OnlineFileServiceImpl extends EntityServiceImpl<OnlineFile, OnlineFileDao>
@@ -35,6 +36,29 @@ public class OnlineFileServiceImpl extends EntityServiceImpl<OnlineFile, OnlineF
         return fillAccessUrl(onlineFile);
     }
 
+    /**
+     * 通过objectId查询，返回结果会按存储方式填充对应的可访问路径
+     *
+     * @param objectId
+     * @return
+     */
+    @Override
+    public List<OnlineFile>  findByobjectId(List<String> objectId) {
+        List<OnlineFile>  onlineFile = getEntityDao().findByObjectIdIn(objectId);
+        return fillAccessUrl(onlineFile);
+    }
+   /**
+     * 通过BucketName查询，返回结果会按存储方式填充对应的可访问路径
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public List<OnlineFile> findById(List<Long> ids) {
+        List onlineFiles = getEntityDao().findAllById(ids);
+        return fillAccessUrl(onlineFiles);
+    }
+
     @Override
     public OnlineFile findByFilePathAndBucket(String filePath, String bucketName) {
         Map<String, Object> map = Maps.newHashMap();
@@ -51,6 +75,13 @@ public class OnlineFileServiceImpl extends EntityServiceImpl<OnlineFile, OnlineF
         return null;
     }
 
+
+    private List<OnlineFile> fillAccessUrl(List<OnlineFile> onlineFile) {
+        for (OnlineFile file : onlineFile) {
+            fillAccessUrl(file);
+        }
+        return onlineFile;
+    };
     private OnlineFile fillAccessUrl(OnlineFile onlineFile) {
         if (onlineFile == null) {
             return null;
