@@ -10,6 +10,7 @@
 * 通过模板方式发送
 * 发送记录并后台可查询
 
+
 ## 2. 使用说明
 
 
@@ -57,6 +58,44 @@ maven坐标：
             .templateName("register_success");
     mailService.sendAsync(dto);
 ```
+
+### 2.3 常用邮件服务配置
+
+#### 2.3.1 阿里云邮箱
+
+```properties
+acooly.mail.host=smtp.mxhichina.com
+acooly.mail.username=support@xxxx.cn
+acooly.mail.password=XXXXX
+acooly.mail.from-name=acooly
+```
+
+#### 2.3.2 hotmail
+
+```properties
+acooly.mail.hostname=smtp-mail.outlook.com
+acooly.mail.port=587
+acooly.mail.starttls=true
+acooly.mail.username=aaaaaa@hotmail.com
+acooly.mail.password=aaaaaa@Pswd
+acooly.mail.from-name=aaaaaa
+acooly.mail.from-address=aaaaaa@hotmail.com
+```
+
+### 2.3.3 腾讯企业邮箱
+
+```properties
+## 腾讯邮箱
+acooly.mail.hostname=smtp.exmail.qq.com
+acooly.mail.ssl-connect=true
+acooly.mail.ssl-port=465
+acooly.mail.username=xxxx@domain.com
+# 注意：密码需要使用客户端专用密码（Web版邮箱：设置->微信绑定->安全登录，打开安全登录，设置新的"客户端专用密码"）
+acooly.mail.password=3CZKJxopgpFj1111
+acooly.mail.from-name=苦乐
+```
+
+
 
 ## 3. changelog
 

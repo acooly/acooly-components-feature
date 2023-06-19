@@ -43,9 +43,31 @@ public class MailProperties implements InitializingBean {
     private boolean mock = false;
     /**
      * 邮件服务器地址
+     * SMTP服务器地址
      */
     @NotBlank
     private String hostname = "smtp.acooly.cn";
+
+    /**
+     * SMTP端口
+     */
+    private int port = 25;
+
+    /**
+     * 是否启动tls（hotmail为true）
+     */
+    private boolean starttls = false;
+
+    /**
+     * 是否使用SSL连接
+     */
+    private boolean sslConnect = false;
+
+    /**
+     * SSL链接的端口
+     */
+    private int sslPort = 465;
+
     /**
      * 邮件服务器用户名
      */
@@ -61,9 +83,9 @@ public class MailProperties implements InitializingBean {
     private String fromName = "acooly";
     /**
      * 邮件发送者邮箱地址：比如 xx@xx.com
+     * 如果未空，则使用username
      */
-    @NotBlank
-    private String fromAddress = "support@acooly.cn";
+    private String fromAddress;
 
     private int threadMin = 1;
     private int threadMax = 20;

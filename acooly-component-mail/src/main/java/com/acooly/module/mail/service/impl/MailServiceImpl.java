@@ -10,7 +10,6 @@
 package com.acooly.module.mail.service.impl;
 
 import com.acooly.core.common.exception.BusinessException;
-import com.acooly.core.common.exception.CommonErrorCodes;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.validate.Validators;
 import com.acooly.module.mail.MailAttachmentDto;
@@ -106,16 +105,21 @@ public class MailServiceImpl implements MailService {
             HtmlEmail email = new HtmlEmail();
             email.setDebug(mailProperties.isDebug());
             email.setHostName(mailProperties.getHostname());
+            email.setSmtpPort(mailProperties.getPort());
+            email.setStartTLSEnabled(mailProperties.isStarttls());
             email.setAuthentication(mailProperties.getUsername(), mailProperties.getPassword());
-
+            if (Strings.isBlank(mailProperties.getFromAddress())) {
+                mailProperties.setFromAddress(mailProperties.getUsername());
+            }
             email.setFrom(mailProperties.getFromAddress(), mailProperties.getFromName());
-            email.setSSLOnConnect(true);
+            email.setCharset(mailProperties.getCharset());
+            email.setSSLOnConnect(mailProperties.isSslConnect());
+            email.setSslSmtpPort("" + mailProperties.getSslPort());
             for (String toMail : dto.getTo()) {
                 email.addTo(toMail);
             }
             email.setSubject(dto.getSubject());
             email.setHtmlMsg(content);
-            email.setCharset(mailProperties.getCharset());
             //处理附件
             List<MailAttachmentDto> attachments = dto.getAttachments();
             if (attachments != null && attachments.size() > 0) {
