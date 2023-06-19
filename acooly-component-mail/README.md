@@ -79,7 +79,6 @@ acooly.mail.starttls=true
 acooly.mail.username=aaaaaa@hotmail.com
 acooly.mail.password=aaaaaa@Pswd
 acooly.mail.from-name=aaaaaa
-acooly.mail.from-address=aaaaaa@hotmail.com
 ```
 
 ### 2.3.3 腾讯企业邮箱
