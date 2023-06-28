@@ -255,6 +255,11 @@ acooly.framework.plugin.acooly-debug=true
 
 ## 5. changelog
 
+### 5.2.0-SNAPSHOT.20230628
+
+* 2023-06-28 - 新特性：收藏夹功能的开发，开启功能后，每个功能右上角都有五角星的收藏按钮；收藏后，可刷新在左侧顶部`收藏夹`主菜单中快速定位；同时可以在`系统管理`->`收藏夹`列表中调整排序。为保证兼容性，收藏夹功能通过配置参数`acooly.framework.enable-favorite=true`开启（默认为false：关闭）；开启使用，如果是已运行的工程，请执行jar包内`META-INF/database/security/mysql/security_favorite_upgrade.sql`的升级SQL；如果是新工程，则无需处理，初始化SQL已进行了初始化。 - [zhangpu] b4d2373e
+* 2023-06-04 - fixed:SSO模式下（集成了SSO组件），关闭SSO`acooly.sso.enable=false`,会自动管理shiro的相关安全tag的远程认证功能，恢复使用本地。修正issue:#42 - [zhangpu] b72105c8
+
 ### 5.2.0-SNAPSHOT.20221210
 
 * 2022-12-09 - 设置后台druid数据库监控功能，自动忽略CSRF防御 - [zhangpu] 6009a7fd
