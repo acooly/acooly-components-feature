@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acooly.module.security.dao.UserFavoriteDao">
+
+    <resultMap id="userFavoriteResultMap" type="com.acooly.module.security.domain.UserFavorite">
+        <id property="id" column="userFavorite_id"/>
+        <result property="userId" column="userFavorite_user_id"/>
+        <result property="rescId" column="userFavorite_resc_id"/>
+        <result property="sortTime" column="userFavorite_sort_time"/>
+    </resultMap>
+
+    <sql id="userFavoriteSqlSelect">
+            userFavorite.user_id as userFavorite_user_id,
+            userFavorite.resc_id as userFavorite_resc_id,
+            userFavorite.sort_time as userFavorite_sort_time
+    </sql>
+
+</mapper>

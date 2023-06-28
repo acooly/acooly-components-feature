@@ -45,20 +45,58 @@
     ${extendStyles}
     <!-- 根据配置设置全局样式 -->
     <style>
-        .datagrid-header .datagrid-cell span { font-size: ${securityConfig.fontSize}px;}
-        .combobox-item, .combobox-group, .combobox-stick,.combo input[type='text'],.tableForm input,.tableForm textarea,.ztree *,
-        .input-group-text,.tabs-title {font-size: ${securityConfig.fontSize}px;}
-        .datagrid-header-row, .datagrid-row {height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;}
-        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {font-size: ${securityConfig.fontSize}px;}
-        .l-btn-text {font-size: ${securityConfig.fontSize}px;}
-        .panel-body {font-size: ${securityConfig.fontSize}px;}
-        body {font-size: ${securityConfig.fontSize}px;}
-        .main-sidebar, .main-sidebar::before {width: ${securityConfig.mainSidebarWidth}px;}
-        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${securityConfig.mainSidebarWidth}px;}
-        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {margin-left: ${securityConfig.mainSidebarWidth}px;}
-        .tree-title { font-size: ${securityConfig.fontSize}px;}
-        .layout-fixed .brand-link { width: ${securityConfig.mainSidebarWidth}px;}
-        .ac-logo-title { font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;}
+        .datagrid-header .datagrid-cell span {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,
+        .input-group-text, .tabs-title {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .datagrid-header-row, .datagrid-row {
+            height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;
+        }
+
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .l-btn-text {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .panel-body {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        body {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .main-sidebar, .main-sidebar::before {
+            width: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+            margin-left: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+            margin-left: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        .tree-title {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .layout-fixed .brand-link {
+            width: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        .ac-logo-title {
+            font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;
+        }
     </style>
 </head>
 
@@ -84,7 +122,7 @@
                     <li class="user-header bg-primary">
                         <span style="font-size: 60px;"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></span>
                         <p>
-                         ${user.username} - ${user.realName}
+                            ${user.username} - ${user.realName}
                         <div style="font-size:14px;">${roleName}</div>
                         </p>
                     </li>
@@ -147,10 +185,32 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-header">功能菜单</li>
+
+                    <#-- 收藏夹 -->
+                    <#if favorites??>
+                        <li class="nav-item has-treeview menu-open">
+                            <a href="#" class="nav-link active" style="padding-left: 0.5rem;">
+                                <i class="nav-icon fa fa-star-o"></i>
+                                <p>
+                                    收藏夹 <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <#list favorites as e2>
+                                    <li class="nav-item">
+                                        <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.rescName}',value:'${e2.rescValue}',showMode:'${e2.showMode}',icon:'${e2.rescIcon}',rescId:'${e2.rescId}'})" class="nav-link" style="padding-left: 0.5rem;">
+                                            <i class="nav-icon fa ${e2.rescIcon }"></i>
+                                            <p>${e2.rescName}</p>
+                                        </a>
+                                    </li>
+                                </#list>
+                            </ul>
+                        </li>
+                    </#if>
                     <#list menu as e1>
                     <#--第一层-->
-                        <li class="nav-item has-treeview<#if e1?index==0> menu-open</#if>">
-                            <a href="#" class="nav-link<#if e1?index==0> active</#if>" style="padding-left: 0.5rem;">
+                        <li class="nav-item has-treeview<#if !(favorites??) && e1?index==0> menu-open</#if>">
+                            <a href="#" class="nav-link<#if !(favorites??) && e1?index==0> active</#if>" style="padding-left: 0.5rem;">
                                 <#if e1.iconSkin??><i class="nav-icon fa ${e1.iconSkin}"></i><#else><span class="line-action ${e1.icon}"></span></#if>
                                 <p>
                                     ${e1.name}
@@ -172,7 +232,7 @@
                                                 <ul class="nav nav-treeview">
                                                     <#list e2.children as e3>
                                                         <li class="nav-item">
-                                                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}'})" class="nav-link" style="padding-left: 0.5rem;">
+                                                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}',rescId:'${e3.id}'})" class="nav-link" style="padding-left: 0.5rem;">
                                                                 <#if e3.iconSkin??><i class="nav-icon fa ${e3.iconSkin}"></i><#else><span class="line-action ${e3.icon}"></span></#if><p>${e3.name}</p></a>
                                                         </li>
                                                     </#list>
@@ -180,7 +240,7 @@
                                             </li>
                                         <#else>
                                             <li class="nav-item">
-                                                <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}'})" class="nav-link" style="padding-left: 0.5rem;">
+                                                <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}',rescId:'${e2.id}'})" class="nav-link" style="padding-left: 0.5rem;">
                                                     <#if e2.iconSkin??><i class="nav-icon fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>
                                                     <p>${e2.name}</p>
                                                 </a>

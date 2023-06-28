@@ -45,6 +45,10 @@ public class FrameworkProperties implements Serializable {
     private String logo = "/manage/assert/image/logo.png";
     private String logoMini = "/manage/assert/plugin/adminlte3/img/AdminLTELogo.png";
     /**
+     * 是否开启收藏夹功能，默认关闭（兼容老版本），如果开启，老系统需要执行升级SQL
+     */
+    private boolean enableFavorite = false;
+    /**
      * 网站图标
      */
     private String icon;
@@ -190,7 +194,7 @@ public class FrameworkProperties implements Serializable {
     @Getter
     @Setter
     public static class Plugin implements Serializable {
-        
+
         /**
          * 框架相关的JS是否DEBUG模式加载源文件
          */

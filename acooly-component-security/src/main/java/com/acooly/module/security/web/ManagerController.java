@@ -13,7 +13,9 @@ import com.acooly.module.security.captche.SecurityCaptchaManager;
 import com.acooly.module.security.config.FrameworkProperties;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
+import com.acooly.module.security.dto.UserFavorites;
 import com.acooly.module.security.service.ResourceService;
+import com.acooly.module.security.service.UserFavoriteService;
 import com.acooly.module.security.service.UserService;
 import com.acooly.module.security.utils.ShiroUtils;
 import com.acooly.module.security.utils.jwts;
@@ -39,6 +41,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import static com.acooly.module.security.utils.jwts.SIGN_KEY;
@@ -69,6 +72,8 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
     private SecurityProperties securityProperties;
     @Autowired
     private SecurityCaptchaManager securityCaptchaManager;
+    @Autowired(required = false)
+    private UserFavoriteService userFavoriteService;
 
     @RequestMapping("")
     public String none(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -111,6 +116,12 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
 
             // 新版直接返回菜单数据
             model.addAttribute("menu", resourceService.getAuthorizedResourceNode(user.getId()));
+            if (frameworkProperties.isEnableFavorite()) {
+                List<UserFavorites> favorites = userFavoriteService.queryFavorites(user.getId());
+                if (Collections3.isNotEmpty(favorites)) {
+                    model.addAttribute("favorites", favorites);
+                }
+            }
             return "/manage/index_adminlte3";
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。

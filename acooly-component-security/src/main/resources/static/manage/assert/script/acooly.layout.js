@@ -82,6 +82,7 @@
                 $.acooly.layout.loadMenu($.acooly.layout.selectedMenu.id);
                 $.acooly.layout.loadTree($.acooly.layout.selectedMenu.id);
             },
+
             getTree: function (id) {
                 var selectMenu = $.acooly.layout.menus[0];
                 $($.acooly.layout.menus).each(function (i, menu) {
@@ -102,6 +103,7 @@
                     return;
 
                 var opts = {
+                    rescId: node.rescId,
                     title: node.name,
                     closable: true,
                     iconCls: node.icon != null && node.icon.indexOf("fa") != -1 ? "fa " + node.icon : node.icon
@@ -137,6 +139,7 @@
                 });
                 // $.acooly.layout.loadTree($.acooly.layout.selectedMenu.id,$.acooly.layout.selectedMenu.text);
             },
+
             addTab: function (opts) {
                 //var jq = top.jQuery;
                 var t = $('#layout_center_tabs');
@@ -146,15 +149,19 @@
                     $.extend(opts, {
                         onLoadError: function (e, x, y) {
                             $.acooly.layout.closeTab();
-                            $.acooly.messager("错误","请求的功能不存在或没有权限", 'danger')
+                            $.acooly.messager("错误", "请求的功能不存在或没有权限", 'danger')
                         }
                     })
                     t.tabs('add', opts);
                 }
+                // console.info("add tab opts", opts);
+                $.acooly.admin.favorite.show(opts.rescId);
             },
+
             selectTab: function (title) {
                 $('#layout_center_tabs').tabs('select', title);
             },
+
             getSelectTab: function () {
                 return $('#layout_center_tabs').tabs('getSelected').panel('options');
             },
