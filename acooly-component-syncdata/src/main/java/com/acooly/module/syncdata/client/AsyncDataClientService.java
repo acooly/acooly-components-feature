@@ -1,5 +1,6 @@
 package com.acooly.module.syncdata.client;
 
+import com.acooly.core.common.exception.BusinessException;
 import com.acooly.module.syncdata.SyncDataProperties;
 import com.acooly.module.syncdata.manage.entity.TableAsyncData;
 import com.acooly.module.syncdata.manage.service.TableAsyncDataService;
@@ -8,6 +9,7 @@ import com.acooly.module.syncdata.openapi.message.AsyncDataApiResponse;
 import com.acooly.module.syncdata.openapi.service.AsyncDataService;
 import com.acooly.openapi.framework.client.OpenApiClientProperties;
 import com.acooly.openapi.framework.common.OpenApiTools;
+import com.acooly.openapi.framework.common.enums.ApiServiceResultCode;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -129,6 +131,7 @@ public class AsyncDataClientService {
             }
         } catch (Exception e) {
             log.error("数据同步：失败：{}", e);
+            throw new BusinessException(ApiServiceResultCode.FAILURE.code(), ApiServiceResultCode.FAILURE.message(), "数据同步失败");
         }
     }
 

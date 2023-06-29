@@ -1,10 +1,12 @@
 package com.acooly.module.syncdata.openapi.service.impl;
 
 import com.acooly.core.common.dao.support.PageInfo;
+import com.acooly.core.common.exception.BusinessException;
 import com.acooly.module.ds.AbstractJdbcTemplateDao;
 import com.acooly.module.syncdata.common.enums.QueryColumnTypeEnum;
 import com.acooly.module.syncdata.common.enums.QueryTypeEnum;
 import com.acooly.module.syncdata.openapi.service.AsyncDataService;
+import com.acooly.openapi.framework.common.enums.ApiServiceResultCode;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -41,14 +43,19 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
      */
     @Override
     public boolean findData(String tableName, String primaryColumnName, JSONObject rowsDataJson) {
-        String primaryColumnValue = rowsDataJson.get(primaryColumnName).toString();
-        String sql = "select * from " + tableName + "  where " + primaryColumnName + " =";
-        String whereSql = primaryColumnValue;
-        if (!primaryColumnValue.toLowerCase().equals("id")) {
-            whereSql = " '" + primaryColumnValue + "'";
+        try {
+            String primaryColumnValue = rowsDataJson.get(primaryColumnName).toString();
+            String sql = "select * from " + tableName + "  where " + primaryColumnName + " =";
+            String whereSql = primaryColumnValue;
+            if (!primaryColumnValue.toLowerCase().equals("id")) {
+                whereSql = " '" + primaryColumnValue + "'";
+            }
+            List<Map<String, Object>> lists = jdbcTemplate.queryForList(sql + whereSql);
+            return (lists.size() > 0) ? true : false;
+        } catch (Exception e) {
+            log.error("数据同步：查询单表记录失败：tableName:{},primaryColumnName:{},rowsDataJson:{},{}", tableName, primaryColumnName, rowsDataJson, e);
+            throw new BusinessException(ApiServiceResultCode.FAILURE.code(), ApiServiceResultCode.FAILURE.message(), "数据同步失败");
         }
-        List<Map<String, Object>> lists = jdbcTemplate.queryForList(sql + whereSql);
-        return (lists.size() > 0) ? true : false;
     }
 
 
