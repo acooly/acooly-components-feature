@@ -39,6 +39,10 @@ public class SecurityComponentInitializer implements ComponentInitializer {
             setPropertyIfMissing("acooly.olog.storage.enable", "false");
         }
 
+        // org的管理用户
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_org[0].columnName", "uesrname");
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_org[0].patchSql", "ALTER TABLE `sys_org` ADD COLUMN `username` VARCHAR(32) NULL COMMENT '管理用户' AFTER `name`;");
+
         // 线上系统，密码强度自少为: usually
         if (Env.isOnline()) {
             setPropertyIfMissing("acooly.framework.password-strength", "usually");

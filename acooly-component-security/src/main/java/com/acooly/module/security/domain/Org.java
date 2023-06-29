@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -36,8 +38,16 @@ public class Org extends AbstractEntity {
     /**
      * 组织名称
      */
-    @Column(name = "name", length = 64)
+    @NotBlank
+    @Size(max = 32)
+    @Column(name = "username", nullable = false, length = 32)
     private String name;
+
+    /**
+     * 管理用户
+     */
+    @Column(name = "username", length = 32)
+    private String username;
 
     /**
      * 状态
