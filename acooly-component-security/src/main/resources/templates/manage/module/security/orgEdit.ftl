@@ -24,8 +24,13 @@
           action="/manage/module/security/org/<#if action == 'create'>save<#else>update</#if>Json.html" method="post">
         <@jodd.form bean="org" scope="request">
             <input name="id" type="hidden"/>
-            <input name="parentId" id="parentId" type="hidden" value="${parentId}"/>
             <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">所属机构：</label>
+                    <div class="col-sm-9">
+                        <select name="parentId" id="manage_user_searchform_parentId" class="form-control select2bs4"></select>
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">机构名称：</label>
                     <div class="col-sm-9">
@@ -89,4 +94,11 @@
             </div>
         </@jodd.form>
     </form>
+    <script>
+        $(function () {
+            // 初始化组织结构下拉选择框
+            var parentId = '<#if action == 'create'>${parentId}<#else>${org.parentId}</#if>';
+            $.acooly.system.user.orgTreeBoxInit("manage_user_searchform_parentId", false,parentId);
+        });
+    </script>
 </div>
