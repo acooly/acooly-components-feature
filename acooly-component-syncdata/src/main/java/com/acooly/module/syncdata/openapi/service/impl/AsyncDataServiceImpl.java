@@ -47,7 +47,7 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
             String primaryColumnValue = rowsDataJson.get(primaryColumnName).toString();
             String sql = "select * from " + tableName + "  where " + primaryColumnName + " =";
             String whereSql = primaryColumnValue;
-            if (!primaryColumnValue.toLowerCase().equals("id")) {
+            if (!primaryColumnName.toLowerCase().equals("id")) {
                 whereSql = " '" + primaryColumnValue + "'";
             }
             List<Map<String, Object>> lists = jdbcTemplate.queryForList(sql + whereSql);
@@ -67,33 +67,38 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
      */
     @Override
     public void updateData(String tableName, String primaryColumnName, JSONObject rowsDataJson) {
-        String primaryColumnValue = rowsDataJson.get(primaryColumnName).toString();
-
         //判断 主键 是否为 id
-        boolean isId = primaryColumnValue.toLowerCase().equals("id");
+        boolean isId = primaryColumnName.toLowerCase().equals("id");
+        String primaryColumnValue = rowsDataJson.get(primaryColumnName).toString();
 
         StringBuffer sbSql = new StringBuffer();
         sbSql.append("update  " + tableName + " set ");
         Set<String> rowsDataKeySet = rowsDataJson.keySet();
         int size = rowsDataKeySet.size();
         int i = 1;
+        //循环设置参数值
         for (String rowsKey : rowsDataKeySet) {
-            //不是ID，不能更新ID字段
-            if (!isId) {
-                if (rowsKey.toLowerCase().equals("id")) {
-                    size = size - 1;
-                    continue;
-                }
+            //主键为ID，不设置值
+            if (rowsKey.toLowerCase().equals("id")) {
+                size = size - 1;
+                continue;
             }
-
+            //  表set值
             sbSql.append(rowsKey + " = '" + rowsDataJson.get(rowsKey) + "'");
             if (i < size) {
                 sbSql.append(",");
             }
             i = i + 1;
         }
+
+        //判断set值中，最后一个字符 是否为,
+        String sql = sbSql.toString();
+        if (sql.endsWith(",")) {
+            sql = sql.substring(0, (sql.length() - 1));
+        }
+
         //主键是id
-        sbSql.append(" where " + primaryColumnName + " = ");
+        sql = sql + " where " + primaryColumnName + " = ";
         String whereSql = primaryColumnValue;
 
         //主键不是id
@@ -101,9 +106,8 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
             whereSql = "'" + primaryColumnValue + "'";
         }
 
-        sbSql.append(whereSql);
-        log.info("数据同步[更新数据],执行sql：{}", sbSql.toString());
-        jdbcTemplate.execute(sbSql.toString());
+        log.info("数据同步[更新数据],执行sql：{}", sql + whereSql);
+        jdbcTemplate.execute(sql + whereSql);
     }
 
     /**

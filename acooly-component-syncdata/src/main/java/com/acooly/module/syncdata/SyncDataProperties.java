@@ -19,8 +19,7 @@ public class SyncDataProperties {
     private Boolean enable = true;
 
     /**
-     * 积分系统-业务系统业务扩充枚举
-     * <li>当业务系统定义的业务场景枚举无法覆盖实际场景，支持枚举扩充（例如：用户奖励，客服奖励等等）
+     * 数据同步-业务系统业务扩充枚举
      * <li>格式：acooly.syncdata.busiTypeEnum[user]=用户
      */
     private Map<String, String> busiTypeEnum = Maps.newHashMap();
