@@ -192,6 +192,13 @@ public class ITextRendererObjectFactory extends BasePooledObjectFactory<ITextRen
         if (log.isDebugEnabled()) {
             log.debug("source path is {}", sourcePath);
         }
+        // 先判断是否有jar包
+        if (!sourcePath.contains("!/")) {
+            if (log.isDebugEnabled()) {
+                log.debug("source path is not jar");
+            }
+            return;
+        }
         String jarPath = sourcePath.substring(0, sourcePath.indexOf("!/") + 2);
         if (log.isDebugEnabled()) {
             log.debug("jar path is {}", jarPath);
