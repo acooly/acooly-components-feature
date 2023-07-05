@@ -1,14 +1,16 @@
+<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/treegrid-dnd.js" charset="utf-8"></script>
 <div class="easyui-layout" data-options="fit : true,border : false">
     <!-- 列表和工具栏 -->
     <div data-options="region:'center',border:false">
         <table id="manage_org_datagrid" class="easyui-treegrid"
-               url="${pageContext.request.contextPath}/manage/module/security/org/listTree.html" toolbar="#manage_org_toolbar" fit="true"
-               border="false" fitColumns="true" rownumbers="true" idField="id" treeField="name" collapsible="true" checkOnSelect="true" selectOnCheck="true">
+               url="/manage/module/security/org/listTree.html" toolbar="#manage_org_toolbar" fit="true"
+               fitColumns="true" rownumbers="false" idField="id" treeField="name" collapsible="true" checkOnSelect="true" selectOnCheck="true">
             <thead>
             <tr>
                 <th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
                 <th field="id" sum="true">id</th>
-                <th field="name">机构名称</th>
+                <th field="name">名称</th>
+                <th field="username">负责人</th>
                 <th field="province">省</th>
                 <th field="city">市</th>
                 <th field="county">区</th>
@@ -24,12 +26,12 @@
 
         <!-- 每行的Action动作模板 -->
         <div id="manage_org_action" style="display: none;">
-            <a onclick="$.acooly.framework.create({url:'/manage/module/security/org/create.html?parentId={0}',entity:'org',width:600,height:500,reload:true});"
+            <a onclick="$.acooly.framework.create({url:'/manage/module/security/org/create.html?parentId={0}',entity:'org',width:600,height:500,reload:});"
                href="#" title="添加"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.edit({url:'/manage/module/security/org/edit.html',id:'{0}',entity:'org',width:600,height:500,reload:true});"
                href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.show('/manage/module/security/org/show.html?id={0}',600,500);" href="#" title="查看"><i
-                    class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
+                        class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
             <a onclick="$.acooly.framework.remove('/manage/module/security/org/deleteJson.html','{0}','manage_org_datagrid');" href="#"
                title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
         </div>
@@ -38,14 +40,44 @@
         <div id="manage_org_toolbar">
             <a href="#" class="easyui-linkbutton" plain="true"
                onclick="$.acooly.framework.create({url:'/manage/module/security/org/create.html?parentId=0',entity:'org',width:600,height:500})"><i
-                    class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
+                        class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
         </div>
     </div>
     <script type="text/javascript">
         $(function () {
             $("#manage_org_datagrid").treegrid({
-                loadFilter: function (result) {
-                    return result.rows;
+                // loadFilter: function (result) {
+                //     return result.rows;
+                // },
+                onLoadSuccess: function (row, data) {
+                    $(this).treegrid('enableDnd', row ? row.id : null);
+                },
+                onBeforeDrop: function (targetRow, sourceRow, point) {
+                    console.info("onBeforeDrop:", targetRow, sourceRow,  point);
+                    // 拖动排序处理
+                    if (!point || !targetRow || !sourceRow || targetRow == sourceRow) {
+                        return false;
+                    }
+                    var result = true;
+                    // $.ajax({
+                    //     url: '/manage/pm/project/projectTask/move.html',
+                    //     async: false,
+                    //     data: {
+                    //         sourceId: sourceRow.id,
+                    //         targetId: targetRow.id,
+                    //         point: point
+                    //     },
+                    //     success: function (data, status) {
+                    //         if (data.success) {
+                    //             $("#" + gridId).treegrid('reload');
+                    //             console.info("save move success!");
+                    //         } else {
+                    //             $.acooly.messager("移动", data.message, "warning");
+                    //             result = false;
+                    //         }
+                    //     }
+                    // });
+                    return result;
                 }
             });
             $.acooly.framework.initPage('manage_org_searchform', 'manage_org_datagrid');

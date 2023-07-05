@@ -40,7 +40,7 @@ public class SecurityComponentInitializer implements ComponentInitializer {
         }
 
         // org的管理用户
-        setPropertyIfMissing("acooly.ds.dbPatchs.sys_org[0].columnName", "uesrname");
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_org[0].columnName", "username");
         setPropertyIfMissing("acooly.ds.dbPatchs.sys_org[0].patchSql", "ALTER TABLE `sys_org` ADD COLUMN `username` VARCHAR(32) NULL COMMENT '管理用户' AFTER `name`;");
 
         // 线上系统，密码强度自少为: usually

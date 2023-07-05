@@ -38,6 +38,18 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">机构负责人
+                        <a title="该部门的管理员，第一负责人。" class="easyui-tooltip"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                    </label>
+                    <div class="col-sm-9">
+                        <select name="username" class="form-control select2bs4" required>
+                            <option value="">请选择机构负责人</option>
+                            <#list users as user>
+                                <option value="${user.username}">${user.pinyin}:${user.realName}:${user.orgName}</option></#list>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-3 col-form-label">联系人</label>
                     <div class="col-sm-9">
                         <input type="text" name="contacts" placeholder="请输入联系人姓名..." class="easyui-validatebox form-control" data-options="validType:['length[1,24]']" required="true"/>

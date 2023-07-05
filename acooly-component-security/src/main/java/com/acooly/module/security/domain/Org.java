@@ -40,7 +40,7 @@ public class Org extends AbstractEntity {
      */
     @NotBlank
     @Size(max = 32)
-    @Column(name = "username", nullable = false, length = 32)
+    @Column(name = "name", nullable = false, length = 32)
     private String name;
 
     /**

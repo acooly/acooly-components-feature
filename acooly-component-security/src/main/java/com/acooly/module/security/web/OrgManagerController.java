@@ -10,12 +10,12 @@ import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
-import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.module.security.domain.Org;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.enums.OrgStatus;
 import com.acooly.module.security.service.OrgService;
+import com.acooly.module.security.service.UserService;
 import com.acooly.module.security.utils.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +43,9 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
 
     @Autowired
     private OrgService orgService;
+
+    @Autowired
+    private UserService userService;
 
     {
         allowMapping = "*";
@@ -103,6 +106,13 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
     @Override
     protected void onCreate(HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("parentId", request.getParameter("parentId"));
+        model.addAttribute("users", userService.getAll());
+    }
+
+    @Override
+    protected void onEdit(HttpServletRequest request, HttpServletResponse response, Model model, Org entity) {
+        super.onEdit(request, response, model, entity);
+        model.addAttribute("users", userService.getAll());
     }
 
     @Override
