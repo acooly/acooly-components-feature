@@ -1,10 +1,23 @@
+/*
+文件拖拽上传方案：参考：onlineFile.ftl
+1. 集成文件上传按钮，访问地址  ：  /manage/module/ofile/onlineFile/uploadFilePage.html?bussId=111
+2. oFileinit 文件初始化
+3. 接受文件类型，支持但页面配置 示例： <input id="acceptedFileTypes" type="hidden" value=".log,.xlsx,.jpg,.png">
+4. oFileinit 文件初始化-支持动态回调函数（文件回显函数，文件删除回调，文件上传成功回调，文件列表点击回调）
+ */
+
 //div做上传区域时使用的配置
 // console.log("文件上传(拖拽)-加载完成");
 
 Dropzone.autoDiscover = false;// 禁止对所有元素的自动查找，由于Dropzone会自动查找class为dropzone的元素，自动查找后再在这里进行初始化
-
+//业务ID
 var bussId = $('#bussId').val();
 
+//支持文件类型(页面调用者指定，文本隐藏)
+//例如： <input id="acceptedFileTypes" type="hidden" value=".log,.xlsx,.jpg,.png">
+var acceptedFileTypes=$('#acceptedFileTypes').val();
+
+//上传文件列表
 var uploadFile = [];
 
 /**
@@ -23,9 +36,14 @@ if (typeof oFileUploadShow === 'function') {
     oFileinit([],function () {},function () {},function () {})
 }
 
+/**
+ * 文件上传初始化
+ * ids：回显-内容
+ * oFileDeleteSuccess：文件删除回调
+ * oFileUploadSuccess：文件上传成功回调
+ * oFileClickItem：文件列表点击回调
+ * */
 function oFileinit(ids,oFileDeleteSuccess,oFileUploadSuccess,oFileClickItem){
-
-
     console.log("ids 文件：", ids);
     let jsonIds = JSON.stringify(ids);
     //数据为空不请求后端
@@ -81,9 +99,10 @@ function ofileDownload() {
  * @param callBack
  */
 function ofileInitResult(oFileDeleteSuccess,oFileUploadSuccess,oFileClickItem) {
-
     var drop_zone = new Dropzone("#dropzone-img-div", {
         url: "/ofile/upload.html",
+        //指定上传的文件类型
+        acceptedFiles:acceptedFileTypes,
         //改变文件框中的文字提示
         dictDefaultMessage: '<span class="bigger-150 bolder"><i class="icon-caret-right red"></i> 拖动文件至该处</span><span class="smaller-80 grey">(或点击此处)</span> <br /><i class="upload-icon icon-cloud-upload blue icon-3x"></i>',
         //方式指定

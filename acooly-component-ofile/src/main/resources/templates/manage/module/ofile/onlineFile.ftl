@@ -55,7 +55,7 @@
                 <th field="createTime">上传时间</th>
                 <th field="rowActions"
                     data-options="formatter:function(value, row, index){return formatAction('manage_onlineFile_action',value,row)}">动作
-                </th>3ee
+                </th>
             </tr>
             </thead>
         </table>
@@ -80,12 +80,10 @@
 
             <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage.html?bussId=111',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(拖拽)</a>
 
-
-            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage.html?bussId=222',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(拖拽)</a>
-
 <#--            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage_multiple.html',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(多文件)</a>-->
 
-
+            <#--文件上传的类型指定-->
+            <input id="acceptedFileTypes" type="hidden" value=".log,.xlsx,.jpg,.png">
 
         </div>
     </div>
@@ -93,6 +91,7 @@
 </div>
 
 <script type="text/javascript">
+
     // /**
     //  * 文件delete结果
     //  * @param callBack
