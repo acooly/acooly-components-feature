@@ -10,6 +10,7 @@ import com.acooly.core.common.web.AbstractJsonEntityController;
 import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
+import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.module.security.domain.Org;
 import com.acooly.module.security.domain.User;
@@ -62,8 +63,7 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
 
     @RequestMapping(value = "listTree")
     @ResponseBody
-    public JsonListResult<Org> getTopLevel(
-            HttpServletRequest request, HttpServletResponse response, Model model) {
+    public JsonListResult<Org> getTopLevel(HttpServletRequest request, HttpServletResponse response, Model model) {
         JsonListResult<Org> result = new JsonListResult<>();
         try {
             result.appendData(referenceData(request));
@@ -74,7 +74,6 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
             if (getSessionUser().getUserType() != 1) {
                 orgId = ShiroUtils.getCurrentUser().getOrgId();
             }
-
 
             List<Org> organizes = orgService.getTreeList(orgId);
             result.setTotal(Long.valueOf(organizes.size()));
@@ -116,14 +115,7 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
     }
 
     @Override
-    protected Org onSave(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Model model,
-            Org entity,
-            boolean isCreate)
-            throws Exception {
-
+    protected Org onSave(HttpServletRequest request, HttpServletResponse response, Model model, Org entity, boolean isCreate) throws Exception {
         String parentId = request.getParameter("parentId");
         if (StringUtils.isNotBlank(parentId)) {
             entity.setParentId(Long.parseLong(parentId));
@@ -135,5 +127,32 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
     public JsonEntityResult<Org> updateJson(
             HttpServletRequest request, HttpServletResponse response) {
         return super.updateJson(request, response);
+    }
+
+
+    @Deprecated
+    @ResponseBody
+    @RequestMapping("move")
+    public JsonResult move(HttpServletRequest request, HttpServletResponse response, Model model) {
+        JsonResult result = new JsonResult();
+        String point = request.getParameter("point");
+        Long sourceId = Servlets.getLongParameter("sourceId");
+        Long targetId = Servlets.getLongParameter("targetId");
+        try {
+//            getEntityService().move(sourceId, targetId, point);
+        } catch (Exception e) {
+            handleException(result, "移动异常", e);
+        }
+        return result;
+    }
+
+    @Override
+    public JsonResult topJson(HttpServletRequest request, HttpServletResponse response) {
+        return super.topJson(request, response);
+    }
+
+    @Override
+    public JsonResult upJson(HttpServletRequest request, HttpServletResponse response) {
+        return super.upJson(request, response);
     }
 }
