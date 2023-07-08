@@ -44,7 +44,7 @@ public class Docx2PdfTest {
         pdfProperties.setResourceLoader(resourceLoader);
 
         pdfGeneratorService = new DocxPdfGenerator();
-        pdfGeneratorService.setPdfProperties(pdfProperties);
+//        pdfGeneratorService.setPdfProperties(pdfProperties);
     }
 
     @Test

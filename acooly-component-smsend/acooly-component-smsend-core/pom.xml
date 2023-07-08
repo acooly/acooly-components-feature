@@ -59,10 +59,23 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
 
+        <!-- 阿里短信（私有化上传到acooly.cn/nexus，如果外部项目非acooly-nexus，需要通过proxy或线上上传） -->
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
             <version>4.0.3</version>
+        </dependency>
+
+        <!-- 华为短信（私有化上传到acooly.cn/nexus，如果外部项目非acooly-nexus，需要通过proxy或线上上传） -->
+        <dependency>
+            <groupId>com.huawei.apigateway</groupId>
+            <artifactId>java-sdk-core</artifactId>
+            <version>3.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openeuler</groupId>
+            <artifactId>bgmprovider</artifactId>
+            <version>1.0.4</version>
         </dependency>
 
     </dependencies>

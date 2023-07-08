@@ -66,7 +66,7 @@ OpenApi的接入权限配置在短信服务后端完成。
 
 ### 3.2. 参数配置
 
-#### 3.2.1. 短信服务配置
+#### 3.2.1. 短信服务通用配置
 
 ```ini
 # 组件开关
@@ -103,7 +103,30 @@ acooly.smsend.providers.anycmp.content-sign=我是签名
 acooly.smsend.providers.anycmp.price=52
 ```
 
-#### 3.2.2. 线程池配置
+#### 3.2.2. 支持的短信渠道
+
+目前支持的渠道包括：阿里云短信、容联云、多云、华为云短信，详情可参考：`com.acooly.module.smsend.common.enums.SmsProvider`
+
+```xml
+<!-- 阿里短信（私有化上传到acooly.cn/nexus，如果外部项目非acooly-nexus，需要通过proxy或线上上传） -->
+<dependency>
+    <groupId>com.aliyun</groupId>
+    <artifactId>aliyun-java-sdk-core</artifactId>
+    <version>4.0.3</version>
+</dependency>
+
+<!-- 华为短信（私有化上传到acooly.cn/nexus，如果外部项目非acooly-nexus，需要通过proxy或线上上传） -->
+<dependency>
+    <groupId>com.huawei.apigateway</groupId>
+    <artifactId>java-sdk-core</artifactId>
+    <version>3.2.4</version>
+</dependency>
+```
+
+>如果是阿里云和华为云，需要有依赖其SDK，私有化上传到acooly.cn/nexus，如果外部项目非acooly-nexus，需要通过proxy或线上上传）
+
+
+#### 3.2.3. 线程池配置
 
 smsend组件异步发送使用通用线程池组件，如有需求，请进行配置
 
@@ -113,7 +136,7 @@ acooly.threadpool.threadMin=10
 acooly.threadpool.threadQueue=1000
 ```
 
-#### 3.2.3. 其他配置
+#### 3.2.4. 其他配置
 
 短信服务默认使用dubbo方式提供内部服务，这里是dubbo相关的参数配置
 

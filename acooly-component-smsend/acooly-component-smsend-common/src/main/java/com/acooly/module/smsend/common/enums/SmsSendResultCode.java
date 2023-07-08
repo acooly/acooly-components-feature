@@ -31,7 +31,11 @@ public enum SmsSendResultCode implements Messageable {
     NOT_SUPPORT_OPERATE("NOT_SUPPORT_OPERATE", "Provider不支持该操作"),
     NO_PROVIDER_AVAILABLE("NO_PROVIDER_AVAILABLE", "没有可用的发送提供者"),
     NETWORK_CONN_ERROR("NETWORK_CONN_ERROR", "通讯异常"),
-    ALL_PROVIDER_QUOTA_FULL("ALL_PROVIDER_QUOTA_FULL", "号码发送配额不足");
+    ALL_PROVIDER_QUOTA_FULL("ALL_PROVIDER_QUOTA_FULL", "号码发送配额不足"),
+
+    RECEIVER_MOBILE_EMPTY("RECEIVER_MOBILE_EMPTY", "接收手机号码不能为空"),
+
+    ;
 
     private final String code;
     private final String message;

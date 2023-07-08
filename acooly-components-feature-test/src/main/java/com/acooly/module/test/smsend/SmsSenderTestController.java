@@ -101,7 +101,7 @@ public class SmsSenderTestController {
             Map<String, String> smsParam = new ListOrderedMap<String, String>();
             smsParam.put("captcha", "121312");
             smsParam.put("effectiveMinute", "10");
-            SenderInfo senderInfo = new SenderInfo("200519151525CB2D0001", "13896177630", "youcheyun_register", smsParam, "", "");
+            SenderInfo senderInfo = new SenderInfo("youcheyun", "13896177630", "youcheyun_register", smsParam, "", "");
             senderInfo.setAsync(false);
             smsSendService.send(senderInfo);
         } catch (BusinessException e) {
