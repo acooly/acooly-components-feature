@@ -359,4 +359,4 @@ public class SmsSenderTestController {
 
 ### 5.2.0-SNAPSHOT.20230709
 
-
+* 2023-07-09 - 完成华为云短信的开发和验证 - [zhangpu] 3eed9fea
