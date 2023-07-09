@@ -66,7 +66,7 @@ OpenApi的接入权限配置在短信服务后端完成。
 
 ### 3.2. 参数配置
 
-#### 3.2.1. 短信服务配置
+#### 3.2.1. 短信服务通用配置
 
 ```ini
 # 组件开关
@@ -89,21 +89,56 @@ acooly.smsend.providers.aliyun.access-key=XXXXXXX
 acooly.smsend.providers.aliyun.secret-key=XXXXXXX
 acooly.smsend.providers.aliyun.content-sign=XXXXX
 acooly.smsend.providers.aliyun.ext.regionId=cn-hangzhou
-  # 短信渠道单条发送成本，单位：厘
+# 短信渠道单条发送成本，单位：厘
 acooly.smsend.providers.aliyun.price=50
-## 渠道2：容联云
+
+## 渠道2：华为云
+# [必选] 访问码，来自华为云控制台
+acooly.smsend.providers.huaweiyun.access-key=XXXXXXX1Xk3sD6ocxRN
+# [必选] 安全码，来自华为云控制台
+acooly.smsend.providers.huaweiyun.secret-key=XXXXXXXXanScGlM
+# [国内必选] 短信签名
+acooly.smsend.providers.huaweiyun.content-sign=短信签名
+# [必选] 区域ID，来自华为云控制台
+acooly.smsend.providers.huaweiyun.ext.regionId=cn-north-4
+# [必选] 发送通道（from参数），来自华为云控制台
+acooly.smsend.providers.huaweiyun.ext.sender=csms12345678
+
+## 渠道3：容联云
 acooly.smsend.providers.cloopen.app-id=aaf98f89512446e2015142c111111111
 acooly.smsend.providers.cloopen.access-key=8a48b5514ecd7fa8014e1111111111
 acooly.smsend.providers.cloopen.secret-key=30cbffc2d17240e7be2a1111111111
 acooly.smsend.providers.cloopen.price=51
-## 渠道3：其他
+## 渠道4：其他
 acooly.smsend.providers.anycmp.access-key=52AQCwgE+111111111111111
 acooly.smsend.providers.anycmp.secret-key=t2BRy849l222222222222222
 acooly.smsend.providers.anycmp.content-sign=我是签名
 acooly.smsend.providers.anycmp.price=52
 ```
 
-#### 3.2.2. 线程池配置
+#### 3.2.2. 支持的短信渠道
+
+目前支持的渠道包括：阿里云短信、容联云、多云、华为云短信，详情可参考：`com.acooly.module.smsend.common.enums.SmsProvider`
+
+```xml
+<!-- 阿里短信（私有化上传到acooly.cn/nexus，如果外部项目非acooly-nexus，需要通过proxy或线上上传） -->
+<dependency>
+    <groupId>com.aliyun</groupId>
+    <artifactId>aliyun-java-sdk-core</artifactId>
+    <version>4.0.3</version>
+</dependency>
+
+        <!-- 华为短信（私有化上传到acooly.cn/nexus，如果外部项目非acooly-nexus，需要通过proxy或线上上传） -->
+<dependency>
+<groupId>com.huawei.apigateway</groupId>
+<artifactId>java-sdk-core</artifactId>
+<version>3.2.4</version>
+</dependency>
+```
+
+> 如果是阿里云和华为云，需要有依赖其SDK，私有化上传到acooly.cn/nexus，如果外部项目非acooly-nexus，需要通过proxy或线上上传）
+
+#### 3.2.3. 线程池配置
 
 smsend组件异步发送使用通用线程池组件，如有需求，请进行配置
 
@@ -113,7 +148,7 @@ acooly.threadpool.threadMin=10
 acooly.threadpool.threadQueue=1000
 ```
 
-#### 3.2.3. 其他配置
+#### 3.2.4. 其他配置
 
 短信服务默认使用dubbo方式提供内部服务，这里是dubbo相关的参数配置
 
@@ -321,3 +356,7 @@ public class SmsSenderTestController {
 ### 5.2.0-SNAPSHOT.20221023
 
 2022-10-23 - Issue#32: 完成smsBlack从JSP迁移为FTL，并对整个短信发送组件的管理界面全部添加对SSO的支持 - [zhangpu] 72cc944d
+
+### 5.2.0-SNAPSHOT.20230709
+
+* 2023-07-09 - 完成华为云短信的开发和验证 - [zhangpu] 3eed9fea

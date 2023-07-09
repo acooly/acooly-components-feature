@@ -26,6 +26,8 @@ public enum SmsProvider implements Messageable {
      */
     Aliyun("Aliyun", "阿里云"),
 
+    Huaweiyun("Huaweiyun", "华为云"),
+
 
     AnyCmp("AnyCmp", "多云"),
 
