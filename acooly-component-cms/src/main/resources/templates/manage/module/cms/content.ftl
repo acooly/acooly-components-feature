@@ -1,12 +1,5 @@
-<#if ssoEnable>
-    <#include "*/include.ftl">
-</#if>
+<#if ssoEnable><#include "/manage/common/ssoInclude.ftl"></#if>
 <script type="text/javascript">
-    $(function () {
-        $.acooly.framework.registerKeydown('manage_content${RequestParameters.code}_searchform', 'manage_content${RequestParameters.code}_datagrid');
-    });
-
-
     function manage_content${RequestParameters.code}_size() {
         var cmsType = '${RequestParameters.cmsType}';
         var scale = {w: 1100, h: 600};
@@ -80,8 +73,10 @@
         <!-- 每行的Action动作模板 -->
         <div id="manage_content${RequestParameters.code}_action" style="display: none;">
             <div class="btn-group btn-group-xs">
-                <button onclick="$.acooly.framework.edit({url:'/manage/module/cms/content/edit.html?code=${RequestParameters.code}&cmsType=${RequestParameters.cmsType}',id:{0},entity:'content${RequestParameters.code}',width:manage_content${RequestParameters.code}_size().w,height:manage_content${RequestParameters.code}_size().h,maximizable:true});" class="btn btn-outline-primary btn-xs" type="button"><i
-                            class="fa fa-pencil fa-lg fa-fw fa-col"></i>编辑</button>
+                <button onclick="$.acooly.framework.edit({url:'/manage/module/cms/content/edit.html?code=${RequestParameters.code}&cmsType=${RequestParameters.cmsType}',id:{0},entity:'content${RequestParameters.code}',width:manage_content${RequestParameters.code}_size().w,height:manage_content${RequestParameters.code}_size().h,maximizable:true});" class="btn btn-outline-primary btn-xs"
+                        type="button"><i
+                            class="fa fa-pencil fa-lg fa-fw fa-col"></i>编辑
+                </button>
                 <button onclick="$.acooly.framework.remove('/manage/module/cms/content/deleteJson.html','{0}','manage_content${RequestParameters.code}_datagrid');" class="btn btn-outline-primary btn-xs" type="button"><i class="fa fa-trash fa-lg fa-fw fa-col"></i></button>
                 <button onclick="$.acooly.framework.move('/manage/module/cms/content/moveUp.html','{0}','manage_content${RequestParameters.code}_datagrid');" class="btn btn-outline-primary btn-xs" type="button"><i class="fa fa-arrow-up fa-fw fa-col"></i>上移</button>
                 <button onclick="$.acooly.framework.move('/manage/module/cms/content/moveTop.html','{0}','manage_content${RequestParameters.code}_datagrid');" class="btn btn-outline-primary btn-xs" type="button"><i class="fa fa-step-forward fa-rotate-270 fa-fw fa-col"></i>置顶</button>
@@ -93,11 +88,12 @@
         <div id="manage_content${RequestParameters.code}_toolbar">
             <a href="#" class="easyui-linkbutton" plain="true"
                onclick="$.acooly.framework.create({url:'/manage/module/cms/content/create.html?code=${RequestParameters.code}&cmsType=${RequestParameters.cmsType}',entity:'content${RequestParameters.code}',width:manage_content${RequestParameters.code}_size().w,height:manage_content${RequestParameters.code}_size().h,maximizable:true})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
-            <!--
-            <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"
-<#--               onclick="manage_content${RequestParameters.code}_show();"> 详情 </a>-->
-            -->
+<#--            <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="manage_content${RequestParameters.code}_show();"> 详情 </a>-->
         </div>
     </div>
-
+    <script type="text/javascript">
+        $(function () {
+            $.acooly.framework.initPage('manage_content${RequestParameters.code}_searchform', 'manage_content${RequestParameters.code}_datagrid');
+        });
+    </script>
 </div>
