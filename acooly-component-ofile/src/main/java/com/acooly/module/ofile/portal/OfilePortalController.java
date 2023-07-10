@@ -21,8 +21,6 @@ import com.acooly.module.ofile.enums.OFileType;
 import com.acooly.module.ofile.enums.StorageTypeEnum;
 import com.acooly.module.ofile.service.OnlineFileService;
 import com.acooly.module.ofile.support.OfileSupportService;
-import com.acooly.module.security.domain.User;
-import com.acooly.module.security.utils.ShiroUtils;
 import com.alibaba.fastjson.JSON;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.google.common.collect.Lists;
@@ -482,6 +480,11 @@ public class OfilePortalController
             response.setContentType("application/octet-stream");
         }
         response.setHeader("Content-Disposition", "attachment");
+        try {
+            fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
+        } catch (Exception e) {
+            throw new BusinessException(e);
+        }
         response.setHeader("Content-Disposition", "filename=\"" + fileName + "\"");
     }
 
