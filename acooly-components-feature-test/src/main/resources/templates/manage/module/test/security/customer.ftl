@@ -41,6 +41,20 @@
                 </button>
             </div>
             <div class="form-group">
+
+                <script>
+                    function doAddNewTabFormAndRender() {
+                        $.acooly.layout.addTabAndRender({
+                            'title': '测试Tab表单渲染',
+                            'href': '/manage/module/test/security/customer/create.html',
+                            'closable': true,
+                            'rescId': '2020022207'
+                        });
+                    }
+                </script>
+
+                <button class="btn btn-sm btn-primary" type="button" onclick="doAddNewTabFormAndRender()">测试Tab的Form渲染</button>
+
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_customer_searchform','manage_customer_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.tips('这是一个tips',this,2)">tips</button>
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.msg('这是一个msg')">msg</button>
@@ -56,16 +70,16 @@
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('danger','danger')">messager.danger</button>
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('primary','primary')">messager.primary</button>
 
-
             </div>
         </form>
     </div>
 
     <!-- 列表和工具栏 -->
+<#--    onLoadSuccess: function (data) {$('#manage_customer_datagrid').datagrid('statistics','salary');},-->
     <div data-options="region:'center',border:false">
         <table id="manage_customer_datagrid" class="easyui-datagrid icheck-primary" url="/manage/module/test/security/customer/listJson.html" toolbar="#manage_customer_toolbar" fit="true" border="false" fitColumns="false"
                pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc" checkOnSelect="true" selectOnCheck="true" singleSelect="true"
-               data-options="showFooter:true, onLoadSuccess: function (data) {$('#manage_customer_datagrid').datagrid('statistics','salary');},onHeaderContextMenu:manage_customer_onHeaderContextMenu"
+               data-options="showFooter:true, onHeaderContextMenu:manage_customer_onHeaderContextMenu"
         >
             <thead>
             <tr>

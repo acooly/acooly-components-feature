@@ -158,6 +158,35 @@
                 $.acooly.admin.favorite.show(opts.rescId);
             },
 
+            addTabAndRender: function (opts) {
+                var t = $('#layout_center_tabs');
+                if (t.tabs('exists', opts.title)) {
+                    t.tabs('select', opts.title);
+                } else {
+                    $.extend(opts, {
+                        onLoadError: function (e, x, y) {
+                            $.acooly.layout.closeTab();
+                            $.acooly.messager("错误", "请求的功能不存在或没有权限", 'danger')
+                        }
+                    })
+                    let tab = t.tabs('add', opts);
+                    if (tab && tab.length > 0) {
+                        // 渲染
+                        $.parser.onComplete = function () {
+                            //要执行的操作
+                            $.acooly.framework.extendCombobox($(tab));
+                            //Initialize
+                            $.acooly.framework.initPlugins($(tab));
+                            //最后把坑爹的事件绑定解除
+                            $.parser.onComplete = function () {
+                            };
+                        }
+                    }
+                }
+                // console.info("add tab opts", opts);
+                $.acooly.admin.favorite.show(opts.rescId);
+            },
+
             selectTab: function (title) {
                 $('#layout_center_tabs').tabs('select', title);
             },
