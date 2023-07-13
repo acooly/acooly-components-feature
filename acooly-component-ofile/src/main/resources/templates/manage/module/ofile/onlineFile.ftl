@@ -78,12 +78,15 @@
                 <i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a>
 
 
-            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage.html?bussId=111',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(拖拽)</a>
+            <a onclick="$.acooly.framework.get({url:'/manage/module/ofile/onlineFile/uploadFilePage.html?bussId=111',width:700,height:600,title:'文件上传'});" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-upload"></i>文件上传(点击/拖动)</a>
+
+
+<#--            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage.html?bussId=111',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(拖拽)</a>-->
 
 <#--            <a onclick="$.acooly.framework.show('/manage/module/ofile/onlineFile/uploadFilePage_multiple.html',700,600);" href="#" title="文件上传插件"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>文件上传(多文件)</a>-->
 
             <#--文件上传的类型指定-->
-            <input id="acceptedFileTypes" type="hidden" value=".log,.xlsx,.jpg,.png">
+<#--            <input id="acceptedFileTypes" type="hidden" value=".log,.xlsx,.jpg,.png">-->
 
         </div>
     </div>
