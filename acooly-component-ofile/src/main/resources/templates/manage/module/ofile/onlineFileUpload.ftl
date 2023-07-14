@@ -16,10 +16,9 @@
            value="${bussId}"/>
     <div id="dropzone-img-div" class="dropzone" style=""></div>
 
-    <div style="text-align:center;padding-top: 10px;">
-        <button id="saveForm" class="btn btn-success"> 确 认 上 传</button>
+    <div style="text-align:center;padding-top: 30px;">
+        <button id="saveForm" class="easyui-linkbutton"> <i class="fa fa-lg fa-fw fa-col fa fa-upload"></i> 确 认 上 传</button>
     </div>
-
 
 </div>
 

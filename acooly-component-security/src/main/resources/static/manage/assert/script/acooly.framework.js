@@ -553,7 +553,7 @@
                         if (errorType == 'QUEUE_LIMIT_EXCEEDED') {
                             msg = "最多只能选择" + settings.uploadLimit + "个文件！";
                         } else if (errorType == "FILE_SIZE_LIMIT_EXCEEDED") {
-                            msg = "视频最大不允许超过:" + settings.fileSizeLimit / 1024 / 1024 + "MB！";
+                            msg = "上传文件最大不允许超过:" + settings.fileSizeLimit / 1024 / 1024 + "MB！";
                         }
                         $('#' + options.messager).html(msg);
                     }
