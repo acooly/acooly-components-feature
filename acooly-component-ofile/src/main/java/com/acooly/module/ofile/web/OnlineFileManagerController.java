@@ -82,6 +82,11 @@ public class OnlineFileManagerController extends AbstractJsonEntityController<On
     protected void onRemove(
             HttpServletRequest request, HttpServletResponse response, Model model, Serializable... ids)
             throws Exception {
+        //逻辑删除
+        if (!oFileProperties.fileDelete) {
+            return;
+        }
+
         OnlineFile onlineFile = null;
         for (Serializable id : ids) {
             onlineFile = onlineFileService.get(id);
@@ -93,6 +98,15 @@ public class OnlineFileManagerController extends AbstractJsonEntityController<On
                 removeFile(onlineFile.getThumbnail());
             }
         }
+    }
+
+    @Override
+    protected void doRemove(HttpServletRequest request, HttpServletResponse response, Model model, Serializable... ids) throws Exception {
+        //逻辑删除
+        if (!oFileProperties.fileDelete) {
+            return;
+        }
+        super.doRemove(request, response, model, ids);
     }
 
     protected void removeFile(String path) {
