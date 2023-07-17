@@ -84,7 +84,16 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
                 continue;
             }
             //  表set值
-            sbSql.append(rowsKey + " = '" + rowsDataJson.get(rowsKey) + "'");
+            String rowsValue = rowsDataJson.get(rowsKey).toString();
+            if(rowsValue.contains("'")){
+                sbSql.append(rowsKey + " = QUOTE("+"\"" + rowsDataJson.get(rowsKey) + "\")");
+            }else{
+                sbSql.append(rowsKey + " = '" + rowsDataJson.get(rowsKey) + "'");
+
+            }
+
+
+
             if (i < size) {
                 sbSql.append(",");
             }
