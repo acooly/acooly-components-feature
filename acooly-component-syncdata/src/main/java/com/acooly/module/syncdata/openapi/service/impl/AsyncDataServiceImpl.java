@@ -83,16 +83,10 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
                 size = size - 1;
                 continue;
             }
-            //  表set值
+            // 表set值
             String rowsValue = rowsDataJson.get(rowsKey).toString();
-            if(rowsValue.contains("'")){
-                sbSql.append(rowsKey + " = QUOTE("+"\"" + rowsDataJson.get(rowsKey) + "\")");
-            }else{
-                sbSql.append(rowsKey + " = '" + rowsDataJson.get(rowsKey) + "'");
-
-            }
-
-
+            // 处理dataValue
+            sbSql.append(rowsKey + " = " + getDataValue(rowsValue));
 
             if (i < size) {
                 sbSql.append(",");
@@ -141,7 +135,11 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
             //表的主键为ID
             if (rowsKeyLowerCase.equals(primaryKey) && "id".equals(rowsKeyLowerCase)) {
                 sbKeySql.append("`" + rowsKey + "`");
-                sbValuesSql.append("'" + rowsDataJson.get(rowsKey) + "'");
+
+                // 表set值
+                String rowsValue = rowsDataJson.get(rowsKey).toString();
+                // 处理dataValue
+                sbValuesSql.append(getDataValue(rowsValue));
                 if (i < size) {
                     sbKeySql.append(",");
                     sbValuesSql.append(",");
@@ -153,7 +151,9 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
                     continue;
                 }
                 sbKeySql.append("`" + rowsKey + "`");
-                sbValuesSql.append("'" + rowsDataJson.get(rowsKey) + "'");
+                String rowValue = rowsDataJson.get(rowsKey).toString();
+                // 处理dataValue
+                sbValuesSql.append(getDataValue(rowValue));
                 if (i < size) {
                     sbKeySql.append(",");
                     sbValuesSql.append(",");
@@ -208,5 +208,23 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
             idStr = "ID";
         }
         return idStr;
+    }
+
+
+    /**
+     * 特殊字符处理（单引号，双引号）
+     *
+     * @param rowsValue
+     * @return
+     */
+    public static String getDataValue(String rowsValue) {
+        //单引号处理
+        if (rowsValue.contains("'")) {
+            //替换双引号
+            rowsValue = rowsValue.replace("\"", "\\\"");
+            return " CONCAT(" + "\"" + rowsValue + "\")";
+        } else {
+            return " '" + rowsValue + "'";
+        }
     }
 }
