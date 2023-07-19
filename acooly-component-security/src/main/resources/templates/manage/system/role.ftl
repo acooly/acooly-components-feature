@@ -7,6 +7,11 @@
                 <input type="text" style="width: 200px;" class="form-control form-control-sm" name="search_LIKE_name"/>
             </div>
             <div class="form-group">
+                <label class="col-form-label">角色说明：</label>
+                <input type="text" style="width: 200px;" class="form-control form-control-sm" name="search_LIKE_descn"/>
+            </div>
+
+            <div class="form-group">
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_role_searchform','manage_role_datagrid');"><i class="fa fa-search fa-fw fa-col"></i> 查询</button>
             </div>
         </form>

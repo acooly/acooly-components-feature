@@ -11,6 +11,7 @@
                 <tr>
                     <td align="left">
                         文件名:<input type="text" size="15" name="search_LIKE_fileName"/>
+                        ObjectId:<input type="text" size="15" name="search_LIKE_objectId"/>
                         文件类型:<select name="search_EQ_fileType" editable="false" style="width: 80px;" panelHeight="auto"
                                      class="easyui-combobox">
                         <option value="">所有</option>
@@ -38,6 +39,7 @@
             <tr>
                 <th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
                 <th field="id">id</th>
+                <th field="objectId">objectId</th>
 <#--                <th field="thumbnail"-->
 <#--                    data-options="formatter:function(value,row,index){ if(row.fileType == 'picture'){ return '<div style=\'padding:5px;\'><img src=\'/ofile/thumb/'+row.id+'.html\' width=\'64\'></div>'; }else{ return '' } }">-->
 <#--                    缩略图-->
