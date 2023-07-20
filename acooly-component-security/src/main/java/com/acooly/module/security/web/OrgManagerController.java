@@ -17,6 +17,7 @@ import com.acooly.module.security.domain.User;
 import com.acooly.module.security.enums.OrgStatus;
 import com.acooly.module.security.service.OrgService;
 import com.acooly.module.security.service.UserService;
+import com.acooly.module.security.service.impl.OrgServiceImpl;
 import com.acooly.module.security.utils.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -74,7 +75,6 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
             if (getSessionUser().getUserType() != 1) {
                 orgId = ShiroUtils.getCurrentUser().getOrgId();
             }
-
             List<Org> organizes = orgService.getTreeList(orgId);
             result.setTotal(Long.valueOf(organizes.size()));
             result.setRows(organizes);
@@ -119,6 +119,8 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
         String parentId = request.getParameter("parentId");
         if (StringUtils.isNotBlank(parentId)) {
             entity.setParentId(Long.parseLong(parentId));
+        }else{
+            entity.setParentId(OrgServiceImpl.ROOT_PARENT_ID);
         }
         return entity;
     }

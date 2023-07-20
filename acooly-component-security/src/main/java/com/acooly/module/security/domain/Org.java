@@ -7,6 +7,7 @@
 package com.acooly.module.security.domain;
 
 import com.acooly.core.common.domain.AbstractEntity;
+import com.acooly.core.common.domain.Sortable;
 import com.acooly.module.security.enums.OrgStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "sys_org")
-public class Org extends AbstractEntity {
+public class Org extends AbstractEntity implements Sortable, Comparable<Org> {
 
     private static final long serialVersionUID = 1L;
 
@@ -93,6 +94,12 @@ public class Org extends AbstractEntity {
     private String address;
 
     /**
+     * 排序值
+     */
+    @Column(name = "sort_time")
+    private Long sortTime;
+
+    /**
      * 联系人
      */
     @Column(name = "contacts", length = 64)
@@ -129,4 +136,24 @@ public class Org extends AbstractEntity {
 
     @Transient
     private List<Org> children;
+
+
+    /**
+     * <0：当前对象比传入对象小。
+     * =0：当前对象等于传入对象。
+     * >0：当前对象比传入对象大。
+     *
+     * @param o the object to be compared.
+     * @return
+     */
+    @Override
+    public int compareTo(Org o) {
+        if (this.getSortTime() == null || o.getSortTime() == null) {
+            return 0;
+        }
+        if (this.getSortTime().equals(o.getSortTime())) {
+            return 0;
+        }
+        return this.getSortTime() > o.getSortTime() ? 1 : -1;
+    }
 }
