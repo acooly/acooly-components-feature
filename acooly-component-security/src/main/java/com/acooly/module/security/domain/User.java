@@ -2,11 +2,11 @@ package com.acooly.module.security.domain;
 
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.core.utils.Collections3;
+import com.acooly.core.utils.Strings;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.logging.log4j.util.Strings;
 import org.hibernate.annotations.OrderBy;
 
 import javax.persistence.*;
