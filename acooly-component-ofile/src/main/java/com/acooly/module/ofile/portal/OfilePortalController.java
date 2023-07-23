@@ -237,6 +237,24 @@ public class OfilePortalController
     /**
      * 访问文件
      */
+    @RequestMapping("downloadOI/{objectId}")
+    @ResponseBody
+    public Object downloadObjectId(
+            @PathVariable String objectId, HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        OnlineFile onlineFile = getEntityService().findByObjectId(objectId);
+        return doDownload(
+                request,
+                response,
+                onlineFile.getOriginalName(),
+                onlineFile.getFilePath(),
+                onlineFile.getFileType(), onlineFile.getAccessType(), onlineFile.getBucketName(), null);
+    }
+
+
+    /**
+     * 访问文件
+     */
     @RequestMapping("download/{id}")
     @ResponseBody
     public Object download(

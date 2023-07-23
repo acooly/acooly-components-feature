@@ -33,6 +33,19 @@ import static com.acooly.module.ofile.OFileProperties.PREFIX;
 public class OFileProperties implements InitializingBean {
     public static final String PREFIX = "acooly.ofile";
 
+    /**
+     * 是否物理删除文件
+     * <p>
+     * true： 物理删除
+     * <p>
+     * flase：逻辑删除
+     */
+    public boolean fileDelete = true;
+
+
+    /**
+     * 存储文件类型
+     */
     public String storageType = StorageTypeEnum.LOCAL.getCode();
     /**
      * 文件访问路径,可以配置为域名的形式，建议为//www.test.com/media,不区分协议
@@ -47,6 +60,9 @@ public class OFileProperties implements InitializingBean {
      * 存储命名空间，默认为空，如果填写，文件存储路径会变为：storageRoot/storageNameSpace，如：/data/media/taodai
      */
     private String storageNameSpace;
+    /**
+     * 上传的文件类型
+     */
     private String allowExtentions = "txt,zip,csv,xls,word,jpg,jpeg,gif,png";
     private long maxSize = 5242880;
     private int thumbnailSize = 200;

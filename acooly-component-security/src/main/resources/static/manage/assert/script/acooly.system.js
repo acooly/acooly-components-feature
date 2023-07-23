@@ -12,7 +12,7 @@ let system_user_class = {
 
     orgTreeBoxInit: function (treeboxId, isSearch, defVal) {
         $.ajax({
-            url: '/manage/module/security/org/listJson.html',
+            url: '/manage/module/security/org/queryJson.html',
             data: {sort: 'id', order: 'asc'},
             method: 'post',
             success: function (result) {

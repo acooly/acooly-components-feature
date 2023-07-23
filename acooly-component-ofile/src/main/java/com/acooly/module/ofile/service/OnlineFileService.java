@@ -29,7 +29,24 @@ public interface OnlineFileService extends EntityService<OnlineFile> {
      * @param objectId
      * @return
      */
-    List<OnlineFile>  findByobjectId(List<String> objectId);
+    OnlineFile findByObjectId(String objectId);
+
+
+    /**
+     * 通过objectId查询，返回结果会按存储方式填充对应的可访问路径
+     *
+     * @param objectIds
+     * @return
+     */
+    List<OnlineFile> findByObjectIds(List<String> objectIds);
+
+    /**
+     * 替换为 findByObjectIds
+     * @param objectId
+     * @return
+     */
+    @Deprecated
+    List<OnlineFile> findByobjectId(List<String> objectId);
 
     /**
      * 通过ids查询，返回结果会按存储方式填充对应的可访问路径

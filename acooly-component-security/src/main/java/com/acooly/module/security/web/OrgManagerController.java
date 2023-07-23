@@ -71,8 +71,6 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
             if (getSessionUser().getUserType() != 1) {
                 orgId = ShiroUtils.getCurrentUser().getOrgId();
             }
-
-
             List<Org> organizes = orgService.getTreeList(orgId);
             result.setTotal(Long.valueOf(organizes.size()));
             result.setRows(organizes);

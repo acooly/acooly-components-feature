@@ -43,11 +43,29 @@ public class OnlineFileServiceImpl extends EntityServiceImpl<OnlineFile, OnlineF
      * @return
      */
     @Override
-    public List<OnlineFile>  findByobjectId(List<String> objectId) {
-        List<OnlineFile>  onlineFile = getEntityDao().findByObjectIdIn(objectId);
+    public OnlineFile findByObjectId(String objectId) {
+        return getEntityDao().findByObjectId(objectId);
+    }
+
+    /**
+     * 通过objectId查询，返回结果会按存储方式填充对应的可访问路径
+     *
+     * @param objectIds
+     * @return
+     */
+    @Override
+    public List<OnlineFile> findByObjectIds(List<String> objectIds) {
+        List<OnlineFile>  onlineFile = getEntityDao().findByObjectIdIn(objectIds);
         return fillAccessUrl(onlineFile);
     }
-   /**
+
+    @Override
+    public List<OnlineFile> findByobjectId(List<String> objectId) {
+        return findByObjectIds(objectId);
+    }
+
+
+    /**
      * 通过BucketName查询，返回结果会按存储方式填充对应的可访问路径
      *
      * @param ids

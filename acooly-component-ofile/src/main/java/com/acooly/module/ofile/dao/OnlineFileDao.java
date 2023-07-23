@@ -20,7 +20,5 @@ public interface OnlineFileDao extends EntityJpaDao<OnlineFile, Long> {
 
     List<OnlineFile> findByBucketName(String BucketName);
 
-
-
-
+    OnlineFile findByObjectId(String objectId);
 }
