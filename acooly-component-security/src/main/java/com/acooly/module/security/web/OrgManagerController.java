@@ -119,7 +119,7 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
         String parentId = request.getParameter("parentId");
         if (StringUtils.isNotBlank(parentId)) {
             entity.setParentId(Long.parseLong(parentId));
-        }else{
+        } else {
             entity.setParentId(OrgServiceImpl.ROOT_PARENT_ID);
         }
         return entity;
@@ -150,11 +150,17 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
 
     @Override
     public JsonResult topJson(HttpServletRequest request, HttpServletResponse response) {
-        return super.topJson(request, response);
+        JsonResult result = super.topJson(request, response);
+        Long id = Servlets.getLongParameter(getEntityIdName());
+        result.appendData("id", id);
+        return result;
     }
 
     @Override
     public JsonResult upJson(HttpServletRequest request, HttpServletResponse response) {
-        return super.upJson(request, response);
+        JsonResult result = super.upJson(request, response);
+        Long id = Servlets.getLongParameter(getEntityIdName());
+        result.appendData("id", id);
+        return result;
     }
 }

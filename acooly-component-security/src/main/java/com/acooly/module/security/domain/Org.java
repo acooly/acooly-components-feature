@@ -10,12 +10,13 @@ import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.core.common.domain.Sortable;
 import com.acooly.module.security.enums.OrgStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.util.Set;
 
 /**
  * 组织机构 Entity
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "sys_org")
 public class Org extends AbstractEntity implements Sortable, Comparable<Org> {
@@ -135,7 +137,7 @@ public class Org extends AbstractEntity implements Sortable, Comparable<Org> {
     private String text;
 
     @Transient
-    private List<Org> children;
+    private Set<Org> children;
 
 
     /**

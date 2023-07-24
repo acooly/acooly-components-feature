@@ -43,7 +43,7 @@ public class SecurityComponentInitializer implements ComponentInitializer {
         setPropertyIfMissing("acooly.ds.dbPatchs.sys_org[0].columnName", "username");
         setPropertyIfMissing("acooly.ds.dbPatchs.sys_org[0].patchSql", "ALTER TABLE `sys_org` ADD COLUMN `username` VARCHAR(32) NULL COMMENT '管理用户' AFTER `name`;");
         setPropertyIfMissing("acooly.ds.dbPatchs.sys_org[1].columnName", "sort_time");
-        setPropertyIfMissing("acooly.ds.dbPatchs.sys_org[1].patchSql", "ALTER TABLE `sys_org` ADD COLUMN `sort_time` BIGINT NULL COMMENT '排序值' AFTER `email`; update `sys_org` set sort_time =  (UNIX_TIMESTAMP(NOW()) + id) where id > 1;");
+        setPropertyIfMissing("acooly.ds.dbPatchs.sys_org[1].patchSql", "ALTER TABLE `sys_org` ADD COLUMN `sort_time` BIGINT NULL COMMENT '排序值' AFTER `email`; update `sys_org` set sort_time =  (UNIX_TIMESTAMP(NOW()) + id) where id > 0;");
 
         // 线上系统，密码强度自少为: usually
         if (Env.isOnline()) {

@@ -6,8 +6,10 @@
  */
 package com.acooly.module.security.service.impl;
 
+import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
 import com.acooly.module.security.dao.OrgDao;
 import com.acooly.module.security.domain.Org;
@@ -15,10 +17,14 @@ import com.acooly.module.security.enums.OrgStatus;
 import com.acooly.module.security.service.OrgService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 组织机构 Service实现
@@ -64,16 +70,28 @@ public class OrgServiceImpl extends EntityServiceImpl<Org, OrgDao> implements Or
      * @param sortMap
      */
     @Override
+    @Transactional(rollbackOn = Throwable.class)
     public void up(Serializable id, Map<String, Object> map, Map<String, Boolean> sortMap) {
         Org org = get(id);
         if (org == null) {
             return;
         }
+        Long currentSortTime = org.getSortTime();
         Long parentId = org.getParentId();
         map.put("EQ_parentId", parentId);
-        map.put("LT_sortTime", org.getSortTime());
+        map.put("LT_sortTime", currentSortTime);
         sortMap.put("sortTime", false);
-        super.up(id, map, sortMap);
+
+        PageInfo<Org> pageInfo = new PageInfo<>(1, 1);
+        query(pageInfo, map, sortMap);
+        if (Collections3.isEmpty(pageInfo.getPageResults())) {
+            return;
+        }
+        Org up = Collections3.getFirst(pageInfo.getPageResults());
+        org.setSortTime(up.getSortTime());
+        up.setSortTime(currentSortTime);
+        update(up);
+        update(org);
     }
 
     @Override
@@ -168,7 +186,7 @@ public class OrgServiceImpl extends EntityServiceImpl<Org, OrgDao> implements Or
      * @return
      */
     public List<Org> doTreeList(Long orgId, Map<Long, Org> maps) {
-        List<Org> result = Lists.newArrayList();
+        Set<Org> result = Sets.newTreeSet();
         Set<Long> mapKey = maps.keySet();
         for (Long keyId : mapKey) {
             Org organize = maps.get(keyId);
@@ -186,15 +204,13 @@ public class OrgServiceImpl extends EntityServiceImpl<Org, OrgDao> implements Or
                 if (parentData.getChildren() != null) {
                     parentData.getChildren().add(organize);
                 } else {
-                    List<Org> children = Lists.newArrayList();
+                    Set<Org> children = Sets.newTreeSet();
                     children.add(organize);
                     parentData.setChildren(children);
                 }
             }
         }
-        // 排序
-//        Collections.sort(result, Comparator.nullsLast(Comparator.comparing(Org::getSortTime)));
-        return result;
+        return Lists.newArrayList(result);
     }
 
     @Override
