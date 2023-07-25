@@ -11,13 +11,18 @@ import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
+import com.acooly.core.utils.mapper.BeanCopier;
 import com.acooly.module.security.dao.OrgDao;
+import com.acooly.module.security.dao.UserDao;
 import com.acooly.module.security.domain.Org;
+import com.acooly.module.security.dto.OrgManager;
+import com.acooly.module.security.dto.OrgManagers;
 import com.acooly.module.security.enums.OrgStatus;
 import com.acooly.module.security.service.OrgService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -39,6 +44,8 @@ public class OrgServiceImpl extends EntityServiceImpl<Org, OrgDao> implements Or
 
     public static final Long ROOT_PARENT_ID = 0L;
 
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public void save(Org o) throws BusinessException {
@@ -214,13 +221,37 @@ public class OrgServiceImpl extends EntityServiceImpl<Org, OrgDao> implements Or
     }
 
     @Override
-    public boolean checkOrgValid(Long orgId) {
+    public Boolean checkOrgValid(Long orgId) {
         List<Org> organizeList = getEntityDao().getAll();
         Map<Long, Org> maps = Maps.newHashMap();
         for (Org organize : organizeList) {
             maps.put(organize.getId(), organize);
         }
         return isValid(orgId, maps);
+    }
+
+
+    @Override
+    public OrgManagers getOrgManagers(Long orgId) {
+        Org current = get(orgId);
+        if (current == null) {
+            return null;
+        }
+
+        OrgManagers orgManagers = new OrgManagers();
+        if (Strings.isNotBlank(current.getUsername())) {
+            OrgManager orgManager = BeanCopier.copy(current, OrgManager.class);
+            orgManagers.setCurrent(orgManager);
+        }
+
+        if (current.getParentId() != null) {
+            Org parent = get(current.getParentId());
+            if (parent != null && Strings.isNotBlank(parent.getUsername())) {
+                OrgManager orgManager = BeanCopier.copy(parent, OrgManager.class);
+                orgManagers.setParent(orgManager);
+            }
+        }
+        return orgManagers;
     }
 
     private boolean isValid(Long orgId, Map<Long, Org> orgMaps) {
