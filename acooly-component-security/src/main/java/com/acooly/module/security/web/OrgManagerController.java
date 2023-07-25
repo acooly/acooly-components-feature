@@ -16,6 +16,8 @@ import com.acooly.module.security.domain.Org;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.enums.OrgStatus;
 import com.acooly.module.security.service.OrgService;
+import com.acooly.module.security.service.UserService;
+import com.acooly.module.security.service.impl.OrgServiceImpl;
 import com.acooly.module.security.utils.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -44,6 +46,9 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
     @Autowired
     private OrgService orgService;
 
+    @Autowired
+    private UserService userService;
+
     {
         allowMapping = "*";
     }
@@ -59,8 +64,7 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
 
     @RequestMapping(value = "listTree")
     @ResponseBody
-    public JsonListResult<Org> getTopLevel(
-            HttpServletRequest request, HttpServletResponse response, Model model) {
+    public JsonListResult<Org> getTopLevel(HttpServletRequest request, HttpServletResponse response, Model model) {
         JsonListResult<Org> result = new JsonListResult<>();
         try {
             result.appendData(referenceData(request));
@@ -101,20 +105,22 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
     @Override
     protected void onCreate(HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("parentId", request.getParameter("parentId"));
+        model.addAttribute("users", userService.getAll());
     }
 
     @Override
-    protected Org onSave(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Model model,
-            Org entity,
-            boolean isCreate)
-            throws Exception {
+    protected void onEdit(HttpServletRequest request, HttpServletResponse response, Model model, Org entity) {
+        super.onEdit(request, response, model, entity);
+        model.addAttribute("users", userService.getAll());
+    }
 
+    @Override
+    protected Org onSave(HttpServletRequest request, HttpServletResponse response, Model model, Org entity, boolean isCreate) throws Exception {
         String parentId = request.getParameter("parentId");
         if (StringUtils.isNotBlank(parentId)) {
             entity.setParentId(Long.parseLong(parentId));
+        } else {
+            entity.setParentId(OrgServiceImpl.ROOT_PARENT_ID);
         }
         return entity;
     }
@@ -123,5 +129,38 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
     public JsonEntityResult<Org> updateJson(
             HttpServletRequest request, HttpServletResponse response) {
         return super.updateJson(request, response);
+    }
+
+
+    @Deprecated
+    @ResponseBody
+    @RequestMapping("move")
+    public JsonResult move(HttpServletRequest request, HttpServletResponse response, Model model) {
+        JsonResult result = new JsonResult();
+        String point = request.getParameter("point");
+        Long sourceId = Servlets.getLongParameter("sourceId");
+        Long targetId = Servlets.getLongParameter("targetId");
+        try {
+//            getEntityService().move(sourceId, targetId, point);
+        } catch (Exception e) {
+            handleException(result, "移动异常", e);
+        }
+        return result;
+    }
+
+    @Override
+    public JsonResult topJson(HttpServletRequest request, HttpServletResponse response) {
+        JsonResult result = super.topJson(request, response);
+        Long id = Servlets.getLongParameter(getEntityIdName());
+        result.appendData("id", id);
+        return result;
+    }
+
+    @Override
+    public JsonResult upJson(HttpServletRequest request, HttpServletResponse response) {
+        JsonResult result = super.upJson(request, response);
+        Long id = Servlets.getLongParameter(getEntityIdName());
+        result.appendData("id", id);
+        return result;
     }
 }

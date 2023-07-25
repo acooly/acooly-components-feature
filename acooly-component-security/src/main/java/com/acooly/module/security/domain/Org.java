@@ -7,12 +7,16 @@
 package com.acooly.module.security.domain;
 
 import com.acooly.core.common.domain.AbstractEntity;
+import com.acooly.core.common.domain.Sortable;
 import com.acooly.module.security.enums.OrgStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * 组织机构 Entity
@@ -21,9 +25,10 @@ import java.util.List;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "sys_org")
-public class Org extends AbstractEntity {
+public class Org extends AbstractEntity implements Sortable, Comparable<Org> {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,8 +41,16 @@ public class Org extends AbstractEntity {
     /**
      * 组织名称
      */
-    @Column(name = "name", length = 64)
+    @NotBlank
+    @Size(max = 32)
+    @Column(name = "name", nullable = false, length = 32)
     private String name;
+
+    /**
+     * 管理用户
+     */
+    @Column(name = "username", length = 32)
+    private String username;
 
     /**
      * 状态
@@ -83,6 +96,12 @@ public class Org extends AbstractEntity {
     private String address;
 
     /**
+     * 排序值
+     */
+    @Column(name = "sort_time")
+    private Long sortTime;
+
+    /**
      * 联系人
      */
     @Column(name = "contacts", length = 64)
@@ -118,5 +137,25 @@ public class Org extends AbstractEntity {
     private String text;
 
     @Transient
-    private List<Org> children;
+    private Set<Org> children;
+
+
+    /**
+     * <0：当前对象比传入对象小。
+     * =0：当前对象等于传入对象。
+     * >0：当前对象比传入对象大。
+     *
+     * @param o the object to be compared.
+     * @return
+     */
+    @Override
+    public int compareTo(Org o) {
+        if (this.getSortTime() == null || o.getSortTime() == null) {
+            return 0;
+        }
+        if (this.getSortTime().equals(o.getSortTime())) {
+            return 0;
+        }
+        return this.getSortTime() > o.getSortTime() ? 1 : -1;
+    }
 }

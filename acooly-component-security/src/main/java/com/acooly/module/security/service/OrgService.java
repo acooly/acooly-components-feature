@@ -9,6 +9,7 @@ package com.acooly.module.security.service;
 
 import com.acooly.core.common.service.EntityService;
 import com.acooly.module.security.domain.Org;
+import com.acooly.module.security.dto.OrgManagers;
 
 import java.util.List;
 import java.util.Map;
@@ -20,11 +21,27 @@ import java.util.Map;
  */
 public interface OrgService extends EntityService<Org> {
 
-	Map<Long, Object> getOrganizeInfo(long parentId);
+    Map<Long, Object> getOrganizeInfo(long parentId);
 
-	List<Org> getTreeList(Long orgId);
+    List<Org> getTreeList(Long orgId);
 
-	List<Org> getTreeListLikeName(Long orgId, String name);
+    List<Org> getTreeListLikeName(Long orgId, String name);
 
-	boolean checkOrgValid(Long orgId);
+    /**
+     * 检查组织结构是否可用
+     *
+     * @param orgId
+     * @return
+     */
+    Boolean checkOrgValid(Long orgId);
+
+
+    /**
+     * 获取制定Id的组织机构的管理者信息
+     *
+     * @param orgId
+     * @return
+     */
+    OrgManagers getOrgManagers(Long orgId);
+
 }
