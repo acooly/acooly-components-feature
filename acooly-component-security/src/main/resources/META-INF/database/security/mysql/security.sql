@@ -141,6 +141,7 @@ CREATE TABLE `sys_org`
     `contacts`    varchar(64)  DEFAULT NULL COMMENT '联系人',
     `telephone`   varchar(20)  DEFAULT NULL COMMENT '固定电话',
     `email`       varchar(64)  DEFAULT NULL COMMENT '机构邮箱',
+    `sort_time`   BIGINT       DEFAULT NULL COMMENT '排序值',
     `create_time` datetime     DEFAULT NULL,
     `update_time` datetime     DEFAULT NULL,
     `memo`        varchar(255) DEFAULT NULL COMMENT '备注',
@@ -149,8 +150,8 @@ CREATE TABLE `sys_org`
   DEFAULT CHARSET = utf8mb4 COMMENT ='组织机构';
 
 
-INSERT INTO `sys_org`(`id`, `parent_id`, `name`, `username`, ``status`, `province`, `city`, `county`, `mobile_no`, `address`, `contacts`, `telephone`, `email`, `create_time`, `update_time`, `memo`)
-VALUES (1, 0, 'acooly', 'admin', 'valid', '重庆市', '重庆市', '渝北区', '13896177630', '重庆渝北', '张浦', '', 'zhangpu@acooly.cn', '2019-02-21 18:05:36', '2019-02-21 18:05:36', 'dev');
+INSERT INTO `sys_org`(`id`, `parent_id`, `name`, `username`, `status`, `province`, `city`, `county`, `mobile_no`, `address`, `contacts`, `telephone`, `email`, `sort_time`, `create_time`, `update_time`, `memo`)
+VALUES (1, 0, 'acooly', 'admin', 'valid', '重庆市', '重庆市', '渝北区', '13896177630', '重庆渝北', '张浦', '', 'zhangpu@acooly.cn', 169020994400, '2019-02-21 18:05:36', '2019-02-21 18:05:36', 'dev');
 
 insert into `sys_resource` (id, `parentid`, `name`, `type`, `value`, `show_state`, `show_mode`, `order_time`, `icon`, `descn`)
 values (1, null, '系统管理', 'MENU', null, 0, 1, '2014-01-07', 'fa-cogs', null);
