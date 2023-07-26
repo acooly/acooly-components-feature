@@ -7,10 +7,8 @@
 package com.acooly.module.security.web;
 
 import com.acooly.core.common.web.AbstractJsonEntityController;
-import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
-import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.module.security.domain.Org;
 import com.acooly.module.security.domain.User;
@@ -19,6 +17,7 @@ import com.acooly.module.security.service.OrgService;
 import com.acooly.module.security.service.UserService;
 import com.acooly.module.security.service.impl.OrgServiceImpl;
 import com.acooly.module.security.utils.ShiroUtils;
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -126,41 +125,9 @@ public class OrgManagerController extends AbstractJsonEntityController<Org, OrgS
     }
 
     @Override
-    public JsonEntityResult<Org> updateJson(
-            HttpServletRequest request, HttpServletResponse response) {
-        return super.updateJson(request, response);
-    }
-
-
-    @Deprecated
-    @ResponseBody
-    @RequestMapping("move")
-    public JsonResult move(HttpServletRequest request, HttpServletResponse response, Model model) {
-        JsonResult result = new JsonResult();
-        String point = request.getParameter("point");
-        Long sourceId = Servlets.getLongParameter("sourceId");
-        Long targetId = Servlets.getLongParameter("targetId");
-        try {
-//            getEntityService().move(sourceId, targetId, point);
-        } catch (Exception e) {
-            handleException(result, "移动异常", e);
-        }
-        return result;
-    }
-
-    @Override
-    public JsonResult topJson(HttpServletRequest request, HttpServletResponse response) {
-        JsonResult result = super.topJson(request, response);
-        Long id = Servlets.getLongParameter(getEntityIdName());
-        result.appendData("id", id);
-        return result;
-    }
-
-    @Override
-    public JsonResult upJson(HttpServletRequest request, HttpServletResponse response) {
-        JsonResult result = super.upJson(request, response);
-        Long id = Servlets.getLongParameter(getEntityIdName());
-        result.appendData("id", id);
-        return result;
+    protected Map<String, Boolean> getSortMap(HttpServletRequest request) {
+        Map<String, Boolean> sortMap = Maps.newHashMap();
+        sortMap.put("sortTime", true);
+        return sortMap;
     }
 }

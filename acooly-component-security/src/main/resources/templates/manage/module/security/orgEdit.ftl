@@ -28,7 +28,12 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">所属机构：</label>
                     <div class="col-sm-9">
-                        <select name="parentId" id="manage_user_searchform_parentId" class="form-control select2bs4"></select>
+                        <div class="input-group">
+                            <select name="parentId" data-allow-clear="true" id="manage_user_searchform_parentId" class="form-control select2bs4"></select>
+                            <span class="input-group-append"><button type="button" class="btn btn-default btn-sm btn-flat" onclick="$('#manage_user_searchform_parentId').val(null).trigger('change');">
+                               <i class="fa fa-times-circle fa-lg fa-fw fa-col"></i></button></span>
+                        </div>
+
                     </div>
                 </div>
                 <div class="form-group row">
@@ -52,7 +57,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">联系人</label>
                     <div class="col-sm-9">
-                        <input type="text" name="contacts" placeholder="请输入联系人姓名..." class="easyui-validatebox form-control" data-options="validType:['length[1,24]']" required="true"/>
+                        <input type="text" name="contacts" placeholder="请输入联系人姓名..." class="easyui-validatebox form-control" data-options="validType:['length[1,24]']"/>
                     </div>
                 </div>
                 <div class="form-group row">

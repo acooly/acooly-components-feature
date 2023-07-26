@@ -42,11 +42,26 @@
 
         <!-- 表格的工具栏 -->
         <div id="manage_org_toolbar">
-            <a href="#" class="easyui-linkbutton" plain="true"
-               onclick="$.acooly.framework.create({url:'/manage/module/security/org/create.html?parentId=0',entity:'org',width:600,height:500})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/security/org/create.html?parentId=0',entity:'org',width:600,height:500})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="manage_org_treegrid_toggle(this)"><i class="fa fa-minus-square fa-fw fa-col"></i>折叠</a>
         </div>
     </div>
     <script type="text/javascript">
+
+        // 查询的全局数据，用于获取类转换mapping
+        var manage_org_datagrid_toggle_status = true;
+
+        /**
+         * 树形表格展开和缩回
+         */
+        function manage_org_treegrid_toggle(e) {
+            $('#manage_org_datagrid').treegrid(manage_org_datagrid_toggle_status ? 'collapseAll' : 'expandAll');
+            $(e).linkbutton({
+                text: (!manage_org_datagrid_toggle_status ? '<i class="fa fa-minus-square fa-fw fa-col"></i>折叠' : '<i class="fa fa-plus-square fa-fw fa-col"></i>展开')
+            })
+            manage_org_datagrid_toggle_status = !manage_org_datagrid_toggle_status;
+        }
+
         // 最新的移动的行的ID
         var manage_org_datagrid_move_row_pid = null;
 
