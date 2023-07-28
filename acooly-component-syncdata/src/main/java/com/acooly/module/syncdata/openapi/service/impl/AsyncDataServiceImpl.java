@@ -218,6 +218,9 @@ public class AsyncDataServiceImpl extends AbstractJdbcTemplateDao implements Asy
      * @return
      */
     public static String getDataValue(String rowsValue) {
+        //反斜杠处理
+        rowsValue = rowsValue.replace("\\", "\\\\");
+
         //单引号处理
         if (rowsValue.contains("'")) {
             //替换双引号
