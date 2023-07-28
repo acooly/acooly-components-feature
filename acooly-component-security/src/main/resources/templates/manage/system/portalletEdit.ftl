@@ -16,9 +16,8 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">块收缩：</label>
                     <div class="col-sm-10">
-                        <select name="collapsible" class="form-control select2bs4" data-options="required:true">
-                            <#list allCollapsibles as k,v>
-                                <option value="${k}">${v}</option></#list>
+                        <select name="collapsible" class="form-control select2bs4">
+                            <#list allCollapsibles as k,v><option value="${k}">${v}</option></#list>
                         </select>
                     </div>
                 </div>
@@ -66,7 +65,6 @@
     $(function () {
         switchLoadMode();
         $("#manage_portallet_edit_loadMode").on("select2:select", function (e) {
-            console.info("e", e);
             switchLoadMode();
         });
     });
