@@ -244,7 +244,7 @@ public class OrgServiceImpl extends EntityServiceImpl<Org, OrgDao> implements Or
             orgManagers.setCurrent(orgManager);
         }
 
-        if (current.getParentId() != null) {
+        if (current.getParentId() != null && !current.getParentId().equals(ROOT_PARENT_ID)) {
             Org parent = get(current.getParentId());
             if (parent != null && Strings.isNotBlank(parent.getUsername())) {
                 OrgManager orgManager = BeanCopier.copy(parent, OrgManager.class);
