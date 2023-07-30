@@ -194,8 +194,13 @@ public class OfilePortalController
             accessThumbnailUrl = obsService.getAccessUrlBySts(bucketName, ossFile.getKey(), ofileSupportService.getProcess(oFileType), ofileSupportService.getExpireDate());
             accessType = AccessTypeEnum.OBS_STS;
         }
+//        log.info("ossFile:{}", ossFile);
         OnlineFile onlineFile = new OnlineFile();
         onlineFile.setObjectId(ossFile.getETag());
+        //acooly.ofile.onlyObjectId = true：唯一
+        if (oFileProperties.onlyObjectId) {
+            onlineFile.setObjectId(DigestUtils.sha1Hex(UUID.randomUUID().toString()));
+        }
         onlineFile.setInputName(inputName);
         onlineFile.setFileName(Files.getNameWithoutExtension(ossFile.getKey()) + "." + extension);
         onlineFile.setFileType(oFileType);
@@ -236,6 +241,8 @@ public class OfilePortalController
 
     /**
      * 访问文件
+     *
+     * /ofile/downloadOI/30A7B78719ADA2D30C475C9CB34424621.html
      */
     @RequestMapping("downloadOI/{objectId}")
     @ResponseBody
@@ -383,6 +390,7 @@ public class OfilePortalController
             OFileType fileType, AccessTypeEnum accessType, String bucketName, String processStyle) {
         OutputStream out = null;
         InputStream in = null;
+        log.info("下载路径：{}", filePath);
         try {
             checkReferer(request);
             doHeader(fileName, response, fileType);
@@ -390,6 +398,9 @@ public class OfilePortalController
                 File file = new File(getStorageRoot() + filePath);
                 in = FileUtils.openInputStream(file);
             } else {
+                if (filePath.substring(0, 1).equals("/")) {
+                    filePath = filePath.replaceFirst("/", "");
+                }
                 OssFile ossFile = obsService.getObject(bucketName, filePath, processStyle);
                 in = ossFile.getFileInputStream();
             }

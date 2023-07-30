@@ -38,9 +38,19 @@ public class OFileProperties implements InitializingBean {
      * <p>
      * true： 物理删除
      * <p>
-     * flase：逻辑删除
+     * false：逻辑删除
      */
     public boolean fileDelete = true;
+
+
+    /**
+     * ObjectId 是否唯一
+     *
+     * true：唯一
+     *
+     * false：不唯一（阿里云上传相同的文件-ObjectId相同）
+     */
+    public boolean onlyObjectId = false;
 
 
     /**

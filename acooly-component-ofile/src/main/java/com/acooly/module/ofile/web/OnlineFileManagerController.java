@@ -9,6 +9,7 @@ import com.acooly.module.ofile.domain.OnlineFile;
 import com.acooly.module.ofile.enums.OFileType;
 import com.acooly.module.ofile.enums.SearchTypeEnum;
 import com.acooly.module.ofile.service.OnlineFileService;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,16 @@ public class OnlineFileManagerController extends AbstractJsonEntityController<On
     private OnlineFileService onlineFileService;
 
     @Override
+    public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
+//        List<String> lists= Lists.newArrayList();
+//        lists.add("d71c4229b7fcde7887416b14b1390b8ddd92f703");
+//        List<OnlineFile> sss = onlineFileService.findByobjectId(lists);
+//       System.out.println(sss.get(0)); ;
+
+        return super.index(request, response, model);
+    }
+
+    @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
         model.put("allFileTypes", ofileTypes);
         model.put("bussId", request.getParameter("bussId"));
@@ -66,7 +77,7 @@ public class OnlineFileManagerController extends AbstractJsonEntityController<On
                 String objString = jsonObject.getString(SearchTypeEnum.OBJ.getCode());
                 List<String> listObjs = Arrays.stream(objString.split(","))
                         .collect(Collectors.toList());
-                List<OnlineFile> fileList = onlineFileService.findByobjectId(listObjs);
+                List<OnlineFile> fileList = onlineFileService.findByObjectIds(listObjs);
                 result.setRows(fileList);
             }
 
