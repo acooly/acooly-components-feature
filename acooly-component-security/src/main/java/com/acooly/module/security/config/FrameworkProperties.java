@@ -18,6 +18,11 @@ import java.util.Set;
 
 /**
  * @author qiubo
+ * @author zhangpu
+ * <p>
+ * todo:datagrid的动态列
+ * todo:datagrid的列可调整宽度
+ * todo:datagrid的列位置可调整
  */
 @ConfigurationProperties("acooly.framework")
 @Getter
