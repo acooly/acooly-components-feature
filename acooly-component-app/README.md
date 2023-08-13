@@ -3,11 +3,9 @@
 <!-- author: zhangpu -->
 <!-- date: 2019-10-30 -->
 ## 1. 组件介绍
-
 提供app常用接口，并通过openapi暴露服务
 
 服务包括：
-
 * welcomeInfo 欢迎信息
 * bLog 业务日志收集
 * bannerList 横幅广告

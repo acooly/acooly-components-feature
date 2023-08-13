@@ -3,8 +3,7 @@
 <!-- author: cuifuqiang ,xierui-->
 <!-- date: 2019-11-04 -->
 ## 1. 组件介绍
-
-acooly-component-chart 以acooly框架为基础, 集成Apache ECharts(前身:百度echarts)图表；支持 折线图，柱状图，饼图，柱状-堆叠图,中国地图；动态sql语法解析，动态转换为不同的图表展示；
+以acooly框架为基础, 集成Apache ECharts(前身:百度echarts)图表；支持 折线图，柱状图，饼图，柱状-堆叠图,中国地图；动态sql语法解析，动态转换为不同的图表展示。
 
 参考：[echartsjs](https://echarts.apache.org/zh/index.html);  网址：https://echarts.apache.org/zh/index.html
 

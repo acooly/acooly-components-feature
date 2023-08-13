@@ -4,12 +4,13 @@
 <!-- author: qiubo -->
 <!-- date: 2019-11-14 -->
 ## 1. 组件介绍
-
 此组件提供实名认证、银行卡二三四要素认证、手机在网三要素认证能力。
+
 实名认证服务地址：https://market.aliyun.com/products/56928004/cmapi014760.html?spm=5176.730005.productlist.d_cmapi014760.9QqrCb#sku=yuncode876000009
 银行卡二三四要素认证服务地址：https://market.aliyun.com/products/56928004/cmapi013074.html?spm=5176.730005.0.0.1wZOy0#sku=yuncode707400003
 企业工商信息查询：https://market.aliyun.com/products/57000002/cmapi031025.html#sku=yuncode2502500001
 手机在网三要素认证：https://market.aliyun.com/products/57126001/cmapi033477.html?spm=5176.10695662.1996646101.searchclickresult.455a7071tixlIP#sku=yuncode2747700001
+
 ## 2. 使用说明
 
 maven坐标：
@@ -73,4 +74,3 @@ maven坐标：
 2021-06-01
 
 * 2021-06-01 - 修正：因BusinessException异常体系调整为三元模式后，造成的认证组件编译错误。
-              

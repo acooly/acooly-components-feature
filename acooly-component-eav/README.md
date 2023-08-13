@@ -3,10 +3,9 @@
 <!-- author: qiubo,zhangpu -->
 <!-- date: 2019-10-24 -->
 ## 1. 组件介绍
+此组件提供[EAV](https://en.wikipedia.org/wiki/Entity%E2%80%93attribute%E2%80%93value_model)模式的动态表达解决方案和数据管理能力。
 
-此组件提供[EAV](https://en.wikipedia.org/wiki/Entity%E2%80%93attribute%E2%80%93value_model)模式。
-
-动态表单组件提供动态表单方案的定义和数据管理能力，主要应用场景为：
+主要应用场景为：
 1. 电商动态参数管理
 2. 流程节点可配置表单
 3. 简单数据管理

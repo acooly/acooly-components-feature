@@ -3,8 +3,7 @@
 <!-- author: cuifuqiang -->
 <!-- date: 2019-11-12 -->
 ## 1. 组件介绍
-
-acooly-component-chat以acooly框架为基础,封装极光IM聊天组件；
+封装极光IM聊天组件。
 
 登陆访问地址：http://127.0.0.1:8080/im/index.html#/login
 

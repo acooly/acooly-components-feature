@@ -2,10 +2,7 @@
 <!-- type: infrastructure -->
 <!-- author: xiyang -->
 ## 1. 组件介绍
-
-对象存储（Object-Based Storage, OBS)
-
-抽象封装存储，使用一套存储接口，可以选择不同的存储方式:阿里OSS。目前支持阿里OSS
+提供对象存储（Object-Based Storage, OBS)客户端的抽象封装存储，使用一套存储接口，可以选择不同的存储方式:阿里OSS。目前支持阿里OSS
 
 ## 2. 使用说明
 

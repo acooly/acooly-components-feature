@@ -4,8 +4,7 @@
 <!-- author: zhangpu -->
 <!-- date: 2019-11-24 -->
 ## 1. 组件介绍
-
-此组件提供内容发布管理的能力
+提供动态内容发布和管理的能力，包括支持：1、文章类型的多媒体内容发布（支持截图，批量文件上传等）；2、广告横幅内容。
 
 ## 2. 使用说明
 
@@ -29,6 +28,18 @@ maven坐标：
         //do what you like
         log.info("异步保存内容后事件处理器{}",c.toString());
     }
+
+### 3.1 facade接口
+
+CMS组件的接口前端，包括：dubbo的facade定义和openapi的message定义
+
+```xml
+    <dependency>
+        <groupId>com.acooly</groupId>
+        <artifactId>acooly-component-cms-facade</artifactId>
+        <version>${acooly-latest-version}</version>
+    </dependency>
+```
 
 ## 4. changelog
 

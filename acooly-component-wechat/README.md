@@ -3,15 +3,11 @@
 <!-- author: cuifuqiang-->
 <!-- date: 2019-11-10 -->
 ## 1. 组件介绍
+集成微信公众号认证体系，方便研发团队依赖此组件快速对接微信公众号，微信小程序；
 
-acooly-component-wechat 以acooly框架为基础, 集成微信公众号认证体系；方便研发团队依赖此组件快速对接微信公众号，微信小程序；
-
-
-[微信公众平台开发](https://mp.weixin.qq.com);
-
-[微信公众平台开发指南](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319)
-
-[微信网页授权](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842)
+* [微信公众平台开发](https://mp.weixin.qq.com);
+* [微信公众平台开发指南](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319)
+* [微信网页授权](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842)
 
 ### 1.1优势
 
@@ -19,10 +15,6 @@ acooly-component-wechat 以acooly框架为基础, 集成微信公众号认证体
 * 简化微信公众号复杂的对接流程
 * 支持接口请求access_token 缓存
 * 支持校验用户是否关注微信公众号判断
-
-
-
-
 
 ## 2. 使用说明
 

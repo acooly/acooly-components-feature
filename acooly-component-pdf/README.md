@@ -3,16 +3,12 @@
 <!-- author: shuijing -->
 <!-- date: 2019-11-08 -->
 ## 1. 组件介绍
+提供基于模板（FTL），html or docx转换pdf能力，可用于在线协议，文档等处理。
 
-此组件提供html or docx转换pdf能力 原有PDFService  扩展为-》 PdfGeneratorService
+>原有PDFService  扩展为-》 PdfGeneratorService
 
-html转换流程为：
-
-* dataVO + freemarker模板 -> iTextRender -> 输出pdf （特点：需按指定html格式开发ftl模版，所有样式表必须在html当页）
-
-docx转换流程为:
-
-* dataVO + word模板->freemaker引擎 + xdocreport ->输出pdf （特点：需按指定语法对word模版进行开发）
+* html转换流程为：dataVO + freemarker模板 -> iTextRender -> 输出pdf （特点：需按指定html格式开发ftl模版，所有样式表必须在html当页）
+* docx转换流程为:dataVO + word模板->freemaker引擎 + xdocreport ->输出pdf （特点：需按指定语法对word模版进行开发）
 
 ## 2. 使用说明
 
