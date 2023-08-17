@@ -253,6 +253,12 @@ public class FrameworkProperties implements Serializable {
          * PDF在线浏览支持
          */
         private boolean media = false;
+
+        /**
+         * datagrid扩展
+         * 支持自定义显示列
+         */
+        private boolean datagridExt = false;
     }
 
 
