@@ -254,6 +254,20 @@ acooly.framework.plugin.acooly-debug=true
 
 ## 5. changelog
 
+### 5.2.0-SNAPSHOT.20230831...
+
+* 2023-08-17 - 扩展datagrid支持动态调整列的显示和隐藏，并通过cookies个性化保存在本地。通过参数`acooly.framework.plugin.datagrid-ext=true`开启（默认是false，关闭的），开启后，可以通过在datagrid的表
+    头上右键选择显示和隐藏列。另外两个需求暂时不支持： 
+  * 列的动态宽度，本来都是支持的拖动的，但不提供保存，原则上来说，不需要，因为表格是根据列内容动态自适应的 
+  * 列的显示顺序动态调整暂时不支持，一般每个列表的列显示顺序是有逻辑的，个性化调整的必要性不大。 
+* 2023-08-13 - 整理文档，并编写脚本components.sh实现自动生产组件库文档列表功能。 - [zhangpu] 01ef75ef
+* 2023-08-07 - 增加开源LICENSE - [zhangpu] 7404ef6a
+* 2023-07-28 - 优化portallet的列表界面 - [zhangpu] 471a3763
+* 2023-07-24 - 完成组织结构功能的增强：1、默认根据添加时间顺序排序，支持手动调整排序；2、支持每个组织结构节点挂载对应的负责人用户名，可用于通过部门找到对应的负责人。 - [zhangpu] dfa8f858
+* 2023-07-19 - 修复-账户管理-查询组织结构数据（仅20条） - [cuifuq7] 8cc87e91
+* 2023-07-19 - 增加：$.acooly.layout.addTabAndRender方法，支持动态添加form到tab中，并自动渲染。请参考feature组件的test模块下的customer.ftl页面上的测试 - [zhangpu] da87ae34
+* 2023-07-09 - 删除冗余的kindeidtor资源 - [zhangpu] 83daf24c
+
 ### 5.2.0-SNAPSHOT.20230628
 
 * 2023-06-28 - 新特性：收藏夹功能的开发，开启功能后，每个功能右上角都有五角星的收藏按钮；收藏后，可刷新在左侧顶部`收藏夹`主菜单中快速定位；同时可以在`系统管理`->`收藏夹`列表中调整排序。为保证兼容性，收藏夹功能通过配置参数`acooly.framework.enable-favorite=true`开启（默认为false：关闭）；开启使用，如果是已运行的工程，请执行jar包内`META-INF/database/security/mysql/security_favorite_upgrade.sql`的升级SQL；如果是新工程，则无需处理，初始化SQL已进行了初始化。 - [zhangpu] b4d2373e
