@@ -407,6 +407,11 @@
                 this.registerKeydown(searchForm, datagride);
                 this.extendCombobox(searchForm);
                 this.initPlugins(searchForm);
+                // console.info("$.acooly.system.config", $.acooly.system.config);
+                // 如果开启开关，则初始化datagrid列显示扩展
+                if ($.acooly.system.config && $.acooly.system.config.plugin["datagridExt"]) {
+                    this.initDatagridMenu(datagride);
+                }
             },
 
             /**
@@ -1102,6 +1107,145 @@
                 }
                 // init textarea的字数统计
                 $.acooly.framework.wordsCount(container);
+            },
+
+            /**
+             * 构建表格的头部右键菜单
+             * @param target
+             * @returns {*}
+             */
+            buildDatagridMenu: function (target) {
+                var state = $(target).data('datagrid');
+                var that = this;
+                if (!state.columnMenu) {
+                    state.columnMenu = $('<div></div>').appendTo('body');
+                    state.columnMenu.menu({
+                        onHide: function () {
+                            $(target).datagrid('columnMenu').menu('show');
+                        },
+                        hideOnUnhover: false,
+                        onClick: function (item) {
+                            let datagridId = $(target).attr("id");
+                            if (item.iconCls == 'tree-checkbox1') {
+                                $(target).datagrid('hideColumn', item.name);
+                                $(this).menu('setIcon', {target: item.target, iconCls: 'tree-checkbox0'});
+                                // 添加不显示的列到cookie
+                                that.dgColumnAppend(datagridId, item.name);
+                            } else {
+                                $(target).datagrid('showColumn', item.name);
+                                $(this).menu('setIcon', {target: item.target, iconCls: 'tree-checkbox1'});
+                                // 从cookie中删除不显示的列
+                                that.dgColumnRemove(datagridId, item.name);
+                            }
+                        }
+                    })
+                    let fields = $(target).datagrid('getColumnFields', true).concat($(target).datagrid('getColumnFields', false));
+                    let datagridId = $(target).attr("id");
+                    let unShowFields = this.dgColumnRead(datagridId) || "";
+                    for (var i = 0; i < fields.length; i++) {
+                        var field = fields[i];
+                        var col = $(target).datagrid('getColumnOption', field);
+                        state.columnMenu.menu('appendItem', {
+                            text: col.title, name: field,
+                            iconCls: (unShowFields && unShowFields.indexOf(field + ",") != -1 ? 'tree-checkbox0' : 'tree-checkbox1')
+                        });
+                    }
+                }
+                return state.columnMenu;
+            },
+
+            /**
+             * 初始化表格的头部右键菜单
+             * @param container
+             */
+            initDatagridMenu: function (datagridId) {
+
+                // 初始化表格的头部右键菜单动态选择显示列
+                let target = $('#' + datagridId);
+                let fields = $(target).datagrid('getColumnFields', true).concat($(target).datagrid('getColumnFields', false));
+                let unShowFields = this.dgColumnRead(datagridId) || "";
+                for (var i = 0; i < fields.length; i++) {
+                    var field = fields[i];
+                    // 初始化时隐藏不显示的列
+                    if (unShowFields && unShowFields.indexOf(field + ",") != -1) {
+                        $(target).datagrid('hideColumn', field);
+                    }
+                }
+
+                // 给dg附件columnMenu方法
+                $.extend($.fn.datagrid.methods, {
+                    columnMenu: function (jq) {
+                        return $.acooly.framework.buildDatagridMenu(jq[0]);
+                    }
+                });
+
+                // 动态绑定onHeaderContextMenu事件
+                $('#' + datagridId).datagrid('getPanel').find('.datagrid-view').off('contextmenu.datagrid').on('contextmenu.datagrid', '.datagrid-header', function (e) {
+                    e.preventDefault();
+                    // 处理onHeaderContextMenu事件的逻辑
+                    $("#" + datagridId).datagrid('columnMenu').menu('show', {
+                        left: e.pageX,
+                        top: e.pageY
+                    });
+                });
+            },
+
+            /**
+             * datagrid的隐藏列列表
+             *
+             * Cookie的数据结构：
+             * key: cookie_datagrid_hideColumns
+             * value: {
+             *     datagridId1: "field1,field2,field3,",
+             *     datagridId2: "field1,field2,field3,",
+             *     ...
+             * }
+             *
+             * @param datagridId
+             */
+            dgColumnRead: function (datagridId) {
+                let unShowAllFields = this.dgColumnReadAll();
+                if (unShowAllFields) {
+                    return unShowAllFields[datagridId];
+                }
+                return null;
+            },
+
+            dgColumnReadAll: function () {
+                var unShowAllFields = $.cookie(this._dgColumnCookieKey());
+                if (unShowAllFields) {
+                    return JSON.parse(unShowAllFields);
+                } else {
+                    return null;
+                }
+            },
+
+            dgColumnAppend: function (datagridId, field) {
+                let unShowFields = this.dgColumnRead(datagridId);
+                unShowFields = !unShowFields ? field + "," : unShowFields + field + ",";
+                let unShowAllFields = this.dgColumnReadAll() || {};
+                unShowAllFields[datagridId] = unShowFields;
+                let unShowAllFieldsJsonString = JSON.stringify(unShowAllFields);
+                $.cookie(this._dgColumnCookieKey(), unShowAllFieldsJsonString);
+            },
+
+            dgColumnRemove: function (datagridId, field) {
+                let unShowFields = this.dgColumnRead(datagridId);
+                if (unShowFields && unShowFields.indexOf(field + ",") != -1) {
+                    unShowFields = unShowFields.replace(field + ",", "");
+                    let unShowAllFields = this.dgColumnReadAll();
+                    if (!unShowAllFields) {
+                        unShowAllFields = {datagridId: unShowFields};
+                    } else {
+                        unShowAllFields[datagridId] = unShowFields;
+                    }
+                    let unShowAllFieldsJsonString = JSON.stringify(unShowAllFields);
+                    $.cookie(this._dgColumnCookieKey(), unShowAllFieldsJsonString);
+                }
+            },
+
+            _dgColumnCookieKey: function () {
+                return "cookie_datagrid_hideColumns";
             },
 
             wordsCount: function (container) {
