@@ -223,13 +223,11 @@ function manage_chartItems_remove(chartItemsId){
 		                     if (result ==true){
 		                          $.acooly.framework.ajaxSubmitHandler('edit', $(this), 'manage_chartItems_editform', 'manage_chartItems_datagrid');
 		                     }
-
-
 		                    }
-		                    }]});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
+		             }]});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
                     <a onclick="$.acooly.framework.show('/manage/module/chart/chartItems/show.html?id={0}',1000,700);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
                     <a onclick="manage_chartItems_remove({0})" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
-                    <a onclick="moveUp('{0}')" href="#" title="上移"><i class="<%--line-action icon-movetop--%>line-action icon-moveup"></i></a>
+                    <a onclick="moveUp('{0}')" href="#" title="上移"><i class="fa fa-arrow-up fa-lg fa-fw fa-col"></i></a>
                     <a href="/manage/module/echarts/chartItemOne_{0}.html" target="_blank" title="生成图表"><i class="fa fa-adjust fa-lg fa-fw fa-col"></i></a>
                 </div>
 

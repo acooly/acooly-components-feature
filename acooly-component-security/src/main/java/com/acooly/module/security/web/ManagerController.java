@@ -16,6 +16,7 @@ import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.service.ResourceService;
 import com.acooly.module.security.service.UserService;
+import com.acooly.module.security.utils.ShiroUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -78,16 +79,19 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
 
     @Override
     public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
+        request.setAttribute("securityConfig", frameworkProperties);
         Subject subject = SecurityUtils.getSubject();
-        request.getSession(true).setAttribute("securityConfig", frameworkProperties);
+//        request.getSession(true).setAttribute("securityConfig", frameworkProperties);
         if (subject.isAuthenticated()) {
             // 如果已经登录的情况，直接回到主框架界面
             doExtendResources(request, model);
             User user = (User) subject.getPrincipal();
+            user = getEntityService().get(user.getId());
             String roleName = null;
             if (Collections3.isNotEmpty(user.getRoles())) {
                 roleName = Collections3.getFirst(user.getRoles()).getDescn();
             }
+            model.addAttribute("user", user);
             model.addAttribute("roleName", roleName);
 
             // theme处理
@@ -112,7 +116,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
             return "/manage/index_adminlte3";
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。
-            request.getSession(true).setAttribute("securityConfig", frameworkProperties);
+//            request.getSession(true).setAttribute("securityConfig", frameworkProperties);
             return "/manage/login";
         }
     }
@@ -167,7 +171,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
             return "redirect:/manage/index.html";
         } else {
             // 如果没有登录的首次进入登录界面，直接返回到登录界面。
-            request.getSession(true).setAttribute("securityConfig", frameworkProperties);
+            request.setAttribute("securityConfig", frameworkProperties);
             request.setAttribute("securityProperties", securityProperties);
             request.setAttribute("passwordRegex", frameworkProperties.getPasswordStrength().getRegexForJs());
             request.setAttribute("notFirstVerify", !securityCaptchaManager.isFirstVerify(request));
@@ -186,7 +190,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
     public JsonResult onLoginSuccess(HttpServletRequest request) {
         logger.debug("OnLoginSuccess, redirect to index.jsp");
         JsonResult jsonResult = new JsonResult();
-        User user = (User) SecurityUtils.getSubject().getSession().getAttribute(SESSION_USER);
+        User user = ShiroUtils.getCurrentUser();
         if (user != null) {
             String jwt = genarateJwt(user);
             JWTUtils.addJwtCookie(Servlets.getResponse(), jwt, JWTUtils.getDomainName());

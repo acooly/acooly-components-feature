@@ -20,7 +20,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author qiubo
@@ -43,35 +42,28 @@ public class SecurityProperties {
     public static final String PREFIX = "acooly.security";
     public static final boolean DEFAULT_SHIRO_FILTER_ANON = false;
     public static final boolean DEFAULT_LOGIN_SMS = false;
-
-    /**
-     * 是否启用shiro
-     */
-    private boolean enable = true;
-
-    private Shiro shiro = new Shiro();
-
-    private Captcha captcha = new Captcha();
-
-    /**
-     * Shiro会话相关配置
-     */
-    private Session session = new Session();
-
-    /**
-     * 开启后shiro filter链都会设为不拦截，可在系统不需要任何授权、认证时开启
-     */
-    private boolean shiroFilterAnon = DEFAULT_SHIRO_FILTER_ANON;
-
-    /**
-     * 开启登录短信验证
-     */
-    private boolean enableSmsAuth = DEFAULT_LOGIN_SMS;
     /**
      * 登录短信验证码重新发送时间间隔 s
      */
     public int smsSendInterval = 60;
-
+    /**
+     * 是否启用shiro
+     */
+    private boolean enable = true;
+    private Shiro shiro = new Shiro();
+    private Captcha captcha = new Captcha();
+    /**
+     * Shiro会话相关配置
+     */
+    private Session session = new Session();
+    /**
+     * 开启后shiro filter链都会设为不拦截，可在系统不需要任何授权、认证时开启
+     */
+    private boolean shiroFilterAnon = DEFAULT_SHIRO_FILTER_ANON;
+    /**
+     * 开启登录短信验证
+     */
+    private boolean enableSmsAuth = DEFAULT_LOGIN_SMS;
     /**
      * 开启单点登录权限校验dubbo服务(主boss才开启，为防止非主boss应用提供此服务，同一个zk环境中仅仅允许一个应用为服务提供者)
      */
@@ -83,6 +75,11 @@ public class SecurityProperties {
      */
     private boolean druidStatViewEnable = true;
 
+
+    public static enum SerializeType {
+        Jdk,
+        Kryo
+    }
 
     @Getter
     @Setter
@@ -221,6 +218,11 @@ public class SecurityProperties {
     public static class Session {
 
         /**
+         * redis-session的值的序列化模式，默认JDK。
+         */
+        private SerializeType redisSerializeType = SerializeType.Jdk;
+
+        /**
          * 会话存储到redis的过期时间（单位：分钟），默认8小时
          */
         private int redisTimeout = 8 * 60;
@@ -244,6 +246,5 @@ public class SecurityProperties {
          * 每个用户允许的同时登录个人，默认为1，表示只支持单用户登录
          */
         private int maxSessionPerUser = 1;
-
     }
 }

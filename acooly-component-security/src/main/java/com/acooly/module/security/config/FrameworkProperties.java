@@ -192,6 +192,11 @@ public class FrameworkProperties implements Serializable {
     public static class Plugin implements Serializable {
 
         /**
+         * 框架相关的JS是否DEBUG模式加载源文件
+         */
+        private boolean acoolyDebug = false;
+
+        /**
          * LayUI插件
          */
         private boolean layui = true;

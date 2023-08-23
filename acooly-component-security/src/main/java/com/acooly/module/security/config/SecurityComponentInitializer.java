@@ -25,12 +25,12 @@ public class SecurityComponentInitializer implements ComponentInitializer {
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
+        setPropertyIfMissing("acooly.security.csrf.exclusions.druid", "/manage/druid/*");
 
         setPropertyIfMissing("acooly.ds.dbPatchs.sys_user[0].columnName", "pinyin");
         setPropertyIfMissing("acooly.ds.dbPatchs.sys_user[0].patchSql", "ALTER TABLE `sys_user` ADD COLUMN `pinyin` VARCHAR(16) NULL COMMENT '姓名拼音';");
 
-        setPropertyIfMissing(
-                "acooly.ds.Checker.excludedColumnTables.security", "sys_role_resc, sys_user_role");
+        setPropertyIfMissing("acooly.ds.Checker.excludedColumnTables.security", "sys_role_resc, sys_user_role");
         SecurityProperties securityProperties = new SecurityProperties();
         EnvironmentHolder.buildProperties(securityProperties);
         if (securityProperties.isEnableSsoAuth()) {

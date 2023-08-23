@@ -100,6 +100,13 @@
             <version>${project.version}</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-syncdata</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-security</artifactId>
@@ -117,7 +124,11 @@
             <artifactId>acooly-component-chart</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-websocket</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!---->
         <!--<dependency>-->

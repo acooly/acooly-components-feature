@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -11,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <c:if test="sessionScope.securityConfig.plugin.layui">
+    <c:if test="securityConfig.plugin.layui">
         <!-- layui -->
         <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
     </c:if>
@@ -26,11 +24,11 @@
     <!-- easyui及自定义 -->
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.min.css" id="easyuiTheme" type="text/css"/>
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.min.css" id="easyuiThemeBasic">
-    <c:if test="sessionScope.securityConfig.plugin.icheck">
+    <c:if test="securityConfig.plugin.icheck">
         <!-- icheck bootstrap -->
         <link rel="stylesheet" href="/manage/assert/plugin/icheck-bootstrap/icheck-bootstrap.min.css">
     </c:if>
-    <c:if test="sessionScope.securityConfig.plugin.videoJs">
+    <c:if test="securityConfig.plugin.videoJs">
         <!-- videoJs -->
         <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/videojs/video-js.css" type="text/css"/>
     </c:if>
@@ -49,19 +47,19 @@
     <!-- Jquery plugins  -->
     <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
     <script src="/manage/assert/plugin/jquery-plugin/jquery.form.cookie.resize.min.js" type="text/javascript" charset="utf-8"></script>
-    <c:if test="Session.securityConfig.plugin.clipboard">
+    <c:if test="securityConfig.plugin.clipboard">
         <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
     </c:if>
-    <c:if test="Session.securityConfig.plugin.media">
+    <c:if test="securityConfig.plugin.media">
         <script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
     </c:if>
-    <c:if test="Session.securityConfig.plugin.xss">
+    <c:if test="securityConfig.plugin.xss">
         <script src="/manage/assert/plugin/jquery-plugin/xss.min.js" type="text/javascript" charset="utf-8"></script>
     </c:if>
     <!-- easyui -->
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui-portal/jquery.portal.min.js" charset="utf-8"></script>
-    <c:if test="Session.securityConfig.plugin.easyuiExtension">
+    <c:if test="securityConfig.plugin.easyuiExtension">
         <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-extensions.min.js" charset="utf-8"></script>
     </c:if>
     <!-- my97日期控件 -->
@@ -77,10 +75,10 @@
     <script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.allinone.min.js"></script>
     <!-- select2ztree -->
     <script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.min.js"></script>
-    <c:if test="Session.securityConfig.plugin.layui">
+    <c:if test="securityConfig.plugin.layui">
         <script type="text/javascript" src="/manage/assert/plugin/layui/layui.all.js"></script>
     </c:if>
-    <c:if test="Session.securityConfig.plugin.kindEditor">
+    <c:if test="securityConfig.plugin.kindEditor">
         <!--kindEditor插件库 -->
         <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
         <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
@@ -90,12 +88,12 @@
         <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all.js"></script>
         <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
     </c:if>
-    <c:if test="Session.securityConfig.plugin.videoJs">
+    <c:if test="securityConfig.plugin.videoJs">
         <!-- videoJs -->
         <script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
         <script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
     </c:if>
-    <c:if test="Session.securityConfig.plugin.dateRangePicker">
+    <c:if test="securityConfig.plugin.dateRangePicker">
         <!-- daterangepicker -->
         <link rel="stylesheet" href="/manage/assert/plugin/daterangepicker/daterangepicker.css" type="text/css"/>
         <script src="/manage/assert/plugin/daterangepicker/moment.min.js"></script>
@@ -104,30 +102,29 @@
     </c:if>
     <!-- acooly -->
     <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
-    <!-- 扩展script -->
+    <!-- extendtion scripts -->
     ${extendScripts}
     <script type="text/javascript">
-        var contextPath = '';
-        $.acooly.system.init();
+        var contextPath = "";
+        // 调整为根据document加载顺序实时加载，以实现优先于下面集成的easyui的组件加载
+        // $(function () {
+            $.acooly.system.init();
+        // });
     </script>
 </head>
-
 <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">
     <h1><span style="font-size: 16px;"><i class="fa fa-refresh fa-spin fa-fw"></i> Loading...</span></h1>
 </div>
-
 <script>
     var pc;
     //不要放在$(function(){});中
     $.parser.onComplete = function () {
         if (pc) clearTimeout(pc);
-        pc = setTimeout(closes, 1000);
-    }
-
-    function closes() {
-        $.acooly.admin.theme.loadTheme();
-        $('#loading').fadeOut('normal', function () {
-            $(this).remove();
-        });
+        pc = setTimeout(function () {
+            $.acooly.admin.theme.loadTheme();
+            $('#loading').fadeOut('normal', function () {
+                $(this).remove();
+            });
+        }, 500);
     }
 </script>

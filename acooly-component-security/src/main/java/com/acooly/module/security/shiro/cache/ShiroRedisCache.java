@@ -36,6 +36,7 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
     public ShiroRedisCache(K cacheName, RedisTemplate redisTemplate, int defaultTimeout) {
         this.cachaName = cacheName;
         this.redisTemplate = redisTemplate;
+        this.defaultTimeout = defaultTimeout;
     }
 
     public ShiroRedisCache(K cacheName, RedisTemplate redisTemplate) {
@@ -85,6 +86,16 @@ public class ShiroRedisCache<K, V> implements Cache<K, V> {
     public Collection<V> values() {
         HashOperations<K, K, V> hashOperations = redisTemplate.opsForHash();
         return hashOperations.values(cachaName);
+    }
+
+    /**
+     * 缓存大小
+     * @param key
+     * @return
+     */
+    public Long length(K key) {
+        HashOperations<K, K, V> hashOperations = redisTemplate.opsForHash();
+        return hashOperations.lengthOfValue(cachaName, key);
     }
 
     public RedisTemplate<K, V> getRedisTemplate() {
