@@ -9,7 +9,6 @@
 package com.acooly.module.security.captche;
 
 import com.acooly.core.common.boot.Apps;
-import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.system.IPUtil;
 import com.acooly.module.security.config.SecurityProperties;
@@ -18,12 +17,14 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -85,18 +86,18 @@ public class SecurityCaptchaManager {
     }
 
 
-    public boolean isFirstVerify(HttpServletRequest request){
-        String key = cachekey(request,VERIFY_FIRST_KEY);
+    public boolean isFirstVerify(HttpServletRequest request) {
+        String key = cachekey(request, VERIFY_FIRST_KEY);
         return redisTemplate.opsForValue().get(key) == null;
     }
 
-    public void setFirstVerify(HttpServletRequest request){
-        String key = cachekey(request,VERIFY_FIRST_KEY);
+    public void setFirstVerify(HttpServletRequest request) {
+        String key = cachekey(request, VERIFY_FIRST_KEY);
         redisTemplate.opsForValue().set(key, "false", 5, TimeUnit.MINUTES);
     }
 
-    public void removeFirstVerify(HttpServletRequest request){
-        String key = cachekey(request,VERIFY_FIRST_KEY);
+    public void removeFirstVerify(HttpServletRequest request) {
+        String key = cachekey(request, VERIFY_FIRST_KEY);
         redisTemplate.delete(key);
     }
 
@@ -117,7 +118,7 @@ public class SecurityCaptchaManager {
                 return true;
             } else {
                 redisTemplate.opsForValue().set(verifyTimesKey, Integer.valueOf(time + 1), 5, TimeUnit.MINUTES);
-                log.info("tims:{}",redisTemplate.opsForValue().get(verifyTimesKey));
+                log.info("tims:{}", redisTemplate.opsForValue().get(verifyTimesKey));
             }
         } else {
             log.warn("客户端ip:{}，重试验证码次数:{} ,请稍后再试。", request.getRemoteAddr(), time);
@@ -128,10 +129,19 @@ public class SecurityCaptchaManager {
 
     private String cachekey(HttpServletRequest request, String postfix) {
         String salt = IPUtil.getIpAddr(request);
-        if (Strings.isNullOrEmpty(salt)) {
-            salt = Servlets.getParameter("_csrf");
+        String csrf = Servlets.getParameter("_csrf");
+        if (Strings.isNullOrEmpty(csrf)) {
+            Cookie[] cookies = request.getCookies();
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("_csrf")) {
+                    csrf = cookie.getValue();
+                    if (!Strings.isNullOrEmpty(csrf)) {
+                        break;
+                    }
+                }
+            }
         }
-
+        salt = salt + StringUtils.trimToEmpty(csrf);
         return Apps.getAppName() + "." + salt + "." + postfix;
 
     }
