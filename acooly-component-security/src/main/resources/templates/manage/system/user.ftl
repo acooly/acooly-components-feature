@@ -28,7 +28,7 @@
                 <label class="col-form-label">角色：</label>
                 <select name="search_EQ_role" class="form-control input-sm select2bs4">
                     <option value="">所有</option><#list allRoles as e>
-                    <option value="${e.id}">${e.name}</option></#list>
+                    <option value="${e.id}">${e.descn}</option></#list>
                 </select>
             </div>
             <div class="form-group">
@@ -56,7 +56,7 @@
                 <th field="mobileNo">手机号码</th>
                 <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
                 <th field="unlockTime">解锁时间</th>
-                <th field="roleName">角色</th>
+                <th field="roleDescn">角色</th>
                 <th field="status" formatter="mappingFormatter">状态</th>
                 <th field="userType" formatter="mappingFormatter">用户类型</th>
                 <th field="orgName">所属机构</th>

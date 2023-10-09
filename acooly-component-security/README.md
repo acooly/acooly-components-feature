@@ -254,6 +254,10 @@ acooly.framework.plugin.acooly-debug=true
 
 ## 5. changelog
 
+### 5.2.0-SNAPSHOT.20231009...
+* 2023-10-09 - 分页提示优化，例如：第1页，共10页
+* 2023-10-09 - 优化账号管理，对应的角色显示为中文操作
+
 ### 5.2.0-SNAPSHOT.20230831...
 
 * 2023-08-17 - 扩展datagrid支持动态调整列的显示和隐藏，并通过cookies个性化保存在本地。通过参数`acooly.framework.plugin.datagrid-ext=true`开启（默认是false，关闭的），开启后，可以通过在datagrid的表

@@ -157,14 +157,19 @@ public class User extends AbstractEntity {
     /**
      * 包含的角色
      */
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, targetEntity = com.acooly.module.security.domain.Role.class)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, targetEntity = Role.class)
     @JoinTable(name = "sys_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     @OrderBy(clause = "role_id")
     private Set<Role> roles;
 
 
+    /**角色*/
     @Transient
     private String roleName;
+
+    /**角色说明*/
+    @Transient
+    private String roleDescn;
 
     /**
      * default constructor
@@ -200,6 +205,10 @@ public class User extends AbstractEntity {
         return (this.status == STATUS_ENABLE);
     }
 
+    /**
+     * 角色key
+     * @return
+     */
     @Transient
     public String getRoleName() {
         if (Collections3.isEmpty(this.roles)) {
@@ -207,6 +216,20 @@ public class User extends AbstractEntity {
         }
         List<String> roleNames = Lists.newArrayList();
         this.roles.forEach(e -> roleNames.add(e.getName()));
+        return Strings.join(roleNames.iterator(), ',');
+    }
+
+    /**
+     * 角色说明
+     * @return
+     */
+    @Transient
+    public String getRoleDescn() {
+        if (Collections3.isEmpty(this.roles)) {
+            return null;
+        }
+        List<String> roleNames = Lists.newArrayList();
+        this.roles.forEach(e -> roleNames.add(e.getDescn()));
         return Strings.join(roleNames.iterator(), ',');
     }
 

@@ -92,7 +92,7 @@
                 <div class="col-sm-9">
                     <select name="role" class="form-control input-sm select2bs4" data-placeholder="请对应的角色..." multiple="true">
                         <#list allRoles as e>
-                            <option value="${e.id}"<#if userRoleIds?? && userRoleIds?seq_contains(e.id)> selected</#if>>${e.name}</option></#list>
+                            <option value="${e.id}"<#if userRoleIds?? && userRoleIds?seq_contains(e.id)> selected</#if>>${e.descn}</option></#list>
                     </select>
                 </div>
             </div>
