@@ -132,11 +132,13 @@ public class SecurityCaptchaManager {
         String csrf = Servlets.getParameter("_csrf");
         if (Strings.isNullOrEmpty(csrf)) {
             Cookie[] cookies = request.getCookies();
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("_csrf")) {
-                    csrf = cookie.getValue();
-                    if (!Strings.isNullOrEmpty(csrf)) {
-                        break;
+            if(cookies!=null){
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("_csrf")) {
+                        csrf = cookie.getValue();
+                        if (!Strings.isNullOrEmpty(csrf)) {
+                            break;
+                        }
                     }
                 }
             }
