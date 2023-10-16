@@ -64,6 +64,7 @@
                     },
                     callback: {
                         onClick: function (event, treeId, treeNode, clickFlag) {
+                            treeNode['rescId'] = treeNode.id;
                             $.acooly.layout.accessResource(treeNode);
                         }
                     }
@@ -154,7 +155,7 @@
                     })
                     t.tabs('add', opts);
                 }
-                // console.info("add tab opts", opts);
+                console.info("add tab opts", opts);
                 $.acooly.admin.favorite.show(opts.rescId);
             },
 

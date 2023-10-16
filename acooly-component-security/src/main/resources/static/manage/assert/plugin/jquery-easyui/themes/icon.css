@@ -94,3 +94,6 @@
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
 }
+.icon_pagination_reload{
+	background:url('default/images/pagination_icons.png') no-repeat -64px center;
+}

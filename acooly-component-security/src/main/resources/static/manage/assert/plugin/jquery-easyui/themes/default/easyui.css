@@ -1346,7 +1346,7 @@
 .tabs-tool {
   position: absolute;
   bottom: 0;
-  padding: 1px;
+  padding: 1px 4px;
   overflow: hidden;
   border-width: 1px;
   border-style: solid;

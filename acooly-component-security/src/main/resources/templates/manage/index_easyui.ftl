@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${Session.securityConfig.title}</title>
+    <title>${securityConfig.title}</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
@@ -11,46 +11,98 @@
     <meta name="X-CSRF-TOKEN" content="${Request['org.springframework.security.web.csrf.CsrfToken'].token}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <#if Session.securityConfig.icon??><link rel="shortcut icon" href="${Session.securityConfig.icon}" /></#if>
+    <#if securityConfig.icon??>
+        <link rel="shortcut icon" href="${securityConfig.icon}" /></#if>
 
     <!-- easyui -->
     <link rel="stylesheet" href="/manage/assert/plugin/layui/css/layui.css">
     <!-- ztree -->
     <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/jquery-ztree/css/zTreeStyle/zTreeStyle.css"/>
     <!-- icons -->
-    <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
+    <#--    <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">-->
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="/manage/assert/plugin/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- adminlte -->
     <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
-    <link rel="stylesheet" href="/manage/assert/plugin/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <!-- pace-progress -->
-    <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
     <!-- easyui控件 -->
-    <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/default/easyui.css" type="text/css"/>
-    <link id="easyuiThemeBasic" rel="stylesheet"  href="/manage/assert/plugin/jquery-easyui/themes/default/basic.css">
+    <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/bootstrap/easyui.css" type="text/css"/>
+    <link id="easyuiThemeBasic" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/default/basic.css">
     <link rel="stylesheet" type="text/css" href="/manage/assert/style/icon.css">
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/icon.css" type="text/css"/>
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/color.css" type="text/css"/>
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui-portal/portal.css" type="text/css"/>
-    <!-- videoJs -->
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/videojs/video-js.css" type="text/css"/>
-    <!-- daterangepicker -->
-    <link rel="stylesheet" href="/manage/assert/plugin/daterangepicker/daterangepicker.css" type="text/css"/>
+    <#if securityConfig.plugin.icheck>
+        <!-- icheck bootstrap -->
+        <link rel="stylesheet" href="/manage/assert/plugin/icheck-bootstrap/icheck-bootstrap.min.css">
+    </#if>
+    <#if securityConfig.plugin.videoJs>
+        <!-- videoJs -->
+        <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/videojs/video-js.css" type="text/css"/>
+    </#if>
     <!-- 扩展css -->
     ${extendStyles}
+    <!-- 根据配置设置全局样式 -->
+    <style>
+        .datagrid-header .datagrid-cell span {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,
+        .input-group-text, .tabs-title {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .datagrid-header-row, .datagrid-row {
+            height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;
+        }
+
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .l-btn-text {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .panel-body {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        body {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .main-sidebar, .main-sidebar::before {
+            width: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+            margin-left: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+            margin-left: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        .tree-title {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .layout-fixed .brand-link {
+            width: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        .ac-logo-title {
+            font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;
+        }
+    </style>
 </head>
 
 <body id="mainLayout" class="easyui-layout" style="margin-left: 2px; margin-right: 2px;">
 <div data-options="region:'north',border:false,href:'/manage/north.html'" style="height: 66px; overflow: hidden;"></div>
-<div id="mainWestLayout" title="功能菜单"
-     data-options="headerCls:'westHeader',tools: [{ iconCls:'icon-refresh',handler:function(){$.acooly.layout.reloadMenu();}}],region:'west',href:'/manage/layout/west.html',onLoad:function(){$.acooly.layout.loadTree();}"
-     style="width: 210px; overflow: hidden;"></div>
+<div id="mainWestLayout" title="功能菜单" data-options="headerCls:'westHeader',tools: [{iconCls:'icon_pagination_reload',handler:function(){$.acooly.layout.reloadMenu();}}],region:'west',href:'/manage/layout/west.html',onLoad:function(){$.acooly.layout.loadTree();}" style="width: 210px; overflow: hidden;"></div>
 <div data-options="region:'center',href:'/manage/layout/center.html'" class="centerHeader" style="overflow: hidden;"></div>
-
-
 
 <!-- jquery -->
 <script src="/manage/assert/plugin/jquery/jquery-3.3.1.min.js"></script>
@@ -108,18 +160,39 @@
 <!-- js xss -->
 <script src="/manage/assert/plugin/jquery-plugin/xss.min.js"></script>
 
-<!-- 自己定义的样式和JS扩展 -->
-<script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
-<!-- 扩展script -->
+
+<!-- acooly -->
+<#if securityConfig.plugin.acoolyDebug>
+    <script src="/manage/assert/script/acooly.js"></script>
+    <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.verify.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.file.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.editor.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.admin.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.framework.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.easyui.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.layout.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.system.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.inputmask.js"></script>
+<#else>
+    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+</#if>
+
+<!-- 通过配置扩展script -->
 ${extendScripts}
-
-
 <script type="text/javascript">
     var contextPath = '';
     $(function () {
+        var acoolyTheme = '${acoolyTheme}';
+        if (acoolyTheme == '') {
+            acoolyTheme = 'acooly';
+        }
+        $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);
+        $.acooly.admin.theme.loadTheme();
         $.acooly.system.init();
-        // 新旧版本的风格(访问到旧版页面，则设置版本cookies)
-        $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, "easyui");
     });
 </script>
 

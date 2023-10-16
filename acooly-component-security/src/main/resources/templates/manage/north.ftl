@@ -11,16 +11,10 @@
                 <div class="userinfo">
                     <@shiroPrincipal/>
                 </div>
-                <div class="layui-btn-group" style="float: right;padding-right: 10px;">
-                    <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="$.acooly.framework.changePassword();">
-                        <i class="fa fa-key fa-fw fa-col" aria-hidden="true"></i>密码
-                    </button>
-                    <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="$.acooly.framework.logout();">
-                        <i class="fa fa-sign-out fa-fw fa-col" aria-hidden="true"></i>注销
-                    </button>
-                    <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="location.href='/manage/index' + '.html?acoolyTheme=acooly'">
-                        <i class="fa fa-thumbs-o-up fa-fw fa-col" aria-hidden="true"></i> 新版
-                    </button>
+                <div  style="float: right;padding-right: 10px;">
+                    <a href="#" onclick="$.acooly.framework.changePassword();" data-options="plain:true,height:28" class="easyui-linkbutton c9"><i class="fa fa-key fa-fw fa-col" aria-hidden="true"></i> 密码</a>
+                    <a href="#" onclick="$.acooly.framework.logout();" data-options="plain:true,height:28" class="easyui-linkbutton c9"><i class="fa fa-sign-out fa-fw fa-col" aria-hidden="true"></i> 注销</a>
+                    <a href="/manage/index.html?acoolyTheme=acooly" data-options="plain:true,height:28" class="easyui-linkbutton c9"><i class="fa fa-thumbs-o-up fa-fw fa-col" aria-hidden="true"></i> 新版</a>
                 </div>
             </div>
         </div>

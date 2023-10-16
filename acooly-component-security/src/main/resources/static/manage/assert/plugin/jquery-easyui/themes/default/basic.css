@@ -75,7 +75,7 @@ body {
 
 .acooly-top .header .header-right {
     float: right;
-    margin-top: 6px;
+    margin-top: 3px;
     text-align: right;
 }
 
@@ -486,3 +486,7 @@ img {
 }
 
 /* end jquery-easyui-portal */
+
+.westHeader {
+    height: 34px;
+}
