@@ -182,7 +182,7 @@
 }
 .panel-body {
   background-color: #ffffff;
-  color: #000000;
+  color: #666666;
   font-size: 14px;
 }
 .panel-title {
@@ -196,7 +196,7 @@
   border: 1px solid #95B8E7;
   overflow: hidden;
   background: #F4F4F4;
-  color: #000000;
+  color: #666666;
 }
 .panel-footer-noborder {
   border-width: 1px 0 0 0;
@@ -365,7 +365,7 @@
   background: #ffe48d;
 }
 .accordion .accordion-header-selected .panel-title {
-  color: #000000;
+  color: #666666;
 }
 .accordion .panel-last > .accordion-header {
   border-bottom-color: #E0ECFF;
@@ -800,7 +800,7 @@
 }
 .l-btn:hover {
   background: #eaf2ff;
-  color: #000000;
+  color: #666666;
   border: 1px solid #b7d2ff;
   filter: none;
 }
@@ -816,7 +816,7 @@
 }
 .l-btn-plain:hover {
   background: #eaf2ff;
-  color: #000000;
+  color: #666666;
   border: 1px solid #b7d2ff;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
@@ -1106,11 +1106,11 @@
 }
 .combobox-item-hover {
   background-color: #eaf2ff;
-  color: #000000;
+  color: #666666;
 }
 .combobox-item-selected {
   background-color: #ffe48d;
-  color: #000000;
+  color: #666666;
 }
 .combobox-icon {
   display: inline-block;
@@ -1137,7 +1137,7 @@
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   background: #eaf2ff;
-  color: #000000;
+  color: #666666;
 }
 .tagbox-remove {
   background: url('images/tagbox_icons.png') no-repeat -16px center;
@@ -1350,6 +1350,8 @@
   overflow: hidden;
   border-width: 1px;
   border-style: solid;
+  border-top: 0;
+  border-right: 0;
 }
 .tabs-header-plain .tabs-tool {
   padding: 0 1px;
@@ -1638,7 +1640,7 @@
 }
 .tabs li .tabs-inner:hover {
   background: #eaf2ff;
-  color: #000000;
+  color: #666666;
   filter: none;
 }
 .tabs li.tabs-selected .tabs-inner {
@@ -1724,7 +1726,7 @@
 }
 .tabs-header .tabs-pill li.tabs-selected .tabs-inner {
   background: #ffe48d;
-  color: #000000;
+  color: #666666;
   filter: none;
   border-color: #95B8E7;
 }
@@ -1965,7 +1967,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F9F9F9,endColorstr=#efefef,GradientType=0);
 }
 .datagrid-cell-rownumber {
-  color: #000000;
+  color: #666666;
 }
 .datagrid-resize-proxy {
   background: #aac5e7;
@@ -1994,7 +1996,7 @@
 .datagrid-htable,
 .datagrid-btable,
 .datagrid-ftable {
-  color: #000000;
+  color: #666666;
   border-collapse: separate;
 }
 .datagrid-row-alt {
@@ -2003,12 +2005,12 @@
 .datagrid-row-over,
 .datagrid-header td.datagrid-header-over {
   background: #eaf2ff;
-  color: #000000;
+  color: #666666;
   cursor: default;
 }
 .datagrid-row-selected {
   background: #ffe48d;
-  color: #000000;
+  color: #666666;
 }
 .datagrid-row-editing .textbox,
 .datagrid-row-editing .textbox-text {
@@ -2109,7 +2111,7 @@
   display: block;
   position: relative;
   cursor: pointer;
-  color: #000000;
+  color: #666666;
   text-decoration: none;
   overflow: hidden;
   margin: -2px -4px;
@@ -2150,7 +2152,7 @@
 }
 .m-list li>a:hover {
   background: #eaf2ff;
-  color: #000000;
+  color: #666666;
 }
 .m-list .m-list-group {
   padding: 0 4px;
@@ -2392,7 +2394,7 @@
   color: #4d4d4d;
 }
 .calendar-day {
-  color: #000000;
+  color: #666666;
 }
 .calendar-sunday {
   color: #CC2222;
@@ -2424,7 +2426,7 @@
 .calendar-nav-hover,
 .calendar-menu-hover {
   background-color: #eaf2ff;
-  color: #000000;
+  color: #666666;
 }
 .calendar-hover {
   border: 1px solid #b7d2ff;
@@ -2432,7 +2434,7 @@
 }
 .calendar-selected {
   background-color: #ffe48d;
-  color: #000000;
+  color: #666666;
   border: 1px solid #ffab3f;
   padding: 0;
 }
@@ -2620,13 +2622,13 @@
   border-color: #95B8E7;
 }
 .progressbar-text {
-  color: #000000;
+  color: #666666;
   font-size: 14px;
 }
 .progressbar-value,
 .progressbar-value .progressbar-text {
   background-color: #ffe48d;
-  color: #000000;
+  color: #666666;
 }
 .searchbox-button {
   width: 18px;
@@ -2788,7 +2790,7 @@
   border-color: #95B8E7;
 }
 .slider-rulelabel span {
-  color: #000000;
+  color: #666666;
 }
 .menu {
   position: absolute;
@@ -2901,7 +2903,7 @@
 }
 .menu-active {
   border-color: #b7d2ff;
-  color: #000000;
+  color: #666666;
   background: #eaf2ff;
 }
 .menu-active-disabled {
@@ -2923,7 +2925,7 @@
 .m-btn-active,
 .s-btn-active {
   background: #eaf2ff;
-  color: #000000;
+  color: #666666;
   border: 1px solid #b7d2ff;
   filter: none;
 }
@@ -3001,7 +3003,7 @@
 .s-btn-plain-active {
   border-color: #b7d2ff;
   background-color: #eaf2ff;
-  color: #000000;
+  color: #666666;
 }
 .s-btn:hover .m-btn-line,
 .s-btn-active .m-btn-line,
@@ -3209,16 +3211,16 @@
 }
 .tree-node-proxy {
   background-color: #ffffff;
-  color: #000000;
+  color: #666666;
   border-color: #95B8E7;
 }
 .tree-node-hover {
   background: #eaf2ff;
-  color: #000000;
+  color: #666666;
 }
 .tree-node-selected {
   background: #ffe48d;
-  color: #000000;
+  color: #666666;
 }
 .tree-node-disabled {
   opacity: 0.5;
@@ -3315,7 +3317,7 @@
 .tooltip {
   background-color: #ffffff;
   border-color: #95B8E7;
-  color: #000000;
+  color: #666666;
 }
 .tooltip-right .tooltip-arrow-outer {
   border-right-color: #95B8E7;
@@ -3376,11 +3378,11 @@
 }
 .switchbutton-on {
   background: #ffe48d;
-  color: #000000;
+  color: #666666;
 }
 .switchbutton-off {
   background-color: #ffffff;
-  color: #000000;
+  color: #666666;
 }
 .switchbutton-on,
 .switchbutton-reversed .switchbutton-off {
@@ -3399,7 +3401,7 @@
   top: 0;
   left: 50%;
   background-color: #ffffff;
-  color: #000000;
+  color: #666666;
   border: 1px solid #bbb;
   -moz-box-shadow: 0 0 3px 0 #bbb;
   -webkit-box-shadow: 0 0 3px 0 #bbb;
@@ -3510,7 +3512,7 @@
 }
 .sidemenu .tree-node-selected {
   border-right: 2px solid #ffab3f;
-  color: #000000;
+  color: #666666;
   background: #ffe48d;
 }
 .sidemenu .tree-node {
@@ -3585,7 +3587,7 @@
 }
 .timepicker-panel .clock .item-selected {
   background: #ffab3f;
-  color: #000000;
+  color: #666666;
 }
 .timepicker-panel .clock .hand {
   width: 2px;
@@ -3609,7 +3611,7 @@
   position: absolute;
   box-sizing: content-box;
   border-radius: 100%;
-  background-color: #000000;
+  background-color: #666666;
 }
 .timepicker-panel .clock .center {
   top: 50%;

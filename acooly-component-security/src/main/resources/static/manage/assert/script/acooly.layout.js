@@ -155,7 +155,7 @@
                     })
                     t.tabs('add', opts);
                 }
-                console.info("add tab opts", opts);
+                // console.info("add tab opts", opts);
                 $.acooly.admin.favorite.show(opts.rescId);
             },
 

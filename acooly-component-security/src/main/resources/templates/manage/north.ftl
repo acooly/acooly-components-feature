@@ -11,7 +11,7 @@
                 <div class="userinfo">
                     <@shiroPrincipal/>
                 </div>
-                <div  style="float: right;padding-right: 10px;">
+                <div style="float: right;padding-right: 10px;">
                     <a href="#" onclick="$.acooly.framework.changePassword();" data-options="plain:true,height:28" class="easyui-linkbutton c9"><i class="fa fa-key fa-fw fa-col" aria-hidden="true"></i> 密码</a>
                     <a href="#" onclick="$.acooly.framework.logout();" data-options="plain:true,height:28" class="easyui-linkbutton c9"><i class="fa fa-sign-out fa-fw fa-col" aria-hidden="true"></i> 注销</a>
                     <a href="/manage/index.html?acoolyTheme=acooly" data-options="plain:true,height:28" class="easyui-linkbutton c9"><i class="fa fa-thumbs-o-up fa-fw fa-col" aria-hidden="true"></i> 新版</a>
@@ -24,9 +24,8 @@
 <script type="text/javascript">
     $(function () {
         $.acooly.layout.loadMenu();
-
         $.ajax({
-            url: contextPath + "/security/config/index.html",
+            url: "/security/config/index.html",
             success: function (data, textStatus) {
                 if (typeof (data) == 'string') {
                     data = eval('(' + data + ')');

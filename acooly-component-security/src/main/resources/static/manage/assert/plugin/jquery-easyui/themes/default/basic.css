@@ -442,6 +442,11 @@ img {
 }
 
 
+.datagrid-header td, .datagrid-body td, .datagrid-footer td {
+    border-width: 0 0px 1px 0;
+}
+
+
 /* 合并jquery-easyui-portal.css */
 .portal {
     padding: 0;

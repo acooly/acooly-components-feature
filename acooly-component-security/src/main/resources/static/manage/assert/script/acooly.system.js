@@ -433,6 +433,7 @@ let system_class = {
         var That = this;
         $.ajax({
             url: "/security/config/index.html",
+            async: false,
             success: function (data, textStatus) {
                 if (typeof (data) == 'string') {
                     data = eval('(' + data + ')');

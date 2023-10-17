@@ -43,66 +43,108 @@
     <!-- 扩展css -->
     ${extendStyles}
     <!-- 根据配置设置全局样式 -->
-    <style>
-        .datagrid-header .datagrid-cell span {
-            font-size: ${securityConfig.fontSize}px;
-        }
+<#--    <style>-->
+<#--        .datagrid-header .datagrid-cell span {-->
+<#--            font-size: ${securityConfig.fontSize}px;-->
+<#--        }-->
 
-        .combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,
-        .input-group-text, .tabs-title {
-            font-size: ${securityConfig.fontSize}px;
-        }
+<#--        .combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,-->
+<#--        .input-group-text, .tabs-title {-->
+<#--            font-size: ${securityConfig.fontSize}px;-->
+<#--        }-->
 
-        .datagrid-header-row, .datagrid-row {
-            height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;
-        }
+<#--        .datagrid-header-row, .datagrid-row {-->
+<#--            height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;-->
+<#--        }-->
 
-        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
-            font-size: ${securityConfig.fontSize}px;
-        }
+<#--        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {-->
+<#--            font-size: ${securityConfig.fontSize}px;-->
+<#--        }-->
 
-        .l-btn-text {
-            font-size: ${securityConfig.fontSize}px;
-        }
+<#--        .l-btn-text {-->
+<#--            font-size: ${securityConfig.fontSize}px;-->
+<#--        }-->
 
-        .panel-body {
-            font-size: ${securityConfig.fontSize}px;
-        }
+<#--        .panel-body {-->
+<#--            font-size: ${securityConfig.fontSize}px;-->
+<#--        }-->
 
-        body {
-            font-size: ${securityConfig.fontSize}px;
-        }
+<#--        body {-->
+<#--            font-size: ${securityConfig.fontSize}px;-->
+<#--        }-->
 
-        .main-sidebar, .main-sidebar::before {
-            width: ${securityConfig.mainSidebarWidth}px;
-        }
+<#--        .main-sidebar, .main-sidebar::before {-->
+<#--            width: ${securityConfig.mainSidebarWidth}px;-->
+<#--        }-->
 
-        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
-            margin-left: ${securityConfig.mainSidebarWidth}px;
-        }
+<#--        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {-->
+<#--            margin-left: ${securityConfig.mainSidebarWidth}px;-->
+<#--        }-->
 
-        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
-            margin-left: ${securityConfig.mainSidebarWidth}px;
-        }
+<#--        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {-->
+<#--            margin-left: ${securityConfig.mainSidebarWidth}px;-->
+<#--        }-->
 
-        .tree-title {
-            font-size: ${securityConfig.fontSize}px;
-        }
+<#--        .tree-title {-->
+<#--            font-size: ${securityConfig.fontSize}px;-->
+<#--        }-->
 
-        .layout-fixed .brand-link {
-            width: ${securityConfig.mainSidebarWidth}px;
-        }
+<#--        .layout-fixed .brand-link {-->
+<#--            width: ${securityConfig.mainSidebarWidth}px;-->
+<#--        }-->
 
-        .ac-logo-title {
-            font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;
-        }
-    </style>
+<#--        .ac-logo-title {-->
+<#--            font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;-->
+<#--        }-->
+<#--    </style>-->
 </head>
 
 <body id="mainLayout" class="easyui-layout" style="margin-left: 2px; margin-right: 2px;">
-<div data-options="region:'north',border:false,href:'/manage/north.html'" style="height: 66px; overflow: hidden;"></div>
-<div id="mainWestLayout" title="功能菜单" data-options="headerCls:'westHeader',tools: [{iconCls:'icon_pagination_reload',handler:function(){$.acooly.layout.reloadMenu();}}],region:'west',href:'/manage/layout/west.html',onLoad:function(){$.acooly.layout.loadTree();}" style="width: 210px; overflow: hidden;"></div>
-<div data-options="region:'center',href:'/manage/layout/center.html'" class="centerHeader" style="overflow: hidden;"></div>
+<div data-options="region:'north',border:false" style="overflow: hidden;">
+    <div class="acooly-top">
+        <div class="bg">
+            <div class="header">
+                <div class="header-left">
+                    <div id="acooly_title" class="text-logo"></div>
+                    <div id="acooly_logo" style="border-bottom: 1px solid #99BBE8;">
+                        <img src="" style="height: 35px;">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="userinfo"><@shiroPrincipal/></div>
+                    <div style="float: right;padding-right: 10px;">
+                        <a href="#" onclick="$.acooly.framework.changePassword();" data-options="plain:true" class="easyui-linkbutton c9"><i class="fa fa-key fa-fw fa-col" aria-hidden="true"></i> 密码</a>
+                        <a href="#" onclick="$.acooly.framework.logout();" data-options="plain:true" class="easyui-linkbutton c9"><i class="fa fa-sign-out fa-fw fa-col" aria-hidden="true"></i> 注销</a>
+                        <a href="/manage/index.html?acoolyTheme=acooly" data-options="plain:true" class="easyui-linkbutton c9"><i class="fa fa-thumbs-o-up fa-fw fa-col" aria-hidden="true"></i> 新版</a>
+                    </div>
+                </div>
+            </div>
+            <div id="mainMenu" class="nav"></div>
+        </div>
+    </div>
+</div>
+<div id="mainWestLayout" title="功能菜单"
+     data-options="headerCls:'westHeader',tools: [{iconCls:'icon_pagination_reload',handler:function(){$.acooly.layout.reloadMenu();}}], region:'west',onLoad:function(){$.acooly.layout.loadTree();}"
+     style="width: 210px; overflow: hidden;">
+    <div id="menuLayout" class="easyui-layout" data-options="fit:true,border:false">
+        <div data-options="region:'center',border:false">
+            <ul id="layout_west_tree" class="ztree" style="margin-top: 5px; margin-left: 5px;">加载中...
+            </ul>
+        </div>
+    </div>
+</div>
+<div data-options="region:'center'" class="centerHeader" style="overflow: hidden;">
+    <div id="layout_center_tabs" style="overflow: hidden;">
+        <#--        <div title="首页" data-options="href:'/manage/layout/portal.html'"></div>-->
+    </div>
+    <div id="layout_center_tabsMenu" style="width: 120px;display:none;">
+        <div type="refresh">刷新</div>
+        <div class="menu-sep"></div>
+        <div type="close">关闭</div>
+        <div type="closeOther">关闭其他</div>
+        <div type="closeAll">关闭所有</div>
+    </div>
+</div>
 
 <!-- jquery -->
 <script src="/manage/assert/plugin/jquery/jquery-3.3.1.min.js"></script>
@@ -185,6 +227,17 @@
 ${extendScripts}
 <script type="text/javascript">
     var contextPath = '';
+
+    //设置自适应浏览器宽度和高度
+    function setLayoutHeight() {
+        var height = $(window).height() - 1;
+        $("#mainLayout").attr("style", "width:100%;height:" + height + "px");
+        $("#mainLayout").layout("resize", {
+            width: "100%",
+            height: height + "px"
+        });
+    }
+
     $(function () {
         var acoolyTheme = '${acoolyTheme}';
         if (acoolyTheme == '') {
@@ -192,7 +245,160 @@ ${extendScripts}
         }
         $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);
         $.acooly.admin.theme.loadTheme();
+        // ajax同步初始化
         $.acooly.system.init();
+        // 根据系统配置设置logo和标题
+        if ($.acooly.system.config.logo) {
+            $('#acooly_logo img').attr('src', $.acooly.system.config.logo)
+            $('#acooly_title').hide();
+        } else {
+            if ($.acooly.system.config.title) {
+                $('#acooly_title').text($.acooly.system.config.title);
+            }
+        }
+        // ajax同步加载主菜单
+        $.acooly.layout.loadMenu();
+        $.acooly.layout.loadTree();
+
+        // 初始化Center
+        if ($.acooly.system.config.enableFavorite) {
+            $.acooly.admin.favorite.load();
+        }
+        $('#layout_center_tabsMenu').menu({
+            onClick: function (item) {
+                var curTabTitle = $(this).data('tabTitle');
+                var type = $(item.target).attr('type');
+
+                if (type === 'refresh') {
+                    $('#layout_center_tabs').tabs('getTab', curTabTitle).panel('refresh');
+                    return;
+                }
+
+                if (type === 'close') {
+                    var t = $('#layout_center_tabs').tabs('getTab', curTabTitle);
+                    if (t.panel('options').closable) {
+                        $('#layout_center_tabs').tabs('close', curTabTitle);
+                    }
+                    return;
+                }
+
+                var allTabs = $('#layout_center_tabs').tabs('tabs');
+                var closeTabsTitle = [];
+
+                $.each(allTabs, function () {
+                    var opt = $(this).panel('options');
+                    if (opt.closable && opt.title != curTabTitle && type === 'closeOther') {
+                        closeTabsTitle.push(opt.title);
+                    } else if (opt.closable && type === 'closeAll') {
+                        closeTabsTitle.push(opt.title);
+                    }
+                });
+
+                for (var i = 0; i < closeTabsTitle.length; i++) {
+                    $('#layout_center_tabs').tabs('close', closeTabsTitle[i]);
+                }
+            }
+        });
+        // tabs的工具栏按钮定义
+        var tabs_tools = [];
+        if ($.acooly.system.config.enableFavorite) {
+            tabs_tools.push({
+                id: 'manage_tabs_tools_favorite',
+                text: '<i class="fa fa-star-o fa-lg"></i>',
+                handler: function () {
+                    var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
+                    if (index <= 0) {
+                        return;
+                    }
+                    var tab = $('#layout_center_tabs').tabs('getTab', index);
+                    var tabOpts = tab.panel('options')
+                    if (tabOpts && tabOpts.rescId) {
+                        $.acooly.admin.favorite.toggle(tabOpts.rescId);
+                    }
+                }
+            });
+        }
+        tabs_tools.push(
+            {
+                text: '<i class="fa fa-refresh"></i>',
+                handler: function () {
+                    var href = $('#layout_center_tabs').tabs('getSelected').panel('options').href;
+                    if (href) {/*说明tab是以href方式引入的目标页面*/
+                        var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
+                        $('#layout_center_tabs').tabs('getTab', index).panel('refresh');
+                    } else {/*说明tab是以content方式引入的目标页面*/
+                        var panel = $('#layout_center_tabs').tabs('getSelected').panel('panel');
+                        var frame = panel.find('iframe');
+                        try {
+                            if (frame.length > 0) {
+                                for (var i = 0; i < frame.length; i++) {
+                                    //跨域情况会报错，注释掉
+                                    //frame[i].contentWindow.document.write('');
+                                    //frame[i].contentWindow.close();
+                                    frame[i].src = frame[i].src;
+                                }
+                                if ($.browser.msie) {
+                                    CollectGarbage();
+                                }
+                            }
+                        } catch (e) {
+                        }
+                    }
+                }
+            }
+        );
+        tabs_tools.push(
+            {
+                text: '<i class="fa fa-close"></i>',
+                handler: function () {
+                    var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
+                    if (index <= 0) {
+                        return;
+                    }
+                    var tab = $('#layout_center_tabs').tabs('getTab', index);
+                    if (tab.panel('options').closable) {
+                        $('#layout_center_tabs').tabs('close', index);
+                    } else {
+                        $.messager.alert('提示', '[' + tab.panel('options').title + ']不可以被关闭', 'error');
+                    }
+                }
+            }
+        );
+        $('#layout_center_tabs').tabs({
+            fit: true,
+            border: false,
+            onContextMenu: function (e, title) {
+                e.preventDefault();
+                $('#layout_center_tabsMenu').menu('show', {
+                    left: e.pageX,
+                    top: e.pageY
+                }).data('tabTitle', title);
+            },
+            tools: tabs_tools,
+            onAdd: function (title, index) {
+                // 无赖之举：当tabs第一次加载时，tabs的宽度不会自动调整，需要延迟调整
+                if (index == 0) {
+                    setTimeout(function () {
+                        $('#layout_center_tabs').tabs('resize')
+                    }, 500);
+                }
+            },
+        });
+
+        // 注册：通过jquery-resize插件实现：父节点大小改变后，resize tabs
+        $('body').resize(function () {
+            $('#layout_center_tabs').tabs('resize');
+        });
+
+        // 设置全屏
+        setLayoutHeight();
+
+        $('#layout_center_tabs').tabs('add', {
+            title: '首页',
+            href: '/manage/layout/portal.html'
+        });
+
+
     });
 </script>
 
