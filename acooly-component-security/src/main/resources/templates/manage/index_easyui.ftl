@@ -19,7 +19,7 @@
     <!-- ztree -->
     <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/jquery-ztree/css/zTreeStyle/zTreeStyle.css"/>
     <!-- icons -->
-    <#--    <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">-->
+        <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
     <!-- adminlte -->
     <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
@@ -43,60 +43,60 @@
     <!-- 扩展css -->
     ${extendStyles}
     <!-- 根据配置设置全局样式 -->
-<#--    <style>-->
-<#--        .datagrid-header .datagrid-cell span {-->
-<#--            font-size: ${securityConfig.fontSize}px;-->
-<#--        }-->
+    <style>
+        .datagrid-header .datagrid-cell span {
+            font-size: ${securityConfig.fontSize}px;
+        }
 
-<#--        .combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,-->
-<#--        .input-group-text, .tabs-title {-->
-<#--            font-size: ${securityConfig.fontSize}px;-->
-<#--        }-->
+        .combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,
+        .input-group-text, .tabs-title {
+            font-size: ${securityConfig.fontSize}px;
+        }
 
-<#--        .datagrid-header-row, .datagrid-row {-->
-<#--            height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;-->
-<#--        }-->
+        .datagrid-header-row, .datagrid-row {
+            height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;
+        }
 
-<#--        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {-->
-<#--            font-size: ${securityConfig.fontSize}px;-->
-<#--        }-->
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+            font-size: ${securityConfig.fontSize}px;
+        }
 
-<#--        .l-btn-text {-->
-<#--            font-size: ${securityConfig.fontSize}px;-->
-<#--        }-->
+        .l-btn-text {
+            font-size: ${securityConfig.fontSize}px;
+        }
 
-<#--        .panel-body {-->
-<#--            font-size: ${securityConfig.fontSize}px;-->
-<#--        }-->
+        .panel-body {
+            font-size: ${securityConfig.fontSize}px;
+        }
 
-<#--        body {-->
-<#--            font-size: ${securityConfig.fontSize}px;-->
-<#--        }-->
+        body {
+            font-size: ${securityConfig.fontSize}px;
+        }
 
-<#--        .main-sidebar, .main-sidebar::before {-->
-<#--            width: ${securityConfig.mainSidebarWidth}px;-->
-<#--        }-->
+        .main-sidebar, .main-sidebar::before {
+            width: ${securityConfig.mainSidebarWidth}px;
+        }
 
-<#--        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {-->
-<#--            margin-left: ${securityConfig.mainSidebarWidth}px;-->
-<#--        }-->
+        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+            margin-left: ${securityConfig.mainSidebarWidth}px;
+        }
 
-<#--        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {-->
-<#--            margin-left: ${securityConfig.mainSidebarWidth}px;-->
-<#--        }-->
+        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+            margin-left: ${securityConfig.mainSidebarWidth}px;
+        }
 
-<#--        .tree-title {-->
-<#--            font-size: ${securityConfig.fontSize}px;-->
-<#--        }-->
+        .tree-title {
+            font-size: ${securityConfig.fontSize}px;
+        }
 
-<#--        .layout-fixed .brand-link {-->
-<#--            width: ${securityConfig.mainSidebarWidth}px;-->
-<#--        }-->
+        .layout-fixed .brand-link {
+            width: ${securityConfig.mainSidebarWidth}px;
+        }
 
-<#--        .ac-logo-title {-->
-<#--            font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;-->
-<#--        }-->
-<#--    </style>-->
+        .ac-logo-title {
+            font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;
+        }
+    </style>
 </head>
 
 <body id="mainLayout" class="easyui-layout" style="margin-left: 2px; margin-right: 2px;">
@@ -147,60 +147,74 @@
 </div>
 
 <!-- jquery -->
-<script src="/manage/assert/plugin/jquery/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/jquery.cookie.js" charset="utf-8"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/jquery.form.min.js" charset="utf-8"></script>
+<script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
+<script src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- select2 -->
+<script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
+<!-- Jquery plugins  -->
+<script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
+<script src="/manage/assert/plugin/jquery-plugin/jquery.form.cookie.resize.min.js" type="text/javascript" charset="utf-8"></script>
 <!-- easyui -->
 <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-detailview.js" charset="utf-8"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-groupview.js" charset="utf-8"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-statistics.js" charset="utf-8"></script>
 <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui-portal/jquery.portal.js" charset="utf-8"></script>
-<!-- bootstrap-->
-<script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- layui -->
-<script type="text/javascript" src="/manage/assert/plugin/layui/layui.all.js"></script>
-<!-- 模板引擎：baidu -->
-<script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
+<#if securityConfig.plugin.easyuiExtension>
+    <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-extensions.min.js" charset="utf-8"></script>
+</#if>
+
+<!-- AdminLTE -->
+<#--<script src="/manage/assert/plugin/adminlte3/js/adminlte.min.js"></script>-->
+<#--<script src="/manage/assert/plugin/adminlte3/js/adminlte_acooly.min.js"></script>-->
+
+<#if securityConfig.plugin.clipboard>
+    <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
+</#if>
+<#if securityConfig.plugin.media>
+    <script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
+</#if>
+<#if securityConfig.plugin.xss>
+    <script src="/manage/assert/plugin/jquery-plugin/xss.min.js" type="text/javascript" charset="utf-8"></script>
+</#if>
 <!-- my97日期控件 -->
 <script type="text/javascript" src="/manage/assert/plugin/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
-<script type="text/javascript" src="/manage/assert/plugin/uploadifive/jquery.uploadifive.js"></script>
+<!-- uploadifive -->
 <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/uploadifive/uploadifive.css"/>
-<!-- select2 -->
-<script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
-<!-- ztree -->
-<script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.core-3.5.js"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.excheck-3.5.js"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.exedit-3.5.js"></script>
-<!-- select2ztree -->
-<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.search.js"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.js"></script>
-<!--kindEditor插件库 -->
-<link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
-<link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
-<script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/webuploader.html5only.min.js"></script>
-<script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/diyUpload.js"></script>
-<script charset="utf-8" src="/manage/assert/plugin/kindeditor/htmlminifier.min.js"></script>
-<script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all.js"></script>
-<script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="/manage/assert/plugin/uploadifive/jquery.uploadifive.min.js"></script>
 <!-- inputmask -->
 <script src="/manage/assert/plugin/jquery-plugin/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 <!-- AdminLTE bs-custom-file-input -->
 <script src="/manage/assert/plugin/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-<!-- jquery.media for pdf view -->
-<script src="/manage/assert/plugin/jquery-plugin/jquery.media.js"></script>
-<!-- clipboard -->
-<script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
-<!-- videoJs -->
-<script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
-<script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
-<!-- daterangepicker -->
-<script src="/manage/assert/plugin/daterangepicker/moment.min.js"></script>
-<script src="/manage/assert/plugin/daterangepicker/daterangepicker.js"></script>
-<!-- js xss -->
-<script src="/manage/assert/plugin/jquery-plugin/xss.min.js"></script>
+<!-- ztree -->
+<script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.allinone.min.js"></script>
+<!-- select2ztree -->
+<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.search.js"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.min.js"></script>
+<#if securityConfig.plugin.layui>
+    <script type="text/javascript" src="/manage/assert/plugin/layui/layui.all.js"></script>
+</#if>
+<#if securityConfig.plugin.kindEditor>
+    <!--kindEditor插件库 -->
+    <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
+    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/diyUpload.js"></script>
+    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/htmlminifier.min.js"></script>
+    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>
+</#if>
+<#if securityConfig.plugin.videoJs>
+    <!-- videoJs -->
+    <script src="/manage/assert/plugin/jquery-plugin/videojs/video.min.js"></script>
+    <script src="/manage/assert/plugin/jquery-plugin/videojs/videojs-zh-CN.js"></script>
+</#if>
+<#if securityConfig.plugin.dateRangePicker>
+    <!-- daterangepicker -->
+    <link rel="stylesheet" href="/manage/assert/plugin/daterangepicker/daterangepicker.css" type="text/css"/>
+    <script src="/manage/assert/plugin/daterangepicker/moment.min.js"></script>
+    <script src="/manage/assert/plugin/daterangepicker/daterangepicker.min.js"></script>
+    <script src="/manage/assert/plugin/daterangepicker/daterangepicker_acooly.min.js"></script>
+</#if>
 
 
 <!-- acooly -->
