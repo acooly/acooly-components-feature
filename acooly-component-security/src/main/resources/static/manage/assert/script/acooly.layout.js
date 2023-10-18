@@ -15,6 +15,22 @@
                         if (typeof (data) == 'string') {
                             data = eval('(' + data + ')');
                         }
+                        // console.log("main menu", data);
+                        // 如果开启了收藏夹功能，则加载收藏夹的菜单数据到第一个位置
+                        if ($.acooly.system.config.enableFavorite) {
+                            // 同步：加载收藏夹菜单
+                            $.acooly.admin.favorite.load();
+                            // 如果存在收藏夹的数据，则构建收藏夹菜单
+                            if ($.acooly.admin.favorite.treeNodes && $.acooly.admin.favorite.treeNodes.length > 0) {
+                                var favoriteMenu = {
+                                    id: '0', icon: 'fa-star-o', iconSkin: 'fa-star-o',
+                                    name: '收藏夹', orderTime: '2099-05-19 15:14:26', showMode: 1, showState: 0, type: 'MENU', value: '',
+                                    children: $.acooly.admin.favorite.treeNodes
+                                }
+                                data.unshift(favoriteMenu);
+                            }
+                        }
+
                         var a = '';
                         $(data).each(
                             function (i, domEle) {

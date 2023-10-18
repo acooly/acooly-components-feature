@@ -19,19 +19,37 @@
          * 初始化LOGO
          */
         initLogo: function () {
-            // adminlte2
-            if ($.acooly.system.config.logo) {
-                $('.logo-lg').html("<img src='" + $.acooly.system.config.logo + "' width='200'>")
-            } else {
-                if ($.acooly.system.config.title) {
-                    $('.logo-lg').text($.acooly.system.config.title);
+            // easyui
+            this._setLayoutHeight();
+            if ($('#acooly_logo').length > 0) {
+                if ($.acooly.system.config.logo) {
+                    $('#acooly_logo img').attr('src', $.acooly.system.config.logo)
+                    $('#acooly_title').hide();
                 } else {
-                    $('.logo-lg').text("<b>Accoly</b> Sys V4.x");
+                    if ($.acooly.system.config.title) {
+                        $('#acooly_title').text($.acooly.system.config.title);
+                    }
                 }
+                return;
             }
-            if ($.acooly.system.config.shorttitle) {
-                $('.logo-mini').html($.acooly.system.config.shorttitle);
+
+            // adminlte2
+            if ($('logo-lg').length > 0) {
+                if ($.acooly.system.config.logo) {
+                    $('.logo-lg').html("<img src='" + $.acooly.system.config.logo + "' width='200'>")
+                } else {
+                    if ($.acooly.system.config.title) {
+                        $('.logo-lg').text($.acooly.system.config.title);
+                    } else {
+                        $('.logo-lg').text("<b>Accoly</b> Sys V4.x");
+                    }
+                }
+                if ($.acooly.system.config.shorttitle) {
+                    $('.logo-mini').html($.acooly.system.config.shorttitle);
+                }
+                return;
             }
+
 
             // adminlte3
             if ($.acooly.system.config.logoMini) {
@@ -50,16 +68,25 @@
          */
         initMenus: function () {
             // adminlte3: 注册点击主菜单（.nav-link）的选中效果(.active)
-            $(document).on("click", '.sidebar .nav .nav-link', function (e) {
-                // 选择效果
-                $(".nav .nav-link").removeClass("active");
-                $(this).addClass("active");
-                var e = $(this).parent();
-                while (e && e.parent() && e.attr('class').indexOf('nav-sidebar') == -1) {
-                    e.parent().prev().addClass("active");
-                    e = e.parent();
-                }
-            });
+            if ($('sidebar').length > 0) {
+                $(document).on("click", '.sidebar .nav .nav-link', function (e) {
+                    // 选择效果
+                    $(".nav .nav-link").removeClass("active");
+                    $(this).addClass("active");
+                    var e = $(this).parent();
+                    while (e && e.parent() && e.attr('class').indexOf('nav-sidebar') == -1) {
+                        e.parent().prev().addClass("active");
+                        e = e.parent();
+                    }
+                });
+            }
+
+            // easyui
+            if ($('#mainLayout').length > 0) {
+                // ajax同步加载主菜单
+                $.acooly.layout.loadMenu();
+                $.acooly.layout.loadTree();
+            }
         },
 
         /**
@@ -173,7 +200,7 @@
                 fit: true,
                 height: $(window).height() - 52,
                 border: false,
-                pill: true,
+                pill: false,
                 onContextMenu: function (e, title) {
                     e.preventDefault();
                     $('#layout_center_tabsMenu').menu('show', {
@@ -197,6 +224,15 @@
             $('.content-wrapper').resize(function () {
                 $('#layout_center_tabs').tabs('resize');
             });
+
+            // 如果是easyui的Theme，则通过代码添加默认的首页
+            if ($('#mainLayout').length > 0) {
+                $.acooly.layout.addTab({
+                    title: '首页',
+                    href: '/manage/layout/portal.html'
+                })
+            }
+
         },
 
 
@@ -211,7 +247,6 @@
          * 顶部隐藏和显示切换
          */
         headerToggle: function () {
-
             var header = $('.main-header');
             if (header.is(':hidden')) {
                 header.show();
@@ -226,7 +261,17 @@
                 $('#menu-toggle-icon').removeClass("fa-expand")
                 $('#menu-toggle-icon').addClass("fa-compress");
             }
-        }
+        },
+
+        //设置自适应浏览器宽度和高度
+        _setLayoutHeight() {
+            var height = $(window).height() - 1;
+            $("#mainLayout").attr("style", "width:100%;height:" + height + "px");
+            $("#mainLayout").layout("resize", {
+                width: "100%",
+                height: height + "px"
+            });
+        },
     };
 
     let tabClass = {
@@ -443,15 +488,23 @@
          * {rescId:{rescId:rescId,rescName:rescName,rescUrl:rescUrl,rescIcon:rescIcon}}
          */
         data: {},
+        /**
+         * 可作为左侧菜单的TreeNode
+         */
+        treeNodes: [],
 
         /**
          * 加载我的收藏夹数据
          */
         load: function () {
+            var that = this;
             $.ajax({
                 url: '/manage/system/userFavorite/favorites.html',
+                async: false,
                 success: function (result) {
                     if (result.success) {
+                        that._convertTreeNode(result.rows);
+                        // console.info("favorites init success", acooly_admin_favorite.treeNodes)
                         $.each(result.rows, function (i, v) {
                             acooly_admin_favorite.data[v.rescId] = v;
                         });
@@ -461,6 +514,23 @@
                     }
                 }
             });
+        },
+
+        _convertTreeNode: function (data) {
+            var nodes = [];
+            $.each(data, function (i, v) {
+                nodes.push({
+                    id: v.rescId,
+                    rescId: v.rescId,
+                    name: v.rescName,
+                    value: v.rescValue,
+                    iconSkin: v.rescIcon,
+                    icon: v.rescIcon,
+                    type: 'URL',
+                    showMode: v.showMode,
+                });
+            });
+            acooly_admin_favorite.treeNodes = nodes;
         },
 
         add: function (rescId) {

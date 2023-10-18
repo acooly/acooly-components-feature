@@ -440,7 +440,8 @@ let system_class = {
                 }
                 That.config = data;
                 var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
-                if (acoolyTheme && acoolyTheme.indexOf('easyui') == -1) {
+                // && acoolyTheme.indexOf('easyui') == -1
+                if (acoolyTheme) {
                     $.acooly.admin.init();
                 }
             }

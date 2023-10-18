@@ -19,7 +19,7 @@
     <!-- ztree -->
     <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/jquery-ztree/css/zTreeStyle/zTreeStyle.css"/>
     <!-- icons -->
-        <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/manage/assert/plugin/icon/Ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
     <!-- adminlte -->
     <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
@@ -99,7 +99,7 @@
     </style>
 </head>
 
-<body id="mainLayout" class="easyui-layout" style="margin-left: 2px; margin-right: 2px;">
+<body id="mainLayout" class="easyui-layout content-wrapper" style="margin-left: 2px; margin-right: 2px;">
 <div data-options="region:'north',border:false" style="overflow: hidden;">
     <div class="acooly-top">
         <div class="bg">
@@ -135,7 +135,7 @@
 </div>
 <div data-options="region:'center'" class="centerHeader" style="overflow: hidden;">
     <div id="layout_center_tabs" style="overflow: hidden;">
-        <#--        <div title="首页" data-options="href:'/manage/layout/portal.html'"></div>-->
+<#--        <div title="首页" data-options="href:'/manage/layout/portal.html'"></div>-->
     </div>
     <div id="layout_center_tabsMenu" style="width: 120px;display:none;">
         <div type="refresh">刷新</div>
@@ -162,10 +162,6 @@
 <#if securityConfig.plugin.easyuiExtension>
     <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-extensions.min.js" charset="utf-8"></script>
 </#if>
-
-<!-- AdminLTE -->
-<#--<script src="/manage/assert/plugin/adminlte3/js/adminlte.min.js"></script>-->
-<#--<script src="/manage/assert/plugin/adminlte3/js/adminlte_acooly.min.js"></script>-->
 
 <#if securityConfig.plugin.clipboard>
     <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
@@ -216,7 +212,6 @@
     <script src="/manage/assert/plugin/daterangepicker/daterangepicker_acooly.min.js"></script>
 </#if>
 
-
 <!-- acooly -->
 <#if securityConfig.plugin.acoolyDebug>
     <script src="/manage/assert/script/acooly.js"></script>
@@ -241,17 +236,6 @@
 ${extendScripts}
 <script type="text/javascript">
     var contextPath = '';
-
-    //设置自适应浏览器宽度和高度
-    function setLayoutHeight() {
-        var height = $(window).height() - 1;
-        $("#mainLayout").attr("style", "width:100%;height:" + height + "px");
-        $("#mainLayout").layout("resize", {
-            width: "100%",
-            height: height + "px"
-        });
-    }
-
     $(function () {
         var acoolyTheme = '${acoolyTheme}';
         if (acoolyTheme == '') {
@@ -259,160 +243,7 @@ ${extendScripts}
         }
         $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);
         $.acooly.admin.theme.loadTheme();
-        // ajax同步初始化
         $.acooly.system.init();
-        // 根据系统配置设置logo和标题
-        if ($.acooly.system.config.logo) {
-            $('#acooly_logo img').attr('src', $.acooly.system.config.logo)
-            $('#acooly_title').hide();
-        } else {
-            if ($.acooly.system.config.title) {
-                $('#acooly_title').text($.acooly.system.config.title);
-            }
-        }
-        // ajax同步加载主菜单
-        $.acooly.layout.loadMenu();
-        $.acooly.layout.loadTree();
-
-        // 初始化Center
-        if ($.acooly.system.config.enableFavorite) {
-            $.acooly.admin.favorite.load();
-        }
-        $('#layout_center_tabsMenu').menu({
-            onClick: function (item) {
-                var curTabTitle = $(this).data('tabTitle');
-                var type = $(item.target).attr('type');
-
-                if (type === 'refresh') {
-                    $('#layout_center_tabs').tabs('getTab', curTabTitle).panel('refresh');
-                    return;
-                }
-
-                if (type === 'close') {
-                    var t = $('#layout_center_tabs').tabs('getTab', curTabTitle);
-                    if (t.panel('options').closable) {
-                        $('#layout_center_tabs').tabs('close', curTabTitle);
-                    }
-                    return;
-                }
-
-                var allTabs = $('#layout_center_tabs').tabs('tabs');
-                var closeTabsTitle = [];
-
-                $.each(allTabs, function () {
-                    var opt = $(this).panel('options');
-                    if (opt.closable && opt.title != curTabTitle && type === 'closeOther') {
-                        closeTabsTitle.push(opt.title);
-                    } else if (opt.closable && type === 'closeAll') {
-                        closeTabsTitle.push(opt.title);
-                    }
-                });
-
-                for (var i = 0; i < closeTabsTitle.length; i++) {
-                    $('#layout_center_tabs').tabs('close', closeTabsTitle[i]);
-                }
-            }
-        });
-        // tabs的工具栏按钮定义
-        var tabs_tools = [];
-        if ($.acooly.system.config.enableFavorite) {
-            tabs_tools.push({
-                id: 'manage_tabs_tools_favorite',
-                text: '<i class="fa fa-star-o fa-lg"></i>',
-                handler: function () {
-                    var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
-                    if (index <= 0) {
-                        return;
-                    }
-                    var tab = $('#layout_center_tabs').tabs('getTab', index);
-                    var tabOpts = tab.panel('options')
-                    if (tabOpts && tabOpts.rescId) {
-                        $.acooly.admin.favorite.toggle(tabOpts.rescId);
-                    }
-                }
-            });
-        }
-        tabs_tools.push(
-            {
-                text: '<i class="fa fa-refresh"></i>',
-                handler: function () {
-                    var href = $('#layout_center_tabs').tabs('getSelected').panel('options').href;
-                    if (href) {/*说明tab是以href方式引入的目标页面*/
-                        var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
-                        $('#layout_center_tabs').tabs('getTab', index).panel('refresh');
-                    } else {/*说明tab是以content方式引入的目标页面*/
-                        var panel = $('#layout_center_tabs').tabs('getSelected').panel('panel');
-                        var frame = panel.find('iframe');
-                        try {
-                            if (frame.length > 0) {
-                                for (var i = 0; i < frame.length; i++) {
-                                    //跨域情况会报错，注释掉
-                                    //frame[i].contentWindow.document.write('');
-                                    //frame[i].contentWindow.close();
-                                    frame[i].src = frame[i].src;
-                                }
-                                if ($.browser.msie) {
-                                    CollectGarbage();
-                                }
-                            }
-                        } catch (e) {
-                        }
-                    }
-                }
-            }
-        );
-        tabs_tools.push(
-            {
-                text: '<i class="fa fa-close"></i>',
-                handler: function () {
-                    var index = $('#layout_center_tabs').tabs('getTabIndex', $('#layout_center_tabs').tabs('getSelected'));
-                    if (index <= 0) {
-                        return;
-                    }
-                    var tab = $('#layout_center_tabs').tabs('getTab', index);
-                    if (tab.panel('options').closable) {
-                        $('#layout_center_tabs').tabs('close', index);
-                    } else {
-                        $.messager.alert('提示', '[' + tab.panel('options').title + ']不可以被关闭', 'error');
-                    }
-                }
-            }
-        );
-        $('#layout_center_tabs').tabs({
-            fit: true,
-            border: false,
-            onContextMenu: function (e, title) {
-                e.preventDefault();
-                $('#layout_center_tabsMenu').menu('show', {
-                    left: e.pageX,
-                    top: e.pageY
-                }).data('tabTitle', title);
-            },
-            tools: tabs_tools,
-            onAdd: function (title, index) {
-                // 无赖之举：当tabs第一次加载时，tabs的宽度不会自动调整，需要延迟调整
-                if (index == 0) {
-                    setTimeout(function () {
-                        $('#layout_center_tabs').tabs('resize')
-                    }, 500);
-                }
-            },
-        });
-
-        // 注册：通过jquery-resize插件实现：父节点大小改变后，resize tabs
-        $('body').resize(function () {
-            $('#layout_center_tabs').tabs('resize');
-        });
-
-        // 设置全屏
-        setLayoutHeight();
-
-        $('#layout_center_tabs').tabs('add', {
-            title: '首页',
-            href: '/manage/layout/portal.html'
-        });
-
-
     });
 </script>
 
