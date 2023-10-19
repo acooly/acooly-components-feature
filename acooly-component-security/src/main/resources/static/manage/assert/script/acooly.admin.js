@@ -67,6 +67,12 @@
          * 初始化左侧功能菜单
          */
         initMenus: function () {
+            // 统一在这里先加载收藏夹的数据
+            if ($.acooly.system.config.enableFavorite) {
+                // 同步：加载收藏夹菜单
+                $.acooly.admin.favorite.load();
+            }
+
             // adminlte3: 注册点击主菜单（.nav-link）的选中效果(.active)
             if ($('sidebar').length > 0) {
                 $(document).on("click", '.sidebar .nav .nav-link', function (e) {
@@ -93,10 +99,6 @@
          * 初始化中间内容区（基于easyui，保持兼容）
          */
         initTab: function () {
-            if ($.acooly.system.config.enableFavorite) {
-                $.acooly.admin.favorite.load();
-            }
-
             $('#layout_center_tabsMenu').menu({
                 onClick: function (item) {
                     var curTabTitle = $(this).data('tabTitle');
@@ -487,11 +489,7 @@
          * 我的收藏夹数据
          * {rescId:{rescId:rescId,rescName:rescName,rescUrl:rescUrl,rescIcon:rescIcon}}
          */
-        data: {},
-        /**
-         * 可作为左侧菜单的TreeNode
-         */
-        treeNodes: [],
+        data: [],
 
         /**
          * 加载我的收藏夹数据
@@ -503,12 +501,8 @@
                 async: false,
                 success: function (result) {
                     if (result.success) {
-                        that._convertTreeNode(result.rows);
-                        // console.info("favorites init success", acooly_admin_favorite.treeNodes)
-                        $.each(result.rows, function (i, v) {
-                            acooly_admin_favorite.data[v.rescId] = v;
-                        });
-                        // console.info("favorites init success", $.acooly.admin.favorite.data)
+                        acooly_admin_favorite.data = result.rows;
+                        console.info(acooly_admin_favorite.data);
                     } else {
                         $.messager.alert('提示', result.message, 'error');
                     }
@@ -516,9 +510,10 @@
             });
         },
 
-        _convertTreeNode: function (data) {
+
+        getTreeNodes: function () {
             var nodes = [];
-            $.each(data, function (i, v) {
+            $.each(acooly_admin_favorite.data, function (i, v) {
                 nodes.push({
                     id: v.rescId,
                     rescId: v.rescId,
@@ -530,7 +525,7 @@
                     showMode: v.showMode,
                 });
             });
-            acooly_admin_favorite.treeNodes = nodes;
+            return nodes;
         },
 
         add: function (rescId) {
@@ -539,9 +534,10 @@
                 data: {rescId: rescId},
                 success: function (result) {
                     if (result.success) {
-                        $.acooly.messager('收藏', '收藏成功', 'info');
-                        acooly_admin_favorite.data[rescId] = result.data;
+                        // $.acooly.messager('收藏', '收藏成功', 'info');
+                        // acooly_admin_favorite.data[rescId] = result.data;
                         acooly_admin_favorite.show(rescId);
+                        $.acooly.admin.initMenus();
                     } else {
                         $.messager.alert('提示', result.message, 'error');
                     }
@@ -555,9 +551,10 @@
                 data: {rescId: rescId},
                 success: function (result) {
                     if (result.success) {
-                        $.acooly.messager('收藏', '取消收藏成功', 'info');
-                        delete acooly_admin_favorite.data[rescId];
+                        // $.acooly.messager('收藏', '取消收藏成功', 'info');
+                        // delete acooly_admin_favorite.data[rescId];
                         acooly_admin_favorite.show(rescId);
+                        $.acooly.admin.initMenus();
                     } else {
                         $.messager.alert('提示', result.message, 'error');
                     }
@@ -566,7 +563,7 @@
         },
 
         show: function (rescId) {
-            let resc = acooly_admin_favorite.data[rescId];
+            let resc = acooly_admin_favorite.getNode(rescId);
             if ($('#manage_tabs_tools_favorite').length > 0) {
                 $('#manage_tabs_tools_favorite').linkbutton({
                     text: (!resc ? '<i class="fa fa-star-o fa-lg"></i>' : '<i class="fa fa-star fa-lg"></i>')
@@ -575,7 +572,7 @@
         },
 
         toggle: function (rescId) {
-            var resc = acooly_admin_favorite.data[rescId];
+            let resc = acooly_admin_favorite.getNode(rescId);
             if (resc) {
                 // 已收藏，则取消收藏
                 acooly_admin_favorite.remove(rescId);
@@ -583,8 +580,16 @@
                 // 未收藏,则收藏
                 acooly_admin_favorite.add(rescId);
             }
-        }
+        },
 
+        getNode: function (rescId) {
+            for (let i = 0; i < acooly_admin_favorite.data.length; i++) {
+                if (acooly_admin_favorite.data[i].rescId == rescId) {
+                    return acooly_admin_favorite.data[i];
+                }
+            }
+            return null;
+        },
 
     }
 

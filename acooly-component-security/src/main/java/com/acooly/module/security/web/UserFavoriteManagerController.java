@@ -7,6 +7,7 @@
 package com.acooly.module.security.web;
 
 import com.acooly.core.common.web.AbstractJsonEntityController;
+import com.acooly.core.common.web.support.JsonEntityResult;
 import com.acooly.core.common.web.support.JsonListResult;
 import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Servlets;
@@ -58,15 +59,24 @@ public class UserFavoriteManagerController extends AbstractJsonEntityController<
     public JsonListResult<UserFavorites> favorites(HttpServletRequest request, HttpServletResponse response) {
         JsonListResult<UserFavorites> result = new JsonListResult<>();
         try {
-            User user = ShiroUtils.getCurrentUser();
-            List<UserFavorites> rows = userFavoriteService.queryFavorites(user.getId());
-            result.setRows(rows);
+            result.setRows(userFavorites());
         } catch (Exception e) {
             handleException(result, "收藏列表", e);
         }
         return result;
     }
 
+    List<UserFavorites> userFavorites() {
+        User user = ShiroUtils.getCurrentUser();
+        return userFavoriteService.queryFavorites(user.getId());
+    }
+
+    @Override
+    public JsonEntityResult<UserFavorite> saveJson(HttpServletRequest request, HttpServletResponse response) {
+        JsonEntityResult<UserFavorite> result = super.saveJson(request, response);
+        result.appendData("favorites", userFavorites());
+        return result;
+    }
 
     @Override
     protected UserFavorite onSave(HttpServletRequest request, HttpServletResponse response, Model model, UserFavorite entity, boolean isCreate) throws Exception {
@@ -80,6 +90,7 @@ public class UserFavoriteManagerController extends AbstractJsonEntityController<
         return super.onSave(request, response, model, entity, isCreate);
     }
 
+
     @RequestMapping(value = "deleteByRescId")
     @ResponseBody
     public JsonResult deleteByRescId(HttpServletRequest request, HttpServletResponse response) {
@@ -88,6 +99,7 @@ public class UserFavoriteManagerController extends AbstractJsonEntityController<
         try {
             userFavoriteService.deleteByUserIdAndResourceId(user.getId(),
                     Servlets.getLongParameter(request, "rescId"));
+            result.appendData("favorites", userFavorites());
             result.setMessage("取消收藏成功");
         } catch (Exception e) {
             handleException(result, "取消收藏", e);

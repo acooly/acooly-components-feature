@@ -213,7 +213,7 @@
 </#if>
 
 <!-- acooly -->
-<#if securityConfig.plugin.acoolyDebug>
+<#--<#if securityConfig.plugin.acoolyDebug>-->
     <script src="/manage/assert/script/acooly.js"></script>
     <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
@@ -228,9 +228,9 @@
     <script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.inputmask.js"></script>
-<#else>
-    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
-</#if>
+<#--<#else>-->
+<#--    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>-->
+<#--</#if>-->
 
 <!-- 通过配置扩展script -->
 ${extendScripts}
