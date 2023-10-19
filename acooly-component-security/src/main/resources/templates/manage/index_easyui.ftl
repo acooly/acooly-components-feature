@@ -135,7 +135,7 @@
 </div>
 <div data-options="region:'center'" class="centerHeader" style="overflow: hidden;">
     <div id="layout_center_tabs" style="overflow: hidden;">
-<#--        <div title="首页" data-options="href:'/manage/layout/portal.html'"></div>-->
+        <#--        <div title="首页" data-options="href:'/manage/layout/portal.html'"></div>-->
     </div>
     <div id="layout_center_tabsMenu" style="width: 120px;display:none;">
         <div type="refresh">刷新</div>
@@ -213,7 +213,7 @@
 </#if>
 
 <!-- acooly -->
-<#--<#if securityConfig.plugin.acoolyDebug>-->
+<#if securityConfig.plugin.acoolyDebug>
     <script src="/manage/assert/script/acooly.js"></script>
     <script src="/manage/assert/script/acooly.template.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.format.js" charset="utf-8"></script>
@@ -228,9 +228,9 @@
     <script src="/manage/assert/script/acooly.portal.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.inputmask.js"></script>
-<#--<#else>-->
-<#--    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>-->
-<#--</#if>-->
+<#else>
+    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+</#if>
 
 <!-- 通过配置扩展script -->
 ${extendScripts}
