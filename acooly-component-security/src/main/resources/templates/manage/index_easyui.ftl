@@ -229,7 +229,7 @@
     <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.inputmask.js"></script>
 <#else>
-    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.min.js?d=20231020" charset="utf-8"></script>
 </#if>
 
 <!-- 通过配置扩展script -->
