@@ -502,7 +502,6 @@
                 success: function (result) {
                     if (result.success) {
                         acooly_admin_favorite.data = result.rows;
-                        console.info(acooly_admin_favorite.data);
                     } else {
                         $.messager.alert('提示', result.message, 'error');
                     }
@@ -534,10 +533,8 @@
                 data: {rescId: rescId},
                 success: function (result) {
                     if (result.success) {
-                        // $.acooly.messager('收藏', '收藏成功', 'info');
-                        // acooly_admin_favorite.data[rescId] = result.data;
-                        acooly_admin_favorite.show(rescId);
                         $.acooly.admin.initMenus();
+                        acooly_admin_favorite.show(rescId);
                     } else {
                         $.messager.alert('提示', result.message, 'error');
                     }
@@ -551,10 +548,9 @@
                 data: {rescId: rescId},
                 success: function (result) {
                     if (result.success) {
-                        // $.acooly.messager('收藏', '取消收藏成功', 'info');
-                        // delete acooly_admin_favorite.data[rescId];
-                        acooly_admin_favorite.show(rescId);
+                        // reload and show
                         $.acooly.admin.initMenus();
+                        acooly_admin_favorite.show(rescId);
                     } else {
                         $.messager.alert('提示', result.message, 'error');
                     }
