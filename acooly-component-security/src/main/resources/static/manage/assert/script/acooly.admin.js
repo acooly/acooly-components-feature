@@ -198,11 +198,13 @@
                 }
             });
 
+            let theme = $.acooly.admin.theme.getTheme()
+            let isPill = theme == 'easyui' ? false : true;
             $('#layout_center_tabs').tabs({
                 fit: true,
                 height: $(window).height() - 52,
                 border: false,
-                pill: false,
+                pill: isPill,
                 onContextMenu: function (e, title) {
                     e.preventDefault();
                     $('#layout_center_tabsMenu').menu('show', {
@@ -589,6 +591,29 @@
 
     }
 
+
+    let acooly_admin_dg = {
+
+
+        loadColumnState: function (dgId) {
+            let columnState = $.cookie(dgId);
+            if (columnState) {
+                return JSON.parse(columnState);
+            }
+            return null;
+        },
+
+        /**
+         * 保存数据表的列状态到服务器
+         * @param dgId
+         * @param state
+         */
+        saveColumnState: function (dgId, state) {
+            $.cookie(dgId, JSON.stringify(columnState), {expires: 365});
+        }
+
+    }
+
     if (!$.acooly) {
         $.acooly = {};
     }
@@ -597,6 +622,11 @@
         admin: adminClass
     });
 
-    $.extend($.acooly.admin, {theme: themeClass, tab: tabClass, favorite: acooly_admin_favorite});
+    $.extend($.acooly.admin, {
+        theme: themeClass,
+        tab: tabClass,
+        favorite: acooly_admin_favorite,
+        dg: acooly_admin_dg,
+    });
 
 })(jQuery);

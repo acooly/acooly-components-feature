@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <title>${securityConfig.title}</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -238,6 +238,7 @@ ${extendScripts}
     var contextPath = '';
     $(function () {
         var acoolyTheme = '${acoolyTheme}';
+        var username = '${user.username}';
         if (acoolyTheme == '') {
             acoolyTheme = 'acooly';
         }

@@ -1118,8 +1118,9 @@
                 var state = $(target).data('datagrid');
                 var that = this;
                 if (!state.columnMenu) {
-                    state.columnMenu = $('<div></div>').appendTo('body');
+                    state.columnMenu = $('<div class="menu-container"></div>').appendTo('body');
                     state.columnMenu.menu({
+                        itemHeight: 26,
                         onHide: function () {
                             $(target).datagrid('columnMenu').menu('show');
                         },

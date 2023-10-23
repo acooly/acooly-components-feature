@@ -264,6 +264,10 @@ var contentFormatter = function (value) {
     return $.acooly.format.content(value);
 }
 
+var acontentFormatter = function (value) {
+    return "<acontent>" + value + "</acontent>";
+}
+
 var linkFormatter = function (value) {
     return $.acooly.format.link(value);
 }

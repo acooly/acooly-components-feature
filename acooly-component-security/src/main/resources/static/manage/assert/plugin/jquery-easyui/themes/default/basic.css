@@ -566,3 +566,14 @@ img {
     white-space: nowrap;
     display: -webkit-box;
 }
+
+/* datagrid cell auto content custom tag */
+acontent {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.datagrid-row-selected {
+    background: #CCE6FF;
+    color: #000;
+}

@@ -752,3 +752,9 @@ div.datagrid-cell > div > label {
 .tabs-icon {
     margin-top: -5px;
 }
+
+/* datagrid cell auto content custom tag */
+acontent {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}

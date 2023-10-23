@@ -73,7 +73,7 @@
                     $("#mainMenu_" + parentId).attr("class", "buttonaft");
                 }
 
-                var setting = {
+                let setting = {
                     view: {
                         showLine: true
                     },

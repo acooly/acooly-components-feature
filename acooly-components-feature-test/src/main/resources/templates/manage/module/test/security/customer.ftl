@@ -1,4 +1,7 @@
 <div class="easyui-layout" data-options="fit : true,border : false">
+    <script type="text/javascript">
+        var manage_customer_datagrid_state = false;
+    </script>
     <!-- 查询条件 -->
     <div data-options="region:'north',border:false" style="padding:5px; overflow: hidden;" align="left">
         <form id="manage_customer_searchform" class="form-inline ac-form-search" onsubmit="return false">
@@ -28,11 +31,6 @@
                     <option value="${k}">${v}</option></#list>
                 </select>
             </div>
-            <#--            <div class="form-group mr-2">-->
-            <#--                <label class="col-form-label">创建时间：</label>-->
-            <#--                <input type="text" class="form-control form-control-sm" id="search_GTE_createTime" name="search_GTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>-->
-            <#--                <span class="mr-1 ml-1">至</span> <input type="text" class="form-control form-control-sm" id="search_LTE_createTime" name="search_LTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>-->
-            <#--            </div>-->
             <div class="form-group mr-2">
                 <label class="col-form-label">创建日期：</label>
                 <button type="button" class="btn btn-sm btn-default float-right acooly-daterangepicker" style="width: 275px;"
@@ -40,6 +38,11 @@
                     <i class="fa fa-calendar"></i> <span>选择日期段 </span> <i class="fa fa-caret-down"></i>
                 </button>
             </div>
+
+            <div class="form-group">
+                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_customer_searchform','manage_customer_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>
+            </div>
+
             <div class="form-group">
 
                 <script>
@@ -51,24 +54,33 @@
                             'rescId': '2020022207'
                         });
                     }
+
+                    function changeColumnWidth(name, width) {
+                        console.info('changeColumnWidth', name, width);
+                        var dg = $('#manage_customer_datagrid');
+                        var col = dg.datagrid('getColumnOption', name);
+                        col.width = width;
+                        dg.datagrid();
+                    }
                 </script>
 
-                <button class="btn btn-sm btn-primary" type="button" onclick="doAddNewTabFormAndRender()">测试Tab的Form渲染</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.layout.addTabAndRender({'title':'测试Tab表单渲染','href':'/manage/module/test/security/customer/create.html','closable':true,'rescId':'2020022207'})">测试Tab表单渲染</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="doAddNewTabFormAndRender()">测试Tab的Form渲染</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.tips('这是一个tips',this,2)">tips</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.msg('这是一个msg')">msg</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.msgrb('这是一个msgrb')">msgrb</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.alert('标题','alert提示的内容','error')">alert</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.toast('标题','toast的内容')">toast</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.loading('正在处理中...')">loading</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.loaded()">loaded</button>
 
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_customer_searchform','manage_customer_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.tips('这是一个tips',this,2)">tips</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.msg('这是一个msg')">msg</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.msgrb('这是一个msgrb')">msgrb</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.alert('标题','alert提示的内容','error')">alert</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.toast('标题','toast的内容')">toast</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.loading('正在处理中...')">loading</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.loaded()">loaded</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.messager('messager.info','info')">info</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.messager('success','success')">success</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.messager('warning','warning')">warning</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.messager('danger','danger')">danger</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.messager('primary','primary')">primary</button>
 
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('messager.info','info')">messager.info</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('success','success')">messager.success</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('warning','warning')">messager.warning</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('danger','danger')">messager.danger</button>
-                <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.messager('primary','primary')">messager.primary</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="changeColumnWidth('subject',100);">修改列宽</button>
 
             </div>
         </form>
@@ -80,8 +92,15 @@
     <div data-options="region:'center',border:false">
         <table id="manage_customer_datagrid" class="easyui-datagrid icheck-primary" url="/manage/module/test/security/customer/listJson.html" toolbar="#manage_customer_toolbar" fit="true" border="false" fitColumns="false"
                pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc" checkOnSelect="true" selectOnCheck="true" singleSelect="true"
-               data-options="showFooter:true"
-        >
+               data-options="showFooter:true,striped:true,stateful: true, stateId: 'manage_customer_datagrid_stateId',
+               onResizeColumn:function(field, width){
+                  if(manage_customer_datagrid_state){
+                    console.info(field, width);
+                    //$('#manage_customer_datagrid').datagrid('saveState');
+                  }
+               },
+               onLoadSuccess: function (data) {manage_customer_datagrid_state=true;},
+               ">
             <thead>
             <tr>
                 <th field="showCheckboxWithId" checkbox="true" formatter="idFormatter">编号</th>
@@ -98,8 +117,8 @@
                 <th field="fee" sum="true">手续费</th>
                 <th field="salary" sortable="true" sum="true">薪水</th>
                 <th field="status" formatter="mappingFormatter">状态</th>
-                <th field="subject" formatter="contentFormatter">摘要</th>
-                <th field="comments">备注</th>
+                <th field="subject" formatter="acontentFormatter" resizable="true">摘要</th>
+                <th field="comments" resizable="true">备注</th>
                 <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
                 <th field="updateTime" formatter="dateTimeFormatter">更新时间</th>
             </tr>
