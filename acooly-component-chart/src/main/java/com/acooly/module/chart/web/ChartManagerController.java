@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.acooly.core.common.web.AbstractJQueryEntityController;
 import com.acooly.module.chart.entity.Chart;
 import com.acooly.module.chart.entity.ChartItems;
-import com.acooly.module.chart.enums.StatusEnum;
+import com.acooly.module.chart.enums.ChartItemsStatusEnum;
 import com.acooly.module.chart.service.ChartItemsService;
 import com.acooly.module.chart.service.ChartService;
 
@@ -47,7 +47,7 @@ public class ChartManagerController extends AbstractJQueryEntityController<Chart
 
 	@Override
 	protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
-		model.put("allStatuss", StatusEnum.mapping());
+		model.put("allStatuss", ChartItemsStatusEnum.mapping());
 	}
 
 	@Override

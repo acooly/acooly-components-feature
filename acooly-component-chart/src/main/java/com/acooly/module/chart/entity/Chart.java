@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import com.acooly.core.common.domain.AbstractEntity;
-import com.acooly.module.chart.enums.StatusEnum;
+import com.acooly.module.chart.enums.ChartItemsStatusEnum;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +37,7 @@ public class Chart extends AbstractEntity {
 
 	/** 状态 */
     @Enumerated(EnumType.STRING)
-    private StatusEnum status;
+    private ChartItemsStatusEnum status;
 
 	/** 备注 */
     private String comments;

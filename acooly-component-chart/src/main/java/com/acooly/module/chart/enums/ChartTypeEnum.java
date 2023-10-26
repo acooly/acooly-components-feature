@@ -20,7 +20,7 @@ import com.acooly.core.utils.enums.Messageable;
  * @author acooly
  * Date: 2018-10-10 11:15:20
  */
-public enum TypeEnum implements Messageable {
+public enum ChartTypeEnum implements Messageable {
 
 	line("line", "折线图"),
 
@@ -29,7 +29,9 @@ public enum TypeEnum implements Messageable {
 	bar_stack("bar_stack", "柱状图-堆叠"),
 
 	pie("pie", "饼图"),
-	
+
+	annular("annular", "环形图"),
+
 	map_China("map_China", "中国地图"),
 	
 	;
@@ -37,7 +39,7 @@ public enum TypeEnum implements Messageable {
 	private final String code;
 	private final String message;
 
-	private TypeEnum(String code, String message) {
+	private ChartTypeEnum(String code, String message) {
 		this.code = code;
 		this.message = message;
 	}
@@ -60,7 +62,7 @@ public enum TypeEnum implements Messageable {
 
 	public static Map<String, String> mapping() {
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		for (TypeEnum type : values()) {
+		for (ChartTypeEnum type : values()) {
 			map.put(type.getCode(), type.getMessage());
 		}
 		return map;
@@ -75,8 +77,8 @@ public enum TypeEnum implements Messageable {
 	 * @throws IllegalArgumentException
 	 *             如果 code 没有对应的 Status 。
 	 */
-	public static TypeEnum find(String code) {
-		for (TypeEnum status : values()) {
+	public static ChartTypeEnum find(String code) {
+		for (ChartTypeEnum status : values()) {
 			if (status.getCode().equals(code)) {
 				return status;
 			}
@@ -89,9 +91,9 @@ public enum TypeEnum implements Messageable {
 	 * 
 	 * @return 全部枚举值。
 	 */
-	public static List<TypeEnum> getAll() {
-		List<TypeEnum> list = new ArrayList<TypeEnum>();
-		for (TypeEnum status : values()) {
+	public static List<ChartTypeEnum> getAll() {
+		List<ChartTypeEnum> list = new ArrayList<ChartTypeEnum>();
+		for (ChartTypeEnum status : values()) {
 			list.add(status);
 		}
 		return list;
@@ -104,7 +106,7 @@ public enum TypeEnum implements Messageable {
 	 */
 	public static List<String> getAllCode() {
 		List<String> list = new ArrayList<String>();
-		for (TypeEnum status : values()) {
+		for (ChartTypeEnum status : values()) {
 			list.add(status.code());
 		}
 		return list;

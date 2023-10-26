@@ -7,9 +7,7 @@
 package com.acooly.module.chart.entity;
 
 import com.acooly.core.common.domain.AbstractEntity;
-import com.acooly.module.chart.enums.ChartItemsIsShowEnum;
-import com.acooly.module.chart.enums.StatusEnum;
-import com.acooly.module.chart.enums.TypeEnum;
+import com.acooly.module.chart.enums.*;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,116 +30,146 @@ import java.util.Map;
 @Setter
 public class ChartItems extends AbstractEntity {
 
-	/**
-	 * 主题id
-	 */
-	@NotNull
-	private Long chartId;
+    /**
+     * 主题id
+     */
+    @NotNull
+    private Long chartId;
 
-	/**
-	 * 标题
-	 */
-	@NotBlank
-	@Size(max = 64)
-	private String title;
+    /**
+     * 标题
+     */
+    @NotBlank
+    @Size(max = 64)
+    private String title;
 
-	/**
-	 * 图表类型
-	 */
-	@Enumerated(EnumType.STRING)
-	@NotNull
-	private TypeEnum type;
 
-	/**
-	 * 状态
-	 */
-	@Enumerated(EnumType.STRING)
-	@NotNull
-	private StatusEnum status;
+    /**
+     * 标题是否隐藏
+     **/
+    @Enumerated(EnumType.STRING)
+    private DataShowEnum titleShow;
 
-	/**
-	 * 是否显示数据值
-	 */
-	@Enumerated(EnumType.STRING)
-	private ChartItemsIsShowEnum isShow;
+    /**
+     * 标题颜色
+     **/
+    private String titleColor;
 
-	/**
-	 * 列表数据和下载
-	 */
-	@Enumerated(EnumType.STRING)
-	private ChartItemsIsShowEnum isDataListShow;
+    /**
+     * 标题位置
+     **/
+    @Enumerated(EnumType.STRING)
+    private DataAlignEnum titleAlign;
 
-	/**
-	 * 高
-	 */
-	@NotNull
-	private Long height = 50L;
+    /**
+     * 数据项位置
+     **/
+    @Enumerated(EnumType.STRING)
+    private DataTopEnum legendTop;
 
-	/**
-	 * 宽
-	 */
-	@NotNull
-	private Long width = 50L;
+    /**
+     * 数据项对齐
+     **/
+    @Enumerated(EnumType.STRING)
+    private DataAlignEnum legendAlign;
 
-	/**
-	 * 循环时间
-	 */
-	@NotNull
-	private Long loopTime = 0L;
+    /**
+     * 图表类型
+     */
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private ChartTypeEnum type;
 
-	/**
-	 * x轴
-	 */
-	@NotBlank
-	private String xShaft;
+    /**
+     * 状态
+     */
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private ChartItemsStatusEnum status;
 
-	/**
-	 * y轴
-	 */
-	@NotBlank
-	private String yShaft;
+    /**
+     * 是否显示数据值
+     */
+    @Enumerated(EnumType.STRING)
+    private DataShowEnum isShow;
 
-	/**
-	 * 排序
-	 */
-	private Date orderTime;
+    /**
+     * 列表数据和下载
+     */
+    @Enumerated(EnumType.STRING)
+    private DataShowEnum isDataListShow;
 
-	/**
-	 * 备注
-	 */
-	private String comments;
+    /**
+     * 高
+     */
+    @NotNull
+    private Long height = 50L;
 
-	@Transient
-	private String sqlData;
+    /**
+     * 宽
+     */
+    @NotNull
+    private Long width = 50L;
 
-	@Transient
-	private String fieldMapped;
+    /**
+     * 循环时间
+     */
+    @NotNull
+    private Long loopTime = 0L;
 
-	@Transient
-	private JSONObject fieldMappedJson;
+    /**
+     * x轴
+     */
+    @NotBlank
+    private String xShaft;
 
-	@Transient
-	private Map<String, Object> fieldMappedMap;
+    /**
+     * y轴
+     */
+    @NotBlank
+    private String yShaft;
 
-	/**
-	 * 查询条件-json to String
-	 */
-	@Transient
-	private String whereDataJson;
+    /**
+     * 排序
+     */
+    private Date orderTime;
 
-	public String getxShaft() {
-		return xShaft;
-	}
+    /**
+     * 备注
+     */
+    private String comments;
 
-	public void setxShaft(String xShaft) {
-		this.xShaft = xShaft;
-	}
+    @Transient
+    private String sqlData;
 
-	public String getyShaft() {
-		return yShaft;
-	}
+    @Transient
+    private String fieldMapped;
 
-	public void setyShaft(String yShaft) {
-		this.yShaft = yShaft;
-	}
+    @Transient
+    private JSONObject fieldMappedJson;
+
+    @Transient
+    private Map<String, Object> fieldMappedMap;
+
+    /**
+     * 查询条件-json to String
+     */
+    @Transient
+    private String whereDataJson;
+
+    public String getxShaft() {
+        return xShaft;
+    }
+
+    public void setxShaft(String xShaft) {
+        this.xShaft = xShaft;
+    }
+
+    public String getyShaft() {
+        return yShaft;
+    }
+
+    public void setyShaft(String yShaft) {
+        this.yShaft = yShaft;
+    }
 }

@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.acooly.module.chart.enums.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,10 +30,6 @@ import com.acooly.core.utils.Strings;
 import com.acooly.module.chart.entity.ChartData;
 import com.acooly.module.chart.entity.ChartItems;
 import com.acooly.module.chart.entity.dto.WhereDataDto;
-import com.acooly.module.chart.enums.ChartItemsIsShowEnum;
-import com.acooly.module.chart.enums.StatusEnum;
-import com.acooly.module.chart.enums.TypeEnum;
-import com.acooly.module.chart.enums.WhereTypeEnum;
 import com.acooly.module.chart.service.ChartDataService;
 import com.acooly.module.chart.service.ChartItemsService;
 import com.alibaba.fastjson.JSON;
@@ -62,11 +59,13 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 
 	@Override
 	protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
-		model.put("allTypes", TypeEnum.mapping());
-		model.put("allStatuss", StatusEnum.mapping());
-		model.put("allIsShows", ChartItemsIsShowEnum.mapping());
-		model.put("allIsDataListShows", ChartItemsIsShowEnum.mapping());
+		model.put("allTypes", ChartTypeEnum.mapping());
+		model.put("allStatuss", ChartItemsStatusEnum.mapping());
+		model.put("allIsShows", DataShowEnum.mapping());
+		model.put("allIsDataListShows", DataShowEnum.mapping());
 		model.put("allWhereTypes", WhereTypeEnum.mapping());
+		model.put("allDataAligns", DataAlignEnum.mapping());
+		model.put("allDataTops", DataTopEnum.mapping());
 	}
 
 	@Override

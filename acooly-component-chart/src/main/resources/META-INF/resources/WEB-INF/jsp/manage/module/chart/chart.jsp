@@ -5,7 +5,8 @@
 </c:if>
 <script type="text/javascript">
 $(function() {
-	$.acooly.framework.registerKeydown('manage_chart_searchform','manage_chart_datagrid');
+    // $.acooly.framework.initPage('manage_user_searchform', 'manage_user_datagrid');
+    $.acooly.framework.initPage('manage_chart_searchform','manage_chart_datagrid');
 });
 
 function manage_chart_datagrid_onClickRow() {
@@ -154,7 +155,7 @@ function manage_chartItems_remove(chartItemsId){
 			<th field="status" formatter="mappingFormatter">状态</th>
 		    <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
 		    <th field="updateTime" formatter="dateTimeFormatter">更新时间</th>
-			<th field="comments">备注</th>
+			<th field="comments" formatter="contentFormatter">备注</th>
           	<th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_chart_action',value,row)}">动作</th>
         </tr>
       </thead>
@@ -193,18 +194,19 @@ function manage_chartItems_remove(chartItemsId){
                     <thead>
                     <tr>
                         <th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
-                        <th field="id" sum="true">id</th>
-                        <th field="chartId" sum="true">主题id</th>
+                        <th field="id">id</th>
+<%--                        <th field="chartId" sum="true">主题id</th>--%>
                         <th field="title">标题</th>
-                        <th field="type" formatter="mappingFormatter">图表类型</th>
+                        <th field="type" formatter="mappingFormatter">类型</th>
                         <th field="status" formatter="mappingFormatter">状态</th>
-                        <th field="loopTime" sum="true" data-options="formatter:function(value,row){ return value/1000}">刷新时间</th>
+                        <th field="height" data-options="formatter:function(value,row){ return row.height +' X '+ row.width}">高/宽</th>
+                        <th field="loopTime" data-options="formatter:function(value,row){ return value/1000}">刷新时间</th>
                         <th field="isShow" formatter="mappingFormatter">显示数据值</th>
                         <th field="isDataListShow" formatter="mappingFormatter">显示数据列表</th>
                         <th field="xShaft" formatter="contentFormatter">x轴</th>
                         <th field="yShaft" formatter="contentFormatter">y轴</th>
-                        <th field="createTime" formatter="dateTimeFormatter">创建时间</th>
-                        <th field="updateTime" formatter="dateTimeFormatter">更新时间</th>
+<%--                        <th field="createTime" formatter="dateTimeFormatter">创建时间</th>--%>
+<%--                        <th field="updateTime" formatter="dateTimeFormatter">更新时间</th>--%>
                         <th field="rowActions" data-options="formatter:function(value, row, index){return formatAction('manage_chartItems_action',value,row)}">动作</th>
                     </tr>
                     </thead>
