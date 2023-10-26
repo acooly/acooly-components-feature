@@ -29,8 +29,7 @@
                                class="easyui-validatebox text" data-options="validType:['length[1,64]'],required:true"/>
 
                         颜色：
-                        <input type="text" name="titleColor" size="10"
-                               class="easyui-validatebox text" data-options="validType:['length[1,64]'],required:true"/>
+                        <input type="color" value="${chartItems.titleColor}"  name="titleColor" />
 
                         对齐方式：
                         <select name="titleAlign" editable="false" style="height:27px;" panelHeight="auto"

@@ -94,12 +94,14 @@
 							yShafts.push(yShaftJson);
 						}
 // 						console.log(yShafts);
-						
+
+						var chartItemsParams = data.data.chartItemsParams;
+
 						//倒计时刷新
 						refreshTimeValue(${chartItemId},${loopTime}/1000);
 
 						//动态数据解决
-						lineChartDraw(title,legendData,xShaft,yShafts);
+						lineChartDraw(title,legendData,xShaft,yShafts,chartItemsParams);
 						
 						//动态数据列表					
 						showChartDataList(${chartItemId},columnName,xShaft,yShafts);
@@ -109,28 +111,48 @@
 		}
 
 		//动态数据解决
-		function lineChartDraw(title,legendData,xShaft,yShafts) {
+		function lineChartDraw(title,legendData,xShaft,yShafts,chartItemsParams) {
+			var titleShow = chartItemsParams.titleShow;
+			var titleColor = chartItemsParams.titleColor;
+			var titleAlign = chartItemsParams.titleAlign;
+			var legendTop = chartItemsParams.legendTop;
+			if(legendTop=='top'){
+				legendTop='5%';
+			}
+			var legendAlign = chartItemsParams.legendAlign;
+
 			var dom = document.getElementById("container_"+${chartItemId});
 			var myChart = echarts.init(dom);
 			var app = {};
 			option = null;
 			option = {
-				title : {
-					text : title
+				title: {
+					text: title,
+					show: titleShow,
+					x: titleAlign,
+					textStyle:{
+						color:titleColor
+					}
 				},
 				tooltip : {
 					trigger : 'axis'
 				},
 				legend : {
+					//上：'top', 中：'middle',下： 'bottom'
+					top: legendTop,
+					//左：'left', 中：'center', 下：'right'
+					left: legendAlign,
 					data : legendData
 				},
 				grid : {
-					left : '3%',
-					right : '4%',
-					bottom : '3%',
+					top : '12%',
+					left : '4%',
+					right : '3%',
+					bottom : '10%',
 					containLabel : true
 				},
 				toolbox : {
+					show : false,
 					feature : {
 // 						dataView : {
 // 							show : true,
