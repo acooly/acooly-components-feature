@@ -57,11 +57,19 @@
 
                     function changeColumnWidth(name, width) {
                         console.info('changeColumnWidth', name, width);
-                        var dg = $('#manage_customer_datagrid');
-                        var col = dg.datagrid('getColumnOption', name);
-                        col.width = width;
-                        dg.datagrid();
+                        // var dg = $('#manage_customer_datagrid');
+                        // var col = dg.datagrid('getColumnOption', name);
+                        // col.width = width;
+                        // dg.datagrid();
+
+                        $('#manage_customer_datagrid').datagrid('resizeColumn', {
+                            field: name,
+                            width: parseInt(width)
+                        });
+
                     }
+
+
                 </script>
 
                 <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.layout.addTabAndRender({'title':'测试Tab表单渲染','href':'/manage/module/test/security/customer/create.html','closable':true,'rescId':'2020022207'})">测试Tab表单渲染</button>
@@ -112,7 +120,7 @@
                 <th field="idcardNo">身份证号码</th>
                 <th field="photo" formatter="contentFormatter">照片</th>
                 <th field="photoThum" formatter="contentFormatter">照片缩略图</th>
-                <th field="content" formatter="contentFormatter">内容</th>
+                <th field="content" formatter="acontentFormatter" resizable="true">内容</th>
                 <th field="customerType" formatter="mappingFormatter">客户类型</th>
                 <th field="fee" sum="true">手续费</th>
                 <th field="salary" sortable="true" sum="true">薪水</th>
