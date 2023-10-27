@@ -181,7 +181,7 @@ public class ChartItems extends AbstractEntity {
      **/
     @Transient
     @Enumerated(EnumType.STRING)
-    private DataAlignEnum legendAlign = DataAlignEnum.center;
+    private DataAlignEnum legendAlign = DataAlignEnum.left;
 
 
     public DataShowEnum getTitleShow() {

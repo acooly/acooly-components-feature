@@ -4,6 +4,7 @@ import static com.acooly.module.chart.ChartProperties.PREFIX;
 
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -23,11 +24,13 @@ import com.google.common.collect.Lists;
 @ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
 @ComponentScan(basePackages = "com.acooly.module.chart")
 @AutoConfigureAfter(SecurityAutoConfig.class)
-
+@Slf4j
 public class ChartAutoConfig {
 
 	@Bean
 	public StandardDatabaseScriptIniter chartScriptIniter() {
+		log.info("加载[acooly-component-chart]图表组件。。。。。。");
+
 		return new StandardDatabaseScriptIniter() {
 
 			@Override
