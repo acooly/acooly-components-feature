@@ -534,7 +534,7 @@
             typeSelectData = $('#type').val();
         }
 
-        if (typeSelectData != "pie") {
+        if ((typeSelectData != "pie")&&(typeSelectData != "annular")) {
             $("#xShaftTr").show();
             appendXAndYHtml(false)
         } else {

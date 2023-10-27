@@ -22,8 +22,13 @@ public class ChartComponentInitializer implements ComponentInitializer {
 		setPropertyIfMissing("acooly.ds.dbPatchs.c_chart_items[1].columnName", "is_data_list_show");
 		setPropertyIfMissing("acooly.ds.dbPatchs.c_chart_items[1].patchSql",
 				" ALTER TABLE `c_chart_items` ADD COLUMN `is_data_list_show` varchar(40) NULL DEFAULT 'NO' COMMENT '是否显示列表数据和下载' AFTER `is_show`;");
-		
-		
+
+
+		setPropertyIfMissing("acooly.ds.dbPatchs.c_chart_items[2].columnName", "items_style");
+		setPropertyIfMissing("acooly.ds.dbPatchs.c_chart_items[2].patchSql",
+				" ALTER TABLE `c_chart_items` ADD COLUMN `items_style` varchar(2048) NULL COMMENT '图形表样式' AFTER `is_data_list_show`;");
+
+
 		setPropertyIfMissing("acooly.ds.dbPatchs.c_chart_data[0].columnName", "where_data");
 		setPropertyIfMissing("acooly.ds.dbPatchs.c_chart_data[0].patchSql",
 				"ALTER TABLE `c_chart_data` ADD COLUMN `where_data` varchar(4096) NULL COMMENT 'where条件数据' AFTER `items_id`;");

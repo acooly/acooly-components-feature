@@ -8,6 +8,7 @@ package com.acooly.module.chart.entity;
 
 import com.acooly.core.common.domain.AbstractEntity;
 import com.acooly.module.chart.enums.*;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,35 +44,6 @@ public class ChartItems extends AbstractEntity {
     @Size(max = 64)
     private String title;
 
-
-    /**
-     * 标题是否隐藏
-     **/
-    @Enumerated(EnumType.STRING)
-    private DataShowEnum titleShow;
-
-    /**
-     * 标题颜色
-     **/
-    private String titleColor;
-
-    /**
-     * 标题位置
-     **/
-    @Enumerated(EnumType.STRING)
-    private DataAlignEnum titleAlign;
-
-    /**
-     * 数据项位置
-     **/
-    @Enumerated(EnumType.STRING)
-    private DataTopEnum legendTop;
-
-    /**
-     * 数据项对齐
-     **/
-    @Enumerated(EnumType.STRING)
-    private DataAlignEnum legendAlign;
 
     /**
      * 图表类型
@@ -157,6 +129,112 @@ public class ChartItems extends AbstractEntity {
     @Transient
     private String whereDataJson;
 
+    /**
+     * 图表样式
+     * <p>
+     * 标题是否隐藏
+     * private DataShowEnum titleShow;
+     * <p>
+     * 标题颜色
+     * private String titleColor;
+     * <p>
+     * 标题位置
+     * private DataAlignEnum titleAlign;
+     * <p>
+     * 数据项位置
+     * private DataTopEnum legendTop;
+     * <p>
+     * 数据项对齐
+     * private DataAlignEnum legendAlign;
+     ***/
+    private String itemsStyle;
+
+    /**
+     * 标题是否隐藏
+     **/
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private DataShowEnum titleShow = DataShowEnum.YES;
+
+    /**
+     * 标题颜色
+     **/
+    @Transient
+    private String titleColor = "#000000";
+
+    /**
+     * 标题位置
+     **/
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private DataAlignEnum titleAlign = DataAlignEnum.center;
+
+    /**
+     * 数据项位置
+     **/
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private DataTopEnum legendTop = DataTopEnum.top;
+
+    /**
+     * 数据项对齐
+     **/
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private DataAlignEnum legendAlign = DataAlignEnum.center;
+
+
+    public DataShowEnum getTitleShow() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            String titleShowStr = itemsStyle.get("titleShow").toString();
+            return DataShowEnum.find(titleShowStr);
+        }
+        return titleShow;
+    }
+
+    public String getTitleColor() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            String titleColorStr = itemsStyle.get("titleColor").toString();
+            return titleColorStr;
+        }
+        return titleColor;
+    }
+
+    public DataAlignEnum getTitleAlign() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            String titleAlignStr = itemsStyle.get("titleAlign").toString();
+            return DataAlignEnum.find(titleAlignStr);
+        }
+        return titleAlign;
+    }
+
+    public DataTopEnum getLegendTop() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            String legendTopStr = itemsStyle.get("legendTop").toString();
+            return DataTopEnum.find(legendTopStr);
+        }
+        return legendTop;
+    }
+
+    public DataAlignEnum getLegendAlign() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            String legendAlignStr = itemsStyle.get("legendAlign").toString();
+            return DataAlignEnum.find(legendAlignStr);
+        }
+        return legendAlign;
+    }
+
+    public JSONObject getItemsStyleJson() {
+        return JSON.parseObject(getItemsStyle());
+    }
+
+
+    //---------------
     public String getxShaft() {
         return xShaft;
     }
@@ -172,4 +250,6 @@ public class ChartItems extends AbstractEntity {
     public void setyShaft(String yShaft) {
         this.yShaft = yShaft;
     }
+
+
 }
