@@ -29,7 +29,7 @@
                                class="easyui-validatebox text" data-options="validType:['length[1,64]'],required:true"/>
 
                         颜色：
-                        <input type="color" value="${chartItems.titleColor}"  name="titleColor" />
+                        <input type="color" value="${chartItems.titleColor}" name="titleColor"/>
 
                         对齐方式：
                         <select name="titleAlign" editable="false" style="height:27px;" panelHeight="auto"
@@ -118,7 +118,7 @@
                     <th>图表类型：</th>
                     <td>
                         <select id="type" name="type" editable="false" style="height:27px;" panelHeight="auto"
-                                class="easyui-combobox" data-options="required:true">
+                                class="easyui-combobox" data-options="required:true" onvolumechange="showYAndeX()">
                             <c:forEach items="${allTypes}" var="e">
                                 <option value="${e.key}">${e.value}</option>
                             </c:forEach>
@@ -534,7 +534,7 @@
             typeSelectData = $('#type').val();
         }
 
-        if ((typeSelectData != "pie")&&(typeSelectData != "annular")) {
+        if ((typeSelectData != "pie") && (typeSelectData != "annular")) {
             $("#xShaftTr").show();
             appendXAndYHtml(false)
         } else {
@@ -578,6 +578,14 @@
         }
 
     }
+
+
+    //图形类型事件
+    $("#type").combobox({
+        onChange: function () {
+            showYAndeX();
+        }
+    });
 
 
 </script>
