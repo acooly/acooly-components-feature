@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html style="height: 95%; width: 95%">
+<html style="display: flex;justify-content: center;">
 
-<body style="height: 100%; margin: 0">
+<body style="height: ${chartHeight}%; width: ${chartWidth}%;margin-top: 20px;">
 	<!-- 查询条件 -->
 	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/where_search.jsp" %>
 
@@ -133,10 +133,10 @@
 				data : legendData
 			},
 			grid : {
-				top : '12%',
-				left : '4%',
-				right : '3%',
-				bottom : '10%',
+				// top : '12%',
+				// left : '4%',
+				// right : '3%',
+				// bottom : '10%',
 				containLabel : true
 			},
 			toolbox : {

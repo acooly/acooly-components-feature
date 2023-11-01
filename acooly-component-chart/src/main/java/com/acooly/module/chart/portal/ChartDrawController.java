@@ -104,6 +104,18 @@ public class ChartDrawController extends AbstractJsonEntityController {
     }
 
     /**
+     * /manage/module/echarts/world.html
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "world")
+    public String world( HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "/manage/module/echarts/map_world";
+    }
+
+    /**
      * 解析图形列表
      * <p>
      * /manage/module/echarts/chartItem_line_2.html
@@ -142,6 +154,10 @@ public class ChartDrawController extends AbstractJsonEntityController {
         model.addAttribute("chartItemId", chartItemId);
         model.addAttribute("chartItem", chartItem);
         model.addAttribute("loopTime", chartItem.getLoopTime());
+
+        model.addAttribute("chartHeight", chartItem.getHeight());
+        model.addAttribute("chartWidth", chartItem.getWidth());
+
         return chartItem;
     }
 

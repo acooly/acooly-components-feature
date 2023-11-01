@@ -72,6 +72,12 @@ public class ChartItems extends AbstractEntity {
     private DataShowEnum isDataListShow;
 
     /**
+     * 表头数据项
+     */
+    @Enumerated(EnumType.STRING)
+    private DataXYEnum dataListShowXY;
+
+    /**
      * 高
      */
     @NotNull

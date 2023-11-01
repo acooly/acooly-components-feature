@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html style="height: 95%; width: 95%">
-<body style="height: 100%; margin: 0">
+<html style="display: flex;justify-content: center;">
+
+<body style="height: ${chartHeight}%; width: ${chartWidth}%;margin-top: 20px;">
 
 
 <div id="container_${chartItemId}_title"></div>

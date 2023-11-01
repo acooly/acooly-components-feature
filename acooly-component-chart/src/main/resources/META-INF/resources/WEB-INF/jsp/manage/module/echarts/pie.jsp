@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html style="height: 95%; width: 95%">
+<html style="display: flex;justify-content: center;">
 
-<body style="height: 100%; margin: 0">
+<body style="height: ${chartHeight}%; width: ${chartWidth}%;margin-top: 20px;">
 
 	<!-- 查询条件 -->
 	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/where_search.jsp" %>
@@ -109,18 +109,18 @@
 		var columnValueHtml = "";
 
 		//列名--组装
-		columnNameHtml="<tr style='font-size: 18px; height: 30px;'>";
+		columnNameHtml="<div class='table-header'> <div class='thead-rows'>";
 		for ( var i in columnName) {
-			columnNameHtml=columnNameHtml+"<th>"+columnName[i]+"</th>";
+			columnNameHtml=columnNameHtml+"<span class='thead-td td-bg'>"+columnName[i]+"</span>";
 		}
-		columnNameHtml=columnNameHtml+"</tr>";
+		columnNameHtml=columnNameHtml+"</div> </div>";
 
 		//列数据--组装
-		columnValueHtml=columnValueHtml+"<tr style='font-size: 16px; height: 30px;'>";
+		columnValueHtml=columnValueHtml+"<div class='table-body'><div class='tbody-rows'>";
 		for(var y in yShafts){
-			columnValueHtml=columnValueHtml+"<th>"+yShafts[y].value+"</th>";
+			columnValueHtml=columnValueHtml+"<span class='tbody-td' style='font-weight: bold'>"+yShafts[y].value+"</span>";
 		}
-		columnValueHtml=columnValueHtml+"</tr>";
+		columnValueHtml=columnValueHtml+"</div> </div>";
 
 		//动态模板html
 		tableHtml=tableHtml+columnNameHtml+columnValueHtml;

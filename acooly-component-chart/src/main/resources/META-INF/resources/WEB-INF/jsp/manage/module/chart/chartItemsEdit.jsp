@@ -158,13 +158,24 @@
 
 
                 <tr>
-                    <th>数据列表下载：</th>
+                    <th>显示数据列表：</th>
                     <td><select name="isDataListShow" editable="false" style="height:27px;" panelHeight="auto"
                                 class="easyui-combobox">
                         <c:forEach items="${allIsShows}" var="e">
                             <option value="${e.key}">${e.value}</option>
                         </c:forEach>
-                    </select></td>
+                    </select>
+                    </td>
+                </tr>
+                <tr id="dataListShowXY">
+                    <th>显示数据表头：</th>
+                    <td><select name="dataListShowXY" editable="false"  panelHeight="auto"
+                                class="easyui-combobox">
+                            <c:forEach items="${allDataXYs}" var="e">
+                                <option value="${e.key}">${e.value}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
                 </tr>
 
                 <tr>
@@ -536,8 +547,10 @@
 
         if ((typeSelectData != "pie") && (typeSelectData != "annular")) {
             $("#xShaftTr").show();
+            $("#dataListShowXY").show();
             appendXAndYHtml(false)
         } else {
+            $("#dataListShowXY").hide();
             appendXAndYHtml(true)
         }
         $("#yShaftTr").show();

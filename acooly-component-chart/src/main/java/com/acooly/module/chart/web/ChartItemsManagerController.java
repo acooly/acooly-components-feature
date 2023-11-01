@@ -64,6 +64,7 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
         model.put("allWhereTypes", WhereTypeEnum.mapping());
         model.put("allDataAligns", DataAlignEnum.mapping());
         model.put("allDataTops", DataTopEnum.mapping());
+        model.put("allDataXYs", DataXYEnum.mapping());
     }
 
     @Override
