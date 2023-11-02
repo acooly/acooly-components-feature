@@ -118,12 +118,10 @@
                     if (z == 0) {
                         totalValue.push(yShaftsValue);
                     } else {
-                        //倍数
-                        multiple = multipleCount(yShaftsValueNumber);
                         var currentValue = Math.round(totalValue[yy] * multiple) / multiple;
                         totalValue[yy] = (currentValue + yShaftsValueNumber).toFixed(fixedNum);
                     }
-                    // console.log("totalValue：" + totalValue);
+                    console.log("totalValue：" + totalValue);
                 }
                 z = z + 1;
                 columnValueHtml = columnValueHtml + " </div> ";
@@ -186,7 +184,10 @@
             // console.log("行数据(无最后一行)---:" + columnValueHtml);
         }
         //合计
-        columnTotalValueHtml = columnTotalValueHtml + "<div class='tbody-rows'><span class='tbody-td td-bg' style='font-weight: bold;'>合计：</span>";
+        if (totalValue.length > 0) {
+            columnTotalValueHtml = columnTotalValueHtml + "<div class='tbody-rows'><span class='tbody-td td-bg' style='font-weight: bold;'>合计：</span>";
+
+        }
         for (var t in totalValue) {
             columnTotalValueHtml = columnTotalValueHtml + "<span class='tbody-td' style='font-weight: bold;'>" + totalValue[t] + "</span>";
         }
@@ -214,7 +215,7 @@
     function multipleCount(num) {
         var multiple = 1;
         if (num > 0) {
-            multiple = Math.pow(10, num);
+            multiple = Math.pow(5, num);
         }
         return multiple;
     }
@@ -228,25 +229,25 @@
     }
 
     .data-table.min .table-header {
-        height: 52px;
+        height: 40px;
     }
 
     .data-table.min .table-header .thead-rows .thead-td {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: bold;
         color: #333;
     }
 
     .data-table.min .table-body {
-        top: 52px;
+        top: 40px;
     }
 
     .data-table.min .table-body .tbody-rows {
-        height: 52px;
+        height: 40px;
     }
 
     .data-table.min .table-body .tbody-rows .tbody-td {
-        font-size: 16px;
+        font-size: 14px;
         color: #666;
     }
 
@@ -319,7 +320,7 @@
     .data-table .table-header .thead-rows .thead-td .icon-thead {
         width: 32px;
         height: 32px;
-        margin-right: 16px;
+        margin-right: 14px;
     }
 
     .data-table .table-header .thead-rows .thead-td.no-border {
@@ -342,7 +343,7 @@
 
     .data-table .table-body .tbody-rows {
         display: flex;
-        height: 75px;
+        height: 50px;
         background: #FFF;
     }
 

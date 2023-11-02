@@ -23,6 +23,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 图表-图表选项 管理控制器
@@ -54,6 +56,9 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
 
     @Autowired
     private ChartDataService chartDataService;
+
+    @Autowired
+    private RedisTemplate<String, List<Map<String, Object>>> redisTemplate;
 
     @Override
     protected void referenceData(HttpServletRequest request, Map<String, Object> model) {
@@ -198,6 +203,8 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
             chartItemsService.saveOrUpdateChartItemsAndChartData(entity, false);
         }
 
+        //清空缓存
+        redisTemplate.opsForValue().set(ChartItems.redisKey+entity.getId(),null);
         return entity;
     }
 

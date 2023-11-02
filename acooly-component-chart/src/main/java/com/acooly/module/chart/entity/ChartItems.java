@@ -31,6 +31,8 @@ import java.util.Map;
 @Setter
 public class ChartItems extends AbstractEntity {
 
+    public static String redisKey = "chart_itemsId_";
+
     /**
      * 主题id
      */
@@ -76,6 +78,11 @@ public class ChartItems extends AbstractEntity {
      */
     @Enumerated(EnumType.STRING)
     private DataXYEnum dataListShowXY;
+
+    /**
+     * 数据缓存时间
+     */
+    private long dataCacheTime=0L;
 
     /**
      * 高

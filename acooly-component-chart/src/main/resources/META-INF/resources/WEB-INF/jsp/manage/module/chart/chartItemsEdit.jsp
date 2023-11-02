@@ -27,10 +27,10 @@
                     <td>
                         <input type="text" name="title" size="30" placeholder="请给图表取个名,例如访问量曲线图"
                                class="easyui-validatebox text" data-options="validType:['length[1,64]'],required:true"/>
-
+                        &nbsp;&nbsp;
                         颜色：
                         <input type="color" value="${chartItems.titleColor}" name="titleColor"/>
-
+                        &nbsp;&nbsp;
                         对齐方式：
                         <select name="titleAlign" editable="false" style="height:27px;" panelHeight="auto"
                                 class="easyui-combobox">
@@ -38,7 +38,7 @@
                                 <option value="${e.key}">${e.value}</option>
                             </c:forEach>
                         </select>
-
+                        &nbsp;&nbsp;
                         显示：
                         <select name="titleShow" editable="false" style="height:27px;" panelHeight="auto"
                                 class="easyui-combobox">
@@ -60,7 +60,7 @@
                                 <option value="${e.key}">${e.value}</option>
                             </c:forEach>
                         </select>
-
+                        &nbsp;&nbsp;
                         对齐方式：
                         <select id="legendAlign" name="legendAlign" editable="false" style="height:27px;"
                                 panelHeight="auto"
@@ -69,7 +69,7 @@
                                 <option value="${e.key}">${e.value}</option>
                             </c:forEach>
                         </select>
-
+                        &nbsp;&nbsp;
                         显示数据值：
                         <select name="isShow" editable="false" style="height:27px;" panelHeight="auto"
                                 class="easyui-combobox">
@@ -84,31 +84,30 @@
                     <th>高/宽 设置：</th>
                     <td>
 
-
                         高度：<c:choose>
                         <c:when test="${action=='create'}">
-                            <input value="50" type="number" name="height" size="20" placeholder="图表高度默认50"
+                            <input value="50" type="number" name="height" size="10" placeholder="图表高度默认50"
                                    style="height: 27px;line-height: 27px;" class="easyui-numberbox text"
-                                   data-options="validType:['length[1,19]']"/> 单位“%”
+                                   data-options="validType:['length[1,19]']"/> “%”&nbsp;&nbsp;
                         </c:when>
                         <c:otherwise>
-                            <input type="number" value="${chartItems.height}" name="height" size="20"
+                            <input type="number" value="${chartItems.height}" name="height" size="10"
                                    placeholder="图表高度默认50" style="height: 27px;line-height: 27px;"
-                                   class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>
+                                   class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>“%”
                         </c:otherwise>
                     </c:choose>
 
-
+                        &nbsp; &nbsp;
                         宽度：<c:choose>
                         <c:when test="${action=='create'}">
-                            <input type="number" value="50" name="width" size="20" placeholder="图表宽度默认50"
+                            <input type="number" value="50" name="width" size="10" placeholder="图表宽度默认50"
                                    style="height: 27px;line-height: 27px;" class="easyui-numberbox text"
-                                   data-options="validType:['length[1,19]']"/> 单位“%”
+                                   data-options="validType:['length[1,19]']"/> “%”&nbsp;&nbsp;
                         </c:when>
                         <c:otherwise>
-                            <input type="number" value="${chartItems.width}" name="width" size="20"
+                            <input type="number" value="${chartItems.width}" name="width" size="10"
                                    placeholder="图表宽度默认50" style="height: 27px;line-height: 27px;"
-                                   class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>
+                                   class="easyui-numberbox text" data-options="validType:['length[1,19]']"/>“%”
                         </c:otherwise>
                     </c:choose>
                     </td>
@@ -135,9 +134,35 @@
                         </c:forEach>
                     </select></td>
                 </tr>
+                    <%--                <tr>--%>
+                    <%--                    <th>刷新时间：</th>--%>
+                    <%--                    <td>--%>
+                    <%--                        <c:choose>--%>
+                    <%--                            <c:when test="${action=='create'}">--%>
+                    <%--                                <input type="text" name="loopTime" size="10" placeholder="请输入循环拉取数据时间(单位秒),为0时手动拉取数据"--%>
+                    <%--                                       style="height: 27px;line-height: 27px;" class="easyui-numberbox text"--%>
+                    <%--                                       data-options="validType:['length[1,19]'],required:true"/> 秒；--%>
+                    <%--                            </c:when>--%>
+                    <%--                            <c:otherwise>--%>
+                    <%--                                <input type="text" name="loopTime" value="${chartItems.loopTime/1000}" size="10"--%>
+                    <%--                                       placeholder="请输入循环拉取数据时间(单位秒),为0时手动拉取数据" style="height: 27px;line-height: 27px;"--%>
+                    <%--                                       class="easyui-numberbox text"--%>
+                    <%--                                       data-options="validType:['length[1,19]'],required:true"/> 秒；--%>
+                    <%--                            </c:otherwise>--%>
+                    <%--                        </c:choose>--%>
+
+                    <%--                    </td>--%>
+                    <%--                </tr>--%>
                 <tr>
-                    <th>刷新时间：</th>
+                    <th>缓存/刷新：</th>
                     <td>
+                        缓存时间：<input type="text" name="dataCacheTime" size="10"
+                                    placeholder="缓存时间：默认5分钟" style="height: 27px;line-height: 27px;"
+                                    class="easyui-numberbox text"
+                                    data-options="validType:['length[1,19]'],required:true"/>分钟
+
+                        &nbsp;&nbsp;
+                        刷新时间：
                         <c:choose>
                             <c:when test="${action=='create'}">
                                 <input type="text" name="loopTime" size="10" placeholder="请输入循环拉取数据时间(单位秒),为0时手动拉取数据"
@@ -151,32 +176,36 @@
                                        data-options="validType:['length[1,19]'],required:true"/> 秒；
                             </c:otherwise>
                         </c:choose>
-                        <span>规则：&nbsp;&nbsp; 0：页面图形不自动刷新； &nbsp;&nbsp; （1-9）:页面图形10秒刷新一次; &nbsp;&nbsp;&nbsp;
-                                x>9:页面图形x秒刷新一次;</span>
+                        <span>刷新规则：&nbsp;&nbsp; 0：不自动刷新； &nbsp;（1-9）:10秒刷新一次; &nbsp; x>9:x秒刷新一次;</span>
                     </td>
+
                 </tr>
 
 
                 <tr>
-                    <th>显示数据列表：</th>
-                    <td><select name="isDataListShow" editable="false" style="height:27px;" panelHeight="auto"
+                    <th>数据表：</th>
+                    <td>
+
+                        显示：
+                        <select name="isDataListShow" editable="false" style="height:27px;" panelHeight="auto"
                                 class="easyui-combobox">
-                        <c:forEach items="${allIsShows}" var="e">
-                            <option value="${e.key}">${e.value}</option>
-                        </c:forEach>
-                    </select>
-                    </td>
-                </tr>
-                <tr id="dataListShowXY">
-                    <th>显示数据表头：</th>
-                    <td><select name="dataListShowXY" editable="false"  panelHeight="auto"
-                                class="easyui-combobox">
-                            <c:forEach items="${allDataXYs}" var="e">
+                            <c:forEach items="${allIsShows}" var="e">
                                 <option value="${e.key}">${e.value}</option>
                             </c:forEach>
                         </select>
+                        &nbsp;&nbsp;
+                        <label id="dataListShowXY">
+                            数据表头：
+                            <select name="dataListShowXY" editable="false" panelHeight="auto"
+                                    class="easyui-combobox">
+                                <c:forEach items="${allDataXYs}" var="e">
+                                    <option value="${e.key}">${e.value}</option>
+                                </c:forEach>
+                            </select>
+                        </label>
                     </td>
                 </tr>
+
 
                 <tr>
                     <th>查询条件示例：</th>

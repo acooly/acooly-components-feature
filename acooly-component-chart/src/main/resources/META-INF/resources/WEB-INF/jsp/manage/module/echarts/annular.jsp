@@ -3,7 +3,7 @@
 
 <html style="display: flex;justify-content: center;">
 
-<body style="height: ${chartHeight}%; width: ${chartWidth}%;margin-top: 20px;">
+<body style="height: ${chartHeight}%; width: ${chartWidth}%;margin-top: 5px;">
 
 <!-- 查询条件 -->
 <%@ include file="/WEB-INF/jsp/manage/module/echarts/common/where_search.jsp" %>
@@ -139,6 +139,9 @@
         if(legendTop=='top'){
             legendTop='5%';
         }
+        if(legendTop=='bottom'){
+            // legendTop='95%';
+        }
         var legendAlign = chartItemsParams.legendAlign;
 
         //是否显示 数值
@@ -154,7 +157,7 @@
                     rich: {
                         a: {
                             color: '#999',
-                            lineHeight: 22,
+                            lineHeight: 15,
                             align: 'center'
                         },
                         hr: {
@@ -164,8 +167,8 @@
                             height: 0
                         },
                         b: {
-                            fontSize: 16,
-                            lineHeight: 33
+                            fontSize: 10,
+                            lineHeight: 20
                         },
                         per: {
                             color: '#eee',

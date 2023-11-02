@@ -208,7 +208,7 @@ public class ChartDrawController extends AbstractJsonEntityController {
         // 动态拼装sql
         sql = assembleSql(request, sql);
 
-        List<Map<String, Object>> dbData = chartDataQueryService.querySql(sql);
+        List<Map<String, Object>> dbData = chartDataQueryService.querySql(sql,chartItems.getId(),chartItems.getDataCacheTime());
 
         // x轴，y轴 赋值
         ShaftDataDto shaftDataDto = chartDataAnalyseService.shaftDataAnalyse(chartItems.getTitle(), chartItems.getxShaft(), chartItems.getyShaft(), dbData);
@@ -265,7 +265,7 @@ public class ChartDrawController extends AbstractJsonEntityController {
             ChartItems chartItems = chartItemsService.get(chartItemId);
             ChartData chartData = chartDataService.findChartDataByItemsId(chartItems.getId());
             String sql = chartData.getSqlData();
-            List<Map<String, Object>> dbData = chartDataQueryService.querySql(sql);
+            List<Map<String, Object>> dbData = chartDataQueryService.querySql(sql,chartItems.getId(),chartItems.getDataCacheTime());
             String fieldMappedJson = chartData.getFieldMapped();
             Map<String, String> meta = JSON.parseObject(fieldMappedJson, Map.class);
             result.appendData("listMeta", meta);
