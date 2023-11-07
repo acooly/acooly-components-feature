@@ -419,6 +419,7 @@ let system_class = {
     user: system_user_class,
     resource: system_resource_class,
     config: {},
+    username: null,     // 当前登录用户
     /** init */
     init: function () {
         //console.info("acooly framework init...")
@@ -432,15 +433,15 @@ let system_class = {
     loadSecurityConfig: function () {
         var That = this;
         $.ajax({
-            url: "/security/config/index.html",
+            url: "/manage/system/init.html",
             async: false,
             success: function (data, textStatus) {
                 if (typeof (data) == 'string') {
                     data = eval('(' + data + ')');
                 }
-                That.config = data;
+                That.config = data.data.config;
+                That.username = data.data.username;
                 var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
-                // && acoolyTheme.indexOf('easyui') == -1
                 if (acoolyTheme) {
                     $.acooly.admin.init();
                 }
