@@ -17,7 +17,7 @@ import com.acooly.core.common.service.EntityServiceImpl;
 import com.acooly.module.chart.dao.ChartItemsDao;
 import com.acooly.module.chart.entity.ChartData;
 import com.acooly.module.chart.entity.ChartItems;
-import com.acooly.module.chart.enums.StatusEnum;
+import com.acooly.module.chart.enums.ChartItemsStatusEnum;
 import com.acooly.module.chart.handle.ChartUtils;
 import com.acooly.module.chart.service.ChartDataService;
 import com.acooly.module.chart.service.ChartItemsService;
@@ -73,7 +73,7 @@ public class ChartItemsServiceImpl extends EntityServiceImpl<ChartItems, ChartIt
 	}
 
 	@Override
-	public List<ChartItems> findByChartIdAndStatus(Long chartId, StatusEnum status) {
+	public List<ChartItems> findByChartIdAndStatus(Long chartId, ChartItemsStatusEnum status) {
 		return getEntityDao().findByChartIdAndStatus(chartId, status.code());
 	}
 

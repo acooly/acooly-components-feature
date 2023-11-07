@@ -7,9 +7,8 @@
 package com.acooly.module.chart.entity;
 
 import com.acooly.core.common.domain.AbstractEntity;
-import com.acooly.module.chart.enums.ChartItemsIsShowEnum;
-import com.acooly.module.chart.enums.StatusEnum;
-import com.acooly.module.chart.enums.TypeEnum;
+import com.acooly.module.chart.enums.*;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,116 +31,238 @@ import java.util.Map;
 @Setter
 public class ChartItems extends AbstractEntity {
 
-	/**
-	 * 主题id
-	 */
-	@NotNull
-	private Long chartId;
+    public static String redisKey = "chart_itemsId_";
 
-	/**
-	 * 标题
-	 */
-	@NotBlank
-	@Size(max = 64)
-	private String title;
+    /**
+     * 主题id
+     */
+    @NotNull
+    private Long chartId;
 
-	/**
-	 * 图表类型
-	 */
-	@Enumerated(EnumType.STRING)
-	@NotNull
-	private TypeEnum type;
+    /**
+     * 标题
+     */
+    @NotBlank
+    @Size(max = 64)
+    private String title;
 
-	/**
-	 * 状态
-	 */
-	@Enumerated(EnumType.STRING)
-	@NotNull
-	private StatusEnum status;
 
-	/**
-	 * 是否显示数据值
-	 */
-	@Enumerated(EnumType.STRING)
-	private ChartItemsIsShowEnum isShow;
+    /**
+     * 图表类型
+     */
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private ChartTypeEnum type;
 
-	/**
-	 * 列表数据和下载
-	 */
-	@Enumerated(EnumType.STRING)
-	private ChartItemsIsShowEnum isDataListShow;
+    /**
+     * 状态
+     */
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private ChartItemsStatusEnum status;
 
-	/**
-	 * 高
-	 */
-	@NotNull
-	private Long height = 50L;
+    /**
+     * 是否显示数据值
+     */
+    @Enumerated(EnumType.STRING)
+    private DataShowEnum isShow;
 
-	/**
-	 * 宽
-	 */
-	@NotNull
-	private Long width = 50L;
+    /**
+     * 列表数据和下载
+     */
+    @Enumerated(EnumType.STRING)
+    private DataShowEnum isDataListShow;
 
-	/**
-	 * 循环时间
-	 */
-	@NotNull
-	private Long loopTime = 0L;
+    /**
+     * 表头数据项
+     */
+    @Enumerated(EnumType.STRING)
+    private DataXYEnum dataListShowXY;
 
-	/**
-	 * x轴
-	 */
-	@NotBlank
-	private String xShaft;
+    /**
+     * 数据缓存时间
+     */
+    private long dataCacheTime=0L;
 
-	/**
-	 * y轴
-	 */
-	@NotBlank
-	private String yShaft;
+    /**
+     * 高
+     */
+    @NotNull
+    private Long height = 50L;
 
-	/**
-	 * 排序
-	 */
-	private Date orderTime;
+    /**
+     * 宽
+     */
+    @NotNull
+    private Long width = 50L;
 
-	/**
-	 * 备注
-	 */
-	private String comments;
+    /**
+     * 循环时间
+     */
+    @NotNull
+    private Long loopTime = 0L;
 
-	@Transient
-	private String sqlData;
+    /**
+     * x轴
+     */
+    @NotBlank
+    private String xShaft;
 
-	@Transient
-	private String fieldMapped;
+    /**
+     * y轴
+     */
+    @NotBlank
+    private String yShaft;
 
-	@Transient
-	private JSONObject fieldMappedJson;
+    /**
+     * 排序
+     */
+    private Date orderTime;
 
-	@Transient
-	private Map<String, Object> fieldMappedMap;
+    /**
+     * 备注
+     */
+    private String comments;
 
-	/**
-	 * 查询条件-json to String
-	 */
-	@Transient
-	private String whereDataJson;
+    @Transient
+    private String sqlData;
 
-	public String getxShaft() {
-		return xShaft;
-	}
+    @Transient
+    private String fieldMapped;
 
-	public void setxShaft(String xShaft) {
-		this.xShaft = xShaft;
-	}
+    @Transient
+    private JSONObject fieldMappedJson;
 
-	public String getyShaft() {
-		return yShaft;
-	}
+    @Transient
+    private Map<String, Object> fieldMappedMap;
 
-	public void setyShaft(String yShaft) {
-		this.yShaft = yShaft;
-	}
+    /**
+     * 查询条件-json to String
+     */
+    @Transient
+    private String whereDataJson;
+
+    /**
+     * 图表样式
+     * <p>
+     * 标题是否隐藏
+     * private DataShowEnum titleShow;
+     * <p>
+     * 标题颜色
+     * private String titleColor;
+     * <p>
+     * 标题位置
+     * private DataAlignEnum titleAlign;
+     * <p>
+     * 数据项位置
+     * private DataTopEnum legendTop;
+     * <p>
+     * 数据项对齐
+     * private DataAlignEnum legendAlign;
+     ***/
+    private String itemsStyle;
+
+    /**
+     * 标题是否隐藏
+     **/
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private DataShowEnum titleShow = DataShowEnum.YES;
+
+    /**
+     * 标题颜色
+     **/
+    @Transient
+    private String titleColor = "#000000";
+
+    /**
+     * 标题位置
+     **/
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private DataAlignEnum titleAlign = DataAlignEnum.center;
+
+    /**
+     * 数据项位置
+     **/
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private DataTopEnum legendTop = DataTopEnum.top;
+
+    /**
+     * 数据项对齐
+     **/
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private DataAlignEnum legendAlign = DataAlignEnum.left;
+
+
+    public DataShowEnum getTitleShow() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            String titleShowStr = itemsStyle.get("titleShow").toString();
+            return DataShowEnum.find(titleShowStr);
+        }
+        return titleShow;
+    }
+
+    public String getTitleColor() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            String titleColorStr = itemsStyle.get("titleColor").toString();
+            return titleColorStr;
+        }
+        return titleColor;
+    }
+
+    public DataAlignEnum getTitleAlign() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            String titleAlignStr = itemsStyle.get("titleAlign").toString();
+            return DataAlignEnum.find(titleAlignStr);
+        }
+        return titleAlign;
+    }
+
+    public DataTopEnum getLegendTop() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            String legendTopStr = itemsStyle.get("legendTop").toString();
+            return DataTopEnum.find(legendTopStr);
+        }
+        return legendTop;
+    }
+
+    public DataAlignEnum getLegendAlign() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            String legendAlignStr = itemsStyle.get("legendAlign").toString();
+            return DataAlignEnum.find(legendAlignStr);
+        }
+        return legendAlign;
+    }
+
+    public JSONObject getItemsStyleJson() {
+        return JSON.parseObject(getItemsStyle());
+    }
+
+
+    //---------------
+    public String getxShaft() {
+        return xShaft;
+    }
+
+    public void setxShaft(String xShaft) {
+        this.xShaft = xShaft;
+    }
+
+    public String getyShaft() {
+        return yShaft;
+    }
+
+    public void setyShaft(String yShaft) {
+        this.yShaft = yShaft;
+    }
+
+
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.acooly.core.common.service.EntityService;
 import com.acooly.module.chart.entity.ChartItems;
-import com.acooly.module.chart.enums.StatusEnum;
+import com.acooly.module.chart.enums.ChartItemsStatusEnum;
 
 /**
  * 图表-图表选项 Service接口
@@ -27,7 +27,7 @@ public interface ChartItemsService extends EntityService<ChartItems> {
 
 	List<ChartItems> findByChartId(Long chartId);
 
-	List<ChartItems> findByChartIdAndStatus(Long chartId, StatusEnum status);
+	List<ChartItems> findByChartIdAndStatus(Long chartId, ChartItemsStatusEnum status);
 
 	void removeChartItemsAndChartDataById(Long chartItemsId);
 

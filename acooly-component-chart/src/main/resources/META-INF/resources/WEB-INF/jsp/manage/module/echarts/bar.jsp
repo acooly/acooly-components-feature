@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html style="height: 95%; width: 95%">
+<html style="display: flex;justify-content: center;">
 
-<body style="height: 100%; margin: 0">
+<body style="height: ${chartHeight}%; width: ${chartWidth}%;margin-top: 20px;">
 
 	<!-- 查询条件 -->
 	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/where_search.jsp" %>
@@ -64,7 +64,7 @@
 						xShaft = xShaftJson[x].split(",");
 					}
 
-					console.log(xShaft);
+					// console.log(xShaft);
 
 					//y轴
 					var yShaftJsonList = yShaftJsons[0];
@@ -96,11 +96,13 @@
 						yShafts.push(yShaftJson);
 					}
 // 						console.log(yShafts);
+					var chartItemsParams = data.data.chartItemsParams;
+
 					//倒计时刷新
 					refreshTimeValue(${chartItemId},${loopTime}/1000);
 					
 					//动态数据解决					
-					barChartDraw(title,legendData,xShaft,yShafts);
+					barChartDraw(title,legendData,xShaft,yShafts,chartItemsParams);
 					
 					//动态数据列表					
 					showChartDataList(${chartItemId},columnName,xShaft,yShafts);
@@ -113,23 +115,48 @@
 	
 	
 	//动态数据解决
-	function barChartDraw(title,legendData,xShaft,yShafts) {
+	function barChartDraw(title,legendData,xShaft,yShafts,chartItemsParams) {
+		var titleShow = chartItemsParams.titleShow;
+		var titleColor = chartItemsParams.titleColor;
+		var titleAlign = chartItemsParams.titleAlign;
+		var legendTop = chartItemsParams.legendTop;
+		if(legendTop=='top'){
+			legendTop='5%';
+		}
+		var legendAlign = chartItemsParams.legendAlign;
+
 		var dom = document.getElementById("container_"+${chartItemId});
 		var myChart = echarts.init(dom);
 		var app = {};
 		option = null;
 		option = {
-			title : {
-				text : title
+			title: {
+				text: title,
+				show: titleShow,
+				x: titleAlign,
+				textStyle:{
+					color:titleColor
+				}
 			},
 			tooltip : {
 				trigger : 'axis'
 			},
 			legend : {
+				//上：'top', 中：'middle',下： 'bottom'
+				top: legendTop,
+				//左：'left', 中：'center', 下：'right'
+				left: legendAlign,
 				data : legendData
 			},
+			grid : {
+				// top : '12%',
+				// left : '4%',
+				// right : '3%',
+				// bottom : '10%',
+				containLabel : true
+			},
 			toolbox : {
-				show : true,
+				show : false,
 				feature : {
 // 					dataView : {
 // 						show : true,
