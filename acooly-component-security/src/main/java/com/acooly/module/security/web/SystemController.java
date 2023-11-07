@@ -6,6 +6,7 @@ import com.acooly.core.common.web.support.JsonResult;
 import com.acooly.core.utils.Strings;
 import com.acooly.module.security.captche.Captchas;
 import com.acooly.module.security.captche.SecurityCaptchaManager;
+import com.acooly.module.security.config.FrameworkProperties;
 import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.Portallet;
@@ -52,6 +53,23 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
     private PortalletService portalletService;
     @Autowired
     private SecurityCaptchaManager securityCaptchaManager;
+
+    @Autowired
+    private FrameworkProperties frameworkProperties;
+
+    /**
+     * 授权功能顶级菜单
+     *
+     * @return
+     */
+    @RequestMapping("init")
+    @ResponseBody
+    public JsonResult authorisedMenus() {
+        JsonResult result = new JsonResult();
+        result.appendData("config", frameworkProperties);
+        result.appendData("username", ShiroUtils.getCurrentUser().getUsername());
+        return result;
+    }
 
     /**
      * 授权功能顶级菜单

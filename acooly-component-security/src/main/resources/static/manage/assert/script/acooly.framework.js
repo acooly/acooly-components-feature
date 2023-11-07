@@ -1197,17 +1197,25 @@
              * Cookie的数据结构：
              * key: cookie_datagrid_hideColumns
              * value: {
-             *     datagridId1: "field1,field2,field3,",
-             *     datagridId2: "field1,field2,field3,",
-             *     ...
+             *     datagrid1: {
+             *         username1:"field1,field2,field3,",
+             *         username2:"field1,field2,",
+             *     }
              * }
              *
              * @param datagridId
              */
             dgColumnRead: function (datagridId) {
                 let unShowAllFields = this.dgColumnReadAll();
+                let user = $.acooly.system.username || "default";
+                console.info("dgColumnRead user", user);
                 if (unShowAllFields) {
-                    return unShowAllFields[datagridId];
+                    var dgData = unShowAllFields[datagridId];
+                    if (typeof dgData === "object" && dgData != null) {
+                        return dgData[user];
+                    } else {
+                        return dgData;
+                    }
                 }
                 return null;
             },
@@ -1221,24 +1229,32 @@
                 }
             },
 
-            dgColumnAppend: function (datagridId, field) {
-                let unShowFields = this.dgColumnRead(datagridId);
+            dgColumnAppend: function (datagridId, field, username) {
+                let user = $.acooly.system.username || "default";
+                let unShowFields = this.dgColumnRead(datagridId, user);
                 unShowFields = !unShowFields ? field + "," : unShowFields + field + ",";
                 let unShowAllFields = this.dgColumnReadAll() || {};
-                unShowAllFields[datagridId] = unShowFields;
+                if (!unShowAllFields[datagridId]) {
+                    unShowAllFields[datagridId] = {};
+                }
+                unShowAllFields[datagridId][user] = unShowFields
                 let unShowAllFieldsJsonString = JSON.stringify(unShowAllFields);
                 $.cookie(this._dgColumnCookieKey(), unShowAllFieldsJsonString);
             },
 
-            dgColumnRemove: function (datagridId, field) {
-                let unShowFields = this.dgColumnRead(datagridId);
+            dgColumnRemove: function (datagridId, field, username) {
+                let user = $.acooly.system.username || "default";
+                let unShowFields = this.dgColumnRead(datagridId, user);
                 if (unShowFields && unShowFields.indexOf(field + ",") != -1) {
                     unShowFields = unShowFields.replace(field + ",", "");
                     let unShowAllFields = this.dgColumnReadAll();
                     if (!unShowAllFields) {
-                        unShowAllFields = {datagridId: unShowFields};
+                        unShowAllFields = {datagridId: {user: unShowFields}};
                     } else {
-                        unShowAllFields[datagridId] = unShowFields;
+                        if (!unShowAllFields[datagridId]) {
+                            unShowAllFields[datagridId] = {};
+                        }
+                        unShowAllFields[datagridId][user] = unShowFields
                     }
                     let unShowAllFieldsJsonString = JSON.stringify(unShowAllFields);
                     $.cookie(this._dgColumnCookieKey(), unShowAllFieldsJsonString);
