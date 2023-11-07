@@ -1208,7 +1208,7 @@
             dgColumnRead: function (datagridId) {
                 let unShowAllFields = this.dgColumnReadAll();
                 let user = $.acooly.system.username || "default";
-                console.info("dgColumnRead user", user);
+                // console.info("dgColumnRead user", user);
                 if (unShowAllFields) {
                     var dgData = unShowAllFields[datagridId];
                     if (typeof dgData === "object" && dgData != null) {
