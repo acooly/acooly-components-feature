@@ -38,11 +38,11 @@
     <%--    </button>--%>
 
 
-    <div style="margin-left:3%; margin-top:30px;">
+    <div style="margin-left:1%; margin-top:30px;">
             <%--        <table id="container_${chartItemId}_dataList_table" class="data-table min" border="1" width="90%">--%>
             <%--        </table>--%>
         <div id="container_${chartItemId}_dataList_table" class="data-table min"
-             style="margin: 0 20px;margin-bottom: 50px; height: auto;">
+             style="margin-bottom: 50px; height: auto;">
         </div>
     </div>
 </c:if>
@@ -82,7 +82,9 @@
                 if (i == 0) {
                     columnNameHtml = columnNameHtml + "<span class='thead-td td-bg'></span>";
                 }
-                columnNameHtml = columnNameHtml + "<span class='thead-td td-bg'>" + xShaft[i] + "</span>";
+                var xShaftHeadName = xShaft[i];
+                xShaftHeadName = xShaftHeadName.replace("\n", "<br/>");
+                columnNameHtml = columnNameHtml + "<span class='thead-td td-bg'>" + xShaftHeadName + "</span>";
             }
             columnNameHtml = columnNameHtml + " </div> </div>";
 
@@ -92,14 +94,17 @@
                 //小数位（位数）
                 var fixedNum = 0;
 
+                var yShaftsName = yShafts[y].name;
+                yShaftsName = yShaftsName.replace("\n", "<br/>");
+
                 columnValueHtml = columnValueHtml + "<div class='table-body'><div class='tbody-rows'>";
-                columnValueHtml = columnValueHtml + "<span class='tbody-td td-bg' style='font-weight: bold'>" + yShafts[y].name + "</span>";
+                columnValueHtml = columnValueHtml + "<span class='tbody-td td-bg' style='font-weight: bold'>" + yShaftsName + "</span>";
                 for (var yy in yShafts[y].data) {
                     //数字类型
                     var yShaftsValueNumber = 0;
                     //行数据（z:行；y:列）
                     var yShaftsValue = yShafts[y].data[yy];
-
+                    yShaftsValue = yShaftsValue.replace("\n", "<br/>");
                     columnValueHtml = columnValueHtml + "<span class='tbody-td '>" + yShaftsValue + "</span>";
 
                     //小数判断（最大小数位数）
@@ -121,7 +126,7 @@
                         var currentValue = Math.round(totalValue[yy] * multiple) / multiple;
                         totalValue[yy] = (currentValue + yShaftsValueNumber).toFixed(fixedNum);
                     }
-                    console.log("totalValue：" + totalValue);
+                    // console.log("totalValue：" + totalValue);
                 }
                 z = z + 1;
                 columnValueHtml = columnValueHtml + " </div> ";
@@ -132,7 +137,9 @@
             //列名--组装----表头
             columnNameHtml = "<div class='table-header'> <div class='thead-rows'>";
             for (var i in columnName) {
-                columnNameHtml = columnNameHtml + "<span class='thead-td td-bg'>" + columnName[i] + "</span>";
+                var columnHeadName = columnName[i];
+                columnHeadName = columnHeadName.replace("\n", "<br/>");
+                columnNameHtml = columnNameHtml + "<span class='thead-td td-bg'>" + columnHeadName + "</span>";
             }
             columnNameHtml = columnNameHtml + " </div> </div>";
 
@@ -143,8 +150,10 @@
             //小数位（位数）
             var fixedNum = 0;
             for (var x in xShaft) {
+                var xShaftNameTd = xShaft[x];
+                xShaftNameTd = xShaftNameTd.replace("\n", "<br/>");
                 columnValueHtml = columnValueHtml + "<div class='table-body'><div class='tbody-rows'>";
-                columnValueHtml = columnValueHtml + "<span class='tbody-td td-bg' style='font-weight: bold'>" + xShaft[x] + "</span>";
+                columnValueHtml = columnValueHtml + "<span class='tbody-td td-bg' style='font-weight: bold'>" + xShaftNameTd + "</span>";
                 for (var y in yShafts) {
                     //数字类型
                     var yShaftsValueNumber = 0;
@@ -202,8 +211,7 @@
         //动态模板html
         tableHtml = tableHtml + columnNameHtml + columnValueHtml + columnTotalValueHtml;
 
-        // console.log("动态模板html---:" + tableHtml);
-
+        console.log("动态模板html---:" + tableHtml);
 
         $("#container_" + chartItemId + "_dataList_table").append(tableHtml);
     }
@@ -229,7 +237,7 @@
     }
 
     .data-table.min .table-header {
-        height: 40px;
+        height: 35px;
     }
 
     .data-table.min .table-header .thead-rows .thead-td {
@@ -239,15 +247,15 @@
     }
 
     .data-table.min .table-body {
-        top: 40px;
+        top: 35px;
     }
 
     .data-table.min .table-body .tbody-rows {
-        height: 40px;
+        height: 35px;
     }
 
     .data-table.min .table-body .tbody-rows .tbody-td {
-        font-size: 14px;
+        font-size: 13px;
         color: #666;
     }
 
@@ -310,7 +318,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 24px;
+        font-size: 16px;
         color: #3D3D3D;
         border: 1px solid #E4E4E4;
         border-bottom: 0;
@@ -343,7 +351,7 @@
 
     .data-table .table-body .tbody-rows {
         display: flex;
-        height: 50px;
+        height: 30px;
         background: #FFF;
     }
 
