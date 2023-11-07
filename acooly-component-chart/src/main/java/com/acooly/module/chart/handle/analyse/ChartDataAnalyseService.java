@@ -1,8 +1,6 @@
 package com.acooly.module.chart.handle.analyse;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -29,7 +27,6 @@ public class ChartDataAnalyseService {
 		ShaftDataDto dto = new ShaftDataDto();
 		try {
 			dto.setTitle(title);
-
 			if (dbData.isEmpty()) {
 				dto.setxShaft(Maps.newHashMap());
 				dto.setyShafts(Lists.newArrayList());
@@ -43,10 +40,11 @@ public class ChartDataAnalyseService {
 
 			// y轴数据映射+解析
 			Map<String, Object> yShaftMap = (Map<String, Object>) JSON.parseObject(yShaftJson);
-			Set<String> yShaftKey = yShaftMap.keySet();
+			List<String> yShaftKey = new ArrayList<>(yShaftMap.keySet());
+			//进行排序(数据项标签顺序)
+			Collections.sort(yShaftKey);
 
 			Map<String, String> dataMaps = Maps.newHashMap();
-
 			// 数据解析(key,values)
 			for (Map<String, Object> map : dbData) {
 				Set<String> keySets = map.keySet();
@@ -72,7 +70,7 @@ public class ChartDataAnalyseService {
 
 			// y轴key值替换
 			List<Map<String, Object>> yShafts = Lists.newArrayList();
-			Map<String, Object> yShaft = Maps.newHashMap();
+			Map<String, Object> yShaft = Maps.newLinkedHashMap();
 			for (String yNameEn : yShaftKey) {
 				String yValues = dataMaps.get(yNameEn);
 				String yShaftKeyCn = String.valueOf(yShaftMap.get(yNameEn));

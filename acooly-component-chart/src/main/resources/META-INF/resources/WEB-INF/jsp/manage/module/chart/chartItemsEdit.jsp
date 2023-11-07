@@ -464,7 +464,7 @@
                 xShaft[objectKey] = (fieldMapping[xShaft_value[key]])[objectKey]
             }
         }
-        console.log(xShaft);
+        // console.log(xShaft);
         yShaft = {};
         for (var key in yShaft_value) {
 
@@ -473,12 +473,31 @@
                 yShaft[objectKey] = (fieldMapping[yShaft_value[key]])[objectKey]
             }
         }
-        console.log(yShaft);
-        $("#fieldMapped").val(JSON.stringify(newfieldMapping));
-        $("#xShaft").val(JSON.stringify(xShaft));
-        $("#yShaft").val(JSON.stringify(yShaft));
+        // console.log(yShaft);
+
+        $("#fieldMapped").val(JSON.stringify(sortObjectByKey(newfieldMapping)));
+        $("#xShaft").val(JSON.stringify(sortObjectByKey(xShaft)));
+        $("#yShaft").val(JSON.stringify(sortObjectByKey(yShaft)));
         return true;
     }
+
+
+    /**
+     * json 数据排序
+     * @param json
+     * @returns {{}}
+     */
+    function sortObjectByKey(json) {
+        var keys = Object.keys(json);
+        var sortedKeys = keys.sort();
+        var sortedObj = {};
+        for (var i = 0; i < sortedKeys.length; i++) {
+            sortedObj[sortedKeys[i]] = json[sortedKeys[i]];
+        }
+        console.log("排序后："+JSON.stringify(sortedObj));
+        return sortedObj;
+    }
+
 
     function isJSON(str) {
         if (typeof str == 'string') {

@@ -179,7 +179,7 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
         String itemsStyleJson = JSON.toJSON(itemsStyleMap).toString();
         entity.setItemsStyle(itemsStyleJson);
 
-
+        //查询条件
         Map<String, String[]> parameterNames = request.getParameterMap();
         long parameterNameSize = parameterNames.size();
         List<WhereDataDto> whereDataDtoList = Lists.newArrayList();
