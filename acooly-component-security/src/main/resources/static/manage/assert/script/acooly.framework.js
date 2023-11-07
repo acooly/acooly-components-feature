@@ -1221,7 +1221,8 @@
             },
 
             dgColumnReadAll: function () {
-                var unShowAllFields = $.cookie(this._dgColumnCookieKey());
+                // var unShowAllFields = $.cookie(this._dgColumnCookieKey());
+                var unShowAllFields = localStorage.getItem(this._dgColumnCookieKey());
                 if (unShowAllFields) {
                     return JSON.parse(unShowAllFields);
                 } else {
@@ -1229,7 +1230,7 @@
                 }
             },
 
-            dgColumnAppend: function (datagridId, field, username) {
+            dgColumnAppend: function (datagridId, field) {
                 let user = $.acooly.system.username || "default";
                 let unShowFields = this.dgColumnRead(datagridId, user);
                 unShowFields = !unShowFields ? field + "," : unShowFields + field + ",";
@@ -1239,10 +1240,11 @@
                 }
                 unShowAllFields[datagridId][user] = unShowFields
                 let unShowAllFieldsJsonString = JSON.stringify(unShowAllFields);
-                $.cookie(this._dgColumnCookieKey(), unShowAllFieldsJsonString);
+                // $.cookie(this._dgColumnCookieKey(), unShowAllFieldsJsonString);
+                localStorage.setItem(this._dgColumnCookieKey(), unShowAllFieldsJsonString);
             },
 
-            dgColumnRemove: function (datagridId, field, username) {
+            dgColumnRemove: function (datagridId, field) {
                 let user = $.acooly.system.username || "default";
                 let unShowFields = this.dgColumnRead(datagridId, user);
                 if (unShowFields && unShowFields.indexOf(field + ",") != -1) {
@@ -1257,7 +1259,8 @@
                         unShowAllFields[datagridId][user] = unShowFields
                     }
                     let unShowAllFieldsJsonString = JSON.stringify(unShowAllFields);
-                    $.cookie(this._dgColumnCookieKey(), unShowAllFieldsJsonString);
+                    // $.cookie(this._dgColumnCookieKey(), unShowAllFieldsJsonString);
+                    localStorage.setItem(this._dgColumnCookieKey(), unShowAllFieldsJsonString);
                 }
             },
 
