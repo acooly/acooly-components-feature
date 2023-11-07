@@ -200,9 +200,10 @@ function manage_chartItems_remove(chartItemsId){
                         <th field="type" formatter="mappingFormatter">类型</th>
                         <th field="status" formatter="mappingFormatter">状态</th>
                         <th field="height" data-options="formatter:function(value,row){ return row.height +' X '+ row.width}">高/宽</th>
-                        <th field="loopTime" data-options="formatter:function(value,row){ return value/1000}">刷新时间</th>
-                        <th field="isShow" formatter="mappingFormatter">显示数据值</th>
-                        <th field="isDataListShow" formatter="mappingFormatter">显示数据列表</th>
+                        <th field="dataCacheTime" >缓存时间<br/>单位：分钟</th>
+                        <th field="loopTime" data-options="formatter:function(value,row){ return value/1000}">刷新时间<br/>单位：秒</th>
+                        <th field="isShow" formatter="mappingFormatter">显示<br/>数据值</th>
+                        <th field="isDataListShow" formatter="mappingFormatter">显示<br/>数据列表</th>
                         <th field="xShaft" formatter="contentFormatter">x轴</th>
                         <th field="yShaft" formatter="contentFormatter">y轴</th>
 <%--                        <th field="createTime" formatter="dateTimeFormatter">创建时间</th>--%>

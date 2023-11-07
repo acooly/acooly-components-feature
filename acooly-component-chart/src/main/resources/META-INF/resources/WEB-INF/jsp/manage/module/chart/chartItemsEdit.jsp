@@ -51,7 +51,7 @@
                 </tr>
 
                 <tr>
-                    <th>图表数据项：</th>
+                    <th>图表标签项：</th>
                     <td>
                         显示位置：
                         <select id="legendTop" name="legendTop" editable="false" style="height:27px;" panelHeight="auto"

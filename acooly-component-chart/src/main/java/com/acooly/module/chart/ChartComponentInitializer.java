@@ -30,7 +30,7 @@ public class ChartComponentInitializer implements ComponentInitializer {
 
         setPropertyIfMissing("acooly.ds.dbPatchs.c_chart_items[3].columnName", "data_list_show_x_y");
         setPropertyIfMissing("acooly.ds.dbPatchs.c_chart_items[3].patchSql",
-                " ALTER TABLE `c_chart_items` ADD COLUMN `data_list_show_x_y` varchar(8) NULL DEFAULT 'Y' COMMENT '表头数据项' AFTER `is_data_list_show`;");
+                " ALTER TABLE `c_chart_items` ADD COLUMN `data_list_show_x_y` varchar(8) NULL DEFAULT 'Y' COMMENT '表头图表数据项标签' AFTER `is_data_list_show`;");
 
         setPropertyIfMissing("acooly.ds.dbPatchs.c_chart_items[4].columnName", "data_cache_time");
         setPropertyIfMissing("acooly.ds.dbPatchs.c_chart_items[4].patchSql",

@@ -166,9 +166,9 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
         String titleColor = request.getParameter("titleColor");
         //标题位置
         String titleAlign = request.getParameter("titleAlign");
-        //数据项位置
+        //图表数据项标签位置
         String legendTop = request.getParameter("legendTop");
-        //数据项对齐
+        //图表数据项标签对齐
         String legendAlign = request.getParameter("legendAlign");
         Map<String, String> itemsStyleMap = Maps.newHashMap();
         itemsStyleMap.put("titleShow", titleShow);
