@@ -41,8 +41,8 @@
 
             <div class="form-group mr-2">
                 <label class="col-form-label">修改日期：</label>
-                <input type="text" class="form-control form-control-sm" id="search_GTE_updateTime" name="search_GTE_updateTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'search_LTE_updateTime\')}'})"/>
-                <span class="mr-1 ml-1">至</span> <input type="text" class="form-control form-control-sm" id="search_LTE_updateTime" name="search_LTE_updateTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate: '#F{$dp.$D(\'search_GTE_updateTime\')}'})"/>
+                <input type="text" class="form-control form-control-sm" id="manage_customer_search_GTE_updateTime" name="manage_customer_search_GTE_updateTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'manage_customer_search_LTE_updateTime\')}'})"/>
+                <span class="mr-1 ml-1">至</span> <input type="text" class="form-control form-control-sm" id="manage_customer_search_LTE_updateTime" name="manage_customer_search_LTE_updateTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate: '#F{$dp.$D(\'manage_customer_search_GTE_updateTime\')}'})"/>
             </div>
 
 
@@ -171,6 +171,8 @@
     <script type="text/javascript">
         $(function () {
             $.acooly.framework.initPage('manage_customer_searchform', 'manage_customer_datagrid');
+            // 初始化日期段选择控件（注意：需要在配置`acooly.framework.plugin.date-range-picker=true`）
+            $.acooly.daterangepicker.init();
         });
     </script>
 </div>
