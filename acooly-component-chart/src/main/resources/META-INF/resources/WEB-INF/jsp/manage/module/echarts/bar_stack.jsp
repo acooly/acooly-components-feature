@@ -3,12 +3,12 @@
 
 <html style="display: flex;justify-content: center;">
 
-<body style="height: ${chartHeight}%; width: ${chartWidth}%;margin-top: 20px;">
+<body style="height: ${chartHeight}%; width: ${chartWidth}%;margin-top: 5px;">
 	<!-- 查询条件 -->
 	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/where_search.jsp" %>
 
 	<div id="container_${chartItemId}_loopTime" style="font-size:8px;color:	#D3D3D3;position: absolute;left:90%;margin-top:35px; "></div>
-	<div id="container_${chartItemId}" style="height: 100%"></div>
+	<div id="container_${chartItemId}" style="height: 100%;width: 100%"></div>
 
 	<!-- 数据列表 -->
 	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/data_list.jsp" %>

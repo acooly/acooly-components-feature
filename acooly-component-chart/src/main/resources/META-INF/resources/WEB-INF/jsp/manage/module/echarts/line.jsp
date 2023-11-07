@@ -3,7 +3,7 @@
 
 <html style="display: flex;justify-content: center;">
 
-<body style="height: ${chartHeight}%; width: ${chartWidth}%;margin-top: 20px;">
+<body style="height: ${chartHeight}%; width: ${chartWidth}%;margin-top: 5px;">
 
 	<!-- 查询条件 -->
 	<%@ include file="/WEB-INF/jsp/manage/module/echarts/common/where_search.jsp" %>
