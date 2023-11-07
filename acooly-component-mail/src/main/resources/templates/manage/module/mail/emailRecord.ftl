@@ -17,8 +17,8 @@
             </div>
             <div class="form-group">
                 <label class="col-form-label">发送时间：</label>
-                <input type="text" class="form-control form-control-sm" id="search_GTE_createTime" name="search_GTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
-                <span class="mr-1 ml-1">至</span> <input type="text" class="form-control form-control-sm" id="search_LTE_createTime" name="search_LTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>
+                <input type="text" class="form-control form-control-sm" id="search_GTE_createTime" name="search_GTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'search_LTE_createTime\')}'})"/>
+                <span class="mr-1 ml-1">至</span> <input type="text" class="form-control form-control-sm" id="search_LTE_createTime" name="search_LTE_createTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate: '#F{$dp.$D(\'search_GTE_createTime\')}'})"/>
             </div>
             <div class="form-group">
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_emailRecord_searchform','manage_emailRecord_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>

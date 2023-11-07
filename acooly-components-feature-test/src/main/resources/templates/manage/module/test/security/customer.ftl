@@ -39,6 +39,13 @@
                 </button>
             </div>
 
+            <div class="form-group mr-2">
+                <label class="col-form-label">修改日期：</label>
+                <input type="text" class="form-control form-control-sm" id="search_GTE_updateTime" name="search_GTE_updateTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'search_LTE_updateTime\')}'})"/>
+                <span class="mr-1 ml-1">至</span> <input type="text" class="form-control form-control-sm" id="search_LTE_updateTime" name="search_LTE_updateTime" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd',minDate: '#F{$dp.$D(\'search_GTE_updateTime\')}'})"/>
+            </div>
+
+
             <div class="form-group">
                 <button class="btn btn-sm btn-primary" type="button" onclick="$.acooly.framework.search('manage_customer_searchform','manage_customer_datagrid');"><i class="fa fa-search fa-lg fa-fw fa-col"></i> 查询</button>
             </div>

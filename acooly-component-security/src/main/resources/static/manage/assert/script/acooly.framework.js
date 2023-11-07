@@ -1107,6 +1107,8 @@
                 }
                 // init textarea的字数统计
                 $.acooly.framework.wordsCount(container);
+                // 初始化日期段选择控件
+                $.acooly.daterangepicker.init();
             },
 
             /**
