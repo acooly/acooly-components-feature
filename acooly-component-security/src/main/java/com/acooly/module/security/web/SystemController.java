@@ -64,7 +64,7 @@ public class SystemController extends AbstractJsonEntityController<User, UserSer
      */
     @RequestMapping("init")
     @ResponseBody
-    public JsonResult authorisedMenus() {
+    public JsonResult init() {
         JsonResult result = new JsonResult();
         result.appendData("config", frameworkProperties);
         result.appendData("username", ShiroUtils.getCurrentUser().getUsername());

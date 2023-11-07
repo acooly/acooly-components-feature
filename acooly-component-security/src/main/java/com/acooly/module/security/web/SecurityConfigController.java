@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 系统框架参数
  *
  * @author zhangpu
+ * @see SystemController#init()
  */
+@Deprecated
 @Controller
 @RequestMapping(value = "/security/config")
 public class SecurityConfigController {
