@@ -254,6 +254,14 @@ acooly.framework.plugin.acooly-debug=true
 
 ## 5. changelog
 
+### 5.2.0-SNAPSHOT.20231107
+
+* 2023-11-07 - 完成datagrid列自定义显示的按用户来存储，存储方式优化为localStorage - [zhangpu] 9db17ac5
+* 2023-11-03 - 修正org相关的初始化SQL的错误 - [zhangpu] e7401e68
+* 2023-10-27 - 增加对acontentFomatter的格式化支持：任意文字（中文，英文，数字）自动换行，需要手动指定列宽度，否则会自适应。 - [zhangpu] 15fa5879
+* 2023-10-18 - 完成easyui体验优化所有基础结构重构，包括边框，按钮，背景等 - [zhangpu] 76b63388
+* 2023-10-17 - 部分重构layout结构和实现，解决Easyui原生版本的基础和全局兼容问题 - [zhangpu] 69027645
+
 ### 5.2.0-SNAPSHOT.20231009...
 * 2023-10-09 - 分页提示优化，例如：第1页，共10页
 * 2023-10-09 - 优化账号管理，对应的角色显示为中文操作
