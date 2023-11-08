@@ -154,10 +154,10 @@ public class ChartItems extends AbstractEntity {
      * 标题位置
      * private DataAlignEnum titleAlign;
      * <p>
-     * 数据项位置
+     * 图表数据项标签位置
      * private DataTopEnum legendTop;
      * <p>
-     * 数据项对齐
+     * 图表数据项标签对齐
      * private DataAlignEnum legendAlign;
      ***/
     private String itemsStyle;
@@ -183,14 +183,14 @@ public class ChartItems extends AbstractEntity {
     private DataAlignEnum titleAlign = DataAlignEnum.center;
 
     /**
-     * 数据项位置
+     * 图表数据项标签位置
      **/
     @Transient
     @Enumerated(EnumType.STRING)
     private DataTopEnum legendTop = DataTopEnum.top;
 
     /**
-     * 数据项对齐
+     * 图表数据项标签对齐
      **/
     @Transient
     @Enumerated(EnumType.STRING)

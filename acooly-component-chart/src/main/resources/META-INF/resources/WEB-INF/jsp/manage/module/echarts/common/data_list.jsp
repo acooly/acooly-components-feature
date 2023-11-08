@@ -211,7 +211,7 @@
         //动态模板html
         tableHtml = tableHtml + columnNameHtml + columnValueHtml + columnTotalValueHtml;
 
-        console.log("动态模板html---:" + tableHtml);
+        // console.log("动态模板html---:" + tableHtml);
 
         $("#container_" + chartItemId + "_dataList_table").append(tableHtml);
     }
