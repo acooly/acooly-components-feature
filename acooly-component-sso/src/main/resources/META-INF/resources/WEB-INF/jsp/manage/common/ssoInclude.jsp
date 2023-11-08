@@ -137,12 +137,12 @@
         <script src="/manage/assert/plugin/daterangepicker/daterangepicker_acooly.min.js"></script>
     </c:if>
     <!-- acooly -->
-    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.min.js?d=20231108" charset="utf-8"></script>
     <!-- 扩展script -->
     ${extendScripts}
     <script type="text/javascript">
         var contextPath = '';
-        $.acooly.system.init();
+        $.acooly.system.init('sso');
     </script>
 </head>
 <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">

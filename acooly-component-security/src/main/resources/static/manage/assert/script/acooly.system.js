@@ -419,10 +419,12 @@ let system_class = {
     user: system_user_class,
     resource: system_resource_class,
     config: {},
+    sso: false,
     username: null,     // 当前登录用户
     /** init */
-    init: function () {
+    init: function (sso) {
         //console.info("acooly framework init...")
+        if (sso) this.sso = true;
         // 全局基本配置
         this.globalSetting();
         // 加载全局配置
@@ -432,22 +434,42 @@ let system_class = {
 
     loadSecurityConfig: function () {
         var That = this;
-        $.ajax({
-            url: "/manage/system/init.html",
-            async: false,
-            success: function (data, textStatus) {
-                if (typeof (data) == 'string') {
-                    data = eval('(' + data + ')');
+        // 临时处理
+        if (this.sso) {
+            //如果是SSO，则访问非认证的获取配置的接口
+            $.ajax({
+                url: "/security/config/index.html",
+                async: false,
+                success: function (data, textStatus) {
+                    if (typeof (data) == 'string') {
+                        data = eval('(' + data + ')');
+                    }
+                    That.config = data;
+                    var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
+                    if (acoolyTheme) {
+                        $.acooly.admin.init();
+                    }
                 }
-                That.config = data.data.config;
-                That.username = data.data.username;
-                var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
-                if (acoolyTheme) {
-                    $.acooly.admin.init();
+            });
+        } else {
+            $.ajax({
+                url: "/manage/system/init.html",
+                async: false,
+                success: function (data, textStatus) {
+                    if (typeof (data) == 'string') {
+                        data = eval('(' + data + ')');
+                    }
+                    That.config = data.data.config;
+                    That.username = data.data.username;
+                    var acoolyTheme = $.acooly.admin.theme.getTheme($.acooly.admin.theme.acoolyThemeKey);
+                    if (acoolyTheme) {
+                        $.acooly.admin.init();
+                    }
                 }
-            }
-        });
+            });
+        }
     },
+
 
     /** 全局配置 */
     globalSetting: function () {
@@ -465,7 +487,8 @@ let system_class = {
         $(document).ajaxSend(function (e, xhr, options) {
             xhr.setRequestHeader("X-CSRF-TOKEN", token);// 每次ajax提交请求都会加入此token
         });
-    },
+    }
+    ,
 
     /** 获取当前的csrf-token */
     getCSRFToken: function () {

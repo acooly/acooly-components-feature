@@ -229,7 +229,7 @@
     <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.inputmask.js"></script>
 <#else>
-    <script src="/manage/assert/script/acooly.min.js?d=202311072" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.min.js?d=20231108" charset="utf-8"></script>
 </#if>
 
 <!-- 通过配置扩展script -->
@@ -238,7 +238,6 @@ ${extendScripts}
     var contextPath = '';
     $(function () {
         var acoolyTheme = '${acoolyTheme}';
-        var username = '${user.username}';
         if (acoolyTheme == '') {
             acoolyTheme = 'acooly';
         }

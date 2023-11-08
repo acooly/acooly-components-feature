@@ -172,7 +172,7 @@
         $(function () {
             $.acooly.framework.initPage('manage_customer_searchform', 'manage_customer_datagrid');
             // 初始化日期段选择控件（注意：需要在配置`acooly.framework.plugin.date-range-picker=true`）
-            $.acooly.daterangepicker.init();
+            // $.acooly.daterangepicker.init();
         });
     </script>
 </div>

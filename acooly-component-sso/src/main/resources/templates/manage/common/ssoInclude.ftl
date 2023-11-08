@@ -53,7 +53,7 @@
             font-size: ${securityConfig.fontSize}px;
         }
 
-        body, .l-btn-text,.panel-body, .tableForm, .editForm {
+        body, .l-btn-text, .panel-body, .tableForm, .editForm {
             font-size: ${securityConfig.fontSize}px;
         }
 
@@ -68,9 +68,18 @@
         body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
             margin-left: ${securityConfig.mainSidebarWidth}px;
         }
-        .tree-title { font-size: ${securityConfig.fontSize}px;}
-        .layout-fixed .brand-link { width: ${securityConfig.mainSidebarWidth}px;}
-        .ac-logo-title { font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;}
+
+        .tree-title {
+            font-size: ${securityConfig.fontSize}px;
+        }
+
+        .layout-fixed .brand-link {
+            width: ${securityConfig.mainSidebarWidth}px;
+        }
+
+        .ac-logo-title {
+            font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;
+        }
     </style>
 
     <script src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js"></script>
@@ -138,12 +147,12 @@
         <script src="/manage/assert/plugin/daterangepicker/daterangepicker_acooly.min.js"></script>
     </#if>
     <!-- acooly -->
-    <script src="/manage/assert/script/acooly.min.js" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.min.js?d=20231108" charset="utf-8"></script>
     <!-- 扩展script -->
     ${extendScripts}
     <script type="text/javascript">
         var contextPath = '';
-        $.acooly.system.init();
+        $.acooly.system.init('sso');
     </script>
 </head>
 <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#ecf0f5;text-align :center;padding-top:20%;">
