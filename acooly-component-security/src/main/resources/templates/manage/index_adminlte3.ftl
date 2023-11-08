@@ -146,7 +146,7 @@
                     </a>
                     <a href="/manage/index.html?acoolyTheme=paiggio" class="dropdown-item<#if acoolyTheme='paiggio'> active</#if>">
                         <i class="fa fa-product-hunt fa-lg mr-2"></i> 蓝色天空
-                        <span class="float-right text-sm">Paiggio</span>
+                        <span class="float-right text-sm">BlueSky</span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="/manage/index.html?acoolyTheme=easyui" class="dropdown-item">
@@ -198,7 +198,7 @@
                             <ul class="nav nav-treeview">
                                 <#list favorites as e2>
                                     <li class="nav-item">
-                                        <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.rescName}',value:'${e2.rescValue}',showMode:'${e2.showMode}',icon:'${e2.rescIcon}',rescId:'${e2.rescId}'})" class="nav-link" style="padding-left: 0.5rem;">
+                                        <a href="javascript:;" id="nav-item-link_${e2.rescId}" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.rescName}',value:'${e2.rescValue}',showMode:'${e2.showMode}',icon:'${e2.rescIcon}',rescId:'${e2.rescId}'})" class="nav-link" style="padding-left: 0.5rem;">
                                             <i class="nav-icon fa ${e2.rescIcon }"></i>
                                             <p>${e2.rescName}</p>
                                         </a>
@@ -232,7 +232,7 @@
                                                 <ul class="nav nav-treeview">
                                                     <#list e2.children as e3>
                                                         <li class="nav-item">
-                                                            <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}',rescId:'${e3.id}'})" class="nav-link" style="padding-left: 0.5rem;">
+                                                            <a href="javascript:;" id="nav-item-link_${e3.id}" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}',rescId:'${e3.id}'})" class="nav-link" style="padding-left: 0.5rem;">
                                                                 <#if e3.iconSkin??><i class="nav-icon fa ${e3.iconSkin}"></i><#else><span class="line-action ${e3.icon}"></span></#if><p>${e3.name}</p></a>
                                                         </li>
                                                     </#list>
@@ -240,7 +240,7 @@
                                             </li>
                                         <#else>
                                             <li class="nav-item">
-                                                <a href="javascript:;" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}',rescId:'${e2.id}'})" class="nav-link" style="padding-left: 0.5rem;">
+                                                <a href="javascript:;" id="nav-item-link_${e2.id}" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}',rescId:'${e2.id}'})" class="nav-link" style="padding-left: 0.5rem;">
                                                     <#if e2.iconSkin??><i class="nav-icon fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>
                                                     <p>${e2.name}</p>
                                                 </a>

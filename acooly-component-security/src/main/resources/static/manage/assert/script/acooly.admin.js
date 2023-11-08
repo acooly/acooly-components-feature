@@ -74,7 +74,7 @@
             }
 
             // adminlte3: 注册点击主菜单（.nav-link）的选中效果(.active)
-            if ($('sidebar').length > 0) {
+            if ($('.sidebar').length > 0) {
                 $(document).on("click", '.sidebar .nav .nav-link', function (e) {
                     // 选择效果
                     $(".nav .nav-link").removeClass("active");
@@ -93,6 +93,31 @@
                 $.acooly.layout.loadMenu();
                 $.acooly.layout.loadTree();
             }
+        },
+
+        /**
+         * 选中菜单
+         * @param rescId
+         */
+        selectedMenu: function (rescId) {
+            let menuItemIdPrefix = 'nav-item-link_';
+            // 选择效果和级联选择
+            $(".sidebar .nav .nav-link").removeClass("active");
+            let menuItem = $('#' + menuItemIdPrefix + rescId);
+            $(menuItem).addClass("active");
+            var e = $(menuItem).parent();
+            while (e && e.parent() && e.attr('class') && e.attr('class').indexOf('nav-sidebar') == -1) {
+                e.parent().prev().addClass("active");
+                e = e.parent();
+            }
+            // 自动滚动到选中的位置
+            let posi = document.getElementById(menuItemIdPrefix + rescId);
+            posi.scrollIntoView({
+                behavior: "auto",
+                block: "start",
+                inline: "start"
+            });
+
         },
 
         /**
@@ -220,6 +245,7 @@
                     var options = tab.panel('options');
                     if (options.rescId) {
                         $.acooly.admin.favorite.show(options.rescId);
+                        $.acooly.admin.selectedMenu(options.rescId);
                     }
                 },
                 tools: tabs_tools
