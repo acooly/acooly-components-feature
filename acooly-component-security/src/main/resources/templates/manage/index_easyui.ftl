@@ -26,7 +26,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
     <!-- easyui控件 -->
-    <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/bootstrap/easyui.css" type="text/css"/>
+    <link id="easyuiTheme" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/default/easyui.css" type="text/css"/>
     <link id="easyuiThemeBasic" rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/default/basic.css">
     <link rel="stylesheet" type="text/css" href="/manage/assert/style/icon.css">
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/icon.css" type="text/css"/>

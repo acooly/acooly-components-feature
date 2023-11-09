@@ -125,10 +125,9 @@
 
             // easyui
             if ($('#mainLayout').length > 0) {
-                // 以parentId来选择顶部主菜单
-                let parentId = options.parentId;
-
-                $.acooly.layout.loadTree(parentId)
+                if($.acooly.layout.selectedMenu && $.acooly.layout.selectedMenu.id != options.menuId){
+                    $.acooly.layout.loadTree(options.menuId)
+                }
                 var zTree = $.fn.zTree.getZTreeObj("layout_west_tree");
                 var node = zTree.getNodeByParam("id", options.rescId);
                 zTree.selectNode(node);

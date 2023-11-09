@@ -25,8 +25,15 @@
                                     treeNodes[i]["parentId"] = "0";
                                 }
                                 var favoriteMenu = {
-                                    id: '0', icon: 'fa-star-o', iconSkin: 'fa-star-o',
-                                    name: '收藏夹', orderTime: '2099-05-19 15:14:26', showMode: 1, showState: 0, type: 'MENU', value: '',
+                                    id: '0',
+                                    icon: 'fa-star-o',
+                                    iconSkin: 'fa-star-o',
+                                    name: '收藏夹',
+                                    orderTime: '2099-05-19 15:14:26',
+                                    showMode: 1,
+                                    showState: 0,
+                                    type: 'MENU',
+                                    value: '',
                                     children: treeNodes
                                 }
                                 data.unshift(favoriteMenu);
@@ -37,6 +44,10 @@
                         $(data).each(
                             function (i, domEle) {
                                 if (domEle.children && domEle.children.length > 0) {
+                                    // 遍历树形结构，设置主菜单ID
+                                    $.acooly.layout._treeForeach(domEle, function (node) {
+                                        node['menuId'] = domEle.id;
+                                    });
                                     $.acooly.layout.menus.push(domEle);
 
                                     if (domEle.iconSkin != null) {
@@ -60,6 +71,15 @@
                 });
             },
 
+            _treeForeach: function (tree, func) {
+                if (tree && tree.children && tree.children.length > 0) {
+                    for (let i in tree.children) {
+                        let data = tree.children[i];
+                        func(data);
+                        data.children && data.children.length > 0 && $.acooly.layout._treeForeach(data, func) // 遍历子树
+                    }
+                }
+            },
 
             /**
              * 显示子菜单
@@ -124,7 +144,7 @@
                 var opts = {
                     rescId: node.rescId,
                     title: node.name,
-                    parentId: node.parentId, // easyui专用
+                    menuId: node.menuId, // easyui专用
                     closable: true,
                     iconCls: node.icon != null && node.icon.indexOf("fa") != -1 ? "fa " + node.icon : node.icon
                 };
