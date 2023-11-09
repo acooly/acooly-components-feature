@@ -132,10 +132,12 @@
         var titleColor = chartItemsParams.titleColor;
         var titleAlign = chartItemsParams.titleAlign;
         var legendTop = chartItemsParams.legendTop;
+        var legendLabelShow = chartItemsParams.legendLabelShow;
         if (legendTop == 'top') {
             legendTop = '5%';
         }
         var legendAlign = chartItemsParams.legendAlign;
+        var legendLabelShow = chartItemsParams.legendLabelShow;
 
 		//上：'top', 中：'middle',下： 'bottom'
 		//左：'left', 中：'center', 下：'right'
@@ -175,6 +177,7 @@
                 }
             },
             visualMap: {
+                show: legendLabelShow,
                 min: minNum,
                 max: maxNum,
 // 	                type: 'piecewise',
@@ -187,8 +190,7 @@
                 text: ['高', '低'],
                 inRange: {
                     color: ['#e0ffff', '#006edd'],
-                },
-                show: true
+                }
             },
             geo: {
                 map: 'china',

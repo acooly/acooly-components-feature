@@ -116,6 +116,7 @@
 			var titleColor = chartItemsParams.titleColor;
 			var titleAlign = chartItemsParams.titleAlign;
 			var legendTop = chartItemsParams.legendTop;
+			var legendLabelShow = chartItemsParams.legendLabelShow;
 			if(legendTop=='top'){
 				legendTop='5%';
 			}
@@ -138,6 +139,7 @@
 					trigger : 'axis'
 				},
 				legend : {
+					show:legendLabelShow,
 					//上：'top', 中：'middle',下： 'bottom'
 					top: legendTop,
 					//左：'left', 中：'center', 下：'right'

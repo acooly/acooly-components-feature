@@ -70,7 +70,19 @@
                             </c:forEach>
                         </select>
                         &nbsp;&nbsp;
-                        显示数据值：
+                        显示：
+                        <select name="legendLabelShow" editable="false" style="height:27px;" panelHeight="auto"
+                                class="easyui-combobox">
+                            <c:forEach items="${allIsShows}" var="e">
+                                <option value="${e.key}">${e.value}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>显示数据值：：</th>
+                    <td>
                         <select name="isShow" editable="false" style="height:27px;" panelHeight="auto"
                                 class="easyui-combobox">
                             <c:forEach items="${allIsShows}" var="e">
@@ -494,7 +506,7 @@
         for (var i = 0; i < sortedKeys.length; i++) {
             sortedObj[sortedKeys[i]] = json[sortedKeys[i]];
         }
-        console.log("排序后："+JSON.stringify(sortedObj));
+        console.log("排序后：" + JSON.stringify(sortedObj));
         return sortedObj;
     }
 

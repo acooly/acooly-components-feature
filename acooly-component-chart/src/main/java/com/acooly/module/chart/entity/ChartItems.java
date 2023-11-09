@@ -82,7 +82,7 @@ public class ChartItems extends AbstractEntity {
     /**
      * 数据缓存时间
      */
-    private long dataCacheTime=0L;
+    private long dataCacheTime = 0L;
 
     /**
      * 高
@@ -159,6 +159,8 @@ public class ChartItems extends AbstractEntity {
      * <p>
      * 图表数据项标签对齐
      * private DataAlignEnum legendAlign;
+     * 是否显示
+     * legendLabelShow
      ***/
     private String itemsStyle;
 
@@ -195,6 +197,11 @@ public class ChartItems extends AbstractEntity {
     @Transient
     @Enumerated(EnumType.STRING)
     private DataAlignEnum legendAlign = DataAlignEnum.left;
+
+
+    @Transient
+    @Enumerated(EnumType.STRING)
+    private DataShowEnum legendLabelShow = DataShowEnum.YES;
 
 
     public DataShowEnum getTitleShow() {
@@ -240,6 +247,18 @@ public class ChartItems extends AbstractEntity {
             return DataAlignEnum.find(legendAlignStr);
         }
         return legendAlign;
+    }
+
+    public DataShowEnum getLegendLabelShow() {
+        JSONObject itemsStyle = getItemsStyleJson();
+        if (itemsStyle != null) {
+            Object legendLabelShowObject = itemsStyle.get("legendLabelShow");
+            if (legendLabelShowObject != null) {
+                String legendLabelShowStr = legendLabelShowObject.toString();
+                return DataShowEnum.find(legendLabelShowStr);
+            }
+        }
+        return legendLabelShow;
     }
 
     public JSONObject getItemsStyleJson() {

@@ -170,12 +170,16 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
         String legendTop = request.getParameter("legendTop");
         //图表数据项标签对齐
         String legendAlign = request.getParameter("legendAlign");
+        //图表数据项标签-显示
+        String legendLabelShow = request.getParameter("legendLabelShow");
+
         Map<String, String> itemsStyleMap = Maps.newHashMap();
         itemsStyleMap.put("titleShow", titleShow);
         itemsStyleMap.put("titleColor", titleColor);
         itemsStyleMap.put("titleAlign", titleAlign);
         itemsStyleMap.put("legendTop", legendTop);
         itemsStyleMap.put("legendAlign", legendAlign);
+        itemsStyleMap.put("legendLabelShow", legendLabelShow);
         String itemsStyleJson = JSON.toJSON(itemsStyleMap).toString();
         entity.setItemsStyle(itemsStyleJson);
 

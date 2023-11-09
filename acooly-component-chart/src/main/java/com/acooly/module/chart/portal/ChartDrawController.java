@@ -222,6 +222,7 @@ public class ChartDrawController extends AbstractJsonEntityController {
         params.put("titleAlign",chartItems.getTitleAlign().getCode());
         params.put("legendTop",chartItems.getLegendTop());
         params.put("legendAlign",chartItems.getLegendAlign());
+        params.put("legendLabelShow",chartItems.getLegendLabelShow().isFlag());
         result.appendData("chartItemsParams", JSON.toJSON(params));
 
         // 元数据
