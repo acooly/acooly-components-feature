@@ -99,24 +99,39 @@
          * 选中菜单
          * @param rescId
          */
-        selectedMenu: function (rescId) {
-            let menuItemIdPrefix = 'nav-item-link_';
-            // 选择效果和级联选择
-            $(".sidebar .nav .nav-link").removeClass("active");
-            let menuItem = $('#' + menuItemIdPrefix + rescId);
-            $(menuItem).addClass("active");
-            var e = $(menuItem).parent();
-            while (e && e.parent() && e.attr('class') && e.attr('class').indexOf('nav-sidebar') == -1) {
-                e.parent().prev().addClass("active");
-                e = e.parent();
+        selectedMenu: function (options) {
+            // adminlte3
+            if ($('.sidebar').length > 0) {
+                // 以rescId来选择左侧主菜单
+                let rescId = options.rescId;
+                let menuItemIdPrefix = 'nav-item-link_';
+                // 选择效果和级联选择
+                $(".sidebar .nav .nav-link").removeClass("active");
+                let menuItem = $('#' + menuItemIdPrefix + rescId);
+                $(menuItem).addClass("active");
+                var e = $(menuItem).parent();
+                while (e && e.parent() && e.attr('class') && e.attr('class').indexOf('nav-sidebar') == -1) {
+                    e.parent().prev().addClass("active");
+                    e = e.parent();
+                }
+                // 自动滚动到选中的位置
+                let posi = document.getElementById(menuItemIdPrefix + rescId);
+                posi.scrollIntoView({
+                    behavior: "auto",
+                    block: "start",
+                    inline: "start"
+                });
             }
-            // 自动滚动到选中的位置
-            let posi = document.getElementById(menuItemIdPrefix + rescId);
-            posi.scrollIntoView({
-                behavior: "auto",
-                block: "start",
-                inline: "start"
-            });
+
+            // easyui
+            if ($('#mainLayout').length > 0) {
+                if($.acooly.layout.selectedMenu && $.acooly.layout.selectedMenu.id != options.menuId){
+                    $.acooly.layout.loadTree(options.menuId)
+                }
+                var zTree = $.fn.zTree.getZTreeObj("layout_west_tree");
+                var node = zTree.getNodeByParam("id", options.rescId);
+                zTree.selectNode(node);
+            }
 
         },
 
@@ -245,7 +260,7 @@
                     var options = tab.panel('options');
                     if (options.rescId) {
                         $.acooly.admin.favorite.show(options.rescId);
-                        $.acooly.admin.selectedMenu(options.rescId);
+                        $.acooly.admin.selectedMenu(options);
                     }
                 },
                 tools: tabs_tools
