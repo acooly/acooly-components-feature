@@ -21,6 +21,9 @@
                             // 如果存在收藏夹的数据，则构建收藏夹菜单
                             var treeNodes = $.acooly.admin.favorite.getTreeNodes();
                             if (treeNodes && treeNodes.length > 0) {
+                                for (let i = 0; i < treeNodes.length; i++) {
+                                    treeNodes[i]["parentId"] = "0";
+                                }
                                 var favoriteMenu = {
                                     id: '0', icon: 'fa-star-o', iconSkin: 'fa-star-o',
                                     name: '收藏夹', orderTime: '2099-05-19 15:14:26', showMode: 1, showState: 0, type: 'MENU', value: '',
@@ -121,6 +124,7 @@
                 var opts = {
                     rescId: node.rescId,
                     title: node.name,
+                    parentId: node.parentId, // easyui专用
                     closable: true,
                     iconCls: node.icon != null && node.icon.indexOf("fa") != -1 ? "fa " + node.icon : node.icon
                 };
