@@ -115,12 +115,12 @@
                     e = e.parent();
                 }
                 // 自动滚动到选中的位置
-                let posi = document.getElementById(menuItemIdPrefix + rescId);
-                posi.scrollIntoView({
-                    behavior: "auto",
-                    block: "start",
-                    inline: "start"
-                });
+                // let posi = document.getElementById(menuItemIdPrefix + rescId);
+                // posi.scrollIntoView({
+                //     behavior: "auto",
+                //     block: "start",
+                //     inline: "start"
+                // });
             }
 
             // easyui
