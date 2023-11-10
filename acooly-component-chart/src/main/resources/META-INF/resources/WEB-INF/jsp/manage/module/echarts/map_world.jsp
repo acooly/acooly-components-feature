@@ -142,11 +142,34 @@
         var myChart = echarts.init(dom);
         option = null;
         option = {
+
+            // tooltip: {
+            //     triggerOn: 'mousemove', // 触发方式为鼠标移动到地图上时显示 tooltip
+            //     position: 'top-left', // tooltip 的位置在地图的左上角
+            //     formatter: function (params) { // tooltip 的数据格式化函数
+            //         var data = params.data || {}; // 获取当前鼠标悬停的数据项
+            //         return data.name + ' : ' + data.value; // 在 tooltip 中显示数据项的名称和值
+            //     },
+            //     axisPointer: { // 设置轴指示器的样式和行为
+            //         type: 'shadow' // 使用阴影类型指示器
+            //     }
+            // },
+
             //悬浮
             tooltip: {
                 show: true,
                 backgroundColor: "rgba(50,50,50,0.8)", //设置背景图片 rgba格式
                 color: "black",
+                // position: ['50%', '50%'],
+                // position: function (pos, params, dom, rect, size) {
+                //     // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+                //     var obj = {top: 60};
+                //     obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+                //     return obj;
+                // },
+                position:function(p){   //其中p为当前鼠标的位置
+                    return [p[0] + 15, p[1] - 60];
+                },
                 borderWidth: "1", //边框宽度设置1
                 borderColor: "gray", //设置边框颜色
                 textStyle: {
