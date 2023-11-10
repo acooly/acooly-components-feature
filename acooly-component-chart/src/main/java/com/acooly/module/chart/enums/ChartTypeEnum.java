@@ -33,7 +33,9 @@ public enum ChartTypeEnum implements Messageable {
 	annular("annular", "环形图"),
 
 	map_China("map_China", "中国地图"),
-	
+
+	map_world("map_world", "世界地图"),
+
 	;
 
 	private final String code;

@@ -105,13 +105,14 @@ public class ChartDrawController extends AbstractJsonEntityController {
 
     /**
      * /manage/module/echarts/world.html
+     *
      * @param request
      * @param response
      * @param model
      * @return
      */
     @RequestMapping(value = "world")
-    public String world( HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String world(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "/manage/module/echarts/map_world";
     }
 
@@ -189,7 +190,7 @@ public class ChartDrawController extends AbstractJsonEntityController {
      * @param model
      * @return
      */
-    @RequestMapping(value = {"charData_line_{chartItemId}", "charData_bar_{chartItemId}", "charData_pie_{chartItemId}", "charData_annular_{chartItemId}", "charData_bar_stack_{chartItemId}", "charData_map_China_{chartItemId}"})
+    @RequestMapping(value = {"charData_line_{chartItemId}", "charData_bar_{chartItemId}", "charData_pie_{chartItemId}", "charData_annular_{chartItemId}", "charData_bar_stack_{chartItemId}", "charData_map_China_{chartItemId}", "charData_map_world_{chartItemId}"})
     @ResponseBody
     public JsonResult charData(@PathVariable("chartItemId") String chartItemId, HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -208,7 +209,7 @@ public class ChartDrawController extends AbstractJsonEntityController {
         // 动态拼装sql
         sql = assembleSql(request, sql);
 
-        List<Map<String, Object>> dbData = chartDataQueryService.querySql(sql,chartItems.getId(),chartItems.getDataCacheTime());
+        List<Map<String, Object>> dbData = chartDataQueryService.querySql(sql, chartItems.getId(), chartItems.getDataCacheTime());
 
         // x轴，y轴 赋值
         ShaftDataDto shaftDataDto = chartDataAnalyseService.shaftDataAnalyse(chartItems.getTitle(), chartItems.getxShaft(), chartItems.getyShaft(), dbData);
@@ -217,11 +218,12 @@ public class ChartDrawController extends AbstractJsonEntityController {
         // 图表参数设置
         Map<String, Object> params = Maps.newHashMap();
         params.put("isShow", chartItems.getIsShow().code());
-        params.put("titleColor",chartItems.getTitleColor());
-        params.put("titleShow",chartItems.getTitleShow().isFlag());
-        params.put("titleAlign",chartItems.getTitleAlign().getCode());
-        params.put("legendTop",chartItems.getLegendTop());
-        params.put("legendAlign",chartItems.getLegendAlign());
+        params.put("titleColor", chartItems.getTitleColor());
+        params.put("titleShow", chartItems.getTitleShow().isFlag());
+        params.put("titleAlign", chartItems.getTitleAlign().getCode());
+        params.put("legendTop", chartItems.getLegendTop());
+        params.put("legendAlign", chartItems.getLegendAlign());
+        params.put("legendLabelShow", chartItems.getLegendLabelShow().isFlag());
         result.appendData("chartItemsParams", JSON.toJSON(params));
 
         // 元数据
@@ -265,7 +267,7 @@ public class ChartDrawController extends AbstractJsonEntityController {
             ChartItems chartItems = chartItemsService.get(chartItemId);
             ChartData chartData = chartDataService.findChartDataByItemsId(chartItems.getId());
             String sql = chartData.getSqlData();
-            List<Map<String, Object>> dbData = chartDataQueryService.querySql(sql,chartItems.getId(),chartItems.getDataCacheTime());
+            List<Map<String, Object>> dbData = chartDataQueryService.querySql(sql, chartItems.getId(), chartItems.getDataCacheTime());
             String fieldMappedJson = chartData.getFieldMapped();
             Map<String, String> meta = JSON.parseObject(fieldMappedJson, Map.class);
             result.appendData("listMeta", meta);
