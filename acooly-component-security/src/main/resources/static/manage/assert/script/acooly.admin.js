@@ -125,7 +125,7 @@
 
             // easyui
             if ($('#mainLayout').length > 0) {
-                if($.acooly.layout.selectedMenu && $.acooly.layout.selectedMenu.id != options.menuId){
+                if ($.acooly.layout.selectedMenu && $.acooly.layout.selectedMenu.id != options.menuId) {
                     $.acooly.layout.loadTree(options.menuId)
                 }
                 var zTree = $.fn.zTree.getZTreeObj("layout_west_tree");
@@ -253,14 +253,13 @@
                     }).data('tabTitle', title);
                 },
                 onSelect: function (title, index) {
-                    if (!$.acooly.system.config.enableFavorite) {
-                        return
-                    }
                     var tab = $('#layout_center_tabs').tabs('getTab', index);
                     var options = tab.panel('options');
-                    if (options.rescId) {
+                    // 选中tab时，同步选中主菜单
+                    $.acooly.admin.selectedMenu(options);
+                    // 收藏夹状态同步
+                    if ($.acooly.system.config.enableFavorite && options.rescId) {
                         $.acooly.admin.favorite.show(options.rescId);
-                        $.acooly.admin.selectedMenu(options);
                     }
                 },
                 tools: tabs_tools
