@@ -150,9 +150,9 @@ CREATE TABLE `sys_org`
   DEFAULT CHARSET = utf8mb4 COMMENT ='组织机构';
 
 
-INSERT INTO `sys_org`(`id`, `parent_id`, `name`, `username`,`status`, `province`, `city`, `county`, `mobile_no`, `address`,
+INSERT INTO `sys_org`(`id`, `parent_id`, `name`, `username`,`status`, `province`, `city`, `county`, `mobile_no`, `address`,`sort_time`,
                       `contacts`, `telephone`, `email`, `create_time`, `update_time`, `memo`)
-VALUES (1, 0, 'acooly', 'admin', 'valid', '重庆市', '重庆市', '渝北区', '13896177630', '重庆渝北', '张浦', '',
+VALUES (1, 0, 'acooly', 'admin', 'valid', '重庆市', '重庆市', '渝北区', '13896177630', '重庆渝北','12341234', '张浦', '',
         'zhangpu@acooly.cn', '2019-02-21 18:05:36', '2019-02-21 18:05:36', 'dev');
 
 insert into `sys_resource` (id, `parentid`, `name`, `type`, `value`, `show_state`, `show_mode`, `order_time`, `icon`,
