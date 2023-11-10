@@ -208,7 +208,6 @@
         <module>acooly-component-content-audit</module>
         <module>acooly-component-i18n</module>
         <module>acooly-component-rbac</module>
-        <module>acooly-component-cms-openapi</module>
     </modules>
 
     <build>
