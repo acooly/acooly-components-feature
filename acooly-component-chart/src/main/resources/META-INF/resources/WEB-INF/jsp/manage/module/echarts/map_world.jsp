@@ -53,6 +53,21 @@
             inRange: {
                 color: ['#e0ffff', '#006edd'],
             }
+            // inRange: {
+            //     color: [
+            //         "#313695",
+            //         "#4575b4",
+            //         "#74add1",
+            //         "#abd9e9",
+            //         "#e0f3f8",
+            //         "#ffffbf",
+            //         "#fee090",
+            //         "#fdae61",
+            //         "#f46d43",
+            //         "#d73027",
+            //         "#a50026",
+            //     ],
+            // }
         },
         // roam: false,
         // zoom: 5.50,
@@ -62,7 +77,7 @@
             left: '5',
             right: '5',
             // center: [117.98561551896913, 31.205000490896193],
-            zoom: 0.95,// 改变这个值的大小就可以了
+            zoom: 0.90,// 改变这个值的大小就可以了
             map: 'world',
             roam: false,
             itemStyle: {
@@ -150,7 +165,7 @@
                         "name": "瑞士", "value": 1000
                     },
                     {
-                        "name": "Poland", "value": 1
+                        "name": "俄罗斯", "value": 888
                     },
                     {
                         "name": "Chile", "value": 1
