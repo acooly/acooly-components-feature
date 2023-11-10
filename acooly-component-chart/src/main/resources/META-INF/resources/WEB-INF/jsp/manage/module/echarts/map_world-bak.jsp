@@ -1,120 +1,192 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Awesome-pyecharts</title>
     <!-- 下面两行的意思是，浏览器从网络上获取echart包，而不需要你配置任何编程环境  -->
-    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
-    <script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/world.js"></script>
-
+    <script type="text/javascript" src="/manage/assert/plugin/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/plugin/echarts/echarts.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/plugin/echarts/ext/map/echarts-map-worldZH.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/plugin/echarts/ext/echarts-auto-tooltip.js" charset="utf-8"></script>
 
 
 </head>
 <body>
 <!-- div标签表示一个块，它是我们的图片容器。所以属性style里 宽度和高度是可以自定义的，1800px代表1800像素，块的宽度和高度于生成图片的尺寸相关，在下面的饼状图中则同理。-->
-<div id="container" class="chart-container" style="width:1800px; height:1200px;"></div>
+<div id="container" style="width:100%; height:100%;"></div>
 <script>
-    //  所有的脚本代码都写在script标签里
-    var chart_container = echarts.init(
-        document.getElementById('container'), 'white', {renderer: 'canvas'});
-    // var option代表定义一个名为option的变量，后面花括号里的代表我们需要作图的参数设置
-    var option_container = {
-        // 默认的颜色数组 （如果不明确设置每个数据项的颜色，则会采用默认的数组
-        // 此处的颜色为十六进制表示，也可以使用rgb来表示。简单地理解就是一串字符就代表一个颜色，挑选喜欢的颜色可以自行搜索颜色
-        "color": ["#ac6767","#1d953f","#6950a1","#918597"],
-        "series": [
-            {
-                // 图标类型为 地图
-                "type": "map",
-                "name": "test",
-                "label": {
-                    "show": false,
-                    "position": "top",
-                    "margin": 8
+
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    option = null;
+    option = {
+        //悬浮
+        tooltip: {
+            show: true,
+            backgroundColor: "rgba(50,50,50,0.8)", //设置背景图片 rgba格式
+            color: "black",
+            borderWidth: "1", //边框宽度设置1
+            borderColor: "gray", //设置边框颜色
+            textStyle: {
+                color: "white" //设置文字颜色
+            },
+            formatter: function (params, ticket, callback) {
+                if (!isNaN(params.value)) {
+                    return params.name + ' ：' + params.value;
+                } else {
+                    return params.name + ' ：' + 0;
+                }
+            }
+        },
+        visualMap: {
+            show: legendLabelShow,
+            min: minNum,
+            max: maxNum,
+            // type: 'piecewise',
+            // splitNumber: 5,
+            // formatter: function (value) {                //标签的格式化工具。
+            //     return value;                   // 范围标签显示内容。
+            // },
+            // left: legendAlign,
+            // top: legendTop,
+            text: ['高', '低'],
+            inRange: {
+                color: ['#e0ffff', '#006edd'],
+            }
+            // inRange: {
+            //     color: [
+            //         "#313695",
+            //         "#4575b4",
+            //         "#74add1",
+            //         "#abd9e9",
+            //         "#e0f3f8",
+            //         "#ffffbf",
+            //         "#fee090",
+            //         "#fdae61",
+            //         "#f46d43",
+            //         "#d73027",
+            //         "#a50026",
+            //     ],
+            // }
+        },
+        // roam: false,
+        // zoom: 5.50,
+        // // 去除各个国家上的小红点
+        // showLegendSymbol: false,
+        geo: {
+            left: '5',
+            right: '5',
+            // center: [117.98561551896913, 31.205000490896193],
+            zoom: 0.90,// 改变这个值的大小就可以了
+            map: 'world',
+            roam: false,
+            itemStyle: {
+                normal: {
+                    //区域背景色
+                    borderColor: 'rgba(0, 0, 0.2, 0.5)'
                 },
-                "mapType": "world",  // 地图类型为 世界地图
-                // data里的每一个{}中，是一项数据整体，标明了该项数据的名称，值，以及颜色等参数。注意：此处的字符串需要加双引号""(输入法切换至英文状态)
-                "data": [
+                emphasis: {
+                    areaColor: '#F3B329',
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 0,
+                    shadowBlur: 20,
+                    borderWidth: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+            // itemStyle: {
+            //     normal: {
+            //         areaColor: '#B9C6D5FF',
+            //         borderColor: '#5C78AAFF',
+            //         //    fontSize:18
+            //     },
+            //     emphasis: {
+            //         areaColor: '#0A74AD7F'
+            //     }
+            // }
+        },
+        series: [
+            {
+                name: '',
+                type: 'map',
+                mapType: "world",
+                geoIndex: 0,
+                label: {
+                    show: false,
+                    // position: "top",
+                    // margin: 8,
+                    normal: {
+                        show: false,
+                        fontSize: '10',
+                        color: 'rgba(0,0,0,0.7)'
+                    }
+                },
+
+                data: [
                     {
                         // ItemStyle 中设置每一个数据项的颜色
-                        "name": "United States", "value": 43,
-                        'itemStyle':{'color':"#c23531"}
+                        "name": "中国", "value": 999
                     },
                     {
-                        "name": "Japan","value": 17, // 注意项与项之间的逗号
-                        'itemStyle':{'color':"#CD8500"}
+                        // ItemStyle 中设置每一个数据项的颜色
+                        "name": "美国", "value": 800
                     },
                     {
-                        "name": "France","value": 7,
-                        'itemStyle':{'color':"#EE2C2C"}
+                        "name": "日本", "value": 10
                     },
                     {
-                        "name": "Italy","value": 6,
-                        'itemStyle':{'color':"#918597"}
+                        "name": "法国", "value": 700
                     },
                     {
-                        "name": "Canada","value": 5,
-                        'itemStyle':{'color':"#bda29a"}
+                        "name": "意大利", "value": 60
                     },
                     {
-                        "name": "United Kingdom","value": 4,
-                        'itemStyle':{'color':"#6950a1"}
+                        "name": "加拿大", "value": 500
                     },
                     {
-                        "name": "Spain","value": 4,
-                        'itemStyle':{'color':"#1d953f"}
+                        "name": "United Kingdom", "value": 4
                     },
                     {
-                        "name": "Holland","value": 4,
-                        'itemStyle':{'color':"#2f4554"}
+                        "name": "Spain", "value": 4
                     },
                     {
-                        "name": "Belgium","value": 3,
-                        'itemStyle':{'color':"#EEAD0E"}
+                        "name": "智利", "value": 4
+                    },
+                    {
+                        "name": "阿根廷", "value": 123
                     }
-                    ,                    {
-                        "name": "Germany","value": 2,
-                        'itemStyle':{'color':"#607B8B"}
+                    , {
+                        "name": "德国", "value": 220
                     },
                     {
-                        "name": "Austria","value": 2,
-                        'itemStyle':{'color':"#5CACEE"}
+                        "name": "澳大利亚", "value": 200
                     },
                     {
-                        "name": "Switzerland","value": 1,
-                        'itemStyle':{'color':"#4EEE94"}
+                        "name": "瑞士", "value": 1000
                     },
                     {
-                        "name": "Poland","value": 1,
-                        'itemStyle':{'color':"#8DEEEE"}
+                        "name": "俄罗斯", "value": 888
                     },
                     {
-                        "name": "Chile","value": 1,
-                        'itemStyle':{'color':"#B23AEE"}
+                        "name": "Chile", "value": 1
                     },
-                ],
-                "roam": true,
-                "zoom": 1,
-                // 去除各个国家上的小红点
-                "showLegendSymbol": false,
+                ]
             }
-        ],
-
-        // 鼠标悬浮，单击产生的效果（在网页上可以动态显示）
-        "tooltip": {
-            "show": true,
-            "trigger": "item",
-            "triggerOn": "mousemove|click",
-            "axisPointer": {
-                "type": "line"
-            },
-            "textStyle": {
-                "fontSize": 14
-            },
-            "borderWidth": 0
-        }
+        ]
     };
-    chart_container.setOption(option_container);
+
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+        // if (chartItemsParams.isShow == 'YES') {
+        //数据轮播
+        // tools.closeTooltip();
+        tools.loopShowTooltip(myChart, option, {loopSeries: true});
+        // }
+        ;
+    }
+
+
+
 </script>
 </body>
 </html>
