@@ -104,6 +104,9 @@
             if ($('.sidebar').length > 0) {
                 // 以rescId来选择左侧主菜单
                 let rescId = options.rescId;
+                if(!rescId){
+                    return;
+                }
                 let menuItemIdPrefix = 'nav-item-link_';
                 // 选择效果和级联选择
                 $(".sidebar .nav .nav-link").removeClass("active");
@@ -115,12 +118,12 @@
                     e = e.parent();
                 }
                 // 自动滚动到选中的位置
-                let posi = document.getElementById(menuItemIdPrefix + rescId);
-                posi.scrollIntoView({
-                    behavior: "auto",
-                    block: "start",
-                    inline: "start"
-                });
+                // let posi = document.getElementById(menuItemIdPrefix + rescId);
+                // posi.scrollIntoView({
+                //     behavior: "auto",
+                //     block: "start",
+                //     inline: "start"
+                // });
             }
 
             // easyui
