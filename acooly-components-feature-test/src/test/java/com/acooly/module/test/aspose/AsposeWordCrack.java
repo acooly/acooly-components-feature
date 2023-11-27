@@ -18,11 +18,6 @@ import java.lang.reflect.Modifier;
  */
 @Slf4j
 public class AsposeWordCrack {
-
-    public static void main(String[] args) {
-        crack21_6();
-    }
-
     /**
      * 破解
      */

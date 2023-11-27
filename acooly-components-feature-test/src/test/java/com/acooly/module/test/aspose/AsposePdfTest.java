@@ -8,6 +8,8 @@
  */
 package com.acooly.module.test.aspose;
 
+import com.acooly.core.common.exception.BusinessException;
+import com.acooly.module.pdf.support.AsposePdfs;
 import com.aspose.words.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.Loader;
@@ -25,10 +27,7 @@ import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,8 +39,10 @@ import java.util.List;
 @Slf4j
 public class AsposePdfTest {
 
-    String wordFile = "/Users/zhangpu/temp/一号项目合规性验证结果.docx";
-    String pdfFile = "/Users/zhangpu/temp/a.pdf";
+    String wordFile = "/Users/zhangpu/temp/project.doc";
+    String excelFile = "/Users/zhangpu/temp/excel.xlsx";
+    String pdfFile = "/Users/zhangpu/temp/word.pdf";
+    String pdfExcelFile = "/Users/zhangpu/temp/excel.pdf";
 
     //移除文字水印
     public static boolean removeWatermark(File file) {
@@ -149,13 +150,16 @@ public class AsposePdfTest {
      */
     public static void setFontsSources() {
         String fontsDir = "/usr/share/fonts";
-//        fontsDir = "/System/Library/Fonts";
+        fontsDir = "/System/Library/Fonts";
+        fontsDir = "/Users/zhangpu/workspace/acooly/v5.2/acooly-components-feature/acooly-components-feature-test/src/main/resources/pdf/fonts";
+        fontsDir = "/Users/zhangpu/temp/fonts";
 
         //将用户目录字体添加到字体源中
         FontSourceBase[] originalFontSources = FontSettings.getDefaultInstance().getFontsSources();
         FolderFontSource folderFontSource = new FolderFontSource(fontsDir, true);
 
-        FontSourceBase[] updatedFontSources = {originalFontSources[0], folderFontSource};
+        // originalFontSources[0],
+        FontSourceBase[] updatedFontSources = {folderFontSource};
         FontSettings.getDefaultInstance().setFontsSources(updatedFontSources);
     }
 
@@ -183,14 +187,14 @@ public class AsposePdfTest {
         }
     }
 
+
     @Test
     public void testWordToPdf() {
         FileOutputStream os = null;
         try {
 
             AsposeWordCrack.crack21_6();
-            setFontsSources();
-
+//            setFontsSources();
             //生成一个空的PDF文件
             File file = new File(pdfFile);
             os = new FileOutputStream(file);
@@ -208,6 +212,20 @@ public class AsposePdfTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void testToPdf() {
+        String fontsDir = "/Users/zhangpu/temp/fonts";
+        AsposePdfs.wordToPdf(wordFile, pdfFile, fontsDir = "/Users/zhangpu/temp/fonts");
+    }
+
+    @Test
+    public void testToPdfWithStream() throws IOException{
+        String fontsDir = "/Users/zhangpu/temp/fonts";
+        InputStream is = new FileInputStream(new File(wordFile));
+        OutputStream os = new FileOutputStream(new File(pdfFile));
+        AsposePdfs.wordToPdf(is, os, fontsDir = "/Users/zhangpu/temp/fonts");
     }
 
 }
