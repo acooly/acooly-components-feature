@@ -21,7 +21,13 @@
             <groupId>com.aspose</groupId>
             <artifactId>aspose-words</artifactId>
             <version>21.6</version>
-            <type>pom</type>
+            <classifier>jdk17</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-words</artifactId>
+            <version>21.6</version>
+            <classifier>shaping-harfbuzz-plugin</classifier>
         </dependency>
 
         <dependency>
@@ -90,11 +96,4 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>AsposeJavaAPI</id>
-            <name>Aspose Java API</name>
-            <url>https://repository.aspose.com/repo/</url>
-        </repository>
-    </repositories>
 </project>
