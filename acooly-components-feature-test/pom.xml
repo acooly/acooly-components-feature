@@ -214,6 +214,12 @@
             <artifactId>acooly-component-pdf</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-pdf</artifactId>
+            <version>21.6</version>
+        </dependency>
+
 
 
         <!--        <dependency>-->
@@ -255,12 +261,12 @@
         </plugins>
     </build>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>AsposeJavaAPI</id>-->
-<!--            <name>Aspose Java API</name>-->
-<!--            <url>https://repository.aspose.com/repo/</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
+    <repositories>
+        <repository>
+            <id>AsposeJavaAPI</id>
+            <name>Aspose Java API</name>
+            <url>https://repository.aspose.com/repo/</url>
+        </repository>
+    </repositories>
 
 </project>
