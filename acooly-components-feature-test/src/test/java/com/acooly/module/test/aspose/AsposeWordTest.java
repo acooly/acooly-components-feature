@@ -102,18 +102,20 @@ public class AsposeWordTest {
     @Test
     public void testAddBookmarks() throws Exception {
         com.aspose.pdf.Document pdfDocument = new com.aspose.pdf.Document(pdfFilePath);
+        // Delete all bookmarks
+        pdfDocument.getOutlines().delete();
         // Create a bookmark object
         OutlineItemCollection pdfOutline = new OutlineItemCollection(pdfDocument.getOutlines());
         pdfOutline.setTitle("Test Outline");
-        pdfOutline.setItalic(true);
-        pdfOutline.setBold(true);
-
         // Set the destination page number
         pdfOutline.setAction(new GoToAction(pdfDocument.getPages().get_Item(2)));
-
+        // Create a child bookmark object
+        OutlineItemCollection pdfChildOutline = new OutlineItemCollection(pdfDocument.getOutlines());
+        pdfChildOutline.setTitle("Child Outline");
+        // Add child bookmark in parent bookmark's collection
+        pdfOutline.add(pdfChildOutline);
         // Add a bookmark in the document's outline collection.
         pdfDocument.getOutlines().add(pdfOutline);
-
         // Save the update document
         pdfDocument.save(pdfFilePath);
     }
