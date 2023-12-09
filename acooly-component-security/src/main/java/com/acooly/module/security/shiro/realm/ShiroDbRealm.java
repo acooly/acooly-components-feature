@@ -2,13 +2,13 @@ package com.acooly.module.security.shiro.realm;
 
 import com.acooly.core.common.boot.ApplicationContextHolder;
 import com.acooly.core.utils.Encodes;
-import com.acooly.core.utils.mapper.BeanCopier;
 import com.acooly.module.security.config.FrameworkProperties;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.Resource;
 import com.acooly.module.security.domain.Role;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.service.UserService;
+import com.acooly.module.security.shiro.exception.DigestSignatureException;
 import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
@@ -163,26 +163,54 @@ public class ShiroDbRealm extends AuthorizingRealm {
     @Override
     protected void assertCredentialsMatch(AuthenticationToken token, AuthenticationInfo info)
             throws AuthenticationException {
-        if (securityProperties.getShiro().isEnableBlankSaltUseMd5Matcher()) {
-            if (info instanceof SimpleAuthenticationInfo) {
-                ByteSource credentialsSalt = ((SimpleAuthenticationInfo) info).getCredentialsSalt();
-                if (credentialsSalt == null) {
-                    Object credentials = info.getCredentials();
-                    String hashed =
-                            DigestUtils.md5DigestAsHex(
-                                    new String((char[]) token.getCredentials()).getBytes(Charsets.UTF_8));
-                    if (credentials.equals(hashed)) {
-                        return;
-                    } else {
-                        String msg =
-                                "Submitted credentials for token ["
-                                        + token
-                                        + "] did not match the expected credentials.";
-                        throw new IncorrectCredentialsException(msg);
+        // 根据token类型进行处理
+        if (token instanceof DigestSignatureToken) {
+            // 如果是DigestSignatureToken，做数字签名认证
+            DigestSignatureToken dsToken = (DigestSignatureToken) token;
+            // 获取数字签名配置
+            SecurityProperties.SignLogin signLogin = securityProperties.getSignLogin();
+            if (!signLogin.isEnable()) {
+                logger.warn("签名登录 未开启数字签名登录功能：token={}", dsToken);
+                throw new DigestSignatureException("未开启数字签名登录功能");
+            }
+
+            // 验证签名
+            if (Strings.isNullOrEmpty(signLogin.getAccessKey()) ||
+                    Strings.isNullOrEmpty(signLogin.getSecretKey())
+                    || !dsToken.getAccessKey().equals(signLogin.getAccessKey())) {
+                logger.warn("签名登录 密钥未配置或不正确 token={}", dsToken);
+                throw new DigestSignatureException("密钥未配置或不正确");
+            }
+            String signClient = dsToken.getSign();
+            String waitForSign = "accessKey=" + dsToken.getAccessKey() + "&mobileNo=" + dsToken.getMobileNo() + "&timestamp=" + dsToken.getTimestamp() + signLogin.getSecretKey();
+            String signServer = DigestUtils.md5DigestAsHex(waitForSign.getBytes(Charsets.UTF_8));
+            if (!signServer.equals(signClient)) {
+                logger.warn("签名登录 数字签名认证失败：token={}", dsToken);
+                throw new DigestSignatureException("数字签名认证失败");
+            }
+            logger.info("签名登录 数字签名认证成功：token={}", dsToken);
+        } else {
+            if (securityProperties.getShiro().isEnableBlankSaltUseMd5Matcher()) {
+                if (info instanceof SimpleAuthenticationInfo) {
+                    ByteSource credentialsSalt = ((SimpleAuthenticationInfo) info).getCredentialsSalt();
+                    if (credentialsSalt == null) {
+                        Object credentials = info.getCredentials();
+                        String hashed =
+                                DigestUtils.md5DigestAsHex(
+                                        new String((char[]) token.getCredentials()).getBytes(Charsets.UTF_8));
+                        if (credentials.equals(hashed)) {
+                            return;
+                        } else {
+                            String msg =
+                                    "Submitted credentials for token ["
+                                            + token
+                                            + "] did not match the expected credentials.";
+                            throw new IncorrectCredentialsException(msg);
+                        }
                     }
                 }
             }
+            super.assertCredentialsMatch(token, info);
         }
-        super.assertCredentialsMatch(token, info);
     }
 }

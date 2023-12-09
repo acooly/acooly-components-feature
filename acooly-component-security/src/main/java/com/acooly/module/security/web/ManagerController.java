@@ -29,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static com.acooly.module.security.utils.jwts.SIGN_KEY;
@@ -55,10 +57,7 @@ import static com.acooly.module.security.utils.jwts.SIGN_KEY;
  */
 @Controller
 @RequestMapping(value = "/manage")
-@ConditionalOnProperty(
-        value = SecurityProperties.PREFIX + ".shiro.auth.enable",
-        matchIfMissing = true
-)
+@ConditionalOnProperty(value = SecurityProperties.PREFIX + ".shiro.auth.enable", matchIfMissing = true)
 @Olog.Ignore
 public class ManagerController extends AbstractJsonEntityController<User, UserService> {
 
@@ -190,6 +189,10 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
             if (Strings.equals(errorKey, "kickout")) {
                 model.addAttribute("message", "已有相同用户登录，强制注销。");
             }
+            String message = Servlets.getParameter("message");
+            if (Strings.isNotBlank(message)) {
+                model.addAttribute("message", message);
+            }
             return "/manage/login";
         }
     }
@@ -241,7 +244,7 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
 
     @RequestMapping(value = "onLoginFailure")
     @ResponseBody
-    public JsonResult onLoginFailure(HttpServletRequest request) {
+    public JsonResult onLoginFailure(HttpServletRequest request, HttpServletResponse response) {
         logger.debug("OnLoginFailure");
         // 获取Shiro的错误信息
         String obj = request.getParameter(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
@@ -256,6 +259,17 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
                 msg = "验证码错误";
             } else if ("org.apache.shiro.authc.AuthenticationException".equals(obj)) {
                 msg = message;
+            } else if ("com.acooly.module.security.shiro.exception.DigestSignatureException".equals(obj)) {
+                msg = "签名登录失败";
+                // 直接跳转到错误页面，不返回JSON数据
+                try {
+                    Map<String, String> quertParams = Maps.newHashMap();
+                    quertParams.put("message", msg + ": " + message);
+                    WebUtils.issueRedirect(request, response, "/manage/login.html", quertParams, true);
+                } catch (Exception e) {
+                    // ignore: 如果调整失败，则按原逻辑返回
+                }
+
             } else {
                 msg = message;
             }

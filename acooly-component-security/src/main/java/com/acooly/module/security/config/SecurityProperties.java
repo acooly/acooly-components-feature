@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import javax.validation.constraints.NotBlank;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,6 +57,9 @@ public class SecurityProperties {
      * Shiro会话相关配置
      */
     private Session session = new Session();
+
+    private SignLogin signLogin = new SignLogin();
+
 
     /**
      * 开启后shiro filter链都会设为不拦截，可在系统不需要任何授权、认证时开启
@@ -252,8 +256,34 @@ public class SecurityProperties {
         private int maxSessionPerUser = 1;
     }
 
-    public static enum SerializeType{
+    public static enum SerializeType {
         Jdk,
         Kryo
+    }
+
+    @Data
+    public static class SignLogin {
+        /**
+         * 是否启用,默认关闭
+         */
+        private boolean enable = false;
+        /**
+         * 标记系统名称
+         */
+        private String title = "A8";
+        /**
+         * 密钥：访问吗
+         */
+        @NotBlank
+        private String accessKey;
+        /**
+         * 密钥：安全码
+         */
+        @NotBlank
+        private String secretKey;
+        /**
+         * IP限制，可选，为空则不处理
+         */
+        private String allowIp;
     }
 }

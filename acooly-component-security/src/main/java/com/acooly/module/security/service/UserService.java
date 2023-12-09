@@ -19,10 +19,25 @@ public interface UserService extends EntityService<User> {
     /**
      * 根据登录名获取用户
      *
+     * @param username
      * @return
      */
     User findUserByUsername(String username);
 
+    /**
+     * 通过手机号码查找唯一的用户，如果有多个匹配，则返回第一个
+     *
+     * @param mobile
+     * @return
+     */
+    User findUserByMobile(String mobile);
+
+    /**
+     * 根据登录名获取用户
+     *
+     * @param username
+     * @return
+     */
     User getAndCheckUser(String username);
 
     /**

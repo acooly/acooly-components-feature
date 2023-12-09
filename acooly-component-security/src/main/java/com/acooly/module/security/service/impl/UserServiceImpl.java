@@ -3,6 +3,7 @@ package com.acooly.module.security.service.impl;
 import com.acooly.core.common.dao.support.PageInfo;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.common.service.EntityServiceImpl;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.Encodes;
 import com.acooly.module.security.config.FrameworkProperties;
@@ -41,6 +42,15 @@ public class UserServiceImpl extends EntityServiceImpl<User, UserDao> implements
     @Override
     public User findUserByUsername(String username) {
         return getEntityDao().findByUsername(username);
+    }
+
+    @Override
+    public User findUserByMobile(String mobile) {
+        List<User> users = getEntityDao().findByMobileNo(mobile);
+        if (Collections3.isEmpty(users)) {
+            return null;
+        }
+        return Collections3.getFirst(users);
     }
 
     @Override

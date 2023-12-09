@@ -13,8 +13,10 @@ import com.acooly.module.security.config.FrameworkPropertiesHolder;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
 import com.acooly.module.security.service.UserService;
+import com.acooly.module.security.shiro.exception.DigestSignatureException;
 import com.acooly.module.security.shiro.exception.InvaildCaptchaException;
 import com.acooly.module.security.shiro.listener.ShireLoginLogoutSubject;
+import com.acooly.module.security.shiro.realm.DigestSignatureToken;
 import com.acooly.module.security.utils.jwts;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,7 @@ import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -98,27 +101,30 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
                 throw new AuthenticationException("用户名或密码错误");
             }
 
-            // 密码强度验证
-            PasswordStrength passwordStrength = frameworkProperties.getPasswordStrength();
-            try {
-                passwordStrength.verify(new String((char[]) token.getCredentials()));
-            } catch (BusinessException be) {
-                log.error("Shiro认证 [失败] 密码强度认证未通过。强度要求: {}", passwordStrength);
-                throw new AuthenticationException(be.getMessage());
-            }
-
-            // 用户状态验证
-            User user = checkUserStatus(token, httpServletRequest);
-
-            //开启短信验证码
-            if (isLoginSmsEnable()) {
-                if (!checkSmsCaptcha()) {
-                    log.error("Shiro认证 [失败] 短信验证码验证未通过。");
-                    throw new InvaildCaptchaException("验证码错误.");
+            if (!(token instanceof DigestSignatureToken)) {
+                // 密码强度验证
+                PasswordStrength passwordStrength = frameworkProperties.getPasswordStrength();
+                try {
+                    passwordStrength.verify(new String((char[]) token.getCredentials()));
+                } catch (BusinessException be) {
+                    log.error("Shiro认证 [失败] 密码强度认证未通过。强度要求: {}", passwordStrength);
+                    throw new AuthenticationException(be.getMessage());
                 }
-            } else {
-                checkCaptcha(httpServletRequest);
+
+                // 用户状态验证
+                User user = checkUserStatus(token, httpServletRequest);
+
+                //开启短信验证码
+                if (isLoginSmsEnable()) {
+                    if (!checkSmsCaptcha()) {
+                        log.error("Shiro认证 [失败] 短信验证码验证未通过。");
+                        throw new InvaildCaptchaException("验证码错误.");
+                    }
+                } else {
+                    checkCaptcha(httpServletRequest);
+                }
             }
+
 
             // Web安全-会话标识未更新问题（shiro）：让旧session失效，这一句代码一定要放在登录验证的最前面
             SecurityUtils.getSubject().logout();
@@ -131,6 +137,53 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             shireLoginLogoutSubject.afterLogin(token, e, httpServletRequest, (HttpServletResponse) response);
             return onLoginFailure(token, e, httpServletRequest, response);
         }
+    }
+
+    @Override
+    protected boolean isLoginSubmission(ServletRequest request, ServletResponse response) {
+        String sign = request.getParameter("sign");
+        if (Strings.isNotBlank(sign)) {
+            return true;
+        }
+        return super.isLoginSubmission(request, response);
+    }
+
+    @Override
+    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
+
+        // 收集参数，签名认证：safety组件提供
+        String sign = request.getParameter("sign");
+        if (Strings.isNotBlank(sign)) {
+            String mobileNo = request.getParameter("mobileNo");
+            String accessKey = request.getParameter("accessKey");
+            String timestamp = request.getParameter("timestamp");
+
+            try {
+                Assert.hasText(mobileNo, "手机号码不能为空");
+                Assert.hasText(accessKey, "访问码不能为空");
+                Assert.hasText(timestamp, "时间磋不能为空,格式为：yyyyMMddHHmmss");
+            } catch (Exception e) {
+                log.error("签名认证 [失败] 参数不完整: {}", e.getMessage());
+                throw new DigestSignatureException("签名认证 [失败] 参数不完整, accessKey, mobileNo, timestamp和sign都不能为空", e);
+            }
+
+            // 通过手机号码查询用户
+            User user = userService.findUserByMobile(mobileNo);
+            if (user == null) {
+                log.error("签名认证 [失败] 用户不存在。mobileNo: {}", mobileNo);
+                throw new DigestSignatureException("手机号码对应的用户不存在，请确定该手机号码的用户已经注册。");
+            }
+            boolean rememberMe = isRememberMe(request);
+            String host = getHost(request);
+            DigestSignatureToken token = new DigestSignatureToken(mobileNo, accessKey, timestamp, sign);
+            token.setRememberMe(rememberMe);
+            token.setHost(host);
+            token.setUsername(user.getUsername());
+            return token;
+        } else {
+            return super.createToken(request, response);
+        }
+
     }
 
     protected User checkUserStatus(AuthenticationToken token, ServletRequest request) {
@@ -179,8 +232,8 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
      */
     private String setTargetUrlToSession() {
         String targetUrl = Servlets.getRequestParameter(jwts.KEY_TARGETURL);
-        targetUrl = Encodes.urlDecode(targetUrl);
         if (StringUtils.isNotBlank(targetUrl)) {
+            targetUrl = Encodes.urlDecode(targetUrl);
             Servlets.setSessionAttribute(jwts.KEY_TARGETURL, targetUrl);
         }
         return targetUrl;
@@ -225,7 +278,15 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
         String username = (String) token.getPrincipal();
         userService.clearLoginFailureCount(username);
         securityCaptchaManager.removeFirstVerify((HttpServletRequest) request);
-        return super.onLoginSuccess(token, subject, request, response);
+
+        if (token instanceof DigestSignatureToken) {
+            // 签名登录，直接跳转到/manage/index.html
+            WebUtils.issueRedirect(request, response, "/manage/index.html", null, true);
+        } else {
+            // 原有逻辑，跳转到controller并返回JSON对象给login.html
+            issueSuccessRedirect(request, response);
+        }
+        return false;
     }
 
     /**
@@ -243,22 +304,24 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e,
                                      ServletRequest request, ServletResponse response) {
         try {
-            securityCaptchaManager.setFirstVerify((HttpServletRequest) request);
-            String username = (String) token.getPrincipal();
-            User user = null;
-            if (!UnknownAccountException.class.isAssignableFrom(e.getClass())
-                    && Strings.isNotBlank(username)) {
-                user = userService.addLoginFailureCount(username);
-            }
             Map<String, String> queryParams = Maps.newHashMap();
             queryParams.put(getFailureKeyAttribute(), e.getClass().getName());
             queryParams.put("message", e.getMessage());
-            int lastTimes = FrameworkPropertiesHolder.get().getLoginLockErrorTimes();
-            if (user != null) {
-                lastTimes = lastTimes - user.getLoginFailTimes();
-            }
-            if (lastTimes > 0) {
-                queryParams.put("lastTimes", String.valueOf(lastTimes));
+            if (token != null) {
+                securityCaptchaManager.setFirstVerify((HttpServletRequest) request);
+                String username = (String) token.getPrincipal();
+                User user = null;
+                if (!UnknownAccountException.class.isAssignableFrom(e.getClass())
+                        && Strings.isNotBlank(username)) {
+                    user = userService.addLoginFailureCount(username);
+                }
+                int lastTimes = FrameworkPropertiesHolder.get().getLoginLockErrorTimes();
+                if (user != null) {
+                    lastTimes = lastTimes - user.getLoginFailTimes();
+                }
+                if (lastTimes > 0) {
+                    queryParams.put("lastTimes", String.valueOf(lastTimes));
+                }
             }
             WebUtils.issueRedirect(request, response, getFailureUrl(), queryParams, true);
             return true;
