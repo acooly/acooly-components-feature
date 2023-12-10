@@ -1,0 +1,160 @@
+acooly:
+    account:
+        batchMaxSize: 300
+    appservice:
+        enable: true
+        scanPackages:
+            smsend: com.acooly.module.smsend
+    content:
+        audit:
+            aliyun:
+                access-key: XXXXXX
+                region-id: cn-shanghai
+                secret-key: xxxxxx
+                url: http://green.cn-shanghai.aliyuncs.com/green/text/scan
+            mock: false
+    ds:
+        password: 123456
+        url: jdbc:mysql://127.0.0.1:3306/acooly-feature
+        username: root
+    dubbo:
+        enable: false
+        owner: acooly
+        provider:
+            port: 12345
+    face:
+        apiKey: HfnM892Wlc4051212zdtj77iSdmm
+        appId: 19049752
+        enable: true
+        secretKey: 4fyur5FhHPm1212Osd73VnX2tqH62YDzlFlQ
+    framework:
+        default-theme: acooly
+        enable-favorite: true
+        font-size: 12
+        main-sidebar-width: 200
+        plugin:
+            acooly-debug: true
+            clipboard: false
+            date-range-picker: false
+            easyuiExtension: true
+            icheck: false
+            kindEditor: true
+            layui: false
+            media: false
+            pace: false
+            videoJs: false
+            xss: false
+    im:
+        chat:
+            appKey: f0c5f57dd1733b00f5a36957
+            enable: false
+            gateway: https://api.im.jpush.cn
+            masterSecret: ce1f57ecef53e776b54d985a
+    jpa:
+        openEntityManagerInViewFilterUrlPatterns:
+        - /gateway.do
+    log:
+        pattern: mdc_with_gid
+    mail:
+        from-name: acooly
+        hostname: smtp-mail.outlook.com
+        mock: false
+        password: xxxxxx
+        port: 587
+        starttls: true
+        username: alxa3306@hotmail.com
+    ofile:
+        check-session: true
+        serverRoot: http://127.0.0.1:8090/media
+        storageRoot: /var/log/webapps/nfs
+    olog:
+        collector:
+            ignoreMethods: index,list*,query*,edit,create
+    openapi:
+        apidoc:
+            enable: true
+        client:
+            accessKey: 1.909231121210805E23
+            enable: false
+            gateway: http://127.0.0.1:8083/gateway.do
+            secretKey: 06f7aa12b08aa2431e6da121e6a156fc9e0b4
+            showLog: true
+        notify:
+            enable: false
+    rbac:
+        authe-caching-enabled: true
+        no-resource-permitted: true
+    security:
+        csrf:
+            exclusions:
+                baiduFace:
+                - /baidu/**
+        session:
+            check-interval: 60
+            enable-kick-out: true
+            max-session-per-user: 1
+            redis-serialize-type: Kryo
+            redis-timeout: 480
+            timeout: 1800
+        shiro:
+            configUrls:
+            - /manage/test/index.html,anon
+        sign-login:
+            access-key: 8a48b5514ecd7fXXXXa8014eced85457034c
+            enable: true
+            secret-key: 30cbffc2ad172X40e7bSse2aXc82370250160
+            title: A8
+    smsend:
+        analysis:
+            enable: true
+            summary-enable: true
+        blacklist:
+        - 13811111111
+        - 13811111111
+        client:
+            type: mock
+        connTimeout: 20000
+        enable: true
+        facade: true
+        providers:
+            huaweiyun:
+                access-key: XXXXXXX1Xk3sD6ocxRN
+                content-sign: 1212
+                ext:
+                    regionId: cn-north-4
+                    sender: csms12345678
+                secret-key: XXXXXXXXanScGlM
+        rate-limit:
+            maxPerIp: 200
+            maxPerMobile: 5
+            timeUnit: minutes
+        readTimeout: 10000
+    test:
+        lazyInitBean: true
+    threadpool:
+        threadMax: 1000
+        threadMin: 10
+        threadQueue: 1000
+    web:
+        enableMoneyDisplayYuan: false
+    wechat:
+        enable: true
+        miniClient:
+            apiUrl: https://api.weixin.qq.com
+            appid: wx752474a246991212442b
+            secret: 80a0855eda12121a79db018738029a333f267
+        webClient:
+            apiUrl: https://api.weixin.qq.com
+            appid: wxa6147f12125ff0905222
+            redirectUri: http://deshop.test.ihunlizhe.com/wechat/webApi/backRedirect.html
+            scope: snsapi_userinfo
+            secret: afbfe133f13cd121212ec8d82c31340f1c1109
+            serverToken: HelloWorld
+            state: hello,cuifuq7
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: none
+    redis:
+        host: 127.0.0.1
+        port: 6379

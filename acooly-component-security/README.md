@@ -76,6 +76,26 @@ acooly.framework.plugin.xss=false
 
 >注意：该版本特性的增加，调整了session中对象的结构，会照常已存在的redis缓存对账反序列化失败，如遇该清理，请清理本地浏览器缓存刷新即可。
 
+
+### 2.3 签名认证登录
+
+后台管理的登录认证方式支持`签名+手机号码`。通过给接入平台提供accessKey和accessSecret，接入平台通过签名方式调用后台管理系统的登录接口，后台管理系统通过accessKey获取用户信息，通过accessSecret进行签名认证，如果认证通过，`mobileNo`确定用户身份，如果匹配多个用户，则选择第一个。
+
+默认情况下，该功能是关闭的，通过配置参数开启和设置：
+
+```yaml
+acooly:
+    security:
+        sign-login:
+            enabled: true
+            title: A8
+            access-key: 8a48b5514ecd7fXXXXa8014eced85457034c
+            secret-key: 30cbffc2ad172X40e7bSse2aXc82370250160
+```
+
+> 注意：该功能与JWT认证方式不同也不冲突，目前JWT主要用户每次请求的认证和单点登录，这个的签名认证是可代替`用户名+密码`方式的认证，任然走的Shiro，认证通过后，走的是Session模式。
+
+
 ## 3. 使用说明
 
 maven坐标
@@ -86,7 +106,7 @@ maven坐标
         <version>${acooly-latest-version}</version>
       </dependency>
 
-`${acooly-latest-version}`为框架最新版本或者购买的版本，如：5.0.0-SNAPSHOT。
+`${acooly-latest-version}`为框架最新版本或者购买的版本，如：5.2.0-SNAPSHOT。
 
 ## 3. FQA
 
@@ -253,6 +273,10 @@ acooly.framework.plugin.acooly-debug=true
 * Acooly4：AdminLTE风格
 
 ## 5. changelog
+
+### 5.2.0-SNAPSHOT.20231210
+
+* 2023-12-09 - 新特性：BOSS后台可通过签名认证方式登录，通过手机号码匹配对应的账号，默认关闭，具体开启和配置方式请参考：`2.3 签名认证登录`。 - [zhangpu] 2ef7b551
 
 ### 5.2.0-SNAPSHOT.20231107
 
