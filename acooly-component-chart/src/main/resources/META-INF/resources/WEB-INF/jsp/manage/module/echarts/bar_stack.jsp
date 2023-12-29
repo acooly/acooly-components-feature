@@ -23,8 +23,11 @@
     ajaxRequest();
 
     //定时器
-    if (${loopTime}>=10000){
-		setInterval("ajaxRequest()", ${loopTime});
+    if (${loopTime}>=
+    10000
+    )
+    {
+        setInterval("ajaxRequest()", ${loopTime});
     }
 
     //ajax 数据请求
@@ -33,6 +36,7 @@
         var legendData = new Array();
         var xShaft = new Array();
         var yShafts = new Array();
+        var yShaftSum = new Array();
 
         //列名
         var columnName = new Array();
@@ -54,33 +58,66 @@
                         columnName.push(x);
                         xShaft = xShaftJson[x].split(",");
                     }
-                    console.log(xShaft);
+                    // console.log(xShaft);
 
                     //y轴
                     var yShaftJsonList = yShaftJsons[0];
+
+                    // console.log("--------"+yShaftJsonList.size)
+                    //y轴-数值个数
+                    var yShaftJsonListLength= Object.keys(yShaftJsonList).length;
+
                     for (var y in yShaftJsonList) {
                         columnName.push(y);
                         legendData.push(y);
                         var yShaft = new Array();
                         yShaft = yShaftJsonList[y].split(",");
 
-                        //是否显示 数值
-                        var isShow = {};
-                        if (data.data.chartItemsParams.isShow == 'YES') {
-                            isShow = {
-                                normal: {
-                                    show: true,
-                                    position: ['50%', '50%'],
-                                }
-                            };
+                        //处理展示的数据 求和
+                        for (let i = 0; i < yShaft.length; i++) {
+                            var yShaftValue = 0;
+                            if (yShaftSum[i] == undefined) {
+                                yShaftSum[i] = 0;
+                            } else {
+                                yShaftValue = parseFloat(yShaftSum[i]);
+                            }
+                            var yShaftValueI = parseFloat(yShaft[i]);
+                            yShaftValue = yShaftValue + yShaftValueI;
+                            yShaftSum[i] = yShaftValue;
                         }
-                        ;
+                        // console.log("---yShaftSum---" + yShaftSum);
+
+
+                        //是否显示 数值
+                        var isShow ;
+                        if (yShaftJsonListLength != legendData.length) {
+                            isShow = false;
+                        } else {
+                            if (data.data.chartItemsParams.isShow == 'YES') {
+                                isShow = true;
+                                // {
+                                //     normal: {
+                                //         show: true,
+                                //         position: ['50%', '50%'],
+                                //     }
+                                // };
+                            }
+                        }
+
 
                         var yShaftJson = {
                             name: y,
                             type: 'bar',
                             stack: 'bar_stack',
-                            label: isShow,//是否显示 数值
+                            // label: isShow,//是否显示 数值
+                            label: {
+                                show: isShow,
+                                position: 'top',
+                                formatter: function (p) {
+                                    //这里处理展示的数据=求和值
+                                    return yShaftSum[p.dataIndex];
+                                }
+                            },
                             data: yShaft
                         };
                         yShafts.push(yShaftJson);
@@ -99,6 +136,17 @@
                 }
             }
         });
+    }
+
+    /**
+     * 计算倍数
+     */
+    function multipleCount2(num) {
+        var multiple = 1;
+        if (num > 0) {
+            multiple = Math.pow(5, num);
+        }
+        return multiple;
     }
 
     //动态数据解决
@@ -130,7 +178,7 @@
                 trigger: 'axis'
             },
             legend: {
-                show:legendLabelShow,
+                show: legendLabelShow,
                 //上：'top', 中：'middle',下： 'bottom'
                 top: legendTop,
                 //左：'left', 中：'center', 下：'right'
