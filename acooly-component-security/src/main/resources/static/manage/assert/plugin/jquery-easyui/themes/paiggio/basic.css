@@ -758,3 +758,24 @@ acontent {
     white-space: pre-wrap;
     word-wrap: break-word;
 }
+
+
+/* custom main top height */
+.brand-link {
+    padding: 0.4rem 0.5rem;
+}
+
+.brand-link .brand-image {
+    margin-left: 0.1rem;
+    margin-top: 0;
+    opacity: .8;
+    width: 25px;
+}
+.navbar {
+    padding: 0;
+}
+
+.brand-link {
+    border-bottom: 1px solid #8396a9;
+    color: rgba(255,255,255,.8);
+}

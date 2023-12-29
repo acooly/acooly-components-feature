@@ -161,10 +161,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="https://acooly.cn/docs/core.html" target="_blank" title="帮助" role="button"><i class="fa fa-question-circle fa-lg"></i></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fa fa-th-large fa-lg"></i></a>
+                </li>
             </#if>
-            <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fa fa-th-large fa-lg"></i></a>
-            </li>
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -173,14 +173,14 @@
     <aside class="main-sidebar sidebar-<#if acoolyTheme == 'acooly'>dark<#else>blue</#if>-primary elevation-5">
         <!-- Brand Logo -->
         <a href="javascript:;" class="logo brand-link" style="display: none;">
-            <span><img id="logo_image" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8;width: 33px;"></span>
+            <span><img id="logo_image" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"></span>
             <span id="logo_title" class="ac-logo-title brand-text font-weight-light"></span>
         </a>
 
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar Menu -->
-            <nav class="mt-2">
+            <nav>
                 <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
