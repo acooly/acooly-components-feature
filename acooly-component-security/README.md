@@ -274,6 +274,14 @@ acooly.framework.plugin.acooly-debug=true
 
 ## 5. changelog
 
+### 5.2.0-SNAPSHOT.20231229
+
+* 2023-12-29 - 优化主界面Top的高度为最紧凑模式，提高主界面的显示高度区域。 - [zhangpu] 2102877d
+    >特别注意：如果有自己拷贝和自定义`index_adminlte3.ftl`的情况，需要对以下几点代码更新： 
+    ①、176行：删除图标的样式属性：`style="opacity:8;width: 33px;"`
+    ②、183行：删除class属性：`class="mt-2"`
+    ③、注意浏览器缓存更新下 `basic.css`
+
 ### 5.2.0-SNAPSHOT.20231210
 
 * 2023-12-09 - 新特性：BOSS后台可通过签名认证方式登录，通过手机号码匹配对应的账号，默认关闭，具体开启和配置方式请参考：`2.3 签名认证登录`。 - [zhangpu] 2ef7b551
