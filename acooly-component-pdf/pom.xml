@@ -16,7 +16,7 @@
         <fr.opensagres.xdocreport.version>2.0.1</fr.opensagres.xdocreport.version>
     </properties>
     <dependencies>
-        <!-- Aspose DPF -->
+        <!-- Aspose word to DPF -->
         <dependency>
             <groupId>com.aspose</groupId>
             <artifactId>aspose-words</artifactId>
@@ -29,6 +29,15 @@
             <version>21.6</version>
             <classifier>shaping-harfbuzz-plugin</classifier>
         </dependency>
+
+        <!-- Aspose excle to DPF -->
+        <dependency>
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-cells</artifactId>
+            <version>22.6</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>com.lowagie</groupId>
