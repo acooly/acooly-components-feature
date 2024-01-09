@@ -9,8 +9,9 @@
 package com.acooly.module.pdf.support.office;
 
 import com.acooly.core.utils.Strings;
-import com.aspose.cells.IndividualFontConfigs;
-import com.aspose.cells.LoadOptions;
+import com.aspose.cells.FolderFontSource;
+import com.aspose.cells.FontConfigs;
+import com.aspose.cells.FontSourceBase;
 import com.aspose.cells.Workbook;
 import lombok.extern.slf4j.Slf4j;
 
@@ -86,11 +87,12 @@ public class ExcleToPdf {
 
     private static void setFontsSources(String fontsDir) {
         if (Strings.isNotBlank(fontsDir)) {
-            //将用户目录字体添加到字体源中
-            IndividualFontConfigs configs = new IndividualFontConfigs();
-            configs.setFontFolder(fontsDir, false);
-            LoadOptions loadOptions = new LoadOptions();
-            loadOptions.setFontConfigs(configs);
+            FontSourceBase[] originalFontSources = FontConfigs.getFontSources();
+            FontSourceBase folderFontSource = new FolderFontSource(fontsDir, true);
+            FontSourceBase[] updatedFontSources = new FontSourceBase[originalFontSources.length + 1];
+            updatedFontSources[0] = folderFontSource;
+            System.arraycopy(originalFontSources, 0, updatedFontSources, 1, originalFontSources.length);
+            FontConfigs.setFontSources(updatedFontSources);
         }
     }
 

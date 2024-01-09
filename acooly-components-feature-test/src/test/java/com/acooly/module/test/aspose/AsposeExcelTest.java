@@ -34,7 +34,7 @@ public class AsposeExcelTest {
      * 如果是windows，你可以不管这个，因为aspose会自动加载系统字体
      * 如果是mac，你需要从windows拷贝这些字体，然后制定字体目录
      */
-    String fontsDir = "/Users/zhangpu/software/fonts";
+    String fontsDir = "/Users/cuifuqiang/Desktop/fonts/";
 
 
     @Test
