@@ -1,4 +1,8 @@
 acooly:
+    i18n:
+        default-locale: zh_HK
+        enable: true
+        change-locale-param-name: lang
     account:
         batchMaxSize: 300
     appservice:

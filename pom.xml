@@ -172,6 +172,12 @@
                 <artifactId>acooly-component-content-audit</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.acooly</groupId>
+                <artifactId>acooly-component-i18n</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

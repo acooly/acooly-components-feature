@@ -249,6 +249,11 @@
             <groupId>com.acooly</groupId>
             <artifactId>acooly-component-captcha</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.acooly</groupId>
+            <artifactId>acooly-component-i18n</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
