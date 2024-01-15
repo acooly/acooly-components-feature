@@ -13,6 +13,7 @@
 * html转换流程为：dataVO + freemarker模板 -> iTextRender -> 输出pdf （特点：需按指定html格式开发ftl模版，所有样式表必须在html当页）
 * docx转换流程为:dataVO + word模板->freemaker引擎 + xdocreport ->输出pdf （特点：需按指定语法对word模版进行开发）
 * docx ---AsposePdfs---> pdf （特点：无需模版，直接转换，但是需要购买AsposePdfs授权,也可以暂时破下）
+* excel ---AsposePdfs---> pdf （特点：无需模版，直接转换，但是需要购买AsposePdfs授权,也可以暂时破下）
 
 ## 2. 使用说明
 
