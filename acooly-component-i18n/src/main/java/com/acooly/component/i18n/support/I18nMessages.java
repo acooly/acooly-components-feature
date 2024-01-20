@@ -37,6 +37,7 @@ import java.util.Set;
 public class I18nMessages {
     private static MessageSource messageSource;
 
+
     public I18nMessages(MessageSource messageSource) {
         I18nMessages.messageSource = messageSource;
     }
@@ -157,7 +158,7 @@ public class I18nMessages {
             Set<Resource> resources = getResources(baseName);
             for (Resource resource : resources) {
                 try {
-                    String localeInfo = Strings.substringBetween(resource.getFilename(), baseName + "_", ".properties");
+                    String localeInfo = Strings.substringBetween(resource.getURL().getPath(), baseName + "_", ".properties");
                     if (Strings.isNotBlank(localeInfo)) {
                         locale = StringUtils.parseLocale(localeInfo);
                         if (locale != null) {
@@ -189,4 +190,5 @@ public class I18nMessages {
         }
         return resourceSet;
     }
+
 }
