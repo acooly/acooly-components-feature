@@ -37,6 +37,11 @@ public class CaptchaProperties {
      */
     private int validTimes = 200;
 
+    /**
+     * 验证通过后，验证码失效，true：自动失效，false：不自动失效
+     */
+    private boolean autoInvalid = false;
+
     private GeneratorType generatorType = GeneratorType.RANDOM_NUMBER;
 
     private AnswerHandlerType handlerType = AnswerHandlerType.DEFUALT_ANSWER_HANDLER;

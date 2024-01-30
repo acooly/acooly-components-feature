@@ -52,9 +52,10 @@ public class ValidatableAnswerHandler<V, UA> implements AnswerHandler<UA> {
             throw new CaptchaValidateException("CAPCHA_VERIFY_ABOVE_TIMES", "验证码验证次超过限制");
         }
 
-        //      if (validated) {
-        //        repository.delete(answerDto.getCaptchaId());
-        //      }
+        // 开启验证码自动失效并且验证通过后，清除验证码
+        if (properties.isAutoInvalid() && validated) {
+            repository.delete(answerDto.getCaptchaId());
+        }
 
         return validated;
     }
