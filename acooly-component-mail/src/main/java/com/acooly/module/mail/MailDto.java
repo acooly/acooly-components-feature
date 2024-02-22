@@ -25,17 +25,47 @@ import java.util.Map;
  */
 @Data
 public class MailDto implements Serializable {
+
+    /**
+     * 收件人
+     */
     @NotNull
     @Size(min = 1, max = 20)
     private List<String> to;
 
+    /**
+     * 抄送
+     */
+    @Size(min = 1, max = 20)
+    private List<String> toCc;
+
+
+    /**
+     * 密送
+     */
+    @Size(min = 1, max = 20)
+    private List<String> toBcc;
+
+
+    /**
+     * 主题
+     */
     @NotNull
     private String subject;
 
+    /**
+     * 模板参数
+     */
     private Map<String, Object> params = Maps.newHashMap();
 
+    /**
+     * 模板标题
+     */
     private String templateTile;
 
+    /**
+     * 模板名称
+     */
     @NotBlank
     private String templateName;
 
@@ -51,6 +81,23 @@ public class MailDto implements Serializable {
         this.to.add(to);
         return this;
     }
+
+    public MailDto toCc(String toCc) {
+        if (this.toCc == null) {
+            this.toCc = new ArrayList<>();
+        }
+        this.toCc.add(toCc);
+        return this;
+    }
+
+    public MailDto toBcc(String toBcc) {
+        if (this.toBcc == null) {
+            this.toBcc = new ArrayList<>();
+        }
+        this.toBcc.add(toBcc);
+        return this;
+    }
+
 
     public MailDto subject(String subject) {
         this.subject = subject;

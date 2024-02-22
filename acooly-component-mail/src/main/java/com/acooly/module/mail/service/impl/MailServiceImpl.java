@@ -10,6 +10,7 @@
 package com.acooly.module.mail.service.impl;
 
 import com.acooly.core.common.exception.BusinessException;
+import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.validate.Validators;
 import com.acooly.module.mail.MailAttachmentDto;
@@ -95,11 +96,17 @@ public class MailServiceImpl implements MailService {
         emailRecord.setContent(content);
         emailRecord.setFromAddress(mailProperties.getFromAddress());
         emailRecord.setFromName(mailProperties.getFromName());
-        emailRecord.setToAddressList(Strings.join(dto.getTo(), ","));
+        emailRecord.setToAddressList(Strings.join(dto.getTo(), ",") + Strings.join(dto.getToCc(), ","));
         emailRecordService.save(emailRecord);
     }
 
 
+    /**
+     * 邮件发送
+     *
+     * @param dto
+     * @param content
+     */
     private void send0(MailDto dto, String content) {
         try {
             HtmlEmail email = new HtmlEmail();
@@ -118,6 +125,23 @@ public class MailServiceImpl implements MailService {
             for (String toMail : dto.getTo()) {
                 email.addTo(toMail);
             }
+
+            //抄送
+            List<String> toCc = dto.getToCc();
+            if (Collections3.isNotEmpty(toCc)) {
+                for (String toCcMail : toCc) {
+                    email.addCc(toCcMail);
+                }
+            }
+
+            //密送
+            List<String> toBcc = dto.getToBcc();
+            if (Collections3.isNotEmpty(toBcc)) {
+                for (String toBccMail : toBcc) {
+                    email.addBcc(toBccMail);
+                }
+            }
+
             email.setSubject(dto.getSubject());
             email.setHtmlMsg(content);
             //处理附件
