@@ -108,6 +108,8 @@ public class MailServiceImpl implements MailService {
      * @param content
      */
     private void send0(MailDto dto, String content) {
+        //解决附件中文乱码
+        System.getProperties().setProperty("mail.mime.splitlongparameters", "false");
         try {
             HtmlEmail email = new HtmlEmail();
             email.setDebug(mailProperties.isDebug());
@@ -162,7 +164,6 @@ public class MailServiceImpl implements MailService {
                     attachment.setDisposition(EmailAttachment.ATTACHMENT);
                     attachment.setDescription(attachmentDto.getDescription());
                     attachment.setName(attachmentDto.getName());
-
                     email.attach(attachment);
                 }
             }
