@@ -190,7 +190,16 @@ public class ChartDrawController extends AbstractJsonEntityController {
      * @param model
      * @return
      */
-    @RequestMapping(value = {"charData_line_{chartItemId}", "charData_bar_{chartItemId}", "charData_pie_{chartItemId}", "charData_annular_{chartItemId}", "charData_bar_stack_{chartItemId}", "charData_map_China_{chartItemId}", "charData_map_world_{chartItemId}"})
+    @RequestMapping(value = {
+            "charData_line_{chartItemId}",//折线图
+            "charData_bar_{chartItemId}", //柱状图
+            "charData_bar_stack_{chartItemId}", //柱状图-堆叠
+            "charData_pie_{chartItemId}", //饼图
+            "charData_annular_{chartItemId}",//环形图
+            "charData_map_China_{chartItemId}",//中国地图
+            "charData_map_world_{chartItemId}",//世界地图
+            "charData_list_roll_{chartItemId}"//列表数据滚动
+    })
     @ResponseBody
     public JsonResult charData(@PathVariable("chartItemId") String chartItemId, HttpServletRequest request, HttpServletResponse response, Model model) {
 

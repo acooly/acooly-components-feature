@@ -81,7 +81,7 @@
                 </tr>
 
                 <tr>
-                    <th>显示数据值：：</th>
+                    <th>显示数据值：</th>
                     <td>
                         <select name="isShow" editable="false" style="height:27px;" panelHeight="auto"
                                 class="easyui-combobox">

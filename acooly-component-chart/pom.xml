@@ -33,4 +33,17 @@
         </dependency>
 
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>acooly-releases</id>
+            <name>Acooly Internal Releases</name>
+            <url>https://nexus.acooly.cn/repository/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>acooly-snapshots</id>
+            <name>acooly Internal snapshot</name>
+            <url>https://nexus.acooly.cn/repository/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

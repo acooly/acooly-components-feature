@@ -194,11 +194,11 @@
         }
         //合计
         if (totalValue.length > 0) {
-            columnTotalValueHtml = columnTotalValueHtml + "<div class='tbody-rows'><span class='tbody-td td-bg' style='font-weight: bold;'>合计：</span>";
+            columnTotalValueHtml = columnTotalValueHtml + "<div class='tbody-rows'><span class='tbody-td td-bg' style='font-size:15px;font-weight: bold;'>合计：</span>";
 
         }
         for (var t in totalValue) {
-            columnTotalValueHtml = columnTotalValueHtml + "<span class='tbody-td' style='font-weight: bold;'>" + totalValue[t] + "</span>";
+            columnTotalValueHtml = columnTotalValueHtml + "<span class='tbody-td' style='font-size:15px;font-weight: bold;'>" + totalValue[t] + "</span>";
         }
         columnTotalValueHtml = columnTotalValueHtml + "</div>";
 
@@ -255,12 +255,14 @@
     }
 
     .data-table.min .table-body .tbody-rows .tbody-td {
-        font-size: 13px;
+        font-size: 14px;
+        letter-spacing: 0.06em;
         color: #666;
     }
 
     .data-table .td-bg {
         background: #F4F9FF;
+        letter-spacing: 0.06em;
     }
 
     .data-table .td-icon-14C9C9::before {

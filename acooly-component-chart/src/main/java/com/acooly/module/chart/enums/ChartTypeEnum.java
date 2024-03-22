@@ -36,6 +36,9 @@ public enum ChartTypeEnum implements Messageable {
 
 	map_world("map_world", "世界地图"),
 
+	list_roll("list_roll", "列表数据滚动"),
+
+
 	;
 
 	private final String code;

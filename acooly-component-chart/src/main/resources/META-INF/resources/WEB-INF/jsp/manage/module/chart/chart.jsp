@@ -63,6 +63,32 @@ function manage_chartItems_create() {
     }, '请先选择操作客户数据行');
 }
 
+
+function manage_chartItems_create_data() {
+    $.acooly.framework.fireSelectRow('manage_chart_datagrid', function (row) {
+        $.acooly.framework.create({
+            url: '/manage/module/chart/chartItems/dataCreate.html',
+            entity: 'chartItems',
+            width: 1000, height: 600,
+            ajaxData: {'chartId': row.id},
+            hideSaveBtn:true,
+            buttons:[{
+                id:'manage_chartItems_btn_create',
+                text:'<i class=\'fa fa-plus-circle fa-lg fa-fw fa-col\'></i>增加',
+                handler:function(){
+
+                    var result =   chartItems_editform_onSubmit();
+                    if (result ==true){
+                        $.acooly.framework.ajaxSubmitHandler('create', $(this), 'manage_chartItems_editform', 'manage_chartItems_datagrid');
+                    }
+
+                }
+            }]
+        });
+    }, '请先选择操作客户数据行');
+}
+
+
 function  moveUp(id) {
     $.ajax({
         url:'/manage/module/chart/chartItems/moveUp.html',
@@ -93,14 +119,14 @@ function manage_chartData_create(itemsId) {
                 if (result.success){
                     if (result.data.isSave){
                         $.acooly.framework.create({
-                            url: '/manage/module/chart/chartData/create.html',
+                            url: '/manage/module/chart/chartData/dataCreate.html',
                             entity: 'chartData',
                             width: 1000, height: 600,
                             ajaxData: {'chartId': row.id,"itemsId":itemsId}
                         });
                     }else {
                         $.acooly.framework.create({
-                            url: '/manage/module/chart/chartData/edit.html',
+                            url: '/manage/module/chart/chartData/dataEdit.html',
                             entity: 'chartData',
                             width: 1000, height: 600,
                             ajaxData: {'chartId': row.id,"itemsId":itemsId},
@@ -166,12 +192,15 @@ function manage_chartItems_remove(chartItemsId){
       <a onclick="$.acooly.framework.edit({url:'/manage/module/chart/chart/edit.html',id:'{0}',entity:'chart',width:500,height:400});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
       <a onclick="$.acooly.framework.show('/manage/module/chart/chart/show.html?id={0}',500,400);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
       <a onclick="$.acooly.framework.remove('/manage/module/chart/chart/deleteJson.html','{0}','manage_chart_datagrid');" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
-      <a href="/manage/module/echarts/index_{0}.html" target="view_window" title="生成图表"><i class="fa fa-adjust fa-lg fa-fw fa-col"></i></a>
+      <a href="/manage/module/echarts/index_{0}.html" target="view_window" title="生成图表"><i class="fa fa-bar-chart-o fa-lg fa-fw fa-col"></i></a>
+      <a onclick="$.acooly.framework.remove('/manage/module/chart/chartItems/cleanUpCacheJson.html','{0}','manage_chart_datagrid','清空缓存');" href="#" title="清空缓存"><i class="fa fa-recycle fa-lg fa-fw fa-col"></i></a>
+
+<%--        <a href="/manage/module/echarts/index_{0}.html" target="view_window" title="清空缓存"><i class="fa fa-recycle fa-lg fa-fw fa-col"></i></a>--%>
     </div>
 
     <!-- 表格的工具栏 -->
     <div id="manage_chart_toolbar">
-      <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/chart/chart/create.html',entity:'chart',width:500,height:400})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
+        <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/chart/chart/create.html',entity:'chart',width:500,height:400})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
 <!--       <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.removes('/manage/module/chart/chart/deleteJson.html','manage_chart_datagrid')"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i>批量删除</a> -->
 <!--       <a href="#" class="easyui-menubutton" data-options="menu:'#manage_chart_exports_menu'"><i class="fa fa-arrow-circle-o-down fa-lg fa-fw fa-col"></i>批量导出</a> -->
 <!--       <div id="manage_chart_exports_menu" style="width:150px;"> -->
@@ -230,15 +259,17 @@ function manage_chartItems_remove(chartItemsId){
 
 		                    }
 		                    }]});" href="#" title="编辑"><i class="fa fa-pencil fa-lg fa-fw fa-col"></i></a>
-                    <a onclick="$.acooly.framework.show('/manage/module/chart/chartItems/show.html?id={0}',1000,700);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>
+<%--                    <a onclick="$.acooly.framework.show('/manage/module/chart/chartItems/show.html?id={0}',1000,700);" href="#" title="查看"><i class="fa fa-file-o fa-lg fa-fw fa-col"></i></a>--%>
                     <a onclick="manage_chartItems_remove({0})" href="#" title="删除"><i class="fa fa-trash-o fa-lg fa-fw fa-col"></i></a>
                         <a onclick="moveUp('{0}')" href="#" title="上移"><i class="fa fa-arrow-up fa-lg fa-fw fa-col"></i></a>
-                    <a href="/manage/module/echarts/chartItemOne_{0}.html" target="_blank" title="生成图表"><i class="fa fa-adjust fa-lg fa-fw fa-col"></i></a>
+                    <a href="/manage/module/echarts/chartItemOne_{0}.html" target="_blank" title="生成图表"><i class="fa fa-bar-chart-o fa-lg fa-fw fa-col"></i></a>
+                    <a onclick="$.acooly.framework.remove('/manage/module/chart/chartItems/cleanUpCacheOneJson.html','{0}','manage_chart_datagrid','清空缓存');" href="#" title="清空缓存"><i class="fa fa-recycle fa-lg fa-fw fa-col"></i></a>
                 </div>
 
                 <!-- 表格的工具栏 -->
                 <div id="manage_chartItems_toolbar">
-                    <a href="#" class="easyui-linkbutton" plain="true"  onclick="manage_chartItems_create()"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
+                    <a href="#" class="easyui-linkbutton" plain="true"  onclick="manage_chartItems_create()"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加图表展示</a>
+                    <a href="#" class="easyui-linkbutton" plain="true"  onclick="manage_chartItems_create_data()"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加数据展示</a>
                 </div>
             </div>
 

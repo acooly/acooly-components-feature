@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -35,13 +36,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 图表-图表选项 管理控制器
  *
  * @author acooly Date: 2018-10-10 11:15:20
  */
+@Slf4j
 @Controller
 @RequestMapping(value = "/manage/module/chart/chartItems")
 public class ChartItemsManagerController extends AbstractJQueryEntityController<ChartItems, ChartItemsService> {
@@ -84,10 +85,30 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
             model.addAttribute("chartId", chartId);
             model.addAttribute("chartData", chartDataService.findChartDataByItemsId(Long.parseLong(chartId)));
         } catch (Exception e) {
-            handleException("新建", e, request);
+            handleException("数据图表新建", e, request);
         }
         return getEditView();
     }
+
+    /**
+     * 数据列表新建
+     */
+    @RequestMapping(value = "/dataCreate")
+    public String dataCreate(HttpServletRequest request, HttpServletResponse response, Model model) {
+        allow(request, response, MappingMethod.create);
+        try {
+            String chartId = Servlets.getParameter(request, "chartId");
+            model.addAllAttributes(referenceData(request));
+            onCreate(request, response, model);
+            model.addAttribute("action", ACTION_CREATE);
+            model.addAttribute("chartId", chartId);
+            model.addAttribute("chartData", chartDataService.findChartDataByItemsId(Long.parseLong(chartId)));
+        } catch (Exception e) {
+            handleException("数据列表新建", e, request);
+        }
+        return "/manage/module/chart/chartItemsDataEdit";
+    }
+
 
     @Override
     protected PageInfo<ChartItems> doList(HttpServletRequest request, HttpServletResponse response, Model model)
@@ -208,9 +229,72 @@ public class ChartItemsManagerController extends AbstractJQueryEntityController<
         }
 
         //清空缓存
-        redisTemplate.opsForValue().set(ChartItems.redisKey+entity.getId(),null);
+        doCleanUpCache(entity.getId());
+
         return entity;
     }
+
+
+    /**
+     * 清空图表缓存
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping({"cleanUpCacheJson"})
+    @ResponseBody
+    public JsonResult cleanUpCacheJson(HttpServletRequest request, HttpServletResponse response) {
+        JsonResult result = new JsonResult();
+        this.allow(request, response, MappingMethod.show);
+        try {
+            String idStr = request.getParameter("id");
+            List<ChartItems> chartItemsList = chartItemsService.findByChartId(Long.parseLong(idStr));
+            for (ChartItems chartItems : chartItemsList) {
+                doCleanUpCache(chartItems.getId());
+            }
+            result.setMessage("清空缓存成功");
+        } catch (Exception var5) {
+            this.handleException(result, "清空缓存", var5);
+        }
+
+        return result;
+    }
+
+    /**
+     * 清空图表缓存
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping({"cleanUpCacheOneJson"})
+    @ResponseBody
+    public JsonResult cleanUpCacheOneJson(HttpServletRequest request, HttpServletResponse response) {
+        JsonResult result = new JsonResult();
+        this.allow(request, response, MappingMethod.show);
+        try {
+            String idStr = request.getParameter("id");
+            doCleanUpCache(Long.parseLong(idStr));
+            result.setMessage("清空缓存成功");
+        } catch (Exception var5) {
+            this.handleException(result, "清空缓存", var5);
+        }
+
+        return result;
+    }
+
+    /**
+     * 清空缓存
+     *
+     * @param chartItemId
+     */
+    private void doCleanUpCache(long chartItemId) {
+        String redisKey = ChartItems.redisKey + chartItemId;
+        log.info("清空图表缓存:redisKey:{}", redisKey);
+        redisTemplate.delete(redisKey);
+    }
+
 
     @Override
     protected void onEdit(HttpServletRequest request, HttpServletResponse response, Model model, ChartItems entity) {
