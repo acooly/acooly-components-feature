@@ -25,8 +25,8 @@ public class AsposeUtils {
      * @param docFilePath  输入：格式doc的文件路径
      * @param docxFilePath 输出：格式docx的文件路径
      */
-    public static void docToDocxConverter(@NotBlank String docFilePath, @NotBlank String docxFilePath) {
-        WordUtils.docToDocxConverter(docFilePath, docxFilePath);
+    public static void docToDocx(@NotBlank String docFilePath, @NotBlank String docxFilePath) {
+        WordUtils.docToDocx(docFilePath, docxFilePath);
     }
 
 
