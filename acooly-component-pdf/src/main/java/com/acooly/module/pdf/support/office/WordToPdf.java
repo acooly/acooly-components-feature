@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Modifier;
 
 @Slf4j
 public class WordToPdf {
@@ -44,7 +43,7 @@ public class WordToPdf {
             doc.save(os, SaveFormat.PDF);
         } catch (Exception e) {
             throw new RuntimeException("转换失败", e);
-        }finally {
+        } finally {
             try {
                 wordInputStream.close();
             } catch (Exception e) {
@@ -74,20 +73,12 @@ public class WordToPdf {
 
     /**
      * 破解 word 21.6版本
+     * <p>
+     * 请使用【WordUtils.crackWord21_6();】
      */
-    private static void crackWord21_6() {
-        try {
-            Class<?> aClass = Class.forName("com.aspose.words.zzXyu");
-            java.lang.reflect.Field zzZXG = aClass.getDeclaredField("zzZXG");
-            zzZXG.setAccessible(true);
-
-            java.lang.reflect.Field modifiersField = zzZXG.getClass().getDeclaredField("modifiers");
-            modifiersField.setAccessible(true);
-            modifiersField.setInt(zzZXG, zzZXG.getModifiers() & ~Modifier.FINAL);
-            zzZXG.set(null, new byte[]{76, 73, 67, 69, 78, 83, 69, 68});
-        } catch (Exception e) {
-            log.error("aspose word 破解异常");
-        }
+    @Deprecated
+    public static void crackWord21_6() {
+        WordUtils.crackWord21_6();
     }
 
 }
