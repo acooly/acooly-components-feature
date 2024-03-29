@@ -5,7 +5,6 @@
 </c:if>
 <script type="text/javascript">
 $(function() {
-    // $.acooly.framework.initPage('manage_user_searchform', 'manage_user_datagrid');
     $.acooly.framework.initPage('manage_chart_searchform','manage_chart_datagrid');
 });
 
@@ -269,7 +268,7 @@ function manage_chartItems_remove(chartItemsId){
                 <!-- 表格的工具栏 -->
                 <div id="manage_chartItems_toolbar">
                     <a href="#" class="easyui-linkbutton" plain="true"  onclick="manage_chartItems_create()"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加图表展示</a>
-                    <a href="#" class="easyui-linkbutton" plain="true"  onclick="manage_chartItems_create_data()"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加数据展示</a>
+<%--                    <a href="#" class="easyui-linkbutton" plain="true"  onclick="manage_chartItems_create_data()"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加数据展示</a>--%>
                 </div>
             </div>
 

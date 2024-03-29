@@ -20,16 +20,18 @@
 		          	<div>
 		          	<c:forEach var="whereDataParam" items="${whereData}" varStatus="name">
 		          		<c:if test="${whereDataParam.dataType eq 'text'}">
-		          			${whereDataParam.name} <input type="text" class="text" size="10" name="${whereDataParam.conditParam}" value="${whereDataParam.defaultValue}"/> &nbsp;
+							<label style="font-size: 14px;">${whereDataParam.name}: </label>
+							<input type="text" style="height:27px;border-radius: 3px;border: 1px solid #ccc"  size="12" name="${whereDataParam.conditParam}" value="${whereDataParam.defaultValue}"/> &nbsp;
 		          		</c:if>
 		          		
 		          		<c:if test="${whereDataParam.dataType eq 'date_time'}">
-		          			${whereDataParam.name}<input size="10" class="text"  name="${whereDataParam.conditParam}" value="${whereDataParam.defaultValue}" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>&nbsp;
+							<label style="font-size: 14px;">${whereDataParam.name}: </label>
+							<input size="12" style="height:27px;border-radius: 3px;border: 1px solid #ccc" name="${whereDataParam.conditParam}" value="${whereDataParam.defaultValue}" onFocus="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})"/>&nbsp;
 		          		</c:if>
-		          		
+
 		          		<c:if test="${whereDataParam.dataType eq 'pull_down'}">
-		          			${whereDataParam.name}
-							<select style="width:100px;height:27px;" name="${whereDataParam.conditParam}" editable="false" panelHeight="auto" class="easyui-combobox">
+							<label style="font-size: 14px;">${whereDataParam.name}: </label>
+							<select style="width:100px;height:27px;border-radius: 5px; border: 1px solid #ccc" name="${whereDataParam.conditParam}" editable="false" panelHeight="auto" class="easyui-combobox">
 								<option value="">所有</option>
 								<c:forEach var="pullDownDefaultValue" items="${whereDataParam.pullDownMap}" varStatus="name" >
 									<option value="${pullDownDefaultValue.value}">${pullDownDefaultValue.key}</option>
