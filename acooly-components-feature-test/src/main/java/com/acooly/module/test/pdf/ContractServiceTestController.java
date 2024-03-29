@@ -214,22 +214,22 @@ public class ContractServiceTestController {
     }
 
 
-    public static void main(String[] args) throws Exception {
-        /** 初始化配置文件 **/
-        Configuration configuration = new Configuration();
-        String fileDirectory = "/Users/lscoder/coding/acooly/acooly-components-feature/acooly-components-feature-test/src/main/resources/pdf/templates";
-        /** 加载文件 **/
-        configuration.setDirectoryForTemplateLoading(new File(fileDirectory));
-        /** 加载模板 **/
-        Template template = configuration.getTemplate("test.ftl");
-        File outFile = new File("/Users/lscoder/Downloads/test.doc");
-        Writer out = new BufferedWriter((new OutputStreamWriter(new FileOutputStream(outFile))));
-        Map map = Maps.newHashMap();
-        map.put("code", "1235523452345");
-        map.put("name", "2022年 贵州茅台酒 飞天 53%vol 800ml");
-        map.put("url", getImageBase("/Users/lscoder/coding/acooly/acooly-components-feature/acooly-components-feature-test/src/main/resources/pdf/templates/test.jpg"));
-        template.process(map, out);
-    }
+//    public static void main(String[] args) throws Exception {
+//        /** 初始化配置文件 **/
+//        Configuration configuration = new Configuration();
+//        String fileDirectory = "/Users/lscoder/coding/acooly/acooly-components-feature/acooly-components-feature-test/src/main/resources/pdf/templates";
+//        /** 加载文件 **/
+//        configuration.setDirectoryForTemplateLoading(new File(fileDirectory));
+//        /** 加载模板 **/
+//        Template template = configuration.getTemplate("test.ftl");
+//        File outFile = new File("/Users/lscoder/Downloads/test.doc");
+//        Writer out = new BufferedWriter((new OutputStreamWriter(new FileOutputStream(outFile))));
+//        Map map = Maps.newHashMap();
+//        map.put("code", "1235523452345");
+//        map.put("name", "2022年 贵州茅台酒 飞天 53%vol 800ml");
+//        map.put("url", getImageBase("/Users/lscoder/coding/acooly/acooly-components-feature/acooly-components-feature-test/src/main/resources/pdf/templates/test.jpg"));
+//        template.process(map, out);
+//    }
 
 
     public static String getImageBase(String src) throws Exception {
