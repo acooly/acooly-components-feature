@@ -1,0 +1,32 @@
+<div class="card-body">
+	<dl class="row">
+		<dt class="col-sm-3">id:</dt>
+		<dd class="col-sm-9">${emailSender.id}</dd>
+		<dt class="col-sm-3">boss用户id:</dt>
+		<dd class="col-sm-9">${emailSender.sysUserId}</dd>
+		<dt class="col-sm-3">boss登录名:</dt>
+		<dd class="col-sm-9">${emailSender.sysUserName}</dd>
+		<dt class="col-sm-3">boss真实姓名:</dt>
+		<dd class="col-sm-9">${emailSender.sysRealName}</dd>
+		<dt class="col-sm-3">SMTP服务器地址:</dt>
+		<dd class="col-sm-9">${emailSender.hostName}</dd>
+		<dt class="col-sm-3">SMTP服务器端口:</dt>
+		<dd class="col-sm-9">${emailSender.hostPort}</dd>
+		<dt class="col-sm-3">邮箱名称:</dt>
+		<dd class="col-sm-9">${emailSender.emailName}</dd>
+		<dt class="col-sm-3">邮箱密码:</dt>
+		<dd class="col-sm-9">${emailSender.emailPassword}</dd>
+		<dt class="col-sm-3">发送者名称:</dt>
+		<dd class="col-sm-9">${emailSender.fromName}</dd>
+		<dt class="col-sm-3">SSL链接的端口:</dt>
+		<dd class="col-sm-9">${emailSender.sslPort}</dd>
+		<dt class="col-sm-3">启动tls:</dt>
+		<dd class="col-sm-9">${(emailSender.startTls.message())!}</dd>
+		<dt class="col-sm-3">使用SSL连接:</dt>
+		<dd class="col-sm-9">${(emailSender.sslConnect.message())!}</dd>
+		<dt class="col-sm-3">创建时间:</dt>
+		<dd class="col-sm-9">${(emailSender.createTime?string('yyyy-MM-dd HH:mm:ss'))!}</dd>
+		<dt class="col-sm-3">修改时间:</dt>
+		<dd class="col-sm-9">${(emailSender.updateTime?string('yyyy-MM-dd HH:mm:ss'))!}</dd>
+	</dl>
+</div>

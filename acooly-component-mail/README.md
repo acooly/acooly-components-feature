@@ -93,6 +93,10 @@ acooly.mail.from-name=苦乐
 
 ## 3. changelog
 
+### 5.2.0-SNAPSHOT.20240402
+* 新增发件人配置管理，指定发件人邮箱，新增表《email_sender》 ；关注`META-INF/database/mail/mysql/mail.sql`。
+
+
 ### 5.0.0-SNAPSHOT.20220111
 
 * 增强版本，非兼容，请手动升级更新数据库: `META-INF/database/mail/mysql/mail_update_20220111.sql`。

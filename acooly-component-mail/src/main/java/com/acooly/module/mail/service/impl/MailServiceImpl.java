@@ -12,12 +12,15 @@ package com.acooly.module.mail.service.impl;
 import com.acooly.core.common.exception.BusinessException;
 import com.acooly.core.utils.Collections3;
 import com.acooly.core.utils.Strings;
+import com.acooly.core.utils.enums.WhetherStatus;
 import com.acooly.core.utils.validate.Validators;
 import com.acooly.module.mail.MailAttachmentDto;
 import com.acooly.module.mail.MailDto;
 import com.acooly.module.mail.MailProperties;
 import com.acooly.module.mail.entity.EmailRecord;
+import com.acooly.module.mail.entity.EmailSender;
 import com.acooly.module.mail.service.EmailRecordService;
+import com.acooly.module.mail.service.EmailSenderService;
 import com.acooly.module.mail.service.MailService;
 import com.acooly.module.ofile.OFileProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -52,12 +55,14 @@ public class MailServiceImpl implements MailService {
     private OFileProperties ofileProperties;
     @Autowired
     private EmailRecordService emailRecordService;
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     @Override
     public void send(MailDto dto) {
         String content = validateAndParse(dto);
         if (!mailProperties.isMock()) {
-            send0(dto, content);
+            send0(dto, content, null);
         } else {
             log.info("发送邮件 MOCK 成功: {}", dto);
         }
@@ -70,7 +75,7 @@ public class MailServiceImpl implements MailService {
         taskExecutor.execute(() -> {
             try {
                 if (!mailProperties.isMock()) {
-                    send0(dto, content);
+                    send0(dto, content, null);
                 } else {
                     log.info("发送邮件 MOCK 成功: {}", dto);
                 }
@@ -79,6 +84,25 @@ public class MailServiceImpl implements MailService {
                 //ignore
             }
         });
+    }
+
+    /**
+     * 邮件发送（同步）
+     * <p>
+     * 指定登陆用户的配置，如果没有配置，则使用默认配置
+     *
+     * @param dto
+     * @param sysUserId
+     */
+    @Override
+    public void send(MailDto dto, Long sysUserId) {
+        String content = validateAndParse(dto);
+        if (!mailProperties.isMock()) {
+            send0(dto, content, sysUserId);
+        } else {
+            log.info("发送邮件 MOCK 成功: {}", dto);
+        }
+        saveRecord(dto, content);
     }
 
     public String validateAndParse(MailDto dto) {
@@ -106,8 +130,9 @@ public class MailServiceImpl implements MailService {
      *
      * @param dto
      * @param content
+     * @param sysUserId 当前登陆用户ID
      */
-    private void send0(MailDto dto, String content) {
+    private void send0(MailDto dto, String content, Long sysUserId) {
         //解决附件中文乱码
         System.getProperties().setProperty("mail.mime.splitlongparameters", "false");
         try {
@@ -124,6 +149,35 @@ public class MailServiceImpl implements MailService {
             email.setCharset(mailProperties.getCharset());
             email.setSSLOnConnect(mailProperties.isSslConnect());
             email.setSslSmtpPort("" + mailProperties.getSslPort());
+
+            //使用登陆用户配置作为 发件人
+            if (sysUserId != null) {
+                EmailSender emailSender = emailSenderService.findBySysUserId(sysUserId);
+                if (emailSender != null) {
+                    log.info("邮件发送：指定用户发送，登陆用户:{},发件人: {}", emailSender.getSysUserName(), emailSender.getEmailName());
+                    email.setHostName(emailSender.getHostName());
+                    email.setSmtpPort(emailSender.getHostPort());
+                    if (emailSender.getStartTls() == WhetherStatus.yes) {
+                        email.setStartTLSEnabled(true);
+                    } else {
+                        email.setStartTLSEnabled(false);
+                    }
+                    email.setAuthentication(emailSender.getEmailName(), emailSender.getEmailPassword());
+                    if (Strings.isBlank(emailSender.getFromName())) {
+                        email.setFrom(emailSender.getFromAddress(), emailSender.getFromAddress());
+                    } else {
+                        email.setFrom(emailSender.getFromAddress(), emailSender.getFromName());
+                    }
+                    if (emailSender.getSslConnect() == WhetherStatus.yes) {
+                        email.setSSLOnConnect(true);
+                    } else {
+                        email.setSSLOnConnect(false);
+                    }
+                    email.setSslSmtpPort("" + emailSender.getSslPort());
+                }
+            }
+
+            //接收人
             for (String toMail : dto.getTo()) {
                 email.addTo(toMail);
             }

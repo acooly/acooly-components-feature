@@ -16,7 +16,27 @@ import com.acooly.module.mail.MailDto;
  */
 public interface MailService {
 
+    /**
+     * 邮件发送（同步）
+     *
+     * @param dto
+     */
     void send(MailDto dto);
 
+    /**
+     * 邮件发送（异步）
+     *
+     * @param dto
+     */
     void sendAsync(MailDto dto);
+
+
+    /**
+     * 邮件发送（同步）
+     * <p>
+     * 指定登陆用户的配置，如果没有配置，则使用默认配置
+     *
+     * @param dto
+     */
+    void send(MailDto dto, Long sysUserId);
 }
