@@ -102,7 +102,7 @@ public class EmailSender extends AbstractEntity {
      * 启动tls
      */
     @ExportColumn(header = "启动tls", order = 10)
-    private WhetherStatus startTls=WhetherStatus.yes;
+    private WhetherStatus startTls=WhetherStatus.no;
 
     /**
      * 使用SSL连接

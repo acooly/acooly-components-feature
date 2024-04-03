@@ -7,7 +7,9 @@
 package com.acooly.module.mail.web;
 
 import com.acooly.core.common.web.AbstractJsonEntityController;
+import com.acooly.core.utils.Dates;
 import com.acooly.core.utils.enums.WhetherStatus;
+import com.acooly.module.mail.MailDto;
 import com.acooly.module.mail.entity.EmailSender;
 import com.acooly.module.mail.service.EmailSenderService;
 import com.acooly.module.mail.service.MailService;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.Map;
 
 /**
