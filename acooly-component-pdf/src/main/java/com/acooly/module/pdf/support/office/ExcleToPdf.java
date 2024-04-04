@@ -9,10 +9,7 @@
 package com.acooly.module.pdf.support.office;
 
 import com.acooly.core.utils.Strings;
-import com.aspose.cells.FolderFontSource;
-import com.aspose.cells.FontConfigs;
-import com.aspose.cells.FontSourceBase;
-import com.aspose.cells.Workbook;
+import com.aspose.cells.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.NotBlank;
@@ -67,11 +64,58 @@ public class ExcleToPdf {
             crackExcle22_6();
             setFontsSources(fontsDir);
             Workbook workbook = new Workbook(excleFile);
-            workbook.save(os, com.aspose.cells.SaveFormat.PDF);
+            PdfSaveOptions saveOptions = new PdfSaveOptions();
+            saveOptions.setOnePagePerSheet(true);
+            int sheetCount = workbook.getWorksheets().getCount();
+            int[] showSheets = new int[sheetCount];
+            for (int i = 0; i < sheetCount; i++) {
+                showSheets[i] = i;
+            }
+            //当excel中对应的sheet页宽度太大时，在PDF中会拆断并分页。此处等比缩放。
+            autoDraw(workbook, showSheets);
+            //隐藏workbook中不需要的sheet页。
+            printSheetPage(workbook, showSheets);
+            workbook.save(os, saveOptions);
         } catch (Exception e) {
             throw new RuntimeException("excle转换失败", e);
         }
     }
+
+    /**
+     * 设置打印的sheet 自动拉伸比例
+     *
+     * @param wb
+     * @param page 自动拉伸的页的sheet数组
+     */
+    private static void autoDraw(Workbook wb, int[] page) {
+        if (null != page && page.length > 0) {
+            for (int i = 0; i < page.length; i++) {
+                wb.getWorksheets().get(i).getHorizontalPageBreaks().clear();
+                wb.getWorksheets().get(i).getVerticalPageBreaks().clear();
+            }
+        }
+    }
+
+
+    /**
+     * 隐藏workbook中不需要的sheet页。
+     *
+     * @param wb
+     * @param page 显示页的sheet数组
+     */
+    private static void printSheetPage(Workbook wb, int[] page) {
+        for (int i = 1; i < wb.getWorksheets().getCount(); i++) {
+            wb.getWorksheets().get(i).setVisible(false);
+        }
+        if (null == page || page.length == 0) {
+            wb.getWorksheets().get(0).setVisible(true);
+        } else {
+            for (int i = 0; i < page.length; i++) {
+                wb.getWorksheets().get(i).setVisible(true);
+            }
+        }
+    }
+
 
     public static void excleToPdf(@NotBlank InputStream excleInputStream, @NotBlank OutputStream pdfOutputStream, String fontsDir) {
         try (InputStream is = excleInputStream; OutputStream os = pdfOutputStream;) {

@@ -22,23 +22,23 @@ public class AsposeExcelTest {
     /**
      * 转化前-xlsx 文件
      */
-    String pptFile = "/Users/cuifuqiang/Desktop/pdf/2311-3315发运通知.xlsx";
+    String pptFile = "/Users/zhangpu/temp/desgin_task_list_orginal.xlsx";
 
     /**
      * 转化后-pdf 文件
      */
-    String pdfFile = "/Users/cuifuqiang/Desktop/2311-3315发运通知.pdf";
+    String pdfFile = "/Users/zhangpu/temp/desgin_task_list_orginal.pdf";
 
     /**
      * 根据你的开发机器的字体目录，设置字体目录
      * 如果是windows，你可以不管这个，因为aspose会自动加载系统字体
      * 如果是mac，你需要从windows拷贝这些字体，然后制定字体目录
      */
-    String fontsDir = "/Users/cuifuqiang/Desktop/fonts/";
-
+//    String fontsDir = "/Users/cuifuqiang/Desktop/fonts/";
+    String fontsDir = "/Users/zhangpu/software/fonts";
 
     @Test
-    public void testToPdf() {
+    public void testExcelToPdf() {
         AsposePdfs.excleToPdf(pptFile, pdfFile, fontsDir);
     }
 
