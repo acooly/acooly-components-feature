@@ -10,7 +10,13 @@ package com.acooly.module.test.aspose;
 
 import com.acooly.module.pdf.support.AsposePdfs;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author cuifuq
@@ -38,8 +44,17 @@ public class AsposeExcelTest {
     String fontsDir = "/Users/zhangpu/software/fonts";
 
     @Test
-    public void testExcelToPdf() {
+    public void testExcelToPdfWithFile() {
         AsposePdfs.excleToPdf(pptFile, pdfFile, fontsDir);
+    }
+
+    @Test
+    public void testExcelToPdfWithStream() throws Exception {
+        InputStream excelInputStream = new FileInputStream(pptFile);
+        OutputStream pdfOutputStream = new FileOutputStream(pdfFile);
+        AsposePdfs.excleToPdf(excelInputStream, pdfOutputStream, fontsDir);
+        IOUtils.closeQuietly(excelInputStream);
+        IOUtils.closeQuietly(pdfOutputStream);
     }
 
 }

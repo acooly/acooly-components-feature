@@ -62,16 +62,25 @@ public class AsposePdfs {
         WordToPdf.wordToPdf(wordInputStream, pdfOutputStream, fontsDir);
     }
 
+
+    /**
+     * excle 转 PDF
+     */
+    public static void excleToPdf(@NotBlank InputStream excleInputStream, @NotBlank OutputStream pdfOutputStream, String fontsDir) {
+        ExcleToPdf.excleToPdf(excleInputStream, pdfOutputStream, fontsDir);
+    }
+
     /**
      * excle 转 PDF
      *
      * @param excleInputStream
      * @param pdfOutputStream
+     * @see #excelToPdf(InputStream, OutputStream) excelToPdf
      */
+    @Deprecated
     public static void excleToPdf(@NotBlank InputStream excleInputStream, @NotBlank OutputStream pdfOutputStream) {
         ExcleToPdf.excleToPdf(excleInputStream, pdfOutputStream, null);
     }
-
 
     /**
      * excle 转 PDF
@@ -91,11 +100,6 @@ public class AsposePdfs {
         ExcleToPdf.excleToPdf(excleFile, pdfFile, fontsDir);
     }
 
-    /**
-     * excle 转 PDF
-     */
-    public static void excleToPdf(@NotBlank InputStream excleInputStream, @NotBlank OutputStream pdfOutputStream, String fontsDir) {
-        ExcleToPdf.excleToPdf(excleInputStream, pdfOutputStream, fontsDir);
-    }
+
 
 }

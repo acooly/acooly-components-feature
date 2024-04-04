@@ -57,28 +57,47 @@ public class ExcleToPdf {
      * @param fontsDir  字体目录, 可选，对于中文乱码或格式问题，可以从windows中拷贝excle中使用的常用字体到linux服务对应的目录，
      *                  然后通过该参数指定字体目录。一般常用字体包括：雅黑：msyh.ttc,msyhbd.ttc,msyhl.ttc；宋体：simsun.ttc；
      *                  仿宋：simfang.ttf；黑体：simhei.ttf；楷体：simkai.ttf。
+     * @see
      */
+    @Deprecated
     public static void excleToPdf(@NotBlank String excleFile, @NotBlank String pdfFile, String fontsDir) {
         File file = new File(pdfFile);
         try (FileOutputStream os = new FileOutputStream(file);) {
             crackExcle22_6();
             setFontsSources(fontsDir);
             Workbook workbook = new Workbook(excleFile);
-            PdfSaveOptions saveOptions = new PdfSaveOptions();
-            saveOptions.setOnePagePerSheet(true);
-            int sheetCount = workbook.getWorksheets().getCount();
-            int[] showSheets = new int[sheetCount];
-            for (int i = 0; i < sheetCount; i++) {
-                showSheets[i] = i;
-            }
-            //当excel中对应的sheet页宽度太大时，在PDF中会拆断并分页。此处等比缩放。
-            autoDraw(workbook, showSheets);
-            //隐藏workbook中不需要的sheet页。
-            printSheetPage(workbook, showSheets);
-            workbook.save(os, saveOptions);
+            doExcelToPdf(workbook, os);
         } catch (Exception e) {
-            throw new RuntimeException("excle转换失败", e);
+            throw new RuntimeException("Excel转换失败", e);
         }
+    }
+
+
+    public static void excleToPdf(@NotBlank InputStream excleInputStream, @NotBlank OutputStream pdfOutputStream, String fontsDir) {
+        try (InputStream is = excleInputStream; OutputStream os = pdfOutputStream;) {
+            crackExcle22_6();
+            setFontsSources(fontsDir);
+            Workbook workbook = new Workbook(is);
+            doExcelToPdf(workbook, os);
+        } catch (Exception e) {
+            throw new RuntimeException("Excel转换失败", e);
+        }
+    }
+
+    private static void doExcelToPdf(Workbook workbook, OutputStream os) throws Exception {
+        PdfSaveOptions saveOptions = new PdfSaveOptions();
+        saveOptions.setOnePagePerSheet(true);
+
+        int sheetCount = workbook.getWorksheets().getCount();
+        int[] showSheets = new int[sheetCount];
+        for (int i = 0; i < sheetCount; i++) {
+            showSheets[i] = i;
+        }
+        //当excel中对应的sheet页宽度太大时，在PDF中会拆断并分页。此处等比缩放。
+        autoDraw(workbook, showSheets);
+        //隐藏workbook中不需要的sheet页。
+        printSheetPage(workbook, showSheets);
+        workbook.save(os, saveOptions);
     }
 
     /**
@@ -113,18 +132,6 @@ public class ExcleToPdf {
             for (int i = 0; i < page.length; i++) {
                 wb.getWorksheets().get(i).setVisible(true);
             }
-        }
-    }
-
-
-    public static void excleToPdf(@NotBlank InputStream excleInputStream, @NotBlank OutputStream pdfOutputStream, String fontsDir) {
-        try (InputStream is = excleInputStream; OutputStream os = pdfOutputStream;) {
-            crackExcle22_6();
-            setFontsSources(fontsDir);
-            Workbook workbook = new Workbook(is);
-            workbook.save(os, com.aspose.cells.SaveFormat.PDF);
-        } catch (Exception e) {
-            throw new RuntimeException("excle转换失败", e);
         }
     }
 
