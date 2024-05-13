@@ -1,6 +1,8 @@
 <div class="easyui-layout" data-options="fit : true,border : false">
     <script type="text/javascript">
         var manage_customer_datagrid_state = false;
+
+
     </script>
     <!-- 查询条件 -->
     <div data-options="region:'north',border:false" style="padding:5px; overflow: hidden;" align="left">
@@ -64,15 +66,22 @@
 
                     function changeColumnWidth(name, width) {
                         console.info('changeColumnWidth', name, width);
-                        // var dg = $('#manage_customer_datagrid');
+                        var dg = $('#manage_customer_datagrid');
+
+                        var opts = dg.datagrid('options');
+                        console.info("opts.fitColumns",opts.fitColumns);
+                        console.info("opts", opts);
+
+                        dg.datagrid('autoSizeColumn');
+                        //
                         // var col = dg.datagrid('getColumnOption', name);
                         // col.width = width;
                         // dg.datagrid();
 
-                        $('#manage_customer_datagrid').datagrid('resizeColumn', {
-                            field: name,
-                            width: parseInt(width)
-                        });
+                        // $('#manage_customer_datagrid').datagrid('resizeColumn', {
+                        //     field: name,
+                        //     width: parseInt(width)
+                        // });
 
                     }
 
@@ -104,18 +113,20 @@
     <!-- 列表和工具栏 -->
     <#--    onLoadSuccess: function (data) {$('#manage_customer_datagrid').datagrid('statistics','salary');},-->
     <#--    onHeaderContextMenu:manage_customer_onHeaderContextMenu-->
+
+<#--    data-options="showFooter:true,striped:true,stateful: true, stateId: 'manage_customer_datagrid_stateId',-->
+<#--    onResizeColumn:function(field, width){-->
+<#--    if(manage_customer_datagrid_state){-->
+<#--    console.info(field, width);-->
+<#--    //$('#manage_customer_datagrid').datagrid('saveState');-->
+<#--    }-->
+<#--    },-->
+<#--    onLoadSuccess: function (data) {manage_customer_datagrid_state=true;},-->
+<#--    -->
+
     <div data-options="region:'center',border:false">
-        <table id="manage_customer_datagrid" class="easyui-datagrid icheck-primary" url="/manage/module/test/security/customer/listJson.html" toolbar="#manage_customer_toolbar" fit="true" border="false" fitColumns="false"
-               pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc" checkOnSelect="true" selectOnCheck="true" singleSelect="true"
-               data-options="showFooter:true,striped:true,stateful: true, stateId: 'manage_customer_datagrid_stateId',
-               onResizeColumn:function(field, width){
-                  if(manage_customer_datagrid_state){
-                    console.info(field, width);
-                    //$('#manage_customer_datagrid').datagrid('saveState');
-                  }
-               },
-               onLoadSuccess: function (data) {manage_customer_datagrid_state=true;},
-               ">
+        <table id="manage_customer_datagrid" class="easyui-datagrid" url="/manage/module/test/security/customer/listJson.html" toolbar="#manage_customer_toolbar" fit="true" fitColumns="true"
+               pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc" checkOnSelect="true" selectOnCheck="true" singleSelect="true">
             <thead>
             <tr>
                 <th field="showCheckboxWithId" checkbox="true" formatter="idFormatter">编号</th>
@@ -170,7 +181,7 @@
     </div>
     <script type="text/javascript">
         $(function () {
-            $.acooly.framework.initPage('manage_customer_searchform', 'manage_customer_datagrid');
+            // $.acooly.framework.initPage('manage_customer_searchform', 'manage_customer_datagrid');
             // 初始化日期段选择控件（注意：需要在配置`acooly.framework.plugin.date-range-picker=true`）
             // $.acooly.daterangepicker.init();
         });
