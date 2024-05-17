@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
     <!-- adminlte -->
     <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
+
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/OverlayScrollbars/OverlayScrollbars.min.css">
+
     <!-- Select2 -->
     <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
     <!-- easyui及自定义 -->
@@ -372,6 +376,8 @@
 <!-- AdminLTE -->
 <script src="/manage/assert/plugin/adminlte3/js/adminlte.min.js"></script>
 <script src="/manage/assert/plugin/adminlte3/js/adminlte_acooly.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/manage/assert/plugin/jquery-plugin/OverlayScrollbars/jquery.overlayScrollbars.min.js"></script>
 <!-- select2 -->
 <script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
 <#if securityConfig.plugin.pace>

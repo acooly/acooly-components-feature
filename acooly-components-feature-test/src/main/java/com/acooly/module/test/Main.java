@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 /**
  * @author zhangpu
  */
-@BootApp(sysName = "acooly-featrues-test", httpPort = 8090)
+@BootApp(sysName = "acooly-featrues-test", httpPort = 8091)
 public class Main {
 	public static void main(String[] args) {
 		Apps.setProfileIfNotExists("dev");
