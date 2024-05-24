@@ -10,17 +10,6 @@
                 <input type="text" class="form-control form-control-sm" name="search_LIKE_username"/>
             </div>
             <div class="form-group">
-                <label class="col-form-label">姓名：</label>
-                <input type="text" class="form-control form-control-sm" name="search_LIKE_realName"/>
-            </div>
-            <div class="form-group">
-                <label class="col-form-label">性别：</label>
-                <select name="search_EQ_gender" class="form-control input-sm select2bs4">
-                    <option value="">所有</option><#list allGenders as k,v>
-                    <option value="${k}">${v}</option></#list>
-                </select>
-            </div>
-            <div class="form-group">
                 <label class="col-form-label">手机号码：</label>
                 <input type="text" class="form-control form-control-sm" name="search_LIKE_mobileNo"/>
             </div>
@@ -95,7 +84,7 @@
                 <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.messager('danger','danger')">danger</button>
                 <button class="btn btn-xs btn-primary mr-1" type="button" onclick="$.acooly.messager('primary','primary')">primary</button>
 
-                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="changeColumnWidth('subject',100);">修改列宽</button>
+                <button class="btn btn-xs btn-primary mr-1" type="button" onclick="overlayScrollbars()">修改列宽</button>
 
             </div>
         </form>
@@ -174,5 +163,12 @@
             // 初始化日期段选择控件（注意：需要在配置`acooly.framework.plugin.date-range-picker=true`）
             // $.acooly.daterangepicker.init();
         });
+
+        function overlayScrollbars() {
+            $.acooly.overlayScrollbars($(".datagrid-body"));
+        }
+
+        // $('.datagrid-body').overlayScrollbars();
+
     </script>
 </div>

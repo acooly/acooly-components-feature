@@ -473,6 +473,16 @@ ${extendScripts}
         $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);
         $.acooly.admin.theme.loadTheme();
         $.acooly.system.init();
+
+        // 内容区域全局滚动条样式优化
+        $('body').overlayScrollbars({
+                className: "os-theme-dark",
+                scrollbars: {
+                    autoHide: "leave",
+                    clickScrolling: true
+                }
+            }
+        );
     });
 </script>
 </body>

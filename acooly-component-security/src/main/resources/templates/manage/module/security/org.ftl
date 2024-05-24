@@ -44,9 +44,26 @@
         <div id="manage_org_toolbar">
             <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.create({url:'/manage/module/security/org/create.html?parentId=0',entity:'org',width:600,height:500})"><i class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="manage_org_treegrid_toggle(this)"><i class="fa fa-minus-square fa-fw fa-col"></i>折叠</a>
+
+            <a href="#" class="easyui-linkbutton" plain="true" onclick="overlayS()"><i class="fa fa-minus-square fa-fw fa-col"></i>overlay</a>
+
+
         </div>
     </div>
     <script type="text/javascript">
+
+        function overlayS() {
+            if (typeof $.fn.overlayScrollbars !== 'undefined') {
+                $(".datagrid-body").overlayScrollbars({
+                        className: "os-theme-dark",
+                        scrollbars: {
+                            autoHide: "leave",
+                            clickScrolling: true
+                        }
+                    }
+                );
+            }
+        }
 
         // 查询的全局数据，用于获取类转换mapping
         var manage_org_datagrid_toggle_status = true;
@@ -89,6 +106,7 @@
                     //     $(this).treegrid('expandTo', expandId);
                     // }
                     // $.acooly.framework.renderDynamic("manage_org_datagrid");
+                    $.acooly.overlayScrollbars($("#manage_org_datagrid .datagrid-body"));
                 }
             });
             $.acooly.framework.initPage('manage_org_searchform', 'manage_org_datagrid');

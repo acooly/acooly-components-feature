@@ -34,8 +34,8 @@ acooly:
     framework:
         default-theme: acooly
         enable-favorite: true
-        font-size: 12
-        main-sidebar-width: 200
+#        font-size: 12
+#        main-sidebar-width: 200
         plugin:
             acooly-debug: true
             clipboard: false
@@ -96,7 +96,7 @@ acooly:
         session:
             check-interval: 60
             enable-kick-out: true
-            max-session-per-user: 1
+            max-session-per-user: 2
             redis-serialize-type: Kryo
             redis-timeout: 480
             timeout: 1800

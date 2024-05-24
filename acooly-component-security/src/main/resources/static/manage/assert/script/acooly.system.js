@@ -430,6 +430,21 @@ let system_class = {
         // 加载全局配置
         this.loadSecurityConfig();
         //console.info("load security config:",$.acooly.system.config);
+        // 内容区域全局滚动条样式优化
+        this.overlayScrollbars();
+    },
+
+    overlayScrollbars: function () {
+        if (typeof $.fn.overlayScrollbars !== 'undefined') {
+            $('body').overlayScrollbars({
+                    className: "os-theme-dark",
+                    scrollbars: {
+                        autoHide: "leave",
+                        clickScrolling: true
+                    }
+                }
+            );
+        }
     },
 
     loadSecurityConfig: function () {
