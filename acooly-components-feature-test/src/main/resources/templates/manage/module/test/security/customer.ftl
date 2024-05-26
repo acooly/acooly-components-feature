@@ -165,7 +165,14 @@
         });
 
         function overlayScrollbars() {
-            $.acooly.overlayScrollbars($(".datagrid-body"));
+            $.acooly.overlayScrollbars($(".datagrid-view2 .datagrid-body"));
+
+            $('.datagrid-view2 .datagrid-body').scroll(function() {
+                var scrollTop = $(this).scrollTop();
+                console.info("scrollTop",scrollTop);
+                $('.datagrid-view1 .datagrid-body').scrollTop(scrollTop);
+            });
+
         }
 
         // $('.datagrid-body').overlayScrollbars();
