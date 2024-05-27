@@ -374,7 +374,7 @@
 <script src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE -->
-<script src="/manage/assert/plugin/adminlte3/js/adminlte.min.js"></script>
+<script src="/manage/assert/plugin/adminlte3/js/adminlte.js"></script>
 <script src="/manage/assert/plugin/adminlte3/js/adminlte_acooly.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="/manage/assert/plugin/jquery-plugin/OverlayScrollbars/jquery.overlayScrollbars.min.js"></script>
