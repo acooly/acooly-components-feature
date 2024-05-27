@@ -327,6 +327,7 @@
                             $.acooly.framework.extendCombobox($(that));
                             //Initialize
                             $.acooly.framework.initPlugins($(that));
+                            $.acooly.overlayScrollbars($(that));
                             // 最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () {
                             };
