@@ -475,14 +475,14 @@ ${extendScripts}
         $.acooly.system.init();
 
         // 内容区域全局滚动条样式优化
-        $('body').overlayScrollbars({
-                className: "os-theme-dark",
-                scrollbars: {
-                    autoHide: "leave",
-                    clickScrolling: true
-                }
-            }
-        );
+        // $('.content-wrapper').overlayScrollbars({
+        //         className: "os-theme-dark",
+        //         scrollbars: {
+        //             autoHide: "leave",
+        //             clickScrolling: true
+        //         }
+        //     }
+        // );
     });
 </script>
 </body>

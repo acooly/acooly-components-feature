@@ -431,7 +431,7 @@ let system_class = {
         this.loadSecurityConfig();
         //console.info("load security config:",$.acooly.system.config);
         // 内容区域全局滚动条样式优化
-        this.overlayScrollbars();
+        // this.overlayScrollbars();
     },
 
     overlayScrollbars: function () {
