@@ -52,15 +52,15 @@
 
 
             // adminlte3
-            if ($.acooly.system.config.logoMini) {
-                $('#logo_image').attr('src', $.acooly.system.config.logoMini);
-            }
-            if ($.acooly.system.config.title) {
-                $('#logo_title').text($.acooly.system.config.title);
-            } else {
-                $('#logo_title').text("<b>Accoly</b> Sys V5.x");
-            }
-            $('.logo').show('normal');
+            // if ($.acooly.system.config.logoMini) {
+            //     $('#logo_image').attr('src', $.acooly.system.config.logoMini);
+            // }
+            // if ($.acooly.system.config.title) {
+            //     $('#logo_title').text($.acooly.system.config.title);
+            // } else {
+            //     $('#logo_title').text("<b>Accoly</b> Sys V5.x");
+            // }
+            // $('.logo').show('normal');
         },
 
         /**

@@ -2,8 +2,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, \5fae\8f6f\96c5\9ed1, Arial, sans-serif;
-    /*font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "BlinkMacSystemFont", "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", "system-ui", "-apple-system", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", "Helvetica Neue", "Helvetica", "Arial", sans-serif;*/
+    font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "BlinkMacSystemFont", "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", "system-ui", "-apple-system", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     /*font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";*/
     /*font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;*/
     font-size: 14px;
@@ -309,7 +308,7 @@ img {
 
 .tabs li a.tabs-inner:hover {
     background: #eaf2ff;
-    border-color: #b7d2ff;
+    /*border-color: #b7d2ff;*/
     filter: none;
 }
 

@@ -34,8 +34,8 @@ acooly:
     framework:
         default-theme: acooly
         enable-favorite: true
-#        font-size: 12
-#        main-sidebar-width: 200
+        font-size: 12
+        main-sidebar-width: 200
         plugin:
             acooly-debug: true
             clipboard: false
