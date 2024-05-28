@@ -765,7 +765,14 @@ acontent {
 
 /* custom main top height */
 .brand-link {
-    padding: 0.4rem 0.5rem;
+    display: flex;
+    font-size: 1.25rem;
+    transition: width .3s ease-in-out;
+    white-space: nowrap;
+    height: 40px;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 10px;
 }
 
 .brand-link .brand-image {
