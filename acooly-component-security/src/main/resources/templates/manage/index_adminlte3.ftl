@@ -114,6 +114,12 @@
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
             </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a class="nav-link" data-widget="refresh" href="#" role="button"><i class="fa fa-refresh"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a class="nav-link" href="#" role="button">本地测试 / 客户管理</a>
+            </li>
         </ul>
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
