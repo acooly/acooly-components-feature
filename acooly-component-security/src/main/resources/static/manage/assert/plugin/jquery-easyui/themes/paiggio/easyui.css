@@ -1555,7 +1555,7 @@ body {
     background: #F8F8F8 url('images/tabs_icons.png') no-repeat -15px center;
 }
 .tabs li a.tabs-close {
-    background: url('images/tabs_icons.png') no-repeat -34px center;
+    /*background: url('images/tabs_icons.png') no-repeat -34px center;*/
 }
 .tabs li a.tabs-inner:hover {
     background: none;
@@ -1613,6 +1613,9 @@ body {
     filter: none;
     border-color: #eeeeee;
 }
+
+
+
 .datagrid .panel-body {
     overflow: hidden;
     position: relative;

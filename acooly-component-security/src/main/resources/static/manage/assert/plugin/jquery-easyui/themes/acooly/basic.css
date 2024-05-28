@@ -281,14 +281,36 @@ img {
     padding: 3px;
 }
 
+/* 主界面的Tab方案 */
 #layout_center_tabs > .tabs-panels > .panel {
     background-color: #f4f6f9;
-    padding: 15px;
+    padding: 5px 10px;
 }
 
 #layout_center_tabs > .tabs-panels > .panel > .panel-body {
     background-color: #f4f6f9;
 }
+
+.tabs li a.tabs-inner {
+    background-color: #fff;
+}
+
+.tabs-header .tabs-pill li a.tabs-inner {
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.tabs li a.tabs-inner:hover {
+    background: #e4f0f7;
+    border-color: #e4f0f7;
+    filter: none;
+}
+
+.tabs li.tabs-selected a.tabs-close {
+    color: #ffffff;
+}
+
 
 /*#layout_center_tabs > .tabs-panels > .panel > .panel-body > .easyui-layout >.layout-panel-center {margin-top: 15px;}*/
 
@@ -353,7 +375,7 @@ div.datagrid-cell > div > label {
 /* 自定义datagrid的header背景和选中 */
 .tabs-header .tabs-pill li.tabs-selected a.tabs-inner {
     background: #007bff !important;
-    opacity: .65;
+    opacity: .90;
     color: #ffffff;
     filter: none;
     border-color: #007bff !important;
@@ -752,6 +774,7 @@ acontent {
     opacity: .8;
     width: 25px;
 }
+
 .navbar {
     padding: 0;
 }
