@@ -31,8 +31,8 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
     <!-- easyui及自定义 -->
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.min.css" id="easyuiTheme" type="text/css"/>
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.min.css" id="easyuiThemeBasic">
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.css" id="easyuiTheme" type="text/css"/>
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.css" id="easyuiThemeBasic">
     <#if securityConfig.plugin.pace>
         <!-- pace-progress -->
         <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
@@ -465,7 +465,7 @@
     <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.inputmask.js"></script>
 <#else>
-    <script src="/manage/assert/script/acooly.min.js?d=202311102" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.min.js?d=20240528" charset="utf-8"></script>
 </#if>
 
 <!-- 通过配置扩展script -->
@@ -480,16 +480,6 @@ ${extendScripts}
         $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);
         $.acooly.admin.theme.loadTheme();
         $.acooly.system.init();
-
-        // 内容区域全局滚动条样式优化
-        // $('.content-wrapper').overlayScrollbars({
-        //         className: "os-theme-dark",
-        //         scrollbars: {
-        //             autoHide: "leave",
-        //             clickScrolling: true
-        //         }
-        //     }
-        // );
     });
 </script>
 </body>
