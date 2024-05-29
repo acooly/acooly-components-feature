@@ -215,16 +215,16 @@
 
           $(Selector.CONTROL_SIDEBAR + ' ' + Selector.CONTROL_SIDEBAR_CONTENT).css('height', sidebarHeight);
 
-          if (typeof $.fn.overlayScrollbars !== 'undefined') {
-            $(Selector.CONTROL_SIDEBAR + ' ' + Selector.CONTROL_SIDEBAR_CONTENT).overlayScrollbars({
-              className: this._config.scrollbarTheme,
-              sizeAutoCapable: true,
-              scrollbars: {
-                autoHide: this._config.scrollbarAutoHide,
-                clickScrolling: true
-              }
-            });
-          }
+          // if (typeof $.fn.overlayScrollbars !== 'undefined') {
+          //   $(Selector.CONTROL_SIDEBAR + ' ' + Selector.CONTROL_SIDEBAR_CONTENT).overlayScrollbars({
+          //     className: this._config.scrollbarTheme,
+          //     sizeAutoCapable: true,
+          //     scrollbars: {
+          //       autoHide: this._config.scrollbarAutoHide,
+          //       clickScrolling: true
+          //     }
+          //   });
+          // }
         }
       } // Static
       ;

@@ -35,7 +35,10 @@
                toolbar="#manage_onlineFile_toolbar" fit="true" border="false" fitColumns="false"
                pagination="true" idField="id" pageSize="20" pageList="[ 10, 20, 30, 40, 50 ]" sortName="id" sortOrder="desc"
                checkOnSelect="true" selectOnCheck="true">
+
+
             <thead>
+
             <tr>
                 <th field="showCheckboxWithId" checkbox="true" data-options="formatter:function(value, row, index){ return row.id }">编号</th>
                 <th field="id">id</th>
@@ -92,46 +95,11 @@
 
         </div>
     </div>
-
+    <script type="text/javascript">
+        $(function () {
+            $.acooly.framework.initPage('manage_onlineFile_searchform', 'manage_onlineFile_datagrid');
+        });
+    </script>
 </div>
 
-<script type="text/javascript">
 
-    // /**
-    //  * 文件delete结果
-    //  * @param callBack
-    //  */
-    // var oFileDeleteSuccess = function (bussId, oFile){
-    //     console.log("manage_onlineFile_searchform-回调函数",bussId,oFile);
-    // }
-    //
-    // /**
-    //  * 文件success结果
-    //  * @param callBack
-    //  */
-    // var oFileUploadSuccess = function(bussId, oFile){
-    //     console.log("manage_onlineFile_searchform-回调函数",bussId,oFile);
-    // }
-    //
-    // /**
-    //  * 文件列表点击回调
-    //  * @param callBack
-    //  */
-    // var oFileClickItem = function (bussId, oFile){
-    //     console.log("manage_onlineFile_searchform-回调函数",bussId,oFile);
-    // }
-    //
-    // /**
-    //  * 文件回显需要的id
-    //  * @param callBack
-    //  */
-    // function oFileUploadShow(){
-    //     // 1是id  2是objectId
-    //     let showFiles = {1: '331,332,333,334'};
-    //     //let showFiles = {2: 'd6745e6ed6a037771ee1f4a903cf2ff7145ffa64,2fddc049922b113a02fa9d39671e037580f9cc61,fd0e43440e45c63fbe9d86b8fafaf5669a7d5bb3,2dedccdedff819e5b968e9c69861177274356014'};
-    //     oFileinit.call(this,showFiles,oFileDeleteSuccess,oFileUploadSuccess,oFileClickItem);
-    // }
-
-
-
-</script>

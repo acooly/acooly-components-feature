@@ -173,11 +173,14 @@
                     onOpen: function () {
                         // 打开dialog，EASYUI渲染完成后，处理combobox的宽度
                         var that = $(this);
+                        // 初始化美化滚动条
+                        // $.acooly.overlayScrollbars($(this));
                         $.parser.onComplete = function () {
                             //要执行的操作
                             $.acooly.framework.extendCombobox($(that));
                             //Initialize
                             $.acooly.framework.initPlugins($(that));
+                            $.acooly.overlayScrollbars($(that));
                             //最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () {
                             };
@@ -324,6 +327,7 @@
                             $.acooly.framework.extendCombobox($(that));
                             //Initialize
                             $.acooly.framework.initPlugins($(that));
+                            $.acooly.overlayScrollbars($(that));
                             // 最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () {
                             };
@@ -407,11 +411,23 @@
                 this.registerKeydown(searchForm, datagride);
                 this.extendCombobox(searchForm);
                 this.initPlugins(searchForm);
+                // this.initScroll(datagride);
                 // console.info("$.acooly.system.config", $.acooly.system.config);
                 // 如果开启开关，则初始化datagrid列显示扩展
                 if ($.acooly.system.config && $.acooly.system.config.plugin["datagridExt"]) {
                     this.initDatagridMenu(datagride);
                 }
+            },
+
+            initScroll: function (datagride) {
+                $("#" + datagride).datagrid({
+                    onLoadSuccess: function (data) {
+                        if (!$('.datagrid-body').hasClass('os-host')) {
+                            $.acooly.overlayScrollbars($('.datagrid-body'));
+                            console.info("do init scrollbar")
+                        }
+                    }
+                })
             },
 
             /**

@@ -1554,7 +1554,8 @@ body {
     background: #F8F8F8 url('images/tabs_icons.png') no-repeat -15px center;
 }
 .tabs li a.tabs-close {
-    background: url('images/tabs_icons.png') no-repeat -34px center;
+    color:#333333;
+    /*background: url('images/tabs_icons.png') no-repeat -34px center;*/
 }
 .tabs li a.tabs-inner:hover {
     background: none;

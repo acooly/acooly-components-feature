@@ -2,7 +2,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "BlinkMacSystemFont", "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", "system-ui", "-apple-system", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    /*font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";*/
     /*font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;*/
     font-size: 14px;
 }
@@ -281,14 +282,40 @@ img {
     padding: 3px;
 }
 
+/* 主界面的Tab方案 */
 #layout_center_tabs > .tabs-panels > .panel {
     background-color: #f4f6f9;
-    padding: 15px;
+    padding: 5px 10px;
 }
 
 #layout_center_tabs > .tabs-panels > .panel > .panel-body {
     background-color: #f4f6f9;
 }
+
+.tabs li a.tabs-inner {
+    background-color: #fff;
+}
+
+.tabs-header .tabs-pill li a.tabs-inner {
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.tabs li.tabs-selected a.tabs-inner{
+    font-weight: 400;
+}
+
+.tabs li a.tabs-inner:hover {
+    background: #eaf2ff;
+    /*border-color: #b7d2ff;*/
+    filter: none;
+}
+
+.tabs li.tabs-selected a.tabs-close {
+    color: #ffffff;
+}
+
 
 /*#layout_center_tabs > .tabs-panels > .panel > .panel-body > .easyui-layout >.layout-panel-center {margin-top: 15px;}*/
 
@@ -353,7 +380,7 @@ div.datagrid-cell > div > label {
 /* 自定义datagrid的header背景和选中 */
 .tabs-header .tabs-pill li.tabs-selected a.tabs-inner {
     background: #007bff !important;
-    opacity: .65;
+    opacity: .90;
     color: #ffffff;
     filter: none;
     border-color: #007bff !important;
@@ -732,7 +759,7 @@ div.datagrid-cell > div > label {
 
 /* end jquery-easyui-portal */
 .tabs-icon {
-    margin-top: -5px;
+    margin-top: -7px;
 }
 
 /* datagrid cell auto content custom tag */
@@ -743,7 +770,14 @@ acontent {
 
 /* custom main top height */
 .brand-link {
-    padding: 0.4rem 0.5rem;
+    display: flex;
+    font-size: 1.25rem;
+    transition: width .3s ease-in-out;
+    white-space: nowrap;
+    height: 40px;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 10px;
 }
 
 .brand-link .brand-image {
@@ -752,6 +786,7 @@ acontent {
     opacity: .8;
     width: 25px;
 }
+
 .navbar {
     padding: 0;
 }

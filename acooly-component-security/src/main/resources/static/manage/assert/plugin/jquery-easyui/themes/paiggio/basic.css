@@ -361,6 +361,10 @@ div.datagrid-cell > div > label {
     background-color: #ffffff;
 }
 
+.tabs li.tabs-selected a.tabs-close {
+    color: #ffffff;
+}
+
 .panel-header-noborder {
     border-width: 0;
 }

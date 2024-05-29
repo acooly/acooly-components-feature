@@ -24,11 +24,15 @@
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
     <!-- adminlte -->
     <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
+
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/OverlayScrollbars/OverlayScrollbars.min.css">
+
     <!-- Select2 -->
     <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
     <!-- easyui及自定义 -->
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.min.css" id="easyuiTheme" type="text/css"/>
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.min.css" id="easyuiThemeBasic">
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.css" id="easyuiTheme" type="text/css"/>
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.css" id="easyuiThemeBasic">
     <#if securityConfig.plugin.pace>
         <!-- pace-progress -->
         <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
@@ -110,6 +114,11 @@
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
             </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a class="nav-link" data-widget="refresh" href="#" onclick="location.reload();" role="button">
+                    <i><svg style="height: 1rem;width: 1rem;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024"><path d="M909.1 209.3l-56.4 44.1C775.8 155.1 656.2 92 521.9 92C290 92 102.3 279.5 102 511.5C101.7 743.7 289.8 932 521.9 932c181.3 0 335.8-115 394.6-276.1c1.5-4.2-.7-8.9-4.9-10.3l-56.7-19.5a8 8 0 0 0-10.1 4.8c-1.8 5-3.8 10-5.9 14.9c-17.3 41-42.1 77.8-73.7 109.4A344.77 344.77 0 0 1 655.9 829c-42.3 17.9-87.4 27-133.8 27c-46.5 0-91.5-9.1-133.8-27A341.5 341.5 0 0 1 279 755.2a342.16 342.16 0 0 1-73.7-109.4c-17.9-42.4-27-87.4-27-133.9s9.1-91.5 27-133.9c17.3-41 42.1-77.8 73.7-109.4c31.6-31.6 68.4-56.4 109.3-73.8c42.3-17.9 87.4-27 133.8-27c46.5 0 91.5 9.1 133.8 27a341.5 341.5 0 0 1 109.3 73.8c9.9 9.9 19.2 20.4 27.8 31.4l-60.2 47a8 8 0 0 0 3 14.1l175.6 43c5 1.2 9.9-2.6 9.9-7.7l.8-180.9c-.1-6.6-7.8-10.3-13-6.2z" fill="currentColor"></path></svg></i>
+                </a>
+            </li>
         </ul>
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
@@ -172,9 +181,11 @@
     <!-- Main Sidebar Container sidebar-blue-primary -->
     <aside class="main-sidebar sidebar-<#if acoolyTheme == 'acooly'>dark<#else>blue</#if>-primary elevation-5">
         <!-- Brand Logo -->
-        <a href="javascript:;" class="logo brand-link" style="display: none;">
-            <span><img id="logo_image" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"></span>
-            <span id="logo_title" class="ac-logo-title brand-text font-weight-light"></span>
+        <a href="javascript:;" class="logo brand-link">
+            <span><img id="logo_image" alt="AdminLTE Logo" src="${securityConfig.logoMini}" class="brand-image img-circle elevation-3"></span>
+            <span id="logo_title" class="ac-logo-title brand-text font-weight-light">
+                <#if securityConfig.title>${securityConfig.title}<#else><b>Accoly</b> BOSS</#if>
+            </span>
         </a>
 
         <!-- Sidebar -->
@@ -370,8 +381,10 @@
 <script src="/manage/assert/plugin/jquery/jquery-migrate-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/manage/assert/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE -->
-<script src="/manage/assert/plugin/adminlte3/js/adminlte.min.js"></script>
+<script src="/manage/assert/plugin/adminlte3/js/adminlte.js"></script>
 <script src="/manage/assert/plugin/adminlte3/js/adminlte_acooly.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/manage/assert/plugin/jquery-plugin/OverlayScrollbars/jquery.overlayScrollbars.min.js"></script>
 <!-- select2 -->
 <script src="/manage/assert/plugin/select2/js/select2.min.js"></script>
 <#if securityConfig.plugin.pace>
@@ -452,7 +465,7 @@
     <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.inputmask.js"></script>
 <#else>
-    <script src="/manage/assert/script/acooly.min.js?d=202311102" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.min.js?d=20240528" charset="utf-8"></script>
 </#if>
 
 <!-- 通过配置扩展script -->
