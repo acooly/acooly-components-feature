@@ -24,14 +24,13 @@
     <link rel="stylesheet" href="/manage/assert/plugin/awesome/4.7.0/css/font-awesome.min.css">
     <!-- adminlte -->
     <link rel="stylesheet" href="/manage/assert/plugin/adminlte3/css/adminlte.min.css">
-
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/OverlayScrollbars/OverlayScrollbars.min.css">
-
     <!-- Select2 -->
     <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
     <!-- easyui及自定义 -->
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.css" id="easyuiTheme" type="text/css"/>
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.css" id="easyuiTheme"
+          type="text/css"/>
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.css" id="easyuiThemeBasic">
     <#if securityConfig.plugin.pace>
         <!-- pace-progress -->
@@ -49,57 +48,42 @@
     ${extendStyles}
     <!-- 根据配置设置全局样式 -->
     <style>
-        .datagrid-header .datagrid-cell span {
-            font-size: ${securityConfig.fontSize}px;
-        }
 
+        <#assign fontSize><#if acoolySize == 'normal'>14<#else>12</#if></#assign>
+        <#assign mainSidebarWidth><#if acoolySize == 'normal'>250<#else>200</#if></#assign>
+
+        body, .panel-body, .l-btn-text, .tree-title, .datagrid-header .datagrid-cell span {
+            font-size: ${fontSize}px;
+        }
         .combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,
         .input-group-text, .tabs-title {
-            font-size: ${securityConfig.fontSize}px;
+            font-size: ${fontSize}px;
         }
 
         .datagrid-header-row, .datagrid-row {
-            height: <#if securityConfig.fontSize lt 14>35<#else>40</#if>px;
+            height: <#if fontSize lt 14>35<#else>40</#if>px;
         }
 
         .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
-            font-size: ${securityConfig.fontSize}px;
+            font-size: ${fontSize}px;
         }
 
-        .l-btn-text {
-            font-size: ${securityConfig.fontSize}px;
-        }
 
-        .panel-body {
-            font-size: ${securityConfig.fontSize}px;
-        }
-
-        body {
-            font-size: ${securityConfig.fontSize}px;
-        }
-
-        .main-sidebar, .main-sidebar::before {
-            width: ${securityConfig.mainSidebarWidth}px;
+        .main-sidebar, .main-sidebar::before, .layout-fixed .brand-link {
+            width: ${mainSidebarWidth}px;
         }
 
         .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
-            margin-left: ${securityConfig.mainSidebarWidth}px;
+            margin-left: ${mainSidebarWidth}px;
         }
 
         body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
-            margin-left: ${securityConfig.mainSidebarWidth}px;
+            margin-left: ${mainSidebarWidth}px;
         }
 
-        .tree-title {
-            font-size: ${securityConfig.fontSize}px;
-        }
-
-        .layout-fixed .brand-link {
-            width: ${securityConfig.mainSidebarWidth}px;
-        }
 
         .ac-logo-title {
-            font-size: <#if securityConfig.fontSize lt 14>18<#else>20</#if>px;
+            font-size: <#if fontSize lt 14>18<#else>20</#if>px;
         }
     </style>
 </head>
@@ -116,7 +100,13 @@
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a class="nav-link" data-widget="refresh" href="#" onclick="location.reload();" role="button">
-                    <i><svg style="height: 1rem;width: 1rem;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024"><path d="M909.1 209.3l-56.4 44.1C775.8 155.1 656.2 92 521.9 92C290 92 102.3 279.5 102 511.5C101.7 743.7 289.8 932 521.9 932c181.3 0 335.8-115 394.6-276.1c1.5-4.2-.7-8.9-4.9-10.3l-56.7-19.5a8 8 0 0 0-10.1 4.8c-1.8 5-3.8 10-5.9 14.9c-17.3 41-42.1 77.8-73.7 109.4A344.77 344.77 0 0 1 655.9 829c-42.3 17.9-87.4 27-133.8 27c-46.5 0-91.5-9.1-133.8-27A341.5 341.5 0 0 1 279 755.2a342.16 342.16 0 0 1-73.7-109.4c-17.9-42.4-27-87.4-27-133.9s9.1-91.5 27-133.9c17.3-41 42.1-77.8 73.7-109.4c31.6-31.6 68.4-56.4 109.3-73.8c42.3-17.9 87.4-27 133.8-27c46.5 0 91.5 9.1 133.8 27a341.5 341.5 0 0 1 109.3 73.8c9.9 9.9 19.2 20.4 27.8 31.4l-60.2 47a8 8 0 0 0 3 14.1l175.6 43c5 1.2 9.9-2.6 9.9-7.7l.8-180.9c-.1-6.6-7.8-10.3-13-6.2z" fill="currentColor"></path></svg></i>
+                    <i>
+                        <svg style="height: 1rem;width: 1rem;" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 1024 1024">
+                            <path d="M909.1 209.3l-56.4 44.1C775.8 155.1 656.2 92 521.9 92C290 92 102.3 279.5 102 511.5C101.7 743.7 289.8 932 521.9 932c181.3 0 335.8-115 394.6-276.1c1.5-4.2-.7-8.9-4.9-10.3l-56.7-19.5a8 8 0 0 0-10.1 4.8c-1.8 5-3.8 10-5.9 14.9c-17.3 41-42.1 77.8-73.7 109.4A344.77 344.77 0 0 1 655.9 829c-42.3 17.9-87.4 27-133.8 27c-46.5 0-91.5-9.1-133.8-27A341.5 341.5 0 0 1 279 755.2a342.16 342.16 0 0 1-73.7-109.4c-17.9-42.4-27-87.4-27-133.9s9.1-91.5 27-133.9c17.3-41 42.1-77.8 73.7-109.4c31.6-31.6 68.4-56.4 109.3-73.8c42.3-17.9 87.4-27 133.8-27c46.5 0 91.5 9.1 133.8 27a341.5 341.5 0 0 1 109.3 73.8c9.9 9.9 19.2 20.4 27.8 31.4l-60.2 47a8 8 0 0 0 3 14.1l175.6 43c5 1.2 9.9-2.6 9.9-7.7l.8-180.9c-.1-6.6-7.8-10.3-13-6.2z"
+                                  fill="currentColor"></path>
+                        </svg>
+                    </i>
                 </a>
             </li>
         </ul>
@@ -124,12 +114,14 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i> <span class="d-none d-md-inline"><@shiroPrincipal/></span>
+                    <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i> <span
+                            class="d-none d-md-inline"><@shiroPrincipal/></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
                     <li class="user-header bg-primary">
-                        <span style="font-size: 60px;"><i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></span>
+                        <span style="font-size: 60px;"><i class="fa fa-user-circle-o fa-lg"
+                                                          aria-hidden="true"></i></span>
                         <p>
                             ${user.username} - ${user.realName}
                         <div style="font-size:14px;">${roleName}</div>
@@ -137,8 +129,10 @@
                     </li>
                     <!-- Menu Footer-->
                     <li class="user-footer">
-                        <a href="javascript:;" style="font-size:14px;" onclick="$.acooly.framework.changePassword();" class="btn btn-default btn-flat">修改密码</a>
-                        <a href="javascript:;" style="font-size:14px;" onclick="$.acooly.framework.logout();" class="btn btn-default btn-flat float-right">安全退出</a>
+                        <a href="javascript:;" style="font-size:14px;" onclick="$.acooly.framework.changePassword();"
+                           class="btn btn-default btn-flat">修改密码</a>
+                        <a href="javascript:;" style="font-size:14px;" onclick="$.acooly.framework.logout();"
+                           class="btn btn-default btn-flat float-right">安全退出</a>
                     </li>
                 </ul>
             </li>
@@ -149,11 +143,13 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="font-size: 14px;">
                     <div class="dropdown-divider"></div>
-                    <a href="/manage/index.html?acoolyTheme=acooly" class="dropdown-item<#if acoolyTheme='acooly'> active</#if>">
+                    <a href="/manage/index.html?acoolyTheme=acooly"
+                       class="dropdown-item<#if acoolyTheme='acooly'> active</#if>">
                         <i class="fa fa-pie-chart fa-lg mr-2"></i> 创新素雅
                         <span class="float-right text-sm">AdminLte3</span>
                     </a>
-                    <a href="/manage/index.html?acoolyTheme=paiggio" class="dropdown-item<#if acoolyTheme='paiggio'> active</#if>">
+                    <a href="/manage/index.html?acoolyTheme=paiggio"
+                       class="dropdown-item<#if acoolyTheme='paiggio'> active</#if>">
                         <i class="fa fa-product-hunt fa-lg mr-2"></i> 蓝色天空
                         <span class="float-right text-sm">BlueSky</span>
                     </a>
@@ -165,13 +161,37 @@
                     <div class="dropdown-divider"></div>
                 </div>
             </li>
+
+            <!-- choose size -->
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="fa fa-font fa-lg"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="font-size: 14px;">
+                    <div class="dropdown-divider"></div>
+                    <a href="/manage/index.html?acoolySize=normal"
+                       class="dropdown-item<#if acoolySize='normal'> active</#if>">
+                        <i class="fa fa-th-large fa-lg mr-2"></i> 正常
+                        <span class="float-right text-sm">字体正常，可读更好</span>
+                    </a>
+                    <a href="/manage/index.html?acoolySize=min"
+                       class="dropdown-item<#if acoolySize='min'> active</#if>">
+                        <i class="fa fa-th fa-lg mr-2"></i> 紧凑
+                        <span class="float-right text-sm">字体较小，内容更多</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                </div>
+            </li>
+
             <!-- 帮组文档按钮 -->
             <#if isOnline == false>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://acooly.cn/docs/core.html" target="_blank" title="帮助" role="button"><i class="fa fa-question-circle fa-lg"></i></a>
+                    <a class="nav-link" href="https://acooly.cn/docs/core.html" target="_blank" title="帮助"
+                       role="button"><i class="fa fa-question-circle fa-lg"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fa fa-th-large fa-lg"></i></a>
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
+                                class="fa fa-th-large fa-lg"></i></a>
                 </li>
             </#if>
         </ul>
@@ -182,7 +202,8 @@
     <aside class="main-sidebar sidebar-<#if acoolyTheme == 'acooly'>dark<#else>blue</#if>-primary elevation-5">
         <!-- Brand Logo -->
         <a href="javascript:;" class="logo brand-link">
-            <span><img id="logo_image" alt="AdminLTE Logo" src="${securityConfig.logoMini}" class="brand-image img-circle elevation-3"></span>
+            <span><img id="logo_image" alt="AdminLTE Logo" src="${securityConfig.logoMini}"
+                       class="brand-image img-circle elevation-3"></span>
             <span id="logo_title" class="ac-logo-title brand-text font-weight-light">
                 <#if securityConfig.title>${securityConfig.title}<#else><b>Accoly</b> BOSS</#if>
             </span>
@@ -192,7 +213,8 @@
         <div class="sidebar">
             <!-- Sidebar Menu -->
             <nav style="overflow-x: hidden;">
-                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-header">功能菜单</li>
@@ -209,7 +231,9 @@
                             <ul class="nav nav-treeview">
                                 <#list favorites as e2>
                                     <li class="nav-item">
-                                        <a href="javascript:;" id="nav-item-link_${e2.rescId}" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.rescName}',value:'${e2.rescValue}',showMode:'${e2.showMode}',icon:'${e2.rescIcon}',rescId:'${e2.rescId}'})" class="nav-link" style="padding-left: 0.5rem;">
+                                        <a href="javascript:;" id="nav-item-link_${e2.rescId}"
+                                           onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.rescName}',value:'${e2.rescValue}',showMode:'${e2.showMode}',icon:'${e2.rescIcon}',rescId:'${e2.rescId}'})"
+                                           class="nav-link" style="padding-left: 0.5rem;">
                                             <i class="nav-icon fa ${e2.rescIcon }"></i>
                                             <p>${e2.rescName}</p>
                                         </a>
@@ -221,8 +245,10 @@
                     <#list menu as e1>
                     <#--第一层-->
                         <li class="nav-item has-treeview<#if !(favorites??) && e1?index==0> menu-open</#if>">
-                            <a href="#" class="nav-link<#if !(favorites??) && e1?index==0> active</#if>" style="padding-left: 0.5rem;">
-                                <#if e1.iconSkin??><i class="nav-icon fa ${e1.iconSkin}"></i><#else><span class="line-action ${e1.icon}"></span></#if>
+                            <a href="#" class="nav-link<#if !(favorites??) && e1?index==0> active</#if>"
+                               style="padding-left: 0.5rem;">
+                                <#if e1.iconSkin??><i class="nav-icon fa ${e1.iconSkin}"></i><#else><span
+                                    class="line-action ${e1.icon}"></span></#if>
                                 <p>
                                     ${e1.name}
                                     <i class="right fa fa-angle-left"></i>
@@ -234,7 +260,8 @@
                                         <#if e2.children?? && (e2.children?size > 0)>
                                             <li class="nav-item has-treeview">
                                                 <a href="#" class="nav-link" style="padding-left: 0.5rem;">
-                                                    <#if e2.iconSkin??><i class="nav-icon fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>
+                                                    <#if e2.iconSkin??><i class="nav-icon fa ${e2.iconSkin}"></i><#else>
+                                                        <span class="line-action ${e2.icon}"></span></#if>
                                                     <p>
                                                         ${e2.name}
                                                         <i class="right fa fa-angle-left"></i>
@@ -243,16 +270,24 @@
                                                 <ul class="nav nav-treeview">
                                                     <#list e2.children as e3>
                                                         <li class="nav-item">
-                                                            <a href="javascript:;" id="nav-item-link_${e3.id}" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}',rescId:'${e3.id}'})" class="nav-link" style="padding-left: 0.5rem;">
-                                                                <#if e3.iconSkin??><i class="nav-icon fa ${e3.iconSkin}"></i><#else><span class="line-action ${e3.icon}"></span></#if><p>${e3.name}</p></a>
+                                                            <a href="javascript:;" id="nav-item-link_${e3.id}"
+                                                               onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}',rescId:'${e3.id}'})"
+                                                               class="nav-link" style="padding-left: 0.5rem;">
+                                                                <#if e3.iconSkin??><i
+                                                                class="nav-icon fa ${e3.iconSkin}"></i><#else><span
+                                                            class="line-action ${e3.icon}"></span></#if>
+                                                                <p>${e3.name}</p></a>
                                                         </li>
                                                     </#list>
                                                 </ul>
                                             </li>
                                         <#else>
                                             <li class="nav-item">
-                                                <a href="javascript:;" id="nav-item-link_${e2.id}" onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}',rescId:'${e2.id}'})" class="nav-link" style="padding-left: 0.5rem;">
-                                                    <#if e2.iconSkin??><i class="nav-icon fa ${e2.iconSkin}"></i><#else><span class="line-action ${e2.icon}"></span></#if>
+                                                <a href="javascript:;" id="nav-item-link_${e2.id}"
+                                                   onclick="$.acooly.layout.accessResource({type:'URL',name:'${e2.name}',value:'${e2.value}',showMode:'${e2.showMode}',icon:'${e2.icon}',rescId:'${e2.id}'})"
+                                                   class="nav-link" style="padding-left: 0.5rem;">
+                                                    <#if e2.iconSkin??><i class="nav-icon fa ${e2.iconSkin}"></i><#else>
+                                                        <span class="line-action ${e2.icon}"></span></#if>
                                                     <p>${e2.name}</p>
                                                 </a>
                                             </li>
@@ -288,8 +323,10 @@
     <aside class="control-sidebar control-sidebar-dark">
 
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li class="active"><a href="#control-sidebar-options-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-wrench"></i></a></li>
-            <li class=""><a href="#control-sidebar-devdocs-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-book"></i></a></li>
+            <li class="active"><a href="#control-sidebar-options-tab" data-toggle="tab" aria-expanded="true"><i
+                            class="fa fa-wrench"></i></a></li>
+            <li class=""><a href="#control-sidebar-devdocs-tab" data-toggle="tab" aria-expanded="false"><i
+                            class="fa fa-book"></i></a></li>
         </ul>
 
         <div class="tab-content control-sidebar-content">
@@ -393,7 +430,8 @@
 </#if>
 <!-- Jquery plugins  -->
 <script src="/manage/assert/plugin/template/baiduTemplate.js"></script>
-<script src="/manage/assert/plugin/jquery-plugin/jquery.form.cookie.resize.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/manage/assert/plugin/jquery-plugin/jquery.form.cookie.resize.min.js" type="text/javascript"
+        charset="utf-8"></script>
 <#if securityConfig.plugin.clipboard>
     <script src="/manage/assert/plugin/jquery-plugin/clipboard.min.js"></script>
 </#if>
@@ -405,9 +443,11 @@
 </#if>
 <!-- easyui -->
 <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/jquery.easyui.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui-portal/jquery.portal.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/manage/assert/plugin/jquery-easyui-portal/jquery.portal.min.js"
+        charset="utf-8"></script>
 <#if securityConfig.plugin.easyuiExtension>
-    <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-extensions.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/manage/assert/plugin/jquery-easyui/plugins/datagrid-extensions.min.js"
+            charset="utf-8"></script>
 </#if>
 <!-- my97日期控件 -->
 <script type="text/javascript" src="/manage/assert/plugin/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
@@ -421,16 +461,21 @@
 <!-- ztree -->
 <script type="text/javascript" src="/manage/assert/plugin/jquery-ztree/js/jquery.ztree.allinone.min.js"></script>
 <!-- select2ztree -->
-<script type="text/javascript" src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.min.js"></script>
+<script type="text/javascript"
+        src="/manage/assert/plugin/jquery-plugin/select2ztree/jquery.select2ztree.min.js"></script>
 <#if securityConfig.plugin.layui>
     <script type="text/javascript" src="/manage/assert/plugin/layui/layui.all.js"></script>
 </#if>
 <#if securityConfig.plugin.kindEditor>
     <!--kindEditor插件库 -->
-    <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
-    <link rel="stylesheet" type="text/css" href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
-    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/webuploader.html5only.min.js"></script>
-    <script charset="utf-8" src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/diyUpload.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css"
+          href="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/css/diyUpload.css">
+    <script charset="utf-8"
+            src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script charset="utf-8"
+            src="/manage/assert/plugin/kindeditor/plugins/multi_image/diyUpload/js/diyUpload.js"></script>
     <script charset="utf-8" src="/manage/assert/plugin/kindeditor/htmlminifier.min.js"></script>
     <script charset="utf-8" src="/manage/assert/plugin/kindeditor/kindeditor-all.js"></script>
     <script charset="utf-8" src="/manage/assert/plugin/kindeditor/lang/zh_CN.js"></script>

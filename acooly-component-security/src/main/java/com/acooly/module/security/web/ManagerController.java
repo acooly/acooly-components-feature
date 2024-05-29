@@ -106,6 +106,20 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
                 acoolyTheme = frameworkProperties.getDefaultTheme();
             }
             request.getSession().setAttribute("acoolyTheme", acoolyTheme);
+
+            // 字体大小
+            String acoolySize = (String) request.getSession().getAttribute("acoolySize");
+            String refreshSize = Servlets.getParameter(request, "acoolySize");
+            if (Strings.isNotBlank(refreshSize)) {
+                acoolySize = refreshSize;
+            }
+            if (Strings.isBlank(acoolyTheme)) {
+                // frameworkProperties.getDefaultTheme()
+                acoolyTheme = "normal";
+            }
+            request.getSession().setAttribute("acoolySize", acoolySize);
+
+
             boolean isOnline = (Lists.newArrayList(Apps.getEnvironment().getActiveProfiles()).contains(Env.online.name()));
             model.addAttribute("isOnline", isOnline);
 
