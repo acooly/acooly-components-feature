@@ -1,0 +1,34 @@
+
+body, .panel-body, .l-btn-text, .tree-title, .datagrid-header .datagrid-cell span {
+    font-size: 14px;
+}
+
+.combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,
+.input-group-text, .tabs-title {
+    font-size: 14px;
+}
+
+.datagrid-header-row, .datagrid-row {
+    height: 40px;
+}
+
+.datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
+    font-size: 14px;
+}
+
+
+.main-sidebar, .main-sidebar::before, .layout-fixed .brand-link {
+    width: 250px;
+}
+
+.content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+    margin-left: 250px;
+}
+
+body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+    margin-left: 250px;
+}
+
+.ac-logo-title {
+    font-size: 20px;
+}

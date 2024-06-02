@@ -422,6 +422,7 @@
 
         defaultExpires: 7,
         acoolyThemeKey: "acoolyTheme",
+        acoolySizeKey: "acoolySize",
 
         /**
          * 从cookies加载主题并修改为对应的样式

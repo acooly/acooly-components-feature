@@ -10,6 +10,7 @@ import com.acooly.core.utils.Servlets;
 import com.acooly.core.utils.Strings;
 import com.acooly.core.utils.mapper.JsonMapper;
 import com.acooly.module.security.captche.SecurityCaptchaManager;
+import com.acooly.module.security.config.FrameworkKeys;
 import com.acooly.module.security.config.FrameworkProperties;
 import com.acooly.module.security.config.SecurityProperties;
 import com.acooly.module.security.domain.User;
@@ -39,12 +40,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static com.acooly.module.security.utils.jwts.SIGN_KEY;
 
@@ -60,7 +59,6 @@ import static com.acooly.module.security.utils.jwts.SIGN_KEY;
 @ConditionalOnProperty(value = SecurityProperties.PREFIX + ".shiro.auth.enable", matchIfMissing = true)
 @Olog.Ignore
 public class ManagerController extends AbstractJsonEntityController<User, UserService> {
-
     private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 
     @Autowired
@@ -97,28 +95,13 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
             model.addAttribute("user", user);
             model.addAttribute("roleName", roleName);
             // theme处理
-            String acoolyTheme = (String) request.getSession().getAttribute("acoolyTheme");
-            String refreshTheme = Servlets.getParameter(request, "acoolyTheme");
-            if (Strings.isNotBlank(refreshTheme)) {
-                acoolyTheme = refreshTheme;
+            String acoolyTheme = doFrameworkConfig(request, FrameworkKeys.ACOOLY_THEME, frameworkProperties.getDefaultTheme());
+            // 窗口大小和字体大小
+            String defaultSize = frameworkProperties.getDefaultSize();
+            if (Strings.isBlank(defaultSize)) {
+                defaultSize = frameworkProperties.getFontSize() >= 14 ? "normal" : "mini";
             }
-            if (Strings.isBlank(acoolyTheme)) {
-                acoolyTheme = frameworkProperties.getDefaultTheme();
-            }
-            request.getSession().setAttribute("acoolyTheme", acoolyTheme);
-
-            // 字体大小
-            String acoolySize = (String) request.getSession().getAttribute("acoolySize");
-            String refreshSize = Servlets.getParameter(request, "acoolySize");
-            if (Strings.isNotBlank(refreshSize)) {
-                acoolySize = refreshSize;
-            }
-            if (Strings.isBlank(acoolyTheme)) {
-                // frameworkProperties.getDefaultTheme()
-                acoolyTheme = "normal";
-            }
-            request.getSession().setAttribute("acoolySize", acoolySize);
-
+            doFrameworkConfig(request, FrameworkKeys.ACOOLY_SIZE, defaultSize);
 
             boolean isOnline = (Lists.newArrayList(Apps.getEnvironment().getActiveProfiles()).contains(Env.online.name()));
             model.addAttribute("isOnline", isOnline);
@@ -141,6 +124,39 @@ public class ManagerController extends AbstractJsonEntityController<User, UserSe
 //            request.getSession(true).setAttribute("securityConfig", frameworkProperties);
             return "/manage/login";
         }
+    }
+
+    /**
+     * 设置框架参数
+     * <p>
+     * 从Session，Cookies，默认配置和Request获取参数值，并回传到界面前端使用
+     *
+     * @param request
+     * @param key
+     * @param defaultValue
+     */
+    protected String doFrameworkConfig(HttpServletRequest request, String key, String defaultValue) {
+        // 1、从Session获取主题
+        String configValue = (String) request.getSession().getAttribute(key);
+        // 2、如果会话中不存在，则尝试从Cookies中获取
+        if (Strings.isBlank(configValue)) {
+            Cookie configValueCookie = Arrays.stream(request.getCookies())
+                    .filter(cookie -> key.equals(cookie.getName())).findFirst().orElse(null);
+            if (configValueCookie != null) {
+                configValue = configValueCookie.getValue();
+            }
+        }
+        // 3、如果都不存在主题，则采用系统默认配置的主题
+        if (Strings.isBlank(configValue)) {
+            configValue = defaultValue;
+        }
+        // 如果当前请求切换主题，则以当前请求的主题为准
+        String refreshTheme = Servlets.getParameter(request, key);
+        if (Strings.isNotBlank(refreshTheme)) {
+            configValue = refreshTheme;
+        }
+        request.getSession().setAttribute(key, configValue);
+        return configValue;
     }
 
     @RequestMapping("theme")

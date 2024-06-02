@@ -28,10 +28,11 @@
     <link rel="stylesheet" href="/manage/assert/plugin/jquery-plugin/OverlayScrollbars/OverlayScrollbars.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="/manage/assert/plugin/select2/css/select2.min.css">
-    <!-- easyui及自定义 -->
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/easyui.css" id="easyuiTheme"
+    <!-- AcoolyTheme: easyui及自定义样式 -->
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/${acoolyTheme}/easyui.css" id="easyuiTheme"
           type="text/css"/>
-    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/acooly/basic.css" id="easyuiThemeBasic">
+    <link rel="stylesheet" href="/manage/assert/plugin/jquery-easyui/themes/${acoolyTheme}/basic.css"
+          id="easyuiThemeBasic">
     <#if securityConfig.plugin.pace>
         <!-- pace-progress -->
         <link rel="stylesheet" href="/manage/assert/plugin/pace-progress/themes/black/pace-theme-flat-top.css">
@@ -46,46 +47,8 @@
     </#if>
     <!-- 扩展css -->
     ${extendStyles}
-    <!-- 根据配置设置全局样式 -->
-    <style>
-
-        <#assign fontSize><#if acoolySize == 'normal'>14<#else>12</#if></#assign>
-        <#assign mainSidebarWidth><#if acoolySize == 'normal'>250<#else>200</#if></#assign>
-
-        body, .panel-body, .l-btn-text, .tree-title, .datagrid-header .datagrid-cell span {
-            font-size: ${fontSize}px;
-        }
-        .combobox-item, .combobox-group, .combobox-stick, .combo input[type='text'], .tableForm input, .tableForm textarea, .ztree *,
-        .input-group-text, .tabs-title {
-            font-size: ${fontSize}px;
-        }
-
-        .datagrid-header-row, .datagrid-row {
-            height: <#if fontSize lt 14>35<#else>40</#if>px;
-        }
-
-        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
-            font-size: ${fontSize}px;
-        }
-
-
-        .main-sidebar, .main-sidebar::before, .layout-fixed .brand-link {
-            width: ${mainSidebarWidth}px;
-        }
-
-        .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
-            margin-left: ${mainSidebarWidth}px;
-        }
-
-        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
-            margin-left: ${mainSidebarWidth}px;
-        }
-
-
-        .ac-logo-title {
-            font-size: <#if fontSize lt 14>18<#else>20</#if>px;
-        }
-    </style>
+    <!-- AcoolySize: 根据配置设置全局样式 -->
+    <link rel="stylesheet" href="/manage/assert/style/size/${acoolySize}.css" type="text/css"/>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -174,8 +137,8 @@
                         <i class="fa fa-th-large fa-lg mr-2"></i> 正常
                         <span class="float-right text-sm">字体正常，可读更好</span>
                     </a>
-                    <a href="/manage/index.html?acoolySize=min"
-                       class="dropdown-item<#if acoolySize='min'> active</#if>">
+                    <a href="/manage/index.html?acoolySize=mini"
+                       class="dropdown-item<#if acoolySize='mini'> active</#if>">
                         <i class="fa fa-th fa-lg mr-2"></i> 紧凑
                         <span class="float-right text-sm">字体较小，内容更多</span>
                     </a>
@@ -274,8 +237,8 @@
                                                                onclick="$.acooly.layout.accessResource({type:'URL',name:'${e3.name}',value:'${e3.value}',showMode:'${e3.showMode}',icon:'${e3.icon}',rescId:'${e3.id}'})"
                                                                class="nav-link" style="padding-left: 0.5rem;">
                                                                 <#if e3.iconSkin??><i
-                                                                class="nav-icon fa ${e3.iconSkin}"></i><#else><span
-                                                            class="line-action ${e3.icon}"></span></#if>
+                                                                    class="nav-icon fa ${e3.iconSkin}"></i><#else><span
+                                                                    class="line-action ${e3.icon}"></span></#if>
                                                                 <p>${e3.name}</p></a>
                                                         </li>
                                                     </#list>
@@ -518,13 +481,14 @@ ${extendScripts}
 <script type="text/javascript">
     var contextPath = '';
     $(function () {
-        var acoolyTheme = '${acoolyTheme}';
-        if (acoolyTheme == '') {
-            acoolyTheme = 'acooly';
-        }
-        $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);
-        $.acooly.admin.theme.loadTheme();
-        $.acooly.system.init();
+        var opts = {"acoolyTheme": "${acoolyTheme}", "acoolySize": "${acoolySize}"};
+        <#--var acoolyTheme = '${acoolyTheme}';-->
+        <#--if (acoolyTheme == '') {-->
+        <#--    acoolyTheme = 'acooly';-->
+        <#--}-->
+        <#--$.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);-->
+        <#--$.acooly.admin.theme.loadTheme();-->
+        $.acooly.system.init(opts);
     });
 </script>
 </body>
