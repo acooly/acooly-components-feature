@@ -303,7 +303,8 @@ img {
 }
 
 .tabs li.tabs-selected a.tabs-inner{
-    font-weight: 400;
+    font-weight: 500;
+    color: var(--blue);
 }
 
 .tabs li a.tabs-inner:hover {

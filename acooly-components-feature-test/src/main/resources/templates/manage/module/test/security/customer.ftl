@@ -157,6 +157,17 @@
             <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.framework.imports({url:'/manage/module/test/security/customer/importView.html',uploader:'manage_customer_import_uploader_file'});"><i class="fa fa-arrow-circle-o-up fa-lg fa-fw fa-col"></i>批量导入</a>
         </div>
     </div>
+
+    <div id="manage_customer_south_region" data-options="region:'south',border:false" style="height:40%;">
+        <div id="manage_customer_tabs" class="easyui-tabs" fit="true">
+            <!-- tab1：项目周报 -->
+            <div title="项目周报" style="margin-left: 0px;">
+            </div>
+            <div title="项目文件" style="margin-left: 0px;">
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
         $(function () {
             $.acooly.framework.initPage('manage_customer_searchform', 'manage_customer_datagrid');
