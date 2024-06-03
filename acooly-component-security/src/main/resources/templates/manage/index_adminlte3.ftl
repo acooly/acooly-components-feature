@@ -149,7 +149,7 @@
             <!-- 帮组文档按钮 -->
             <#if isOnline == false>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://acooly.cn/docs/core.html" target="_blank" title="帮助"
+                    <a class="nav-link" href="https://acooly.com" target="_blank" title="帮助"
                        role="button"><i class="fa fa-question-circle fa-lg"></i></a>
                 </li>
                 <li class="nav-item">
