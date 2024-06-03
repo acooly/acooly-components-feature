@@ -453,6 +453,9 @@ let system_class = {
     },
 
     frameworkSetting: function (opts) {
+        if(!opts){
+            return;
+        }
         // theme
         let acoolyTheme = opts.acoolyTheme;
         if (acoolyTheme) {
