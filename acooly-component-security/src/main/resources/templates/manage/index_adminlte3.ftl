@@ -473,7 +473,7 @@
     <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.inputmask.js"></script>
 <#else>
-    <script src="/manage/assert/script/acooly.min.js?d=20240528" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.min.js?d=20240603" charset="utf-8"></script>
 </#if>
 
 <!-- 通过配置扩展script -->
@@ -482,12 +482,6 @@ ${extendScripts}
     var contextPath = '';
     $(function () {
         var opts = {"acoolyTheme": "${acoolyTheme}", "acoolySize": "${acoolySize}"};
-        <#--var acoolyTheme = '${acoolyTheme}';-->
-        <#--if (acoolyTheme == '') {-->
-        <#--    acoolyTheme = 'acooly';-->
-        <#--}-->
-        <#--$.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);-->
-        <#--$.acooly.admin.theme.loadTheme();-->
         $.acooly.system.init(opts);
     });
 </script>
