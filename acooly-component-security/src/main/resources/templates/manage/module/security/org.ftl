@@ -63,11 +63,6 @@
                         class="fa fa-plus-circle fa-lg fa-fw fa-col"></i>添加</a>
             <a href="#" class="easyui-linkbutton" plain="true" onclick="manage_org_treegrid_toggle(this)"><i
                         class="fa fa-minus-square fa-fw fa-col"></i>折叠</a>
-
-            <a href="#" class="easyui-linkbutton" plain="true" onclick="$.acooly.overlayScrollbars($('.datagrid-body'))"><i
-                        class="fa fa-minus-square fa-fw fa-col"></i>overlay</a>
-
-
         </div>
     </div>
     <script type="text/javascript">
@@ -126,8 +121,6 @@
                     //     $(this).treegrid('expandTo', expandId);
                     // }
                     // $.acooly.framework.renderDynamic("manage_org_datagrid");
-
-                    $.acooly.overlayScrollbars($('#manage_org_datagrid').parent().find(".datagrid-body"));
                 }
             });
             $.acooly.framework.initPage('manage_org_searchform', 'manage_org_datagrid');

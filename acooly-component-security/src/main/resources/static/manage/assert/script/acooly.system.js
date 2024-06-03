@@ -429,7 +429,7 @@ let system_class = {
         } else if (opts && opts.sso) {
             this.sso = opts.sso;
         }
-        console.info("acooly framework system init", opts);
+        // console.info("acooly framework system init", opts);
         // 全局基本配置
         this.globalSetting();
         this.frameworkSetting(opts);

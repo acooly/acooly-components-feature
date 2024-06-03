@@ -473,7 +473,7 @@
     <script src="/manage/assert/script/acooly.ui.messager.js" charset="utf-8"></script>
     <script src="/manage/assert/script/acooly.inputmask.js"></script>
 <#else>
-    <script src="/manage/assert/script/acooly.min.js?d=20240603" charset="utf-8"></script>
+    <script src="/manage/assert/script/acooly.min.js?d=20240604" charset="utf-8"></script>
 </#if>
 
 <!-- 通过配置扩展script -->
