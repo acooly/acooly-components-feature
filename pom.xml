@@ -215,6 +215,7 @@
         <module>acooly-component-i18n</module>
         <module>acooly-component-rbac</module>
         <module>acooly-component-syncdata</module>
+        <module>acooly-component-test-proguard</module>
     </modules>
 
     <build>
