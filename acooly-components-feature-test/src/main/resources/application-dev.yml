@@ -47,7 +47,7 @@ acooly:
             media: false
             pace: false
             videoJs: false
-            xss: false
+            xss: true
     im:
         chat:
             appKey: f0c5f57dd1733b00f5a36957
