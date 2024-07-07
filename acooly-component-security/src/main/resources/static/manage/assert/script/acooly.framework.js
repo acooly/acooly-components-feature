@@ -174,13 +174,12 @@
                         // 打开dialog，EASYUI渲染完成后，处理combobox的宽度
                         var that = $(this);
                         // 初始化美化滚动条
-                        // $.acooly.overlayScrollbars($(this));
                         $.parser.onComplete = function () {
                             //要执行的操作
                             $.acooly.framework.extendCombobox($(that));
                             //Initialize
                             $.acooly.framework.initPlugins($(that));
-                            $.acooly.overlayScrollbars($(that));
+                            $.acooly.framework.overlayScrollbars($(that));
                             //最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () {
                             };
@@ -327,7 +326,7 @@
                             $.acooly.framework.extendCombobox($(that));
                             //Initialize
                             $.acooly.framework.initPlugins($(that));
-                            $.acooly.overlayScrollbars($(that));
+                            $.acooly.framework.overlayScrollbars($(that));
                             // 最后把坑爹的事件绑定解除
                             $.parser.onComplete = function () {
                             };
@@ -423,12 +422,26 @@
                 $("#" + datagride).datagrid({
                     onLoadSuccess: function (data) {
                         if (!$('.datagrid-body').hasClass('os-host')) {
-                            $.acooly.overlayScrollbars($('.datagrid-body'));
+                            $.acooly.framework.overlayScrollbars($('.datagrid-body'));
                             console.info("do init scrollbar")
                         }
                     }
                 })
             },
+
+            overlayScrollbars: function (obj) {
+                if (typeof $.fn.overlayScrollbars !== 'undefined') {
+                    $(obj).overlayScrollbars({
+                            className: "os-theme-dark",
+                            scrollbars: {
+                                autoHide: "leave",
+                                clickScrolling: true
+                            }
+                        }
+                    );
+                }
+            },
+
 
             /**
              * 查詢并導出數據

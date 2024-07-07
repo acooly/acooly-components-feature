@@ -411,6 +411,7 @@ let system_resource_class = {
 
 
 /**
+ /**
  *
  * $.acooly.system
  * @type {{init: system_class.init, getCSRFToken: (function(): *), globalSetting: system_class.globalSetting, loadSecurityConfig: system_class.loadSecurityConfig, config: {}}}
@@ -422,14 +423,18 @@ let system_class = {
     sso: false,
     username: null,     // 当前登录用户
     /** init */
-    init: function (sso) {
-        //console.info("acooly framework init...")
-        if (sso) this.sso = true;
+    init: function (opts) {
+        if (typeof opts === 'string' && opts === 'sso') {
+            this.sso = true;
+        } else if (opts && opts.sso) {
+            this.sso = opts.sso;
+        }
+        // console.info("acooly framework system init", opts);
         // 全局基本配置
         this.globalSetting();
-        // 加载全局配置
-        this.loadSecurityConfig();
-        //console.info("load security config:",$.acooly.system.config);
+        this.frameworkSetting(opts);
+        // 加载全局配置, 自动加载cookies里面的配置
+        this.loadSecurityConfig(opts);
         // 内容区域全局滚动条样式优化
         this.overlayScrollbars();
     },
@@ -445,6 +450,23 @@ let system_class = {
                 }
             );
         }
+    },
+
+    frameworkSetting: function (opts) {
+        if(!opts){
+            return;
+        }
+        // theme
+        let acoolyTheme = opts.acoolyTheme;
+        if (acoolyTheme) {
+            $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolyThemeKey, acoolyTheme);
+        }
+        // size
+        let acoolySize = opts.acoolySize;
+        if (acoolySize) {
+            $.acooly.admin.theme.saveTheme($.acooly.admin.theme.acoolySizeKey, acoolySize);
+        }
+
     },
 
     loadSecurityConfig: function () {

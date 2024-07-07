@@ -261,21 +261,6 @@ var acooly = {
         }
     },
 
-
-    overlayScrollbars: function (obj) {
-        if (typeof $.fn.overlayScrollbars !== 'undefined') {
-            $(obj).overlayScrollbars({
-                    className: "os-theme-dark",
-                    scrollbars: {
-                        autoHide: "leave",
-                        clickScrolling: true
-                    }
-                }
-            );
-        }
-    },
-
-
     _doSerializeForm: function (form) {
         let o = {};
         $.each(form.serializeArray(), function (index) {

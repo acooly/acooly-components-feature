@@ -31,7 +31,7 @@ import static com.acooly.component.i18n.I18nProperties.PREFIX;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties({I18nProperties.class})
-@ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = true)
+@ConditionalOnProperty(value = PREFIX + ".enable", matchIfMissing = false)
 @ComponentScan(basePackages = "com.acooly.component.i18n")
 public class I18nAutoConfig {
 

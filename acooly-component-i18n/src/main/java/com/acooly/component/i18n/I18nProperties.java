@@ -28,7 +28,7 @@ public class I18nProperties {
     /**
      * 开关
      */
-    private boolean enable = true;
+    private boolean enable = false;
 
     /**
      * 默认语言

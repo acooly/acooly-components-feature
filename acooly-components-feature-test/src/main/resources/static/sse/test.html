@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sse测试文档</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div>sse测试</div>
+<div id="data"></div>
+</body>
+</html>
+<script>
+    var evtSource = new EventSource('http://127.0.0.1:8091/sse/connect.html?userId=zhangpu');
+
+    //为open事件添加一个监听器，打印连接状态
+    evtSource.addEventListener("open", (e) => {
+        console.log("Connection opened", e);
+        let text = document.getElementById('data').innerText;
+        text += '\n 开启: ';
+        document.getElementById('data').innerText = text;
+    });
+
+    //为message事件添加一个监听器，打印数据内容
+    evtSource.addEventListener("message", (e) => {
+        console.log("Data: " + e.data);
+        let text = document.getElementById('data').innerText;
+        text += '\n' + e.data;
+        document.getElementById('data').innerText = text;
+    });
+
+    //为error事件添加一个监听器，打印错误信息
+    evtSource.addEventListener("error", (e) => {
+        console.log("Error: " + e.message);
+        // 检查EventSource.readyState属性来判断链接状态
+        if (evtSource.readyState === EventSource.CLOSED) {
+            // 如果状态是CLOSED，可以尝试重新建立连接
+            console.log('SSE connection closed.');
+            // 这里可以添加重连逻辑
+        } else {
+            // 对于其他的error事件，可以记录错误信息或者通知用户
+            console.error('SSE error:', e);
+        }
+    });
+
+    //为notice事件添加一个监听器，打印通知内容
+    evtSource.addEventListener("notice", (e) => {
+        console.log("Notice: " + e.data);
+    });
+
+    // 页面关闭时，清理资源
+    window.addEventListener('beforeunload', function () {
+        evtSource.close();
+    });
+</script>
+
